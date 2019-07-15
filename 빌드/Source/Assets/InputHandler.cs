@@ -68,7 +68,6 @@ namespace SA
                 if (!isCamInit)
                 {
                     camManager.camInit(this.transform);
-                    camManager.lookAngle = transform.rotation.y;
 
                     Timer4 = 0;
                     isCamInit = true;
@@ -86,12 +85,15 @@ namespace SA
                 maincamera.gameObject.SetActive(false);
 
             }
+            //if (Input.GetKeyUp(KeyCode.Q))
+            //{
+            //    camManager.camInit(this.transform);
+            //}
             else
             {
-                camManager.lookAngle = transform.rotation.y;
-                camManager.gameObject.SetActive(false);
+                //camManager.gameObject.SetActive(false);
                 maincamera.gameObject.SetActive(true);
-
+                
                 //camManager.cams.targetDisplay = 1;
                 //Camera.main.targetDisplay = 0;
                 //camManager.Tick(delta);
