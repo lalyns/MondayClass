@@ -53,10 +53,10 @@ namespace SA
    
         public void camInit(Transform t)
         {
-            transform.position = t.position;
+            transform.position = new Vector3(t.position.x, t.position.y+2.36f, t.position.z);
             transform.rotation = t.rotation;
-            lookAngle = t.rotation.y;
-            smoothX = 0;
+            lookAngle = t.eulerAngles.y;
+
         }
 
         public bool isKey;
@@ -76,7 +76,7 @@ namespace SA
         void FollowTarget(float d)
         {
             float speed = d * followSpeed;
-            Vector3 targetPosition = Vector3.Lerp(transform.position, target.position, speed);
+            Vector3 targetPosition = Vector3.Lerp(transform.position, new Vector3(target.position.x, target.position.y+2.36f, target.position.z), speed);
             transform.position = targetPosition;
         }
 
@@ -90,7 +90,7 @@ namespace SA
             transform.rotation = Quaternion.Euler(0, lookAngle, 0);
 
             tiltAngle -= smoothY * targetSpeed;
-            tiltAngle = Mathf.Clamp(tiltAngle, minAngle, maxAngle);
+            tiltAngle = Mathf.Clamp(tiltAngle, -50, 50);//minAngle, maxAngle);
             //pivot.localRotation = Quaternion.Euler(tiltAngle, 0, 0);
         }
         

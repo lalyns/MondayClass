@@ -58,28 +58,14 @@ namespace SA
             isFever = false;
         }
         private void FixedUpdate()
-        {            
-
+        {
 
             r_x = Input.GetAxis("Mouse X");
             if (Input.GetKey(KeyCode.Q))
             {
 
-                if (!isCamInit)
-                {
-                    camManager.camInit(this.transform);
 
-                    Timer4 = 0;
-                    isCamInit = true;
-                }
-                //camManager.cams.targetDisplay = 0;
-                //Camera.main.targetDisplay = 1;
-                if (isCamInit)
-                {
-                    Timer4 += Time.deltaTime;
-                    if(Timer4 > 0.2f)
-                        camManager.Tick(delta);
-                }
+                camManager.Tick(delta);
 
                 camManager.gameObject.SetActive(true);
                 maincamera.gameObject.SetActive(false);
@@ -91,6 +77,7 @@ namespace SA
             //}
             else
             {
+                camManager.camInit(this.transform);
                 //camManager.gameObject.SetActive(false);
                 maincamera.gameObject.SetActive(true);
                 
