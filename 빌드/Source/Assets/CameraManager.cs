@@ -47,7 +47,7 @@ namespace SA
         
             camTrans = Camera.main.transform;
             pivot = camTrans.parent;
-
+            
             cams = gameObject.GetComponentInChildren<Camera>();
         }
    
@@ -55,6 +55,8 @@ namespace SA
         {
             transform.position = t.position;
             transform.rotation = t.rotation;
+            lookAngle = t.rotation.y;
+            smoothX = 0;
         }
 
         public bool isKey;
@@ -83,7 +85,7 @@ namespace SA
 
             smoothX = h;
             smoothY = v;
-          
+
             lookAngle += smoothX * targetSpeed;
             transform.rotation = Quaternion.Euler(0, lookAngle, 0);
 
