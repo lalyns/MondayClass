@@ -11,7 +11,7 @@ namespace SA
 
         StateManager states;
         CameraManager camManager;
-        Camera maincamera;
+        public Camera maincamera;
         float delta;
         public Animator anim1, anim2;
         float r_x = 0.00f;
@@ -33,6 +33,8 @@ namespace SA
         bool isFever;
 
         bool isCamInit;
+
+        Shake shake;
         private void Start()
         {
             states = GetComponent<StateManager>();
@@ -49,8 +51,8 @@ namespace SA
             anim1.gameObject.SetActive(true);
             anim2.gameObject.SetActive(false);
 
-
-            maincamera = GetComponentInChildren<Camera>();
+            shake = GameObject.Find("CameraRig").GetComponent<Shake>();
+            //maincamera = GetComponentInChildren<Camera>();
 
             isAttackOne = false;
             isAttackTwo = false;
@@ -136,6 +138,9 @@ namespace SA
                     anim2.SetInteger("CurrentAttack", 1);
 
                 isAttackOne = true;
+
+                StartCoroutine(shake.ShakeCamera());
+
             }
 
 
@@ -162,6 +167,9 @@ namespace SA
 
                         //시간 초기화
                         Timer1 = 0;
+
+                        StartCoroutine(shake.ShakeCamera());
+
                         return;
                     }
 
@@ -203,6 +211,9 @@ namespace SA
                         isAttackThree = true;
                         //시간 초기화
                         Timer2 = 0;
+
+                        StartCoroutine(shake.ShakeCamera(0.1f, 0.2f, 0.5f));
+
                         return;
                     }
 
@@ -299,6 +310,22 @@ namespace SA
                 horizontal = 0;
             }
 
+            if (vertical >= 0.1f)
+            {
+                //전진애니메이션
+            }
+            else if (vertical <= -0.1f)
+            {
+                //후진애니메이션
+            }
+            else if (horizontal >= 0.1f && vertical == 0)
+            {
+                //오른쪽
+            }
+            else if (horizontal <= -0.1f && vertical == 0)
+            {
+                //왼쪽
+            }
         }
 
         //Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
