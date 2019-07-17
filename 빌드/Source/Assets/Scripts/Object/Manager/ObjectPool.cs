@@ -58,19 +58,19 @@ public class ObjectPool : MonoBehaviour
     /// 작동 중인 오브젝트의 활성화를 비활성화로 변경하는 매소드
     /// 변수 넣을예정 (활성화를 해제해야하는 경우)
     /// </summary>
-    public void ItemReturnPool()
+    /// <param name="go"> 풀에 반환할 오브젝트 </param>
+    public void ItemReturnPool(GameObject go)
     {
         if(_ActiveItem.Count == 0)
         {
             return;
         }
 
-        var item = _ActiveItem.First.Value;
-        _ActiveItem.RemoveFirst();
+        _ActiveItem.Remove(go);
 
-        item.transform.localPosition = this.transform.position;
-        item.SetActive(false);
+        go.transform.localPosition = this.transform.position;
+        go.SetActive(false);
 
-        _InActiveItemPool.AddLast(item);
+        _InActiveItemPool.AddLast(go);
     }
 }

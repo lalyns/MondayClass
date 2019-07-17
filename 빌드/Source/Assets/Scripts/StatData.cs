@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu]
 public class StatData : ScriptableObject
 {
     // 시체가 자동으로 사라지는 시간
