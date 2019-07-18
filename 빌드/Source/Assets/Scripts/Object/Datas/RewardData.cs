@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class MissionData : ScriptableObject
+public class RewardData : ScriptableObject
 {
-    public Sprite MissionIcon;
-    public string MissionText;
-
     public Sprite RewardIcon;
     public string RewardText;
 }

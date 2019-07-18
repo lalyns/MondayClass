@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class DungeonManager : MonoBehaviour
 {
     public static DungeonManager _Instance;
-    public int _MissionSize;
 
     public GameObject _UIMission;
-    public MissionButton[] Choices;
+
+    public MissionButton[] _Choices;
+    public MissionManager _MissionManager;
 
     private void Awake()
     {
@@ -17,10 +18,10 @@ public class DungeonManager : MonoBehaviour
         {
             _Instance = GetComponent<DungeonManager>();
 
-            Choices = new MissionButton[3];
-            _Instance.Choices[0] = _Instance._UIMission.transform.GetChild(0).GetComponent<MissionButton>();
-            _Instance.Choices[1] = _Instance._UIMission.transform.GetChild(1).GetComponent<MissionButton>();
-            _Instance.Choices[2] = _Instance._UIMission.transform.GetChild(2).GetComponent<MissionButton>();
+            _Choices = new MissionButton[3];
+            _Instance._Choices[0] = _Instance._UIMission.transform.GetChild(0).GetComponent<MissionButton>();
+            _Instance._Choices[1] = _Instance._UIMission.transform.GetChild(1).GetComponent<MissionButton>();
+            _Instance._Choices[2] = _Instance._UIMission.transform.GetChild(2).GetComponent<MissionButton>();
         }
         else
         {
@@ -31,6 +32,8 @@ public class DungeonManager : MonoBehaviour
     public static void MissionPopUp()
     {
         _Instance._UIMission.SetActive(true);
+        _Instance.MissionMenuChange();
+
         Time.timeScale = 0.0f;
     }
 
@@ -42,20 +45,32 @@ public class DungeonManager : MonoBehaviour
 
     public void MissionMenuChange()
     {
-
+        for (int i = 0; i < _Choices.Length; i++)
+        {
+            MissionType curMission = SelectMission();
+            _Choices[i].MissionChange(_MissionManager._MissionDatas[(int)curMission]);
+            _Choices[i].RewardChange(_MissionManager._RewardDatas[SetReward()]);
+        }
     }
 
     public static void SetMissionOnClick(int choiceNum)
     {
         SetMission((MissionType)choiceNum);
+        DungeonManager.MissionDisappear();
     }
 
     public MissionType SelectMission()
     {
-        var temp = UnityEngine.Random.Range(0, 999999) % _MissionSize;
+        var temp = UnityEngine.Random.Range(0, 999999) % _MissionManager._MissionDatas.Length;
         MissionType mission = (MissionType)temp;
 
         return mission;
+    }
+
+    public int SetReward()
+    {
+        var temp = UnityEngine.Random.Range(0, 999999) % _MissionManager._RewardDatas.Length;
+        return temp;
     }
 
     /// <summary>

@@ -35,8 +35,11 @@ public class MissionButton : MonoBehaviour
     /// </summary>
     /// <param name="missionIcon"> 미션의 목표 표기 아이콘 </param>
     /// <param name="missionText"> 미션의 목표 설명 </param>
-    public void MissionChange(Sprite missionIcon, string missionText)
+    public void MissionChange(MissionData missionData)
     {
+        Sprite missionIcon = missionData.MissionIcon;
+        string missionText = missionData.MissionText;
+
         _MissionIcon.sprite = missionIcon;
         _MissionText.text = missionText;
     }
@@ -46,14 +49,21 @@ public class MissionButton : MonoBehaviour
     /// </summary>
     /// <param name="rewardIcon"> 미션의 보상 표기 아이콘 </param>
     /// <param name="rewardText"> 미션의 보상 설명 </param>
-    public void RewardChange(Sprite rewardIcon, string rewardText)
+    public void RewardChange(RewardData rewardData)
     {
+        Sprite rewardIcon = rewardData.RewardIcon;
+        string rewardText = rewardData.RewardText;
+
         _RewardIcon.sprite = rewardIcon;
         _RewardText.text = rewardText;
     }
 
+    /// <summary>
+    /// 버튼 클릭 이벤트 지원 함수
+    /// </summary>
     public void SetMissionOnClick()
     {
         DungeonManager.SetMissionOnClick(_ChoiceNum);
     }
+
 }
