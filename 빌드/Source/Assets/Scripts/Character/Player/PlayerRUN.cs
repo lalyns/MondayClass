@@ -29,9 +29,9 @@ public class PlayerRUN : FSMState {
         _manager.CC.Move(destVector);
 
         // 움직일 위치로 시선을 옮김
-        transform.rotation = Quaternion.RotateTowards(
-            transform.rotation,
-            Quaternion.LookRotation(destVector),
-            _manager.MyStatData.TurnSpeed * Time.deltaTime);
+        //transform.rotation = Quaternion.RotateTowards(
+        //    transform.rotation,
+        //    Quaternion.LookRotation(destVector),
+        //    _manager.MyStatData.TurnSpeed * Time.deltaTime);
     }
 }
