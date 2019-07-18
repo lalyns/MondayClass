@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class MissionManager : MonoBehaviour
 {
-    
+    public MissionData _Annihilation;
+    public MissionData _Defence;
+    public MissionData _Survive;
 
     public void MissionAnnihilation()
     {

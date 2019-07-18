@@ -6,8 +6,6 @@ using UnityEngine;
 public class MonsterData : StatData
 {
 
-    public float _MoveSpeed = 30f;
-
 
 
 
