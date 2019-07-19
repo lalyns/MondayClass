@@ -29,7 +29,7 @@ public class CharacterStat : MonoBehaviour
 
     protected virtual void Awake()
     {
-        _turnSpeed = statData.TurnSpeed;
+        //_turnSpeed = statData.TurnSpeed;
     }
 
     public void TakeDamage(CharacterStat from, float damage)

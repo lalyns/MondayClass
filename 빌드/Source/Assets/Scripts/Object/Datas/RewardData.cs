@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class MonsterData : StatData
+public class RewardData : ScriptableObject
 {
-
-    public float _MoveSpeed = 30f;
-
-
-
-
+    public Sprite RewardIcon;
+    public string RewardText;
 }
