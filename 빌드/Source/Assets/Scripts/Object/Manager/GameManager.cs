@@ -11,16 +11,14 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Debug.Log("Menu");
-
             isPopUp = !isPopUp;
             if (isPopUp)
             {
-                DungeonManager.MissionPopUp();
+                MissionManager.MissionMenuPopUp();
             }
             else
             {
-                DungeonManager.MissionDisappear();
+                MissionManager.MissionDisappear();
             }
         }
     }

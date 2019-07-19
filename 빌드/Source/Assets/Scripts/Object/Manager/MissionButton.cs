@@ -63,7 +63,7 @@ public class MissionButton : MonoBehaviour
     /// </summary>
     public void SetMissionOnClick()
     {
-        DungeonManager.SetMissionOnClick(_ChoiceNum);
+        MissionManager.SetMissionOnClick(_ChoiceNum);
     }
 
 }

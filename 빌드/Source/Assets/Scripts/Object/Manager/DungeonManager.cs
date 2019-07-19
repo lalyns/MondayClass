@@ -7,21 +7,14 @@ public class DungeonManager : MonoBehaviour
 {
     public static DungeonManager _Instance;
 
-    public GameObject _UIMission;
-
-    public MissionButton[] _Choices;
-    public MissionManager _MissionManager;
+    public Dungeon[] _Dungeons;
+    public Dungeon _CurrentDungeon;
 
     private void Awake()
     {
         if (_Instance == null)
         {
             _Instance = GetComponent<DungeonManager>();
-
-            _Choices = new MissionButton[3];
-            _Instance._Choices[0] = _Instance._UIMission.transform.GetChild(0).GetComponent<MissionButton>();
-            _Instance._Choices[1] = _Instance._UIMission.transform.GetChild(1).GetComponent<MissionButton>();
-            _Instance._Choices[2] = _Instance._UIMission.transform.GetChild(2).GetComponent<MissionButton>();
         }
         else
         {
@@ -29,76 +22,68 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
-    public static void MissionPopUp()
+    /// <summary>
+    /// 현재 던전의 정보를 변경하는 매소드
+    /// </summary>
+    /// <param name="dungeon"> 변경할 던전의 정보 </param>
+    public static void SetCurrentDungeon(Dungeon dungeon)
     {
-        _Instance._UIMission.SetActive(true);
-        _Instance.MissionMenuChange();
-
-        Time.timeScale = 0.0f;
-    }
-
-    public static void MissionDisappear()
-    {
-        _Instance._UIMission.SetActive(false);
-        Time.timeScale = 1.0f;
-    }
-
-    public void MissionMenuChange()
-    {
-        for (int i = 0; i < _Choices.Length; i++)
-        {
-            MissionType curMission = SelectMission();
-            _Choices[i].MissionChange(_MissionManager._MissionDatas[(int)curMission]);
-            _Choices[i].RewardChange(_MissionManager._RewardDatas[SetReward()]);
-        }
-    }
-
-    public static void SetMissionOnClick(int choiceNum)
-    {
-        SetMission((MissionType)choiceNum);
-        DungeonManager.MissionDisappear();
-    }
-
-    public MissionType SelectMission()
-    {
-        var temp = UnityEngine.Random.Range(0, 999999) % _MissionManager._MissionDatas.Length;
-        MissionType mission = (MissionType)temp;
-
-        return mission;
-    }
-
-    public int SetReward()
-    {
-        var temp = UnityEngine.Random.Range(0, 999999) % _MissionManager._RewardDatas.Length;
-        return temp;
+        Debug.Log("현재 던전 정보를 변경합니다.");
+        _Instance._CurrentDungeon = dungeon;
     }
 
     /// <summary>
-    /// 미션을 확정합니다
+    /// 현재 던전의 정보를 반환하는 매소드
     /// </summary>
-    /// <param name="dungeonType"> 결정된 미션 </param>
-    public static void SetMission(MissionType dungeonType)
+    /// <returns> 현재 던전의 정보 </returns>
+    public static Dungeon GetCurrentDungeon()
     {
-        if (dungeonType == MissionType.Annihilation) {
-
-        }
-
-        else if (dungeonType == MissionType.Defence) {
-
-        }
-
-        else if (dungeonType == MissionType.Survive) {
-
-        }
+        return _Instance._CurrentDungeon;
     }
 
     /// <summary>
-    /// 미션의 종류
+    /// 선택지가 선택된 후 던전을 생성하는 매소드
     /// </summary>
-    public enum MissionType
+    /// <param name="missionData"> 정해진 미션 </param>
+    public static Dungeon CreateDungeon(MissionData missionData)
     {
-        Annihilation = 0,
-        Defence = 1,
-        Survive = 2,
+        Debug.Log("새로운 던전을 생성합니다.");
+
+        Dungeon dungeon = _Instance.SetDungeon();
+
+        DungeonManager.SetCurrentDungeon(dungeon);
+        // 던전의 미션 데이터를 설정합니다.
+        dungeon.SetMissionData(missionData);
+
+        // 오브젝트에게 리스폰 지역변경을 요청합니다.
+        ObjectManager.SetRespawnPosition(dungeon._RespawnPositions);
+
+        return dungeon;
+    }
+
+    /// <summary>
+    /// 던전 변경에 대한 함수. 연출도 여기서 처리할 것
+    /// </summary>
+    public static void ChangeDungeon(Dungeon dungeon)
+    {
+        Debug.Log("던전을 변경합니다.");
+    }
+
+    /// <summary>
+    /// 던전을 랜덤으로 정하는 매소드.
+    /// </summary>
+    /// <returns> 던전의 정보 </returns>
+    public Dungeon SetDungeon()
+    {
+        var temp = UnityEngine.Random.Range(0, 999999) % _Dungeons.Length;
+        return _Dungeons[temp];
+    }
+
+    /// <summary>
+    /// 현재 던전의 클리어를 알려줍니다.
+    /// </summary>
+    public void DungeonClearCallBack()
+    {
+
     }
 }
