@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    bool isPopUp = false;
+    public static bool isPopUp = false;
 
     // Update is called once per frame
     void Update()
@@ -14,11 +14,11 @@ public class GameManager : MonoBehaviour
             isPopUp = !isPopUp;
             if (isPopUp)
             {
-                MissionManager.MissionMenuPopUp();
+                MissionManager.PopUpMissionMenu();
             }
             else
             {
-                MissionManager.MissionDisappear();
+                MissionManager.DisappearMissionMenu();
             }
         }
     }

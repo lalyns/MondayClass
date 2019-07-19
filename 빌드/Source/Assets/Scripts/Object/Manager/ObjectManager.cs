@@ -41,7 +41,6 @@ public class ObjectManager : MonoBehaviour
     /// <param name="respawnPositions"> 새로운 리스폰 지역의 배열 </param>
     public static void SetRespawnPosition(Transform[] respawnPositions)
     {
-        Debug.Log("오브젝트매니저가 오브젝트를 소환하는 리스폰 지역을 변경합니다.");
         _Instance._RespawnPositions = respawnPositions;
     }
 

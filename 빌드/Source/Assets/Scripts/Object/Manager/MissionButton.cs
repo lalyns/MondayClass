@@ -19,6 +19,8 @@ public class MissionButton : MonoBehaviour
     public Image _RewardIcon;
     public Text _RewardText;
 
+    public MissionManager.MissionType _MissionType;
+
     public void Awake()
     {
         _Button = GetComponent<Button>();

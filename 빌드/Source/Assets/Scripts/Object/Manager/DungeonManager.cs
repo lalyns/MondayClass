@@ -5,10 +5,14 @@ using UnityEngine.UI;
 
 public class DungeonManager : MonoBehaviour
 {
-    public static DungeonManager _Instance;
+    private static DungeonManager _Instance;
+
+    public delegate void DungeonClearCallback();
+    public DungeonClearCallback _ClearCallback;
 
     public Dungeon[] _Dungeons;
     public Dungeon _CurrentDungeon;
+    public Dungeon _PrevDungeon;
 
     private void Awake()
     {
@@ -20,6 +24,30 @@ public class DungeonManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public static DungeonManager GetDungeonManager()
+    {
+        return _Instance;
+    }
+
+    /// <summary>
+    /// 이전 던전의 정보를 변경하는 매소드
+    /// </summary>
+    /// <param name="dungeon"> 변경할 던전의 정보 </param>
+    public static void SetPrevDungeon(Dungeon dungeon)
+    {
+        Debug.Log("이전 던전 정보를 변경합니다.");
+        _Instance._PrevDungeon = dungeon;
+    }
+
+    /// <summary>
+    /// 이전 던전의 정보를 반환하는 매소드
+    /// </summary>
+    /// <returns> 현재 던전의 정보 </returns>
+    public static Dungeon GetPrevDungeon()
+    {
+        return _Instance._PrevDungeon;
     }
 
     /// <summary>
@@ -49,24 +77,17 @@ public class DungeonManager : MonoBehaviour
     {
         Debug.Log("새로운 던전을 생성합니다.");
 
-        Dungeon dungeon = _Instance.SetDungeon();
+        // 현재 던전 및 새로운 던전 정보를 생성하고 던전 정보를 변경합니다.
+        Dungeon curDungeon = GetCurrentDungeon();
+        Dungeon newDungeon = _Instance.SetDungeon();
 
-        DungeonManager.SetCurrentDungeon(dungeon);
+        DungeonManager.SetPrevDungeon(curDungeon);
+        DungeonManager.SetCurrentDungeon(newDungeon);
+        
         // 던전의 미션 데이터를 설정합니다.
-        dungeon.SetMissionData(missionData);
+        newDungeon.SetMissionData(missionData);
 
-        // 오브젝트에게 리스폰 지역변경을 요청합니다.
-        ObjectManager.SetRespawnPosition(dungeon._RespawnPositions);
-
-        return dungeon;
-    }
-
-    /// <summary>
-    /// 던전 변경에 대한 함수. 연출도 여기서 처리할 것
-    /// </summary>
-    public static void ChangeDungeon(Dungeon dungeon)
-    {
-        Debug.Log("던전을 변경합니다.");
+        return newDungeon;
     }
 
     /// <summary>
@@ -84,6 +105,6 @@ public class DungeonManager : MonoBehaviour
     /// </summary>
     public void DungeonClearCallBack()
     {
-
+        _CurrentDungeon._ExitPosition.gameObject.SetActive(true);
     }
 }
