@@ -14,10 +14,24 @@ public class Dungeon : MonoBehaviour
 
     private void Awake()
     {
-        _RespawnPositions = _RespawnParent.GetComponentsInChildren<Transform>();
-        foreach(Transform respawn in _RespawnPositions)
+        Transform[] temp = _RespawnParent.GetComponentsInChildren<Transform>();
+        var tempLength = temp.Length - 1;
+        _RespawnPositions = new Transform[tempLength];
+
+        int i = 0;
+        foreach (Transform respawn in temp)
         {
-            Debug.Log(respawn.name);
+            if (respawn != _RespawnParent)
+            {
+                _RespawnPositions[i] = respawn;
+                i++;
+            }
+        }
+
+        foreach (Transform respawn in _RespawnPositions)
+        {
+            if(respawn != null)
+                Debug.Log(respawn.name);
         }
     }
 
@@ -38,6 +52,11 @@ public class Dungeon : MonoBehaviour
         DungeonManager manager = DungeonManager.GetDungeonManager();
         manager._ClearCallback += manager.DungeonClearCallBack;
         manager._ClearCallback();
+    }
+
+    public void Spawn()
+    {
+
     }
 
 }
