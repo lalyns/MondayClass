@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SA {
+
     public class StateManager : MonoBehaviour {
 
         [Header("Init")]
@@ -50,7 +50,7 @@ namespace SA {
             rigid = GetComponent<Rigidbody>();
             rigid.angularDrag = 999;
             rigid.drag = 4;
-            rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            //rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
             gameObject.layer = 8;
             ignoreLayers = ~(1 << 9);
@@ -114,5 +114,3 @@ namespace SA {
                 Input.GetAxis("Vertical") >= 0.01f || Input.GetAxis("Vertical") <= -0.01f;
         }
     }
-}
-

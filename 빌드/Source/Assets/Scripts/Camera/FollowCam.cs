@@ -6,11 +6,11 @@ public class FollowCam : MonoBehaviour
 {
 
     public Transform target;
-    public float moveDamping = 15.0f;
+    public float moveDamping = 99999f;
     public float rotateDamping = 10.0f;
     public float distance = 5.0f;
-    public float height = 4.0f;
-    public float targetOffset = 2.0f;
+    float height = 4.0f;
+    public float targetOffset = 1.0f;
 
     [Header("Wall Obstacle Setting")]
     public float heightAboveWall = 7.0f; // 카메라가 올라갈 높이
@@ -67,13 +67,16 @@ public class FollowCam : MonoBehaviour
         }
         
     }
-
+    private void FixedUpdate()
+    {
+ 
+    }
     private void LateUpdate()
     {
         var camPos = target.position - (target.forward * distance) + (target.up * height);
 
         transform.position = Vector3.Slerp(transform.position, camPos, Time.deltaTime * moveDamping);
-        transform.rotation = Quaternion.Slerp(transform.rotation, target.rotation, Time.deltaTime * rotateDamping);
+        transform.rotation = target.rotation;//Quaternion.Slerp(transform.rotation, target.rotation, Time.deltaTime * rotateDamping);
         transform.LookAt(target.position + (target.up * targetOffset));
     }
 
