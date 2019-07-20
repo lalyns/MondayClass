@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GobleTest : MonoBehaviour
+public class MonsterTest : MonoBehaviour
 {
+    public MonsterData _MonsterData;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Weapon")
         {
-            ObjectManager.ReturnPool(gameObject);
+            ObjectManager.ReturnPoolMonster(gameObject, _MonsterData._IsRagne);
         }
     }
 
@@ -16,7 +18,7 @@ public class GobleTest : MonoBehaviour
     {
         if(other.transform.tag == "Weapon")
         {
-            ObjectManager.ReturnPool(gameObject);
+            ObjectManager.ReturnPoolMonster(gameObject, _MonsterData._IsRagne);
         }
     }
 }

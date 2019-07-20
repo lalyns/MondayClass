@@ -37,7 +37,7 @@ public class MissionButton : MonoBehaviour
     /// </summary>
     /// <param name="missionIcon"> 미션의 목표 표기 아이콘 </param>
     /// <param name="missionText"> 미션의 목표 설명 </param>
-    public void MissionChange(MissionData missionData)
+    public void ChangeMission(MissionData missionData)
     {
         Sprite missionIcon = missionData.MissionIcon;
         string missionText = missionData.MissionText;
@@ -51,7 +51,7 @@ public class MissionButton : MonoBehaviour
     /// </summary>
     /// <param name="rewardIcon"> 미션의 보상 표기 아이콘 </param>
     /// <param name="rewardText"> 미션의 보상 설명 </param>
-    public void RewardChange(RewardData rewardData)
+    public void ChangeReward(RewardData rewardData)
     {
         Sprite rewardIcon = rewardData.RewardIcon;
         string rewardText = rewardData.RewardText;

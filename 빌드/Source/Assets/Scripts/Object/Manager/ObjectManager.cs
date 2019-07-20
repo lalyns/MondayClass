@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
-    public ObjectPool _ObjectPool;
+    public ObjectPool[] _ObjectPool;
     public Transform[] _RespawnPositions;
 
     // 싱글턴 선언을 위한 인스턴스
@@ -29,10 +29,40 @@ public class ObjectManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        
+    }
+
+    public void CallSpawn()
+    {
+        StartCoroutine("Spawn");
+    }
+
+    IEnumerator Spawn()
+    {
+        MissionData missionData = MissionManager.GetMissionData(MissionManager._Instance._CurrentMission);
+        Dungeon currentDungeon = DungeonManager.GetCurrentDungeon();
+
+        int curSpawnPos = 0;
+        int respawnPositionSametime = currentDungeon._RespawnPositions.Length;
+
+        var setValue = UnityEngine.Random.Range(0, missionData.NumberOfMeleeMonsterOnWaves.Length);
+
+        int meleeCount = missionData.NumberOfMeleeMonsterOnWaves[setValue];
+        int rangeCount = missionData.NumberOfRangeMonsterOnWaves[setValue];
+
+        Debug.Log(meleeCount + "        " + rangeCount);
+
+        for(int j=0; j<meleeCount; j++)
         {
-            _ObjectPool.ItemSetActive(_RespawnPositions[UnityEngine.Random.Range(0,_RespawnPositions.Length)]);
+            RespawnMonster(MonsterType.Melee, _RespawnPositions[curSpawnPos++]);
         }
+
+        for (int j=0; j<rangeCount; j++)
+        {
+            RespawnMonster(MonsterType.Range, _RespawnPositions[curSpawnPos++]);
+        }
+
+        yield return new WaitForSeconds(missionData.RespawnTime);
     }
 
     /// <summary>
@@ -53,16 +83,33 @@ public class ObjectManager : MonoBehaviour
         return _Instance._RespawnPositions;
     }
 
+    public static void RespawnMonster(MonsterType monsterType, Transform respawnPosition)
+    {
+        int type = (int)monsterType;
+        _Instance._ObjectPool[type].ItemSetActive(respawnPosition);
+        
+    }
 
     /// <summary>
     /// 오브젝트를 풀로 반환하기위한 매니저 지원함수
     /// </summary>
     /// <param name="go"> 풀로 반환을 할 GameObject </param>
-    public static void ReturnPool(GameObject go)
+    public static void ReturnPoolMonster(GameObject go, bool isRange)
     {
-        _Instance._ObjectPool.ItemReturnPool(go);
+        if (!isRange)
+        {
+            _Instance._ObjectPool[0].ItemReturnPool(go);
+        }
+        else
+        {
+            _Instance._ObjectPool[1].ItemReturnPool(go);
+        }
     }
 
-
+    public enum MonsterType
+    {
+        Melee = 0,
+        Range = 1,
+    }
 }
 

@@ -12,6 +12,8 @@ public class MissionManager : MonoBehaviour
     public static MissionManager _Instance;
     public MissionButton[] _Choices;
 
+    public MissionType _CurrentMission;
+
     private void Awake()
     {
         if (_Instance == null)
@@ -64,8 +66,8 @@ public class MissionManager : MonoBehaviour
         {
             MissionType newMission = SelectMission();
             _Choices[i]._MissionType = newMission;
-            _Choices[i].MissionChange(_MissionDatas[(int)newMission]);
-            _Choices[i].RewardChange(_RewardDatas[SetReward()]);
+            _Choices[i].ChangeMission(_MissionDatas[(int)newMission]);
+            _Choices[i].ChangeReward(_RewardDatas[SetReward()]);
         }
     }
 
@@ -76,7 +78,9 @@ public class MissionManager : MonoBehaviour
     public static void SetMissionOnClick(int choiceNum)
     {
         Debug.Log("미션을 선택합니다.");
-        MissionData missionData = GetMissionData(_Instance._Choices[choiceNum]._MissionType);
+        _Instance._CurrentMission = _Instance._Choices[choiceNum]._MissionType;
+        MissionData missionData = GetMissionData(_Instance._CurrentMission);
+
         Debug.Log(missionData.name);
 
         Dungeon dungeon = DungeonManager.CreateDungeon(missionData);
@@ -93,6 +97,9 @@ public class MissionManager : MonoBehaviour
         /// </summary>
         
         DungeonManager.SetCurrentDungeon(dungeon);
+        ObjectManager.SetRespawnPosition(dungeon._RespawnPositions);
+
+        ObjectManager._Instance.CallSpawn();
     }
 
     /// <summary>
@@ -146,6 +153,7 @@ public class MissionManager : MonoBehaviour
     {
         Debug.Log("미션 종료");
         MissionManager.PopUpMissionMenu();
+
     }
 
 }
