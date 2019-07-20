@@ -79,7 +79,7 @@ public class DungeonManager : MonoBehaviour
 
         // 현재 던전 및 새로운 던전 정보를 생성하고 던전 정보를 변경합니다.
         Dungeon curDungeon = GetCurrentDungeon();
-        Dungeon newDungeon = _Instance.SetDungeon();
+        Dungeon newDungeon = _Instance.SetRandomDungeon();
 
         DungeonManager.SetPrevDungeon(curDungeon);
         DungeonManager.SetCurrentDungeon(newDungeon);
@@ -94,7 +94,7 @@ public class DungeonManager : MonoBehaviour
     /// 던전을 랜덤으로 정하는 매소드.
     /// </summary>
     /// <returns> 던전의 정보 </returns>
-    public Dungeon SetDungeon()
+    public Dungeon SetRandomDungeon()
     {
         var temp = UnityEngine.Random.Range(0, 999999) % _Dungeons.Length;
         return _Dungeons[temp];
@@ -107,4 +107,5 @@ public class DungeonManager : MonoBehaviour
     {
         _CurrentDungeon._ExitPosition.gameObject.SetActive(true);
     }
+
 }
