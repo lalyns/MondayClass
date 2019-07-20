@@ -33,6 +33,8 @@ public class InputHandler : MonoBehaviour
     bool isCamInit;
 
     Shake shake;
+
+    public bool isAttackTwoReady;
     private void Start()
     {
         states = GetComponent<StateManager>();
@@ -40,6 +42,7 @@ public class InputHandler : MonoBehaviour
 
         camManager = CameraManager.singleton;
         camManager.Init(this.transform);
+        //camManager.Init(anim1.transform);
         //camManager.gameObject.SetActive(false);
         //anim1 = GetComponentInChildren<anim1ator>();
 
@@ -50,7 +53,7 @@ public class InputHandler : MonoBehaviour
         anim2.gameObject.SetActive(false);
 
         shake = GameObject.Find("CameraRig").GetComponent<Shake>();
-        //maincamera = GetComponentInChildren<Camera>();
+        maincamera = GameObject.Find("mainCam").GetComponent<Camera>();
 
         isAttackOne = false;
         isAttackTwo = false;
@@ -84,21 +87,26 @@ public class InputHandler : MonoBehaviour
             //Camera.main.targetDisplay = 0;
             //camManager.Tick(delta);
 
-            transform.Rotate(Vector3.up * 80 * Time.deltaTime * r_x);
+            anim1.transform.Rotate(Vector3.up * 80 * Time.deltaTime * r_x);
 
             isCamInit = false;
         }
 
         delta = Time.fixedDeltaTime;
 
-        UpdateStates();
+        //UpdateStates();
         states.FixedTick(delta);
     }
 
     private void Update()
     {
+        if (Input.GetMouseButton(0))
+        {
+            Debug.Log("마우스누름");
+        }
+        
 
-
+        GetInput();
 
 
         delta = Time.deltaTime;
@@ -113,12 +121,12 @@ public class InputHandler : MonoBehaviour
         }
         if (!isFever)
         {
-            //if (states.OnMove())
-            //{
-            //    anim1.SetBool("isRun", true);
-            //}
-            //else
-            //    anim1.SetBool("isRun", false);
+            if (states.OnMove())
+            {
+                anim1.SetBool("isRun", true);
+            }
+            else
+                anim1.SetBool("isRun", false);
         }
         if (isFever)
         {
@@ -129,13 +137,12 @@ public class InputHandler : MonoBehaviour
             else
                 anim2.SetBool("isRun", false);
         }
-        GetInput();
 
         //if (Input.GetKeyDown(KeyCode.Space) && !isAttackOne)
         if (Input.GetMouseButtonDown(0) && !isAttackOne)
         {
             if (!isFever)
-                //anim1.SetInteger("CurrentAttack", 1);
+                anim1.SetInteger("CurrentAttack", 1);
             if (isFever)
                 anim2.SetInteger("CurrentAttack", 1);
 
@@ -149,45 +156,53 @@ public class InputHandler : MonoBehaviour
         if (isAttackOne)
         {
             Timer1 += Time.deltaTime;
-            //1초가 넘어야 2타를 할 수 있음.
-            if (Timer1 >= 1f)
+            // 애니는 0.733초지만 미리 눌러 둘 수 있게 세팅함.
+            if (Timer1 >= 0.4f)
             {
                 //스페이스바를 누르면
                 //if (Input.GetKeyDown(KeyCode.Space))
                 if (Input.GetMouseButtonDown(0))
                 {
-                    //2타 애니메이션 실행.
-                    if (!isFever)
-                        //anim1.SetInteger("CurrentAttack", 2);
-                    if (isFever)
-                        anim2.SetInteger("CurrentAttack", 2);
-
-
-                    //1타 완료 및 2타 시작 알림.
-                    isAttackOne = false;
-                    isAttackTwo = true;
-
-                    //시간 초기화
-                    Timer1 = 0;
-
-                    StartCoroutine(shake.ShakeCamera());
-
-                    return;
+                    isAttackTwoReady = true;                   
                 }
-
-                if (Timer1 >= 2f)
+                if (isAttackTwoReady)
                 {
-                    //IDLE 상태로 돌려줌
-                    if (!isFever)
-                       // anim1.SetInteger("CurrentAttack", 0);
-                    if (isFever)
-                        anim2.SetInteger("CurrentAttack", 0);
+                    if (Timer1 >= 0.733f)
+                    {
+                        if (!isFever)
+                            anim1.SetInteger("CurrentAttack", 2);
+                        if (isFever)
+                            anim2.SetInteger("CurrentAttack", 2);
 
-                    isAttackOne = false;
-
-                    //시간 초기화
+                        isAttackOne = false;
+                        isAttackTwo = true;
+                        //시간 초기화
+                        Timer1 = 0;
+                        StartCoroutine(shake.ShakeCamera());
+                        isAttackTwoReady = false;
+                        return;
+                    }
+                }
+            }
+            if (Timer1 >= 0.85f)
+            {
+                //IDLE 상태로 돌려줌
+                if (!isFever)
+                {
+                    anim1.SetInteger("CurrentAttack", 4);
+                    if (Timer1 >= 1.333f)
+                    {
+                        anim1.SetInteger("CurrentAttack", 0);
+                        Timer1 = 0;
+                        isAttackOne = false;
+                        return;
+                    }
+                }
+                if (isFever)
+                {
+                    anim2.SetInteger("CurrentAttack", 0);
                     Timer1 = 0;
-                    return;
+                    isAttackOne = false;
                 }
             }
         }
@@ -195,11 +210,14 @@ public class InputHandler : MonoBehaviour
         {
             Timer2 += Time.deltaTime;
             //1초가 넘어야 3타를 할 수 있음.
-            if (Timer2 >= 1f)
+            if (Timer2 >= 0.733f)
             {
+                anim1.SetInteger("CurrentAttack", 0);
+                isAttackTwo = false;
+                Timer2 = 0;
+                return;
+              /*
                 //스페이스바를 누르면
-
-                //if (Input.GetKeyDown(KeyCode.Space))
                 if (Input.GetMouseButtonDown(0))
                 {
                     //3타 애니메이션 실행.
@@ -223,7 +241,7 @@ public class InputHandler : MonoBehaviour
                 {
                     //IDLE 상태로 돌려줌
                     if (!isFever)
-                       // anim1.SetInteger("CurrentAttack", 0);
+                        anim1.SetInteger("CurrentAttack", 0);
                     if (isFever)
                         anim2.SetInteger("CurrentAttack", 0);
                     isAttackTwo = false;
@@ -232,6 +250,7 @@ public class InputHandler : MonoBehaviour
                     Timer2 = 0;
                     return;
                 }
+                */
             }
         }
         if (isAttackThree)
@@ -243,7 +262,7 @@ public class InputHandler : MonoBehaviour
             if (Timer3 > 1.3f)
             {
                 if (!isFever)
-                   // anim1.SetInteger("CurrentAttack", 0);
+                    anim1.SetInteger("CurrentAttack", 0);
                 if (isFever)
                     anim2.SetInteger("CurrentAttack", 0);
                 isAttackThree = false;
@@ -315,32 +334,26 @@ public class InputHandler : MonoBehaviour
         if (vertical >= 0.1f)
         {
             //전진애니메이션
-            anim1.SetFloat("Direction_Y", 1);
-            anim1.SetFloat("Direction_X", 0);
-            anim1.SetBool("isRun", true);
+            anim1.SetFloat("Direction_Y", vertical);
+            anim1.SetFloat("Direction_X", horizontal);
         }
         else if (vertical <= -0.1f)
         {
-            anim1.SetFloat("Direction_Y", -1);
-            anim1.SetFloat("Direction_X", 0);
-            anim1.SetBool("isRun", true);
+            anim1.SetFloat("Direction_Y", vertical);
+            anim1.SetFloat("Direction_X", horizontal);
         }
         else if (horizontal >= 0.1f && vertical == 0)
         {
             //오른쪽
             anim1.SetFloat("Direction_Y", 0);
-            anim1.SetFloat("Direction_X", 1);
-            anim1.SetBool("isRun", true);
+            anim1.SetFloat("Direction_X", horizontal);
         }
         else if (horizontal <= -0.1f && vertical == 0)
         {
             //왼쪽
             anim1.SetFloat("Direction_Y", 0);
-            anim1.SetFloat("Direction_X", -1);
-            anim1.SetBool("isRun", true);
+            anim1.SetFloat("Direction_X", horizontal);
         }
-        else
-            anim1.SetBool("isRun", false);
 
     }
 

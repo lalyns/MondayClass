@@ -9,14 +9,14 @@ public class FollowCam : MonoBehaviour
     public float moveDamping = 99999f;
     public float rotateDamping = 10.0f;
     public float distance = 5.0f;
-    float height = 4.0f;
+    public float height = 3.0f;    
     public float targetOffset = 1.0f;
 
     [Header("Wall Obstacle Setting")]
     public float heightAboveWall = 7.0f; // 카메라가 올라갈 높이
     public float colliderRadius = 1.8f; // 충돌체의 반지름
     public float overDamping = 5.0f; // 이동속도 계수
-    private float originHeight; // 최소 높이를 보관할 변수
+    public float originHeight; // 최소 높이를 보관할 변수
 
     [Header("Etc Obstacle Setting")]
     //카메라가 올라갈 높이
@@ -26,7 +26,8 @@ public class FollowCam : MonoBehaviour
     
     void Start()
     {
-        originHeight = height;   
+        originHeight = height;
+        target = GameObject.Find("PC_Rig").GetComponentInChildren<Transform>();
     }
 
     // Update is called once per frame

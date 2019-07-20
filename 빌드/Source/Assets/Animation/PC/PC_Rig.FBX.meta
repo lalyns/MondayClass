@@ -79,7 +79,8 @@ ModelImporter:
     100146: //RootNode
     100148: Point001
     100150: Point002
-    100152: weapon
+    100152: root_Bone
+    100154: weapon
     400000: Bip001
     400002: Bip001 Footsteps
     400004: Bip001 Head
@@ -156,7 +157,8 @@ ModelImporter:
     400146: //RootNode
     400148: Point001
     400150: Point002
-    400152: weapon
+    400152: root_Bone
+    400154: weapon
     2100000: 'Material #110'
     2100002: 02___Default
     2100004: 'Material #98'
@@ -200,7 +202,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: PC_Rig
+      takeName: PC_Rig
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -248,7 +278,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: 
+    rootMotionBoneName: Bip001
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
