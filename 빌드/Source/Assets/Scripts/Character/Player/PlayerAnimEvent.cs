@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class PlayerAnimEvent : MonoBehaviour
 {
-    PlayerFSMManager _manager;
-    PlayerATTACK _attackCp;
-    private void Awake()
+    [SerializeField]
+    InputHandler input;
+    private void Start()    
     {
-        _manager = transform.root.GetComponent<PlayerFSMManager>();
-        _attackCp = _manager.GetComponent<PlayerATTACK>();
+        input = InputHandler.singleton;        
     }
 
-    void HitCheck()
+    void hitCheck()
     {
-        if(null != _attackCp)
-        {
-            _attackCp.AttackCheck();
-        }
+        if(null!=input)
+            input.AttackCheck();
     }
-
 }

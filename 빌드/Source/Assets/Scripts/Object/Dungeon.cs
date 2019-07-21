@@ -7,6 +7,7 @@ public class Dungeon : MonoBehaviour
     public Transform _EnterPosition;
     public Collider _ExitPosition;
     public Transform _RespawnParent;
+    public MissionTrigger _Trigger;
 
     [System.NonSerialized] public Transform[] _RespawnPositions;
 
@@ -28,11 +29,11 @@ public class Dungeon : MonoBehaviour
             }
         }
 
-        foreach (Transform respawn in _RespawnPositions)
-        {
-            if(respawn != null)
-                Debug.Log(respawn.name);
-        }
+        //foreach (Transform respawn in _RespawnPositions)
+        //{
+        //    if(respawn != null)
+        //        Debug.Log(respawn.name);
+        //}
     }
 
     private void Update()
@@ -58,5 +59,7 @@ public class Dungeon : MonoBehaviour
     {
 
     }
+
+
 
 }

@@ -14,6 +14,8 @@ public class MissionManager : MonoBehaviour
 
     public MissionType _CurrentMission;
 
+    public static bool _IsMissionStart = false;
+
     private void Awake()
     {
         if (_Instance == null)
@@ -29,6 +31,57 @@ public class MissionManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Update()
+    {
+        if (_IsMissionStart)
+            MissionStateCheck();
+    }
+
+    /// <summary>
+    /// 현재 미션의 진행 또는 종료에 대한 상태를 체크합니다. 
+    /// </summary>
+    private void MissionStateCheck()
+    {
+        bool isMissionEnd = CheckMissionGoal(_CurrentMission);
+
+        if (isMissionEnd)
+        {
+            DungeonManager.GetCurrentDungeon()._ExitPosition.gameObject.SetActive(true);
+            _IsMissionStart = false;
+        }
+    }
+
+    /// <summary>
+    /// 미션 목표를 확인합니다.
+    /// </summary>
+    /// <param name="missionType"></param>
+    /// <returns></returns>
+    private bool CheckMissionGoal(MissionType missionType)
+    {
+        bool isClear = false;
+
+        if(missionType == MissionType.Annihilation)
+        {
+            int activeItem = ObjectManager._Instance._ObjectPool[0]._ActiveItem.Count + ObjectManager._Instance._ObjectPool[1]._ActiveItem.Count;
+            if(activeItem == 0)
+            {
+                isClear = true;
+            }
+        }
+
+        if(missionType == MissionType.Defence)
+        {
+
+        }
+
+        if(missionType == MissionType.Survive)
+        {
+
+        }
+
+        return isClear;
     }
 
     /// <summary>
@@ -98,8 +151,7 @@ public class MissionManager : MonoBehaviour
         
         DungeonManager.SetCurrentDungeon(dungeon);
         ObjectManager.SetRespawnPosition(dungeon._RespawnPositions);
-
-        ObjectManager._Instance.CallSpawn();
+        dungeon._ExitPosition.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -112,6 +164,12 @@ public class MissionManager : MonoBehaviour
         MissionType mission = (MissionType)temp;
 
         return mission;
+    }
+
+    public void StartMission()
+    {
+        _IsMissionStart = true;
+        ObjectManager._Instance.CallSpawn();
     }
 
     /// <summary>
@@ -152,6 +210,9 @@ public class MissionManager : MonoBehaviour
     public static void MissionClear()
     {
         Debug.Log("미션 종료");
+
+        DungeonManager.GetCurrentDungeon()._Trigger.isStart = false;
+
         MissionManager.PopUpMissionMenu();
 
     }

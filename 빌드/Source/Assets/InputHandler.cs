@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+//크리티컬이면
+//(기본공격 + 추가공격 - 방어력) * 크리티컬추가
+//일반공격이면
+//(기본공격 + 추가공격 - 방어력)
 public class InputHandler : MonoBehaviour
 {
     float vertical;
@@ -35,6 +38,8 @@ public class InputHandler : MonoBehaviour
     Shake shake;
 
     public bool isAttackTwoReady;
+
+    CapsuleCollider Attack_Capsule;
     private void Start()
     {
         states = GetComponent<StateManager>();
@@ -59,6 +64,14 @@ public class InputHandler : MonoBehaviour
         isAttackTwo = false;
         isCantMove = false;
         isFever = false;
+
+        Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
+
+        Attack_Capsule.enabled = false;
+    }
+    public void AttackCheck()
+    {
+        Attack_Capsule.enabled = true;
     }
     private void FixedUpdate()
     {
@@ -190,6 +203,7 @@ public class InputHandler : MonoBehaviour
                 if (!isFever)
                 {
                     anim1.SetInteger("CurrentAttack", 4);
+                    Attack_Capsule.enabled = false;
                     if (Timer1 >= 1.333f)
                     {
                         anim1.SetInteger("CurrentAttack", 0);
@@ -215,6 +229,7 @@ public class InputHandler : MonoBehaviour
                 anim1.SetInteger("CurrentAttack", 0);
                 isAttackTwo = false;
                 Timer2 = 0;
+                Attack_Capsule.enabled = false;
                 return;
               /*
                 //스페이스바를 누르면
@@ -390,7 +405,7 @@ public class InputHandler : MonoBehaviour
     public static InputHandler singleton;
     void Awake()
     {
-        singleton = this;
+        singleton = GetComponent<InputHandler>();
     }
     public static InputHandler FindInputHandler()
     {
