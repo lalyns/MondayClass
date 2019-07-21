@@ -22,7 +22,6 @@ public class ObjectPool : MonoBehaviour
     {
         for(int i=0; i<_InitializeItemSize; i++)
         {
-            
             var item = Instantiate(_PoolingItem, this.transform);
             item.SetActive(false);
             _InActiveItemPool.AddLast(item);

@@ -11,18 +11,19 @@ public class Shake : MonoBehaviour
     private Vector3 originPos;
     private Quaternion originRot;
 
-
+    InputHandler input;
     // Start is called before the first frame update
     void Start()
     {
         originPos = shakeCamera.localPosition;
         originRot = shakeCamera.localRotation;
+        input = InputHandler.singleton;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
 
@@ -30,7 +31,7 @@ public class Shake : MonoBehaviour
     {
         float passTime = 0.0f;
 
-        while(passTime < duration)
+        while (passTime < duration)
         {
             Vector3 shakePos = Random.insideUnitSphere;
             shakeCamera.localPosition = shakePos * magnitudePos;
