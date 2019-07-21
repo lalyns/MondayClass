@@ -80,7 +80,7 @@ public class InputHandler : MonoBehaviour
         //}
         else
         {
-            camManager.camInit(this.transform);
+            camManager.camInit(anim1.transform);
             //camManager.gameObject.SetActive(false);
             maincamera.gameObject.SetActive(true);
             //camManager.cams.targetDisplay = 1;
