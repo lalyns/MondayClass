@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu]
 public class MonsterData : StatData
 {
-
-
-
+    public bool _IsRagne;
 
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu]
 public class MissionData : ScriptableObject
 {
+    public float RespawnTime;
+
     public Sprite MissionIcon;
     public string MissionText;
 
