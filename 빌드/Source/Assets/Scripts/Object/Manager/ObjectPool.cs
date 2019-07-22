@@ -12,8 +12,8 @@ public class ObjectPool : MonoBehaviour
     [Tooltip("오브젝트 풀링을 할 대상 게임 오브젝트")]
     public GameObject _PoolingItem;
 
-    LinkedList<GameObject> _InActiveItemPool = new LinkedList<GameObject>();
-    LinkedList<GameObject> _ActiveItem = new LinkedList<GameObject>();
+    public LinkedList<GameObject> _InActiveItemPool = new LinkedList<GameObject>();
+    public LinkedList<GameObject> _ActiveItem = new LinkedList<GameObject>();
 
     /// <summary>
     /// 오브젝트 생성을 위한 매소드

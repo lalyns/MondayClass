@@ -42,27 +42,34 @@ public class ObjectManager : MonoBehaviour
         MissionData missionData = MissionManager.GetMissionData(MissionManager._Instance._CurrentMission);
         Dungeon currentDungeon = DungeonManager.GetCurrentDungeon();
 
-        int curSpawnPos = 0;
-        int respawnPositionSametime = currentDungeon._RespawnPositions.Length;
+        int curSpawnPos;
+        int NumberOfTimesRespawn = missionData.NumberOfTimesRespawn;
 
-        var setValue = UnityEngine.Random.Range(0, missionData.NumberOfMeleeMonsterOnWaves.Length);
-
-        int meleeCount = missionData.NumberOfMeleeMonsterOnWaves[setValue];
-        int rangeCount = missionData.NumberOfRangeMonsterOnWaves[setValue];
-
-        Debug.Log(meleeCount + "        " + rangeCount);
-
-        for(int j=0; j<meleeCount; j++)
+        for (int i = 0; i < NumberOfTimesRespawn; i++)
         {
-            RespawnMonster(MonsterType.Melee, _RespawnPositions[curSpawnPos++]);
-        }
+            curSpawnPos = 0;
 
-        for (int j=0; j<rangeCount; j++)
-        {
-            RespawnMonster(MonsterType.Range, _RespawnPositions[curSpawnPos++]);
-        }
+            var setValue = UnityEngine.Random.Range(0, missionData.NumberOfMeleeMonsterOnWaves.Length);
 
-        yield return new WaitForSeconds(missionData.RespawnTime);
+            int meleeCount = missionData.NumberOfMeleeMonsterOnWaves[setValue];
+            int rangeCount = missionData.NumberOfRangeMonsterOnWaves[setValue];
+
+            Debug.Log(meleeCount + "        " + rangeCount);
+
+            for (int j = 0; j < meleeCount; j++)
+            {
+                RespawnMonster(MonsterType.Melee, _RespawnPositions[curSpawnPos++]);
+            }
+
+            for (int j = 0; j < rangeCount; j++)
+            {
+                RespawnMonster(MonsterType.Range, _RespawnPositions[curSpawnPos++]);
+            }
+
+            Debug.Log("소환횟수 : " + i + " 시각 : " + Time.realtimeSinceStartup);
+
+            yield return new WaitForSeconds(missionData.CycleOfTimeRespawn);
+        }
     }
 
     /// <summary>
