@@ -68,16 +68,28 @@ public class FollowCam : MonoBehaviour
         }
         
     }
+    public float r_y = 0.00f;
+    [Header("Y축 마우스감도, 최소각, 최대각")]
+    public float mouseSpeedY = 5f;
+    public float minAngle = 0.7f;
+    public float maxAngle = 3f;
     private void FixedUpdate()
     {
- 
+        r_y = Input.GetAxis("Mouse Y");
+        targetOffset += r_y * Time.fixedDeltaTime * mouseSpeedY;
+        if (targetOffset < minAngle)
+            targetOffset = minAngle;
+        if (targetOffset >= maxAngle)
+            targetOffset = maxAngle;
     }
+    
     private void LateUpdate()
     {
+        
         var camPos = target.position - (target.forward * distance) + (target.up * height);
-
-        transform.position = Vector3.Slerp(transform.position, camPos, Time.deltaTime * moveDamping);
-        transform.rotation = target.rotation;//Quaternion.Slerp(transform.rotation, target.rotation, Time.deltaTime * rotateDamping);
+        transform.position = camPos;
+        //transform.position = Vector3.Slerp(transform.position, camPos, Time.deltaTime * moveDamping);
+        //transform.rotation = target.rotation;//Quaternion.Slerp(transform.rotation, target.rotation, Time.deltaTime * rotateDamping);
         transform.LookAt(target.position + (target.up * targetOffset));
     }
 
