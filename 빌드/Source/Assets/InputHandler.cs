@@ -40,6 +40,8 @@ public class InputHandler : MonoBehaviour
     public bool isAttackTwoReady;
 
     CapsuleCollider Attack_Capsule;
+
+    public Transform root_Bone;
     private void Start()
     {
         states = GetComponent<StateManager>();
@@ -68,6 +70,8 @@ public class InputHandler : MonoBehaviour
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
 
         Attack_Capsule.enabled = false;
+
+        root_Bone = GameObject.Find("root_Bone").GetComponent<Transform>();
     }
     public void AttackCheck()
     {
@@ -117,7 +121,7 @@ public class InputHandler : MonoBehaviour
         {
             Debug.Log("마우스누름");
         }
-        
+        root_Bone.transform.position = root_Bone.transform.forward * anim1.GetFloat("Direction_Y");
 
         GetInput();
 
