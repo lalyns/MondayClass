@@ -12,10 +12,12 @@ public class InputHandler : MonoBehaviour
     float horizontal;
     StateManager states;
     CameraManager camManager;
-    public Camera maincamera;
+    FollowCam followCam;
+    Camera maincamera;
     float delta;
     public Animator anim1, anim2;
     float r_x = 0.00f;
+    float r_y = 0.00f;
     public bool isAlt;
 
     //[SerializeField]
@@ -40,6 +42,10 @@ public class InputHandler : MonoBehaviour
     public bool isAttackTwoReady;
 
     CapsuleCollider Attack_Capsule;
+
+    public Transform root_Bone;
+    [Header("X축 마우스 감도")]
+    public float mouseSpeed = 80f;
     private void Start()
     {
         states = GetComponent<StateManager>();
@@ -59,7 +65,7 @@ public class InputHandler : MonoBehaviour
 
         shake = GameObject.Find("CameraRig").GetComponent<Shake>();
         maincamera = GameObject.Find("mainCam").GetComponent<Camera>();
-
+        followCam = shake.GetComponent<FollowCam>();
         isAttackOne = false;
         isAttackTwo = false;
         isCantMove = false;
@@ -68,6 +74,8 @@ public class InputHandler : MonoBehaviour
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
 
         Attack_Capsule.enabled = false;
+
+        root_Bone = GameObject.Find("root_Bone").GetComponent<Transform>();
     }
     public void AttackCheck()
     {
@@ -100,8 +108,9 @@ public class InputHandler : MonoBehaviour
             //Camera.main.targetDisplay = 0;
             //camManager.Tick(delta);
 
-            anim1.transform.Rotate(Vector3.up * 80 * Time.deltaTime * r_x);
-
+            anim1.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
+            //followCam.targetOffset = 1 + (1 * r_y);
+            //followCam.transform.LookAt(transform.position + (transform.up * ( 1 *r_y)));
             isCamInit = false;
         }
 
@@ -109,6 +118,12 @@ public class InputHandler : MonoBehaviour
 
         //UpdateStates();
         states.FixedTick(delta);
+
+        // 임시 회피 코드
+        if (horizontal >= 0.1f && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            anim1.transform.position = anim1.transform.position + (anim1.transform.right * 10f);
+        }
     }
 
     private void Update()
@@ -117,7 +132,7 @@ public class InputHandler : MonoBehaviour
         {
             Debug.Log("마우스누름");
         }
-        
+        root_Bone.transform.position = root_Bone.transform.forward * anim1.GetFloat("Direction_Y");
 
         GetInput();
 
@@ -369,7 +384,7 @@ public class InputHandler : MonoBehaviour
             anim1.SetFloat("Direction_Y", 0);
             anim1.SetFloat("Direction_X", horizontal);
         }
-
+        
     }
 
     //Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
