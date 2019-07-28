@@ -16,7 +16,7 @@ public class FollowCam : MonoBehaviour
 
     [Header("벽 충돌 세팅, originHeight = 높이")]
     public float heightAboveWall = 7.0f; // 카메라가 올라갈 높이
-    public float colliderRadius = 1.8f; // 충돌체의 반지름
+    public float colliderRadius = 1f; // 충돌체의 반지름
     public float overDamping = 5.0f; // 이동속도 계수
     public float originHeight; // 최소 높이를 보관할 변수
 
@@ -62,7 +62,7 @@ public class FollowCam : MonoBehaviour
             if (!hit.collider.CompareTag("Player"))
             {
                 //보간함수 사용 카메라 상승
-                height = Mathf.Lerp(height, heightAboveObstacle, Time.deltaTime * overDamping);
+                height = Mathf.Lerp(height, heightAboveObstacle, Time.deltaTime * overDamping / 3.5f);
             }
             else
             {

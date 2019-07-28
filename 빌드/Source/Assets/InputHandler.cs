@@ -176,7 +176,7 @@ public class InputHandler : MonoBehaviour
 
             isAttackOne = true;
 
-            StartCoroutine(shake.ShakeCamera());
+            //StartCoroutine(shake.ShakeCamera());
 
         }
 
@@ -206,7 +206,7 @@ public class InputHandler : MonoBehaviour
                         isAttackTwo = true;
                         //시간 초기화
                         Timer1 = 0;
-                        StartCoroutine(shake.ShakeCamera());
+                       // StartCoroutine(shake.ShakeCamera());
                         isAttackTwoReady = false;
                         return;
                     }
@@ -361,16 +361,16 @@ public class InputHandler : MonoBehaviour
             horizontal = 0;
         }
 
-        if (vertical >= 0.1f)
+        if (vertical >= 0.1f && horizontal == 0)
         {
             //전진애니메이션
             anim1.SetFloat("Direction_Y", vertical);
-            anim1.SetFloat("Direction_X", horizontal);
+            anim1.SetFloat("Direction_X", 0);
         }
-        else if (vertical <= -0.1f)
+        else if (vertical <= -0.1f && horizontal == 0)
         {
             anim1.SetFloat("Direction_Y", vertical);
-            anim1.SetFloat("Direction_X", horizontal);
+            anim1.SetFloat("Direction_X", 0);
         }
         else if (horizontal >= 0.1f && vertical == 0)
         {
@@ -384,7 +384,11 @@ public class InputHandler : MonoBehaviour
             anim1.SetFloat("Direction_Y", 0);
             anim1.SetFloat("Direction_X", horizontal);
         }
-        
+        else if(!(horizontal == 0f && vertical == 0f))
+        {
+            anim1.SetFloat("Direction_Y", vertical);
+            anim1.SetFloat("Direction_X", horizontal);
+        }
     }
 
     //Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
