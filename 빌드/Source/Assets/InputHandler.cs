@@ -23,9 +23,7 @@ public class InputHandler : MonoBehaviour
     //[SerializeField]
     public bool isAttackOne, isAttackTwo, isAttackThree;
     [SerializeField]
-    float Timer1;
-    float Timer2;
-    float Timer3;
+    float Timer1, Timer2, Timer3;
     float Timer4;
 
     public bool isCantMove;
@@ -39,7 +37,7 @@ public class InputHandler : MonoBehaviour
 
     Shake shake;
 
-    public bool isAttackTwoReady;
+    public bool isAttackTwoReady, isAttackThreeReady;
 
     CapsuleCollider Attack_Capsule;
 
@@ -212,14 +210,14 @@ public class InputHandler : MonoBehaviour
                     }
                 }
             }
-            if (Timer1 >= 0.85f)
+            if (Timer1 >= 0.75f)
             {
                 //IDLE 상태로 돌려줌
                 if (!isFever)
                 {
                     anim1.SetInteger("CurrentAttack", 4);
                     Attack_Capsule.enabled = false;
-                    if (Timer1 >= 1.333f)
+                    if (Timer1 >= 1.1f)
                     {
                         anim1.SetInteger("CurrentAttack", 0);
                         Timer1 = 0;
@@ -238,50 +236,77 @@ public class InputHandler : MonoBehaviour
         if (isAttackTwo)
         {
             Timer2 += Time.deltaTime;
-            //1초가 넘어야 3타를 할 수 있음.
-            if (Timer2 >= 0.733f)
+        
+            if (Input.GetMouseButtonDown(0))
             {
+                isAttackThreeReady = true;
+            }
+            if (isAttackThreeReady)
+            {
+                //0.333f 안에 마우스 눌렀으면 0.333f초 후 3타 시작.
+                if(Timer2 >= 0.5f)
+                {
+                    if (!isFever)
+                        anim1.SetInteger("CurrentAttack", 3);
+                    if (isFever)
+                        anim2.SetInteger("CurrentAttack", 3);
+
+                    isAttackTwo = false;
+                    isAttackThree = true;
+                    //시간 초기화
+                    Timer2 = 0;
+                    // StartCoroutine(shake.ShakeCamera());
+                    isAttackThreeReady = false;
+                    return;
+                }
+            }
+
+            //0.4초가 넘어가면 IDLE로 돌아옴.
+            if (Timer2 >= 0.8f)
+            {
+
                 anim1.SetInteger("CurrentAttack", 0);
                 isAttackTwo = false;
                 Timer2 = 0;
                 Attack_Capsule.enabled = false;
                 return;
-              /*
-                //스페이스바를 누르면
-                if (Input.GetMouseButtonDown(0))
-                {
-                    //3타 애니메이션 실행.
-                    if (!isFever)
-                        //anim1.SetInteger("CurrentAttack", 3);
-                    if (isFever)
-                        anim2.SetInteger("CurrentAttack", 3);
-
-                    //2타 완료.
-                    isAttackTwo = false;
-                    isAttackThree = true;
-                    //시간 초기화
-                    Timer2 = 0;
-
-                    StartCoroutine(shake.ShakeCamera(0.3f, 0.2f, 0.5f));
-
-                    return;
-                }
-
-                if (Timer2 >= 2f)
-                {
-                    //IDLE 상태로 돌려줌
-                    if (!isFever)
-                        anim1.SetInteger("CurrentAttack", 0);
-                    if (isFever)
-                        anim2.SetInteger("CurrentAttack", 0);
-                    isAttackTwo = false;
-
-                    //시간 초기화
-                    Timer2 = 0;
-                    return;
-                }
-                */
             }
+            /*
+              //스페이스바를 누르면
+              if (Input.GetMouseButtonDown(0))
+              {
+                  //3타 애니메이션 실행.
+                  if (!isFever)
+                      //anim1.SetInteger("CurrentAttack", 3);
+                  if (isFever)
+                      anim2.SetInteger("CurrentAttack", 3);
+
+                  //2타 완료.
+                  isAttackTwo = false;
+                  isAttackThree = true;
+                  //시간 초기화
+                  Timer2 = 0;
+
+                  StartCoroutine(shake.ShakeCamera(0.3f, 0.2f, 0.5f));
+
+                  return;
+              }
+
+              if (Timer2 >= 2f)
+              {
+                  //IDLE 상태로 돌려줌
+                  if (!isFever)
+                      anim1.SetInteger("CurrentAttack", 0);
+                  if (isFever)
+                      anim2.SetInteger("CurrentAttack", 0);
+                  isAttackTwo = false;
+
+                  //시간 초기화
+                  Timer2 = 0;
+                  return;
+              }
+              */
+
         }
         if (isAttackThree)
         {
