@@ -90,7 +90,7 @@ public static class GameLib
         cc.Move(deltaMove);
     }
 
-    public static bool DetectCharacter(Camera sight, CharacterController cc)
+    public static bool DetectCharacter(Camera sight, CapsuleCollider cc)
     {
         Plane[] ps = GeometryUtility.CalculateFrustumPlanes(sight);
         return GeometryUtility.TestPlanesAABB(ps, cc.bounds);

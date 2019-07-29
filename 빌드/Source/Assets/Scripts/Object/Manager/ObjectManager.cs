@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectManager : MonoBehaviour
 {
     public ObjectPool[] _ObjectPool;
-    public Transform[] _RespawnPositions;
+    public Transform[] _SpawnPosition;
 
     // 싱글턴 선언을 위한 인스턴스
     public static ObjectManager _Instance;
@@ -26,12 +26,7 @@ public class ObjectManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void Update()
-    {
-        
-    }
-
+    
     public void CallSpawn()
     {
         StartCoroutine("Spawn");
@@ -43,9 +38,9 @@ public class ObjectManager : MonoBehaviour
         Dungeon currentDungeon = DungeonManager.GetCurrentDungeon();
 
         int curSpawnPos;
-        int NumberOfTimesRespawn = missionData.NumberOfTimesRespawn;
+        int NumberOfTimesSpawn = missionData.NumberOfTimesSpawn;
 
-        for (int i = 0; i < NumberOfTimesRespawn; i++)
+        for (int i = 0; i < NumberOfTimesSpawn; i++)
         {
             curSpawnPos = 0;
 
@@ -53,20 +48,18 @@ public class ObjectManager : MonoBehaviour
 
             int meleeCount = missionData.NumberOfMeleeMonsterOnWaves[setValue];
             int rangeCount = missionData.NumberOfRangeMonsterOnWaves[setValue];
-
-            Debug.Log(meleeCount + "        " + rangeCount);
-
+            
             for (int j = 0; j < meleeCount; j++)
             {
-                RespawnMonster(MonsterType.Melee, _RespawnPositions[curSpawnPos++]);
+                SpawnMonster(MonsterType.Melee, _SpawnPosition[curSpawnPos++]);
             }
 
             for (int j = 0; j < rangeCount; j++)
             {
-                RespawnMonster(MonsterType.Range, _RespawnPositions[curSpawnPos++]);
+                SpawnMonster(MonsterType.Range, _SpawnPosition[curSpawnPos++]);
             }
 
-            Debug.Log("소환횟수 : " + i + " 시각 : " + Time.realtimeSinceStartup);
+            //Debug.Log("소환횟수 : " + i + " 시각 : " + Time.realtimeSinceStartup);
 
             yield return new WaitForSeconds(missionData.CycleOfTimeRespawn);
         }
@@ -75,25 +68,25 @@ public class ObjectManager : MonoBehaviour
     /// <summary>
     /// 오브젝트 매니저의 오브젝트 리스폰 지역 변경을 도와주는 매소드
     /// </summary>
-    /// <param name="respawnPositions"> 새로운 리스폰 지역의 배열 </param>
-    public static void SetRespawnPosition(Transform[] respawnPositions)
+    /// <param name="spawnPosition"> 새로운 리스폰 지역의 배열 </param>
+    public static void SetSpawnPosition(Transform[] spawnPosition)
     {
-        _Instance._RespawnPositions = respawnPositions;
+        _Instance._SpawnPosition = spawnPosition;
     }
 
     /// <summary>
     /// 오브젝트 매니저의 현재 오브젝트 리스폰 지역 정보를 반환하는 매소드
     /// </summary>
     /// <returns> 오브젝트 매니저의 현재 오브젝트 리스폰 지역 </returns>
-    public static Transform[] GetRespawnPosition()
+    public static Transform[] GetSpawnPosition()
     {
-        return _Instance._RespawnPositions;
+        return _Instance._SpawnPosition;
     }
 
-    public static void RespawnMonster(MonsterType monsterType, Transform respawnPosition)
+    public static void SpawnMonster(MonsterType monsterType, Transform spawnPosition)
     {
         int type = (int)monsterType;
-        _Instance._ObjectPool[type].ItemSetActive(respawnPosition);
+        _Instance._ObjectPool[type].ItemSetActive(spawnPosition);
         
     }
 

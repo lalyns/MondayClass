@@ -5,9 +5,10 @@ using UnityEngine;
 [CreateAssetMenu]
 public class MissionData : ScriptableObject
 {
-    public int NumberOfTimesRespawn;
+    public int NumberOfTimesSpawn;
     public float CycleOfTimeRespawn;
 
+    public Sprite MissionName;
     public Sprite MissionIcon;
     public string MissionText;
 
