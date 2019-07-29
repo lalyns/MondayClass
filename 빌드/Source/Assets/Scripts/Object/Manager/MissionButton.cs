@@ -10,9 +10,9 @@ public class MissionButton : MonoBehaviour
 
     // 변경하면 안되는 정보들
     public Button _Button;
-    public Image _NumberImage;
 
     // 외부에서 변경되어야하는 정보들
+    public Image _MissionName;
     public Image _MissionIcon;
     public Text _MissionText;
 
@@ -25,7 +25,7 @@ public class MissionButton : MonoBehaviour
     {
         _Button = GetComponent<Button>();
 
-        _NumberImage = transform.GetChild(0).GetComponent<Image>();
+        _MissionName = transform.GetChild(0).GetComponent<Image>();
         _MissionIcon = transform.GetChild(1).GetComponent<Image>();
         _MissionText = transform.GetChild(2).GetComponent<Text>();
         _RewardIcon = transform.GetChild(3).GetComponent<Image>();
@@ -39,9 +39,11 @@ public class MissionButton : MonoBehaviour
     /// <param name="missionText"> 미션의 목표 설명 </param>
     public void ChangeMission(MissionData missionData)
     {
+        Sprite missionName = missionData.MissionName;
         Sprite missionIcon = missionData.MissionIcon;
         string missionText = missionData.MissionText;
 
+        _MissionName.sprite = missionName;
         _MissionIcon.sprite = missionIcon;
         _MissionText.text = missionText;
     }

@@ -23,9 +23,9 @@ public class MissionManager : MonoBehaviour
             _Instance = GetComponent<MissionManager>();
 
             _Choices = new MissionButton[3];
-            _Instance._Choices[0] = _Instance._UIMission.transform.GetChild(0).GetComponent<MissionButton>();
-            _Instance._Choices[1] = _Instance._UIMission.transform.GetChild(1).GetComponent<MissionButton>();
-            _Instance._Choices[2] = _Instance._UIMission.transform.GetChild(2).GetComponent<MissionButton>();
+            _Instance._Choices[0] = _Instance._UIMission.transform.GetChild(1).GetComponent<MissionButton>();
+            _Instance._Choices[1] = _Instance._UIMission.transform.GetChild(2).GetComponent<MissionButton>();
+            _Instance._Choices[2] = _Instance._UIMission.transform.GetChild(3).GetComponent<MissionButton>();
         }
         else
         {
@@ -64,7 +64,8 @@ public class MissionManager : MonoBehaviour
 
         if(missionType == MissionType.Annihilation)
         {
-            int activeItem = ObjectManager._Instance._ObjectPool[0]._ActiveItem.Count + ObjectManager._Instance._ObjectPool[1]._ActiveItem.Count;
+            int activeItem = ObjectManager._Instance._ObjectPool[0]._ActiveItem.Count
+                + ObjectManager._Instance._ObjectPool[1]._ActiveItem.Count;
             if(activeItem == 0)
             {
                 isClear = true;
@@ -92,6 +93,7 @@ public class MissionManager : MonoBehaviour
         Debug.Log("미션의 정보창을 화면에 표기합니다.");
         _Instance._UIMission.SetActive(true);
         _Instance.ChangeMissionMenu();
+        GameManager.CursorMode(false);
 
         Time.timeScale = 0.0f;
     }
@@ -103,6 +105,7 @@ public class MissionManager : MonoBehaviour
     {
         Debug.Log("미션의 정보창을 화면에서 지웁니다.");
         _Instance._UIMission.SetActive(false);
+        GameManager.CursorMode(true);
 
         GameManager.isPopUp = false;
         Time.timeScale = 1.0f;
@@ -141,7 +144,8 @@ public class MissionManager : MonoBehaviour
         /// <summary>
         /// 플레이어의 위치변경 매소드 필요
         /// </summary>
-        GameObject.FindGameObjectWithTag("Player").transform.position = dungeon._EnterPosition.position;
+        GameObject.FindGameObjectWithTag("Player").transform.position
+            = dungeon._EnterPosition.position;
         
         MissionManager.DisappearMissionMenu();
 
@@ -150,7 +154,7 @@ public class MissionManager : MonoBehaviour
         /// </summary>
         
         DungeonManager.SetCurrentDungeon(dungeon);
-        ObjectManager.SetRespawnPosition(dungeon._RespawnPositions);
+        ObjectManager.SetSpawnPosition(dungeon._RespawnPositions);
         dungeon._ExitPosition.gameObject.SetActive(false);
     }
 
