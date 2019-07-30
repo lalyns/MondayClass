@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterIDLE : MonsterFSMState {
-
-    public float idleTime = 5.0f;
-    private float time = 0.0f;
-
+public class MonsterATTACK : MonsterFSMState
+{
     public override void BeginState()
     {
         base.BeginState();
-
-        time = 0.0f;
     }
 
     public override void EndState()
@@ -21,10 +16,12 @@ public class MonsterIDLE : MonsterFSMState {
 
     private void Update()
     {
-        if(GameLib.DetectCharacter(_manager.Sight, _manager.PlayerCC))
+        if(GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) < _manager.Stat._AttackRange)
+            Debug.Log("공격");
+
+        else
         {
             _manager.SetState(MonsterState.CHASE);
-            return;
         }
 
     }

@@ -95,4 +95,9 @@ public static class GameLib
         Plane[] ps = GeometryUtility.CalculateFrustumPlanes(sight);
         return GeometryUtility.TestPlanesAABB(ps, cc.bounds);
     }
+
+    public static float DistanceToCharacter(CharacterController monster, CapsuleCollider player)
+    {
+        return Vector3.Distance(monster.transform.position, player.transform.position);
+    }
 }
