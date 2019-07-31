@@ -9,7 +9,7 @@ public class MonsterFSMState : MonoBehaviour
 
     private void Awake()
     {
-        _manager = GetComponent<MonsterFSMManager>();    
+        _manager = GetComponent<MonsterFSMManager>();
     }
 
     public virtual void BeginState()
@@ -24,6 +24,7 @@ public class MonsterFSMState : MonoBehaviour
 
     private void Update()
     {
-
+        
     }
+
 }

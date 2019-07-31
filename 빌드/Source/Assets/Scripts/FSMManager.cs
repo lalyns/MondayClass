@@ -7,6 +7,7 @@ using UnityEngine;
 public class FSMManager : MonoBehaviour
 {
     private bool _bOnSight = true;
+    public bool _Player = true;
     private Camera _sight;
     public Camera Sight { get { return _sight; } }
     public int sightAspect = 3;
@@ -19,33 +20,39 @@ public class FSMManager : MonoBehaviour
 
     protected virtual void Awake()
     {
-        _sight = GetComponentInChildren<Camera>();
-        _sight.aspect = sightAspect;
+        if (_Player)
+        {
+            _sight = GetComponentInChildren<Camera>();
+            _sight.aspect = sightAspect;
+        }
     }
 
     private void OnDrawGizmos()
     {
-        if (!_bOnSight) return;
-        if (_sight != null)
+        if (_Player)
         {
-            Gizmos.color = _gizmoColor;
-            Matrix4x4 temp = Matrix4x4.identity;
+            if (!_bOnSight) return;
+            if (_sight != null)
+            {
+                Gizmos.color = _gizmoColor;
+                Matrix4x4 temp = Matrix4x4.identity;
 
-            Gizmos.matrix = Matrix4x4.TRS(
-                _sight.transform.position,
-                _sight.transform.rotation,
-                Vector3.one
-                );
+                Gizmos.matrix = Matrix4x4.TRS(
+                    _sight.transform.position,
+                    _sight.transform.rotation,
+                    Vector3.one
+                    );
 
-            Gizmos.DrawFrustum(
-                Vector3.zero,
-                _sight.fieldOfView,
-                _sight.farClipPlane,
-                _sight.nearClipPlane,
-                _sight.aspect
-                );
+                Gizmos.DrawFrustum(
+                    Vector3.zero,
+                    _sight.fieldOfView,
+                    _sight.farClipPlane,
+                    _sight.nearClipPlane,
+                    _sight.aspect
+                    );
 
-            Gizmos.matrix = temp;
+                Gizmos.matrix = temp;
+            }
         }
     }
 
