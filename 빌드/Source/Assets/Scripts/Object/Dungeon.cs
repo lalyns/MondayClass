@@ -50,11 +50,5 @@ public class Dungeon : MonoBehaviour
         manager._ClearCallback();
     }
 
-    public void Spawn()
-    {
-
-    }
-
-
 
 }
