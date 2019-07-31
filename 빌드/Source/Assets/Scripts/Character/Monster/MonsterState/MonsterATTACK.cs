@@ -60,7 +60,6 @@ public class MonsterATTACK : MonsterFSMState
 
                 if(_Time> _AttackTime + _AttackBeforeTime + _AfterAttackTime)
                 {
-
                     _Time = 0.0f;
                     _CreateBall = false;
                     _SetBall = false;
