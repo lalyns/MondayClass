@@ -36,58 +36,6 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (_IsMissionStart)
-            MissionStateCheck();
-    }
-
-    /// <summary>
-    /// 현재 미션의 진행 또는 종료에 대한 상태를 체크합니다. 
-    /// </summary>
-    private void MissionStateCheck()
-    {
-        bool isMissionEnd = CheckMissionGoal(_CurrentMission);
-
-        if (isMissionEnd)
-        {
-            DungeonManager.GetCurrentDungeon()._ExitPosition.gameObject.SetActive(true);
-            _IsMissionStart = false;
-        }
-    }
-
-    /// <summary>
-    /// 미션 목표를 확인합니다.
-    /// </summary>
-    /// <param name="missionType"></param>
-    /// <returns></returns>
-    private bool CheckMissionGoal(MissionType missionType)
-    {
-        bool isClear = false;
-
-        if(missionType == MissionType.Annihilation)
-        {
-            int activeItem = ObjectManager._Instance._ObjectPool[0]._ActiveItem.Count
-                + ObjectManager._Instance._ObjectPool[1]._ActiveItem.Count;
-            if(activeItem == 0)
-            {
-                isClear = true;
-            }
-        }
-
-        if(missionType == MissionType.Defence)
-        {
-
-        }
-
-        if(missionType == MissionType.Survive)
-        {
-
-        }
-
-        return isClear;
-    }
-
     /// <summary>
     /// 미션 정보창을 화면에 표시하는 매소드
     /// </summary>
