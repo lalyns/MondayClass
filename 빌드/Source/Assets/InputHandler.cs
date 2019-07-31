@@ -123,7 +123,7 @@ public class InputHandler : MonoBehaviour
         states.FixedTick(delta);
 
         // 임시 회피 코드
-        if (horizontal >= 0.1f && Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.LeftShift))
         {
             anim1.transform.position = anim1.transform.position + (anim1.transform.right * 10f);
         }
@@ -180,7 +180,8 @@ public class InputHandler : MonoBehaviour
             if (isFever)
                 anim2.SetInteger("CurrentAttack", 1);
 
-            isAttackOne = true;
+            if(!isAttackTwo && !isAttackThree)
+                isAttackOne = true;
 
             //StartCoroutine(shake.ShakeCamera());
 
@@ -271,7 +272,7 @@ public class InputHandler : MonoBehaviour
             }
 
             //0.4초가 넘어가면 IDLE로 돌아옴.
-            if (Timer2 >= 0.8f)
+            if (Timer2 >= 0.6f)
             {
 
                 anim1.SetInteger("CurrentAttack", 0);
@@ -281,50 +282,14 @@ public class InputHandler : MonoBehaviour
                 SwingEffect.gameObject.SetActive(false);
                 return;
             }
-            /*
-              //스페이스바를 누르면
-              if (Input.GetMouseButtonDown(0))
-              {
-                  //3타 애니메이션 실행.
-                  if (!isFever)
-                      //anim1.SetInteger("CurrentAttack", 3);
-                  if (isFever)
-                      anim2.SetInteger("CurrentAttack", 3);
-
-                  //2타 완료.
-                  isAttackTwo = false;
-                  isAttackThree = true;
-                  //시간 초기화
-                  Timer2 = 0;
-
-                  StartCoroutine(shake.ShakeCamera(0.3f, 0.2f, 0.5f));
-
-                  return;
-              }
-
-              if (Timer2 >= 2f)
-              {
-                  //IDLE 상태로 돌려줌
-                  if (!isFever)
-                      anim1.SetInteger("CurrentAttack", 0);
-                  if (isFever)
-                      anim2.SetInteger("CurrentAttack", 0);
-                  isAttackTwo = false;
-
-                  //시간 초기화
-                  Timer2 = 0;
-                  return;
-              }
-              */
+           
 
         }
         if (isAttackThree)
         {
             Timer3 += Time.deltaTime;
 
-
-
-            if (Timer3 > 1.3f)
+            if (Timer3 > 0.55f)
             {
                 if (!isFever)
                     anim1.SetInteger("CurrentAttack", 0);
@@ -335,17 +300,6 @@ public class InputHandler : MonoBehaviour
                 return;
             }
         }
-        //if(Input.GetMouseButtonDown(0) && isAttackOne && !isAttackTwo)
-        //{
-        //    anim1.SetInteger("CurrentAttack", 2);
-        //    isAttackTwo = true;
-        //}
-        //if (Input.GetMouseButtonDown(0) && isAttackTwo)
-        //{
-        //    anim1.SetInteger("CurrentAttack", 3);
-        //    isAttackOne = false;
-        //}
-
 
         if (FeverGauge == 100)
         {
