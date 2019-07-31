@@ -6,6 +6,7 @@ public class Mission : MonoBehaviour
 {
     public int _CurrentMissionLevel;
     public bool _IsMissionStart;
+    public bool _IsMissionClear;
 
     protected MissionManager _MissionManager;
     protected Dungeon _Dungeon;
@@ -36,6 +37,7 @@ public class Mission : MonoBehaviour
 
         // 다음 스테이지로 향하는 포탈 활성화
         DungeonManager.GetDungeonManager().DungeonClear();
+        ObjectManager._Instance.StopSpawn();
     }
 
     public virtual void MissionEnd()

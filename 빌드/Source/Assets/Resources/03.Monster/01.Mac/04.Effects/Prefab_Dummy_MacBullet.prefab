@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1390561559113916771}
   m_Layer: 0
   m_Name: Prefab_Dummy_MacBullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Speed: 3
   _DestroyTime: 5
+  _IncreaseSize: 1
+  _MaxSize: 1.4
 --- !u!1 &1972600776349785950
 GameObject:
   m_ObjectHideFlags: 0
@@ -57388,66 +57390,6 @@ PrefabInstance:
       propertyPath: SubModule.enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 913905255040842875, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 913905255040842875, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 913905255040842875, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
-        type: 3}
-      propertyPath: SubModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 913905255069118602, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 913905255069118602, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 913905255069118602, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
-        type: 3}
-      propertyPath: SubModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 913905255070669330, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 913905255070669330, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 913905255070669330, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
-        type: 3}
-      propertyPath: SubModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 913905255184494735, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 913905255184494735, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 913905255184494735, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
-        type: 3}
-      propertyPath: SubModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 913905255474273424, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
         type: 3}
       propertyPath: lengthInSec
@@ -57467,6 +57409,66 @@ PrefabInstance:
         type: 3}
       propertyPath: SubModule.subEmitters.Array.data[0].type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 913905255040842875, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 913905255040842875, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 913905255040842875, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
+        type: 3}
+      propertyPath: SubModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 913905255069118602, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 913905255069118602, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 913905255069118602, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
+        type: 3}
+      propertyPath: SubModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 913905255070669330, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 913905255070669330, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 913905255070669330, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
+        type: 3}
+      propertyPath: SubModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 913905255184494735, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 913905255184494735, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 913905255184494735, guid: 8ac6f48ae3878914fbe2d3fb1f180878,
+        type: 3}
+      propertyPath: SubModule.enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ac6f48ae3878914fbe2d3fb1f180878, type: 3}

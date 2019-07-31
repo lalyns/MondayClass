@@ -13,11 +13,12 @@ public class Annihilation : Mission
 
     private void Update()
     {
-        if (!_IsMissionStart) return;
+        if (!_IsMissionStart || _IsMissionClear) return;
 
         if (CheckForClear())
         {
             MissionClear();
+            _IsMissionClear = true;
         }
     }
 

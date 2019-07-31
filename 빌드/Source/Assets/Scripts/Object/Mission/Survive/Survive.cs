@@ -27,7 +27,7 @@ public class Survive : Mission
 
     private void Update()
     {
-        if (!_IsMissionStart) return;
+        if (!_IsMissionStart || _IsMissionClear) return;
 
         _Time += Time.deltaTime;
         if(_Time >= _BeadGenerationTime)
@@ -42,6 +42,7 @@ public class Survive : Mission
         if (CheckForClear())
         {
             MissionClear();
+            _IsMissionClear = true;
         }
     }
 
@@ -52,7 +53,7 @@ public class Survive : Mission
         // 현재 데이터를 가져오는 구조가없기때문에 보류
         //if (_CurrentMissionLevel != 0) return isClear;
 
-        if (_Progress >= 30.0f)
+        if (_Progress >= 10.0f)
         {
             isClear = true;
         }
@@ -64,17 +65,14 @@ public class Survive : Mission
     {
         base.MissionClear();
 
-        LinkedList<GameObject> activeMelees = ObjectManager.GetObjectManager()._ObjectPool[0]._ActiveItem;
-        LinkedList<GameObject> activeRanges = ObjectManager.GetObjectManager()._ObjectPool[1]._ActiveItem;
+        ObjectManager.ReturnPoolAllMonster();
 
-        foreach(GameObject melees in activeMelees)
+        GameObject[] balls = GameObject.FindGameObjectsWithTag("Bullet");
+        foreach(GameObject ball in balls)
         {
-            ObjectManager.ReturnPoolMonster(melees, false);
+            Destroy(ball);
         }
-        foreach(GameObject ranges in activeRanges)
-        {
-            ObjectManager.ReturnPoolMonster(ranges, true);
-        }
+
     }
 
     public override void MissionEnd()

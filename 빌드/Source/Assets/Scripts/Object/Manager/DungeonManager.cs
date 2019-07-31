@@ -73,19 +73,19 @@ public class DungeonManager : MonoBehaviour
     /// 선택지가 선택된 후 던전을 생성하는 매소드
     /// </summary>
     /// <param name="missionData"> 정해진 미션 </param>
-    public static Dungeon CreateDungeon(MissionData missionData)
+    public static Dungeon CreateDungeon(MissionManager.MissionType missionType)
     {
         Debug.Log("새로운 던전을 생성합니다.");
 
         // 현재 던전 및 새로운 던전 정보를 생성하고 던전 정보를 변경합니다.
         Dungeon curDungeon = GetCurrentDungeon();
-        Dungeon newDungeon = _Instance.SetRandomDungeon();
+        Dungeon newDungeon = _Instance.SetDungeon(missionType);
 
         DungeonManager.SetPrevDungeon(curDungeon);
         DungeonManager.SetCurrentDungeon(newDungeon);
         
         // 던전의 미션 데이터를 설정합니다.
-        newDungeon.SetMissionData(missionData);
+        // newDungeon.SetMissionData(missionData);
 
         return newDungeon;
     }
@@ -94,10 +94,9 @@ public class DungeonManager : MonoBehaviour
     /// 던전을 랜덤으로 정하는 매소드.
     /// </summary>
     /// <returns> 던전의 정보 </returns>
-    public Dungeon SetRandomDungeon()
+    public Dungeon SetDungeon(MissionManager.MissionType missionType)
     {
-        var temp = UnityEngine.Random.Range(0, 999999) % _Dungeons.Length;
-        return _Dungeons[temp];
+        return _Dungeons[(int)missionType];
     }
 
     /// <summary>

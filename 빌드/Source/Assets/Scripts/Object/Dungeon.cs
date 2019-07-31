@@ -43,10 +43,10 @@ public class Dungeon : MonoBehaviour
         
     }
 
-    public void SetMissionData(MissionData missionData)
-    {
-        Debug.Log("선택된 던전의 미션 정보를 변경합니다.");
+    //public void SetMissionData(MissionData missionData)
+    //{
+    //    Debug.Log("선택된 던전의 미션 정보를 변경합니다.");
 
-        _MissionData = missionData;
-    }
+    //    _MissionData = missionData;
+    //}
 }

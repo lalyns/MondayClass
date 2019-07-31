@@ -86,11 +86,13 @@ public class MissionManager : MonoBehaviour
     {
         Debug.Log("미션을 선택합니다.");
         _Instance._CurrentMission = _Instance._Choices[choiceNum]._MissionType;
+
+        Dungeon dungeon = DungeonManager.CreateDungeon(_Instance._CurrentMission);
+
         MissionData missionData = GetMissionData(_Instance._CurrentMission);
 
         Debug.Log(missionData.name);
 
-        Dungeon dungeon = DungeonManager.CreateDungeon(missionData);
 
         /// <summary>
         /// 플레이어의 위치변경 매소드 필요
@@ -158,8 +160,8 @@ public class MissionManager : MonoBehaviour
     public enum MissionType
     {
         Annihilation = 0,
-        Defence = 1,
-        Survive = 2,
+        Survive = 1,
+        Defence = 2,
     }
 
     /// <summary>

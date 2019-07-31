@@ -9,6 +9,10 @@ public class ObjectManager : MonoBehaviour
 
     // 싱글턴 선언을 위한 인스턴스
     public static ObjectManager _Instance;
+
+    Coroutine _SpawnCoroutine;
+
+    int loopEscapeCount = 0;
     
     public static ObjectManager GetObjectManager()
     {
@@ -27,9 +31,15 @@ public class ObjectManager : MonoBehaviour
         }
     }
     
+    public void StopSpawn()
+    {
+        Debug.Log("Stop");
+        StopCoroutine(_SpawnCoroutine);
+    }
+
     public void CallSpawn()
     {
-        StartCoroutine("Spawn");
+        _SpawnCoroutine = StartCoroutine("Spawn");
     }
 
     IEnumerator Spawn()
@@ -42,6 +52,7 @@ public class ObjectManager : MonoBehaviour
 
         for (int i = 0; i < NumberOfTimesSpawn; i++)
         {
+            Debug.Log("CallSpawn");
             curSpawnPos = 0;
 
             var setValue = UnityEngine.Random.Range(0, missionData.NumberOfMeleeMonsterOnWaves.Length);
@@ -104,6 +115,29 @@ public class ObjectManager : MonoBehaviour
         {
             _Instance._ObjectPool[1].ItemReturnPool(go);
         }
+    }
+
+    public static void ReturnPoolAllMonster()
+    {
+        for(int i=0; i<2; i++)
+        {
+            Debug.Log("Delete1");
+            while(_Instance._ObjectPool[i]._ActiveItem.Count != 0)
+            {
+
+                Debug.Log("Delete2");
+                _Instance._ObjectPool[i].ItemReturnPool(
+                    _Instance._ObjectPool[i]._ActiveItem.First.Value);
+
+                _Instance.loopEscapeCount++;
+                if (_Instance.loopEscapeCount > 1000)
+                {
+                    break;
+                }
+            }
+        }
+
+
     }
 
     public enum MonsterType
