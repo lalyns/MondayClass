@@ -29,11 +29,6 @@ public class Dungeon : MonoBehaviour
             }
         }
 
-        //foreach (Transform respawn in _RespawnPositions)
-        //{
-        //    if(respawn != null)
-        //        Debug.Log(respawn.name);
-        //}
     }
 
     private void Update()
@@ -54,12 +49,6 @@ public class Dungeon : MonoBehaviour
         manager._ClearCallback += manager.DungeonClearCallBack;
         manager._ClearCallback();
     }
-
-    public void Spawn()
-    {
-
-    }
-
 
 
 }

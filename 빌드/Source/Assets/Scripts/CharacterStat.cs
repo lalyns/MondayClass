@@ -25,7 +25,7 @@ public class CharacterStat : MonoBehaviour
     [HideInInspector]
     public CharacterStat lastHitBy = null;
     [SerializeField]
-    protected StatData statData;
+    public StatData statData;
 
     protected virtual void Awake()
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 //크리티컬이면
 //(기본공격 + 추가공격 - 방어력) * 크리티컬추가
 //일반공격이면
@@ -39,11 +39,15 @@ public class InputHandler : MonoBehaviour
 
     public bool isAttackTwoReady, isAttackThreeReady;
 
+    //충돌처리 콜라이더 및 공격 검귀 이펙트?
     CapsuleCollider Attack_Capsule;
+    Transform SwingEffect;
+    Transform ballStartPos;
 
-    public Transform root_Bone;
     [Header("X축 마우스 감도")]
     public float mouseSpeed = 80f;
+
+    int attackCount;
     private void Start()
     {
         states = GetComponent<StateManager>();
@@ -70,14 +74,31 @@ public class InputHandler : MonoBehaviour
         isFever = false;
 
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
+        try
+        {
+            SwingEffect = GameObject.Find("SwingEffect").GetComponent<Transform>();
+            SwingEffect.gameObject.SetActive(false);
+        }
+        catch
+        {
 
+        }
         Attack_Capsule.enabled = false;
 
-        root_Bone = GameObject.Find("root_Bone").GetComponent<Transform>();
+        ball1 = anim1.GetComponentInChildren<SphereCollider>();
+
+        ball1.gameObject.SetActive(false);
+        ballStartPos = GameObject.Find("BallStartPos").GetComponent<Transform>();
+
+        Skill1_CoolTime = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
+        Skill1_CoolTime.fillAmount = 1f;
+        Skill1_CoolTime.gameObject.SetActive(false);
     }
+    Image Skill1_CoolTime;
     public void AttackCheck()
     {
         Attack_Capsule.enabled = true;
+        
     }
     private void FixedUpdate()
     {
@@ -118,19 +139,79 @@ public class InputHandler : MonoBehaviour
         states.FixedTick(delta);
 
         // 임시 회피 코드
-        if (horizontal >= 0.1f && Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.LeftShift))
         {
             anim1.transform.position = anim1.transform.position + (anim1.transform.right * 10f);
         }
     }
-
+    public SphereCollider ball1;
+    bool isBall, isShoot;
+    public Vector3 target;
+    float shootTimer;
+    public float skill1CoolTimer = 10f;
+    bool isSkill1CoolTime;
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        target = new Vector3(anim1.transform.position.x + 10f, anim1.transform.position.y, anim1.transform.position.z + 5f);
+
+
+        if (attackCount >= 10)
+        {
+            attackCount = 0;
+            ball1.gameObject.SetActive(true);
+            isBall = true;
+        }
+        if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("마우스누름");
+            SwingEffect.gameObject.SetActive(true);
+
+            attackCount++;
         }
-        root_Bone.transform.position = root_Bone.transform.forward * anim1.GetFloat("Direction_Y");
+
+        if (isBall)
+        {
+            if (Input.GetKey(KeyCode.F))
+            {
+                isShoot = true;
+                isBall = false;
+                isSkill1CoolTime = true;
+                Skill1_CoolTime.gameObject.SetActive(true);
+            }
+        }
+        if (isShoot)
+        {
+            Vector3 dis = target - ball1.transform.position;
+            dis.Normalize();
+            Quaternion.LookRotation(dis);
+            ball1.transform.Translate(Vector3.forward * 20f * Time.deltaTime);
+
+            shootTimer += Time.deltaTime;
+
+            if(shootTimer > 2f)
+            {
+                ball1.transform.position = ballStartPos.position;
+                ball1.gameObject.SetActive(false);
+                shootTimer = 0;
+                isShoot = false;
+            }
+        }
+        if (isSkill1CoolTime)
+        {
+            skill1CoolTimer -= Time.deltaTime;
+            Skill1_CoolTime.fillAmount = skill1CoolTimer / 10f;
+            if (skill1CoolTimer <= 0)
+            {
+                skill1CoolTimer = 10f;
+                Skill1_CoolTime.fillAmount = 1f;
+                Skill1_CoolTime.gameObject.SetActive(false);
+
+                isSkill1CoolTime = false;
+            }
+        }
+            
+
+
 
         GetInput();
 
@@ -172,7 +253,8 @@ public class InputHandler : MonoBehaviour
             if (isFever)
                 anim2.SetInteger("CurrentAttack", 1);
 
-            isAttackOne = true;
+            if(!isAttackTwo && !isAttackThree)
+                isAttackOne = true;
 
             //StartCoroutine(shake.ShakeCamera());
 
@@ -217,6 +299,7 @@ public class InputHandler : MonoBehaviour
                 {
                     anim1.SetInteger("CurrentAttack", 4);
                     Attack_Capsule.enabled = false;
+                    //SwingEffect.gameObject.SetActive(false);
                     if (Timer1 >= 1.1f)
                     {
                         anim1.SetInteger("CurrentAttack", 0);
@@ -262,59 +345,24 @@ public class InputHandler : MonoBehaviour
             }
 
             //0.4초가 넘어가면 IDLE로 돌아옴.
-            if (Timer2 >= 0.8f)
+            if (Timer2 >= 0.6f)
             {
 
                 anim1.SetInteger("CurrentAttack", 0);
                 isAttackTwo = false;
                 Timer2 = 0;
                 Attack_Capsule.enabled = false;
+                SwingEffect.gameObject.SetActive(false);
                 return;
             }
-            /*
-              //스페이스바를 누르면
-              if (Input.GetMouseButtonDown(0))
-              {
-                  //3타 애니메이션 실행.
-                  if (!isFever)
-                      //anim1.SetInteger("CurrentAttack", 3);
-                  if (isFever)
-                      anim2.SetInteger("CurrentAttack", 3);
-
-                  //2타 완료.
-                  isAttackTwo = false;
-                  isAttackThree = true;
-                  //시간 초기화
-                  Timer2 = 0;
-
-                  StartCoroutine(shake.ShakeCamera(0.3f, 0.2f, 0.5f));
-
-                  return;
-              }
-
-              if (Timer2 >= 2f)
-              {
-                  //IDLE 상태로 돌려줌
-                  if (!isFever)
-                      anim1.SetInteger("CurrentAttack", 0);
-                  if (isFever)
-                      anim2.SetInteger("CurrentAttack", 0);
-                  isAttackTwo = false;
-
-                  //시간 초기화
-                  Timer2 = 0;
-                  return;
-              }
-              */
+           
 
         }
         if (isAttackThree)
         {
             Timer3 += Time.deltaTime;
 
-
-
-            if (Timer3 > 1.3f)
+            if (Timer3 > 0.55f)
             {
                 if (!isFever)
                     anim1.SetInteger("CurrentAttack", 0);
@@ -325,17 +373,6 @@ public class InputHandler : MonoBehaviour
                 return;
             }
         }
-        //if(Input.GetMouseButtonDown(0) && isAttackOne && !isAttackTwo)
-        //{
-        //    anim1.SetInteger("CurrentAttack", 2);
-        //    isAttackTwo = true;
-        //}
-        //if (Input.GetMouseButtonDown(0) && isAttackTwo)
-        //{
-        //    anim1.SetInteger("CurrentAttack", 3);
-        //    isAttackOne = false;
-        //}
-
 
         if (FeverGauge == 100)
         {
