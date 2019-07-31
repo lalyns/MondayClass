@@ -74,25 +74,25 @@ public class InputHandler : MonoBehaviour
         isFever = false;
 
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
-        Attack_Capsule.enabled = false;
-
         try
         {
             SwingEffect = GameObject.Find("SwingEffect").GetComponent<Transform>();
             SwingEffect.gameObject.SetActive(false);
-            ball1 = anim1.GetComponentInChildren<SphereCollider>();
-            ball1.gameObject.SetActive(false);
-            ballStartPos = GameObject.Find("BallStartPos").GetComponent<Transform>();
-
-            Skill1_CoolTime = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
-            Skill1_CoolTime.fillAmount = 1f;
-            Skill1_CoolTime.gameObject.SetActive(false);
         }
         catch
         {
 
         }
+        Attack_Capsule.enabled = false;
 
+        ball1 = anim1.GetComponentInChildren<SphereCollider>();
+
+        ball1.gameObject.SetActive(false);
+        ballStartPos = GameObject.Find("BallStartPos").GetComponent<Transform>();
+
+        Skill1_CoolTime = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
+        Skill1_CoolTime.fillAmount = 1f;
+        Skill1_CoolTime.gameObject.SetActive(false);
     }
     Image Skill1_CoolTime;
     public void AttackCheck()
@@ -158,28 +158,14 @@ public class InputHandler : MonoBehaviour
         if (attackCount >= 10)
         {
             attackCount = 0;
-            try
-            {
-                ball1.gameObject.SetActive(true);
-            }
-            catch
-            {
-
-            }
+            ball1.gameObject.SetActive(true);
             isBall = true;
         }
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("마우스누름");
-            try
-            {
-                SwingEffect.gameObject.SetActive(true);
+            SwingEffect.gameObject.SetActive(true);
 
-            }
-            catch
-            {
-
-            }
             attackCount++;
         }
 
@@ -313,14 +299,7 @@ public class InputHandler : MonoBehaviour
                 {
                     anim1.SetInteger("CurrentAttack", 4);
                     Attack_Capsule.enabled = false;
-                    try
-                    {
-                        SwingEffect.gameObject.SetActive(false);
-                    }
-                    catch
-                    {
-
-                    }
+                    //SwingEffect.gameObject.SetActive(false);
                     if (Timer1 >= 1.1f)
                     {
                         anim1.SetInteger("CurrentAttack", 0);
