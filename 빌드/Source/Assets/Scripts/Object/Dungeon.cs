@@ -29,11 +29,6 @@ public class Dungeon : MonoBehaviour
             }
         }
 
-        //foreach (Transform respawn in _RespawnPositions)
-        //{
-        //    if(respawn != null)
-        //        Debug.Log(respawn.name);
-        //}
     }
 
     private void Update()

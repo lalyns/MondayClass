@@ -88,7 +88,13 @@ public class MonsterFSMManager : FSMManager
         _States[_CurrentState].BeginState();
         _States[_CurrentState].enabled = true;
         _Anim.SetInteger("CurrentState", (int)_CurrentState);
-
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.tag == "Weapon")
+        {
+            ObjectManager.ReturnPoolMonster(this.gameObject, Stat.monsterData._IsRagne);
+        }
+    }
 }
