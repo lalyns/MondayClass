@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
 
     [System.NonSerialized] public Vector3 dir;
 
-    [System.NonSerialized] spublic bool _Move = false;
+    [System.NonSerialized] public bool _Move = false;
 
     // Update is called once per frame
     void Update()
