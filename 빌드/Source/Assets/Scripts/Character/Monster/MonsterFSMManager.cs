@@ -43,6 +43,7 @@ public class MonsterFSMManager : FSMManager
     public Animator Anim { get { return _Anim; } }
 
     public Transform _AttackTransform;
+    public MeshRenderer _MR;
 
     protected override void Awake()
     {
