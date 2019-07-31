@@ -42,6 +42,8 @@ public class MonsterFSMManager : FSMManager
     private Animator _Anim;
     public Animator Anim { get { return _Anim; } }
 
+    public Transform _AttackTransform;
+
     protected override void Awake()
     {
         base.Awake();

@@ -100,4 +100,9 @@ public static class GameLib
     {
         return Vector3.Distance(monster.transform.position, player.transform.position);
     }
+
+    public static Vector3 DirectionToCharacter(CharacterController monster, CapsuleCollider player)
+    {
+        return (player.transform.position - monster.transform.position).normalized;
+    }
 }
