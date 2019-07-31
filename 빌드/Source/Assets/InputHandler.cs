@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 //크리티컬이면
 //(기본공격 + 추가공격 - 방어력) * 크리티컬추가
 //일반공격이면
@@ -42,11 +42,12 @@ public class InputHandler : MonoBehaviour
     //충돌처리 콜라이더 및 공격 검귀 이펙트?
     CapsuleCollider Attack_Capsule;
     Transform SwingEffect;
+    Transform ballStartPos;
 
-
-    public Transform root_Bone;
     [Header("X축 마우스 감도")]
     public float mouseSpeed = 80f;
+
+    int attackCount;
     private void Start()
     {
         states = GetComponent<StateManager>();
@@ -84,8 +85,16 @@ public class InputHandler : MonoBehaviour
         }
         Attack_Capsule.enabled = false;
 
-        root_Bone = GameObject.Find("root_Bone").GetComponent<Transform>();
+        ball1 = anim1.GetComponentInChildren<SphereCollider>();
+
+        ball1.gameObject.SetActive(false);
+        ballStartPos = GameObject.Find("BallStartPos").GetComponent<Transform>();
+
+        Skill1_CoolTime = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
+        Skill1_CoolTime.fillAmount = 1f;
+        Skill1_CoolTime.gameObject.SetActive(false);
     }
+    Image Skill1_CoolTime;
     public void AttackCheck()
     {
         Attack_Capsule.enabled = true;
@@ -135,17 +144,78 @@ public class InputHandler : MonoBehaviour
             anim1.transform.position = anim1.transform.position + (anim1.transform.right * 10f);
         }
     }
-
+    public SphereCollider ball1;
+    bool isBall, isShoot;
+    public Vector3 target;
+    float shootTimer;
+    public float skill1CoolTimer = 10f;
+    bool isSkill1CoolTime;
     private void Update()
     {
-        
+        target = new Vector3(anim1.transform.position.x + 10f, anim1.transform.position.y, anim1.transform.position.z + 5f);
 
-        if (Input.GetMouseButton(0))
+
+        if (attackCount >= 10)
+        {
+            attackCount = 0;
+            ball1.gameObject.SetActive(true);
+            isBall = true;
+        }
+        if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("마우스누름");
+<<<<<<< HEAD
+            SwingEffect.gameObject.SetActive(true);
+
+            attackCount++;
+=======
             //SwingEffect.gameObject.SetActive(true);
+>>>>>>> 46396f2d7c9040cd0393cdcd7e61c3e6e2958eaf
         }
-        root_Bone.transform.position = root_Bone.transform.forward * anim1.GetFloat("Direction_Y");
+
+        if (isBall)
+        {
+            if (Input.GetKey(KeyCode.F))
+            {
+                isShoot = true;
+                isBall = false;
+                isSkill1CoolTime = true;
+                Skill1_CoolTime.gameObject.SetActive(true);
+            }
+        }
+        if (isShoot)
+        {
+            Vector3 dis = target - ball1.transform.position;
+            dis.Normalize();
+            Quaternion.LookRotation(dis);
+            ball1.transform.Translate(Vector3.forward * 20f * Time.deltaTime);
+
+            shootTimer += Time.deltaTime;
+
+            if(shootTimer > 2f)
+            {
+                ball1.transform.position = ballStartPos.position;
+                ball1.gameObject.SetActive(false);
+                shootTimer = 0;
+                isShoot = false;
+            }
+        }
+        if (isSkill1CoolTime)
+        {
+            skill1CoolTimer -= Time.deltaTime;
+            Skill1_CoolTime.fillAmount = skill1CoolTimer / 10f;
+            if (skill1CoolTimer <= 0)
+            {
+                skill1CoolTimer = 10f;
+                Skill1_CoolTime.fillAmount = 1f;
+                Skill1_CoolTime.gameObject.SetActive(false);
+
+                isSkill1CoolTime = false;
+            }
+        }
+            
+
+
 
         GetInput();
 
