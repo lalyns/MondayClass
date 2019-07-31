@@ -11,7 +11,7 @@ public class MonsterATTACK : MonsterFSMState
 
     bool _CreateBall = false;
     bool _SetBall = false;
-    Transform bullet;
+    public Transform bullet;
 
     public override void BeginState()
     {
@@ -36,6 +36,7 @@ public class MonsterATTACK : MonsterFSMState
 
                 if (!_CreateBall)
                 {
+                    transform.LookAt(_manager.PlayerCapsule.transform);
                     bullet = Instantiate(_manager.Stat._AttackEffect,
                     _manager._AttackTransform.position,
                     Quaternion.identity).transform;
@@ -50,9 +51,16 @@ public class MonsterATTACK : MonsterFSMState
 
                     if (!_SetBall)
                     {
-                        bullet.GetComponent<Bullet>().LookAtTarget(_manager.PlayerCapsule.transform);
-                        bullet.GetComponent<Bullet>().dir = GameLib.DirectionToCharacter(_manager.CC, _manager.PlayerCapsule);
-                        bullet.GetComponent<Bullet>()._Move = true;
+                        try
+                        {
+                            bullet.GetComponent<Bullet>().LookAtTarget(_manager.PlayerCapsule.transform);
+                            bullet.GetComponent<Bullet>().dir = GameLib.DirectionToCharacter(_manager.CC, _manager.PlayerCapsule);
+                            bullet.GetComponent<Bullet>()._Move = true;
+                        }
+                        catch
+                        {
+
+                        }
                         _SetBall = true;
                     }
 

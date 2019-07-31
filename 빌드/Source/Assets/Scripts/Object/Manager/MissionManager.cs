@@ -105,6 +105,9 @@ public class MissionManager : MonoBehaviour
         /// </summary>
         
         DungeonManager.SetCurrentDungeon(dungeon);
+
+        DungeonManager.GetCurrentDungeon()._Mission.MissionInitialize();
+
         ObjectManager.SetSpawnPosition(dungeon._RespawnPositions);
         dungeon._ExitPosition.gameObject.SetActive(false);
     }
@@ -123,7 +126,7 @@ public class MissionManager : MonoBehaviour
 
     public void StartMission()
     {
-        _IsMissionStart = true;
+        DungeonManager.GetCurrentDungeon()._Mission.MissionStart();
         ObjectManager._Instance.CallSpawn();
     }
 
@@ -167,6 +170,14 @@ public class MissionManager : MonoBehaviour
         Debug.Log("미션 종료");
 
         DungeonManager.GetCurrentDungeon()._Trigger.isStart = false;
+        try
+        {
+            DungeonManager.GetCurrentDungeon()._Mission.MissionEnd();
+        }
+        catch
+        {
+
+        }
 
         MissionManager.PopUpMissionMenu();
 

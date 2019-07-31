@@ -95,6 +95,18 @@ public class MonsterFSMManager : FSMManager
         if(other.transform.tag == "Weapon")
         {
             ObjectManager.ReturnPoolMonster(this.gameObject, Stat.monsterData._IsRagne);
+            if(_CurrentState == MonsterState.ATTACK)
+            {
+                try
+                {
+                    Destroy(GetComponent<MonsterATTACK>().bullet.gameObject);
+                    GetComponent<MonsterATTACK>().bullet = null;
+                }
+                catch
+                {
+
+                }
+            }
         }
     }
 }

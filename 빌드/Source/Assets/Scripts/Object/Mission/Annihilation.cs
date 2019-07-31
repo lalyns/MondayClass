@@ -2,19 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Annihilation : MonoBehaviour
+public class Annihilation : Mission
 {
-    private MissionManager _MissionManager;
-
     [SerializeField] private MissionData _MissionData;
-    [SerializeField] private int _CurrentMissionLevel;
 
-    [System.NonSerialized] private bool _IsMissionStart;
-
-    private void Awake()
+    protected override void Awake()
     {
-        _IsMissionStart = false;
-        _MissionManager = MissionManager.GetMissionManager;
+        base.Awake();
     }
 
     private void Update()
@@ -31,11 +25,14 @@ public class Annihilation : MonoBehaviour
     {
         bool isClear = false;
 
-        if (_CurrentMissionLevel != 3) return isClear;
+        // 현재 데이터를 가져오는 구조가없기때문에 보류
+        //if (_CurrentMissionLevel != 0) return isClear;
 
         int activeItem =
             ObjectManager._Instance._ObjectPool[0]._ActiveItem.Count
             + ObjectManager._Instance._ObjectPool[1]._ActiveItem.Count;
+
+        //Debug.Log(activeItem);
 
         if(activeItem == 0)
         {
@@ -45,19 +42,5 @@ public class Annihilation : MonoBehaviour
         return isClear;
     }
 
-    private void MissionInitialize()
-    {
-        // 미션 데이터 초기화
-        _CurrentMissionLevel = 0;
-        _IsMissionStart = true;
-
-    }
-
-    private void MissionClear()
-    {
-        // 데이터 초기화
-        // 플레이어 버프 초기화
-        // 
-    }
 
 }

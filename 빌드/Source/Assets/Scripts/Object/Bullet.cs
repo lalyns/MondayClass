@@ -6,6 +6,11 @@ public class Bullet : MonoBehaviour
 {
     public float _Speed = 5f;
     public float _DestroyTime = 5f;
+
+    float _Size = 1f;
+    public int _IncreaseSize = 1;
+    public float _MaxSize = 1.4f;
+
     [System.NonSerialized]public float _Time;
 
     [System.NonSerialized] public Vector3 dir;
@@ -15,6 +20,17 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_Size < _MaxSize)
+        {
+            _Size += (float)_IncreaseSize / 100f * Time.deltaTime;
+        }
+        else
+        {
+            _Size = _MaxSize;
+        }
+
+        transform.localScale = Vector3.one * _Size;
+
         if (_Move)
         {
             _Time += Time.deltaTime;

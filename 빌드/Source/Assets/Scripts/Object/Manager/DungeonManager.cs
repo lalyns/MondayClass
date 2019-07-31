@@ -103,7 +103,7 @@ public class DungeonManager : MonoBehaviour
     /// <summary>
     /// 현재 던전의 클리어를 알려줍니다.
     /// </summary>
-    public void DungeonClearCallBack()
+    public void DungeonClear()
     {
         _CurrentDungeon._ExitPosition.gameObject.SetActive(true);
     }

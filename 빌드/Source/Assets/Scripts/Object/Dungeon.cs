@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Dungeon : MonoBehaviour
 {
+    public bool _IsLobby;
     public Transform _EnterPosition;
     public Collider _ExitPosition;
     public Transform _RespawnParent;
     public MissionTrigger _Trigger;
+    public Mission _Mission;
 
     [System.NonSerialized] public Transform[] _RespawnPositions;
 
@@ -15,6 +17,9 @@ public class Dungeon : MonoBehaviour
 
     private void Awake()
     {
+        if(!_IsLobby)
+            _Mission = GetComponent<Mission>();
+
         Transform[] temp = _RespawnParent.GetComponentsInChildren<Transform>();
         var tempLength = temp.Length - 1;
         _RespawnPositions = new Transform[tempLength];
@@ -29,6 +34,8 @@ public class Dungeon : MonoBehaviour
             }
         }
 
+        if(!_IsLobby)
+            _ExitPosition.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -42,13 +49,4 @@ public class Dungeon : MonoBehaviour
 
         _MissionData = missionData;
     }
-
-    public void DungeonClear()
-    {
-        DungeonManager manager = DungeonManager.GetDungeonManager();
-        manager._ClearCallback += manager.DungeonClearCallBack;
-        manager._ClearCallback();
-    }
-
-
 }
