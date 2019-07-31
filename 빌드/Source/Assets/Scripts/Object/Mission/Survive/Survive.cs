@@ -5,6 +5,7 @@ using UnityEngine;
 public class Survive : Mission
 {
     public float _Progress = 0.0f;
+    public float _VictoryProgress = 100.0f;
 
     public Transform[] _BeadStartPosition;
     public GameObject[] _BeadPositionEffect;
@@ -53,7 +54,7 @@ public class Survive : Mission
         // 현재 데이터를 가져오는 구조가없기때문에 보류
         //if (_CurrentMissionLevel != 0) return isClear;
 
-        if (_Progress >= 10.0f)
+        if (_Progress >= _VictoryProgress)
         {
             isClear = true;
         }

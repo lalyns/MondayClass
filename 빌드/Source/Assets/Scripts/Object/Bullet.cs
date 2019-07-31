@@ -50,9 +50,14 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "Player")
+        if (other.transform.tag == "Player")
         {
             Destroy(this.gameObject);
+        }
+
+        if (other.transform.tag == "")
+        {
+
         }
     }
 }

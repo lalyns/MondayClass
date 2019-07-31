@@ -43,7 +43,7 @@ public class Mission : MonoBehaviour
     public virtual void MissionEnd()
     {
         _IsMissionStart = false;
-
+        _IsMissionClear = false;
     }
 
 }

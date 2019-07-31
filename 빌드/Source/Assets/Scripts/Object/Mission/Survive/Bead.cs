@@ -17,11 +17,21 @@ public class Bead : MonoBehaviour
         {
             DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress += 10f;
             Debug.Log(DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress);
+
+            DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[
+                    DungeonManager.GetCurrentDungeon().GetComponent<Survive>().pos].SetActive(false);
+
             Destroy(this.gameObject);
         }
 
-        DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[
-                DungeonManager.GetCurrentDungeon().GetComponent<Survive>().pos].SetActive(false);
+        if(other.transform.tag == "Stage")
+        {
+            DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[
+                    DungeonManager.GetCurrentDungeon().GetComponent<Survive>().pos].SetActive(false);
+
+            Destroy(this.gameObject);
+        }
+
     }
 
 }
