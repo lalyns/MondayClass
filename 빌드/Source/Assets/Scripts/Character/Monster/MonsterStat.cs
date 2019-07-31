@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MonsterStat : CharacterStat
 {
+    public MonsterData monsterData;
+
     public GameObject _AttackEffect;
 
     public Material _NormalMat;

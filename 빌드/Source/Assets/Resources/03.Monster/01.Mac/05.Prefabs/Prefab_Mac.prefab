@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 930953621354057857}
   m_Layer: 0
   m_Name: Prefab_Mac
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,8 +50,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3694473066860267770}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e7e395e8dc958fc40bbc6b3a476e6f4b, type: 3}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a2196af4f07abbf489b5d10b06af464d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -73,7 +73,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastHitBy: {fileID: 0}
-  statData: {fileID: 0}
+  statData: {fileID: 11400000, guid: c4e880e7851cfe4489aa5466459f6054, type: 2}
+  monsterData: {fileID: 11400000, guid: c4e880e7851cfe4489aa5466459f6054, type: 2}
   _AttackEffect: {fileID: 683224376945695534, guid: 2ef81e32742d88a47acc8799384c9a83,
     type: 3}
   _NormalMat: {fileID: 2100000, guid: 261635bee463482459449e0fce9945cb, type: 2}
@@ -158,8 +159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520938f3dc454bf46b8b4f43dc360683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _BeforeAttack: 0.8
+  _AttackBeforeTime: 0.8
   _AttackTime: 3
+  _AfterAttackTime: 1
   _Time: 0
 --- !u!143 &930953621354057857
 CharacterController:
