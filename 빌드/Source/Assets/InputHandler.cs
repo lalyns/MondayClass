@@ -73,8 +73,15 @@ public class InputHandler : MonoBehaviour
         isFever = false;
 
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
-        SwingEffect = GameObject.Find("SwingEffect").GetComponent<Transform>();
-        SwingEffect.gameObject.SetActive(false);
+        try
+        {
+            SwingEffect = GameObject.Find("SwingEffect").GetComponent<Transform>();
+            SwingEffect.gameObject.SetActive(false);
+        }
+        catch
+        {
+
+        }
         Attack_Capsule.enabled = false;
 
         root_Bone = GameObject.Find("root_Bone").GetComponent<Transform>();
@@ -136,7 +143,7 @@ public class InputHandler : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Debug.Log("마우스누름");
-            SwingEffect.gameObject.SetActive(true);
+            //SwingEffect.gameObject.SetActive(true);
         }
         root_Bone.transform.position = root_Bone.transform.forward * anim1.GetFloat("Direction_Y");
 
@@ -226,7 +233,7 @@ public class InputHandler : MonoBehaviour
                 {
                     anim1.SetInteger("CurrentAttack", 4);
                     Attack_Capsule.enabled = false;
-                    SwingEffect.gameObject.SetActive(false);
+                    //SwingEffect.gameObject.SetActive(false);
                     if (Timer1 >= 1.1f)
                     {
                         anim1.SetInteger("CurrentAttack", 0);

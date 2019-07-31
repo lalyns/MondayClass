@@ -50,7 +50,7 @@ public class MonsterATTACK : MonsterFSMState
 
                     if (!_SetBall)
                     {
-
+                        bullet.GetComponent<Bullet>().LookAtTarget(_manager.PlayerCapsule.transform);
                         bullet.GetComponent<Bullet>().dir = GameLib.DirectionToCharacter(_manager.CC, _manager.PlayerCapsule);
                         bullet.GetComponent<Bullet>()._Move = true;
                         _SetBall = true;
