@@ -10,6 +10,9 @@ public class MissionManager : MonoBehaviour
     public GameObject _UIMission;
 
     public static MissionManager _Instance;
+    public static MissionManager GetMissionManager {
+        get { return _Instance; }
+    }
     public MissionButton[] _Choices;
 
     public MissionType _CurrentMission;

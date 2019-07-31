@@ -27,6 +27,11 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    public void LookAtTarget(Transform target)
+    {
+        this.transform.LookAt(target);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.transform.tag == "Player")
