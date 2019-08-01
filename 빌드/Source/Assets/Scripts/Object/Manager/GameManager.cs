@@ -41,6 +41,18 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void OnGUI()
+    {
+        if (GUI.RepeatButton(new Rect(Screen.width / 100f * 80f , Screen.height * 0.8f, 230, 85), 
+            "조작법 \n" +
+            "이동 : W A S D \n" +
+            "공격 : 마우스 좌클릭\n" +
+            "회피 : LeftShift \n" +
+            "스킬 : F"
+            )) { }
+
+    }
+
     public static void CursorMode(bool isLock)
     {
         if (_Instance._EditorCursorLock)
