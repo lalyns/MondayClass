@@ -35,7 +35,11 @@ public class Survive : Mission
         _LimitTime -= Time.deltaTime;
 
         _Time += Time.deltaTime;
-        if(_Time >= _BeadGenerationTime)
+
+        _UI.SetProgress(_Progress, _VictoryProgress);
+        _UI.SetLeftSurviveTime(_LimitTime);
+
+        if (_Time >= _BeadGenerationTime)
         {
             pos = UnityEngine.Random.Range(0, _BeadStartPosition.Length - 1);
             _Time = 0.0f;
@@ -57,6 +61,7 @@ public class Survive : Mission
         _UI._SurviveUI.SetActive(true);
         _UI.SetMissionType("생존 미션");
         _UI.SetMissionString("구슬을 받아 생존하시오");
+        _LimitTime = 180f;
     }
 
     private bool CheckForClear()
@@ -66,8 +71,6 @@ public class Survive : Mission
         // 현재 데이터를 가져오는 구조가없기때문에 보류
         //if (_CurrentMissionLevel != 0) return isClear;
 
-        _UI.SetProgress(_Progress, _VictoryProgress);
-        _UI.SetLeftSurviveTime(_LimitTime);
 
         if (_Progress >= _VictoryProgress)
         {

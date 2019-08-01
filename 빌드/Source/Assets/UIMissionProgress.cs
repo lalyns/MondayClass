@@ -53,7 +53,7 @@ public class UIMissionProgress : MonoBehaviour
         int mm = (int)time / 60;
         int ss = (int)time % 60;
 
-        _LeftTime.text = "남은 시간 : " + mm + " : " + ss;
+        _LeftSurviveTime.text = "남은 시간 : " + mm + " : " + ss;
     }
 
     public void SetProtectedTargetHP(float hp)
