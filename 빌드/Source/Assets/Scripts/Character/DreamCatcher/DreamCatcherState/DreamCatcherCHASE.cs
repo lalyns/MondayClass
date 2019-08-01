@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterCHASE : MonsterFSMState
+public class DreamCatcherCHASE : MacFSMState
 {
     public override void BeginState()
     {

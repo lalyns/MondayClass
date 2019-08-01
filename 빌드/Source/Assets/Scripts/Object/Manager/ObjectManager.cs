@@ -52,7 +52,6 @@ public class ObjectManager : MonoBehaviour
 
         for (int i = 0; i < NumberOfTimesSpawn; i++)
         {
-            Debug.Log("CallSpawn");
             curSpawnPos = 0;
 
             var setValue = UnityEngine.Random.Range(0, missionData.NumberOfMeleeMonsterOnWaves.Length);

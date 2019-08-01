@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterATTACK : MonsterFSMState
+public class MacATTACK : MacFSMState
 {
     public float _AttackBeforeTime = 0.8f;
     public float _AttackTime = 3.0f;

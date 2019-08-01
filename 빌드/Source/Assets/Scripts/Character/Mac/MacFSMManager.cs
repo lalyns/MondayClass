@@ -10,12 +10,12 @@ public enum MonsterState
     DEAD
 }
 
-[RequireComponent(typeof(MonsterStat))]
-public class MonsterFSMManager : FSMManager
+[RequireComponent(typeof(MacStat))]
+public class MacFSMManager : FSMManager
 {
     private bool _isInit = false;
     public MonsterState startState = MonsterState.POPUP;
-    private Dictionary<MonsterState, MonsterFSMState> _States = new Dictionary<MonsterState, MonsterFSMState>();
+    private Dictionary<MonsterState, MacFSMState> _States = new Dictionary<MonsterState, MacFSMState>();
 
     private MonsterState _CurrentState;
     public MonsterState CurrentState {
@@ -24,7 +24,7 @@ public class MonsterFSMManager : FSMManager
         }
     }
 
-    public MonsterFSMState CurrentStateComponent {
+    public MacFSMState CurrentStateComponent {
         get {
             return _States[_CurrentState];
         }
@@ -36,8 +36,8 @@ public class MonsterFSMManager : FSMManager
     private CapsuleCollider _PlayerCapsule;
     public CapsuleCollider PlayerCapsule { get { return _PlayerCapsule; } }
 
-    private MonsterStat _Stat;
-    public MonsterStat Stat { get { return _Stat; } }
+    private MacStat _Stat;
+    public MacStat Stat { get { return _Stat; } }
 
     private Animator _Anim;
     public Animator Anim { get { return _Anim; } }
@@ -50,7 +50,7 @@ public class MonsterFSMManager : FSMManager
         base.Awake();
 
         _CC = GetComponent<CharacterController>();
-        _Stat = GetComponent<MonsterStat>();
+        _Stat = GetComponent<MacStat>();
         _Anim = GetComponentInChildren<Animator>();
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
@@ -58,12 +58,12 @@ public class MonsterFSMManager : FSMManager
         MonsterState[] stateValues = (MonsterState[])System.Enum.GetValues(typeof(MonsterState));
         foreach (MonsterState s in stateValues)
         {
-            System.Type FSMType = System.Type.GetType("Monster" + s.ToString());
-            MonsterFSMState state = (MonsterFSMState)GetComponent(FSMType);
+            System.Type FSMType = System.Type.GetType("Mac" + s.ToString());
+            MacFSMState state = (MacFSMState)GetComponent(FSMType);
 
             if(null == state)
             {
-                state = (MonsterFSMState)gameObject.AddComponent(FSMType);
+                state = (MacFSMState)gameObject.AddComponent(FSMType);
             }
 
             _States.Add(s, state);
@@ -99,8 +99,8 @@ public class MonsterFSMManager : FSMManager
             {
                 try
                 {
-                    Destroy(GetComponent<MonsterATTACK>().bullet.gameObject);
-                    GetComponent<MonsterATTACK>().bullet = null;
+                    Destroy(GetComponent<MacATTACK>().bullet.gameObject);
+                    GetComponent<MacATTACK>().bullet = null;
                 }
                 catch
                 {

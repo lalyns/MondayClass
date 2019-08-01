@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterStat : CharacterStat
+public class MacStat : CharacterStat
 {
     public MonsterData monsterData;
 

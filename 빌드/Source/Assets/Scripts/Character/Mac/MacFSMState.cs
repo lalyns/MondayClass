@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MonsterFSMManager))]
-public class MonsterFSMState : MonoBehaviour
+[RequireComponent(typeof(MacFSMManager))]
+public class MacFSMState : MonoBehaviour
 {
-    protected MonsterFSMManager _manager;
+    protected MacFSMManager _manager;
 
     private void Awake()
     {
-        _manager = GetComponent<MonsterFSMManager>();
+        _manager = GetComponent<MacFSMManager>();
     }
 
     public virtual void BeginState()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterPOPUP : MonsterFSMState
+public class MacPOPUP : MacFSMState
 {
     public override void BeginState()
     {
