@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DreamCatcherDEAD : MacFSMState
+public class DreamCatcherDEAD : DreamCatcherFSMState
 {
     // Start is called before the first frame update
     void Start()

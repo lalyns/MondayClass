@@ -26,7 +26,7 @@ public class MacCHASE : MacFSMState
             _manager._MR.material = _manager.Stat._NormalMat;
             _manager.CC.transform.LookAt(_manager.PlayerCapsule.transform);
             _manager.CC.transform.position = Vector3.Lerp(_manager.CC.transform.position,
-                _manager.PlayerCapsule.transform.position, 0.3f);
+                _manager.PlayerCapsule.transform.position, 0.3f * Time.deltaTime);
         }
     }
 }

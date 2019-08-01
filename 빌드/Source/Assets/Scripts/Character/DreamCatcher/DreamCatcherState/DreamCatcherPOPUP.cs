@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DreamCatcherPOPUP : MacFSMState
+public class DreamCatcherPOPUP : DreamCatcherFSMState
 {
     public override void BeginState()
     {

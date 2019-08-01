@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MacStat))]
+[RequireComponent(typeof(DreamCatcherStat))]
 public class DreamCatcherFSMManager : FSMManager
 {
     private bool _isInit = false;
@@ -87,18 +87,7 @@ public class DreamCatcherFSMManager : FSMManager
         if(other.transform.tag == "Weapon")
         {
             ObjectManager.ReturnPoolMonster(this.gameObject, Stat.monsterData._IsRagne);
-            if(_CurrentState == MonsterState.ATTACK)
-            {
-                try
-                {
-                    Destroy(GetComponent<DreamCatcherATTACK>().bullet.gameObject);
-                    GetComponent<DreamCatcherATTACK>().bullet = null;
-                }
-                catch
-                {
-
-                }
-            }
+            
         }
     }
 }
