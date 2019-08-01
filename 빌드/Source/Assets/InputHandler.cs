@@ -98,7 +98,7 @@ public class InputHandler : MonoBehaviour
     public void AttackCheck()
     {
         Attack_Capsule.enabled = true;
-        
+
     }
     private void FixedUpdate()
     {
@@ -137,12 +137,47 @@ public class InputHandler : MonoBehaviour
 
         //UpdateStates();
         states.FixedTick(delta);
-
-        // 임시 회피 코드
-        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.LeftShift))
+        //앞
+        if (Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
+        {
+            anim1.transform.position = anim1.transform.position + (anim1.transform.forward * 10f);
+        }
+        //왼
+        if (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
+        {
+            anim1.transform.position = anim1.transform.position + (anim1.transform.right * -10f);
+        }
+        //뒤
+        if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            anim1.transform.position = anim1.transform.position + (anim1.transform.forward * -10f);
+        }
+        //오
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S))
         {
             anim1.transform.position = anim1.transform.position + (anim1.transform.right * 10f);
         }
+        //왼앞
+        if (Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.LeftShift) && Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
+        {
+            anim1.transform.position = anim1.transform.position + (anim1.transform.forward * 5f) + (anim1.transform.right * -5f);
+        }
+        //오앞
+        if (Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+        {
+            anim1.transform.position = anim1.transform.position + (anim1.transform.forward * 5f) + (anim1.transform.right * 5f);
+        }
+        //왼뒤
+        if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            anim1.transform.position = anim1.transform.position + (anim1.transform.forward * -5f) + (anim1.transform.right * -5f);
+        }
+        //오뒤
+        if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
+        {
+            anim1.transform.position = anim1.transform.position + (anim1.transform.forward * -5f) + (anim1.transform.right * 5f);
+        }
+
     }
     public SphereCollider ball1;
     bool isBall, isShoot;
@@ -188,7 +223,7 @@ public class InputHandler : MonoBehaviour
 
             shootTimer += Time.deltaTime;
 
-            if(shootTimer > 2f)
+            if (shootTimer > 2f)
             {
                 ball1.transform.position = ballStartPos.position;
                 ball1.gameObject.SetActive(false);
@@ -209,7 +244,7 @@ public class InputHandler : MonoBehaviour
                 isSkill1CoolTime = false;
             }
         }
-            
+
 
 
 
@@ -253,7 +288,7 @@ public class InputHandler : MonoBehaviour
             if (isFever)
                 anim2.SetInteger("CurrentAttack", 1);
 
-            if(!isAttackTwo && !isAttackThree)
+            if (!isAttackTwo && !isAttackThree)
                 isAttackOne = true;
 
             //StartCoroutine(shake.ShakeCamera());
@@ -271,7 +306,7 @@ public class InputHandler : MonoBehaviour
                 //if (Input.GetKeyDown(KeyCode.Space))
                 if (Input.GetMouseButtonDown(0))
                 {
-                    isAttackTwoReady = true;                   
+                    isAttackTwoReady = true;
                 }
                 if (isAttackTwoReady)
                 {
@@ -286,7 +321,7 @@ public class InputHandler : MonoBehaviour
                         isAttackTwo = true;
                         //시간 초기화
                         Timer1 = 0;
-                       // StartCoroutine(shake.ShakeCamera());
+                        // StartCoroutine(shake.ShakeCamera());
                         isAttackTwoReady = false;
                         return;
                     }
@@ -319,7 +354,7 @@ public class InputHandler : MonoBehaviour
         if (isAttackTwo)
         {
             Timer2 += Time.deltaTime;
-        
+
             if (Input.GetMouseButtonDown(0))
             {
                 isAttackThreeReady = true;
@@ -327,7 +362,7 @@ public class InputHandler : MonoBehaviour
             if (isAttackThreeReady)
             {
                 //0.333f 안에 마우스 눌렀으면 0.333f초 후 3타 시작.
-                if(Timer2 >= 0.5f)
+                if (Timer2 >= 0.5f)
                 {
                     if (!isFever)
                         anim1.SetInteger("CurrentAttack", 3);
@@ -355,7 +390,7 @@ public class InputHandler : MonoBehaviour
                 SwingEffect.gameObject.SetActive(false);
                 return;
             }
-           
+
 
         }
         if (isAttackThree)
@@ -446,7 +481,7 @@ public class InputHandler : MonoBehaviour
             anim1.SetFloat("Direction_Y", 0);
             anim1.SetFloat("Direction_X", horizontal);
         }
-        else if(!(horizontal == 0f && vertical == 0f))
+        else if (!(horizontal == 0f && vertical == 0f))
         {
             anim1.SetFloat("Direction_Y", vertical);
             anim1.SetFloat("Direction_X", horizontal);

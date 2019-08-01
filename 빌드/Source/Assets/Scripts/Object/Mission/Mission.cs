@@ -8,6 +8,8 @@ public class Mission : MonoBehaviour
     public bool _IsMissionStart;
     public bool _IsMissionClear;
 
+    [SerializeField] protected UIMissionProgress _UI;
+
     protected MissionManager _MissionManager;
     protected Dungeon _Dungeon;
 
@@ -18,7 +20,7 @@ public class Mission : MonoBehaviour
         _Dungeon = GetComponent<Dungeon>();
     }
 
-    public void MissionInitialize()
+    public virtual void MissionInitialize()
     {
         // 미션 데이터 초기화
         _CurrentMissionLevel = 0;

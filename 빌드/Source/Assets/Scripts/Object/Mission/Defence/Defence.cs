@@ -15,7 +15,6 @@ public class Defence : Mission
     protected override void Awake()
     {
         base.Awake();
-        _CurrentLeftTime = _LimitTime;
     }
 
     private void Update()
@@ -24,12 +23,26 @@ public class Defence : Mission
 
         _CurrentLeftTime -= Time.deltaTime;
 
+        _ProtectedTargetHP = _ProtectedTarget.hp;
+
+        _UI.SetProtectedTargetHP(_ProtectedTargetHP);
+        _UI.SetLeftDefenceTime(_CurrentLeftTime);
 
         if (CheckForClear())
         {
             MissionClear();
             _IsMissionClear = true;
         }
+    }
+
+    public override void MissionInitialize()
+    {
+        base.MissionInitialize();
+        _UI._DefenceUI.SetActive(true);
+        _UI.SetMissionType("방어 미션");
+        _UI.SetMissionString("남은 시간동안 대상을 보호하십시오");
+        _CurrentLeftTime = _LimitTime;
+        _ProtectedTarget.SetProtectedHP();
     }
 
     private bool CheckForClear()
@@ -67,5 +80,6 @@ public class Defence : Mission
 
         _ProtectedTarget.hp = 100;
         _CurrentLeftTime = _LimitTime;
+        _UI._DefenceUI.SetActive(false);
     }
 }

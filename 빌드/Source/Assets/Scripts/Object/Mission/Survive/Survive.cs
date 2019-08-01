@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Survive : Mission
 {
-    public float _Progress = 0.0f;
-    public float _VictoryProgress = 100.0f;
+    public int _Progress = 0;
+    public int _VictoryProgress = 100;
+
+    public float _LimitTime = 180f;
 
     public Transform[] _BeadStartPosition;
     public GameObject[] _BeadPositionEffect;
@@ -30,6 +32,8 @@ public class Survive : Mission
     {
         if (!_IsMissionStart || _IsMissionClear) return;
 
+        _LimitTime -= Time.deltaTime;
+
         _Time += Time.deltaTime;
         if(_Time >= _BeadGenerationTime)
         {
@@ -47,12 +51,23 @@ public class Survive : Mission
         }
     }
 
+    public override void MissionInitialize()
+    {
+        base.MissionInitialize();
+        _UI._SurviveUI.SetActive(true);
+        _UI.SetMissionType("생존 미션");
+        _UI.SetMissionString("구슬을 받아 생존하시오");
+    }
+
     private bool CheckForClear()
     {
         bool isClear = false;
 
         // 현재 데이터를 가져오는 구조가없기때문에 보류
         //if (_CurrentMissionLevel != 0) return isClear;
+
+        _UI.SetProgress(_Progress, _VictoryProgress);
+        _UI.SetLeftSurviveTime(_LimitTime);
 
         if (_Progress >= _VictoryProgress)
         {
@@ -80,6 +95,8 @@ public class Survive : Mission
     {
         base.MissionEnd();
 
-        _Progress = 0.0f;
+        _Progress = 0;
+        _LimitTime = 180.0f;
+        _UI._SurviveUI.SetActive(false);
     }
 }

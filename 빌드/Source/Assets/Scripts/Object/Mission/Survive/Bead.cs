@@ -13,9 +13,10 @@ public class Bead : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "Player")
+        Debug.Log(other.transform.name);
+        if (other.transform.tag == "Player")
         {
-            DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress += 10f;
+            DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress += 10;
             Debug.Log(DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress);
 
             DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[

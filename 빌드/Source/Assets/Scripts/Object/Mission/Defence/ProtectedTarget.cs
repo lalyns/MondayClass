@@ -6,10 +6,14 @@ public class ProtectedTarget : MonoBehaviour
 {
     public Defence _Defence;
 
-    public int hp;
+    [System.NonSerialized] public int hp;
 
     // Start is called before the first frame update
     void Start()
+    {
+    }
+
+    public void SetProtectedHP()
     {
         hp = _Defence._ProtectedTargetHP;
     }

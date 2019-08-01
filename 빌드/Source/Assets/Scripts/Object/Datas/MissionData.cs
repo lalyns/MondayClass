@@ -11,6 +11,8 @@ public class MissionData : ScriptableObject
     public float CycleOfTimeRespawn;
 
     public Sprite MissionName;
+    public string MissionString;
+    public string MissionSubject;
     public Sprite MissionIcon;
     public string MissionText;
 
