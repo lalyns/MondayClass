@@ -34,7 +34,7 @@ public class DreamCatcherATTACK : DreamCatcherFSMState
         }
         else
         {
-            _manager.SetState(MonsterState.CHASE);
+            _manager.SetState(DreamCatcherState.CHASE);
         }
 
     }

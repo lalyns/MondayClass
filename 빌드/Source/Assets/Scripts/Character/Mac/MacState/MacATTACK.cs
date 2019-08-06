@@ -71,13 +71,15 @@ public class MacATTACK : MacFSMState
                     _Time = 0.0f;
                     _CreateBall = false;
                     _SetBall = false;
+
+                    _manager.SetState(MacState.RUNAWAY);
                 }
             }
 
         }
         else
         {
-            _manager.SetState(MonsterState.CHASE);
+            _manager.SetState(MacState.CHASE);
         }
 
     }
