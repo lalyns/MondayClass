@@ -16,6 +16,6 @@ public class DreamCatcherPOPUP : DreamCatcherFSMState
 
     private void Update()
     {
-        _manager.SetState(MonsterState.CHASE);
+        _manager.SetState(DreamCatcherState.CHASE);
     }
 }

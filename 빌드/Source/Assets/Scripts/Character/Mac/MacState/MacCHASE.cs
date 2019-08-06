@@ -18,7 +18,7 @@ public class MacCHASE : MacFSMState
     {
         if(GameLib.DistanceToCharacter(_manager.CC,_manager.PlayerCapsule) < _manager.Stat._AttackRange)
         {
-            _manager.SetState(MonsterState.ATTACK);
+            _manager.SetState(MacState.ATTACK);
         }
 
         else

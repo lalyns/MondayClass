@@ -18,7 +18,7 @@ public class DreamCatcherCHASE : DreamCatcherFSMState
     {
         if(GameLib.DistanceToCharacter(_manager.CC,_manager.PlayerCapsule) < _manager.Stat._AttackRange)
         {
-            _manager.SetState(MonsterState.ATTACK);
+            _manager.SetState(DreamCatcherState.ATTACK);
         }
 
         else
