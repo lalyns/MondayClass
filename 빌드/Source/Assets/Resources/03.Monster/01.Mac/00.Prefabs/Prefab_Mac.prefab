@@ -10,14 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 3694473066860238042}
   - component: {fileID: 3694473066867669818}
+  - component: {fileID: 930953621354057857}
   - component: {fileID: 2540511442873728877}
   - component: {fileID: 416607293978030156}
   - component: {fileID: 1507151220382362964}
   - component: {fileID: 5136133771846456272}
   - component: {fileID: 416258633087044805}
   - component: {fileID: 3378862898217206883}
+  - component: {fileID: 9173353285080401422}
   - component: {fileID: 1765374230791495563}
-  - component: {fileID: 930953621354057857}
   m_Layer: 0
   m_Name: Prefab_Mac
   m_TagString: Monster
@@ -60,6 +61,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!143 &930953621354057857
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3694473066860267770}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1.12
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.5
+  m_SkinWidth: 0.13
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!114 &2540511442873728877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +166,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76baac34b2936d444bc10725ef10b458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9173353285080401422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3694473066860267770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cd725d42221243469efec1e6d4298a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _SetTarget: 0
 --- !u!114 &1765374230791495563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,24 +195,7 @@ MonoBehaviour:
   _AttackTime: 3
   _AfterAttackTime: 1
   _Time: 0
---- !u!143 &930953621354057857
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3694473066860267770}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1.12
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.5, z: 0}
+  bullet: {fileID: 0}
 --- !u!1 &6420486007606712175
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +268,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mack Monster
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 1fa68d166fcb27d48887b003a7de06dc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 261635bee463482459449e0fce9945cb, type: 2}
     - target: {fileID: 400000, guid: 1fa68d166fcb27d48887b003a7de06dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -297,10 +316,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 1fa68d166fcb27d48887b003a7de06dc, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 261635bee463482459449e0fce9945cb, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fa68d166fcb27d48887b003a7de06dc, type: 3}
 --- !u!4 &3492784131513562606 stripped

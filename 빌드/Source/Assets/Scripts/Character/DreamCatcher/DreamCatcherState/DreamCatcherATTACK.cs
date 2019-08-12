@@ -38,4 +38,9 @@ public class DreamCatcherATTACK : DreamCatcherFSMState
         }
 
     }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
 }
