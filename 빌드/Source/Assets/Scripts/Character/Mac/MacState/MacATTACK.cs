@@ -27,7 +27,7 @@ public class MacATTACK : MacFSMState
     {
         _Time += Time.deltaTime;
 
-        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) < _manager.Stat._AttackRange)
+        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) < _manager.Stat.statData._AttackRange)
         {
             if (_Time > _AttackTime)
             {

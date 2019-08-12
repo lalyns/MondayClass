@@ -16,6 +16,12 @@ public class StatData : ScriptableObject
 
     public bool _AttackType; // True = Range, False = Melee
 
+    public float _SkillCoolTime1;
+    public float _SkillCoolTime2;
+
+    public float _DashSpeed;
+    public float _AttackRange;
+
     // if AttackType is melee, using this datas.
     public float _AttackCapsule_Center;
     public float _AttackCapsule_Radius;

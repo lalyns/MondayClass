@@ -120,11 +120,8 @@ public class ObjectManager : MonoBehaviour
     {
         for(int i=0; i<2; i++)
         {
-            Debug.Log("Delete1");
             while(_Instance._ObjectPool[i]._ActiveItem.Count != 0)
             {
-
-                Debug.Log("Delete2");
                 _Instance._ObjectPool[i].ItemReturnPool(
                     _Instance._ObjectPool[i]._ActiveItem.First.Value);
 
