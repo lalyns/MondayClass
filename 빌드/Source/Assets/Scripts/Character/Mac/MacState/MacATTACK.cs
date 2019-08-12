@@ -83,4 +83,9 @@ public class MacATTACK : MacFSMState
         }
 
     }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
 }

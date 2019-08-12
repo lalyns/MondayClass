@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DreamCatcherCHASE : DreamCatcherFSMState
 {
+    bool _IsSpread = false;
+
     public override void BeginState()
     {
         base.BeginState();
@@ -11,6 +13,8 @@ public class DreamCatcherCHASE : DreamCatcherFSMState
 
     public override void EndState()
     {
+        _IsSpread = false;
+
         base.EndState();
     }
 
@@ -24,8 +28,40 @@ public class DreamCatcherCHASE : DreamCatcherFSMState
         else
         {
             _manager.CC.transform.LookAt(_manager.PlayerCapsule.transform);
-            _manager.CC.transform.position = Vector3.Lerp(_manager.CC.transform.position,
-                _manager.PlayerCapsule.transform.position, 0.3f * Time.deltaTime);
+
+            Vector3 moveDir = _manager.PlayerCapsule.transform.position
+                - _manager.CC.transform.position;
+
+            if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
+            {
+                Vector3 correctDir = Vector3.zero;
+                if (!_IsSpread)
+                {
+                    correctDir = DecideSpreadDirection();
+                    _IsSpread = true;
+                }
+
+                moveDir += correctDir;
+            }
+
+            _manager.CC.Move(moveDir * Time.deltaTime);
         }
+    }
+
+
+    private Vector3 DecideSpreadDirection()
+    {
+        Vector3 correctDir;
+
+        correctDir = UnityEngine.Random.Range(1, 100) % 2 == 0 ? transform.right : -transform.right;
+        correctDir += transform.forward;
+
+        return correctDir;
+    }
+
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
     }
 }

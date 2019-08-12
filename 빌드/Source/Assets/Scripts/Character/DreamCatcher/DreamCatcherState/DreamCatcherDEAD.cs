@@ -15,4 +15,9 @@ public class DreamCatcherDEAD : DreamCatcherFSMState
     {
         
     }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
 }

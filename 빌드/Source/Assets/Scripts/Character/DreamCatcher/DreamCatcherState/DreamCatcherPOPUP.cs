@@ -18,4 +18,9 @@ public class DreamCatcherPOPUP : DreamCatcherFSMState
     {
         _manager.SetState(DreamCatcherState.CHASE);
     }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
 }
