@@ -2,31 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DreamCatcherState
+public enum TiberState
 {
     POPUP = 0,
     CHASE,
     ATTACK,
-    DEAD,
-    DASH
+    RUNAWAY,
+    DEAD
 }
-
-
-[RequireComponent(typeof(DreamCatcherStat))]
-public class DreamCatcherFSMManager : FSMManager
+[RequireComponent(typeof(TiberStat))]
+public class TiberFSMManager : FSMManager
 {
     private bool _isInit = false;
-    public DreamCatcherState startState = DreamCatcherState.POPUP;
-    private Dictionary<DreamCatcherState, DreamCatcherFSMState> _States = new Dictionary<DreamCatcherState, DreamCatcherFSMState>();
+    public TiberState startState = TiberState.POPUP;
+    private Dictionary<TiberState, TiberFSMState> _States = new Dictionary<TiberState, TiberFSMState>();
 
-    private DreamCatcherState _CurrentState;
-    public DreamCatcherState CurrentState {
+    private TiberState _CurrentState;
+    public TiberState CurrentState {
         get {
             return _CurrentState;
         }
     }
 
-    public DreamCatcherFSMState CurrentStateComponent {
+    public TiberFSMState CurrentStateComponent {
         get {
             return _States[_CurrentState];
         }
@@ -38,35 +36,34 @@ public class DreamCatcherFSMManager : FSMManager
     private CapsuleCollider _PlayerCapsule;
     public CapsuleCollider PlayerCapsule { get { return _PlayerCapsule; } }
 
-    private DreamCatcherStat _Stat;
-    public DreamCatcherStat Stat { get { return _Stat; } }
+    private TiberStat _Stat;
+    public TiberStat Stat { get { return _Stat; } }
 
     private Animator _Anim;
     public Animator Anim { get { return _Anim; } }
 
     public Transform _AttackTransform;
-    public SkinnedMeshRenderer _MR;
-    public LineRenderer _DashRoute;
+    public MeshRenderer _MR;
 
     protected override void Awake()
     {
         base.Awake();
 
         _CC = GetComponent<CharacterController>();
-        _Stat = GetComponent<DreamCatcherStat>();
+        _Stat = GetComponent<TiberStat>();
         _Anim = GetComponentInChildren<Animator>();
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
-        DreamCatcherState[] stateValues = (DreamCatcherState[])System.Enum.GetValues(typeof(DreamCatcherState));
-        foreach (DreamCatcherState s in stateValues)
+        TiberState[] stateValues = (TiberState[])System.Enum.GetValues(typeof(TiberState));
+        foreach (TiberState s in stateValues)
         {
-            System.Type FSMType = System.Type.GetType("DreamCatcher" + s.ToString());
-            DreamCatcherFSMState state = (DreamCatcherFSMState)GetComponent(FSMType);
+            System.Type FSMType = System.Type.GetType("Tiber" + s.ToString());
+            TiberFSMState state = (TiberFSMState)GetComponent(FSMType);
 
             if(null == state)
             {
-                state = (DreamCatcherFSMState)gameObject.AddComponent(FSMType);
+                state = (TiberFSMState)gameObject.AddComponent(FSMType);
             }
 
             _States.Add(s, state);
@@ -80,7 +77,7 @@ public class DreamCatcherFSMManager : FSMManager
         _isInit = true;
     }
 
-    public void SetState(DreamCatcherState newState)
+    public void SetState(TiberState newState)
     {
         if (_isInit)
         {
@@ -95,9 +92,9 @@ public class DreamCatcherFSMManager : FSMManager
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "Weapon")
+        if (other.transform.tag == "Weapon")
         {
-            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);
+            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.Tiber);
         }
     }
 }

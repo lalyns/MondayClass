@@ -8312,6 +8312,7 @@ Transform:
   m_Children:
   - {fileID: 706605955}
   - {fileID: 1803886952}
+  - {fileID: 1872446724}
   m_Father: {fileID: 1958291359}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8330,6 +8331,7 @@ MonoBehaviour:
   _ObjectPool:
   - {fileID: 706605956}
   - {fileID: 1803886953}
+  - {fileID: 1872446725}
   _SpawnPosition: []
 --- !u!1 &399574905
 GameObject:
@@ -14246,7 +14248,7 @@ GameObject:
   - component: {fileID: 706605955}
   - component: {fileID: 706605956}
   m_Layer: 0
-  m_Name: MeleeMonsterPool
+  m_Name: DreamCatcherPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36335,7 +36337,7 @@ GameObject:
   - component: {fileID: 1803886952}
   - component: {fileID: 1803886953}
   m_Layer: 0
-  m_Name: RangeMonsterPool
+  m_Name: MacPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38135,6 +38137,52 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1869890166}
   m_Mesh: {fileID: 4300004, guid: a1ce5be76dbaf4c4398d8d6789a61fe8, type: 3}
+--- !u!1 &1872446723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1872446724}
+  - component: {fileID: 1872446725}
+  m_Layer: 0
+  m_Name: TiberPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1872446724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872446723}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 387863730}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1872446725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872446723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd8162163a9aa347908c632b0c9d02f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _InitializeItemSize: 3
+  _PoolingItem: {fileID: 3694473066860267770, guid: ba0ff665735685740b16fde1d87eb316,
+    type: 3}
 --- !u!1 &1874720982
 GameObject:
   m_ObjectHideFlags: 0
@@ -39999,6 +40047,7 @@ GameObject:
   - component: {fileID: 1958291361}
   - component: {fileID: 1958291360}
   - component: {fileID: 1958291362}
+  - component: {fileID: 1958291363}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -40150,6 +40199,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1958291363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958291358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9698fa79caca3468a76d7ad10dad2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1966175495
 GameObject:
   m_ObjectHideFlags: 0

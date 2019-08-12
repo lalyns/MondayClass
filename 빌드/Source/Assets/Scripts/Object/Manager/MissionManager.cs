@@ -162,6 +162,7 @@ public class MissionManager : MonoBehaviour
         Annihilation = 0,
         Survive = 1,
         Defence = 2,
+        Last,
     }
 
     /// <summary>
