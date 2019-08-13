@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DreamCatcherPOPUP : DreamCatcherFSMState
 {
+    float _PopUpTime = 2.0f;
+    float _curTime = 0.0f;
+
     public override void BeginState()
     {
         base.BeginState();
@@ -11,11 +14,24 @@ public class DreamCatcherPOPUP : DreamCatcherFSMState
 
     public override void EndState()
     {
+        _curTime = 0.0f;
         base.EndState();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        _manager.SetState(MonsterState.CHASE);
+        base.Update();
+
+        _curTime += Time.deltaTime;
+
+        if (_curTime > _PopUpTime)
+        {
+            _manager.SetState(DreamCatcherState.CHASE);
+        }
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
     }
 }

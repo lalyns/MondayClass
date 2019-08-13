@@ -27,7 +27,7 @@ public class MacATTACK : MacFSMState
     {
         _Time += Time.deltaTime;
 
-        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) < _manager.Stat._AttackRange)
+        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) < _manager.Stat.statData._AttackRange)
         {
             if (_Time > _AttackTime)
             {
@@ -71,14 +71,21 @@ public class MacATTACK : MacFSMState
                     _Time = 0.0f;
                     _CreateBall = false;
                     _SetBall = false;
+
+                    _manager.SetState(MacState.RUNAWAY);
                 }
             }
 
         }
         else
         {
-            _manager.SetState(MonsterState.CHASE);
+            _manager.SetState(MacState.CHASE);
         }
 
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
     }
 }

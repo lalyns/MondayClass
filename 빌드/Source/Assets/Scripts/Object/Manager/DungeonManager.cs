@@ -37,7 +37,7 @@ public class DungeonManager : MonoBehaviour
     /// <param name="dungeon"> 변경할 던전의 정보 </param>
     public static void SetPrevDungeon(Dungeon dungeon)
     {
-        Debug.Log("이전 던전 정보를 변경합니다.");
+        //Debug.Log("이전 던전 정보를 변경합니다.");
         _Instance._PrevDungeon = dungeon;
     }
 
@@ -56,7 +56,7 @@ public class DungeonManager : MonoBehaviour
     /// <param name="dungeon"> 변경할 던전의 정보 </param>
     public static void SetCurrentDungeon(Dungeon dungeon)
     {
-        Debug.Log("현재 던전 정보를 변경합니다.");
+        //Debug.Log("현재 던전 정보를 변경합니다.");
         _Instance._CurrentDungeon = dungeon;
     }
 
@@ -75,7 +75,7 @@ public class DungeonManager : MonoBehaviour
     /// <param name="missionData"> 정해진 미션 </param>
     public static Dungeon CreateDungeon(MissionManager.MissionType missionType)
     {
-        Debug.Log("새로운 던전을 생성합니다.");
+        //Debug.Log("새로운 던전을 생성합니다.");
 
         // 현재 던전 및 새로운 던전 정보를 생성하고 던전 정보를 변경합니다.
         Dungeon curDungeon = GetCurrentDungeon();

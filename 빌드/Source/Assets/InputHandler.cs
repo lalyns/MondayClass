@@ -198,7 +198,7 @@ public class InputHandler : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("마우스누름");
+            //Debug.Log("마우스누름");
             SwingEffect.gameObject.SetActive(true);
 
             attackCount++;

@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MonsterState
+public enum MacState
 {
     POPUP = 0,
     CHASE,
     ATTACK,
+    RUNAWAY,
     DEAD
 }
-
 [RequireComponent(typeof(MacStat))]
 public class MacFSMManager : FSMManager
 {
     private bool _isInit = false;
-    public MonsterState startState = MonsterState.POPUP;
-    private Dictionary<MonsterState, MacFSMState> _States = new Dictionary<MonsterState, MacFSMState>();
+    public MacState startState = MacState.POPUP;
+    private Dictionary<MacState, MacFSMState> _States = new Dictionary<MacState, MacFSMState>();
 
-    private MonsterState _CurrentState;
-    public MonsterState CurrentState {
+    private MacState _CurrentState;
+    public MacState CurrentState {
         get {
             return _CurrentState;
         }
@@ -55,8 +55,8 @@ public class MacFSMManager : FSMManager
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
-        MonsterState[] stateValues = (MonsterState[])System.Enum.GetValues(typeof(MonsterState));
-        foreach (MonsterState s in stateValues)
+        MacState[] stateValues = (MacState[])System.Enum.GetValues(typeof(MacState));
+        foreach (MacState s in stateValues)
         {
             System.Type FSMType = System.Type.GetType("Mac" + s.ToString());
             MacFSMState state = (MacFSMState)GetComponent(FSMType);
@@ -77,7 +77,7 @@ public class MacFSMManager : FSMManager
         _isInit = true;
     }
 
-    public void SetState(MonsterState newState)
+    public void SetState(MacState newState)
     {
         if (_isInit)
         {
@@ -94,8 +94,8 @@ public class MacFSMManager : FSMManager
     {
         if(other.transform.tag == "Weapon")
         {
-            ObjectManager.ReturnPoolMonster(this.gameObject, Stat.monsterData._IsRagne);
-            if(_CurrentState == MonsterState.ATTACK)
+            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.Mac);
+            if(_CurrentState == MacState.ATTACK)
             {
                 try
                 {

@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum DreamCatcherState
+{
+    POPUP = 0,
+    CHASE,
+    ATTACK,
+    DEAD,
+    DASH
+}
+
+
 [RequireComponent(typeof(DreamCatcherStat))]
 public class DreamCatcherFSMManager : FSMManager
 {
     private bool _isInit = false;
-    public MonsterState startState = MonsterState.POPUP;
-    private Dictionary<MonsterState, DreamCatcherFSMState> _States = new Dictionary<MonsterState, DreamCatcherFSMState>();
+    public DreamCatcherState startState = DreamCatcherState.POPUP;
+    private Dictionary<DreamCatcherState, DreamCatcherFSMState> _States = new Dictionary<DreamCatcherState, DreamCatcherFSMState>();
 
-    private MonsterState _CurrentState;
-    public MonsterState CurrentState {
+    private DreamCatcherState _CurrentState;
+    public DreamCatcherState CurrentState {
         get {
             return _CurrentState;
         }
@@ -35,7 +45,8 @@ public class DreamCatcherFSMManager : FSMManager
     public Animator Anim { get { return _Anim; } }
 
     public Transform _AttackTransform;
-    public MeshRenderer _MR;
+    public SkinnedMeshRenderer _MR;
+    public LineRenderer _DashRoute;
 
     protected override void Awake()
     {
@@ -47,8 +58,8 @@ public class DreamCatcherFSMManager : FSMManager
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
-        MonsterState[] stateValues = (MonsterState[])System.Enum.GetValues(typeof(MonsterState));
-        foreach (MonsterState s in stateValues)
+        DreamCatcherState[] stateValues = (DreamCatcherState[])System.Enum.GetValues(typeof(DreamCatcherState));
+        foreach (DreamCatcherState s in stateValues)
         {
             System.Type FSMType = System.Type.GetType("DreamCatcher" + s.ToString());
             DreamCatcherFSMState state = (DreamCatcherFSMState)GetComponent(FSMType);
@@ -69,7 +80,7 @@ public class DreamCatcherFSMManager : FSMManager
         _isInit = true;
     }
 
-    public void SetState(MonsterState newState)
+    public void SetState(DreamCatcherState newState)
     {
         if (_isInit)
         {
@@ -86,8 +97,7 @@ public class DreamCatcherFSMManager : FSMManager
     {
         if(other.transform.tag == "Weapon")
         {
-            ObjectManager.ReturnPoolMonster(this.gameObject, Stat.monsterData._IsRagne);
-            
+            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);
         }
     }
 }

@@ -15,4 +15,9 @@ public class MacDEAD : MacFSMState
     {
         
     }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
 }
