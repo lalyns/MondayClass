@@ -17,7 +17,7 @@ public class Shake : MonoBehaviour
     {
         originPos = shakeCamera.localPosition;
         originRot = shakeCamera.localRotation;
-        input = InputHandler.singleton;
+        input = InputHandler.instance;
 
     }
 
