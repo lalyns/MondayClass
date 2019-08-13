@@ -20,6 +20,7 @@ public class StatData : ScriptableObject
     public float _SkillCoolTime2;
 
     public float _DashSpeed;
+    public float _DashRange;
     public float _AttackRange;
 
     // if AttackType is melee, using this datas.

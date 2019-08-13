@@ -13,6 +13,7 @@ public class DreamCatcherDASH : DreamCatcherFSMState
 
     bool _IsDash = false;
     Vector3 _TargetPos = Vector3.zero;
+    Vector3 dashEndPos = Vector3.zero;
 
     public override void BeginState()
     {
@@ -44,16 +45,17 @@ public class DreamCatcherDASH : DreamCatcherFSMState
         _Time += Time.deltaTime;
 
         float maxDistance = _DashTime * _manager.Stat.statData._DashSpeed;
-
         if (_Time < _DashReadyTime)
         {
-            if (!_IsDrawDashRoute)
+            //if (!_IsDrawDashRoute)
             {
+                transform.LookAt(_manager.PlayerCapsule.transform);
+
                 _manager._DashRoute.SetPosition(0, this.transform.position);
 
-                float size = maxDistance / Vector3.Distance(transform.position, _TargetPos);
-
-                Vector3 dashEndPos = Vector3.Lerp(this.transform.position, _TargetPos, size);
+                dashEndPos = this.transform.position;
+                dashEndPos += transform.forward * _manager.Stat.statData._DashRange;
+                dashEndPos.y = this.transform.position.y;
 
                 _manager._DashRoute.SetPosition(1, dashEndPos);
                 _IsDrawDashRoute = true;
@@ -62,12 +64,15 @@ public class DreamCatcherDASH : DreamCatcherFSMState
 
         else if(_Time < _DashReadyTime + _DashTime)
         {
-            Vector3 targetDir = _TargetPos - this.transform.position;
-            targetDir = targetDir.normalized;
-            targetDir.y = 0;
+            //Vector3 targetDir = _TargetPos - this.transform.position;
+            //targetDir = targetDir.normalized;
+            //targetDir.y = 0;
 
-            _manager.CC.Move(targetDir * _manager.Stat.statData._DashSpeed * Time.deltaTime);
-            _manager.CC.detectCollisions = false;
+            //_manager.CC.Move(targetDir * _manager.Stat.statData._DashSpeed * Time.deltaTime);
+            //_manager.CC.detectCollisions = false;
+            transform.position = Vector3.MoveTowards(this.transform.position, dashEndPos, 
+                _manager.Stat.statData._DashSpeed * Time.deltaTime);
+
         }
 
         else if(_Time < _DashReadyTime + _DashTime + _DashAfterDelay)

@@ -39,12 +39,12 @@ public class ObjectManager : MonoBehaviour
 
     public void CallSpawn()
     {
-        _SpawnCoroutine = StartCoroutine("Spawn");
+        _SpawnCoroutine = StartCoroutine("TestSpawn");
     }
 
     IEnumerator Spawn()
     {
-        MissionData missionData = MissionManager.GetMissionData(MissionManager._Instance._CurrentMission);
+        MissionData missionData = MissionManager._Instance._MissionDatas[0];
         Dungeon currentDungeon = DungeonManager.GetCurrentDungeon();
 
         int curSpawnPos;
@@ -54,7 +54,7 @@ public class ObjectManager : MonoBehaviour
         {
             curSpawnPos = 0;
 
-            var setValue = UnityEngine.Random.Range(0, missionData.DreamCatcherCount.Length);
+            //var setValue = UnityEngine.Random.Range(0, 5);
 
             //int dreamCatcherCount = missionData.DreamCatcherCount[setValue];
             //int macCount = missionData.MacCount[setValue];
@@ -73,6 +73,205 @@ public class ObjectManager : MonoBehaviour
 
             yield return new WaitForSeconds(missionData.CycleOfTimeRespawn);
         }
+    }
+
+
+    IEnumerator TestSpawn()
+    {
+        int curSpawnPos = 0;
+        int level = 0;
+        int maxLevel = 3;
+        int wave = 0;
+        int maxWave = 1;
+
+        Vector3[] set = new Vector3[7];
+        set[0] = new Vector3(3, 2, 0);
+
+        set[1] = new Vector3(3, 2, 0);
+        set[2] = new Vector3(2, 1, 1);
+
+        set[3] = new Vector3(3, 2, 0);
+        set[4] = new Vector3(3, 2, 0);
+        set[5] = new Vector3(3, 2, 0);
+        set[6] = new Vector3(1, 1, 2);
+
+        int curSet = 0;
+
+        for(int i=0; i<3;)
+        {
+            if (i == 0)
+            {
+                Debug.Log("1레벨 1웨이브 시작");
+                int remainMonster = (int)(set[curSet].x + set[curSet].y + set[curSet].z);
+
+                if (set[curSet].x > 0)
+                {
+                    set[curSet].x -= 1;
+
+                    remainMonster--;
+                    SpawnMonster(MonsterType.DreamCatcher, _SpawnPosition[curSpawnPos++]);
+
+
+                }
+
+                if (set[curSet].y > 0)
+                {
+                    set[curSet].y -= 1;
+
+                    remainMonster--;
+                    SpawnMonster(MonsterType.Mac, _SpawnPosition[curSpawnPos++]);
+
+
+                }
+
+                if (set[curSet].z > 0)
+                {
+                    set[curSet].z -= 1;
+
+                    remainMonster--;
+                    SpawnMonster(MonsterType.Tiber, _SpawnPosition[curSpawnPos++]);
+
+                }
+
+                if(remainMonster == 0)
+                {
+                    i++;
+                    curSet++;
+                    curSpawnPos = 0;
+
+                    Debug.Log("1레벨 1웨이브 끝");
+                    yield return new WaitForSeconds(20f);
+                    continue;
+                }
+            }
+
+            if (i == 1)
+            {
+                Debug.Log(curSet);
+                Debug.Log(string.Format("2레벨 {0}웨이브 시작", wave + 1));
+
+                int remainMonster = (int)(set[curSet].x + set[curSet].y + set[curSet].z);
+
+                if (set[curSet].x > 0)
+                {
+                    set[curSet].x -= 1;
+
+                    remainMonster--;
+                    SpawnMonster(MonsterType.DreamCatcher, _SpawnPosition[curSpawnPos++]);
+
+
+                }
+
+                if (set[curSet].y > 0)
+                {
+                    set[curSet].y -= 1;
+
+                    remainMonster--;
+                    SpawnMonster(MonsterType.Mac, _SpawnPosition[curSpawnPos++]);
+
+
+                }
+
+                if (set[curSet].z > 0)
+                {
+                    set[curSet].z -= 1;
+
+                    remainMonster--;
+                    SpawnMonster(MonsterType.Tiber, _SpawnPosition[curSpawnPos++]);
+
+                }
+
+                if (remainMonster == 0)
+                {
+                    if (wave == 1)
+                    {
+                        Debug.Log(string.Format("2레벨 {0}웨이브 끝", wave + 1));
+                        i++;
+                        wave = 0;
+                        curSet++;
+                        curSpawnPos = 0;
+                        yield return new WaitForSeconds(20f);
+                        continue;
+                    }
+
+                    else if(wave == 0)
+                    {
+                        Debug.Log(string.Format("2레벨 {0}웨이브 끝", wave + 1));
+                        wave++;
+                        curSet++;
+                        curSpawnPos = 0;
+                        yield return new WaitForSeconds(4f);
+                        continue;
+                    }
+
+                }
+            }
+
+            if (i == 2)
+            {
+                Debug.Log(curSet);
+                Debug.Log(string.Format("2레벨 {0}웨이브 시작", wave + 1));
+
+                int remainMonster = (int)(set[curSet].x + set[curSet].y + set[curSet].z);
+
+                if (set[curSet].x > 0)
+                {
+                    set[curSet].x -= 1;
+
+                    remainMonster--;
+                    SpawnMonster(MonsterType.DreamCatcher, _SpawnPosition[curSpawnPos++]);
+
+
+                }
+
+                if (set[curSet].y > 0)
+                {
+                    set[curSet].y -= 1;
+
+                    remainMonster--;
+                    SpawnMonster(MonsterType.Mac, _SpawnPosition[curSpawnPos++]);
+
+
+                }
+
+                if (set[curSet].z > 0)
+                {
+                    set[curSet].z -= 1;
+
+                    remainMonster--;
+                    SpawnMonster(MonsterType.Tiber, _SpawnPosition[curSpawnPos++]);
+
+                }
+
+                if (remainMonster == 0)
+                {
+                    if (wave == 3)
+                    {
+                        Debug.Log(string.Format("3레벨 {0}웨이브 끝", wave + 1));
+                        i++;
+                        wave = 0;
+                        curSet++;
+                        curSpawnPos = 0;
+                        yield return new WaitForSeconds(20f);
+                        continue;
+                    }
+
+                    else if (wave < 4)
+                    {
+                        Debug.Log(string.Format("3레벨 {0}웨이브 끝", wave + 1));
+                        wave++;
+                        curSet++;
+                        curSpawnPos = 0;
+                        yield return new WaitForSeconds(4f);
+                        continue;
+                    }
+
+                }
+            }
+        }
+
+        Debug.Log("섬멸 끝");
+        yield return new WaitForSeconds(4f);
     }
 
     /// <summary>

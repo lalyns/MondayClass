@@ -6,13 +6,14 @@ using UnityEditor;
 [CreateAssetMenu]
 public class MissionData : ScriptableObject
 {
-    public Sprite MissionName;
-    public string MissionString;
-    public string MissionSubject;
-    public Sprite MissionIcon;
-    public string MissionText;
-
     public MissionManager.MissionType[] MissionTypes;
+
+    public Sprite[] MissionName;
+    public string[] MissionString;
+    public string[] MissionSubject;
+    public Sprite[] MissionIcon;
+    public string[] MissionText;
+
     public int[] MissionLevel;
     public int[] MissionLength;
 

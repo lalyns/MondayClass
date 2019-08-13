@@ -7,7 +7,6 @@ public enum TiberState
     POPUP = 0,
     CHASE,
     ATTACK,
-    RUNAWAY,
     DEAD
 }
 [RequireComponent(typeof(TiberStat))]

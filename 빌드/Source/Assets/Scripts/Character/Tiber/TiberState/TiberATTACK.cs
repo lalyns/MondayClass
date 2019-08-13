@@ -17,7 +17,11 @@ public class TiberATTACK : TiberFSMState
 
     private void Update()
     {
-        
+        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) > _manager.Stat._AttackRange)
+        {
+            _manager.SetState(TiberState.CHASE);
+        }
+
     }
 
     protected override void FixedUpdate()

@@ -28,8 +28,6 @@ public class TiberCHASE : TiberFSMState
 
         else
         {
-            _manager._MR.material = _manager.Stat._NormalMat;
-
             _manager.CC.transform.LookAt(_manager.PlayerCapsule.transform);
 
             Vector3 moveDir = (_manager.PlayerCapsule.transform.position
