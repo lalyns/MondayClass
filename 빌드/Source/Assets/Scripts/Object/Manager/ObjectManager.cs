@@ -56,15 +56,15 @@ public class ObjectManager : MonoBehaviour
 
             var setValue = UnityEngine.Random.Range(0, missionData.DreamCatcherCount.Length);
 
-            int dreamCatcherCount = missionData.DreamCatcherCount[setValue];
-            int macCount = missionData.MacCount[setValue];
+            //int dreamCatcherCount = missionData.DreamCatcherCount[setValue];
+            //int macCount = missionData.MacCount[setValue];
             
-            for (int j = 0; j < dreamCatcherCount; j++)
+            for (int j = 0; j < 3; j++)
             {
                 SpawnMonster(MonsterType.DreamCatcher, _SpawnPosition[curSpawnPos++]);
             }
 
-            for (int j = 0; j < macCount; j++)
+            for (int j = 0; j < 2; j++)
             {
                 SpawnMonster(MonsterType.Mac, _SpawnPosition[curSpawnPos++]);
             }
