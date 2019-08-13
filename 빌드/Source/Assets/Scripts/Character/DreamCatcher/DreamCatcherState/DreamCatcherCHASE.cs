@@ -8,6 +8,7 @@ public class DreamCatcherCHASE : DreamCatcherFSMState
 
     public override void BeginState()
     {
+        _manager._MR.material = _manager.Stat._NormalMat;
         base.BeginState();
     }
 
@@ -18,9 +19,13 @@ public class DreamCatcherCHASE : DreamCatcherFSMState
         base.EndState();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if(GameLib.DistanceToCharacter(_manager.CC,_manager.PlayerCapsule) < _manager.Stat._AttackRange)
+        base.Update();
+
+        DahsCheck();
+
+        if (GameLib.DistanceToCharacter(_manager.CC,_manager.PlayerCapsule) < _manager.Stat._AttackRange)
         {
             _manager.SetState(DreamCatcherState.ATTACK);
         }
@@ -29,8 +34,10 @@ public class DreamCatcherCHASE : DreamCatcherFSMState
         {
             _manager.CC.transform.LookAt(_manager.PlayerCapsule.transform);
 
-            Vector3 moveDir = _manager.PlayerCapsule.transform.position
-                - _manager.CC.transform.position;
+            Vector3 moveDir = (_manager.PlayerCapsule.transform.position
+                - _manager.CC.transform.position).normalized;
+
+            moveDir.y = 0;
 
             if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
             {
@@ -44,8 +51,10 @@ public class DreamCatcherCHASE : DreamCatcherFSMState
                 moveDir += correctDir;
             }
 
-            _manager.CC.Move(moveDir * Time.deltaTime);
+            _manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
         }
+
+        
     }
 
 

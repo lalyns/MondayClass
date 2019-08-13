@@ -36,9 +36,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-
-
     }
 
     private void OnGUI()
@@ -52,20 +49,24 @@ public class GameManager : MonoBehaviour
             )) { }
 
     }
-
+    
+    /// <summary>
+    /// 마우스 커서가 보이게 하는 매소드
+    /// </summary>
+    /// <param name="isLock"></param>
     public static void CursorMode(bool isLock)
     {
         if (_Instance._EditorCursorLock)
         {
             if (isLock)
             {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
             }
             else
             {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
         }
     }

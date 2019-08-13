@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Annihilation : Mission
 {
-    [SerializeField] private MissionData _MissionData;
     [SerializeField] private float _LimitTime = 180f;
 
     protected override void Awake()
