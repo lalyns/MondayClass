@@ -66,7 +66,7 @@ public class InputHandler : MonoBehaviour
         anim2.gameObject.SetActive(false);
 
         shake = GameObject.Find("CameraRig").GetComponent<Shake>();
-        maincamera = GameObject.Find("mainCam").GetComponent<Camera>();
+        //maincamera = GameObject.Find("mainCam").GetComponent<Camera>();
         followCam = shake.GetComponent<FollowCam>();
         isAttackOne = false;
         isAttackTwo = false;
@@ -87,7 +87,7 @@ public class InputHandler : MonoBehaviour
 
         ball1 = anim1.GetComponentInChildren<SphereCollider>();
 
-        ball1.gameObject.SetActive(false);
+        //ball1.gameObject.SetActive(false);
         ballStartPos = GameObject.Find("BallStartPos").GetComponent<Transform>();
 
         Skill1_CoolTime = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
@@ -122,7 +122,7 @@ public class InputHandler : MonoBehaviour
         {
             camManager.camInit(anim1.transform);
             //camManager.gameObject.SetActive(false);
-            maincamera.gameObject.SetActive(true);
+            //maincamera.gameObject.SetActive(true);
             //camManager.cams.targetDisplay = 1;
             //Camera.main.targetDisplay = 0;
             //camManager.Tick(delta);
