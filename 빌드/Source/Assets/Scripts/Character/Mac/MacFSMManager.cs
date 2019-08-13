@@ -94,7 +94,7 @@ public class MacFSMManager : FSMManager
     {
         if(other.transform.tag == "Weapon")
         {
-            ObjectManager.ReturnPoolMonster(this.gameObject, Stat.monsterData._IsRagne);
+            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.Mac);
             if(_CurrentState == MacState.ATTACK)
             {
                 try

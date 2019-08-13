@@ -41,7 +41,7 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     public static void PopUpMissionMenu()
     {
-        Debug.Log("미션의 정보창을 화면에 표기합니다.");
+        //Debug.Log("미션의 정보창을 화면에 표기합니다.");
         _Instance._UIMission.SetActive(true);
         _Instance.ChangeMissionMenu();
         GameManager.CursorMode(false);
@@ -54,7 +54,7 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     public static void DisappearMissionMenu()
     {
-        Debug.Log("미션의 정보창을 화면에서 지웁니다.");
+        //Debug.Log("미션의 정보창을 화면에서 지웁니다.");
         _Instance._UIMission.SetActive(false);
         GameManager.CursorMode(true);
 
@@ -67,7 +67,7 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     public void ChangeMissionMenu()
     {
-        Debug.Log("미션 선택창의 정보를 변경합니다.");
+        //Debug.Log("미션 선택창의 정보를 변경합니다.");
 
         for (int i = 0; i < _Choices.Length; i++)
         {
@@ -84,14 +84,14 @@ public class MissionManager : MonoBehaviour
     /// <param name="choiceNum"> 버튼의 숫자 </param>
     public static void SetMissionOnClick(int choiceNum)
     {
-        Debug.Log("미션을 선택합니다.");
+        //Debug.Log("미션을 선택합니다.");
         _Instance._CurrentMission = _Instance._Choices[choiceNum]._MissionType;
 
         Dungeon dungeon = DungeonManager.CreateDungeon(_Instance._CurrentMission);
 
         MissionData missionData = GetMissionData(_Instance._CurrentMission);
 
-        Debug.Log(missionData.name);
+        //Debug.Log(missionData.name);
 
 
         /// <summary>
@@ -162,6 +162,7 @@ public class MissionManager : MonoBehaviour
         Annihilation = 0,
         Survive = 1,
         Defence = 2,
+        Last,
     }
 
     /// <summary>
@@ -169,7 +170,7 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     public static void MissionClear()
     {
-        Debug.Log("미션 종료");
+        //Debug.Log("미션 종료");
 
         DungeonManager.GetCurrentDungeon()._Trigger.isStart = false;
         try

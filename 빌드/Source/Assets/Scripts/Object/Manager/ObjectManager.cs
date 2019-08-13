@@ -54,19 +54,19 @@ public class ObjectManager : MonoBehaviour
         {
             curSpawnPos = 0;
 
-            var setValue = UnityEngine.Random.Range(0, missionData.NumberOfMeleeMonsterOnWaves.Length);
+            var setValue = UnityEngine.Random.Range(0, missionData.DreamCatcherCount.Length);
 
-            int meleeCount = missionData.NumberOfMeleeMonsterOnWaves[setValue];
-            int rangeCount = missionData.NumberOfRangeMonsterOnWaves[setValue];
+            //int dreamCatcherCount = missionData.DreamCatcherCount[setValue];
+            //int macCount = missionData.MacCount[setValue];
             
-            for (int j = 0; j < meleeCount; j++)
+            for (int j = 0; j < 3; j++)
             {
-                SpawnMonster(MonsterType.Melee, _SpawnPosition[curSpawnPos++]);
+                SpawnMonster(MonsterType.DreamCatcher, _SpawnPosition[curSpawnPos++]);
             }
 
-            for (int j = 0; j < rangeCount; j++)
+            for (int j = 0; j < 2; j++)
             {
-                SpawnMonster(MonsterType.Range, _SpawnPosition[curSpawnPos++]);
+                SpawnMonster(MonsterType.Mac, _SpawnPosition[curSpawnPos++]);
             }
 
             //Debug.Log("소환횟수 : " + i + " 시각 : " + Time.realtimeSinceStartup);
@@ -101,30 +101,23 @@ public class ObjectManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 오브젝트를 풀로 반환하기위한 매니저 지원함수
+    /// 오브젝트를 풀로 반환하는 함수
     /// </summary>
     /// <param name="go"> 풀로 반환을 할 GameObject </param>
-    public static void ReturnPoolMonster(GameObject go, bool isRange)
+    public static void ReturnPoolMonster(GameObject go, MonsterType monster)
     {
-        if (!isRange)
-        {
-            _Instance._ObjectPool[0].ItemReturnPool(go);
-        }
-        else
-        {
-            _Instance._ObjectPool[1].ItemReturnPool(go);
-        }
+        _Instance._ObjectPool[(int)monster].ItemReturnPool(go);
     }
 
+    /// <summary>
+    /// 모든 몬스터를 풀에 반환하는 함수
+    /// </summary>
     public static void ReturnPoolAllMonster()
     {
-        for(int i=0; i<2; i++)
+        for(int i = 0; i < (int)MonsterType.Length ; i++)
         {
-            Debug.Log("Delete1");
             while(_Instance._ObjectPool[i]._ActiveItem.Count != 0)
             {
-
-                Debug.Log("Delete2");
                 _Instance._ObjectPool[i].ItemReturnPool(
                     _Instance._ObjectPool[i]._ActiveItem.First.Value);
 
@@ -135,14 +128,20 @@ public class ObjectManager : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     public enum MonsterType
     {
-        Melee = 0,
-        Range = 1,
+        DreamCatcher = 0,
+        Mac = 1,
+        Tiber = 2,
+        Length
     }
+
+    public enum ObjectType
+    {
+
+    }
+
 }
 

@@ -32,8 +32,10 @@ public class MacCHASE : MacFSMState
 
             _manager.CC.transform.LookAt(_manager.PlayerCapsule.transform);
 
-            Vector3 moveDir = _manager.PlayerCapsule.transform.position
-                - _manager.CC.transform.position;
+            Vector3 moveDir = (_manager.PlayerCapsule.transform.position
+                - _manager.CC.transform.position).normalized;
+
+            moveDir.y = 0;
 
             if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
             {
@@ -47,7 +49,7 @@ public class MacCHASE : MacFSMState
                 moveDir += correctDir;
             }
 
-            _manager.CC.Move(moveDir * Time.deltaTime);
+            _manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
 
         }
     }

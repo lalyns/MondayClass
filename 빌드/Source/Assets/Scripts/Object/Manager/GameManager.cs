@@ -36,9 +36,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-
-
     }
 
     private void OnGUI()
@@ -64,7 +61,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = CursorLockMode.Confined;
                 Cursor.visible = true;
             }
         }
