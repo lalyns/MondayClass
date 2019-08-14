@@ -47,6 +47,7 @@ public class MissionManager : MonoBehaviour
         _Instance._UIMission.SetActive(true);
         _Instance.ChangeMissionMenu();
         GameManager.CursorMode(true);
+        GameManager._Instance._CharacterControl = false;
 
         Time.timeScale = 0.0f;
     }
@@ -59,7 +60,7 @@ public class MissionManager : MonoBehaviour
         //Debug.Log("미션의 정보창을 화면에서 지웁니다.");
         _Instance._UIMission.SetActive(false);
         GameManager.CursorMode(false);
-
+        GameManager._Instance._CharacterControl = true;
         GameManager.isPopUp = false;
         Time.timeScale = 1.0f;
     }
