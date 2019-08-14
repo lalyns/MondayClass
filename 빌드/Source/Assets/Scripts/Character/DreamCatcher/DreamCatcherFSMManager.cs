@@ -7,7 +7,9 @@ public enum DreamCatcherState
     POPUP = 0,
     CHASE,
     ATTACK,
-    DEAD
+    DEAD,
+    DASH,
+    HIT,
 }
 
 
@@ -44,7 +46,8 @@ public class DreamCatcherFSMManager : FSMManager
     public Animator Anim { get { return _Anim; } }
 
     public Transform _AttackTransform;
-    public MeshRenderer _MR;
+    public SkinnedMeshRenderer _MR;
+    public LineRenderer _DashRoute;
 
     protected override void Awake()
     {
@@ -95,8 +98,7 @@ public class DreamCatcherFSMManager : FSMManager
     {
         if(other.transform.tag == "Weapon")
         {
-            ObjectManager.ReturnPoolMonster(this.gameObject, Stat.monsterData._IsRagne);
-            
+            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);
         }
     }
 }

@@ -23,8 +23,8 @@ public class MacRUNAWAY : MacFSMState
     private void Update()
     {
         if (!_SetTarget) return;
-        
-        if(Vector3.Distance(this.transform.position, TargetPos) > 1f)
+
+        if (Vector3.Distance(this.transform.position, TargetPos) > 1f)
         {
             transform.position = Vector3.Lerp(this.transform.position, TargetPos, 0.5f * Time.deltaTime);
         }
@@ -33,6 +33,11 @@ public class MacRUNAWAY : MacFSMState
         {
             _manager.SetState(MacState.CHASE);
         }
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
     }
 
     public void SetTarget()

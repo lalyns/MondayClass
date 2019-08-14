@@ -11,8 +11,13 @@ public class DreamCatcherDEAD : DreamCatcherFSMState
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        
+        base.Update();
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
     }
 }

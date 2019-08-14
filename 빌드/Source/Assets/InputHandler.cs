@@ -27,7 +27,7 @@ public class InputHandler : MonoBehaviour
     float Timer4;
 
     public bool isCantMove;
-
+    public bool isInputLock;
 
     public float FeverGauge = 0;
     bool isCanFever;
@@ -48,8 +48,29 @@ public class InputHandler : MonoBehaviour
     public float mouseSpeed = 80f;
 
     int attackCount;
+    [SerializeField]
+    float attackOne, attackTwo, attackThree, backOne, backTwo;
+    float animWaitTime = 0.1f;
+
+    float AnimationLength(string name)
+    {
+        float time = 0;
+
+        RuntimeAnimatorController ac = anim1.runtimeAnimatorController;
+
+        for (int i = 0; i < ac.animationClips.Length; i++)  
+            if (ac.animationClips[i].name == name)
+                time = ac.animationClips[i].length;
+        return time;
+    }
+
+    public List<GameObject> _monster = new List<GameObject>();
+    public List<GameObject> Monster { get { return _monster; } }
     private void Start()
     {
+        _monster.Clear();
+
+
         states = GetComponent<StateManager>();
         states.Init();
 
@@ -66,7 +87,7 @@ public class InputHandler : MonoBehaviour
         anim2.gameObject.SetActive(false);
 
         shake = GameObject.Find("CameraRig").GetComponent<Shake>();
-        maincamera = GameObject.Find("mainCam").GetComponent<Camera>();
+        //maincamera = GameObject.Find("mainCam").GetComponent<Camera>();
         followCam = shake.GetComponent<FollowCam>();
         isAttackOne = false;
         isAttackTwo = false;
@@ -87,22 +108,32 @@ public class InputHandler : MonoBehaviour
 
         ball1 = anim1.GetComponentInChildren<SphereCollider>();
 
-        ball1.gameObject.SetActive(false);
+        //ball1.gameObject.SetActive(false);
         ballStartPos = GameObject.Find("BallStartPos").GetComponent<Transform>();
 
         Skill1_CoolTime = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
         Skill1_CoolTime.fillAmount = 1f;
         Skill1_CoolTime.gameObject.SetActive(false);
+
+        isInputLock = false;
+
+        //1~3타 애니의 재생 길이
+        attackOne = AnimationLength("PC_Attack_001");
+        attackTwo = AnimationLength("PC_Attack_002");
+        attackThree = AnimationLength("PC_Attack_003");
+        backOne = AnimationLength("PC_Attack_Back_001");
+        //backTwo = AnimationLength("PC_Attack_Back_002");
     }
     Image Skill1_CoolTime;
     public void AttackCheck()
     {
         Attack_Capsule.enabled = true;
-
     }
     private void FixedUpdate()
     {
-
+        if (isInputLock)
+            return;
+        
         r_x = Input.GetAxis("Mouse X");
         if (Input.GetKey(KeyCode.Q))
         {
@@ -122,7 +153,7 @@ public class InputHandler : MonoBehaviour
         {
             camManager.camInit(anim1.transform);
             //camManager.gameObject.SetActive(false);
-            maincamera.gameObject.SetActive(true);
+            //maincamera.gameObject.SetActive(true);
             //camManager.cams.targetDisplay = 1;
             //Camera.main.targetDisplay = 0;
             //camManager.Tick(delta);
@@ -185,29 +216,43 @@ public class InputHandler : MonoBehaviour
     float shootTimer;
     public float skill1CoolTimer = 10f;
     bool isSkill1CoolTime;
+
+    public int randomShoot;
+
+    public GameObject[] Skill1Effects;
     private void Update()
     {
-        target = new Vector3(anim1.transform.position.x + 10f, anim1.transform.position.y, anim1.transform.position.z + 5f);
+
+        if (isInputLock)
+            return;
+
+        
+        //target = new Vector3(anim1.transform.position.x + 10f, anim1.transform.position.y, anim1.transform.position.z + 5f);
 
 
         if (attackCount >= 10)
         {
             attackCount = 0;
-            ball1.gameObject.SetActive(true);
+            Skill1Effects[0].gameObject.SetActive(true);
+            //ball1.gameObject.SetActive(true);
             isBall = true;
         }
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("마우스누름");
+            //Debug.Log("마우스누름");
             SwingEffect.gameObject.SetActive(true);
 
             attackCount++;
         }
-
+        
         if (isBall)
         {
             if (Input.GetKey(KeyCode.F))
             {
+                _monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
+                randomShoot = Random.Range((int)-1, (int)_monster.Count);
+                Skill1Effects[0].gameObject.SetActive(false);
+                Skill1Effects[1].gameObject.SetActive(true);
                 isShoot = true;
                 isBall = false;
                 isSkill1CoolTime = true;
@@ -216,19 +261,24 @@ public class InputHandler : MonoBehaviour
         }
         if (isShoot)
         {
-            Vector3 dis = target - ball1.transform.position;
-            dis.Normalize();
-            Quaternion.LookRotation(dis);
-            ball1.transform.Translate(Vector3.forward * 20f * Time.deltaTime);
-
+            target = _monster[randomShoot].transform.position;
+            //Vector3 dis = target - ball1.transform.position;
+            //dis.Normalize();
+            //Quaternion.LookRotation(dis);
+            //ball1.transform.Translate(Vector3.forward * 20f * Time.deltaTime);
+            //ball1.transform.position = Vector3.MoveTowards(ball1.transform.position, target, 20f * Time.deltaTime);
+            Skill1Effects[1].transform.position = Vector3.MoveTowards(Skill1Effects[1].transform.position, target, 20f * Time.deltaTime);
             shootTimer += Time.deltaTime;
 
             if (shootTimer > 2f)
             {
-                ball1.transform.position = ballStartPos.position;
-                ball1.gameObject.SetActive(false);
+                //ball1.transform.position = ballStartPos.position;
+                Skill1Effects[1].transform.position = ballStartPos.position;
+                Skill1Effects[1].SetActive(false);
+                //ball1.gameObject.SetActive(false);
                 shootTimer = 0;
                 isShoot = false;
+                _monster.Clear();
             }
         }
         if (isSkill1CoolTime)
@@ -299,8 +349,8 @@ public class InputHandler : MonoBehaviour
         if (isAttackOne)
         {
             Timer1 += Time.deltaTime;
-            // 애니는 0.733초지만 미리 눌러 둘 수 있게 세팅함.
-            if (Timer1 >= 0.4f)
+            // 애니는 0.666초지만 미리 눌러 둘 수 있게 세팅함.
+            if (Timer1 >= attackOne - 0.3f)
             {
                 //스페이스바를 누르면
                 //if (Input.GetKeyDown(KeyCode.Space))
@@ -310,7 +360,7 @@ public class InputHandler : MonoBehaviour
                 }
                 if (isAttackTwoReady)
                 {
-                    if (Timer1 >= 0.733f)
+                    if (Timer1 >= attackOne)
                     {
                         if (!isFever)
                             anim1.SetInteger("CurrentAttack", 2);
@@ -327,7 +377,7 @@ public class InputHandler : MonoBehaviour
                     }
                 }
             }
-            if (Timer1 >= 0.75f)
+            if (Timer1 >= attackOne + animWaitTime)
             {
                 //IDLE 상태로 돌려줌
                 if (!isFever)
@@ -335,7 +385,7 @@ public class InputHandler : MonoBehaviour
                     anim1.SetInteger("CurrentAttack", 4);
                     Attack_Capsule.enabled = false;
                     //SwingEffect.gameObject.SetActive(false);
-                    if (Timer1 >= 1.1f)
+                    if (Timer1 >= attackOne+animWaitTime+backOne)
                     {
                         anim1.SetInteger("CurrentAttack", 0);
                         Timer1 = 0;
@@ -362,7 +412,7 @@ public class InputHandler : MonoBehaviour
             if (isAttackThreeReady)
             {
                 //0.333f 안에 마우스 눌렀으면 0.333f초 후 3타 시작.
-                if (Timer2 >= 0.5f)
+                if (Timer2 >= attackTwo)
                 {
                     if (!isFever)
                         anim1.SetInteger("CurrentAttack", 3);
@@ -380,7 +430,7 @@ public class InputHandler : MonoBehaviour
             }
 
             //0.4초가 넘어가면 IDLE로 돌아옴.
-            if (Timer2 >= 0.6f)
+            if (Timer2 >= attackTwo+animWaitTime)
             {
 
                 anim1.SetInteger("CurrentAttack", 0);
@@ -397,7 +447,7 @@ public class InputHandler : MonoBehaviour
         {
             Timer3 += Time.deltaTime;
 
-            if (Timer3 > 0.55f)
+            if (Timer3 > attackThree)
             {
                 if (!isFever)
                     anim1.SetInteger("CurrentAttack", 0);
@@ -518,10 +568,10 @@ public class InputHandler : MonoBehaviour
 
 
 
-    public static InputHandler singleton;
+    public static InputHandler instance;
     void Awake()
     {
-        singleton = GetComponent<InputHandler>();
+        instance = GetComponent<InputHandler>();
     }
     public static InputHandler FindInputHandler()
     {
