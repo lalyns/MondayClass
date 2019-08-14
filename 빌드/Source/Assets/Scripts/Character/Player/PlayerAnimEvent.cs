@@ -16,4 +16,9 @@ public class PlayerAnimEvent : MonoBehaviour
         if(null!=input)
             input.AttackCheck();
     }
+    void hitCancel()
+    {
+        if (null != input)
+            input.AttackCancel();
+    }
 }
