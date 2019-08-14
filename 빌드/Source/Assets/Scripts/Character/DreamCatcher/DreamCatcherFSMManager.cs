@@ -8,7 +8,8 @@ public enum DreamCatcherState
     CHASE,
     ATTACK,
     DEAD,
-    DASH
+    DASH,
+    HIT,
 }
 
 

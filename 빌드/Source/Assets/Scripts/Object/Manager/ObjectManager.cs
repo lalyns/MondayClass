@@ -190,7 +190,6 @@ public class ObjectManager : MonoBehaviour
                         wave = 0;
                         curSet++;
                         curSpawnPos = 0;
-                        yield return new WaitForSeconds(20f);
                         continue;
                     }
 
@@ -210,7 +209,7 @@ public class ObjectManager : MonoBehaviour
             if (i == 2)
             {
                 Debug.Log(curSet);
-                Debug.Log(string.Format("2레벨 {0}웨이브 시작", wave + 1));
+                Debug.Log(string.Format("3레벨 {0}웨이브 시작", wave + 1));
 
                 int remainMonster = (int)(set[curSet].x + set[curSet].y + set[curSet].z);
 
