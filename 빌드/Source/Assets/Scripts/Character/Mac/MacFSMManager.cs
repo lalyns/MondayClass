@@ -8,7 +8,8 @@ public enum MacState
     CHASE,
     ATTACK,
     RUNAWAY,
-    DEAD
+    DEAD,
+    HIT
 }
 [RequireComponent(typeof(MacStat))]
 public class MacFSMManager : FSMManager
