@@ -8,7 +8,7 @@ public class PlayerAnimEvent : MonoBehaviour
     InputHandler input;
     private void Start()    
     {
-        input = InputHandler.singleton;        
+        input = InputHandler.instance;        
     }
 
     void hitCheck()

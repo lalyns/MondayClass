@@ -7,7 +7,8 @@ public enum TiberState
     POPUP = 0,
     CHASE,
     ATTACK,
-    DEAD
+    DEAD,
+    HIT
 }
 [RequireComponent(typeof(TiberStat))]
 public class TiberFSMManager : FSMManager
