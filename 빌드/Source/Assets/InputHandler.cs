@@ -80,7 +80,7 @@ public class InputHandler : MonoBehaviour
         playerMaxHP = states._maxHp;
 
         playerHP--;
-        Debug.Log(states._hp+ "," + playerHP);
+        //Debug.Log(states._hp+ "," + playerHP);
         
         camManager = CameraManager.singleton;
         camManager.Init(this.transform);

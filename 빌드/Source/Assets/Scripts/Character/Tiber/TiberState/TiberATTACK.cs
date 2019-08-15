@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TiberATTACK : TiberFSMState
 {
-
     public override void BeginState()
     {
         base.BeginState();

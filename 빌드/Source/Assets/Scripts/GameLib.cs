@@ -36,7 +36,7 @@ public static class GameLib
             if (hitObject.collider.gameObject.tag == targetTag)
             {
                 CharacterStat targetStat =
-                    hitObject.collider.GetComponent<CharacterStat>();
+                    hitObject.collider.GetComponentInParent<CharacterStat>();
 
                 CharacterStat.ProcessDamage(ownerStat, targetStat);
                 lastHit = targetStat;
@@ -54,7 +54,7 @@ public static class GameLib
             if (hitObject.collider.gameObject.tag == targetTag)
             {
                 CharacterStat targetStat =
-                    hitObject.collider.GetComponent<CharacterStat>();
+                    hitObject.collider.GetComponentInParent<CharacterStat>();
 
                 CharacterStat.ProcessDamage(ownerStat, targetStat, damage);
                 lastHit = targetStat;

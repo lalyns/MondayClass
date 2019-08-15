@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[CreateAssetMenu]
 public class StatData : ScriptableObject
 {
     public float _MoveSpeed;

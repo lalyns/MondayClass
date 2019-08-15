@@ -49,6 +49,8 @@ public class DreamCatcherFSMManager : FSMManager
     public SkinnedMeshRenderer _MR;
     public LineRenderer _DashRoute;
 
+    public CharacterStat _lastAttack;
+
     protected override void Awake()
     {
         base.Awake();
@@ -110,7 +112,10 @@ public class DreamCatcherFSMManager : FSMManager
     {
         if(other.transform.tag == "Weapon")
         {
-            OnHit();
+            if (Stat.Hp > 0)
+            {
+                OnHit();
+            }
             //ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);
         }
     }
