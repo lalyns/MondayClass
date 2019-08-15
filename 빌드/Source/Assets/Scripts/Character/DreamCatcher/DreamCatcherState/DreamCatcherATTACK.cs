@@ -5,8 +5,6 @@ using UnityEngine;
 public class DreamCatcherATTACK : DreamCatcherFSMState
 {
 
-    public Transform bullet;
-
     public override void BeginState()
     {
         base.BeginState();

@@ -97,4 +97,11 @@ public class TiberFSMManager : FSMManager
             ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.Tiber);
         }
     }
+
+    public override void SetDeadState()
+    {
+        base.SetDeadState();
+
+        SetState(TiberState.DEAD);
+    }
 }

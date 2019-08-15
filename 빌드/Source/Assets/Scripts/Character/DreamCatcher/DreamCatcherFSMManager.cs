@@ -115,4 +115,10 @@ public class DreamCatcherFSMManager : FSMManager
         }
     }
 
+    public override void SetDeadState()
+    {
+        base.SetDeadState();
+
+        SetState(DreamCatcherState.DEAD);
+    }
 }
