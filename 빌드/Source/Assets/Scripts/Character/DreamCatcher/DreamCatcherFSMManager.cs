@@ -93,12 +93,26 @@ public class DreamCatcherFSMManager : FSMManager
         _States[_CurrentState].enabled = true;
         _Anim.SetInteger("CurrentState", (int)_CurrentState);
     }
-
+    public void OnHit()
+    {
+        //hp--;
+        //카메라쉐이킹
+        Shake.instance.ShakeCamera();
+        //hit스크립트로넘겨줌
+        SetState(DreamCatcherState.HIT);
+        //플레이어 쳐다본 후
+        transform.localEulerAngles = Vector3.zero;
+        transform.LookAt(InputHandler.instance.anim1.transform);
+        // 뒤로 밀림
+        transform.Translate(Vector3.back * 50f * Time.smoothDeltaTime, Space.Self);
+    }
     public void OnTriggerEnter(Collider other)
     {
         if(other.transform.tag == "Weapon")
         {
-            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);
+            OnHit();
+            //ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);
         }
     }
+
 }

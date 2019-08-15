@@ -12,9 +12,12 @@ public class Shake : MonoBehaviour
     private Quaternion originRot;
 
     InputHandler input;
+
+    public static Shake instance;
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         originPos = shakeCamera.localPosition;
         originRot = shakeCamera.localRotation;
         input = InputHandler.instance;
