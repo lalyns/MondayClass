@@ -8,7 +8,7 @@ public class BoxTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        input = InputHandler.singleton;
+        input = InputHandler.instance;
     }
 
     // Update is called once per frame

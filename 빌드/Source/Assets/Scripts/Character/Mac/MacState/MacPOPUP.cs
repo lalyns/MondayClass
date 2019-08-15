@@ -18,4 +18,9 @@ public class MacPOPUP : MacFSMState
     {
         _manager.SetState(MacState.CHASE);
     }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
 }

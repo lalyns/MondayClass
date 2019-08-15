@@ -10,7 +10,7 @@ public class MissionTrigger : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
-            Debug.Log("시작 가능 정보 : " + isStart);
+            //Debug.Log("시작 가능 정보 : " + isStart);
             if (!isStart)
             {
                 MissionManager._Instance.StartMission();

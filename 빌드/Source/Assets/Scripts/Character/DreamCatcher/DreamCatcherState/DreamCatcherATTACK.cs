@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class DreamCatcherATTACK : DreamCatcherFSMState
 {
-    public float _AttackBeforeTime = 0.8f;
-    public float _AttackTime = 3.0f;
-    public float _AfterAttackTime = 1.0f;
-    public float _Time = 0.0f;
 
-    bool _CreateBall = false;
-    bool _SetBall = false;
     public Transform bullet;
 
     public override void BeginState()
@@ -23,11 +17,13 @@ public class DreamCatcherATTACK : DreamCatcherFSMState
         base.EndState();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        _Time += Time.deltaTime;
+        base.Update();
 
-        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) < _manager.Stat._AttackRange)
+        DahsCheck();
+
+        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) < _manager.Stat.statData._AttackRange)
         {
             
 
@@ -37,5 +33,10 @@ public class DreamCatcherATTACK : DreamCatcherFSMState
             _manager.SetState(DreamCatcherState.CHASE);
         }
 
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
     }
 }

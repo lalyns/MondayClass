@@ -8,12 +8,17 @@ public class PlayerAnimEvent : MonoBehaviour
     InputHandler input;
     private void Start()    
     {
-        input = InputHandler.singleton;        
+        input = InputHandler.instance;        
     }
 
     void hitCheck()
     {
         if(null!=input)
             input.AttackCheck();
+    }
+    void hitCancel()
+    {
+        if (null != input)
+            input.AttackCancel();
     }
 }
