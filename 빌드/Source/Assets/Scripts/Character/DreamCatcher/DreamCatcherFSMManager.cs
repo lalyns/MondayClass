@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum DreamCatcherState
 {
@@ -51,6 +52,8 @@ public class DreamCatcherFSMManager : FSMManager
 
     public CharacterStat _lastAttack;
 
+    public Slider _HPSilder;
+
     protected override void Awake()
     {
         base.Awake();
@@ -95,6 +98,7 @@ public class DreamCatcherFSMManager : FSMManager
         _States[_CurrentState].enabled = true;
         _Anim.SetInteger("CurrentState", (int)_CurrentState);
     }
+
     public void OnHit()
     {
         //hp--;
@@ -108,6 +112,7 @@ public class DreamCatcherFSMManager : FSMManager
         // 뒤로 밀림
         transform.Translate(Vector3.back * 50f * Time.smoothDeltaTime, Space.Self);
     }
+
     public void OnTriggerEnter(Collider other)
     {
         if(other.transform.tag == "Weapon")

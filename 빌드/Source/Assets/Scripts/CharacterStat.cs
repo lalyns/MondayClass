@@ -42,8 +42,15 @@ public class CharacterStat : MonoBehaviour
             if (lastHitBy == null)
                 lastHitBy = from;
 
-            GetComponent<FSMManager>().SetDeadState();
-            from.GetComponent<FSMManager>().NotifyTargetKilled();
+            try
+            {
+                GetComponent<FSMManager>().SetDeadState();
+                from.GetComponent<FSMManager>().NotifyTargetKilled();
+            }
+            catch
+            {
+
+            }
         }
     }
 
