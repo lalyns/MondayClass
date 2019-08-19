@@ -25,7 +25,7 @@ public class DreamCatcherFSMState : MonoBehaviour
 
     protected virtual void Update()
     {
-        
+        HPUI();
     }
 
     protected void DahsCheck()
@@ -40,6 +40,14 @@ public class DreamCatcherFSMState : MonoBehaviour
             _Skill1Time = 0;
             _manager.SetState(DreamCatcherState.DASH);
         }
+    }
+
+    public void HPUI()
+    {
+        float HP = _manager.Stat.Hp;
+
+        _manager._HPSilder.value = HP / _manager.Stat.MaxHp;
+
     }
 
     protected virtual void FixedUpdate()
