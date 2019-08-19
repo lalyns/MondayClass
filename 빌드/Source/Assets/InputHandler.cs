@@ -87,7 +87,7 @@ public class InputHandler : MonoBehaviour
         anim2.gameObject.SetActive(false);
 
         shake = GameObject.Find("CameraRig").GetComponent<Shake>();
-        //maincamera = GameObject.Find("mainCam").GetComponent<Camera>();
+        maincamera = GameObject.Find("mainCam").GetComponent<Camera>();
         followCam = shake.GetComponent<FollowCam>();
         isAttackOne = false;
         isAttackTwo = false;
