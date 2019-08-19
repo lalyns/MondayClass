@@ -94,7 +94,12 @@ public class TiberFSMManager : FSMManager
     {
         if (other.transform.tag == "Weapon")
         {
-            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.Tiber);
+
         }
+    }
+
+    public override void SetDeadState()
+    {
+        base.SetDeadState();
     }
 }

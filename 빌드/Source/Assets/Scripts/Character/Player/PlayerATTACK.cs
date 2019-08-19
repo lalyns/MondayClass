@@ -15,6 +15,7 @@ public class PlayerATTACK : MonoBehaviour
     {
         var hitTarget = GameLib.SimpleDamageProcess(transform, _manager.Stat.AttackRange,
             "Monster", _manager.Stat);
+
         if (hitTarget != null) _manager._lastAttack = hitTarget;
     }
     private void Update() {

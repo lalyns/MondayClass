@@ -95,7 +95,6 @@ public class MacFSMManager : FSMManager
     {
         if(other.transform.tag == "Weapon")
         {
-            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.Mac);
             if(_CurrentState == MacState.ATTACK)
             {
                 try
@@ -109,5 +108,12 @@ public class MacFSMManager : FSMManager
                 }
             }
         }
+    }
+
+    public override void SetDeadState()
+    {
+        base.SetDeadState();
+
+        SetState(MacState.DEAD);
     }
 }

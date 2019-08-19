@@ -7,9 +7,14 @@ public class DreamCatcherPOPUP : DreamCatcherFSMState
     float _PopUpTime = 2.0f;
     float _curTime = 0.0f;
 
+    public GameObject _PopupEffect;
+
     public override void BeginState()
     {
         base.BeginState();
+        _PopupEffect.SetActive(true);
+        _PopupEffect.GetComponentInChildren<ParticleSystem>().Play();
+        _PopupEffect.GetComponent<Animator>().Play("Ani");
     }
 
     public override void EndState()

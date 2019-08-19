@@ -66,14 +66,22 @@ public class InputHandler : MonoBehaviour
 
     public List<GameObject> _monster = new List<GameObject>();
     public List<GameObject> Monster { get { return _monster; } }
+
+    public float playerHP;
+    public float playerMaxHP;
     private void Start()
     {
         _monster.Clear();
-
+       
 
         states = GetComponent<StateManager>();
-        states.Init();
+        states.Init();        
+        playerHP = states._hp;
+        playerMaxHP = states._maxHp;
 
+        playerHP--;
+        //Debug.Log(states._hp+ "," + playerHP);
+        
         camManager = CameraManager.singleton;
         camManager.Init(this.transform);
         //camManager.Init(anim1.transform);
@@ -129,6 +137,11 @@ public class InputHandler : MonoBehaviour
     {
         Attack_Capsule.enabled = true;
     }
+    public void AttackCancel()
+    {
+        Attack_Capsule.enabled = false;
+    }
+
     private void FixedUpdate()
     {
         if (isInputLock)
@@ -250,7 +263,7 @@ public class InputHandler : MonoBehaviour
             if (Input.GetKey(KeyCode.F))
             {
                 _monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
-                randomShoot = Random.Range((int)-1, (int)_monster.Count);
+                randomShoot = Random.Range((int)0, (int)_monster.Count +1);
                 Skill1Effects[0].gameObject.SetActive(false);
                 Skill1Effects[1].gameObject.SetActive(true);
                 isShoot = true;
@@ -566,6 +579,20 @@ public class InputHandler : MonoBehaviour
         isGauge = true;
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.tag == "MonsterWeapon")
+        {
+            Debug.Log("맞았다.");
+            playerHP -= 10;
+        }
+    }
+
+    public void OnHit()
+    {
+
+    }
 
 
     public static InputHandler instance;

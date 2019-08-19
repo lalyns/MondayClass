@@ -8,7 +8,8 @@ public class testCol : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            Debug.Log("고블린 공격성공");
+            //Debug.Log("고블린 공격성공");
+            this.transform.GetComponentInParent<DreamCatcherATTACK>().AttackCheck();
             this.transform.GetComponent<CapsuleCollider>().enabled = false;
         }
     }

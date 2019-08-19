@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class DreamCatcherDEAD : DreamCatcherFSMState
 {
+    public override void BeginState()
+    {
+        base.BeginState();
+    }
+
+    public override void EndState()
+    {
+        base.EndState();
+
+        ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
