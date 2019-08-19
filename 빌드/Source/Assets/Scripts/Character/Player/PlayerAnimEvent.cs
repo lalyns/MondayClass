@@ -6,6 +6,9 @@ public class PlayerAnimEvent : MonoBehaviour
 {
     [SerializeField]
     InputHandler input;
+
+    public TrailRenderer trailRenderer;
+
     private void Start()    
     {
         input = InputHandler.instance;        
@@ -13,12 +16,18 @@ public class PlayerAnimEvent : MonoBehaviour
 
     void hitCheck()
     {
-        if(null!=input)
+        if (null != input)
+        {
             input.AttackCheck();
+            trailRenderer.gameObject.SetActive(true);
+        }
     }
     void hitCancel()
     {
         if (null != input)
+        {
             input.AttackCancel();
+            trailRenderer.gameObject.SetActive(false);
+        }
     }
 }
