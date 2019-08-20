@@ -25,7 +25,7 @@ public class InputHandler : MonoBehaviour
     [SerializeField]
     float Timer1, Timer2, Timer3;
     float Timer4;
-
+    float specialTimer;
     public bool isCantMove;
     public bool isInputLock;
 
@@ -49,7 +49,7 @@ public class InputHandler : MonoBehaviour
 
     int attackCount;
     [SerializeField]
-    float attackOne, attackTwo, attackThree, backOne, backTwo;
+    float attackOne, attackTwo, attackThree, backOne, backTwo, jumpSpecial;
     float animWaitTime = 0.1f;
 
     float AnimationLength(string name)
@@ -95,7 +95,7 @@ public class InputHandler : MonoBehaviour
         anim2.gameObject.SetActive(false);
 
         shake = GameObject.Find("CameraRig").GetComponent<Shake>();
-        //maincamera = GameObject.Find("mainCam").GetComponent<Camera>();
+        maincamera = GameObject.Find("mainCam").GetComponent<Camera>();
         followCam = shake.GetComponent<FollowCam>();
         isAttackOne = false;
         isAttackTwo = false;
@@ -130,6 +130,7 @@ public class InputHandler : MonoBehaviour
         attackTwo = AnimationLength("PC_Attack_002");
         attackThree = AnimationLength("PC_Attack_003");
         backOne = AnimationLength("PC_Attack_Back_001");
+        jumpSpecial = AnimationLength("PC_Transform_001");
         //backTwo = AnimationLength("PC_Attack_Back_002");
     }
     Image Skill1_CoolTime;
@@ -225,6 +226,7 @@ public class InputHandler : MonoBehaviour
     }
     public SphereCollider ball1;
     bool isBall, isShoot;
+    bool isSpecial;
     public Vector3 target;
     float shootTimer;
     public float skill1CoolTimer = 10f;
@@ -309,8 +311,24 @@ public class InputHandler : MonoBehaviour
         }
 
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isSpecial = true;            
+        }
 
+        if (isSpecial)
+        {
+            anim1.SetBool("isSpecial", true);
 
+            specialTimer += Time.deltaTime;
+            if(specialTimer >= jumpSpecial)
+            {
+                anim1.SetBool("isSpecial", false);
+                specialTimer = 0;
+                isSpecial = false;
+                return;
+            }
+        }
         GetInput();
 
 
