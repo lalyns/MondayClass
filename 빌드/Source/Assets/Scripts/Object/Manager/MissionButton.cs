@@ -40,13 +40,13 @@ public class MissionButton : MonoBehaviour
     public void ChangeMission(MissionData missionData, MissionManager.MissionType type)
     {
         Debug.Log((int)type);
-        Sprite missionName = missionData.MissionName[(int)type];
-        Sprite missionIcon = missionData.MissionIcon[(int)type];
-        string missionText = missionData.MissionText[(int)type];
+        //Sprite missionName = missionData.MissionName[(int)type];
+        //Sprite missionIcon = missionData.MissionIcon[(int)type];
+        //string missionText = missionData.MissionText[(int)type];
 
-        _MissionName.sprite = missionName;
-        _MissionIcon.sprite = missionIcon;
-        _MissionText.text = missionText;
+        //_MissionName.sprite = missionName;
+        //_MissionIcon.sprite = missionIcon;
+        //_MissionText.text = missionText;
     }
 
     /// <summary>

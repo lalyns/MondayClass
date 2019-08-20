@@ -22,7 +22,7 @@ public class UIMissionProgress : MonoBehaviour
 
     public void SetMissionType(string type)
     {
-        _MissionType.text = "[ " + type + " ]";
+        //_MissionType.text = "[ " + type + " ]";
     }
 
     public void SetMissionString(string str)
