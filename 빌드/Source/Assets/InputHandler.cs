@@ -29,7 +29,6 @@ public class InputHandler : MonoBehaviour
     public bool isCantMove;
     public bool isInputLock;
 
-    public float FeverGauge = 0;
     bool isCanFever;
     bool isFever;
 
@@ -94,6 +93,12 @@ public class InputHandler : MonoBehaviour
         anim1.gameObject.SetActive(true);
         anim2.gameObject.SetActive(false);
 
+        //변신전후모델링교체
+        //Normal = GameObject.Find("Normal").GetComponentInChildren<Transform>();
+        //Special = GameObject.Find("Special").GetComponentInChildren<Transform>();
+
+        //Normal.gameObject.SetActive(true);
+        //Special.gameObject.SetActive(false);
         shake = GameObject.Find("CameraRig").GetComponent<Shake>();
         maincamera = GameObject.Find("mainCam").GetComponent<Camera>();
         followCam = shake.GetComponent<FollowCam>();
@@ -123,6 +128,10 @@ public class InputHandler : MonoBehaviour
         Skill1_CoolTime.fillAmount = 1f;
         Skill1_CoolTime.gameObject.SetActive(false);
 
+        Special_Gauge = GameObject.Find("Special_Gauge").GetComponent<Image>();
+        Special_Gauge.fillAmount = 0;
+        Special_Gauge.gameObject.SetActive(true);
+
         isInputLock = false;
 
         //1~3타 애니의 재생 길이
@@ -133,7 +142,12 @@ public class InputHandler : MonoBehaviour
         jumpSpecial = AnimationLength("PC_Transform_001");
         //backTwo = AnimationLength("PC_Attack_Back_002");
     }
+
     Image Skill1_CoolTime;
+    Image Special_Gauge;
+    public float FeverGauge = 0;
+    public Transform Normal, Special;
+
     public void AttackCheck()
     {
         Attack_Capsule.enabled = true;
@@ -145,6 +159,7 @@ public class InputHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         if (isInputLock)
             return;
         
@@ -159,6 +174,8 @@ public class InputHandler : MonoBehaviour
             maincamera.gameObject.SetActive(false);
 
         }
+
+        //Special_Gauge.fillAmount = FeverGauge / 100f;
         //if (Input.GetKeyUp(KeyCode.Q))
         //{
         //    camManager.camInit(this.transform);
@@ -171,7 +188,7 @@ public class InputHandler : MonoBehaviour
             //camManager.cams.targetDisplay = 1;
             //Camera.main.targetDisplay = 0;
             //camManager.Tick(delta);
-
+            
             anim1.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
             //followCam.targetOffset = 1 + (1 * r_y);
             //followCam.transform.LookAt(transform.position + (transform.up * ( 1 *r_y)));
@@ -315,7 +332,14 @@ public class InputHandler : MonoBehaviour
         {
             isSpecial = true;            
         }
+        //변신 하는지 체크(임시)
+        if (Input.GetKeyDown(KeyCode.P))
+        {
 
+            Normal.gameObject.SetActive(false);
+            Special.gameObject.SetActive(true);
+            
+        }
         if (isSpecial)
         {
             anim1.SetBool("isSpecial", true);

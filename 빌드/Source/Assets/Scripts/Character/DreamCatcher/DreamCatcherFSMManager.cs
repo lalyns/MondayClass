@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -110,19 +110,20 @@ public class DreamCatcherFSMManager : FSMManager
         transform.localEulerAngles = Vector3.zero;
         transform.LookAt(InputHandler.instance.anim1.transform);
         // 뒤로 밀림
-        transform.Translate(Vector3.back * 50f * Time.smoothDeltaTime, Space.Self);
+        transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
+        //플레이어피버게이지증가?
+        InputHandler.instance.FeverGauge++;
     }
 
     public void OnTriggerEnter(Collider other)
-    {
+    {    
         if(other.transform.tag == "Weapon")
-        {
+        
             if (Stat.Hp > 0)
             {
                 OnHit();
             }
-            //ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);
-        }
+            //ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);        
     }
 
     public override void SetDeadState()
@@ -131,4 +132,5 @@ public class DreamCatcherFSMManager : FSMManager
 
         SetState(DreamCatcherState.DEAD);
     }
+
 }
