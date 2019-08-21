@@ -128,9 +128,16 @@ public class InputHandler : MonoBehaviour
         Skill1_CoolTime.fillAmount = 1f;
         Skill1_CoolTime.gameObject.SetActive(false);
 
-        Special_Gauge = GameObject.Find("Special_Gauge").GetComponent<Image>();
-        Special_Gauge.fillAmount = 0;
-        Special_Gauge.gameObject.SetActive(true);
+        try
+        {
+            Special_Gauge = GameObject.Find("Special_Gauge").GetComponent<Image>();
+            Special_Gauge.fillAmount = 0;
+            Special_Gauge.gameObject.SetActive(true);
+        }
+        catch
+        {
+
+        }
 
         isInputLock = false;
 
@@ -272,8 +279,14 @@ public class InputHandler : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             //Debug.Log("마우스누름");
-            SwingEffect.gameObject.SetActive(true);
+            try
+            {
+                SwingEffect.gameObject.SetActive(true);
+            }
+            catch
+            {
 
+            }
             attackCount++;
         }
         
@@ -335,10 +348,15 @@ public class InputHandler : MonoBehaviour
         //변신 하는지 체크(임시)
         if (Input.GetKeyDown(KeyCode.P))
         {
+            try
+            {
+                Normal.gameObject.SetActive(false);
+                Special.gameObject.SetActive(true);
+            }
+            catch
+            {
 
-            Normal.gameObject.SetActive(false);
-            Special.gameObject.SetActive(true);
-            
+            }
         }
         if (isSpecial)
         {

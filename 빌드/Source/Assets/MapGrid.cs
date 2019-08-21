@@ -12,11 +12,13 @@ public class MapGrid : MonoBehaviour
     public float _GridSize;
 
     public int loopCount = 0;
+    public bool _IsGridGizmos = true;
+
 
     private void Start()
     {
         _Actor.transform.position = _Center.transform.position;
-
+        _MapPosition.Clear();
         SetCoord();
     }
 
@@ -50,6 +52,8 @@ public class MapGrid : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!_IsGridGizmos) return;
+
         Gizmos.color = Color.blue;
 
         foreach(Vector3 pos in _MapPosition)

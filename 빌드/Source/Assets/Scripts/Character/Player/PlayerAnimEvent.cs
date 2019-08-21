@@ -9,6 +9,8 @@ public class PlayerAnimEvent : MonoBehaviour
 
     public TrailRenderer trailRenderer;
 
+    public ParticleSystem particle;
+
     private void Start()    
     {
         input = InputHandler.instance;        
@@ -29,5 +31,29 @@ public class PlayerAnimEvent : MonoBehaviour
             input.AttackCancel();
             trailRenderer.gameObject.SetActive(false);
         }
+    }
+
+    public void PlayParticle()
+    {
+        Debug.Log("시작");
+
+        var main = particle.main;
+        try
+        {
+            main.startLifetime = 1;
+            particle.Play();
+        }
+        catch
+        {
+
+        }
+    }
+
+    public void StopParticle()
+    {
+        Debug.Log("끝");
+
+        //particle.Stop();
+        //particle.Clear();
     }
 }

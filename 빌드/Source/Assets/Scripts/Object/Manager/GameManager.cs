@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
 
     public bool _CharacterControl = true;
 
+    bool _SimpleMode = false;
+    public GameObject _MissionSimple;
+    public GameObject _MissionFull;
+
     private void Awake()
     {
         if(_Instance == null)
@@ -36,6 +40,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (!_SimpleMode)
+            {
+                _MissionSimple.SetActive(true);
+                _MissionFull.SetActive(false);
+                _SimpleMode = !_SimpleMode;
+            }
+            else
+            {
+                _MissionSimple.SetActive(false);
+                _MissionFull.SetActive(true);
+                _SimpleMode = !_SimpleMode;
+            }
+        }
+
     }
 
     private void OnGUI()
