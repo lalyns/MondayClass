@@ -124,9 +124,16 @@ public class InputHandler : MonoBehaviour
         //ball1.gameObject.SetActive(false);
         ballStartPos = GameObject.Find("BallStartPos").GetComponent<Transform>();
 
-        Skill1_CoolTime = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
-        Skill1_CoolTime.fillAmount = 1f;
-        Skill1_CoolTime.gameObject.SetActive(false);
+        try
+        {
+            Skill1_CoolTime = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
+            Skill1_CoolTime.fillAmount = 1f;
+            Skill1_CoolTime.gameObject.SetActive(false);
+        }
+        catch
+        {
+
+        }
 
         try
         {
