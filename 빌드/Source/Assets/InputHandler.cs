@@ -281,10 +281,6 @@ public class InputHandler : MonoBehaviour
         if (isInputLock)
             return;
 
-        
-        //target = new Vector3(anim1.transform.position.x + 10f, anim1.transform.position.y, anim1.transform.position.z + 5f);
-
-
         if (attackCount >= 10)
         {
             attackCount = 0;

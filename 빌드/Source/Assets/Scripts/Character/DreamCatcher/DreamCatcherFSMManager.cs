@@ -55,7 +55,7 @@ public class DreamCatcherFSMManager : FSMManager
     public Slider _HPSilder;
 
     public float HP = 100;
-
+    public GameObject hitEffect;
     protected override void Awake()
     {
         base.Awake();
@@ -104,12 +104,13 @@ public class DreamCatcherFSMManager : FSMManager
 
     public void OnHit()
     {
+        Stat.TakeDamage(Stat, 50);
+
         //hp--;
         //카메라쉐이킹
         Shake.instance.ShakeCamera();
         //hit스크립트로넘겨줌
-
-        Stat.TakeDamage(Stat, 100);
+        Instantiate(hitEffect, this.transform.position, Quaternion.identity);
 
         if (Stat.Hp > 0)
         {
@@ -130,14 +131,36 @@ public class DreamCatcherFSMManager : FSMManager
     }
 
     public void OnTriggerEnter(Collider other)
-    {    
-        if(other.transform.tag == "Weapon")
-        
+    {
+        if (other.transform.tag == "Weapon")
+        {
+
             if (Stat.Hp > 0)
             {
                 OnHit();
             }
             //ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);        
+        }
+        if (other.transform.tag == "Ball")
+        {
+            if (Stat.Hp > 0)
+            {
+                OnHit();
+            }
+            
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.transform.tag == "Ball")
+        {
+            if (Stat.Hp > 0)
+            {
+                OnHit();
+            }
+
+            
+        }
     }
 
     public override void SetDeadState()

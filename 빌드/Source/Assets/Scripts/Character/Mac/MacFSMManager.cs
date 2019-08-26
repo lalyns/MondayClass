@@ -48,7 +48,7 @@ public class MacFSMManager : FSMManager
     public MeshRenderer _MR;
 
     public Slider _HPSilder;
-
+    public GameObject hitEffect;
     protected override void Awake()
     {
         base.Awake();
@@ -96,12 +96,13 @@ public class MacFSMManager : FSMManager
 
     public void OnHit()
     {
+        Instantiate(hitEffect, this.transform.position, Quaternion.identity);
+
         //hp--;
         //카메라쉐이킹
         Shake.instance.ShakeCamera();
 
-        Stat.TakeDamage(Stat, 100);
-
+        Stat.TakeDamage(Stat, 50);
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {
@@ -124,6 +125,49 @@ public class MacFSMManager : FSMManager
     public void OnTriggerEnter(Collider other)
     {
         if(other.transform.tag == "Weapon")
+        {
+            if (Stat.Hp > 0)
+            {
+                OnHit();
+            }
+
+            if (_CurrentState == MacState.ATTACK)
+            {
+                try
+                {
+                    Destroy(GetComponent<MacATTACK>().bullet.gameObject);
+                    GetComponent<MacATTACK>().bullet = null;
+                }
+                catch
+                {
+
+                }
+            }
+        }
+        if(other.transform.tag == "Ball")
+        {
+            if (Stat.Hp > 0)
+            {
+                OnHit();
+            }
+
+            if (_CurrentState == MacState.ATTACK)
+            {
+                try
+                {
+                    Destroy(GetComponent<MacATTACK>().bullet.gameObject);
+                    GetComponent<MacATTACK>().bullet = null;
+                }
+                catch
+                {
+
+                }
+            }
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.transform.tag == "Ball")
         {
             if (Stat.Hp > 0)
             {
