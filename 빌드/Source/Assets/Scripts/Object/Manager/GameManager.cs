@@ -15,6 +15,11 @@ public class GameManager : MonoBehaviour
     public GameObject _MissionSimple;
     public GameObject _MissionFull;
 
+    public bool _IsDummyScene = false;
+    public int curScore = 0;
+
+    public static int stageLevel = 0;
+
     private void Awake()
     {
         if(_Instance == null)
@@ -24,6 +29,11 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+
+        if (_IsDummyScene)
+        {
+
         }
     }
 
@@ -90,4 +100,11 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public static void TempScoreAdd()
+    {
+        _Instance.curScore += 1;
+    }
+
+    
 }

@@ -7,13 +7,22 @@ public class MacDEAD : MacFSMState
     public override void BeginState()
     {
         base.BeginState();
+
+
+        if (!GameManager._Instance._IsDummyScene)
+        {
+            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.Mac);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public override void EndState()
     {
         base.EndState();
 
-        ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.Mac);
     }
 
 

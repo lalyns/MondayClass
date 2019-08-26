@@ -7,13 +7,20 @@ public class DreamCatcherDEAD : DreamCatcherFSMState
     public override void BeginState()
     {
         base.BeginState();
+
+        if (!GameManager._Instance._IsDummyScene)
+        {
+            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public override void EndState()
     {
         base.EndState();
-
-        ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);
     }
 
     // Start is called before the first frame update
@@ -26,6 +33,8 @@ public class DreamCatcherDEAD : DreamCatcherFSMState
     protected override void Update()
     {
         base.Update();
+
+        
     }
 
     protected override void FixedUpdate()
