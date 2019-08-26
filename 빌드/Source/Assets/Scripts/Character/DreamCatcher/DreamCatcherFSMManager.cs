@@ -60,7 +60,7 @@ public class DreamCatcherFSMManager : FSMManager
     {
         base.Awake();
 
-        HP = 100;
+        HP = 10;
         _CC = GetComponent<CharacterController>();
         _Stat = GetComponent<DreamCatcherStat>();
         _Anim = GetComponentInChildren<Animator>();
@@ -104,7 +104,7 @@ public class DreamCatcherFSMManager : FSMManager
 
     public void OnHit()
     {
-        Stat.TakeDamage(Stat, 50);
+        Stat.TakeDamage(Stat, 400);
 
         //hp--;
         //카메라쉐이킹
