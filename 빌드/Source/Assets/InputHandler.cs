@@ -40,7 +40,7 @@ public class InputHandler : MonoBehaviour
 
     //충돌처리 콜라이더 및 공격 검귀 이펙트?
     CapsuleCollider Attack_Capsule;
-    Transform SwingEffect;
+    //Transform SwingEffect;
     Transform ballStartPos;
 
     [Header("X축 마우스 감도")]
@@ -70,11 +70,14 @@ public class InputHandler : MonoBehaviour
     public float playerMaxHP;
 
     public GameObject WeaponTransformEffect;
+    public GameObject TimeLine;
+    public GameObject Change_Effect;
+
     private void Start()
     {
         _monster.Clear();
-       
 
+        
         states = GetComponent<StateManager>();
         states.Init();        
         playerHP = states._hp;
@@ -108,12 +111,12 @@ public class InputHandler : MonoBehaviour
         isAttackTwo = false;
         isCantMove = false;
         isFever = false;
-
+        anim1.avatar.name = "PC_RigAvatar";
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         try
         {
-            SwingEffect = GameObject.Find("SwingEffect").GetComponent<Transform>();
-            SwingEffect.gameObject.SetActive(false);
+            //SwingEffect = GameObject.Find("SwingEffect").GetComponent<Transform>();
+            //SwingEffect.gameObject.SetActive(false);
         }
         catch
         {
@@ -124,7 +127,7 @@ public class InputHandler : MonoBehaviour
         ball1 = anim1.GetComponentInChildren<SphereCollider>();
 
         //ball1.gameObject.SetActive(false);
-        ballStartPos = GameObject.Find("BallStartPos").GetComponent<Transform>();
+//        ballStartPos = GameObject.Find("BallStartPos").GetComponent<Transform>();
 
         try
         {
@@ -176,10 +179,12 @@ public class InputHandler : MonoBehaviour
     private void FixedUpdate()
     {
         
-        if (isInputLock)
-            return;
+       
+        if (!isSpecial)
+        {
+            r_x = Input.GetAxis("Mouse X");
+        }
         
-        r_x = Input.GetAxis("Mouse X");
         if (Input.GetKey(KeyCode.Q))
         {
 
@@ -204,8 +209,10 @@ public class InputHandler : MonoBehaviour
             //camManager.cams.targetDisplay = 1;
             //Camera.main.targetDisplay = 0;
             //camManager.Tick(delta);
-            
-            anim1.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
+            if (isSpecial)
+                return;
+            if(!isSpecial)
+                anim1.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
             //followCam.targetOffset = 1 + (1 * r_y);
             //followCam.transform.LookAt(transform.position + (transform.up * ( 1 *r_y)));
             isCamInit = false;
@@ -259,7 +266,7 @@ public class InputHandler : MonoBehaviour
     }
     public SphereCollider ball1;
     bool isBall, isShoot;
-    bool isSpecial;
+    public bool isSpecial;
     public Vector3 target;
     float shootTimer;
     public float skill1CoolTimer = 10f;
@@ -290,7 +297,7 @@ public class InputHandler : MonoBehaviour
             //Debug.Log("마우스누름");
             try
             {
-                SwingEffect.gameObject.SetActive(true);
+                //SwingEffect.gameObject.SetActive(true);
             }
             catch
             {
@@ -352,7 +359,8 @@ public class InputHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            isSpecial = true;            
+            isSpecial = true;
+            TimeLine.SetActive(true);
         }
         //변신 하는지 체크(임시)
         if (Input.GetKeyDown(KeyCode.P))
@@ -369,17 +377,29 @@ public class InputHandler : MonoBehaviour
         }
         if (isSpecial)
         {
-            anim1.SetBool("isSpecial", true);
             WeaponTransformEffect.SetActive(true);
             specialTimer += Time.deltaTime;
-            if (specialTimer >= 1.90f)
+            if (specialTimer >= 0.75f)
+            {
+                anim1.SetBool("isSpecial", true);
+            }
+            if (specialTimer >= 1.90f+ 0.75f)
             {
                 WeaponTransformEffect.SetActive(false);
+                anim1.avatar.name = "SP_RigAvatar";
+                Normal.gameObject.SetActive(false);
+                Special.gameObject.SetActive(true);
             }
-            if(specialTimer >= jumpSpecial)
+            if (specialTimer >= jumpSpecial + 1.3f)
+            {
+                Change_Effect.SetActive(false);
+            }
+            if(specialTimer >= jumpSpecial+ 2f)
             {
                 anim1.SetBool("isSpecial", false);
+                
                 specialTimer = 0;
+                TimeLine.SetActive(false);
                 isSpecial = false;
                 return;
             }
@@ -523,7 +543,7 @@ public class InputHandler : MonoBehaviour
                 isAttackTwo = false;
                 Timer2 = 0;
                 Attack_Capsule.enabled = false;
-                SwingEffect.gameObject.SetActive(false);
+                //SwingEffect.gameObject.SetActive(false);
                 return;
             }
 

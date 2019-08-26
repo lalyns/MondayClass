@@ -51,6 +51,7 @@ public class PlayerAnimEvent : MonoBehaviour
 
     public void StopParticle()
     {
+        
         Debug.Log("끝");
 
         //particle.Stop();
