@@ -7,10 +7,10 @@ public class CharacterStat : MonoBehaviour
     protected float _str = 10.0f;
     public float Str { get { return _str; } }
 
-    protected float _maxHp = 100.0f;
+    protected float _maxHp = 1000.0f;
     public float MaxHp { get { return _maxHp; } }
 
-    protected float _hp = 100.0f;
+    protected float _hp = 1000.0f;
     public float Hp { get { return _hp; } }
 
     protected float _moveSpeed = 3.0f;
