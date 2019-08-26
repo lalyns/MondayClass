@@ -68,6 +68,8 @@ public class InputHandler : MonoBehaviour
 
     public float playerHP;
     public float playerMaxHP;
+
+    public GameObject WeaponTransformEffect;
     private void Start()
     {
         _monster.Clear();
@@ -368,8 +370,12 @@ public class InputHandler : MonoBehaviour
         if (isSpecial)
         {
             anim1.SetBool("isSpecial", true);
-
+            WeaponTransformEffect.SetActive(true);
             specialTimer += Time.deltaTime;
+            if (specialTimer >= 1.90f)
+            {
+                WeaponTransformEffect.SetActive(false);
+            }
             if(specialTimer >= jumpSpecial)
             {
                 anim1.SetBool("isSpecial", false);
