@@ -16,6 +16,7 @@ public class FSMManager : MonoBehaviour
     protected void ShowSight(bool isOn) { _bOnSight = isOn; }
     [SerializeField]
     protected StatData _statData;
+    public CharacterStat stats;
     public StatData MyStatData { get { return _statData; } }
 
     protected virtual void Awake()
@@ -25,6 +26,8 @@ public class FSMManager : MonoBehaviour
             _sight = GetComponentInChildren<Camera>();
             _sight.aspect = sightAspect;
         }
+
+        stats = GetComponent<CharacterStat>();
     }
 
     private void OnDrawGizmos()
@@ -58,7 +61,12 @@ public class FSMManager : MonoBehaviour
 
     public virtual void NotifyTargetKilled() { }
 
-    public virtual void SetDeadState() { }
+    public virtual void SetDeadState() {
+
+        if (!_Player)
+        {
+        }
+    }
 
     public virtual bool IsDie() { return false; }
 }

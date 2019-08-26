@@ -26,6 +26,9 @@ public class MissionManager : MonoBehaviour
         {
             _Instance = GetComponent<MissionManager>();
 
+            if (GameManager._Instance._IsDummyScene)
+                return;
+
             _Choices = new MissionButton[3];
             _Instance._Choices[0] = _Instance._UIMission.transform.GetChild(1).GetComponent<MissionButton>();
             _Instance._Choices[1] = _Instance._UIMission.transform.GetChild(2).GetComponent<MissionButton>();

@@ -54,10 +54,13 @@ public class DreamCatcherFSMManager : FSMManager
 
     public Slider _HPSilder;
 
+    public float HP = 100;
+
     protected override void Awake()
     {
         base.Awake();
 
+        HP = 100;
         _CC = GetComponent<CharacterController>();
         _Stat = GetComponent<DreamCatcherStat>();
         _Anim = GetComponentInChildren<Animator>();
@@ -105,14 +108,25 @@ public class DreamCatcherFSMManager : FSMManager
         //카메라쉐이킹
         Shake.instance.ShakeCamera();
         //hit스크립트로넘겨줌
-        SetState(DreamCatcherState.HIT);
-        //플레이어 쳐다본 후
-        transform.localEulerAngles = Vector3.zero;
-        transform.LookAt(InputHandler.instance.anim1.transform);
-        // 뒤로 밀림
-        transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
-        //플레이어피버게이지증가?
-        InputHandler.instance.FeverGauge++;
+
+        Stat.TakeDamage(Stat, 100);
+
+        if (Stat.Hp > 0)
+        {
+            SetState(DreamCatcherState.HIT);
+
+            //플레이어 쳐다본 후
+            transform.localEulerAngles = Vector3.zero;
+            transform.LookAt(InputHandler.instance.anim1.transform);
+            // 뒤로 밀림
+            transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
+            //플레이어피버게이지증가?
+            InputHandler.instance.FeverGauge++;
+        }
+        else
+        {
+            SetDeadState();
+        }
     }
 
     public void OnTriggerEnter(Collider other)

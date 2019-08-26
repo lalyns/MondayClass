@@ -35,7 +35,7 @@ public class PlayerAnimEvent : MonoBehaviour
 
     public void PlayParticle()
     {
-        Debug.Log("시작");
+        //Debug.Log("시작");
 
         var main = particle.main;
         try

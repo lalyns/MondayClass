@@ -6,33 +6,63 @@ public class Bead : MonoBehaviour
 {
     public float _MoveSpeed = 10f;
 
+    public GameObject _FloorEffect;
+
     private void Update()
     {
         this.transform.position += Vector3.down * _MoveSpeed * Time.deltaTime;
+
+        Ray ray = new Ray();
+        ray.origin = this.transform.position;
+        ray.direction = Vector3.down;
+
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit, 15f, 1<<17, QueryTriggerInteraction.Collide))
+        {
+            _FloorEffect.transform.position = hit.point;
+        }
+            
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.transform.name);
-        if (other.transform.tag == "Player")
+
+        if (GameManager._Instance._IsDummyScene)
         {
-            DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress += 10;
-            Debug.Log(DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress);
+            if (other.transform.tag == "Player")
+            {
+                GameManager.TempScoreAdd();
 
-            DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[
-                    DungeonManager.GetCurrentDungeon().GetComponent<Survive>().pos].SetActive(false);
 
-            Destroy(this.gameObject);
+                Destroy(this.gameObject);
+            }
+            else if(other.transform.tag == "Stage")
+            {
+                Destroy(this.gameObject);
+            }
         }
-
-        if(other.transform.tag == "Stage")
+        else
         {
-            DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[
-                    DungeonManager.GetCurrentDungeon().GetComponent<Survive>().pos].SetActive(false);
+            if (other.transform.tag == "Player")
+            {
+                DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress += 10;
+                Debug.Log(DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress);
 
-            Destroy(this.gameObject);
+                DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[
+                        DungeonManager.GetCurrentDungeon().GetComponent<Survive>().pos].SetActive(false);
+
+                Destroy(this.gameObject);
+            }
+
+            if (other.transform.tag == "Stage")
+            {
+                DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[
+                        DungeonManager.GetCurrentDungeon().GetComponent<Survive>().pos].SetActive(false);
+
+                Destroy(this.gameObject);
+            }
         }
-
     }
 
 }

@@ -40,6 +40,7 @@ public class MacATTACK : MacFSMState
                     bullet = Instantiate(_manager.Stat._AttackEffect,
                     _manager._AttackTransform.position,
                     Quaternion.identity).transform;
+                    bullet.transform.parent = this.transform;
                     _CreateBall = true;
                 }
 
@@ -53,9 +54,9 @@ public class MacATTACK : MacFSMState
                     {
                         try
                         {
-                            bullet.GetComponent<Bullet>().LookAtTarget(_manager.PlayerCapsule.transform);
-                            bullet.GetComponent<Bullet>().dir = GameLib.DirectionToCharacter(_manager.CC, _manager.PlayerCapsule);
-                            bullet.GetComponent<Bullet>()._Move = true;
+                            //    bullet.GetComponent<Bullet>().LookAtTarget(_manager.PlayerCapsule.transform);
+                            //    bullet.GetComponent<Bullet>().dir = GameLib.DirectionToCharacter(_manager.CC, _manager.PlayerCapsule);
+                            //    bullet.GetComponent<Bullet>()._Move = true;
                         }
                         catch
                         {

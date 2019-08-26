@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum MacState
 {
@@ -45,6 +46,8 @@ public class MacFSMManager : FSMManager
 
     public Transform _AttackTransform;
     public MeshRenderer _MR;
+
+    public Slider _HPSilder;
 
     protected override void Awake()
     {
@@ -91,11 +94,43 @@ public class MacFSMManager : FSMManager
         _Anim.SetInteger("CurrentState", (int)_CurrentState);
     }
 
+    public void OnHit()
+    {
+        //hp--;
+        //카메라쉐이킹
+        Shake.instance.ShakeCamera();
+
+        Stat.TakeDamage(Stat, 100);
+
+        //hit스크립트로넘겨줌
+        if (Stat.Hp > 0)
+        {
+            SetState(MacState.HIT);
+            //플레이어 쳐다본 후
+            transform.localEulerAngles = Vector3.zero;
+            transform.LookAt(InputHandler.instance.anim1.transform);
+            // 뒤로 밀림
+            transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
+            //플레이어피버게이지증가?
+            InputHandler.instance.FeverGauge++;
+        }
+        else
+        {
+            SetDeadState();
+        }
+
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if(other.transform.tag == "Weapon")
         {
-            if(_CurrentState == MacState.ATTACK)
+            if (Stat.Hp > 0)
+            {
+                OnHit();
+            }
+
+            if (_CurrentState == MacState.ATTACK)
             {
                 try
                 {

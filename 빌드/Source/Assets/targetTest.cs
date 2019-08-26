@@ -15,6 +15,8 @@ public class targetTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        this.transform.position = new Vector3(this.transform.position.x,
+            player.position.y, this.transform.position.z);
         this.transform.LookAt(player);
     }
 }

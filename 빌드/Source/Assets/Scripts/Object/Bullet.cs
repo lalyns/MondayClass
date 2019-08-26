@@ -17,19 +17,21 @@ public class Bullet : MonoBehaviour
 
     [System.NonSerialized] public bool _Move = false;
 
+    public GameObject _AttackEffect;
+
     // Update is called once per frame
     void Update()
     {
-        if (_Size < _MaxSize)
-        {
-            _Size += (float)_IncreaseSize / 100f * Time.deltaTime;
-        }
-        else
-        {
-            _Size = _MaxSize;
-        }
+        //if (_Size < _MaxSize)
+        //{
+        //    _Size += (float)_IncreaseSize / 100f * Time.deltaTime;
+        //}
+        //else
+        //{
+        //    _Size = _MaxSize;
+        //}
 
-        transform.localScale = Vector3.one * _Size;
+        //transform.localScale = Vector3.one * _Size;
 
         if (_Move)
         {
@@ -52,6 +54,8 @@ public class Bullet : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
+            GameObject attack = Instantiate(_AttackEffect, this.transform.position, Quaternion.identity);
+            attack.transform.LookAt(other.transform);
             Destroy(this.gameObject);
         }
 

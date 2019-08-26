@@ -677,8 +677,8 @@ public class InputHandler : MonoBehaviour
     {
         if(other.transform.tag == "MonsterWeapon")
         {
-            Debug.Log("맞았다.");
-            playerHP -= 10;
+            //Debug.Log("맞았다.");
+            playerHP -= 5;
         }
     }
 
