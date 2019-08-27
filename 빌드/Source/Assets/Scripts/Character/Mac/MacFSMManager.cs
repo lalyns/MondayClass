@@ -102,7 +102,7 @@ public class MacFSMManager : FSMManager
         //카메라쉐이킹
         Shake.instance.ShakeCamera();
 
-        Stat.TakeDamage(Stat, 50);
+        Stat.TakeDamage(Stat, 400);
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {

@@ -36,7 +36,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 775303778722871567}
+  - {fileID: 775303778723004301}
   - {fileID: 4752788341604969678}
   - {fileID: 4318643954940793240}
   - {fileID: 8998713445947660211}
@@ -152,11 +152,11 @@ MonoBehaviour:
   stats: {fileID: 0}
   startState: 0
   _AttackTransform: {fileID: 0}
-  _MR: {fileID: 775303778711398447}
+  _MR: {fileID: 775303778722984884}
   _DashRoute: {fileID: 1877278832874558577}
   _lastAttack: {fileID: 0}
   _HPSilder: {fileID: 4517262054362800498}
-  HP: 100
+  HP: 10
   hitEffect: {fileID: 121832780941730155, guid: 2667e56a7f52a974baaa82b17f6778e7,
     type: 3}
 --- !u!114 &2020198653491668466
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 775303778722964783}
+  m_GameObject: {fileID: 775303778722996977}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac212d76d77c09e4d89ee0c3e042004c, type: 3}
@@ -196,7 +196,7 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 775303778722964815}
+  m_GameObject: {fileID: 775303778722996392}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 775303778722964815}
+  m_GameObject: {fileID: 775303778722996392}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecf58109c9c6d11458eef429a5dcef1f, type: 3}
@@ -19764,7 +19764,7 @@ Transform:
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children:
   - {fileID: 97771327710215271}
-  m_Father: {fileID: 775303778722871567}
+  m_Father: {fileID: 775303778723004301}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7991199647320709758
@@ -29620,10 +29620,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goble
       objectReference: {fileID: 0}
-    - target: {fileID: 100032, guid: 1ab8e03f92030bd45864452e8dc91a90, type: 3}
-      propertyPath: m_TagString
-      value: MonsterWeapon
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1ab8e03f92030bd45864452e8dc91a90, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -29684,27 +29680,31 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: b4adc0d313a607645ac079475bf3a70a, type: 2}
+    - target: {fileID: 100032, guid: 1ab8e03f92030bd45864452e8dc91a90, type: 3}
+      propertyPath: m_TagString
+      value: MonsterWeapon
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ab8e03f92030bd45864452e8dc91a90, type: 3}
---- !u!137 &775303778711398447 stripped
+--- !u!137 &775303778722984884 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 13700000, guid: 1ab8e03f92030bd45864452e8dc91a90,
     type: 3}
   m_PrefabInstance: {fileID: 775303778722997135}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &775303778722964815 stripped
+--- !u!1 &775303778722996392 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100032, guid: 1ab8e03f92030bd45864452e8dc91a90,
     type: 3}
   m_PrefabInstance: {fileID: 775303778722997135}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &775303778722871567 stripped
+--- !u!4 &775303778723004301 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 1ab8e03f92030bd45864452e8dc91a90,
     type: 3}
   m_PrefabInstance: {fileID: 775303778722997135}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &775303778722964783 stripped
+--- !u!1 &775303778722996977 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 1ab8e03f92030bd45864452e8dc91a90,
     type: 3}

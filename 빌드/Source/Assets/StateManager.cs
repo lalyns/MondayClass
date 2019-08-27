@@ -7,7 +7,7 @@ public class StateManager : MonoBehaviour
 {
     [Header("HP")]
     public float _hp;
-    public float _maxHp = 100f;
+    public float _maxHp = 1000f;
 
 
 
