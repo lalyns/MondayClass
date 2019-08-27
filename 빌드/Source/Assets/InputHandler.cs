@@ -389,10 +389,11 @@ public class InputHandler : MonoBehaviour
             if (specialTimer >= jumpSpecial + 1.3f)
             {
                 Change_Effect.SetActive(false);
-            }
-            if(specialTimer >= jumpSpecial+ 2f)
-            {
                 anim1.SetBool("isSpecial", false);
+
+            }
+            if (specialTimer >= jumpSpecial+ 2f)
+            {
                 
                 specialTimer = 0;
                 TimeLine.SetActive(false);
@@ -435,6 +436,15 @@ public class InputHandler : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.Space) && !isAttackOne)
         if (Input.GetMouseButtonDown(0) && !isAttackOne)
         {
+            Timer1 += Time.deltaTime;
+            if (Timer1 >= 0.4f)
+            {
+                isCantMove = false;
+
+                Timer1 = 0;
+                return;
+            }
+
             if (!isFever)
                 anim1.SetInteger("CurrentAttack", 1);
             if (isFever)
@@ -443,6 +453,7 @@ public class InputHandler : MonoBehaviour
             if (!isAttackTwo && !isAttackThree)
                 isAttackOne = true;
 
+            
             //StartCoroutine(shake.ShakeCamera());
 
         }
