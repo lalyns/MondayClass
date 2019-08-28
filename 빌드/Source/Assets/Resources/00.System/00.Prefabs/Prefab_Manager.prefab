@@ -201,8 +201,9 @@ GameObject:
   - component: {fileID: 2274891494096624112}
   - component: {fileID: 2274891494096624113}
   - component: {fileID: 2274891494096624115}
+  - component: {fileID: 490599731}
   m_Layer: 0
-  m_Name: Manager
+  m_Name: Prefab_Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,6 +259,8 @@ MonoBehaviour:
   _CharacterControl: 1
   _MissionSimple: {fileID: 0}
   _MissionFull: {fileID: 0}
+  _IsDummyScene: 1
+  curScore: 0
 --- !u!82 &2274891494096624115
 AudioSource:
   m_ObjectHideFlags: 0
@@ -265,7 +268,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2274891494096624079}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cff6a912b0fb1d74fabcadb7b00749f5, type: 3}
@@ -354,6 +357,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &490599731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2274891494096624079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 834821818327ad343a6b6bd834f2ced1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mission1: {fileID: 0}
+  dungeon1: {fileID: 0}
+  Mission2: {fileID: 0}
+  dungeon2: {fileID: 0}
+  MissionIcon: {fileID: 0}
+  RemainIcon: {fileID: 0}
+  mission1: {fileID: 21300000, guid: f5885195b993764419d59ff3ec4b7619, type: 3}
+  mission2: {fileID: 21300000, guid: d7cddd8046549994bb33fa5614a61b58, type: 3}
+  remain1: {fileID: 21300000, guid: 074b30af710a0b942850be9487ef23eb, type: 3}
+  remain2: {fileID: 21300000, guid: 17275be3fd9e84448b34f8a5e9f1193a, type: 3}
+  MissionType: {fileID: 0}
+  MissionType1: "\uC12C\uBA78"
+  MissionType2: "\uBC29\uC5B4"
+  _Time: {fileID: 0}
+  _Remain: {fileID: 0}
 --- !u!1 &2274891494841528154
 GameObject:
   m_ObjectHideFlags: 0
