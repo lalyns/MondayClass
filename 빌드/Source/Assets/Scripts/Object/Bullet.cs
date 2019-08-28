@@ -7,10 +7,6 @@ public class Bullet : MonoBehaviour
     public float _Speed = 5f;
     public float _DestroyTime = 5f;
 
-    float _Size = 1f;
-    public int _IncreaseSize = 1;
-    public float _MaxSize = 1.4f;
-
     [System.NonSerialized]public float _Time;
 
     [System.NonSerialized] public Vector3 dir;

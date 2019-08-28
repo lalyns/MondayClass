@@ -9,6 +9,9 @@ public class MacAnimation : MonoBehaviour
     public GameObject bulletEffect;
     public float _Time = 0;
 
+    public float _MakeTime = 0.5f;
+    public float _DestroyTime = 0.7f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +25,7 @@ public class MacAnimation : MonoBehaviour
         {
             _Time += Time.deltaTime;
 
-            if (_Time > 0.5f)
+            if (_Time > _MakeTime)
             {
                 GameObject temp = Instantiate(bulletEffect, this.transform.position, Quaternion.identity);
 
@@ -31,12 +34,13 @@ public class MacAnimation : MonoBehaviour
                 temp.GetComponent<Bullet>()._Move = true;
                 Destroy(this.gameObject);
             }
+
         }
 
         if(type == 2)
         {
 
-            if (_Time > 0.7f)
+            if (_Time > _DestroyTime)
             {
                 _Time += Time.deltaTime;
                 Destroy(this.gameObject);
