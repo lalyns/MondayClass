@@ -111,6 +111,7 @@ MonoBehaviour:
   _DestroyTime: 5
   _IncreaseSize: 1
   _MaxSize: 1
+  _AttackEffect: {fileID: 0}
 --- !u!1 &2479661938488558093
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7175284345330287559
 Transform:
   m_ObjectHideFlags: 0
@@ -227,7 +228,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 1
-      minScalar: 1.5
+      minScalar: 0.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2210,8 +2211,8 @@ ParticleSystem:
           inWeight: 0
           outWeight: 0.30379167
         - serializedVersion: 3
-          time: 0.26795125
-          value: 0.32922056
+          time: 0.19966817
+          value: 0.3787277
           inSlope: -0.04030789
           outSlope: -0.04030789
           tangentMode: 0
@@ -5056,7 +5057,12 @@ PrefabInstance:
     - target: {fileID: 7496195823171045702, guid: d20fdad28ee7af5449832599827f2b7a,
         type: 3}
       propertyPath: lengthInSec
-      value: 5
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496195823171045702, guid: d20fdad28ee7af5449832599827f2b7a,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5054677747264883971, guid: d20fdad28ee7af5449832599827f2b7a,
         type: 3}
@@ -5076,7 +5082,12 @@ PrefabInstance:
     - target: {fileID: 5243011006617407082, guid: d20fdad28ee7af5449832599827f2b7a,
         type: 3}
       propertyPath: lengthInSec
-      value: 5
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243011006617407082, guid: d20fdad28ee7af5449832599827f2b7a,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5493085226080769416, guid: d20fdad28ee7af5449832599827f2b7a,
         type: 3}
@@ -5611,7 +5622,7 @@ PrefabInstance:
     - target: {fileID: 2921904182982650113, guid: eb0cbeb2f6517d342b2cc4e97deac1c3,
         type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
-      value: 0
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 2921904182982650113, guid: eb0cbeb2f6517d342b2cc4e97deac1c3,
         type: 3}
@@ -5896,7 +5907,7 @@ PrefabInstance:
     - target: {fileID: 1613514475434237448, guid: eb0cbeb2f6517d342b2cc4e97deac1c3,
         type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
-      value: 1.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1613514475434237448, guid: eb0cbeb2f6517d342b2cc4e97deac1c3,
         type: 3}
@@ -5991,12 +6002,12 @@ PrefabInstance:
     - target: {fileID: 1613514475434237448, guid: eb0cbeb2f6517d342b2cc4e97deac1c3,
         type: 3}
       propertyPath: VelocityModule.speedModifier.maxCurve.m_Curve.Array.data[1].time
-      value: 0.26795125
+      value: 0.19966817
       objectReference: {fileID: 0}
     - target: {fileID: 1613514475434237448, guid: eb0cbeb2f6517d342b2cc4e97deac1c3,
         type: 3}
       propertyPath: VelocityModule.speedModifier.maxCurve.m_Curve.Array.data[1].value
-      value: 0.32922056
+      value: 0.3787277
       objectReference: {fileID: 0}
     - target: {fileID: 1613514475434237448, guid: eb0cbeb2f6517d342b2cc4e97deac1c3,
         type: 3}
@@ -6167,6 +6178,11 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064251340303084820, guid: eb0cbeb2f6517d342b2cc4e97deac1c3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb0cbeb2f6517d342b2cc4e97deac1c3, type: 3}
