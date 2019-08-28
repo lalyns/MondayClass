@@ -34,6 +34,7 @@ public class MacAnimation : MonoBehaviour
                 temp.GetComponent<Bullet>()._Move = true;
                 Destroy(this.gameObject);
             }
+
         }
 
         if(type == 2)
