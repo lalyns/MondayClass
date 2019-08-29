@@ -84,8 +84,8 @@ public class FollowCam : MonoBehaviour
     float tFollowH = 12.3f;
     private void FixedUpdate()
     {
-        if (InputHandler.instance.isSpecial)
-            return;
+        //if (InputHandler.instance.isSpecial)
+        //    return;
 
         r_y = Input.GetAxis("Mouse Y");
 

@@ -78,6 +78,8 @@ public class PlayerFSMManager : FSMManager
 
 
         instance = this;
+
+
     }
 
     private void Start()
@@ -88,6 +90,12 @@ public class PlayerFSMManager : FSMManager
         //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
         //Skill1UI.fillAmount = 1f;
         //Skill1UI.gameObject.SetActive(false);
+        _attack1Time = AnimationLength("PC_Attack_001");
+        _attack2Time = AnimationLength("PC_Attack_002");
+        //_attack3Time = AnimationLength("PC_Attack_003");
+        isAttackOne = false;
+        isAttackTwo = false;
+        isAttackThree = false;
     }
 
     public void SetState(PlayerState newState)
@@ -125,7 +133,16 @@ public class PlayerFSMManager : FSMManager
         }
         GetInput();
         Skill1();
-        Attack();
+        AttackDirection();
+
+        //Attack(isAttackOne);        
+
+        if (Input.GetMouseButtonDown(0) && !isAttackOne)
+        {
+            isAttackOne = true;
+            SetState(PlayerState.ATTACK1);
+            return;
+        }
     }
 
     public override void NotifyTargetKilled()
@@ -141,7 +158,7 @@ public class PlayerFSMManager : FSMManager
 
     public override bool IsDie() { return CurrentState == PlayerState.DEAD; }
 
-    bool isCantMove;
+    public bool isCantMove;
     float vertical, horizontal;
     public float attackCount;
     public GameObject[] Skill1Effeects;
@@ -159,8 +176,33 @@ public class PlayerFSMManager : FSMManager
     public float skill1ShootTime = 2f;
 
     public bool isAttackOne, isAttackTwo, isAttackThree;
+    public float _attack1Time, _attack2Time, _attack3Time;
+    // _v = 앞 뒤, _h = 양옆 _v >= 0.1f 
+    // _h = 0 정면공격애니
+    // _v >= 0.01f or  _v <= -0.01f 작으면 왼쪽 크면 오른쪽
+    // 1타일때 2,3타 방향을 정했던가? 아니면 2타일떄도 바꿀수 이썼던가? 흠...
+    public float _v, _h;
+    public void AttackDirection()
+    {
+        
+        _h = Input.GetAxis("Horizontal");
+        _v = Input.GetAxis("Vertical");
 
+        _anim.SetFloat("Attack_X", _h);
+        _anim.SetFloat("Attack_Y", _v);
+    }
+    // 애니메이션 시간을 가져오는 함수.
+    public float AnimationLength(string name)
+    {
+        float time = 0;
 
+        RuntimeAnimatorController ac = _anim.runtimeAnimatorController;
+
+        for (int i = 0; i < ac.animationClips.Length; i++)
+            if (ac.animationClips[i].name == name)
+                time = ac.animationClips[i].length;
+        return time;
+    }
     public void GetInput()
     {        
         if (isCantMove)
@@ -168,7 +210,7 @@ public class PlayerFSMManager : FSMManager
             vertical = 0;
             horizontal = 0;
         }
-
+        
         if (!isCantMove)
         {
             vertical = Input.GetAxis("Vertical");
@@ -204,36 +246,46 @@ public class PlayerFSMManager : FSMManager
             _anim.SetFloat("Direction_X", horizontal);
         }
     }
-    public void Attack(bool One, bool Two, bool Three, float Timer)
-    {
-        Timer += Time.deltaTime;
-        if (One || Two || Three)
-        {
-            isCantMove = true;
-        }
-        if(Input.GetMouseButton(0) && !One && !Two && !Three)
-        {
-            SetState(PlayerState.ATTACK1);
-            One = true;
-            Two = false;
-            Three = false;
-        }
-        if (Input.GetMouseButton(0) && One)
-        {
-            SetState(PlayerState.ATTACK2);
-            One = false;
-            Two = true;
-            Three = false;
-        }
-        if(Input.GetMouseButton(0) && Two)
-        {
-            SetState(PlayerState.ATTACK3);
-            One = false;
-            Two = false;
-            Three = true;
-        }
+    //public void Attack(bool isAttack)
+    //{
+    //    if (isAttack)
+    //    {
+    //        isCantMove = true;
+    //    }
+    //    if (!isAttack)
+    //    {
+    //        isCantMove = false;
+    //    }
 
-    }
+    //    if (Input.GetMouseButtonDown(0) && !isAttack)
+    //    {
+    //        isAttack = true;
+    //        SetState(PlayerState.ATTACK1);
+    //        return;
+    //    }
+    //    //    One = true;
+    //    //    Two = false;
+    //    //    Three = false;
+    //    //    return;
+    //    //}
+    //    //if (Input.GetMouseButton(0) && One)
+    //    //{
+    //    //    SetState(PlayerState.ATTACK2);
+    //    //    One = false;
+    //    //    Two = true;
+    //    //    Three = false;
+    //    //    return;
+    //    //}
+    //    //if(Input.GetMouseButton(0) && Two)
+    //    //{
+    //    //    SetState(PlayerState.ATTACK3);
+    //    //    One = false;
+    //    //    Two = false;
+    //    //    Three = true;
+    //    //    return;
+    //    //}
+
+    //}
 
     public void Skill1()
     {

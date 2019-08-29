@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerATTACK1 : FSMState
+public class PlayerATTACK2 : FSMState
 {
     public override void BeginState()
     {
@@ -16,6 +16,6 @@ public class PlayerATTACK1 : FSMState
     }
     private void Update()
     {
-        _manager.Attack(_manager.isAttackOne, _manager.isAttackTwo, _manager.isAttackThree);
+        //_manager.Attack(_manager.isAttackOne, _manager.isAttackTwo, _manager.isAttackThree);
     }
 }
