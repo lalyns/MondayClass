@@ -16,7 +16,7 @@ public class HPUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.localPosition = new Vector3(-294 + 297 * (input.playerHP / input.playerMaxHP), 0f, 0f);
+        //this.transform.localPosition = new Vector3(-294 + 297 * (input.playerHP / input.playerMaxHP), 0f, 0f);
 
     }
 }

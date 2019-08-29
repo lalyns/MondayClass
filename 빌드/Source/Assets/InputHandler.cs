@@ -222,7 +222,12 @@ public class InputHandler : MonoBehaviour
 
         //UpdateStates();
         states.FixedTick(delta);
-        //앞
+
+        Dash();
+
+    }
+    public void Dash()
+    {//앞
         if (Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
         {
             anim1.transform.position = anim1.transform.position + (anim1.transform.forward * 10f);
@@ -264,6 +269,8 @@ public class InputHandler : MonoBehaviour
         }
 
     }
+
+
     public SphereCollider ball1;
     bool isBall, isShoot;
     public bool isSpecial;
@@ -281,76 +288,7 @@ public class InputHandler : MonoBehaviour
         if (isInputLock)
             return;
 
-        if (attackCount >= 10)
-        {
-            attackCount = 0;
-            Skill1Effects[0].gameObject.SetActive(true);
-            //ball1.gameObject.SetActive(true);
-            isBall = true;
-        }
-        if (Input.GetMouseButtonDown(0))
-        {
-            //Debug.Log("마우스누름");
-            try
-            {
-                //SwingEffect.gameObject.SetActive(true);
-            }
-            catch
-            {
-
-            }
-            attackCount++;
-        }
-        
-        if (isBall)
-        {
-            if (Input.GetKey(KeyCode.F))
-            {
-                _monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
-                randomShoot = Random.Range((int)0, (int)_monster.Count +1);
-                Skill1Effects[0].gameObject.SetActive(false);
-                Skill1Effects[1].gameObject.SetActive(true);
-                isShoot = true;
-                isBall = false;
-                isSkill1CoolTime = true;
-                Skill1_CoolTime.gameObject.SetActive(true);
-            }
-        }
-        if (isShoot)
-        {
-            target = _monster[randomShoot].transform.position;
-            //Vector3 dis = target - ball1.transform.position;
-            //dis.Normalize();
-            //Quaternion.LookRotation(dis);
-            //ball1.transform.Translate(Vector3.forward * 20f * Time.deltaTime);
-            //ball1.transform.position = Vector3.MoveTowards(ball1.transform.position, target, 20f * Time.deltaTime);
-            Skill1Effects[1].transform.position = Vector3.MoveTowards(Skill1Effects[1].transform.position, target, 20f * Time.deltaTime);
-            shootTimer += Time.deltaTime;
-
-            if (shootTimer > 2f)
-            {
-                //ball1.transform.position = ballStartPos.position;
-                Skill1Effects[1].transform.position = ballStartPos.position;
-                Skill1Effects[1].SetActive(false);
-                //ball1.gameObject.SetActive(false);
-                shootTimer = 0;
-                isShoot = false;
-                _monster.Clear();
-            }
-        }
-        if (isSkill1CoolTime)
-        {
-            skill1CoolTimer -= Time.deltaTime;
-            Skill1_CoolTime.fillAmount = skill1CoolTimer / 10f;
-            if (skill1CoolTimer <= 0)
-            {
-                skill1CoolTimer = 10f;
-                Skill1_CoolTime.fillAmount = 1f;
-                Skill1_CoolTime.gameObject.SetActive(false);
-
-                isSkill1CoolTime = false;
-            }
-        }
+        Skill1();
 
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -621,30 +559,30 @@ public class InputHandler : MonoBehaviour
             horizontal = 0;
         }
 
-        if (vertical >= 0.1f && horizontal == 0)
-        {
-            //전진애니메이션
-            anim1.SetFloat("Direction_Y", vertical);
-            anim1.SetFloat("Direction_X", 0);
-        }
-        else if (vertical <= -0.1f && horizontal == 0)
-        {
-            anim1.SetFloat("Direction_Y", vertical);
-            anim1.SetFloat("Direction_X", 0);
-        }
-        else if (horizontal >= 0.1f && vertical == 0)
-        {
-            //오른쪽
-            anim1.SetFloat("Direction_Y", 0);
-            anim1.SetFloat("Direction_X", horizontal);
-        }
-        else if (horizontal <= -0.1f && vertical == 0)
-        {
-            //왼쪽
-            anim1.SetFloat("Direction_Y", 0);
-            anim1.SetFloat("Direction_X", horizontal);
-        }
-        else if (!(horizontal == 0f && vertical == 0f))
+        //if (vertical >= 0.1f && horizontal == 0)
+        //{
+        //    //전진애니메이션
+        //    anim1.SetFloat("Direction_Y", vertical);
+        //    anim1.SetFloat("Direction_X", 0);
+        //}
+        //else if (vertical <= -0.1f && horizontal == 0)
+        //{
+        //    anim1.SetFloat("Direction_Y", vertical);
+        //    anim1.SetFloat("Direction_X", 0);
+        //}
+        //else if (horizontal >= 0.1f && vertical == 0)
+        //{
+        //    //오른쪽
+        //    anim1.SetFloat("Direction_Y", 0);
+        //    anim1.SetFloat("Direction_X", horizontal);
+        //}
+        //else if (horizontal <= -0.1f && vertical == 0)
+        //{
+        //    //왼쪽
+        //    anim1.SetFloat("Direction_Y", 0);
+        //    anim1.SetFloat("Direction_X", horizontal);
+        //}
+        if (!(horizontal == 0f && vertical == 0f))
         {
             anim1.SetFloat("Direction_Y", vertical);
             anim1.SetFloat("Direction_X", horizontal);
@@ -679,7 +617,80 @@ public class InputHandler : MonoBehaviour
         isGauge = true;
     }
 
+    public void Skill1()
+    {
+        if (attackCount >= 10)
+        {
+            attackCount = 0;
+            Skill1Effects[0].gameObject.SetActive(true);
+            //ball1.gameObject.SetActive(true);
+            isBall = true;
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            //Debug.Log("마우스누름");
+            try
+            {
+                //SwingEffect.gameObject.SetActive(true);
+            }
+            catch
+            {
 
+            }
+            attackCount++;
+        }
+
+        if (isBall)
+        {
+            if (Input.GetKey(KeyCode.F))
+            {
+                _monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
+                randomShoot = Random.Range((int)0, (int)_monster.Count + 1);
+                Skill1Effects[0].gameObject.SetActive(false);
+                Skill1Effects[1].gameObject.SetActive(true);
+                isShoot = true;
+                isBall = false;
+                isSkill1CoolTime = true;
+                Skill1_CoolTime.gameObject.SetActive(true);
+            }
+        }
+        if (isShoot)
+        {
+            target = _monster[randomShoot].transform.position;
+            //Vector3 dis = target - ball1.transform.position;
+            //dis.Normalize();
+            //Quaternion.LookRotation(dis);
+            //ball1.transform.Translate(Vector3.forward * 20f * Time.deltaTime);
+            //ball1.transform.position = Vector3.MoveTowards(ball1.transform.position, target, 20f * Time.deltaTime);
+            Skill1Effects[1].transform.position = Vector3.MoveTowards(Skill1Effects[1].transform.position, target, 20f * Time.deltaTime);
+            shootTimer += Time.deltaTime;
+
+            if (shootTimer > 2f)
+            {
+                //ball1.transform.position = ballStartPos.position;
+                Skill1Effects[1].transform.position = ballStartPos.position;
+                Skill1Effects[1].SetActive(false);
+                //ball1.gameObject.SetActive(false);
+                shootTimer = 0;
+                isShoot = false;
+                _monster.Clear();
+            }
+        }
+        if (isSkill1CoolTime)
+        {
+            skill1CoolTimer -= Time.deltaTime;
+            Skill1_CoolTime.fillAmount = skill1CoolTimer / 10f;
+            if (skill1CoolTimer <= 0)
+            {
+                skill1CoolTimer = 10f;
+                Skill1_CoolTime.fillAmount = 1f;
+                Skill1_CoolTime.gameObject.SetActive(false);
+
+                isSkill1CoolTime = false;
+            }
+        }
+
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.transform.tag == "MonsterWeapon")
