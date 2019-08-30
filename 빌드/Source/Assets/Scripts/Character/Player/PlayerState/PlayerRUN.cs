@@ -22,12 +22,7 @@ public class PlayerRUN : FSMState {
             return;
         }
 
-        // 키에 맞게 움직임
-        Vector3 destVector = Vector3.right * Input.GetAxis("Horizontal") +
-            Vector3.forward * Input.GetAxis("Vertical");
-        destVector = destVector * _manager.Stat.MoveSpeed * Time.deltaTime;
-        _manager.CC.Move(destVector);
-
+        
         // 움직일 위치로 시선을 옮김
         //transform.rotation = Quaternion.RotateTowards(
         //    transform.rotation,

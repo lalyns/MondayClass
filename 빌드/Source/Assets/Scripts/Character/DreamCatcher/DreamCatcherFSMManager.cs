@@ -108,7 +108,7 @@ public class DreamCatcherFSMManager : FSMManager
 
         //hp--;
         //카메라쉐이킹
-        Shake.instance.ShakeCamera();
+        //Shake.instance.ShakeCamera();
         //hit스크립트로넘겨줌
         Instantiate(hitEffect, this.transform.position, Quaternion.identity);
 

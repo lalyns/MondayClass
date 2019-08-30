@@ -2,22 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerATTACK : MonoBehaviour
+public class PlayerATTACK : FSMState
 {
-    PlayerFSMManager _manager;
-
-    public Transform target;
-    private void Awake()
+    public override void BeginState()
     {
-        _manager = GetComponent<PlayerFSMManager>();
+        base.BeginState();
     }
+
+    public override void EndState()
+    {
+        base.EndState();
+    }
+
+    
+    private void Update()
+    {
+
+    }
+
     public void AttackCheck()
     {
         var hitTarget = GameLib.SimpleDamageProcess(transform, _manager.Stat.AttackRange,
             "Monster", _manager.Stat);
 
         if (hitTarget != null) _manager._lastAttack = hitTarget;
-    }
-    private void Update() {
     }
 }
