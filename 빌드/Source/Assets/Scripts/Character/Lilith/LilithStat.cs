@@ -11,4 +11,8 @@ public class LilithStat : CharacterStat
     public Material _NormalMat;
     public Material _DashMat;
 
+    public float _BulletDamage;
+    public float _BulletSpeed = 10f;
+    public float _BulletLifeTime;
+
 }

@@ -36,7 +36,7 @@ public class MapGrid : MonoBehaviour
 
                 bool isGround = Physics.Raycast(ray, 0.1f, (1 << 17), QueryTriggerInteraction.Ignore);
 
-                Debug.Log(string.Format("Ground Hit : {0}, Coord : {1}", isGround, ray.origin));
+                //Debug.Log(string.Format("Ground Hit : {0}, Coord : {1}", isGround, ray.origin));
 
                 if (isGround)
                 {

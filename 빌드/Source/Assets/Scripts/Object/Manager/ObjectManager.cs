@@ -75,7 +75,6 @@ public class ObjectManager : MonoBehaviour
         }
     }
 
-
     IEnumerator TestSpawn()
     {
         int curSpawnPos = 0;
