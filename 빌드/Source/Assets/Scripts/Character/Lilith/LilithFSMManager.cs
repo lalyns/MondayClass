@@ -8,6 +8,7 @@ public enum LilithState
     POPUP = 0,
     PATTERNA,
     PATTERNB,
+    PATTERNC,
     PATTERNEND,
 }
 
@@ -43,6 +44,8 @@ public class LilithFSMManager : FSMManager
 
     private Animator _Anim;
     public Animator Anim { get { return _Anim; } }
+
+    public Transform BulletCenter;
 
     protected override void Awake()
     {

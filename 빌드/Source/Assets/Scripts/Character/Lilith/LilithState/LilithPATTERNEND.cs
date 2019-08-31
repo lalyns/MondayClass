@@ -28,16 +28,18 @@ public class LilithPATTERNEND : LilithFSMState
 
         if (_Time1 > _Delay)
         {
-            if (pattern)
-            {
-                pattern = !pattern;
-                _manager.SetState(LilithState.PATTERNA);
-            }
-            else
-            {
-                pattern = !pattern;
-                _manager.SetState(LilithState.PATTERNB);
-            }
+            //if (pattern)
+            //{
+            //    pattern = !pattern;
+            //    _manager.SetState(LilithState.PATTERNA);
+            //}
+            //else
+            //{
+            //    pattern = !pattern;
+            //    _manager.SetState(LilithState.PATTERNB);
+            //}
+
+            _manager.SetState(LilithState.PATTERNC);
         }
     }
 

@@ -27,7 +27,7 @@ public class FSMManager : MonoBehaviour
         //    _sight.aspect = sightAspect;
         //}
 
-        stats = GetComponent<CharacterStat>();
+        //stats = GetComponent<CharacterStat>();
     }
 
     private void OnDrawGizmos()
