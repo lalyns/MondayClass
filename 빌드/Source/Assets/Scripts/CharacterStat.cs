@@ -7,10 +7,10 @@ public class CharacterStat : MonoBehaviour
     protected float _str = 10.0f;
     public float Str { get { return _str; } }
 
-    protected float _maxHp = 100.0f;
+    protected float _maxHp = 1000.0f;
     public float MaxHp { get { return _maxHp; } }
 
-    protected float _hp = 100.0f;
+    protected float _hp = 1000.0f;
     public float Hp { get { return _hp; } }
 
     protected float _moveSpeed = 3.0f;
@@ -35,13 +35,22 @@ public class CharacterStat : MonoBehaviour
     public void TakeDamage(CharacterStat from, float damage)
     {
         _hp = Mathf.Clamp(_hp - damage, 0, _maxHp);
+        //Debug.Log(string.Format("Name: {0}, HP: {1}", transform.name, Hp));
+
         if(_hp <= 0)
         {
             if (lastHitBy == null)
                 lastHitBy = from;
 
-            GetComponent<FSMManager>().SetDeadState();
-            from.GetComponent<FSMManager>().NotifyTargetKilled();
+            try
+            {
+                GetComponent<FSMManager>().SetDeadState();
+                from.GetComponent<FSMManager>().NotifyTargetKilled();
+            }
+            catch
+            {
+
+            }
         }
     }
 

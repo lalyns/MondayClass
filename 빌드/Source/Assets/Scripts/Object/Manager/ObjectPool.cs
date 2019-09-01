@@ -15,6 +15,11 @@ public class ObjectPool : MonoBehaviour
     public LinkedList<GameObject> _InActiveItemPool = new LinkedList<GameObject>();
     public LinkedList<GameObject> _ActiveItem = new LinkedList<GameObject>();
 
+    private void Start()
+    {
+        CreateItem();
+    }
+
     /// <summary>
     /// 오브젝트 생성을 위한 매소드
     /// </summary>
@@ -27,17 +32,13 @@ public class ObjectPool : MonoBehaviour
             _InActiveItemPool.AddLast(item);
         }
 
-        //for(int i=0; i<transform.childCount; i++)
-        //{
-        //    Debug.Log(transform.GetChild(i).name);
-        //}
     }
 
     /// <summary>
     /// 오브젝트 풀 내부의 오브젝트 작동을 위한 매소드
     /// </summary>
-    /// <param name="respawnPos"> 오브젝트 스폰 위치 </param>
-    public void ItemSetActive(Transform respawnPos)
+    /// <param name="respawnTrans"> 오브젝트 스폰 위치 </param>
+    public void ItemSetActive(Transform respawnTrans)
     {
         if(_InActiveItemPool.Count == 0)
         {
@@ -47,11 +48,45 @@ public class ObjectPool : MonoBehaviour
         var item = _InActiveItemPool.First.Value;
         _InActiveItemPool.RemoveFirst();
 
-        item.transform.localPosition = respawnPos.position;
+        item.transform.position = respawnTrans.position;
         item.SetActive(true);
 
         _ActiveItem.AddLast(item);
     }
+
+    public void ItemSetActive(Transform respawnTrans, bool bulletType)
+    {
+        if (_InActiveItemPool.Count == 0)
+        {
+            CreateItem();
+        }
+
+        var item = _InActiveItemPool.First.Value;
+        _InActiveItemPool.RemoveFirst();
+
+        item.transform.position = respawnTrans.position;
+        item.GetComponent<BossBullet>().directionType = bulletType;
+        item.SetActive(true);
+
+        _ActiveItem.AddLast(item);
+    }
+
+    public void ItemSetActive(Vector3 respawnPos)
+    {
+        if (_InActiveItemPool.Count == 0)
+        {
+            CreateItem();
+        }
+
+        var item = _InActiveItemPool.First.Value;
+        _InActiveItemPool.RemoveFirst();
+
+        item.transform.localPosition = respawnPos;
+        item.SetActive(true);
+
+        _ActiveItem.AddLast(item);
+    }
+    
 
     /// <summary>
     /// 작동 중인 오브젝트의 활성화를 비활성화로 변경하는 매소드

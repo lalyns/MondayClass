@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class MissionManager : MonoBehaviour
 {
     public MissionData[] _MissionDatas;
@@ -10,6 +11,9 @@ public class MissionManager : MonoBehaviour
     public GameObject _UIMission;
 
     public static MissionManager _Instance;
+    public static MissionManager GetMissionManager {
+        get { return _Instance; }
+    }
     public MissionButton[] _Choices;
 
     public MissionType _CurrentMission;
@@ -22,10 +26,14 @@ public class MissionManager : MonoBehaviour
         {
             _Instance = GetComponent<MissionManager>();
 
+            if (GameManager._Instance._IsDummyScene)
+                return;
+
             _Choices = new MissionButton[3];
             _Instance._Choices[0] = _Instance._UIMission.transform.GetChild(1).GetComponent<MissionButton>();
             _Instance._Choices[1] = _Instance._UIMission.transform.GetChild(2).GetComponent<MissionButton>();
             _Instance._Choices[2] = _Instance._UIMission.transform.GetChild(3).GetComponent<MissionButton>();
+            
         }
         else
         {
@@ -33,67 +41,16 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (_IsMissionStart)
-            MissionStateCheck();
-    }
-
-    /// <summary>
-    /// 현재 미션의 진행 또는 종료에 대한 상태를 체크합니다. 
-    /// </summary>
-    private void MissionStateCheck()
-    {
-        bool isMissionEnd = CheckMissionGoal(_CurrentMission);
-
-        if (isMissionEnd)
-        {
-            DungeonManager.GetCurrentDungeon()._ExitPosition.gameObject.SetActive(true);
-            _IsMissionStart = false;
-        }
-    }
-
-    /// <summary>
-    /// 미션 목표를 확인합니다.
-    /// </summary>
-    /// <param name="missionType"></param>
-    /// <returns></returns>
-    private bool CheckMissionGoal(MissionType missionType)
-    {
-        bool isClear = false;
-
-        if(missionType == MissionType.Annihilation)
-        {
-            int activeItem = ObjectManager._Instance._ObjectPool[0]._ActiveItem.Count
-                + ObjectManager._Instance._ObjectPool[1]._ActiveItem.Count;
-            if(activeItem == 0)
-            {
-                isClear = true;
-            }
-        }
-
-        if(missionType == MissionType.Defence)
-        {
-
-        }
-
-        if(missionType == MissionType.Survive)
-        {
-
-        }
-
-        return isClear;
-    }
-
     /// <summary>
     /// 미션 정보창을 화면에 표시하는 매소드
     /// </summary>
     public static void PopUpMissionMenu()
     {
-        Debug.Log("미션의 정보창을 화면에 표기합니다.");
+        //Debug.Log("미션의 정보창을 화면에 표기합니다.");
         _Instance._UIMission.SetActive(true);
         _Instance.ChangeMissionMenu();
-        GameManager.CursorMode(false);
+        GameManager.CursorMode(true);
+        GameManager._Instance._CharacterControl = false;
 
         Time.timeScale = 0.0f;
     }
@@ -103,10 +60,10 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     public static void DisappearMissionMenu()
     {
-        Debug.Log("미션의 정보창을 화면에서 지웁니다.");
+        //Debug.Log("미션의 정보창을 화면에서 지웁니다.");
         _Instance._UIMission.SetActive(false);
-        GameManager.CursorMode(true);
-
+        GameManager.CursorMode(false);
+        GameManager._Instance._CharacterControl = true;
         GameManager.isPopUp = false;
         Time.timeScale = 1.0f;
     }
@@ -116,13 +73,13 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     public void ChangeMissionMenu()
     {
-        Debug.Log("미션 선택창의 정보를 변경합니다.");
+        //Debug.Log("미션 선택창의 정보를 변경합니다.");
 
         for (int i = 0; i < _Choices.Length; i++)
         {
             MissionType newMission = SelectMission();
             _Choices[i]._MissionType = newMission;
-            _Choices[i].ChangeMission(_MissionDatas[(int)newMission]);
+            _Choices[i].ChangeMission(_MissionDatas[0], newMission);
             _Choices[i].ChangeReward(_RewardDatas[SetReward()]);
         }
     }
@@ -133,20 +90,15 @@ public class MissionManager : MonoBehaviour
     /// <param name="choiceNum"> 버튼의 숫자 </param>
     public static void SetMissionOnClick(int choiceNum)
     {
-        Debug.Log("미션을 선택합니다.");
-        _Instance._CurrentMission = _Instance._Choices[choiceNum]._MissionType;
-        MissionData missionData = GetMissionData(_Instance._CurrentMission);
-
-        Debug.Log(missionData.name);
-
-        Dungeon dungeon = DungeonManager.CreateDungeon(missionData);
+        //_Instance._CurrentMission = _Instance._Choices[choiceNum]._MissionType;
+        Dungeon dungeon = DungeonManager.CreateDungeon(MissionType.Annihilation);
+        //MissionData missionData = GetMissionData(_Instance._CurrentMission);
 
         /// <summary>
         /// 플레이어의 위치변경 매소드 필요
         /// </summary>
         GameObject.FindGameObjectWithTag("Player").transform.position
             = dungeon._EnterPosition.position;
-        
         MissionManager.DisappearMissionMenu();
 
         /// <summary>
@@ -154,6 +106,7 @@ public class MissionManager : MonoBehaviour
         /// </summary>
         
         DungeonManager.SetCurrentDungeon(dungeon);
+        DungeonManager.GetCurrentDungeon()._Mission.MissionInitialize();
         ObjectManager.SetSpawnPosition(dungeon._RespawnPositions);
         dungeon._ExitPosition.gameObject.SetActive(false);
     }
@@ -164,7 +117,7 @@ public class MissionManager : MonoBehaviour
     /// <returns> 미션의 종류 </returns>
     public MissionType SelectMission()
     {
-        var temp = UnityEngine.Random.Range(0, 999999) % _MissionDatas.Length;
+        var temp = UnityEngine.Random.Range(0, 999999) % (int)MissionType.Last;
         MissionType mission = (MissionType)temp;
 
         return mission;
@@ -172,7 +125,8 @@ public class MissionManager : MonoBehaviour
 
     public void StartMission()
     {
-        _IsMissionStart = true;
+        Debug.Log("미션 시작");
+        DungeonManager.GetCurrentDungeon()._Mission.MissionStart();
         ObjectManager._Instance.CallSpawn();
     }
 
@@ -193,7 +147,7 @@ public class MissionManager : MonoBehaviour
     public static MissionData GetMissionData(MissionType dungeonType)
     {
         MissionData missionData;
-        missionData = _Instance._MissionDatas[(int)dungeonType];
+        missionData = _Instance._MissionDatas[0];
 
         return missionData;
     }
@@ -205,7 +159,8 @@ public class MissionManager : MonoBehaviour
     {
         Annihilation = 0,
         Defence = 1,
-        Survive = 2,
+        Survival = 2,
+        Last,
     }
 
     /// <summary>
@@ -213,9 +168,17 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     public static void MissionClear()
     {
-        Debug.Log("미션 종료");
+        //Debug.Log("미션 종료");
 
         DungeonManager.GetCurrentDungeon()._Trigger.isStart = false;
+        try
+        {
+            DungeonManager.GetCurrentDungeon()._Mission.MissionEnd();
+        }
+        catch
+        {
+
+        }
 
         MissionManager.PopUpMissionMenu();
 

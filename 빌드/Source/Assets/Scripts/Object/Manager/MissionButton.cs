@@ -37,15 +37,16 @@ public class MissionButton : MonoBehaviour
     /// </summary>
     /// <param name="missionIcon"> 미션의 목표 표기 아이콘 </param>
     /// <param name="missionText"> 미션의 목표 설명 </param>
-    public void ChangeMission(MissionData missionData)
+    public void ChangeMission(MissionData missionData, MissionManager.MissionType type)
     {
-        Sprite missionName = missionData.MissionName;
-        Sprite missionIcon = missionData.MissionIcon;
-        string missionText = missionData.MissionText;
+        Debug.Log((int)type);
+        //Sprite missionName = missionData.MissionName[(int)type];
+        //Sprite missionIcon = missionData.MissionIcon[(int)type];
+        //string missionText = missionData.MissionText[(int)type];
 
-        _MissionName.sprite = missionName;
-        _MissionIcon.sprite = missionIcon;
-        _MissionText.text = missionText;
+        //_MissionName.sprite = missionName;
+        //_MissionIcon.sprite = missionIcon;
+        //_MissionText.text = missionText;
     }
 
     /// <summary>

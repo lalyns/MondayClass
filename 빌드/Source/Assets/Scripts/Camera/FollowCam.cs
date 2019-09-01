@@ -84,6 +84,9 @@ public class FollowCam : MonoBehaviour
     float tFollowH = 12.3f;
     private void FixedUpdate()
     {
+        //if (InputHandler.instance.isSpecial)
+        //    return;
+
         r_y = Input.GetAxis("Mouse Y");
 
 
@@ -154,20 +157,20 @@ public class FollowCam : MonoBehaviour
         transform.LookAt(target.position + (target.up * targetOffset));
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(target.position + (target.up * targetOffset), 0.1f);
-        Gizmos.DrawLine(target.position + (target.up * targetOffset), transform.position);
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawWireSphere(target.position + (target.up * targetOffset), 0.1f);
+    //    Gizmos.DrawLine(target.position + (target.up * targetOffset), transform.position);
 
-        //카메라의 충돌체를 표현하기 위한 구체를 표시
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, colliderRadius);
+    //    //카메라의 충돌체를 표현하기 위한 구체를 표시
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireSphere(transform.position, colliderRadius);
 
-        //플레이어가 장애물에 가려졌는지 판단할 레이를 표사ㅣ
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(target.position + (target.up * castOffset), transform.position);
-    }
+    //    //플레이어가 장애물에 가려졌는지 판단할 레이를 표사ㅣ
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawLine(target.position + (target.up * castOffset), transform.position);
+    //}
 
 
 }

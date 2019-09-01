@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerFSMManager))]
 public class FSMState : MonoBehaviour
 {
-    protected PlayerFSMManager _manager;
+    public PlayerFSMManager _manager;
 
     private void Awake()
     {
