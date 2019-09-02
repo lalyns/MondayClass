@@ -8,6 +8,7 @@ public enum MacState
     POPUP = 0,
     CHASE,
     ATTACK,
+    SKILL,
     RUNAWAY,
     HIT,
     DEAD,
@@ -109,11 +110,11 @@ public class MacFSMManager : FSMManager
             SetState(MacState.HIT);
             //플레이어 쳐다본 후
             transform.localEulerAngles = Vector3.zero;
-            transform.LookAt(InputHandler.instance.anim1.transform);
+            transform.LookAt(PlayerFSMManager.instance.Anim.transform);
             // 뒤로 밀림
             transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
             //플레이어피버게이지증가?
-            InputHandler.instance.FeverGauge++;
+//            PlayerFSMManager.instance.FeverGauge++;
         }
         else
         {
