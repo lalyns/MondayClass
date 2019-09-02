@@ -23,7 +23,14 @@ public class PlayerAnimEvent : MonoBehaviour
         {
             //input.AttackCheck();
             player.AttackCheck();
-            trailRenderer.gameObject.SetActive(true);
+            try
+            {
+                trailRenderer.gameObject.SetActive(true);
+            }
+            catch
+            {
+
+            }
         }
     }
     void hitCancel()
@@ -32,7 +39,14 @@ public class PlayerAnimEvent : MonoBehaviour
         {
             //input.AttackCancel();
             player.AttackCancle();
-            trailRenderer.gameObject.SetActive(false);
+            try
+            {
+                trailRenderer.gameObject.SetActive(false);
+            }
+            catch
+            {
+
+            }
         }
     }
 

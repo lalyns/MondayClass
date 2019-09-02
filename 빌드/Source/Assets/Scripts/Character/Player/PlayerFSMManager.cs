@@ -90,12 +90,13 @@ public class PlayerFSMManager : FSMManager
         _stat = GetComponent<PlayerStat>();
         _anim = GetComponentInChildren<Animator>();
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
+
         PlayerState[] stateValues = (PlayerState[])System.Enum.GetValues(typeof(PlayerState));
         foreach (PlayerState s in stateValues)
         {
             System.Type FSMType = System.Type.GetType("Player" + s.ToString());
             FSMState state = (FSMState)GetComponent(FSMType);
-            if(null == state)
+            if (null == state)
             {
                 state = (FSMState)gameObject.AddComponent(FSMType);
             }
@@ -109,6 +110,15 @@ public class PlayerFSMManager : FSMManager
 
         isInputLock = false;
         isSpecial = false;
+        try
+        {
+            pc_Icon.enabled = true;
+            sp_Icon.enabled = false;
+        }
+        catch
+        {
+
+        }
     }
 
     private void Start()
@@ -132,7 +142,7 @@ public class PlayerFSMManager : FSMManager
 
     public void SetState(PlayerState newState)
     {
-        if(_isinit)
+        if (_isinit)
         {
             _states[_currentState].enabled = false;
             _states[_currentState].EndState();
@@ -140,7 +150,7 @@ public class PlayerFSMManager : FSMManager
         _currentState = newState;
         _states[_currentState].BeginState();
         _states[_currentState].enabled = true;
-        _anim.SetInteger("CurrentState", (int)_currentState);     
+        _anim.SetInteger("CurrentState", (int)_currentState);
     }
 
     // 움직이는지 체크하는 함수
@@ -158,7 +168,112 @@ public class PlayerFSMManager : FSMManager
     {
         Attack_Capsule.enabled = false;
     }
+    public GameObject FlashEffect1, FlashEffect2;
+    public Vector3 FlashPosition;
+    bool isFlashStart = false;
+    public void Dash()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isFlash = true;
+            isFlashStart = true;
+            FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
+            FlashEffect2.SetActive(false);
+        }
 
+        if (isFlash)
+        {
+            Normal.SetActive(false);
+            try
+            {
+                FlashEffect1.SetActive(true);
+                FlashEffect1.transform.position = FlashPosition;
+                FlashEffect2.transform.position = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
+            }
+            catch
+            {
+
+            }
+            isCantMove = true;
+            flashTimer += Time.deltaTime;
+            if (_h >= 0.01f && flashTimer <= 0.2f)
+            {
+                _anim.transform.Translate(Vector3.right * 10f * Time.deltaTime);
+            }
+            if (_h <= -0.01f && flashTimer <= 0.2f)
+            {
+                _anim.transform.Translate(Vector3.right * -10f * Time.deltaTime);
+            }
+            if (_h == 0 && _v >= 0 && flashTimer <= 0.2f)
+            {
+                _anim.transform.Translate(Vector3.forward * 10f * Time.deltaTime);
+            }
+            if (_h == 0 && _v <= -0.01f && flashTimer <= 0.2f)
+            {
+                _anim.transform.Translate(Vector3.forward * -10f * Time.deltaTime);
+            }
+
+            if (flashTimer >= 0.2f && flashTimer <= 0.23f)
+            {
+                FlashEffect2.SetActive(true);
+
+            }
+            if (flashTimer >= 0.3f)
+            {
+                Normal.SetActive(true);
+               
+            }
+            if (flashTimer >= 0.5f)
+            {
+                try
+                {
+                    FlashEffect1.SetActive(false);
+                    isCantMove = false;
+
+                }
+                catch
+                {
+
+                }
+                isFlash = false;
+                flashTimer = 0;
+                return;
+            }
+        }
+
+        //    Normal.SetActive(false);
+        //    isFlash = true;
+        //    if (isFlash)
+        //    {
+        //        flashTimer += Time.deltaTime;
+        //        isCantMove = true;
+        //        if (_h >= 0.01)
+        //        {
+        //            //_anim.transform.Translate(Vector3.right * 10f * Time.deltaTime);
+        //            //오른쪽으로 오지게 이동.
+        //        }
+        //        if (_h <= -0.01f)
+        //        {
+        //            //왼쪽으로 오지게 이동.
+        //        }
+        //        if (_h == 0 && _v >= 0)
+        //        {
+        //            //앞으로 오지게 이동
+        //        }
+        //        if (_h == 0 && _v <= -0.01)
+        //        {
+        //            //뒤로 오지게 이동
+        //        }
+        //        if (flashTimer >= 0.3f)
+        //        {
+        //            flashTimer = 0;
+        //            Normal.SetActive(true);
+        //            isFlash = false;
+        //            isCantMove = false;
+        //        }
+        //    }
+        //}
+    }
     private void FixedUpdate()
     {
         if (isSpecial)
@@ -166,8 +281,8 @@ public class PlayerFSMManager : FSMManager
         r_x = Input.GetAxis("Mouse X");
         _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
     }
-
-    bool isSpecial;
+    public float flashTimer = 0;
+    public bool isSpecial, isFlash;
     public GameObject Normal;
     public GameObject Special;
     public GameObject WeaponTransformEffect;
@@ -175,6 +290,9 @@ public class PlayerFSMManager : FSMManager
     public GameObject Change_Effect;
     public float specialTimer = 0;
     public CapsuleCollider Attack_Capsule;
+
+    public Image pc_Icon, sp_Icon;
+
     private void Update()
     {
         // 공격처리는 죽음을 제외한 모든 상황에서 처리
@@ -192,7 +310,7 @@ public class PlayerFSMManager : FSMManager
         GetInput();
         Skill1();
         AttackDirection();
-
+        Dash();
         //Attack(isAttackOne);        
 
         if (Input.GetMouseButtonDown(0) && !isAttackOne)
@@ -220,7 +338,7 @@ public class PlayerFSMManager : FSMManager
 
     public void AttackDirection()
     {
-        
+
         _h = Input.GetAxis("Horizontal");
         _v = Input.GetAxis("Vertical");
 
@@ -245,6 +363,8 @@ public class PlayerFSMManager : FSMManager
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
+            pc_Icon.enabled = false;
+            sp_Icon.enabled = true;
             isSpecial = true;
             TimeLine.SetActive(true);
         }
@@ -278,13 +398,13 @@ public class PlayerFSMManager : FSMManager
     }
 
     public void GetInput()
-    {        
+    {
         if (isCantMove)
         {
             vertical = 0;
             horizontal = 0;
         }
-        
+
         if (!isCantMove)
         {
             vertical = Input.GetAxis("Vertical");
@@ -319,11 +439,11 @@ public class PlayerFSMManager : FSMManager
             _anim.SetFloat("Direction_Y", vertical);
             _anim.SetFloat("Direction_X", horizontal);
         }
-    }  
+    }
 
     public void Skill1()
     {
-        if(attackCount >= 10)
+        if (attackCount >= 10)
         {
             attackCount = 0;
             Skill1Effeects[0].gameObject.SetActive(true);
@@ -362,7 +482,7 @@ public class PlayerFSMManager : FSMManager
         {
             Skill1Timer -= Time.deltaTime;
             Skill1UI.fillAmount = Skill1Timer / 10f;
-            if(Skill1Timer <= 0)
+            if (Skill1Timer <= 0)
             {
                 Skill1Timer = 10f;
                 Skill1UI.fillAmount = 1f;
@@ -374,5 +494,5 @@ public class PlayerFSMManager : FSMManager
     }
     public static PlayerFSMManager instance;
 
-  
+
 }

@@ -160,11 +160,11 @@ GameObject:
   - component: {fileID: 930953621354057857}
   - component: {fileID: 2540511442873728877}
   - component: {fileID: 416607293978030156}
-  - component: {fileID: 1507151220382362964}
   - component: {fileID: 5136133771846456272}
   - component: {fileID: 416258633087044805}
   - component: {fileID: 3378862898217206883}
   - component: {fileID: 9173353285080401422}
+  - component: {fileID: 529329073211170107}
   - component: {fileID: 1765374230791495563}
   m_Layer: 0
   m_Name: Prefab_Mac
@@ -248,24 +248,10 @@ MonoBehaviour:
   stats: {fileID: 0}
   startState: 0
   _AttackTransform: {fileID: 4933950287443581949}
-  _MR: {fileID: 0}
+  _MR: {fileID: 537192819454032019}
   _HPSilder: {fileID: 5839632007351078513}
   hitEffect: {fileID: 121832780941730155, guid: 2667e56a7f52a974baaa82b17f6778e7,
     type: 3}
---- !u!114 &1507151220382362964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3694473066860267770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e71870ba68c24b4984bf2555af5ccd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _manager: {fileID: 0}
-  sub: 0
 --- !u!114 &5136133771846456272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,6 +310,25 @@ MonoBehaviour:
   _manager: {fileID: 0}
   sub: 0
   _SetTarget: 0
+--- !u!114 &529329073211170107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3694473066860267770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ac370bc3d0166c41bd10e6379411253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _manager: {fileID: 0}
+  sub: 0
+  _AttackBeforeTime: 0.8
+  _AttackTime: 3
+  _AfterAttackTime: 1
+  _Time: 0
+  bullet: {fileID: 0}
 --- !u!114 &1765374230791495563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -788,10 +793,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3564954189246592852}
     m_Modifications:
-    - target: {fileID: 9500000, guid: 751288ee72aaff442a823885afec6ea8, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: a2196af4f07abbf489b5d10b06af464d, type: 2}
     - target: {fileID: 100088, guid: 751288ee72aaff442a823885afec6ea8, type: 3}
       propertyPath: m_Name
       value: MMC_Move
@@ -840,8 +841,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 751288ee72aaff442a823885afec6ea8, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a2196af4f07abbf489b5d10b06af464d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 751288ee72aaff442a823885afec6ea8, type: 3}
+--- !u!137 &537192819454032019 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 13700000, guid: 751288ee72aaff442a823885afec6ea8,
+    type: 3}
+  m_PrefabInstance: {fileID: 537192819457241907}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &537192819457370603 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400088, guid: 751288ee72aaff442a823885afec6ea8,

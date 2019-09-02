@@ -7,13 +7,15 @@ public class Bullet : MonoBehaviour
     public float _Speed = 5f;
     public float _DestroyTime = 5f;
 
-    [System.NonSerialized]public float _Time;
+    [System.NonSerialized] public float _Time;
 
     [System.NonSerialized] public Vector3 dir;
 
     [System.NonSerialized] public bool _Move = false;
 
     public GameObject _AttackEffect;
+
+    public bool isSkill;
 
     // Update is called once per frame
     void Update()
@@ -50,6 +52,8 @@ public class Bullet : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
+            if (isSkill) return;
+
             GameObject attack = Instantiate(_AttackEffect, this.transform.position, Quaternion.identity);
             attack.transform.LookAt(other.transform);
             Destroy(this.gameObject);

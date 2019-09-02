@@ -20,7 +20,7 @@ public class PlayerATTACK1 : FSMState
     {
         _time += Time.deltaTime;
 
-        _manager.isCantMove = _time <= _manager._attack1Time ? true : false;
+        _manager.isCantMove = _time <= _manager._attack1Time-0.2f ? true : false;
         
         if (Input.GetMouseButtonDown(0) && !_manager.isAttackTwo)
         {

@@ -7,6 +7,7 @@ public class MacStat : CharacterStat
     public MonsterData monsterData;
 
     public GameObject _AttackEffect;
+    public GameObject _SkillEffect;
 
     public Material _NormalMat;
     public Material _BeforeAttackMat;
