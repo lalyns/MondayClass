@@ -6,29 +6,32 @@ public class PlayerAnimEvent : MonoBehaviour
 {
     [SerializeField]
     InputHandler input;
-
+    PlayerFSMManager player;
     public TrailRenderer trailRenderer;
 
     public ParticleSystem particle;
 
     private void Start()    
     {
-        input = InputHandler.instance;        
+        //input = InputHandler.instance;
+        player = PlayerFSMManager.instance;
     }
 
     void hitCheck()
     {
-        if (null != input)
+        if (null != player)
         {
-            input.AttackCheck();
+            //input.AttackCheck();
+            player.AttackCheck();
             trailRenderer.gameObject.SetActive(true);
         }
     }
     void hitCancel()
     {
-        if (null != input)
+        if (null != player)
         {
-            input.AttackCancel();
+            //input.AttackCancel();
+            player.AttackCancle();
             trailRenderer.gameObject.SetActive(false);
         }
     }

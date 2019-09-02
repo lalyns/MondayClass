@@ -47,10 +47,12 @@ public class InputHandler : MonoBehaviour
     public float mouseSpeed = 80f;
 
     int attackCount;
+    //완료
     [SerializeField]
     float attackOne, attackTwo, attackThree, backOne, backTwo, jumpSpecial;
     float animWaitTime = 0.1f;
-
+    
+    //완료
     float AnimationLength(string name)
     {
         float time = 0;
@@ -62,7 +64,7 @@ public class InputHandler : MonoBehaviour
                 time = ac.animationClips[i].length;
         return time;
     }
-
+    
     public List<GameObject> _monster = new List<GameObject>();
     public List<GameObject> Monster { get { return _monster; } }
 
@@ -84,13 +86,9 @@ public class InputHandler : MonoBehaviour
         playerMaxHP = states._maxHp;
 
         playerHP--;
-        //Debug.Log(states._hp+ "," + playerHP);
         
         camManager = CameraManager.singleton;
         camManager.Init(this.transform);
-        //camManager.Init(anim1.transform);
-        //camManager.gameObject.SetActive(false);
-        //anim1 = GetComponentInChildren<anim1ator>();
 
         anim1 = GameObject.Find("PC_Rig").GetComponentInChildren<Animator>();
         anim2 = GameObject.Find("Luda").GetComponentInChildren<Animator>();
@@ -115,14 +113,12 @@ public class InputHandler : MonoBehaviour
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         try
         {
-            //SwingEffect = GameObject.Find("SwingEffect").GetComponent<Transform>();
-            //SwingEffect.gameObject.SetActive(false);
         }
         catch
         {
 
         }
-        Attack_Capsule.enabled = false;
+
 
         ball1 = anim1.GetComponentInChildren<SphereCollider>();
 
@@ -296,19 +292,19 @@ public class InputHandler : MonoBehaviour
             isSpecial = true;
             TimeLine.SetActive(true);
         }
-        //변신 하는지 체크(임시)
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            try
-            {
-                Normal.gameObject.SetActive(false);
-                Special.gameObject.SetActive(true);
-            }
-            catch
-            {
+        ////변신 하는지 체크(임시)
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    try
+        //    {
+        //        Normal.gameObject.SetActive(false);
+        //        Special.gameObject.SetActive(true);
+        //    }
+        //    catch
+        //    {
 
-            }
-        }
+        //    }
+        //}
         if (isSpecial)
         {
             WeaponTransformEffect.SetActive(true);
@@ -642,7 +638,7 @@ public class InputHandler : MonoBehaviour
 
         if (isBall)
         {
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKey(KeyCode.Alpha1))
             {
                 _monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
                 randomShoot = Random.Range((int)0, (int)_monster.Count + 1);

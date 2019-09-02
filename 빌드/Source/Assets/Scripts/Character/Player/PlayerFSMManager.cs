@@ -7,10 +7,11 @@ public enum PlayerState
     IDLE = 0,
     RUN,
     ATTACK1,
-    //ATTACK1BACK,
     ATTACK2,
     ATTACK3,
-    //TRANS,
+    ATTACKBACK1,
+    ATTACKBACK2,
+    TRANS,
     DEAD,
 }
 
@@ -21,7 +22,7 @@ public class PlayerFSMManager : FSMManager
     private bool _onAttack = false;
     private bool _isinit = false;
     public PlayerState startState = PlayerState.IDLE;
-    private Dictionary<PlayerState, FSMState> _states = new Dictionary<PlayerState, FSMState>();
+    public Dictionary<PlayerState, FSMState> _states = new Dictionary<PlayerState, FSMState>();
 
     [HideInInspector]
     public CharacterStat _lastAttack;
@@ -52,7 +53,34 @@ public class PlayerFSMManager : FSMManager
 
     //public CharacterController testTarget;
 
+    public bool isCantMove;
+    float vertical, horizontal;
+    public float attackCount;
+    public GameObject[] Skill1Effeects;
+    bool isBall, isShoot, isSkill1CTime;
 
+    private List<GameObject> _monster = new List<GameObject>();
+
+    Image Skill1UI;
+    Vector3 target;
+    int randomShoot;
+    float Skill1Timer;
+    [Header("스킬1번 날라가는 속도,")]
+    public float skill1Speed = 20f;
+    [Header("스킬1번 날라가는 시간,")]
+    public float skill1ShootTime = 2f;
+
+    public bool isAttackOne, isAttackTwo, isAttackThree;
+    public float _attack1Time, _attack2Time, _attack3Time, _attackBack1, _attackBack2, _specialAnim;
+
+    [Header("X축 마우스 감도")]
+    public float mouseSpeed = 80f;
+
+    float r_x = 0;
+
+    public float _v, _h;
+
+    bool isInputLock;
     protected override void Awake()
     {
         base.Awake();
@@ -61,7 +89,7 @@ public class PlayerFSMManager : FSMManager
         _cc = GetComponentInChildren<CapsuleCollider>();
         _stat = GetComponent<PlayerStat>();
         _anim = GetComponentInChildren<Animator>();
-
+        Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         PlayerState[] stateValues = (PlayerState[])System.Enum.GetValues(typeof(PlayerState));
         foreach (PlayerState s in stateValues)
         {
@@ -79,7 +107,8 @@ public class PlayerFSMManager : FSMManager
 
         instance = this;
 
-
+        isInputLock = false;
+        isSpecial = false;
     }
 
     private void Start()
@@ -92,7 +121,10 @@ public class PlayerFSMManager : FSMManager
         //Skill1UI.gameObject.SetActive(false);
         _attack1Time = AnimationLength("PC_Attack_001");
         _attack2Time = AnimationLength("PC_Attack_002");
-        //_attack3Time = AnimationLength("PC_Attack_003");
+        _attack3Time = AnimationLength("PC_Attack_003_2");
+        _attackBack1 = AnimationLength("PC_Attack_Back_001");
+        _attackBack2 = AnimationLength("PC_Attack_Back_002");
+        _specialAnim = AnimationLength("PC_Transform_001");
         isAttackOne = false;
         isAttackTwo = false;
         isAttackThree = false;
@@ -108,8 +140,7 @@ public class PlayerFSMManager : FSMManager
         _currentState = newState;
         _states[_currentState].BeginState();
         _states[_currentState].enabled = true;
-        _anim.SetInteger("CurrentState", (int)_currentState);
-     
+        _anim.SetInteger("CurrentState", (int)_currentState);     
     }
 
     // 움직이는지 체크하는 함수
@@ -119,10 +150,31 @@ public class PlayerFSMManager : FSMManager
             vertical >= 0.01f || vertical <= -0.01f;
     }
 
+    public void AttackCheck()
+    {
+        Attack_Capsule.enabled = true;
+    }
+    public void AttackCancle()
+    {
+        Attack_Capsule.enabled = false;
+    }
 
+    private void FixedUpdate()
+    {
+        if (isSpecial)
+            return;
+        r_x = Input.GetAxis("Mouse X");
+        _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
+    }
 
-
-
+    bool isSpecial;
+    public GameObject Normal;
+    public GameObject Special;
+    public GameObject WeaponTransformEffect;
+    public GameObject TimeLine;
+    public GameObject Change_Effect;
+    public float specialTimer = 0;
+    public CapsuleCollider Attack_Capsule;
     private void Update()
     {
         // 공격처리는 죽음을 제외한 모든 상황에서 처리
@@ -131,6 +183,12 @@ public class PlayerFSMManager : FSMManager
             _onAttack = Input.GetAxis("Fire1") >= 0.01f ? true : false;
             //_anim.SetBool("OnAttack", _onAttack);
         }
+
+        if (isInputLock)
+            return;
+
+
+        ChangeModel();
         GetInput();
         Skill1();
         AttackDirection();
@@ -158,30 +216,8 @@ public class PlayerFSMManager : FSMManager
 
     public override bool IsDie() { return CurrentState == PlayerState.DEAD; }
 
-    public bool isCantMove;
-    float vertical, horizontal;
-    public float attackCount;
-    public GameObject[] Skill1Effeects;
-    bool isBall, isShoot, isSkill1CTime;
 
-    private List<GameObject> _monster = new List<GameObject>();
 
-    Image Skill1UI;
-    Vector3 target;
-    int randomShoot;
-    float Skill1Timer;
-    [Header("스킬1번 날라가는 속도,")]
-    public float skill1Speed = 20f;
-    [Header("스킬1번 날라가는 시간,")]
-    public float skill1ShootTime = 2f;
-
-    public bool isAttackOne, isAttackTwo, isAttackThree;
-    public float _attack1Time, _attack2Time, _attack3Time;
-    // _v = 앞 뒤, _h = 양옆 _v >= 0.1f 
-    // _h = 0 정면공격애니
-    // _v >= 0.01f or  _v <= -0.01f 작으면 왼쪽 크면 오른쪽
-    // 1타일때 2,3타 방향을 정했던가? 아니면 2타일떄도 바꿀수 이썼던가? 흠...
-    public float _v, _h;
     public void AttackDirection()
     {
         
@@ -191,6 +227,7 @@ public class PlayerFSMManager : FSMManager
         _anim.SetFloat("Attack_X", _h);
         _anim.SetFloat("Attack_Y", _v);
     }
+
     // 애니메이션 시간을 가져오는 함수.
     public float AnimationLength(string name)
     {
@@ -203,6 +240,43 @@ public class PlayerFSMManager : FSMManager
                 time = ac.animationClips[i].length;
         return time;
     }
+
+    public void ChangeModel()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            isSpecial = true;
+            TimeLine.SetActive(true);
+        }
+        if (isSpecial)
+        {
+            WeaponTransformEffect.SetActive(true);
+            specialTimer += Time.deltaTime;
+            if (specialTimer >= 0.75f)
+            {
+                SetState(PlayerState.TRANS);
+            }
+            if (specialTimer >= 1.90f + 0.75f)
+            {
+                WeaponTransformEffect.SetActive(false);
+                Normal.SetActive(false);
+                Special.SetActive(true);
+            }
+            if (specialTimer >= _specialAnim + 1.3f)
+            {
+                Change_Effect.SetActive(false);
+                SetState(PlayerState.IDLE);
+            }
+            if (specialTimer >= _specialAnim + 2f)
+            {
+                specialTimer = 0;
+                TimeLine.SetActive(false);
+                isSpecial = false;
+                return;
+            }
+        }
+    }
+
     public void GetInput()
     {        
         if (isCantMove)
@@ -245,47 +319,7 @@ public class PlayerFSMManager : FSMManager
             _anim.SetFloat("Direction_Y", vertical);
             _anim.SetFloat("Direction_X", horizontal);
         }
-    }
-    //public void Attack(bool isAttack)
-    //{
-    //    if (isAttack)
-    //    {
-    //        isCantMove = true;
-    //    }
-    //    if (!isAttack)
-    //    {
-    //        isCantMove = false;
-    //    }
-
-    //    if (Input.GetMouseButtonDown(0) && !isAttack)
-    //    {
-    //        isAttack = true;
-    //        SetState(PlayerState.ATTACK1);
-    //        return;
-    //    }
-    //    //    One = true;
-    //    //    Two = false;
-    //    //    Three = false;
-    //    //    return;
-    //    //}
-    //    //if (Input.GetMouseButton(0) && One)
-    //    //{
-    //    //    SetState(PlayerState.ATTACK2);
-    //    //    One = false;
-    //    //    Two = true;
-    //    //    Three = false;
-    //    //    return;
-    //    //}
-    //    //if(Input.GetMouseButton(0) && Two)
-    //    //{
-    //    //    SetState(PlayerState.ATTACK3);
-    //    //    One = false;
-    //    //    Two = false;
-    //    //    Three = true;
-    //    //    return;
-    //    //}
-
-    //}
+    }  
 
     public void Skill1()
     {
@@ -297,7 +331,7 @@ public class PlayerFSMManager : FSMManager
         }
         if (isBall)
         {
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKey(KeyCode.Alpha1))
             {
                 _monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
                 randomShoot = Random.Range((int)0, (int)_monster.Count + 1);

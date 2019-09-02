@@ -9,8 +9,8 @@ public enum MacState
     CHASE,
     ATTACK,
     RUNAWAY,
+    HIT,
     DEAD,
-    HIT
 }
 [RequireComponent(typeof(MacStat))]
 public class MacFSMManager : FSMManager
@@ -45,7 +45,7 @@ public class MacFSMManager : FSMManager
     public Animator Anim { get { return _Anim; } }
 
     public Transform _AttackTransform;
-    public MeshRenderer _MR;
+    public SkinnedMeshRenderer _MR;
 
     public Slider _HPSilder;
     public GameObject hitEffect;
