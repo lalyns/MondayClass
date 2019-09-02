@@ -8,6 +8,7 @@ public enum MacState
     POPUP = 0,
     CHASE,
     ATTACK,
+    SKILL,
     RUNAWAY,
     HIT,
     DEAD,
