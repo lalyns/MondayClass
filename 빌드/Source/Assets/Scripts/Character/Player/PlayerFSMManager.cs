@@ -109,6 +109,8 @@ public class PlayerFSMManager : FSMManager
 
         isInputLock = false;
         isSpecial = false;
+        pc_Icon.enabled = true;
+        sp_Icon.enabled = false;
     }
 
     private void Start()
@@ -175,6 +177,9 @@ public class PlayerFSMManager : FSMManager
     public GameObject Change_Effect;
     public float specialTimer = 0;
     public CapsuleCollider Attack_Capsule;
+
+    public Image pc_Icon, sp_Icon;
+    
     private void Update()
     {
         // 공격처리는 죽음을 제외한 모든 상황에서 처리
@@ -245,6 +250,8 @@ public class PlayerFSMManager : FSMManager
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
+            pc_Icon.enabled = false;
+            sp_Icon.enabled = true;
             isSpecial = true;
             TimeLine.SetActive(true);
         }
