@@ -105,4 +105,9 @@ public static class GameLib
     {
         return (player.transform.position - monster.transform.position).normalized;
     }
+
+    public static Vector3 DirectionToCharacter(Collider monster, CapsuleCollider player)
+    {
+        return (player.transform.position - monster.transform.position).normalized;
+    }
 }

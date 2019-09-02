@@ -7,7 +7,7 @@ public class BossBullet : MonoBehaviour
     LilithFSMManager lilithFSMManager;
     ObjectPool bulletPool;
 
-    CharacterController CC;
+    Collider collider;
 
     // 스텟에서 상속받아서 사용할것
     float speed;
@@ -25,7 +25,7 @@ public class BossBullet : MonoBehaviour
         lilithFSMManager = GameObject.FindGameObjectWithTag("Boss").GetComponent<LilithFSMManager>();
 
         bulletPool = GameObject.FindGameObjectWithTag("BossBulletPool").GetComponent<ObjectPool>();
-        CC = GetComponent<CharacterController>();
+        collider = GetComponent<Collider>();
 
     }
 
@@ -35,7 +35,6 @@ public class BossBullet : MonoBehaviour
         if(time < 1f)
         {
             speed = lilithFSMManager.Stat._BulletSpeed;
-            Debug.Log(speed);
             lifeTime = lilithFSMManager.Stat._BulletLifeTime;
             SetBullet();
         }
@@ -63,7 +62,7 @@ public class BossBullet : MonoBehaviour
         }
         else
         {
-            direction = GameLib.DirectionToCharacter(CC, lilithFSMManager.PlayerCapsule);
+            direction = GameLib.DirectionToCharacter(collider, lilithFSMManager.PlayerCapsule);
         }
     }
 
