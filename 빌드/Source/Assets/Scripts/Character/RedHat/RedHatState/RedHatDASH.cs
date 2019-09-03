@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DreamCatcherDASH : DreamCatcherFSMState
+public class RedHatDASH : RedHatFSMState
 {
     float _DashTime = 1f;
     float _DashReadyTime = 1.5f;
@@ -35,8 +35,10 @@ public class DreamCatcherDASH : DreamCatcherFSMState
         _Time = 0.0f;
         Vector3 _TargetPos = Vector3.zero;
         _manager._MR.material = _manager.Stat._NormalMat;
+
         _manager._DashRoute.gameObject.SetActive(false);
         _IsDrawDashRoute = false;
+
         base.EndState();
     }
 
@@ -64,12 +66,7 @@ public class DreamCatcherDASH : DreamCatcherFSMState
 
         else if(_Time < _DashReadyTime + _DashTime)
         {
-            //Vector3 targetDir = _TargetPos - this.transform.position;
-            //targetDir = targetDir.normalized;
-            //targetDir.y = 0;
-
-            //_manager.CC.Move(targetDir * _manager.Stat.statData._DashSpeed * Time.deltaTime);
-            //_manager.CC.detectCollisions = false;
+            
             transform.position = Vector3.MoveTowards(this.transform.position, dashEndPos, 
                 _manager.Stat.statData._DashSpeed * Time.deltaTime);
 
@@ -85,11 +82,11 @@ public class DreamCatcherDASH : DreamCatcherFSMState
         {
             if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) <= _manager.Stat.AttackRange)
             {
-                _manager.SetState(DreamCatcherState.ATTACK);
+                _manager.SetState(RedHatState.ATTACK);
             }
             else
             {
-                _manager.SetState(DreamCatcherState.CHASE);
+                _manager.SetState(RedHatState.CHASE);
             }
         }
     }

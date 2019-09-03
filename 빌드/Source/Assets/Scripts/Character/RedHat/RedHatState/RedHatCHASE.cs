@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DreamCatcherCHASE : DreamCatcherFSMState
+public class RedHatCHASE : RedHatFSMState
 {
     bool _IsSpread = false;
 
@@ -27,7 +27,7 @@ public class DreamCatcherCHASE : DreamCatcherFSMState
 
         if (GameLib.DistanceToCharacter(_manager.CC,_manager.PlayerCapsule) < _manager.Stat._AttackRange)
         {
-            _manager.SetState(DreamCatcherState.ATTACK);
+            _manager.SetState(RedHatState.ATTACK);
         }
 
         else

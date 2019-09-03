@@ -56,12 +56,12 @@ public class ObjectManager : MonoBehaviour
 
             //var setValue = UnityEngine.Random.Range(0, 5);
 
-            //int dreamCatcherCount = missionData.DreamCatcherCount[setValue];
+            //int RedHatCount = missionData.RedHatCount[setValue];
             //int macCount = missionData.MacCount[setValue];
             
             for (int j = 0; j < 3; j++)
             {
-                SpawnMonster(MonsterType.DreamCatcher, _SpawnPosition[curSpawnPos++]);
+                SpawnMonster(MonsterType.RedHat, _SpawnPosition[curSpawnPos++]);
             }
 
             for (int j = 0; j < 2; j++)
@@ -108,7 +108,7 @@ public class ObjectManager : MonoBehaviour
                     set[curSet].x -= 1;
 
                     remainMonster--;
-                    SpawnMonster(MonsterType.DreamCatcher, _SpawnPosition[curSpawnPos++]);
+                    SpawnMonster(MonsterType.RedHat, _SpawnPosition[curSpawnPos++]);
 
 
                 }
@@ -156,7 +156,7 @@ public class ObjectManager : MonoBehaviour
                     set[curSet].x -= 1;
 
                     remainMonster--;
-                    SpawnMonster(MonsterType.DreamCatcher, _SpawnPosition[curSpawnPos++]);
+                    SpawnMonster(MonsterType.RedHat, _SpawnPosition[curSpawnPos++]);
 
 
                 }
@@ -217,7 +217,7 @@ public class ObjectManager : MonoBehaviour
                     set[curSet].x -= 1;
 
                     remainMonster--;
-                    SpawnMonster(MonsterType.DreamCatcher, _SpawnPosition[curSpawnPos++]);
+                    SpawnMonster(MonsterType.RedHat, _SpawnPosition[curSpawnPos++]);
 
 
                 }
@@ -329,7 +329,7 @@ public class ObjectManager : MonoBehaviour
 
     public enum MonsterType
     {
-        DreamCatcher = 0,
+        RedHat = 0,
         Mac = 1,
         Tiber = 2,
         Length

@@ -3,7 +3,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum DreamCatcherState
+public enum RedHatState
 {
     POPUP = 0,
     CHASE,
@@ -14,21 +14,21 @@ public enum DreamCatcherState
 }
 
 
-[RequireComponent(typeof(DreamCatcherStat))]
-public class DreamCatcherFSMManager : FSMManager
+[RequireComponent(typeof(RedHatStat))]
+public class RedHatFSMManager : FSMManager
 {
     private bool _isInit = false;
-    public DreamCatcherState startState = DreamCatcherState.POPUP;
-    private Dictionary<DreamCatcherState, DreamCatcherFSMState> _States = new Dictionary<DreamCatcherState, DreamCatcherFSMState>();
+    public RedHatState startState = RedHatState.POPUP;
+    private Dictionary<RedHatState, RedHatFSMState> _States = new Dictionary<RedHatState, RedHatFSMState>();
 
-    private DreamCatcherState _CurrentState;
-    public DreamCatcherState CurrentState {
+    private RedHatState _CurrentState;
+    public RedHatState CurrentState {
         get {
             return _CurrentState;
         }
     }
 
-    public DreamCatcherFSMState CurrentStateComponent {
+    public RedHatFSMState CurrentStateComponent {
         get {
             return _States[_CurrentState];
         }
@@ -40,14 +40,15 @@ public class DreamCatcherFSMManager : FSMManager
     private CapsuleCollider _PlayerCapsule;
     public CapsuleCollider PlayerCapsule { get { return _PlayerCapsule; } }
 
-    private DreamCatcherStat _Stat;
-    public DreamCatcherStat Stat { get { return _Stat; } }
+    private RedHatStat _Stat;
+    public RedHatStat Stat { get { return _Stat; } }
 
     private Animator _Anim;
     public Animator Anim { get { return _Anim; } }
 
     public Transform _AttackTransform;
     public SkinnedMeshRenderer _MR;
+
     public LineRenderer _DashRoute;
 
     public CharacterStat _lastAttack;
@@ -62,20 +63,20 @@ public class DreamCatcherFSMManager : FSMManager
 
         HP = 10;
         _CC = GetComponent<CharacterController>();
-        _Stat = GetComponent<DreamCatcherStat>();
+        _Stat = GetComponent<RedHatStat>();
         _Anim = GetComponentInChildren<Animator>();
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
-        DreamCatcherState[] stateValues = (DreamCatcherState[])System.Enum.GetValues(typeof(DreamCatcherState));
-        foreach (DreamCatcherState s in stateValues)
+        RedHatState[] stateValues = (RedHatState[])System.Enum.GetValues(typeof(RedHatState));
+        foreach (RedHatState s in stateValues)
         {
-            System.Type FSMType = System.Type.GetType("DreamCatcher" + s.ToString());
-            DreamCatcherFSMState state = (DreamCatcherFSMState)GetComponent(FSMType);
+            System.Type FSMType = System.Type.GetType("RedHat" + s.ToString());
+            RedHatFSMState state = (RedHatFSMState)GetComponent(FSMType);
 
             if(null == state)
             {
-                state = (DreamCatcherFSMState)gameObject.AddComponent(FSMType);
+                state = (RedHatFSMState)gameObject.AddComponent(FSMType);
             }
 
             _States.Add(s, state);
@@ -89,7 +90,7 @@ public class DreamCatcherFSMManager : FSMManager
         _isInit = true;
     }
 
-    public void SetState(DreamCatcherState newState)
+    public void SetState(RedHatState newState)
     {
         if (_isInit)
         {
@@ -114,15 +115,22 @@ public class DreamCatcherFSMManager : FSMManager
 
         if (Stat.Hp > 0)
         {
-            SetState(DreamCatcherState.HIT);
+            SetState(RedHatState.HIT);
 
             //플레이어 쳐다본 후
-            transform.localEulerAngles = Vector3.zero;
-            transform.LookAt(PlayerFSMManager.instance.Anim.transform);
-            // 뒤로 밀림
-            transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
-            //플레이어피버게이지증가?
-            //InputHandler.instance.FeverGauge++;
+            try
+            {
+                transform.localEulerAngles = Vector3.zero;
+                transform.LookAt(PlayerFSMManager.instance.Anim.transform);
+                // 뒤로 밀림
+                transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
+                //플레이어피버게이지증가?
+                //InputHandler.instance.FeverGauge++;
+            }
+            catch
+            {
+
+            }
         }
         else
         {
@@ -132,14 +140,14 @@ public class DreamCatcherFSMManager : FSMManager
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Weapon")
+        if (other.transform.tag == "Wea`pon")
         {
 
             if (Stat.Hp > 0)
             {
                 OnHit();
             }
-            //ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);        
+            //ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.RedHat);        
         }
         if (other.transform.tag == "Ball")
         {
@@ -167,7 +175,7 @@ public class DreamCatcherFSMManager : FSMManager
     {
         base.SetDeadState();
 
-        SetState(DreamCatcherState.DEAD);
+        SetState(RedHatState.DEAD);
     }
 
 }

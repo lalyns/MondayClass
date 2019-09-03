@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DreamCatcherPOPUP : DreamCatcherFSMState
+public class RedHatPOPUP : RedHatFSMState
 {
     float _PopUpTime = 2.0f;
     float _curTime = 0.0f;
@@ -31,7 +31,7 @@ public class DreamCatcherPOPUP : DreamCatcherFSMState
 
         if (_curTime > _PopUpTime)
         {
-            _manager.SetState(DreamCatcherState.CHASE);
+            _manager.SetState(RedHatState.CHASE);
         }
     }
 

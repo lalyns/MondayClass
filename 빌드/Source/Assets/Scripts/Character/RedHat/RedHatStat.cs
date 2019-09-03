@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DreamCatcherStat : CharacterStat
+public class RedHatStat : CharacterStat
 {
     public MonsterData monsterData;
 

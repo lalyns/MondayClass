@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DreamCatcherATTACK : DreamCatcherFSMState
+public class RedHatATTACK : RedHatFSMState
 {
 
     public override void BeginState()
@@ -27,7 +27,7 @@ public class DreamCatcherATTACK : DreamCatcherFSMState
         }
         else
         {
-            _manager.SetState(DreamCatcherState.CHASE);
+            _manager.SetState(RedHatState.CHASE);
         }
 
     }

@@ -28,7 +28,7 @@ public class MissionData : ScriptableObject
     public float CycleOfTimeRespawn;
 
     // 각 몬스터의 수
-    public int[] DreamCatcherCount;
+    public int[] RedHatCount;
     public int[] MacCount;
     public int[] TiberCount;
 

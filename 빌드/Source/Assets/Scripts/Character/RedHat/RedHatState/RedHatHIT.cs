@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DreamCatcherHIT : DreamCatcherFSMState
+public class RedHatHIT : RedHatFSMState
 {
     float time = 0.5f;
     float curtime = 0.0f;
@@ -28,7 +28,7 @@ public class DreamCatcherHIT : DreamCatcherFSMState
 
         if (curtime > time)
         {
-            _manager.SetState(DreamCatcherState.CHASE);
+            _manager.SetState(RedHatState.CHASE);
             curtime = 0;
         }
     }

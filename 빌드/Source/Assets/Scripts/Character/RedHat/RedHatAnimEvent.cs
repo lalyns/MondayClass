@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DreamCatcherAnimEvent : MonoBehaviour
+public class RedHatAnimEvent : MonoBehaviour
 {
     public CapsuleCollider _WeaponCapsule;
     // Start is called before the first frame update

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DreamCatcherDEAD : DreamCatcherFSMState
+public class RedHatDEAD : RedHatFSMState
 {
     public override void BeginState()
     {
@@ -10,7 +10,7 @@ public class DreamCatcherDEAD : DreamCatcherFSMState
 
         if (!GameManager._Instance._IsDummyScene)
         {
-            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.DreamCatcher);
+            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.RedHat);
         }
         else
         {
