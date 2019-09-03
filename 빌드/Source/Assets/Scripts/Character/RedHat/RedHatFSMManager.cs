@@ -47,9 +47,7 @@ public class RedHatFSMManager : FSMManager
     public Animator Anim { get { return _Anim; } }
 
     public Transform _AttackTransform;
-    public SkinnedMeshRenderer _MR;
-
-    public LineRenderer _DashRoute;
+    public MeshRenderer _MR;
 
     public CharacterStat _lastAttack;
 
