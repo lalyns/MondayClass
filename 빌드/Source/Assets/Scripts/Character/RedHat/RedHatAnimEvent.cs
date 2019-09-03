@@ -14,7 +14,7 @@ public class RedHatAnimEvent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnWeaponTrigger()
