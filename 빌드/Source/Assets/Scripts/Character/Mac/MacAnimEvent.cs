@@ -49,8 +49,7 @@ public class MacAnimEvent : MonoBehaviour
     public void CastingAttack()
     {
 
-        GameObject.Find("MacBulletPool").GetComponent<ObjectPool>().
-            ItemSetActive(bulletLuancher, this.GetComponentInParent<MacFSMManager>().CC,
+        EffectPoolManager._Instance._MacBulletPool.ItemSetActive(bulletLuancher, this.GetComponentInParent<MacFSMManager>().CC,
             this.GetComponentInParent<MacFSMManager>().PlayerCapsule);
 
     }

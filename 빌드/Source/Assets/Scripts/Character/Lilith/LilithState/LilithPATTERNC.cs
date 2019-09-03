@@ -17,7 +17,7 @@ public class LilithPATTERNC : LilithFSMState
 
     private void Start()
     {
-        //bulletPool = GameObject.FindGameObjectWithTag("BossBulletPool").GetComponent<ObjectPool>();
+        bulletPool = EffectPoolManager._Instance._BossBulletPool;
     }
 
     void BulletPatternA()
