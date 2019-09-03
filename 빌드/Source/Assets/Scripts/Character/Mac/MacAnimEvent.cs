@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MacAnimation : MonoBehaviour
+public class MacAnimEvent : MonoBehaviour
 {
     public int type;
 
     public GameObject bulletEffect;
+
+    public Transform bulletLuancher;
+
     public float _Time = 0;
 
     public float _MakeTime = 0.5f;
@@ -27,12 +30,7 @@ public class MacAnimation : MonoBehaviour
 
             if (_Time > _MakeTime)
             {
-                GameObject temp = Instantiate(bulletEffect, this.transform.position, Quaternion.identity);
-
-                temp.GetComponent<Bullet>().LookAtTarget(GameObject.FindGameObjectWithTag("Player").transform);
-                temp.GetComponent<Bullet>().dir = GameLib.DirectionToCharacter(this.GetComponentInParent<MacFSMState>()._manager.CC, this.GetComponentInParent<MacFSMState>()._manager.PlayerCapsule);
-                temp.GetComponent<Bullet>()._Move = true;
-                Destroy(this.gameObject);
+                
             }
 
         }
@@ -46,5 +44,14 @@ public class MacAnimation : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+    }
+
+    public void CastingAttack()
+    {
+
+        GameObject.Find("MacBulletPool").GetComponent<ObjectPool>().
+            ItemSetActive(bulletLuancher, this.GetComponentInParent<MacFSMManager>().CC,
+            this.GetComponentInParent<MacFSMManager>().PlayerCapsule);
+
     }
 }

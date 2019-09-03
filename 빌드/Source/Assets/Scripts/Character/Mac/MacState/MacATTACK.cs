@@ -37,10 +37,10 @@ public class MacATTACK : MacFSMState
                 if (!_CreateBall)
                 {
                     transform.LookAt(_manager.PlayerCapsule.transform);
-                    bullet = Instantiate(_manager.Stat._AttackEffect,
-                    _manager._AttackTransform.position,
-                    Quaternion.identity).transform;
-                    bullet.transform.parent = this.transform;
+                    //bullet = Instantiate(_manager.Stat._AttackEffect,
+                    //_manager._AttackTransform.position,
+                    //Quaternion.identity).transform;
+                    //bullet.transform.parent = this.transform;
                     _CreateBall = true;
                 }
 
