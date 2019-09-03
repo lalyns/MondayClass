@@ -49,8 +49,6 @@ public class RedHatFSMManager : FSMManager
     public Transform _AttackTransform;
     public SkinnedMeshRenderer _MR;
 
-    public LineRenderer _DashRoute;
-
     public CharacterStat _lastAttack;
 
     public Slider _HPSilder;

@@ -15,15 +15,15 @@ public class RedHatDASH : RedHatFSMState
     Vector3 _TargetPos = Vector3.zero;
     Vector3 dashEndPos = Vector3.zero;
 
+    GameObject dashEffect;
+
     public override void BeginState()
     {
         _TargetPos = _manager.PlayerCapsule.transform.position;
 
         _manager._MR.material = _manager.Stat._DashMat;
 
-        _manager._DashRoute.SetPosition(0, this.transform.position);
-        _manager._DashRoute.SetPosition(1, this.transform.position);
-        _manager._DashRoute.gameObject.SetActive(true);
+        EffectPoolManager._Instance._RedHatEffectPool.ItemSetActive(this.transform);
 
         // 대쉬 시간 조정
 
@@ -35,9 +35,6 @@ public class RedHatDASH : RedHatFSMState
         _Time = 0.0f;
         Vector3 _TargetPos = Vector3.zero;
         _manager._MR.material = _manager.Stat._NormalMat;
-
-        _manager._DashRoute.gameObject.SetActive(false);
-        _IsDrawDashRoute = false;
 
         base.EndState();
     }
@@ -53,14 +50,10 @@ public class RedHatDASH : RedHatFSMState
             {
                 transform.LookAt(_manager.PlayerCapsule.transform);
 
-                _manager._DashRoute.SetPosition(0, this.transform.position);
-
                 dashEndPos = this.transform.position;
                 dashEndPos += transform.forward * _manager.Stat.statData._DashRange;
                 dashEndPos.y = this.transform.position.y;
 
-                _manager._DashRoute.SetPosition(1, dashEndPos);
-                _IsDrawDashRoute = true;
             }
         }
 
@@ -74,7 +67,6 @@ public class RedHatDASH : RedHatFSMState
 
         else if(_Time < _DashReadyTime + _DashTime + _DashAfterDelay)
         {
-            _manager._DashRoute.gameObject.SetActive(false);
             _manager.CC.detectCollisions = true;
         }
 

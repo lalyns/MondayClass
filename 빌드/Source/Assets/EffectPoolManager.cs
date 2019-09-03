@@ -6,8 +6,11 @@ public class EffectPoolManager : MonoBehaviour
 {
     public static EffectPoolManager _Instance;
 
+    public ObjectPool _RedHatEffectPool;
+
     public ObjectPool _MacBulletPool;
     public ObjectPool _BossBulletPool;
+    
 
     private void Awake()
     {
