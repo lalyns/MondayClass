@@ -61,7 +61,7 @@ public class CreateMissionDataClass : Editor
         asset.MissionLength = new int[(int)MissionManager.MissionType.Last];
         asset.MissionLevel = new int[missionData.Count];
 
-        asset.DreamCatcherCount = new int[missionData.Count];
+        asset.RedHatCount = new int[missionData.Count];
         asset.MacCount = new int[missionData.Count];
         asset.TiberCount = new int[missionData.Count];
 
@@ -84,7 +84,7 @@ public class CreateMissionDataClass : Editor
             }
 
             asset.MissionLevel[i] = (int)missionData[i]["Level"];
-            asset.DreamCatcherCount[i] = (int)missionData[i]["Monster1"];
+            asset.RedHatCount[i] = (int)missionData[i]["Monster1"];
             asset.MacCount[i] = (int)missionData[i]["Monster2"];
             asset.TiberCount[i] = (int)missionData[i]["Monster3"];
 

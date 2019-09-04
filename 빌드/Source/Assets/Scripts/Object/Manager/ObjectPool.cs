@@ -86,7 +86,31 @@ public class ObjectPool : MonoBehaviour
 
         _ActiveItem.AddLast(item);
     }
-    
+
+    public void ItemSetActive(Transform respawnTrans, CharacterController start, CapsuleCollider target)
+    {
+        if (_InActiveItemPool.Count == 0)
+        {
+            CreateItem();
+        }
+
+        var item = _InActiveItemPool.First.Value;
+        _InActiveItemPool.RemoveFirst();
+
+        item.transform.position = respawnTrans.position;
+
+        item.GetComponent<MacBullet>().LookAtTarget(
+            GameObject.FindGameObjectWithTag("Player").transform);
+
+        item.GetComponent<MacBullet>().dir =
+            GameLib.DirectionToCharacter(start, target);
+
+        item.GetComponent<MacBullet>()._Move = true;
+
+        item.SetActive(true);
+
+        _ActiveItem.AddLast(item);
+    }
 
     /// <summary>
     /// 작동 중인 오브젝트의 활성화를 비활성화로 변경하는 매소드
