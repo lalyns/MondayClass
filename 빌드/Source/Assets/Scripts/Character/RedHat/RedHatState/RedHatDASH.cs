@@ -22,9 +22,14 @@ public class RedHatDASH : RedHatFSMState
         _TargetPos = _manager.PlayerCapsule.transform.position;
 
         _manager._MR.material = _manager.Stat._DashMat;
+        try
+        {
+            EffectPoolManager._Instance._RedHatEffectPool.ItemSetActive(this.transform);
+        }
+        catch
+        {
 
-        EffectPoolManager._Instance._RedHatEffectPool.ItemSetActive(this.transform);
-
+        }
         // 대쉬 시간 조정
 
         base.BeginState();
