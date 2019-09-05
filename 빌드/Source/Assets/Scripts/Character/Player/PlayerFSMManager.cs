@@ -116,7 +116,9 @@ public class PlayerFSMManager : FSMManager
         {
             pc_Icon.enabled = true;
             sp_Icon.enabled = false;
-        }
+            Skill3_Start.SetActive(false);
+            Skill3_End.SetActive(false);
+}
         catch
         {
 
@@ -498,6 +500,10 @@ public class PlayerFSMManager : FSMManager
 
     public int[] randomShoot;
 
+    public GameObject Skill3_Start;
+    public GameObject Skill3_End;
+
+
     // 스킬 켜주고 꺼주고 하는 함수
     void Skill1Set(GameObject[] effects)
     {
@@ -566,7 +572,6 @@ public class PlayerFSMManager : FSMManager
         // 만약 구체 갯수가 0개면 다 꺼줌.
         Skill1Set(Skill1_Effects);
 
-
         // 구체가 1개 이상 있는 상태에서
         if (isBall)
         {
@@ -579,13 +584,11 @@ public class PlayerFSMManager : FSMManager
                 // 주변 몬스터의 수를 파악 한 후에
                 _monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
 
-                for(int i=0; i<5; i++)
+                // 몬스터 수의 값을 랜덤함수 5개를 돌려서 배치 시킨 후.
+                for (int i=0; i<5; i++)
                 {
                     randomShoot[i] = Random.Range((int)0, (int)_monster.Count);
-                }
-
-                // 몬스터 수의 값을 랜덤함수 5개를 돌려서 배치 시킨 후.
-               
+                }               
 
                 // 스킬이 날라간다.
                 isShoot = true;
@@ -610,37 +613,6 @@ public class PlayerFSMManager : FSMManager
             // 날린다
             Skill1Shoot(Skill1_Shoots, _monster, randomShoot);
 
-
-            //if (Skill1_Amount >= 2)
-            //{
-            //    effects[0].transform.position = Vector3.MoveTowards(effects[0].transform.position, targets[randomShoot1].transform.position, skill1Speed * Time.deltaTime);
-
-            //}
-            //if (Skill1_Amount >= 3)
-            //{
-            //    effects[1].transform.position = Vector3.MoveTowards(effects[1].transform.position, targets[randomShoot2].transform.position, skill1Speed * Time.deltaTime);
-            //}
-            //if (Skill1_Amount >= 4)
-            //{
-            //    effects[2].transform.position = Vector3.MoveTowards(effects[2].transform.position, targets[randomShoot3].transform.position, skill1Speed * Time.deltaTime);
-            //}
-            //if (!isNormal)
-            //{
-            //    if (Skill1_Amount >= 5)
-            //    {
-            //        effects[3].transform.position = Vector3.MoveTowards(effects[3].transform.position, targets[randomShoot4].transform.position, skill1Speed * Time.deltaTime);
-            //    }
-            //    if (Skill1_Amount >= 6)
-            //    {
-            //        effects[4].transform.position = Vector3.MoveTowards(effects[4].transform.position, targets[randomShoot5].transform.position, skill1Speed * Time.deltaTime);
-            //    }
-            //}
-
-            //if(Vector3.Distance(Skill1_Shoots[0].transform.position, _monster[randomShoot1].transform.position) >= 0.05f)
-            //{
-            //    Skill1_Shoots[0].transform.position = Skill1_Effects[0].transform.position;
-            //    Skill1_Shoots[0].SetActive(false);
-            //}
             Skill1Return(Skill1_Effects, Skill1_Shoots, _monster, randomShoot, 0.02f);
 
             if (Skill1Timer > skill1ShootTime)
