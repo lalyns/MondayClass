@@ -9,6 +9,7 @@ public class MacAnimEvent : MonoBehaviour
     public GameObject bulletEffect;
 
     public Transform bulletLuancher;
+    public Transform skillLuancher;
 
     public float _Time = 0;
 
@@ -57,7 +58,7 @@ public class MacAnimEvent : MonoBehaviour
 
     public void CastingSkill()
     {
-        EffectPoolManager._Instance._MacSkillPool.ItemSetActive(bulletLuancher,
+        EffectPoolManager._Instance._MacSkillPool.ItemSetActive(skillLuancher,
             this.GetComponentInParent<MacFSMManager>().CC,
             this.GetComponentInParent<MacFSMManager>().PlayerCapsule);
     }
