@@ -37,10 +37,10 @@ public class MacSKILL : MacFSMState
                 if (!_CreateBall)
                 {
                     transform.LookAt(_manager.PlayerCapsule.transform);
-                    bullet = Instantiate(_manager.Stat._SkillEffect,
-                    _manager._AttackTransform.position,
-                    Quaternion.identity).transform;
-                    bullet.transform.parent = this.transform;
+                    //bullet = Instantiate(_manager.Stat._SkillEffect,
+                    //_manager._AttackTransform.position,
+                    //Quaternion.identity).transform;
+                    //bullet.transform.parent = this.transform;
                     _CreateBall = true;
                 }
 
@@ -52,9 +52,9 @@ public class MacSKILL : MacFSMState
 
                     if (!_SetBall)
                     {
-                        bullet.GetComponent<Bullet>().LookAtTarget(_manager.PlayerCapsule.transform);
-                        bullet.GetComponent<Bullet>().dir = GameLib.DirectionToCharacter(_manager.CC, _manager.PlayerCapsule);
-                        bullet.GetComponent<Bullet>()._Move = true;
+                        //bullet.GetComponent<Bullet>().LookAtTarget(_manager.PlayerCapsule.transform);
+                        //bullet.GetComponent<Bullet>().dir = GameLib.DirectionToCharacter(_manager.CC, _manager.PlayerCapsule);
+                        //bullet.GetComponent<Bullet>()._Move = true;
 
                         _SetBall = true;
                     }

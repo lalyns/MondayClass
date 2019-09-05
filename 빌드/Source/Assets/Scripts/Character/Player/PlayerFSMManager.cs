@@ -12,6 +12,7 @@ public enum PlayerState
     ATTACKBACK1,
     ATTACKBACK2,
     TRANS,
+    SKILL3,
     DEAD,
 }
 
@@ -72,7 +73,7 @@ public class PlayerFSMManager : FSMManager
     [Header("스킬1번 날라가는 시간,")]
     public float skill1ShootTime = 2f;
 
-    public bool isAttackOne, isAttackTwo, isAttackThree;
+    public bool isAttackOne, isAttackTwo, isAttackThree, isSkill3;
     public float _attack1Time, _attack2Time, _attack3Time, _attackBack1, _attackBack2, _specialAnim;
 
     [Header("X축 마우스 감도")]
@@ -145,8 +146,8 @@ public class PlayerFSMManager : FSMManager
         {
             Skill1_Effects[i].SetActive(false);
         }
-        camManager = CameraManager.singleton;
-        camManager.Init(this.transform);
+        //camManager = CameraManager.singleton;
+        //camManager.Init(this.transform);
         shake = GameObject.Find("CameraRig").GetComponent<Shake>();
         mainCamera = GameObject.Find("mainCam").GetComponent<Camera>();
         followCam = shake.GetComponent<FollowCam>();
@@ -296,23 +297,23 @@ public class PlayerFSMManager : FSMManager
             return;
         r_x = Input.GetAxis("Mouse X");
 
-        if(Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.V))
-        {
-            camManager.Tick(Time.deltaTime);
+        //if(Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.V))
+        //{
+        //    camManager.Tick(Time.deltaTime);
 
-            camManager.gameObject.SetActive(true);
-            mainCamera.gameObject.SetActive(false);
+        //    camManager.gameObject.SetActive(true);
+        //    mainCamera.gameObject.SetActive(false);
 
-        }
-        else
-        {
-            camManager.camInit(_anim.transform);
-            mainCamera.gameObject.SetActive(true);
-            camManager.gameObject.SetActive(false);
-            _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
-        }
+        //}
+        //else
+        //{
+        //            camManager.camInit(_anim.transform);
+        mainCamera.gameObject.SetActive(true);
+        //  camManager.gameObject.SetActive(false);
+        _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
+        //}
 
-        
+
 
     }
     public float flashTimer = 0;
@@ -330,7 +331,7 @@ public class PlayerFSMManager : FSMManager
     public bool isNormal = false;
 
 
-  
+
     private void Update()
     {
         isNormal = Normal.activeSelf;
@@ -351,8 +352,10 @@ public class PlayerFSMManager : FSMManager
         Skill1();
         AttackDirection();
         Dash();
+        Skill3();
         //Attack(isAttackOne);        
-
+        if (isSkill3)
+            return;
         if (Input.GetMouseButtonDown(0) && !isAttackOne)
         {
             isAttackOne = true;
@@ -482,11 +485,11 @@ public class PlayerFSMManager : FSMManager
         //    _anim.SetFloat("Direction_Y", 0);
         //    _anim.SetFloat("Direction_X", horizontal);
         //}
-        if (!(horizontal == 0f && vertical == 0f))
-        {
+        //if (!(horizontal == 0f && vertical == 0f))
+       // {
             _anim.SetFloat("Direction_Y", vertical);
             _anim.SetFloat("Direction_X", horizontal);
-        }
+     //   }
     }
 
     public GameObject[] Skill1_Effects;
@@ -557,7 +560,7 @@ public class PlayerFSMManager : FSMManager
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                if(Skill1_Amount <= 1)
+                if (Skill1_Amount <= 1)
                 {
                     for (int i = 0; i < 5; i++)
                         Skill1_Shoots[i].SetActive(false);
@@ -567,11 +570,11 @@ public class PlayerFSMManager : FSMManager
                 {
                     Skill1_Shoots[0].SetActive(true);
                 }
-                if(Skill1_Amount >= 3)
+                if (Skill1_Amount >= 3)
                 {
                     Skill1_Shoots[1].SetActive(true);
                 }
-                 if(Skill1_Amount >= 4)
+                if (Skill1_Amount >= 4)
                 {
                     Skill1_Shoots[2].SetActive(true);
                 }
@@ -586,8 +589,8 @@ public class PlayerFSMManager : FSMManager
                 _monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
                 Debug.Log(_monster.Count);
 
-              
-                
+
+
 
                 randomShoot1 = Random.Range((int)0, (int)_monster.Count);
                 randomShoot2 = Random.Range((int)0, (int)_monster.Count);
@@ -598,7 +601,7 @@ public class PlayerFSMManager : FSMManager
                 isShoot = true;
                 isSkill1CTime = true;
                 isBall = false;
-                
+
                 //Skill1UI.gameObject.SetActive(true);
             }
         }
@@ -650,6 +653,17 @@ public class PlayerFSMManager : FSMManager
         //        isSkill1CTime = false;
         //    }
         //}
+    }
+    public void Skill3()
+    {
+        if (isSkill3)
+            return;
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SetState(PlayerState.SKILL3);
+            isSkill3 = true;
+            return;
+        }
     }
     public static PlayerFSMManager instance;
 

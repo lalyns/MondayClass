@@ -99,14 +99,26 @@ public class ObjectPool : MonoBehaviour
 
         item.transform.position = respawnTrans.position;
 
-        item.GetComponent<MacBullet>().LookAtTarget(
-            GameObject.FindGameObjectWithTag("Player").transform);
+        try
+        {
+            item.GetComponent<MacBullet>().LookAtTarget(
+                GameObject.FindGameObjectWithTag("Player").transform);
 
-        item.GetComponent<MacBullet>().dir =
-            GameLib.DirectionToCharacter(start, target);
+            item.GetComponent<MacBullet>().dir =
+                GameLib.DirectionToCharacter(start, target);
 
-        item.GetComponent<MacBullet>()._Move = true;
+            item.GetComponent<MacBullet>()._Move = true;
+        }
+        catch
+        {
+            item.GetComponent<MacSkill>().LookAtTarget(
+                GameObject.FindGameObjectWithTag("Player").transform);
 
+            item.GetComponent<MacSkill>().dir =
+                GameLib.DirectionToCharacter(start, target);
+
+            item.GetComponent<MacSkill>()._Move = true;
+        }
         item.SetActive(true);
 
         _ActiveItem.AddLast(item);
