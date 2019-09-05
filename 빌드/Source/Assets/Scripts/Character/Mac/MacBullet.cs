@@ -76,7 +76,7 @@ public class MacBullet : MonoBehaviour
 
     public void EffectReturnPool()
     {
-        GameObject.Find("MacBulletPool").GetComponent<ObjectPool>().ItemReturnPool(this.gameObject);
+        EffectPoolManager._Instance._MacBulletPool.ItemReturnPool(this.gameObject);
 
         _Move = false;
         _Play = false;
