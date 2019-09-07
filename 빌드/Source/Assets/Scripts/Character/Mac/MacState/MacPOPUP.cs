@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class MacPOPUP : MacFSMState
 {
-    public GameObject _PopupEffect;
-
     public override void BeginState()
     {
         base.BeginState();
 
-        _PopupEffect.SetActive(true);
-        _PopupEffect.GetComponentInChildren<ParticleSystem>().Play();
-        _PopupEffect.GetComponent<Animator>().Play("Ani");
+        _manager.Anim.Play("PopUp");
+        _manager.Stat.SetHp(_manager.Stat.MaxHp);
+
+        EffectPlay();
     }
 
     public override void EndState()
@@ -20,9 +19,16 @@ public class MacPOPUP : MacFSMState
         base.EndState();
     }
 
+    private void EffectPlay()
+    {
+        _manager._PopupEffect.SetActive(true);
+        _manager._PopupEffect.GetComponentInChildren<ParticleSystem>().Play();
+        _manager._PopupEffect.GetComponent<Animator>().Play("Ani");
+    }
+
     private void Update()
     {
-        _manager.SetState(MacState.CHASE);
+
     }
 
     protected override void FixedUpdate()

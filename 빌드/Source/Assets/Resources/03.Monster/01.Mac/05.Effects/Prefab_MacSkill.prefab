@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5292505273616534400}
-  - component: {fileID: 3670811312468384220}
+  - component: {fileID: 1866783764293161752}
   m_Layer: 0
   m_Name: Prefab_MacSkill
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3670811312468384220
+--- !u!114 &1866783764293161752
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,9 +42,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7006337594256449411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9be3239073241c84aa6d676db56eb1cf, type: 3}
+  m_Script: {fileID: 11500000, guid: d5920a956d89d634e8142bd556b35f9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Type: 1
   _SetEffect: {fileID: 8824276829339277540}
   _SetEffectParticles:
   - {fileID: 8824276827781285271}
@@ -54,6 +55,9 @@ MonoBehaviour:
   _DestroyEffect: {fileID: 0}
   dir: {x: 0, y: 0, z: 0}
   speed: 2
+  _CreativeTime: 0.8
+  _DestroyTime: 4
+  _DestroyConstTime: 0.65
   _PlayTime: 0
   _DestroyPlayTime: 0
   _Move: 0
@@ -66,6 +70,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5292505273616534400}
     m_Modifications:
+    - target: {fileID: 4884916874719786756, guid: e30113f6878d91741a400f93a857474e,
+        type: 3}
+      propertyPath: m_Name
+      value: FX_Monster_Mac_Att_Skill_1
+      objectReference: {fileID: 0}
     - target: {fileID: 4884916874719786755, guid: e30113f6878d91741a400f93a857474e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -120,11 +129,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4884916874719786756, guid: e30113f6878d91741a400f93a857474e,
-        type: 3}
-      propertyPath: m_Name
-      value: FX_Monster_Mac_Att_Skill_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30113f6878d91741a400f93a857474e, type: 3}

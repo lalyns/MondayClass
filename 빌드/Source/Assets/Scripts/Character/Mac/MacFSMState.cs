@@ -29,7 +29,6 @@ public class MacFSMState : MonoBehaviour
 
     private void Update()
     {
-        HPUI();
 
     }
 
@@ -37,8 +36,8 @@ public class MacFSMState : MonoBehaviour
     {
         if (sub) return;
 
+        HPUI();
         Gravity();
-        SkillCool();
 
     }
 

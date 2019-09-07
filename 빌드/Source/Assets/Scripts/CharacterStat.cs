@@ -12,6 +12,10 @@ public class CharacterStat : MonoBehaviour
 
     protected float _hp = 1000.0f;
     public float Hp { get { return _hp; } }
+    public void SetHp(float hp)
+    {
+        _hp = hp;
+    }
 
     protected float _moveSpeed = 3.0f;
     public float MoveSpeed { get { return _moveSpeed; } }

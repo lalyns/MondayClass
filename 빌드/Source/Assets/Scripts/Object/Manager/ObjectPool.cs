@@ -54,6 +54,29 @@ public class ObjectPool : MonoBehaviour
         _ActiveItem.AddLast(item);
     }
 
+
+    public void ItemSetActive(Transform respawnTrans, string type)
+    {
+        if (_InActiveItemPool.Count == 0)
+        {
+            CreateItem();
+        }
+
+        var item = _InActiveItemPool.First.Value;
+        _InActiveItemPool.RemoveFirst();
+
+        item.transform.position = respawnTrans.position;
+        item.SetActive(true);
+
+        _ActiveItem.AddLast(item);
+
+        if(type == "monster")
+        {
+            GameStatus._Instance.AddActivedMonsterList(item);
+            item.GetComponent<MacFSMManager>().SetState(MacState.POPUP);
+        }
+    }
+
     public void ItemSetActive(Transform respawnTrans, bool bulletType)
     {
         if (_InActiveItemPool.Count == 0)
@@ -111,14 +134,9 @@ public class ObjectPool : MonoBehaviour
         }
         catch
         {
-            item.GetComponent<MacSkill>().LookAtTarget(
-                GameObject.FindGameObjectWithTag("Player").transform);
 
-            item.GetComponent<MacSkill>().dir =
-                GameLib.DirectionToCharacter(start, target);
-
-            item.GetComponent<MacSkill>()._Move = true;
         }
+
         item.SetActive(true);
 
         _ActiveItem.AddLast(item);
@@ -142,5 +160,14 @@ public class ObjectPool : MonoBehaviour
         go.SetActive(false);
 
         _InActiveItemPool.AddLast(go);
+
+        try
+        {
+            GameStatus._Instance.RemoveActivedMonsterList(go);
+        }
+        catch
+        {
+
+        }
     }
 }

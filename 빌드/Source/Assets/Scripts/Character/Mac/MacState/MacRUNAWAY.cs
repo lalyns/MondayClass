@@ -5,6 +5,7 @@ using UnityEngine;
 public class MacRUNAWAY : MacFSMState
 {
     public bool _SetTarget = false;
+    public Transform[] Targets;
     Vector3 TargetPos;
 
     public override void BeginState()
@@ -26,6 +27,7 @@ public class MacRUNAWAY : MacFSMState
 
         if (Vector3.Distance(this.transform.position, TargetPos) > 1f)
         {
+            
             transform.position = Vector3.Lerp(this.transform.position, TargetPos, 0.5f * Time.deltaTime);
         }
 
@@ -42,8 +44,42 @@ public class MacRUNAWAY : MacFSMState
 
     public void SetTarget()
     {
-        TargetPos = transform.position - transform.forward * 5f;
+        bool set = false;
+
+        int loopEscape = 0;
+
+        while (!set)
+        {
+            set = Setting();
+            loopEscape++;
+
+            if(loopEscape >= 100)
+            {
+                return;
+            }
+        }
+
         _SetTarget = true;
+    }
+
+    public bool Setting()
+    {
+        int random = UnityEngine.Random.Range(0, Targets.Length - 1);
+
+        Ray ray = new Ray();
+        ray.origin = Targets[random].position;
+        ray.direction = Vector3.down;
+
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray, out hit, 0.5f, 1 << 17))
+        {
+            transform.LookAt(Targets[random]);
+            TargetPos = hit.point;
+            return true;
+        }
+
+        return false;
     }
 
 }
