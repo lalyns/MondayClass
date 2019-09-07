@@ -13,8 +13,8 @@ public class MacSkill : MonoBehaviour
     public Vector3 dir;
     public float speed;
 
-    public const float _CreativeTime = 0.8f;
-    public const float _DestroyTime = 4.0f;
+    public const float _CreativeTime = 1f;
+    public const float _DestroyTime = 8.0f;
     public const float _DestroyConstTime = 0.65f;
 
     // 초기화 목록

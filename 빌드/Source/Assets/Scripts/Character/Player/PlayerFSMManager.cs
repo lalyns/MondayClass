@@ -65,7 +65,6 @@ public class PlayerFSMManager : FSMManager
 
     Image Skill1UI;
     Vector3 target;
-    public int randomShoot1, randomShoot2, randomShoot3, randomShoot4, randomShoot5;
     [SerializeField]
     float Skill1Timer;
     [Header("스킬1번 날라가는 속도,")]
@@ -117,11 +116,14 @@ public class PlayerFSMManager : FSMManager
         {
             pc_Icon.enabled = true;
             sp_Icon.enabled = false;
-        }
+            Skill3_Start.SetActive(false);
+            Skill3_End.SetActive(false);
+}
         catch
         {
 
         }
+        randomShoot = new int[5];
     }
 
     private void Start()
@@ -486,19 +488,67 @@ public class PlayerFSMManager : FSMManager
         //    _anim.SetFloat("Direction_X", horizontal);
         //}
         //if (!(horizontal == 0f && vertical == 0f))
-       // {
-            _anim.SetFloat("Direction_Y", vertical);
-            _anim.SetFloat("Direction_X", horizontal);
-     //   }
+        // {
+        _anim.SetFloat("Direction_Y", vertical);
+        _anim.SetFloat("Direction_X", horizontal);
+        //   }
     }
 
     public GameObject[] Skill1_Effects;
     public GameObject[] Skill1_Shoots;
     public int Skill1_Amount = 1;
+
+    public int[] randomShoot;
+
+    public GameObject Skill3_Start;
+    public GameObject Skill3_End;
+
+
+    // 스킬 켜주고 꺼주고 하는 함수
+    void Skill1Set(GameObject[] effects)
+    {
+        if (Skill1_Amount <= 1)
+            for (int i = 0; i < 5; i++)
+                effects[i].SetActive(false);
+        if (Skill1_Amount >= 2)
+            effects[0].SetActive(true);
+        if (Skill1_Amount >= 3)
+            effects[1].SetActive(true);
+        if (Skill1_Amount >= 4)
+            effects[2].SetActive(true);
+        if (Skill1_Amount >= 5)
+            effects[3].SetActive(true);
+        if (Skill1_Amount >= 6)
+            effects[4].SetActive(true);
+    }
+    void Skill1Shoot(GameObject[] effects, List<GameObject> targets, int[] rands)
+    {
+        for(int i=0; i<5; i++)
+        {
+            if(Skill1_Amount >= i + 2)
+            {
+                effects[i].transform.position = Vector3.MoveTowards(effects[i].transform.position, targets[rands[i]].transform.position, skill1Speed * Time.deltaTime);
+            }
+        }
+    }
+    void Skill1Return(GameObject[] effects, GameObject[] shoots, List<GameObject> target, int[] rands, float distance)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            if (Skill1_Amount >= i + 2)
+            {
+                if (Vector3.Distance(shoots[i].transform.position, target[rands[i]].transform.position) <= distance)
+                {
+                    //shoots[i].transform.position = effects[i].transform.position;
+                    shoots[i].SetActive(false);
+                }
+            }
+        }
+    }
+
     public void Skill1()
     {
-
-
+        // 공격 횟수가 3회 성공 시 스킬1의 이펙트 하나씩 켜진다 가정 후 작성.
         if (attackCount >= 3)
         {
             attackCount = 0;
@@ -507,97 +557,40 @@ public class PlayerFSMManager : FSMManager
             // Skill1Effeects[0].gameObject.SetActive(true);
             isBall = true;
         }
+        // 변신 전은 구체 3개
         if (isNormal)
         {
             if (Skill1_Amount >= 4)
                 Skill1_Amount = 4;
         }
+        // 변신 후는 구체 5개
         if (!isNormal)
         {
             if (Skill1_Amount >= 6)
                 Skill1_Amount = 6;
         }
-        switch (Skill1_Amount)
-        {
-            case 1:
-                for (int i = 0; i < 5; i++)
-                    Skill1_Effects[i].SetActive(false);
-                break;
-            case 2:
-                //하나
-                Skill1_Effects[0].SetActive(true);
-                Debug.Log("하나 모였다");
-                break;
-            case 3:
-                //둘
-                Skill1_Effects[0].SetActive(true);
-                Skill1_Effects[1].SetActive(true);
-                Debug.Log("두개 모였다");
-                break;
-            case 4:
-                //셋
-                Skill1_Effects[0].SetActive(true);
-                Skill1_Effects[1].SetActive(true);
-                Skill1_Effects[2].SetActive(true);
-                Debug.Log("세개 모였다");
-                break;
-            case 5:
-                Skill1_Effects[0].SetActive(true);
-                Skill1_Effects[1].SetActive(true);
-                Skill1_Effects[2].SetActive(true);
-                Skill1_Effects[3].SetActive(true);
-                break;
-            case 6:
-                Skill1_Effects[0].SetActive(true);
-                Skill1_Effects[1].SetActive(true);
-                Skill1_Effects[2].SetActive(true);
-                Skill1_Effects[3].SetActive(true);
-                Skill1_Effects[4].SetActive(true);
-                break;
+        // 만약 구체 갯수가 0개면 다 꺼줌.
+        Skill1Set(Skill1_Effects);
 
-        }
+        // 구체가 1개 이상 있는 상태에서
         if (isBall)
         {
+            // 1 누르면
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                if (Skill1_Amount <= 1)
-                {
-                    for (int i = 0; i < 5; i++)
-                        Skill1_Shoots[i].SetActive(false);
-                }
+                // 떠있는 구체 -> 날라가는 구체로 Active를 수정 후.
+                Skill1Set(Skill1_Shoots);
 
-                if (Skill1_Amount >= 2)
-                {
-                    Skill1_Shoots[0].SetActive(true);
-                }
-                if (Skill1_Amount >= 3)
-                {
-                    Skill1_Shoots[1].SetActive(true);
-                }
-                if (Skill1_Amount >= 4)
-                {
-                    Skill1_Shoots[2].SetActive(true);
-                }
-                if (Skill1_Amount >= 5)
-                {
-                    Skill1_Shoots[3].SetActive(true);
-                }
-                if (Skill1_Amount >= 6)
-                {
-                    Skill1_Shoots[4].SetActive(true);
-                }
+                // 주변 몬스터의 수를 파악 한 후에
                 _monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
-                Debug.Log(_monster.Count);
 
+                // 몬스터 수의 값을 랜덤함수 5개를 돌려서 배치 시킨 후.
+                for (int i=0; i<5; i++)
+                {
+                    randomShoot[i] = Random.Range((int)0, (int)_monster.Count);
+                }               
 
-
-
-                randomShoot1 = Random.Range((int)0, (int)_monster.Count);
-                randomShoot2 = Random.Range((int)0, (int)_monster.Count);
-                randomShoot3 = Random.Range((int)0, (int)_monster.Count);
-                randomShoot4 = Random.Range((int)0, (int)_monster.Count);
-                randomShoot5 = Random.Range((int)0, (int)_monster.Count);
-
+                // 스킬이 날라간다.
                 isShoot = true;
                 isSkill1CTime = true;
                 isBall = false;
@@ -605,39 +598,34 @@ public class PlayerFSMManager : FSMManager
                 //Skill1UI.gameObject.SetActive(true);
             }
         }
+        // 스킬이 날라가기 시작하면
         if (isShoot)
         {
+            // 기존 떠있던 이펙트의 Active를 꺼주고.
             for (int i = 0; i < 5; i++)
             {
                 Skill1_Effects[i].SetActive(false);
             }
 
-            target = _monster[0].transform.position;
+            //target = _monster[0].transform.position;
+            // 날라가는 시간을 정해준 후에.
             Skill1Timer += Time.deltaTime;
+            // 날린다
+            Skill1Shoot(Skill1_Shoots, _monster, randomShoot);
 
-
-            if (Skill1_Amount >= 2)
-            {
-                Skill1_Shoots[0].transform.position = Vector3.MoveTowards(Skill1_Shoots[0].transform.position, _monster[randomShoot1].transform.position, skill1Speed * Time.deltaTime);
-
-            }
-            if (Skill1_Amount >= 3)
-            {
-                Skill1_Shoots[1].transform.position = Vector3.MoveTowards(Skill1_Shoots[1].transform.position, _monster[randomShoot2].transform.position, skill1Speed * Time.deltaTime);
-            }
-            if (Skill1_Amount >= 4)
-            {
-                Skill1_Shoots[2].transform.position = Vector3.MoveTowards(Skill1_Shoots[2].transform.position, _monster[randomShoot3].transform.position, skill1Speed * Time.deltaTime);
-            }
+            Skill1Return(Skill1_Effects, Skill1_Shoots, _monster, randomShoot, 0.02f);
 
             if (Skill1Timer > skill1ShootTime)
             {
-                //  Skill1Effeects[1].transform.position = Skill1Effeects[0].transform.position;
-                //  Skill1Effeects[1].SetActive(false);
+                for (int i = 0; i < 5; i++)
+                {
+                    Skill1_Shoots[i].transform.position = Skill1_Effects[i].transform.position;
+                }
+
                 Skill1_Amount = 1;
                 Skill1Timer = 0;
                 isShoot = false;
-                //_monster.Clear();
+                _monster.Clear();
             }
         }
         //if (isSkill1CTime)
