@@ -49,7 +49,14 @@ public class PlayerAnimEvent : MonoBehaviour
             }
         }
     }
-
+    void skill3Check()
+    {
+        player.Skill3Attack();
+    }
+    void skill3Cancle()
+    {
+        player.Skill3Cancle();
+    }
     public void PlayParticle()
     {
         //Debug.Log("시작");

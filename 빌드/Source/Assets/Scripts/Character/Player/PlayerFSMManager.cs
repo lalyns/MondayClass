@@ -12,6 +12,7 @@ public enum PlayerState
     ATTACKBACK1,
     ATTACKBACK2,
     TRANS,
+    SKILL2,
     SKILL3,
     DEAD,
 }
@@ -72,7 +73,7 @@ public class PlayerFSMManager : FSMManager
     [Header("스킬1번 날라가는 시간,")]
     public float skill1ShootTime = 2f;
 
-    public bool isAttackOne, isAttackTwo, isAttackThree, isSkill3;
+    public bool isAttackOne, isAttackTwo, isAttackThree, isSkill2, isSkill3;
     public float _attack1Time, _attack2Time, _attack3Time, _attackBack1, _attackBack2, _specialAnim;
 
     [Header("X축 마우스 감도")]
@@ -83,6 +84,38 @@ public class PlayerFSMManager : FSMManager
     public float _v, _h;
 
     bool isInputLock;
+
+    public float flashTimer = 0;
+    public bool isSpecial, isFlash;
+    public GameObject Normal;
+    public GameObject Special;
+    public GameObject WeaponTransformEffect;
+    public GameObject TimeLine;
+    public GameObject Change_Effect;
+    public float specialTimer = 0;
+    CapsuleCollider Attack_Capsule;
+    CapsuleCollider Skill3_Capsule;
+    BoxCollider SKill2_Box;
+    public Image pc_Icon, sp_Icon;
+    [Header("플레이어가 변신상태인지 아닌지 확인시켜줌.")]
+    public bool isNormal = false;
+
+    CameraManager camManager;
+    FollowCam followCam;
+    Camera mainCamera;
+    Shake shake;
+
+
+    public GameObject[] Skill1_Effects;
+    public GameObject[] Skill1_Shoots;
+    public int Skill1_Amount = 1;
+
+    public int[] randomShoot;
+
+    public GameObject Skill3_Start;
+    public GameObject Skill3_End;
+
+    public GameObject Skill2_Start;
     protected override void Awake()
     {
         base.Awake();
@@ -92,7 +125,8 @@ public class PlayerFSMManager : FSMManager
         _stat = GetComponent<PlayerStat>();
         _anim = GetComponentInChildren<Animator>();
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
-
+        Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
+        SKill2_Box = Skill2_Start.GetComponent<BoxCollider>();
         PlayerState[] stateValues = (PlayerState[])System.Enum.GetValues(typeof(PlayerState));
         foreach (PlayerState s in stateValues)
         {
@@ -109,7 +143,7 @@ public class PlayerFSMManager : FSMManager
 
 
         instance = this;
-
+        isSkill2 = false;
         isInputLock = false;
         isSpecial = false;
         try
@@ -154,11 +188,7 @@ public class PlayerFSMManager : FSMManager
         mainCamera = GameObject.Find("mainCam").GetComponent<Camera>();
         followCam = shake.GetComponent<FollowCam>();
     }
-    CameraManager camManager;
-    FollowCam followCam;
-    Camera mainCamera;
-    Shake shake;
-
+   
     public void SetState(PlayerState newState)
     {
         if (_isinit)
@@ -187,9 +217,21 @@ public class PlayerFSMManager : FSMManager
     {
         Attack_Capsule.enabled = false;
     }
+    public void Skill3Attack()
+    {
+        Skill3_Capsule.enabled = true;
+    }
+    public void Skill3Cancle()
+    {
+        Skill3_Capsule.enabled = false;
+    }
+
     public GameObject FlashEffect1, FlashEffect2;
     public Vector3 FlashPosition;
     bool isFlashStart = false;
+    float skill2_Distance;
+
+    public Transform Skill2_Parent;
     public void Dash()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -298,14 +340,13 @@ public class PlayerFSMManager : FSMManager
         if (isSpecial)
             return;
         r_x = Input.GetAxis("Mouse X");
-
+        skill2_Distance = 14f / followCam.height;
         //if(Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.V))
         //{
         //    camManager.Tick(Time.deltaTime);
 
         //    camManager.gameObject.SetActive(true);
         //    mainCamera.gameObject.SetActive(false);
-
         //}
         //else
         //{
@@ -314,23 +355,11 @@ public class PlayerFSMManager : FSMManager
         //  camManager.gameObject.SetActive(false);
         _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
         //}
-
-
-
+        
+        //Skill2_Start.transform.position = new Vector3(_anim.transform.position.x, _anim.transform.position.y, _anim.transform.position.z +skill2_Distance);
+        Skill2_Parent.localPosition = new Vector3(0, 0, skill2_Distance);
     }
-    public float flashTimer = 0;
-    public bool isSpecial, isFlash;
-    public GameObject Normal;
-    public GameObject Special;
-    public GameObject WeaponTransformEffect;
-    public GameObject TimeLine;
-    public GameObject Change_Effect;
-    public float specialTimer = 0;
-    public CapsuleCollider Attack_Capsule;
 
-    public Image pc_Icon, sp_Icon;
-    [Header("플레이어가 변신상태인지 아닌지 확인시켜줌.")]
-    public bool isNormal = false;
 
 
 
@@ -354,6 +383,7 @@ public class PlayerFSMManager : FSMManager
         Skill1();
         AttackDirection();
         Dash();
+        Skill2();
         Skill3();
         //Attack(isAttackOne);        
         if (isSkill3)
@@ -464,44 +494,10 @@ public class PlayerFSMManager : FSMManager
             horizontal = Input.GetAxis("Horizontal");
         }
 
-        //if (vertical >= 0.1f && horizontal == 0)
-        //{
-        //    //전진애니메이션
-        //    _anim.SetFloat("Direction_Y", vertical);
-        //    _anim.SetFloat("Direction_X", 0);
-        //}
-        //else if (vertical <= -0.1f && horizontal == 0)
-        //{
-        //    _anim.SetFloat("Direction_Y", vertical);
-        //    _anim.SetFloat("Direction_X", 0);
-        //}
-        //else if (horizontal >= 0.1f && vertical == 0)
-        //{
-        //    //오른쪽
-        //    _anim.SetFloat("Direction_Y", 0);
-        //    _anim.SetFloat("Direction_X", horizontal);
-        //}
-        //else if (horizontal <= -0.1f && vertical == 0)
-        //{
-        //    //왼쪽
-        //    _anim.SetFloat("Direction_Y", 0);
-        //    _anim.SetFloat("Direction_X", horizontal);
-        //}
-        //if (!(horizontal == 0f && vertical == 0f))
-        // {
         _anim.SetFloat("Direction_Y", vertical);
         _anim.SetFloat("Direction_X", horizontal);
-        //   }
     }
 
-    public GameObject[] Skill1_Effects;
-    public GameObject[] Skill1_Shoots;
-    public int Skill1_Amount = 1;
-
-    public int[] randomShoot;
-
-    public GameObject Skill3_Start;
-    public GameObject Skill3_End;
 
 
     // 스킬 켜주고 꺼주고 하는 함수
@@ -650,6 +646,17 @@ public class PlayerFSMManager : FSMManager
         {
             SetState(PlayerState.SKILL3);
             isSkill3 = true;
+            return;
+        }
+    }
+    public void Skill2()
+    {
+        if (isSkill2)
+            return;
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetState(PlayerState.SKILL2);
+            isSkill2 = true;
             return;
         }
     }
