@@ -74,7 +74,7 @@ public class PlayerFSMManager : FSMManager
     public float skill1ShootTime = 2f;
 
     public bool isAttackOne, isAttackTwo, isAttackThree, isSkill2, isSkill3;
-    public float _attack1Time, _attack2Time, _attack3Time, _attackBack1, _attackBack2, _specialAnim;
+    public float _attack1Time, _attack2Time, _attack3Time, _attackBack1, _attackBack2, _specialAnim, _skill2Time, _skill3Time;
 
     [Header("X축 마우스 감도")]
     public float mouseSpeed = 80f;
@@ -168,12 +168,14 @@ public class PlayerFSMManager : FSMManager
         //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
         //Skill1UI.fillAmount = 1f;
         //Skill1UI.gameObject.SetActive(false);
-        _attack1Time = AnimationLength("PC_Attack_001");
-        _attack2Time = AnimationLength("PC_Attack_002");
-        _attack3Time = AnimationLength("PC_Attack_003_2");
-        _attackBack1 = AnimationLength("PC_Attack_Back_001");
-        _attackBack2 = AnimationLength("PC_Attack_Back_002");
-        _specialAnim = AnimationLength("PC_Transform_001");
+        _attack1Time = AnimationLength("PC_Anim_Attack_001");
+        _attack2Time = AnimationLength("PC_Anim_Attack_002");
+        _attack3Time = AnimationLength("PC_Anim_Attack_003_2");
+        _attackBack1 = AnimationLength("PC_Anim_Attack_Back_001");
+        _attackBack2 = AnimationLength("PC_Anim_Attack_Back_002");
+        _specialAnim = AnimationLength("PC_Anim_Transform_001");
+        _skill2Time = AnimationLength("PC_Anim_Skill_002");
+        _skill3Time = AnimationLength("PC_Anim_Skill_003");
         isAttackOne = false;
         isAttackTwo = false;
         isAttackThree = false;
@@ -213,7 +215,7 @@ public class PlayerFSMManager : FSMManager
     {
         Attack_Capsule.enabled = true;
     }
-    public void AttackCancle()
+    public void AttackCancel()
     {
         Attack_Capsule.enabled = false;
     }
@@ -221,7 +223,7 @@ public class PlayerFSMManager : FSMManager
     {
         Skill3_Capsule.enabled = true;
     }
-    public void Skill3Cancle()
+    public void Skill3Cancel()
     {
         Skill3_Capsule.enabled = false;
     }
@@ -499,7 +501,6 @@ public class PlayerFSMManager : FSMManager
     }
 
 
-
     // 스킬 켜주고 꺼주고 하는 함수
     void Skill1Set(GameObject[] effects)
     {
@@ -579,7 +580,7 @@ public class PlayerFSMManager : FSMManager
 
                 // 주변 몬스터의 수를 파악 한 후에
                 _monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
-
+                
                 // 몬스터 수의 값을 랜덤함수 5개를 돌려서 배치 시킨 후.
                 for (int i=0; i<5; i++)
                 {

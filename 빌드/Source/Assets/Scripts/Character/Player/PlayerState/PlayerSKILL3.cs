@@ -33,7 +33,7 @@ public class PlayerSKILL3 : FSMState
         if (isAttack)
             _manager.Skill3Attack();
         else
-            _manager.Skill3Cancle();
+            _manager.Skill3Cancel();
 
 
         if ((_time >= 1.2f && _time < 1.4f) 

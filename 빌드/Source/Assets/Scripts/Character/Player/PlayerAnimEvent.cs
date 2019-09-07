@@ -38,7 +38,7 @@ public class PlayerAnimEvent : MonoBehaviour
         if (null != player)
         {
             //input.AttackCancel();
-            player.AttackCancle();
+            player.AttackCancel();
             try
             {
                 trailRenderer.gameObject.SetActive(false);
@@ -53,9 +53,9 @@ public class PlayerAnimEvent : MonoBehaviour
     {
         player.Skill3Attack();
     }
-    void skill3Cancle()
+    void skill3Cancel()
     {
-        player.Skill3Cancle();
+        player.Skill3Cancel();
     }
     public void PlayParticle()
     {
