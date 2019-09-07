@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class MacATTACK : MacFSMState
 {
-    public float _AttackBeforeTime = 0.8f;
-    public float _AttackTime = 3.0f;
-    public float _AfterAttackTime = 1.0f;
-    public float _Time = 0.0f;
-
-    bool _CreateBall = false;
-    bool _SetBall = false;
-    public Transform bullet;
+    public int _AttackTimes = 0;
 
     public override void BeginState()
     {
         base.BeginState();
+
+        if(_AttackTimes == 3)
+        {
+            _manager.SetState(MacState.SKILL);
+        }
+        
+        _AttackTimes++;
+
+        //Debug.Log(string.Format("공격횟수 : {0}", _AttackTimes));
     }
 
     public override void EndState()
@@ -25,64 +27,12 @@ public class MacATTACK : MacFSMState
 
     private void Update()
     {
-        _Time += Time.deltaTime;
+        transform.LookAt(_manager.PlayerCapsule.transform);
 
-        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) < _manager.Stat.statData._AttackRange)
-        {
-            if (_Time > _AttackTime)
-            {
-                _manager._MR.material = _manager.Stat._BeforeAttackMat;
-
-
-                if (!_CreateBall)
-                {
-                    transform.LookAt(_manager.PlayerCapsule.transform);
-                    //bullet = Instantiate(_manager.Stat._AttackEffect,
-                    //_manager._AttackTransform.position,
-                    //Quaternion.identity).transform;
-                    //bullet.transform.parent = this.transform;
-                    _CreateBall = true;
-                }
-
-
-                if (_Time > _AttackTime + _AttackBeforeTime)
-                {
-                    _manager._MR.material = _manager.Stat._AttackMat;
-
-
-                    if (!_SetBall)
-                    {
-                        try
-                        {
-                            //    bullet.GetComponent<Bullet>().LookAtTarget(_manager.PlayerCapsule.transform);
-                            //    bullet.GetComponent<Bullet>().dir = GameLib.DirectionToCharacter(_manager.CC, _manager.PlayerCapsule);
-                            //    bullet.GetComponent<Bullet>()._Move = true;
-                        }
-                        catch
-                        {
-
-                        }
-                        _SetBall = true;
-                    }
-
-                }
-
-                if(_Time> _AttackTime + _AttackBeforeTime + _AfterAttackTime)
-                {
-                    _Time = 0.0f;
-                    _CreateBall = false;
-                    _SetBall = false;
-
-                    _manager.SetState(MacState.RUNAWAY);
-                }
-            }
-
-        }
-        else
+        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) > _manager.Stat.statData._AttackRange)
         {
             _manager.SetState(MacState.CHASE);
         }
-
     }
 
     protected override void FixedUpdate()

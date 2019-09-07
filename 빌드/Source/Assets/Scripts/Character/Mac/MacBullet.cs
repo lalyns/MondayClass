@@ -4,32 +4,57 @@ using UnityEngine;
 
 public class MacBullet : MonoBehaviour
 {
+    public enum BulletType { Normal, Skill }
+    public BulletType _Type;
+
     public GameObject _SetEffect;
     public ParticleSystem[] _SetEffectParticles;
 
     public GameObject _MoveEffect;
     public GameObject _DestroyEffect;
 
-    [System.NonSerialized] public Vector3 dir;
+    [HideInInspector] public Vector3 dir;
     public float speed = 3f;
 
     // 상수 목록
-    public const float _CreativeTime = 0.8f;
-    public const float _DestroyTime = 4.0f;
-    public const float _DestroyConstTime = 0.65f;
+    [HideInInspector] public float _CreativeTime = 0.8f;
+    [HideInInspector] public float _DestroyTime = 4.0f;
+    [HideInInspector] public float _DestroyConstTime = 0.65f;
 
     // 초기화 목록
-    public float _PlayTime = 0.0f;
-    public float _DestroyPlayTime = 0.0f;
+    [HideInInspector] public float _PlayTime = 0.0f;
+    [HideInInspector] public float _DestroyPlayTime = 0.0f;
 
-    public bool _Move = false;
-    public bool _Play = false;
-    public bool _Destroy = false;
+    [HideInInspector] public bool _Move = false;
+    [HideInInspector] public bool _Play = false;
+    [HideInInspector] public bool _Destroy = false;
 
     private void Start()
     {
         _MoveEffect.SetActive(false);
-        _DestroyEffect.SetActive(false);
+
+        switch (_Type)
+        {
+            case BulletType.Normal:
+                _CreativeTime = 0.8f;
+                _DestroyTime = 4.0f;
+                _DestroyConstTime = 0.65f;
+                break;
+            case BulletType.Skill:
+                _CreativeTime = 1f;
+                _DestroyTime = 8.0f;
+                _DestroyConstTime = 0.65f;
+                break;
+        }
+
+        try
+        {
+            _DestroyEffect.SetActive(false);
+        }
+        catch
+        {
+
+        }
     }
 
     // Update is called once per frame
@@ -61,7 +86,16 @@ public class MacBullet : MonoBehaviour
         if(_PlayTime > _DestroyTime)
         {
             _MoveEffect.SetActive(false);
-            _DestroyEffect.SetActive(true);
+
+            try
+            {
+                _DestroyEffect.SetActive(true);
+            }
+            catch
+            {
+
+            }
+
             _Destroy = true;
         }
 
@@ -76,7 +110,20 @@ public class MacBullet : MonoBehaviour
 
     public void EffectReturnPool()
     {
-        EffectPoolManager._Instance._MacBulletPool.ItemReturnPool(this.gameObject);
+        ObjectPool pool = null;
+
+        switch (_Type)
+        {
+            case BulletType.Normal:
+                pool = EffectPoolManager._Instance._MacBulletPool;
+                break;
+            case BulletType.Skill:
+                pool = EffectPoolManager._Instance._MacSkillPool;
+                break;
+        }
+
+
+        pool.ItemReturnPool(this.gameObject);
 
         _Move = false;
         _Play = false;
@@ -87,7 +134,16 @@ public class MacBullet : MonoBehaviour
 
         _SetEffect.SetActive(true);
         _MoveEffect.SetActive(false);
-        _DestroyEffect.SetActive(false);
+
+        try
+        {
+            _DestroyEffect.SetActive(false);
+        }
+        catch
+        {
+
+        }
+
     }
 
     public void LookAtTarget(Transform target)

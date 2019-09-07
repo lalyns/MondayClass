@@ -4,55 +4,38 @@ using UnityEngine;
 
 public class MacAnimEvent : MonoBehaviour
 {
-    public int type;
+    MacFSMManager _Manager;
+    MacFSMManager FSMManager {
+        get {
+            if(_Manager == null)
+            {
+                _Manager = this.GetComponentInParent<MacFSMManager>();
+            }
 
-    public GameObject bulletEffect;
+            return _Manager;
+        }
+    }
 
     public Transform bulletLuancher;
     public Transform skillLuancher;
 
-    public float _Time = 0;
-
-    public float _MakeTime = 0.5f;
-    public float _DestroyTime = 0.7f;
-
-    // Start is called before the first frame update
-    void Start()
+    public void PopupOver()
     {
-        
+        FSMManager.SetState(MacState.CHASE);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AttackOver()
     {
-        if (type == 0)
-        {
-            _Time += Time.deltaTime;
-
-            if (_Time > _MakeTime)
-            {
-                
-            }
-
-        }
-
-        if(type == 2)
-        {
-
-            if (_Time > _DestroyTime)
-            {
-                _Time += Time.deltaTime;
-                Destroy(this.gameObject);
-            }
-        }
+        FSMManager.SetState(MacState.RUNAWAY);
     }
 
     public void CastingAttack()
     {
 
-        EffectPoolManager._Instance._MacBulletPool.ItemSetActive(bulletLuancher, 
-            this.GetComponentInParent<MacFSMManager>().CC,
-            this.GetComponentInParent<MacFSMManager>().PlayerCapsule);
+        EffectPoolManager._Instance._MacBulletPool.ItemSetActive(
+            bulletLuancher, 
+            FSMManager.CC,
+            FSMManager.PlayerCapsule);
 
     }
 

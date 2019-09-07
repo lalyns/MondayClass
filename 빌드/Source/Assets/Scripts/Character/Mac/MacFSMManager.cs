@@ -13,6 +13,7 @@ public enum MacState
     HIT,
     DEAD,
 }
+
 [RequireComponent(typeof(MacStat))]
 public class MacFSMManager : FSMManager
 {
@@ -50,6 +51,9 @@ public class MacFSMManager : FSMManager
 
     public Slider _HPSilder;
     public GameObject hitEffect;
+
+    public GameObject _PopupEffect;
+
     protected override void Awake()
     {
         base.Awake();
@@ -86,8 +90,8 @@ public class MacFSMManager : FSMManager
     {
         if (_isInit)
         {
-            _States[_CurrentState].enabled = false;
             _States[_CurrentState].EndState();
+            _States[_CurrentState].enabled = false;
         }
         _CurrentState = newState;
         _States[_CurrentState].BeginState();
@@ -104,6 +108,8 @@ public class MacFSMManager : FSMManager
         Shake.instance.ShakeCamera();
 
         Stat.TakeDamage(Stat, 400);
+        //Debug.Log(Stat.Hp);
+
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {
@@ -114,7 +120,7 @@ public class MacFSMManager : FSMManager
             // 뒤로 밀림
             transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
             //플레이어피버게이지증가?
-//            PlayerFSMManager.instance.FeverGauge++;
+            //PlayerFSMManager.instance.FeverGauge++;
         }
         else
         {
@@ -129,6 +135,7 @@ public class MacFSMManager : FSMManager
         {
             if (Stat.Hp > 0)
             {
+                //Debug.Log("Attacked");
                 OnHit();
             }
 
@@ -136,8 +143,6 @@ public class MacFSMManager : FSMManager
             {
                 try
                 {
-                    Destroy(GetComponent<MacATTACK>().bullet.gameObject);
-                    GetComponent<MacATTACK>().bullet = null;
                 }
                 catch
                 {
@@ -156,8 +161,6 @@ public class MacFSMManager : FSMManager
             {
                 try
                 {
-                    Destroy(GetComponent<MacATTACK>().bullet.gameObject);
-                    GetComponent<MacATTACK>().bullet = null;
                 }
                 catch
                 {
@@ -179,8 +182,7 @@ public class MacFSMManager : FSMManager
             {
                 try
                 {
-                    Destroy(GetComponent<MacATTACK>().bullet.gameObject);
-                    GetComponent<MacATTACK>().bullet = null;
+
                 }
                 catch
                 {

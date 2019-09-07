@@ -21,13 +21,6 @@ public class FSMManager : MonoBehaviour
 
     protected virtual void Awake()
     {
-        //if (_Player)
-        //{
-        //    _sight = GetComponentInChildren<Camera>();
-        //    _sight.aspect = sightAspect;
-        //}
-
-        //stats = GetComponent<CharacterStat>();
     }
 
     private void OnDrawGizmos()

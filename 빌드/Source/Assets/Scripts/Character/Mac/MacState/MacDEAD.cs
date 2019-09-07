@@ -15,7 +15,7 @@ public class MacDEAD : MacFSMState
         }
         else
         {
-            Destroy(this.gameObject);
+            MonsterPoolManager._Instance._Mac.ItemReturnPool(gameObject);
         }
     }
 
