@@ -116,6 +116,7 @@ public class PlayerFSMManager : FSMManager
     public GameObject Skill3_End;
 
     public GameObject Skill2_Start;
+
     protected override void Awake()
     {
         base.Awake();
@@ -231,7 +232,10 @@ public class PlayerFSMManager : FSMManager
     public GameObject FlashEffect1, FlashEffect2;
     public Vector3 FlashPosition;
     bool isFlashStart = false;
-    float skill2_Distance;
+    [Header("스킬2번 현재 거리, 최소거리, 최대거리")]
+    public float skill2_Distance;
+    public float skill2_minDis;
+    public float skill2_maxDis;
 
     public Transform Skill2_Parent;
     public void Dash()
@@ -341,8 +345,11 @@ public class PlayerFSMManager : FSMManager
     {
         if (isSpecial)
             return;
+
         r_x = Input.GetAxis("Mouse X");
-        skill2_Distance = 14f / followCam.height;
+
+
+        Skill2Set();
         //if(Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.V))
         //{
         //    camManager.Tick(Time.deltaTime);
@@ -359,11 +366,18 @@ public class PlayerFSMManager : FSMManager
         //}
         
         //Skill2_Start.transform.position = new Vector3(_anim.transform.position.x, _anim.transform.position.y, _anim.transform.position.z +skill2_Distance);
-        Skill2_Parent.localPosition = new Vector3(0, 0, skill2_Distance);
     }
 
 
+    void Skill2Set()
+    {
+        skill2_Distance = 14f / followCam.height;
 
+        if (skill2_Distance >= skill2_maxDis)
+            skill2_Distance = skill2_maxDis;
+
+        Skill2_Parent.localPosition = new Vector3(0, 0, skill2_Distance);
+    }
 
     private void Update()
     {
@@ -387,16 +401,10 @@ public class PlayerFSMManager : FSMManager
         Dash();
         Skill2();
         Skill3();
-        //Attack(isAttackOne);        
         if (isSkill3)
             return;
-        if (Input.GetMouseButtonDown(0) && !isAttackOne)
-        {
-            isAttackOne = true;
-            SetState(PlayerState.ATTACK1);
-            attackCount++;
-            return;
-        }
+
+        Attack();
     }
 
     public override void NotifyTargetKilled()
@@ -500,7 +508,17 @@ public class PlayerFSMManager : FSMManager
         _anim.SetFloat("Direction_X", horizontal);
     }
 
+    void Attack()
+    {
+        if (Input.GetMouseButtonDown(0) && !isAttackOne)
+        {
+            isAttackOne = true;
+            SetState(PlayerState.ATTACK1);
+            attackCount++;
+            return;
+        }
 
+    }
     // 스킬 켜주고 꺼주고 하는 함수
     void Skill1Set(GameObject[] effects)
     {
@@ -575,18 +593,25 @@ public class PlayerFSMManager : FSMManager
             // 1 누르면
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
+                // 주변 몬스터의 수를 파악 한 후에
+                _monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
+
+                // 몬스터 수의 값을 랜덤함수 5개를 돌려서 배치 시킨 후.
+                for (int i = 0; i < 5; i++)
+                {
+                    randomShoot[i] = Random.Range((int)0, (int)_monster.Count);
+                }
+
+                if (_monster.Count == 0)
+                    return;                
+                
                 // 떠있는 구체 -> 날라가는 구체로 Active를 수정 후.
                 Skill1Set(Skill1_Shoots);
 
-                // 주변 몬스터의 수를 파악 한 후에
-                _monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
                 
-                // 몬스터 수의 값을 랜덤함수 5개를 돌려서 배치 시킨 후.
-                for (int i=0; i<5; i++)
-                {
-                    randomShoot[i] = Random.Range((int)0, (int)_monster.Count);
-                }               
-
+                
+                
+                
                 // 스킬이 날라간다.
                 isShoot = true;
                 isSkill1CTime = true;
