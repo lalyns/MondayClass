@@ -583,7 +583,7 @@ public class PlayerFSMManager : FSMManager
                 if (Vector3.Distance(shoots[i].transform.position, target[rands[i]].transform.position) <= distance)
                 {
                     //shoots[i].transform.position = effects[i].transform.position;
-                    shoots[i].SetActive(false);
+                    //shoots[i].SetActive(false);
                 }
             }
         }
@@ -674,7 +674,7 @@ public class PlayerFSMManager : FSMManager
             // 날라가는 시간을 정해준 후에.
             Skill1Timer1 += Time.deltaTime;
             // 날린다
-            Skill1Shoot(Skill1_Shoots, _monster, randomShoot, 0.02f);
+            Skill1Shoot(Skill1_Shoots, _monster, randomShoot, 0);
 
             Skill1Return(Skill1_Effects, Skill1_Shoots, _monster, randomShoot, 0.01f);
 

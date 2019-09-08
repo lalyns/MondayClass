@@ -155,8 +155,10 @@ public class MacFSMManager : FSMManager
         if(other.transform.tag == "Ball")
         {
             if (Stat.Hp > 0)
-            {
+            {                
                 OnHit();
+
+                other.transform.gameObject.SetActive(false);
             }
 
             if (_CurrentState == MacState.ATTACK)

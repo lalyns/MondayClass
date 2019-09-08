@@ -155,8 +155,10 @@ public class RedHatFSMManager : FSMManager
             if (Stat.Hp > 0)
             {
                 OnHit();
+
+                other.transform.gameObject.SetActive(false);
             }
-            
+
         }
     }
     private void OnTriggerStay(Collider other)
