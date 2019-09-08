@@ -15,16 +15,8 @@ public class DungeonExit : MonoBehaviour
         {
             if (GameManager._Instance._IsDummyScene)
             {
-                try
-                {
-                    other.transform.position = nextDungeon.GetComponent<TempDungeon>().StartPos.position;
-                    other.transform.LookAt(nextDungeon.GetComponent<TempDungeon>().EndTrigger.transform);
-                    GameManager.stageLevel++;
-                }
-                catch
-                {
-
-                }
+                other.transform.position =
+                    nextDungeon.GetComponentInChildren<DungeonEnter>().transform.position;
             }
             else
             {
