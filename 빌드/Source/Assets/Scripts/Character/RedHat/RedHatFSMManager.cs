@@ -105,7 +105,7 @@ public class RedHatFSMManager : FSMManager
     {
         Debug.Log("Attacked");
 
-        Stat.TakeDamage(Stat, 400);
+        Stat.TakeDamage(Stat, 350);
 
         //hp--;
         //카메라쉐이킹
@@ -161,15 +161,15 @@ public class RedHatFSMManager : FSMManager
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.transform.tag == "Ball")
-        {
-            if (Stat.Hp > 0)
-            {
-                OnHit();
-            }
+        //if (other.transform.tag == "Ball")
+        //{
+        //    if (Stat.Hp > 0)
+        //    {
+        //        OnHit();
+        //    }
 
             
-        }
+        //}
     }
 
     public override void SetDeadState()

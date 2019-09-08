@@ -109,7 +109,7 @@ public class MacFSMManager : FSMManager
         //카메라쉐이킹
         Shake.instance.ShakeCamera();
 
-        Stat.TakeDamage(Stat, 400);
+        Stat.TakeDamage(Stat, 350);
         //Debug.Log(Stat.Hp);
 
         //hit스크립트로넘겨줌
@@ -170,15 +170,18 @@ public class MacFSMManager : FSMManager
                 }
             }
         }
+        if(other.transform.tag == "Skill2")
+        {
+        }
     }
     private void OnTriggerStay(Collider other)
     {
         if (other.transform.tag == "Ball")
         {
-            if (Stat.Hp > 0)
-            {
-                OnHit();
-            }
+            //if (Stat.Hp > 0)
+            //{
+            //    OnHit();
+            //}
 
             if (_CurrentState == MacState.ATTACK)
             {

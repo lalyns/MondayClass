@@ -8,8 +8,15 @@ public class PortalAnimation : MonoBehaviour
 
     public void EndEffect()
     {
-        _AfterEffect.SetActive(true);
-        this.gameObject.SetActive(false);
+        try
+        {
+            _AfterEffect.SetActive(true);
+            this.gameObject.SetActive(false);
+        }
+        catch
+        {
+
+        }
     }
 
 }
