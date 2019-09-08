@@ -12,6 +12,10 @@ public class RedHatPOPUP : RedHatFSMState
     public override void BeginState()
     {
         base.BeginState();
+
+        _manager.Anim.Play("PopUp");
+        _manager.Stat.SetHp(_manager.Stat.MaxHp);
+
         _PopupEffect.SetActive(true);
         _PopupEffect.GetComponentInChildren<ParticleSystem>().Play();
         _PopupEffect.GetComponent<Animator>().Play("Ani");

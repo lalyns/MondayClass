@@ -19,6 +19,8 @@ public class FSMManager : MonoBehaviour
     public CharacterStat stats;
     public StatData MyStatData { get { return _statData; } }
 
+    [HideInInspector] public ObjectManager.MonsterType monsterType;
+
     protected virtual void Awake()
     {
     }

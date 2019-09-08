@@ -44,11 +44,6 @@ public class GameStatus : MonoBehaviour
 
         _ActivedMonsterList.Add(monster);
 
-        int i = 0;
-        foreach(GameObject mob in _ActivedMonsterList)
-        {
-            //Debug.Log(string.Format("{0} : {1} 번", mob.name, i++));
-        }
     }
 
     /// <summary>
@@ -63,6 +58,34 @@ public class GameStatus : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 현재 활동중인 몬스터 전부를 풀로 반환시키는 매소드
+    /// </summary>
+    public void RemoveAllActiveMonster()
+    {
+        // 몬스터 타입에따라서
+        // 풀로 반환한다.
+        List<GameObject> active = ActivedMonsterList;
+        //ActivedMonsterList.Clear();
+
+        foreach(GameObject mob in active)
+        {
+            ObjectManager.MonsterType type = mob.GetComponent<FSMManager>().monsterType;
+
+            switch (type)
+            {
+                case ObjectManager.MonsterType.RedHat:
+                    MonsterPoolManager._Instance._RedHat.ItemReturnPool(mob);
+                    break;
+                case ObjectManager.MonsterType.Mac:
+                    MonsterPoolManager._Instance._Mac.ItemReturnPool(mob);
+                    break;
+            }
+        }
+
+        ActivedMonsterList.Clear();
+    }
+
     public void Update()
     {
 
@@ -73,6 +96,11 @@ public class GameStatus : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.G))
             {
                 SummonReady();
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                RemoveAllActiveMonster();
             }
         }
 
@@ -85,6 +113,9 @@ public class GameStatus : MonoBehaviour
                 SummonMonster();
             }
         }
+#endif
+
+#if UNITY_STANDALONE
 #endif
     }
 
@@ -101,6 +132,8 @@ public class GameStatus : MonoBehaviour
     public void SummonEffect()
     {
         Vector3 mousePoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Input.mousePosition.z);
+        Vector3 cameraForward = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2));
+
         Ray ray = Camera.main.ScreenPointToRay(mousePoint);
         RaycastHit hit;
 
