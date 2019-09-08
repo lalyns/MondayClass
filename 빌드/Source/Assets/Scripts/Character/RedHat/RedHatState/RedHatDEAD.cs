@@ -14,7 +14,7 @@ public class RedHatDEAD : RedHatFSMState
         }
         else
         {
-            Destroy(this.gameObject);
+            MonsterPoolManager._Instance._RedHat.ItemReturnPool(gameObject, "monster");
         }
     }
 

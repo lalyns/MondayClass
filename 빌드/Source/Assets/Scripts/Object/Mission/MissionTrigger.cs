@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MissionTrigger : MonoBehaviour
 {
-    public bool isStart = false;
+    [HideInInspector] public bool isStart = false;
 
     public void OnTriggerExit(Collider other)
     {
@@ -13,7 +13,7 @@ public class MissionTrigger : MonoBehaviour
             //Debug.Log("시작 가능 정보 : " + isStart);
             if (!isStart)
             {
-                MissionManager._Instance.StartMission();
+                //MissionManager._Instance.StartMission();
                 isStart = true;
             }
 

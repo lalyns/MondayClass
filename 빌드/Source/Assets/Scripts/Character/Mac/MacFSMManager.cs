@@ -78,6 +78,8 @@ public class MacFSMManager : FSMManager
             _States.Add(s, state);
             state.enabled = false;
         }
+
+        monsterType = ObjectManager.MonsterType.Mac;
     }
 
     private void Start()

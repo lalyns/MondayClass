@@ -52,14 +52,12 @@ public class RedHatFSMManager : FSMManager
     public CharacterStat _lastAttack;
 
     public Slider _HPSilder;
-
-    public float HP = 100;
     public GameObject hitEffect;
+
     protected override void Awake()
     {
         base.Awake();
 
-        HP = 10;
         _CC = GetComponent<CharacterController>();
         _Stat = GetComponent<RedHatStat>();
         _Anim = GetComponentInChildren<Animator>();
@@ -80,6 +78,8 @@ public class RedHatFSMManager : FSMManager
             _States.Add(s, state);
             state.enabled = false;
         }
+
+        monsterType = ObjectManager.MonsterType.RedHat;
     }
 
     private void Start()
@@ -103,14 +103,16 @@ public class RedHatFSMManager : FSMManager
 
     public void OnHit()
     {
+        Debug.Log("Attacked");
+
         Stat.TakeDamage(Stat, 400);
 
         //hp--;
         //카메라쉐이킹
         Shake.instance.ShakeCamera(0.3f, 0.3f, 0.7f);
-        //hit스크립트로넘겨줌
         Instantiate(hitEffect, this.transform.position, Quaternion.identity);
 
+        //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {
             SetState(RedHatState.HIT);
@@ -138,7 +140,7 @@ public class RedHatFSMManager : FSMManager
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Wea`pon")
+        if (other.transform.tag == "Weapon")
         {
 
             if (Stat.Hp > 0)
@@ -147,6 +149,7 @@ public class RedHatFSMManager : FSMManager
             }
             //ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.RedHat);        
         }
+
         if (other.transform.tag == "Ball")
         {
             if (Stat.Hp > 0)
