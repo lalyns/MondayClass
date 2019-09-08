@@ -11,10 +11,11 @@ public class PlayerSKILL2 : FSMState
     public float SKill2_CollTime;
 
     float _time;
+    bool isBox;
     public override void BeginState()
     {
         base.BeginState();
-        
+        isBox = false;   
     }
 
     public override void EndState()
@@ -28,10 +29,10 @@ public class PlayerSKILL2 : FSMState
 
         _time += Time.deltaTime;
 
-        if (_time >= 0.5f)
+        if (_time >= 0.5f && !isBox)
         {
             _manager.Skill2_Start.SetActive(true);
-
+            isBox = true;
         }
 
         if (_time >= 1f)
