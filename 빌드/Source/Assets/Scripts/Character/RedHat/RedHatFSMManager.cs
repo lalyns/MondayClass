@@ -47,12 +47,13 @@ public class RedHatFSMManager : FSMManager
     public Animator Anim { get { return _Anim; } }
 
     public Transform _AttackTransform;
-    public MeshRenderer _MR;
+    public SkinnedMeshRenderer _MR;
 
     public CharacterStat _lastAttack;
 
     public Slider _HPSilder;
     public GameObject hitEffect;
+    public Transform hitLocation;
 
     protected override void Awake()
     {
@@ -110,7 +111,7 @@ public class RedHatFSMManager : FSMManager
         //hp--;
         //카메라쉐이킹
         Shake.instance.ShakeCamera(0.3f, 0.3f, 0.7f);
-        Instantiate(hitEffect, this.transform.position, Quaternion.identity);
+        Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
 
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
