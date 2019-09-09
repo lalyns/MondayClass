@@ -84,11 +84,28 @@ public class TempMissionProgress : MonoBehaviour
             _Instance._Time.text = min + "'0" + sec + "''";
         }
 
+        _Instance._Remain.text = GameStatus._Instance.ActivedMonsterList.Count + "마리";
+
     }
 
     public static void SetMission2()
     {
         _Instance._missionType.sprite = _Instance._survive;
         _Instance._goalIcon.sprite = _Instance._star;
+
+        float curTime = GameStatus._Instance._LimitTime;
+        int min = (int)(curTime / 60f);
+        int sec = (int)(curTime % 60f);
+
+        if (sec >= 10)
+        {
+            _Instance._Time.text = min + "'" + sec + "''";
+        }
+        else
+        {
+            _Instance._Time.text = min + "'0" + sec + "''";
+        }
+
+        _Instance._Remain.text = GameManager._Instance.curScore + " 개 / 5 개";
     }
 }

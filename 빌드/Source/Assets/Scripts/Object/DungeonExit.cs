@@ -15,8 +15,19 @@ public class DungeonExit : MonoBehaviour
         {
             if (GameManager._Instance._IsDummyScene)
             {
+                nextDungeon.SetActive(true);
                 other.transform.position =
                     nextDungeon.GetComponentInChildren<DungeonEnter>().transform.position;
+
+                if(GameManager.stageLevel == 1)
+                {
+                    GetComponentInParent<TempMissionA>().gameObject.SetActive(false);
+                }
+
+                if(GameManager.stageLevel == 2)
+                {
+                    GetComponentInParent<TempMissionB>().gameObject.SetActive(false);
+                }
             }
             else
             {
