@@ -53,6 +53,8 @@ public class RedHatFSMManager : FSMManager
 
     public Slider _HPSilder;
     public GameObject hitEffect;
+    public GameObject hitEffect_Special;
+    public GameObject hitEffect_Skill1;
     public Transform hitLocation;
 
     protected override void Awake()
@@ -104,14 +106,13 @@ public class RedHatFSMManager : FSMManager
 
     public void OnHit()
     {
-        Debug.Log("Attacked");
+        
 
         Stat.TakeDamage(Stat, 350);
 
         //hp--;
         //카메라쉐이킹
         Shake.instance.ShakeCamera(0.3f, 0.3f, 0.7f);
-        Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
 
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
@@ -143,6 +144,10 @@ public class RedHatFSMManager : FSMManager
     {
         if (other.transform.tag == "Weapon")
         {
+            if (PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
+            if (!PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
 
             if (Stat.Hp > 0)
             {
@@ -153,6 +158,9 @@ public class RedHatFSMManager : FSMManager
 
         if (other.transform.tag == "Ball")
         {
+            Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
+
+
             if (Stat.Hp > 0)
             {
                 OnHit();

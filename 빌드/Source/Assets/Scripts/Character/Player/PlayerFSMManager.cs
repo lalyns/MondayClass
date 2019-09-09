@@ -21,6 +21,12 @@ public enum PlayerState
 [ExecuteInEditMode]
 public class PlayerFSMManager : FSMManager
 {
+    public AudioSource musicPlayer;
+    public AudioClip _dashSound;
+    public AudioClip _attackSound;
+    public AudioClip _runSound;
+    public AudioClip _skill1Sound;
+
     private bool _onAttack = false;
     private bool _isinit = false;
     public PlayerState startState = PlayerState.IDLE;
@@ -73,7 +79,7 @@ public class PlayerFSMManager : FSMManager
     [Header("스킬1번 날라가는 시간,")]
     public float skill1ShootTime = 2f;
 
-    [HideInInspector]
+    
     public bool isAttackOne, isAttackTwo, isAttackThree, isSkill2;
 
     public bool isSkill3;
@@ -161,9 +167,10 @@ public class PlayerFSMManager : FSMManager
 }
         catch
         {
-
+            
         }
         randomShoot = new int[5];
+        musicPlayer = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -253,6 +260,8 @@ public class PlayerFSMManager : FSMManager
             FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
             FlashEffect2.SetActive(false);
             SetState(PlayerState.IDLE);
+            AudioManager.playSound(_dashSound, musicPlayer);
+
         }
 
         if (isFlash)
@@ -316,6 +325,7 @@ public class PlayerFSMManager : FSMManager
 
                 }
                 isFlash = false;
+                isAttackOne = false;
                 flashTimer = 0;
                 return;
             }
@@ -505,6 +515,7 @@ public class PlayerFSMManager : FSMManager
                 specialTimer = 0;
                 TimeLine.SetActive(false);
                 isSpecial = false;
+                isAttackOne = false;
                 return;
             }
         }
@@ -535,6 +546,7 @@ public class PlayerFSMManager : FSMManager
             isAttackOne = true;
             SetState(PlayerState.ATTACK1);
             attackCount++;
+            AudioManager.playSound(_attackSound, musicPlayer);
             return;
         }
 
