@@ -138,6 +138,7 @@ public class TempMissionB : MonoBehaviour
         EndTrigger.SetActive(true);
         PortalEffect.SetActive(true);
 
+        GameStatus._Instance._MissionStatus = false;
         GameStatus._Instance.RemoveAllActiveMonster();
     }
 }

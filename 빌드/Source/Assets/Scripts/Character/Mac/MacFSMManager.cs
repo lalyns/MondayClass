@@ -51,6 +51,7 @@ public class MacFSMManager : FSMManager
 
     public Slider _HPSilder;
     public GameObject hitEffect;
+    public Transform hitLocation;
 
     public GameObject _PopupEffect;
 
@@ -103,7 +104,7 @@ public class MacFSMManager : FSMManager
 
     public void OnHit()
     {
-        Instantiate(hitEffect, this.transform.position, Quaternion.identity);
+        Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
 
         //hp--;
         //카메라쉐이킹
