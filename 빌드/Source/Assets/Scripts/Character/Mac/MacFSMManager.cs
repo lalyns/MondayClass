@@ -51,6 +51,8 @@ public class MacFSMManager : FSMManager
 
     public Slider _HPSilder;
     public GameObject hitEffect;
+    public GameObject hitEffect_Special;
+    public GameObject hitEffect_Skill1;
     public Transform hitLocation;
 
     public GameObject _PopupEffect;
@@ -104,8 +106,7 @@ public class MacFSMManager : FSMManager
 
     public void OnHit()
     {
-        Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
-
+      
         //hp--;
         //카메라쉐이킹
         Shake.instance.ShakeCamera();
@@ -136,6 +137,11 @@ public class MacFSMManager : FSMManager
     {
         if(other.transform.tag == "Weapon")
         {
+            if (PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
+            else
+                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
+
             if (Stat.Hp > 0)
             {
                 //Debug.Log("Attacked");
@@ -155,6 +161,8 @@ public class MacFSMManager : FSMManager
         }
         if(other.transform.tag == "Ball")
         {
+            Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
+
             if (Stat.Hp > 0)
             {                
                 OnHit();

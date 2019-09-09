@@ -13,6 +13,7 @@ public class PlayerRUN : FSMState {
     public override void EndState()
     {
         base.EndState();
+        _manager.musicPlayer.Stop();
     }
     void Update()
     {

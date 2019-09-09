@@ -515,6 +515,7 @@ public class PlayerFSMManager : FSMManager
                 specialTimer = 0;
                 TimeLine.SetActive(false);
                 isSpecial = false;
+                isAttackOne = false;
                 return;
             }
         }
