@@ -62,7 +62,6 @@ public class PlayerFSMManager : FSMManager
     public Animator Anim { get { return _anim; } }
 
     //public CharacterController testTarget;
-    [HideInInspector]
     public bool isCantMove;
     float vertical, horizontal;
     public float attackCount;
