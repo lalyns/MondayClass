@@ -265,7 +265,6 @@ public class PlayerFSMManager : FSMManager
             FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
             FlashEffect2.SetActive(false);
             SetState(PlayerState.RUN);
-         //   AudioManager.playSound(_dashSound, musicPlayer);
 
         }
 
@@ -289,19 +288,19 @@ public class PlayerFSMManager : FSMManager
             flashTimer += Time.deltaTime;
             if (_h >= 0.01f && flashTimer <= 0.2f)
             {
-                _anim.transform.Translate(Vector3.right * 10f * Time.deltaTime);
+                _anim.transform.Translate(Vector3.right * 20f * Time.deltaTime);
             }
             if (_h <= -0.01f && flashTimer <= 0.2f)
             {
-                _anim.transform.Translate(Vector3.right * -10f * Time.deltaTime);
+                _anim.transform.Translate(Vector3.right * -20f * Time.deltaTime);
             }
             if (_h == 0 && _v >= 0 && flashTimer <= 0.2f)
             {
-                _anim.transform.Translate(Vector3.forward * 10f * Time.deltaTime);
+                _anim.transform.Translate(Vector3.forward * 20f * Time.deltaTime);
             }
             if (_h == 0 && _v <= -0.01f && flashTimer <= 0.2f)
             {
-                _anim.transform.Translate(Vector3.forward * -10f * Time.deltaTime);
+                _anim.transform.Translate(Vector3.forward * -20f * Time.deltaTime);
             }
 
             if (flashTimer >= 0.2f && flashTimer <= 0.23f)
@@ -379,20 +378,9 @@ public class PlayerFSMManager : FSMManager
 
 
         Skill2Set();
-        //if(Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.V))
-        //{
-        //    camManager.Tick(Time.deltaTime);
 
-        //    camManager.gameObject.SetActive(true);
-        //    mainCamera.gameObject.SetActive(false);
-        //}
-        //else
-        //{
-        //            camManager.camInit(_anim.transform);
         mainCamera.gameObject.SetActive(true);
-        //  camManager.gameObject.SetActive(false);
         _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
-        //}
         
         //Skill2_Start.transform.position = new Vector3(_anim.transform.position.x, _anim.transform.position.y, _anim.transform.position.z +skill2_Distance);
     }
@@ -400,6 +388,8 @@ public class PlayerFSMManager : FSMManager
 
     void Skill2Set()
     {
+        //if (isSkill2)
+        //    return;
         try
         {
             skill2_Distance = 14f / followCam.height;
@@ -412,7 +402,7 @@ public class PlayerFSMManager : FSMManager
         if (skill2_Distance >= skill2_maxDis)
             skill2_Distance = skill2_maxDis;
 
-        Skill2_Parent.localPosition = new Vector3(0, 0, skill2_Distance);
+        Skill2_Parent.localPosition = new Vector3(0, 0.18f, skill2_Distance);
     }
 
     private void Update()
@@ -445,10 +435,14 @@ public class PlayerFSMManager : FSMManager
         
         Skill2();
         Skill3();
+        
+
         if (isSkill3)
             return;
-
+        
         Dash();
+        if (isSkill2)
+            return;
         if (isSpecial)
             return;
 

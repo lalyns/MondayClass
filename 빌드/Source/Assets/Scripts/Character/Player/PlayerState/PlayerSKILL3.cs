@@ -21,6 +21,9 @@ public class PlayerSKILL3 : FSMState
         _manager.Skill3_Start.SetActive(false);
         isAttack = false;
         _manager.isCantMove = false;
+        _manager.isAttackOne = false;
+        _manager.isAttackTwo = false;
+        _manager.isAttackThree = false;
     }
     bool isAttack;
     private void Update()

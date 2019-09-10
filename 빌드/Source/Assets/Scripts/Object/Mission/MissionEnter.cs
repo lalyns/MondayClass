@@ -19,9 +19,16 @@ public class MissionEnter : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
-            if (!MissionManager.Instance.CurrentMission.MissionOperate)
+            try
             {
-                MissionManager.Instance.CurrentMission.OperateMission();
+                if (!MissionManager.Instance.CurrentMission.MissionOperate)
+                {
+                    MissionManager.Instance.CurrentMission.OperateMission();
+                }
+            }
+            catch
+            {
+
             }
 
         }
