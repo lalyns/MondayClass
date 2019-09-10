@@ -443,7 +443,10 @@ public class PlayerFSMManager : FSMManager
             return;
 
         Dash();
-        Attack();
+        if (isSpecial)
+            return;
+
+            Attack();
 
         if (Skill1_Amount <= 1)
         {
