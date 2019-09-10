@@ -107,7 +107,7 @@ public class PlayerFSMManager : FSMManager
     public float specialTimer = 0;
     CapsuleCollider Attack_Capsule;
     CapsuleCollider Skill3_Capsule;
-    BoxCollider SKill2_Box;
+    SphereCollider SKill2_Sphere;
     public Image pc_Icon, sp_Icon;
     [Header("플레이어가 변신상태인지 아닌지 확인시켜줌.")]
     public bool isNormal = false;
@@ -141,7 +141,7 @@ public class PlayerFSMManager : FSMManager
 
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
-        SKill2_Box = Skill2_Start.GetComponent<BoxCollider>();
+        SKill2_Sphere = Skill2_Start.GetComponent<SphereCollider>();
         PlayerState[] stateValues = (PlayerState[])System.Enum.GetValues(typeof(PlayerState));
         foreach (PlayerState s in stateValues)
         {
@@ -156,6 +156,8 @@ public class PlayerFSMManager : FSMManager
             state.enabled = false;
         }
 
+        _Sound.PlayAttackSFX();
+        _Sound.PlayFootStepSFX();
 
         instance = this;
         isSkill2 = false;
@@ -305,6 +307,9 @@ public class PlayerFSMManager : FSMManager
             if (flashTimer >= 0.2f && flashTimer <= 0.23f)
             {
                 FlashEffect2.SetActive(true);
+                _Sound.PlayDashSFX();
+                isCantMove = false;
+
 
             }
             if (flashTimer >= 0.3f)
@@ -320,7 +325,6 @@ public class PlayerFSMManager : FSMManager
                 try
                 {
                     FlashEffect1.SetActive(false);
-
                 }
                 catch
                 {
@@ -658,12 +662,11 @@ public class PlayerFSMManager : FSMManager
             // 1 누르면
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-              
 
                 // 주변 몬스터의 수를 파악 한 후에
-                //_monster = GameStatus._Instance.ActivedMonsterList;
+                _monster = GameStatus._Instance.ActivedMonsterList;
 
-                _monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
+                //_monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
 
                 if (_monster.Count == 0)
                     return;
@@ -690,12 +693,14 @@ public class PlayerFSMManager : FSMManager
                 isShoot = true;
                 isSkill1CTime = true;
                 isBall = false;
-
+                _Sound.PlaySkill1SFX();
             }
         }
         // 스킬이 날라가기 시작하면
         if (isShoot)
         {
+
+
             // 기존 떠있던 이펙트의 Active를 꺼주고.
             for (int i = 0; i < 5; i++)
             {
@@ -720,7 +725,7 @@ public class PlayerFSMManager : FSMManager
 
                 Skill1Timer1 = 0;
                 isShoot = false;
-                _monster.Clear();
+               // _monster.Clear();
             }
         }
         if (isSkill1CTime)
@@ -743,6 +748,11 @@ public class PlayerFSMManager : FSMManager
             return;
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
+            if (isNormal)
+                Normal.SetActive(true);
+            if (!isNormal)
+                Special.SetActive(true);
+
             SetState(PlayerState.SKILL3);
             isSkill3 = true;
             return;

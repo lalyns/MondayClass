@@ -82,6 +82,11 @@ public class PlayerAnimEvent : MonoBehaviour
         }
     }
 
+    void footstepsound()
+    {
+        player._Sound.PlayFootStepSFX();
+    }
+
     public void StopParticle()
     {
         
