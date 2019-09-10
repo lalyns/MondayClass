@@ -21,11 +21,13 @@ public enum PlayerState
 [ExecuteInEditMode]
 public class PlayerFSMManager : FSMManager
 {
-    public AudioSource musicPlayer;
-    public AudioClip _dashSound;
-    public AudioClip _attackSound;
-    public AudioClip _runSound;
-    public AudioClip _skill1Sound;
+   // public AudioSource musicPlayer;
+   // public AudioClip _dashSound;
+   // public AudioClip _attackSound;
+   // public AudioClip _runSound;
+  //  public AudioClip _skill1Sound;
+
+    public PlayerSound _Sound;
 
     private bool _onAttack = false;
     private bool _isinit = false;
@@ -136,6 +138,8 @@ public class PlayerFSMManager : FSMManager
         _cc = GetComponentInChildren<CapsuleCollider>();
         _stat = GetComponent<PlayerStat>();
         _anim = GetComponentInChildren<Animator>();
+        _Sound = GetComponent<PlayerSound>();
+
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
         SKill2_Box = Skill2_Start.GetComponent<BoxCollider>();
@@ -170,7 +174,7 @@ public class PlayerFSMManager : FSMManager
             
         }
         randomShoot = new int[5];
-        musicPlayer = GetComponent<AudioSource>();
+       // musicPlayer = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -259,8 +263,8 @@ public class PlayerFSMManager : FSMManager
             isFlashStart = true;
             FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
             FlashEffect2.SetActive(false);
-            SetState(PlayerState.IDLE);
-            AudioManager.playSound(_dashSound, musicPlayer);
+            SetState(PlayerState.RUN);
+         //   AudioManager.playSound(_dashSound, musicPlayer);
 
         }
 
@@ -280,7 +284,7 @@ public class PlayerFSMManager : FSMManager
             {
 
             }
-            isCantMove = true;
+            //isCantMove = true;
             flashTimer += Time.deltaTime;
             if (_h >= 0.01f && flashTimer <= 0.2f)
             {
@@ -317,7 +321,6 @@ public class PlayerFSMManager : FSMManager
                 try
                 {
                     FlashEffect1.SetActive(false);
-                    isCantMove = false;
 
                 }
                 catch
@@ -443,7 +446,10 @@ public class PlayerFSMManager : FSMManager
             return;
 
         Dash();
-        Attack();
+        if (isSpecial)
+            return;
+
+            Attack();
 
         if (Skill1_Amount <= 1)
         {
@@ -560,7 +566,7 @@ public class PlayerFSMManager : FSMManager
             isAttackOne = true;
             SetState(PlayerState.ATTACK1);
             attackCount++;
-            AudioManager.playSound(_attackSound, musicPlayer);
+           // AudioManager.playSound(_attackSound, musicPlayer);
             return;
         }
 

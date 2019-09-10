@@ -21,17 +21,17 @@ public class DungeonExit : MonoBehaviour
 
                 if(GameManager.stageLevel == 1)
                 {
-                    GetComponentInParent<TempMissionA>().gameObject.SetActive(false);
+                    GetComponentInParent<MissionA>().gameObject.SetActive(false);
                 }
 
                 if(GameManager.stageLevel == 2)
                 {
-                    GetComponentInParent<TempMissionB>().gameObject.SetActive(false);
+                    GetComponentInParent<MissionB>().gameObject.SetActive(false);
                 }
             }
             else
             {
-                MissionManager.MissionClear();
+                //MissionManager.MissionClear();
             }
         }
     }

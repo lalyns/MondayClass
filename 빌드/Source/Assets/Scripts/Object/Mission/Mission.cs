@@ -4,48 +4,51 @@ using UnityEngine;
 
 public class Mission : MonoBehaviour
 {
-    public int _CurrentMissionLevel;
-    public bool _IsMissionStart;
-    public bool _IsMissionClear;
 
-    [SerializeField] protected UIMissionProgress _UI;
 
-    protected MissionManager _MissionManager;
-    protected Dungeon _Dungeon;
+    #region 폐기
+    //public int _CurrentMissionLevel;
+    //public bool _IsMissionStart;
+    //public bool _IsMissionClear;
 
-    protected virtual void Awake()
-    {
-        _IsMissionStart = false;
-        _MissionManager = MissionManager.GetMissionManager;
-        _Dungeon = GetComponent<Dungeon>();
-    }
+    //[SerializeField] protected UIMissionProgress _UI;
 
-    public virtual void MissionInitialize()
-    {
-        // 미션 데이터 초기화
-        _CurrentMissionLevel = 0;
-    }
+    //protected MissionManager _MissionManager;
+    //protected Dungeon _Dungeon;
 
-    public void MissionStart()
-    {
-        _IsMissionStart = true;
+    //protected virtual void Awake()
+    //{
+    //    _IsMissionStart = false;
+    //    _MissionManager = MissionManager.GetMissionManager;
+    //    _Dungeon = GetComponent<Dungeon>();
+    //}
 
-    }
+    //public virtual void MissionInitialize()
+    //{
+    //    // 미션 데이터 초기화
+    //    _CurrentMissionLevel = 0;
+    //}
 
-    public virtual void MissionClear()
-    {
-        // 데이터 초기화
-        // 플레이어 버프 초기화
+    //public void MissionStart()
+    //{
+    //    _IsMissionStart = true;
 
-        // 다음 스테이지로 향하는 포탈 활성화
-        DungeonManager.GetDungeonManager().DungeonClear();
-        ObjectManager._Instance.StopSpawn();
-    }
+    //}
 
-    public virtual void MissionEnd()
-    {
-        _IsMissionStart = false;
-        _IsMissionClear = false;
-    }
+    //public virtual void MissionClear()
+    //{
+    //    // 데이터 초기화
+    //    // 플레이어 버프 초기화
 
+    //    // 다음 스테이지로 향하는 포탈 활성화
+    //    DungeonManager.GetDungeonManager().DungeonClear();
+    //    ObjectManager._Instance.StopSpawn();
+    //}
+
+    //public virtual void MissionEnd()
+    //{
+    //    _IsMissionStart = false;
+    //    _IsMissionClear = false;
+    //}
+    #endregion
 }
