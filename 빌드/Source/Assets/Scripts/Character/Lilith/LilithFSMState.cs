@@ -30,10 +30,7 @@ public class LilithFSMState : MonoBehaviour
     
     protected virtual void FixedUpdate()
     {
-        //Vector3 gravity = Vector3.zero;
-        //gravity.y = Physics.gravity.y * Time.deltaTime;
 
-        //_manager.CC.Move(gravity);
     }
 
 }
