@@ -1951,6 +1951,7 @@ GameObject:
   - component: {fileID: 7112653474660143938}
   - component: {fileID: 7112653474660143943}
   - component: {fileID: 7112653474660143942}
+  - component: {fileID: 572319316}
   m_Layer: 0
   m_Name: Prefab_Boss_Lilith
   m_TagString: Boss
@@ -1993,8 +1994,14 @@ MonoBehaviour:
   sightAspect: 3
   _statData: {fileID: 0}
   stats: {fileID: 0}
+  monsterType: 0
   startState: 0
   BulletCenter: {fileID: 418021095}
+  _PhaseThreshold:
+  - 0.7
+  - 0.5
+  - 0.2
+  _Phase: 0
 --- !u!114 &7112653474660143933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2026,8 +2033,8 @@ MonoBehaviour:
   _NormalMat: {fileID: 0}
   _DashMat: {fileID: 0}
   _BulletDamage: 5
-  _BulletSpeed: 20
-  _BulletLifeTime: 10
+  _BulletSpeed: 10
+  _BulletLifeTime: 5
 --- !u!114 &7112653474660143936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2173,6 +2180,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &572319316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7112653474660143928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2047077ec452fc49894d4d21c952f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Pattern: 010000000200000003000000020000000100000003000000
+  _PrevPhase: 0
+  _Turn: 0
 --- !u!1 &7112653474965765310
 GameObject:
   m_ObjectHideFlags: 0

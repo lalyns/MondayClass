@@ -70,5 +70,7 @@ public class LilithPATTERNC : LilithFSMState
             BulletPatternB();
             yield return new WaitForSeconds(0.6f);
         }
+
+        _manager.SetState(LilithState.PATTERNEND);
     }
 }

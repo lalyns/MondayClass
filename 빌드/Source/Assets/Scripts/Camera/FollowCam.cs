@@ -82,6 +82,7 @@ public class FollowCam : MonoBehaviour
     public float maxDistance = 3f;
     public bool isMax, isMin;
     float tFollowH = 12.3f;
+
     private void FixedUpdate()
     {
         //if (InputHandler.instance.isSpecial)

@@ -181,11 +181,11 @@ public class PlayerFSMManager : FSMManager
         //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
         Skill1UI.fillAmount = 1f;
         Skill1UI.gameObject.SetActive(false);
-        _attack1Time = AnimationLength("PC_Anim_Attack_001");
-        _attack2Time = AnimationLength("PC_Anim_Attack_002");
-        _attack3Time = AnimationLength("PC_Anim_Attack_003_2");
-        _attackBack1 = AnimationLength("PC_Anim_Attack_Back_001");
-        _attackBack2 = AnimationLength("PC_Anim_Attack_Back_002");
+        _attack1Time = AnimationLength("PC_Anim_Attack_001") / 1.3f;
+        _attack2Time = AnimationLength("PC_Anim_Attack_002") / 1.3f;
+        _attack3Time = AnimationLength("PC_Anim_Attack_003_2") / 1.3f;
+        _attackBack1 = AnimationLength("PC_Anim_Attack_Back_001") / 1.3f;
+        _attackBack2 = AnimationLength("PC_Anim_Attack_Back_002") / 1.3f;
         _specialAnim = AnimationLength("PC_Anim_Transform_001");
         _skill2Time = AnimationLength("PC_Anim_Skill_002");
         _skill3Time = AnimationLength("PC_Anim_Skill_003");
@@ -394,7 +394,14 @@ public class PlayerFSMManager : FSMManager
 
     void Skill2Set()
     {
-        skill2_Distance = 14f / followCam.height;
+        try
+        {
+            skill2_Distance = 14f / followCam.height;
+        }
+        catch
+        {
+
+        }
 
         if (skill2_Distance >= skill2_maxDis)
             skill2_Distance = skill2_maxDis;
@@ -405,7 +412,14 @@ public class PlayerFSMManager : FSMManager
     private void Update()
     {
         //isNormal = Normal.activeSelf;
-        isNormal = pc_Icon.gameObject.activeSelf;
+        try
+        {
+            isNormal = pc_Icon.gameObject.activeSelf;
+        }
+        catch
+        {
+
+        }
 
         // 공격처리는 죽음을 제외한 모든 상황에서 처리
         if (CurrentState != PlayerState.DEAD)
@@ -429,7 +443,10 @@ public class PlayerFSMManager : FSMManager
             return;
 
         Dash();
-        Attack();
+        if (isSpecial)
+            return;
+
+            Attack();
 
         if (Skill1_Amount <= 1)
         {
@@ -515,6 +532,7 @@ public class PlayerFSMManager : FSMManager
                 specialTimer = 0;
                 TimeLine.SetActive(false);
                 isSpecial = false;
+                isAttackOne = false;
                 return;
             }
         }
