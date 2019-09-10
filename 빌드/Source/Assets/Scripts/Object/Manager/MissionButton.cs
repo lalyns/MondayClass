@@ -68,7 +68,7 @@ public class MissionButton : MonoBehaviour
     /// </summary>
     public void SetMissionOnClick()
     {
-        MissionManager.SetMissionOnClick(_ChoiceNum);
+        //MissionManager.SetMissionOnClick(_ChoiceNum);
     }
 
 }

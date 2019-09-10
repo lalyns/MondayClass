@@ -27,6 +27,8 @@ public class PlayerFSMManager : FSMManager
     public AudioClip _runSound;
     public AudioClip _skill1Sound;
 
+    public PlayerSound _Sound;
+
     private bool _onAttack = false;
     private bool _isinit = false;
     public PlayerState startState = PlayerState.IDLE;
@@ -136,6 +138,8 @@ public class PlayerFSMManager : FSMManager
         _cc = GetComponentInChildren<CapsuleCollider>();
         _stat = GetComponent<PlayerStat>();
         _anim = GetComponentInChildren<Animator>();
+        _Sound = GetComponent<PlayerSound>();
+
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
         SKill2_Box = Skill2_Start.GetComponent<BoxCollider>();

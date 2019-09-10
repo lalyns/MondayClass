@@ -57,29 +57,29 @@ public class Bead : MonoBehaviour
         }
         else
         {
-            if (other.transform.tag == "Player")
-            {
-                DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress += 10;
-                Debug.Log(DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress);
+            //if (other.transform.tag == "Player")
+            //{
+            //    DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress += 10;
+            //    Debug.Log(DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress);
 
-                DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[
-                        DungeonManager.GetCurrentDungeon().GetComponent<Survive>().pos].SetActive(false);
+            //    DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[
+            //            DungeonManager.GetCurrentDungeon().GetComponent<Survive>().pos].SetActive(false);
 
-                _StarMesh.SetActive(false);
-                _GetEffect.SetActive(true);
+            //    _StarMesh.SetActive(false);
+            //    _GetEffect.SetActive(true);
 
-                Destroy(this.gameObject, 3.5f);
-            }
+            //    Destroy(this.gameObject, 3.5f);
+            //}
 
-            if (other.transform.tag == "Stage")
-            {
-                DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[
-                        DungeonManager.GetCurrentDungeon().GetComponent<Survive>().pos].SetActive(false);
+            //if (other.transform.tag == "Stage")
+            //{
+            //    DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[
+            //            DungeonManager.GetCurrentDungeon().GetComponent<Survive>().pos].SetActive(false);
 
-                _StarMesh.SetActive(false);
+            //    _StarMesh.SetActive(false);
 
-                Destroy(this.gameObject);
-            }
+            //    Destroy(this.gameObject);
+            //}
         }
     }
 

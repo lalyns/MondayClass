@@ -42,38 +42,38 @@ public class ObjectManager : MonoBehaviour
         _SpawnCoroutine = StartCoroutine("TestSpawn");
     }
 
-    IEnumerator Spawn()
-    {
-        MissionData missionData = MissionManager._Instance._MissionDatas[0];
-        Dungeon currentDungeon = DungeonManager.GetCurrentDungeon();
+    //IEnumerator Spawn()
+    //{
+    //    //MissionData missionData = MissionManager._Instance._MissionDatas[0];
+    //    Dungeon currentDungeon = DungeonManager.GetCurrentDungeon();
 
-        int curSpawnPos;
-        int NumberOfTimesSpawn = missionData.NumberOfTimesSpawn;
+    //    int curSpawnPos;
+    //    //int NumberOfTimesSpawn = missionData.NumberOfTimesSpawn;
 
-        for (int i = 0; i < NumberOfTimesSpawn; i++)
-        {
-            curSpawnPos = 0;
+    //    for (int i = 0; i < NumberOfTimesSpawn; i++)
+    //    {
+    //        curSpawnPos = 0;
 
-            //var setValue = UnityEngine.Random.Range(0, 5);
+    //        //var setValue = UnityEngine.Random.Range(0, 5);
 
-            //int RedHatCount = missionData.RedHatCount[setValue];
-            //int macCount = missionData.MacCount[setValue];
+    //        //int RedHatCount = missionData.RedHatCount[setValue];
+    //        //int macCount = missionData.MacCount[setValue];
             
-            for (int j = 0; j < 3; j++)
-            {
-                SpawnMonster(MonsterType.RedHat, _SpawnPosition[curSpawnPos++]);
-            }
+    //        for (int j = 0; j < 3; j++)
+    //        {
+    //            SpawnMonster(MonsterType.RedHat, _SpawnPosition[curSpawnPos++]);
+    //        }
 
-            for (int j = 0; j < 2; j++)
-            {
-                SpawnMonster(MonsterType.Mac, _SpawnPosition[curSpawnPos++]);
-            }
+    //        for (int j = 0; j < 2; j++)
+    //        {
+    //            SpawnMonster(MonsterType.Mac, _SpawnPosition[curSpawnPos++]);
+    //        }
 
-            //Debug.Log("소환횟수 : " + i + " 시각 : " + Time.realtimeSinceStartup);
+    //        //Debug.Log("소환횟수 : " + i + " 시각 : " + Time.realtimeSinceStartup);
 
-            yield return new WaitForSeconds(missionData.CycleOfTimeRespawn);
-        }
-    }
+    //        yield return new WaitForSeconds(missionData.CycleOfTimeRespawn);
+    //    }
+    //}
 
     IEnumerator TestSpawn()
     {
