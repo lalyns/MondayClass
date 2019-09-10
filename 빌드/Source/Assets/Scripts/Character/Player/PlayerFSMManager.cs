@@ -21,6 +21,14 @@ public enum PlayerState
 [ExecuteInEditMode]
 public class PlayerFSMManager : FSMManager
 {
+   // public AudioSource musicPlayer;
+   // public AudioClip _dashSound;
+   // public AudioClip _attackSound;
+   // public AudioClip _runSound;
+  //  public AudioClip _skill1Sound;
+
+    public PlayerSound _Sound;
+
     private bool _onAttack = false;
     private bool _isinit = false;
     public PlayerState startState = PlayerState.IDLE;
@@ -73,7 +81,7 @@ public class PlayerFSMManager : FSMManager
     [Header("스킬1번 날라가는 시간,")]
     public float skill1ShootTime = 2f;
 
-    [HideInInspector]
+    
     public bool isAttackOne, isAttackTwo, isAttackThree, isSkill2;
 
     public bool isSkill3;
@@ -130,6 +138,8 @@ public class PlayerFSMManager : FSMManager
         _cc = GetComponentInChildren<CapsuleCollider>();
         _stat = GetComponent<PlayerStat>();
         _anim = GetComponentInChildren<Animator>();
+        _Sound = GetComponent<PlayerSound>();
+
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
         SKill2_Box = Skill2_Start.GetComponent<BoxCollider>();
@@ -161,9 +171,10 @@ public class PlayerFSMManager : FSMManager
 }
         catch
         {
-
+            
         }
         randomShoot = new int[5];
+       // musicPlayer = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -174,11 +185,11 @@ public class PlayerFSMManager : FSMManager
         //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
         Skill1UI.fillAmount = 1f;
         Skill1UI.gameObject.SetActive(false);
-        _attack1Time = AnimationLength("PC_Anim_Attack_001");
-        _attack2Time = AnimationLength("PC_Anim_Attack_002");
-        _attack3Time = AnimationLength("PC_Anim_Attack_003_2");
-        _attackBack1 = AnimationLength("PC_Anim_Attack_Back_001");
-        _attackBack2 = AnimationLength("PC_Anim_Attack_Back_002");
+        _attack1Time = AnimationLength("PC_Anim_Attack_001") / 1.3f;
+        _attack2Time = AnimationLength("PC_Anim_Attack_002") / 1.3f;
+        _attack3Time = AnimationLength("PC_Anim_Attack_003_2") / 1.3f;
+        _attackBack1 = AnimationLength("PC_Anim_Attack_Back_001") / 1.3f;
+        _attackBack2 = AnimationLength("PC_Anim_Attack_Back_002") / 1.3f;
         _specialAnim = AnimationLength("PC_Anim_Transform_001");
         _skill2Time = AnimationLength("PC_Anim_Skill_002");
         _skill3Time = AnimationLength("PC_Anim_Skill_003");
@@ -252,7 +263,9 @@ public class PlayerFSMManager : FSMManager
             isFlashStart = true;
             FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
             FlashEffect2.SetActive(false);
-            SetState(PlayerState.IDLE);
+            SetState(PlayerState.RUN);
+         //   AudioManager.playSound(_dashSound, musicPlayer);
+
         }
 
         if (isFlash)
@@ -271,7 +284,7 @@ public class PlayerFSMManager : FSMManager
             {
 
             }
-            isCantMove = true;
+            //isCantMove = true;
             flashTimer += Time.deltaTime;
             if (_h >= 0.01f && flashTimer <= 0.2f)
             {
@@ -308,7 +321,6 @@ public class PlayerFSMManager : FSMManager
                 try
                 {
                     FlashEffect1.SetActive(false);
-                    isCantMove = false;
 
                 }
                 catch
@@ -316,6 +328,7 @@ public class PlayerFSMManager : FSMManager
 
                 }
                 isFlash = false;
+                isAttackOne = false;
                 flashTimer = 0;
                 return;
             }
@@ -384,7 +397,14 @@ public class PlayerFSMManager : FSMManager
 
     void Skill2Set()
     {
-        skill2_Distance = 14f / followCam.height;
+        try
+        {
+            skill2_Distance = 14f / followCam.height;
+        }
+        catch
+        {
+
+        }
 
         if (skill2_Distance >= skill2_maxDis)
             skill2_Distance = skill2_maxDis;
@@ -395,7 +415,14 @@ public class PlayerFSMManager : FSMManager
     private void Update()
     {
         //isNormal = Normal.activeSelf;
-        isNormal = pc_Icon.gameObject.activeSelf;
+        try
+        {
+            isNormal = pc_Icon.gameObject.activeSelf;
+        }
+        catch
+        {
+
+        }
 
         // 공격처리는 죽음을 제외한 모든 상황에서 처리
         if (CurrentState != PlayerState.DEAD)
@@ -419,7 +446,10 @@ public class PlayerFSMManager : FSMManager
             return;
 
         Dash();
-        Attack();
+        if (isSpecial)
+            return;
+
+            Attack();
 
         if (Skill1_Amount <= 1)
         {
@@ -505,6 +535,7 @@ public class PlayerFSMManager : FSMManager
                 specialTimer = 0;
                 TimeLine.SetActive(false);
                 isSpecial = false;
+                isAttackOne = false;
                 return;
             }
         }
@@ -535,6 +566,7 @@ public class PlayerFSMManager : FSMManager
             isAttackOne = true;
             SetState(PlayerState.ATTACK1);
             attackCount++;
+           // AudioManager.playSound(_attackSound, musicPlayer);
             return;
         }
 

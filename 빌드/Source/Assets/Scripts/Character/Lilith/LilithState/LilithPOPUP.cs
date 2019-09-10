@@ -15,12 +15,15 @@ public class LilithPOPUP : LilithFSMState
     public override void EndState()
     {
         _curTime = 0.0f;
+        GameStatus._Instance.ActivedMonsterList.Add(this.gameObject);
         base.EndState();
     }
 
     protected override void Update()
     {
         base.Update();
+
+        if (!TempMissionBoss._Instance.missionTrigger.isStart) return;
 
         _curTime += Time.deltaTime;
 

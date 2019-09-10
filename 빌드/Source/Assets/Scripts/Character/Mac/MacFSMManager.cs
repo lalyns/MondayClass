@@ -51,8 +51,13 @@ public class MacFSMManager : FSMManager
 
     public Slider _HPSilder;
     public GameObject hitEffect;
+    public GameObject hitEffect_Special;
+    public GameObject hitEffect_Skill1;
+    public Transform hitLocation;
 
     public GameObject _PopupEffect;
+
+    public MonsterSound _Sound;
 
     protected override void Awake()
     {
@@ -61,6 +66,7 @@ public class MacFSMManager : FSMManager
         _CC = GetComponent<CharacterController>();
         _Stat = GetComponent<MacStat>();
         _Anim = GetComponentInChildren<Animator>();
+        _Sound = GetComponent<MonsterSound>();
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
@@ -103,13 +109,13 @@ public class MacFSMManager : FSMManager
 
     public void OnHit()
     {
-        Instantiate(hitEffect, this.transform.position, Quaternion.identity);
-
+      
         //hp--;
         //카메라쉐이킹
         Shake.instance.ShakeCamera();
 
         Stat.TakeDamage(Stat, 350);
+        _Sound.PlayHitSFX();
         //Debug.Log(Stat.Hp);
 
         //hit스크립트로넘겨줌
@@ -135,6 +141,11 @@ public class MacFSMManager : FSMManager
     {
         if(other.transform.tag == "Weapon")
         {
+            if (PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
+            else
+                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
+
             if (Stat.Hp > 0)
             {
                 //Debug.Log("Attacked");
@@ -154,6 +165,8 @@ public class MacFSMManager : FSMManager
         }
         if(other.transform.tag == "Ball")
         {
+            Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
+
             if (Stat.Hp > 0)
             {                
                 OnHit();

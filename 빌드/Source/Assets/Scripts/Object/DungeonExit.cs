@@ -15,12 +15,23 @@ public class DungeonExit : MonoBehaviour
         {
             if (GameManager._Instance._IsDummyScene)
             {
+                nextDungeon.SetActive(true);
                 other.transform.position =
                     nextDungeon.GetComponentInChildren<DungeonEnter>().transform.position;
+
+                if(GameManager.stageLevel == 1)
+                {
+                    GetComponentInParent<MissionA>().gameObject.SetActive(false);
+                }
+
+                if(GameManager.stageLevel == 2)
+                {
+                    GetComponentInParent<MissionB>().gameObject.SetActive(false);
+                }
             }
             else
             {
-                MissionManager.MissionClear();
+                //MissionManager.MissionClear();
             }
         }
     }
