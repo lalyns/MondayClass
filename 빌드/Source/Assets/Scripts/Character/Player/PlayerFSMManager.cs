@@ -22,7 +22,7 @@ public enum PlayerState
 public class PlayerFSMManager : FSMManager
 {
    // public AudioSource musicPlayer;
-   // public AudioClip _dashSound;
+    //public AudioClip _dashSound;
    // public AudioClip _attackSound;
    // public AudioClip _runSound;
   //  public AudioClip _skill1Sound;
