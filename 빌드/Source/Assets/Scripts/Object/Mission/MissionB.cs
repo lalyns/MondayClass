@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MissionB : MonoBehaviour
+public class MissionB : Mission
 {
-    public MissionTrigger missionTrigger;
-
     bool missionEnd = false;
 
     public GameObject EndTrigger;
@@ -44,7 +42,7 @@ public class MissionB : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
-                MissionEnd();
+                ClearMission();
                 missionEnd = true;
             }
 
@@ -54,7 +52,7 @@ public class MissionB : MonoBehaviour
 
         if (GameStatus._Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
 
-        if (missionTrigger.isStart)
+        if (MissionOperate)
         {
             if (starDropTime > starDropCool)
             {
@@ -71,7 +69,7 @@ public class MissionB : MonoBehaviour
 
         if (GameManager._Instance.curScore >= goalScore)
         {
-            MissionEnd();
+            ClearMission();
             missionEnd = true;
         }
     }
@@ -135,14 +133,5 @@ public class MissionB : MonoBehaviour
         int randPos = UnityEngine.Random.Range(0, dropLocation.Length - 1);
 
         GameObject temp = Instantiate(star, dropLocation[randPos].position, Quaternion.identity);
-    }
-
-    public void MissionEnd()
-    {
-        EndTrigger.SetActive(true);
-        PortalEffect.SetActive(true);
-
-        GameStatus._Instance._MissionStatus = false;
-        GameStatus._Instance.RemoveAllActiveMonster();
     }
 }

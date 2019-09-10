@@ -105,6 +105,11 @@ public class GameStatus : MonoBehaviour
             {
                 RemoveAllActiveMonster();
             }
+
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                MissionManager.Instance.OnInspectating = !MissionManager.Instance.OnInspectating;
+            }
         }
 
         if (dummySet)

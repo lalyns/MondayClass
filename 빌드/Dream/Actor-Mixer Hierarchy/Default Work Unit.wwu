@@ -111,6 +111,7 @@
 												<ModifierInfo>
 													<Modifier Name="" ID="{F702E4CC-FE9A-4609-BA2C-4E623D5DBF07}">
 														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
 															<Property Name="Max" Type="Real64" Value="10"/>
 															<Property Name="Min" Type="Real64" Value="-10"/>
 														</PropertyList>
@@ -140,8 +141,67 @@
 													<Modifier Name="" ID="{89017AFD-B7EF-4258-9C74-927A730663A5}">
 														<PropertyList>
 															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Max" Type="Real64" Value="600"/>
+															<Property Name="Max" Type="Real64" Value="100"/>
 															<Property Name="Min" Type="Real64" Value="-50"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>2</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{BE094745-0083-4838-8127-AD200955E898}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{E65B20DC-9472-48C0-B831-E4EF0C9EF8AE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Player_ATK_01" ID="{2988E35D-8FAD-4C75-9B9A-B840C79A3A13}" ShortID="730685900">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{BE094745-0083-4838-8127-AD200955E898}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{E65B20DC-9472-48C0-B831-E4EF0C9EF8AE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Player_ATK_01" ID="{8B4B3B95-4811-41E5-9F1E-1EEC9C55C74A}" ShortID="589757244">
+													<Language>SFX</Language>
+													<AudioFile>Player_ATK_01.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Player_ATK_01" ID="{8B4B3B95-4811-41E5-9F1E-1EEC9C55C74A}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Player_Dash" ID="{B6979A8A-6DED-4EAE-BE40-B7804A0D2399}" ShortID="745618339">
+							<ChildrenList>
+								<RandomSequenceContainer Name="Player_Dash" ID="{844EB991-10E5-4C6C-A7AE-216602C4ED56}" ShortID="110493634">
+									<PropertyList>
+										<Property Name="Lowpass" Type="int16">
+											<ValueList>
+												<Value>15</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{3BD80C7B-2557-4A1C-98E1-FF77051416CA}">
+														<PropertyList>
+															<Property Name="Max" Type="Real64" Value="100"/>
+															<Property Name="Min" Type="Real64" Value="-100"/>
 														</PropertyList>
 													</Modifier>
 												</ModifierInfo>
@@ -162,111 +222,7 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<Sound Name="Player_ATK_01" ID="{932258DF-669C-451B-A08A-D96F7F178C62}" ShortID="575632091">
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{BE094745-0083-4838-8127-AD200955E898}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{E65B20DC-9472-48C0-B831-E4EF0C9EF8AE}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="Player_ATK_01" ID="{2422D812-073D-41B3-A618-0FC97F6138EA}" ShortID="777235840">
-													<Language>SFX</Language>
-													<AudioFile>Player_ATK_01.wav</AudioFile>
-												</AudioFileSource>
-											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="Player_ATK_01" ID="{2422D812-073D-41B3-A618-0FC97F6138EA}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
-									</ChildrenList>
-								</RandomSequenceContainer>
-							</ChildrenList>
-						</Folder>
-						<Folder Name="Player_Dash" ID="{B6979A8A-6DED-4EAE-BE40-B7804A0D2399}" ShortID="745618339">
-							<ChildrenList>
-								<RandomSequenceContainer Name="Player_Dash" ID="{844EB991-10E5-4C6C-A7AE-216602C4ED56}" ShortID="110493634">
-									<PropertyList>
-										<Property Name="Lowpass" Type="int16">
-											<ValueList>
-												<Value>21</Value>
-											</ValueList>
-										</Property>
-										<Property Name="Pitch" Type="int32">
-											<ModifierList>
-												<ModifierInfo>
-													<Modifier Name="" ID="{3BD80C7B-2557-4A1C-98E1-FF77051416CA}">
-														<PropertyList>
-															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Max" Type="Real64" Value="100"/>
-															<Property Name="Min" Type="Real64" Value="-100"/>
-														</PropertyList>
-													</Modifier>
-												</ModifierInfo>
-											</ModifierList>
-										</Property>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>5</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{BE094745-0083-4838-8127-AD200955E898}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{E65B20DC-9472-48C0-B831-E4EF0C9EF8AE}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<Sound Name="Player_Dash_01" ID="{C9DB5450-353A-44A6-BF80-DEEF7258D4C5}" ShortID="1069910635">
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{BE094745-0083-4838-8127-AD200955E898}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{E65B20DC-9472-48C0-B831-E4EF0C9EF8AE}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="Player_Dash_01" ID="{A8865E3C-D6E9-4072-B1EE-92285DE06516}" ShortID="928719587">
-													<Language>SFX</Language>
-													<AudioFile>Player_Dash_01.wav</AudioFile>
-												</AudioFileSource>
-											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="Player_Dash_01" ID="{A8865E3C-D6E9-4072-B1EE-92285DE06516}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
-									</ChildrenList>
-								</RandomSequenceContainer>
-							</ChildrenList>
-						</Folder>
-						<Folder Name="Player_Skill_StarRian" ID="{DA7E1A3B-29F7-4AD2-85F3-8CED7DB8413F}" ShortID="395563425">
-							<ChildrenList>
-								<RandomSequenceContainer Name="Player_Skill_StarRain" ID="{ADD45F9F-0A30-4CAF-BFE4-C47F20D684AF}" ShortID="859784456">
-									<PropertyList>
-										<Property Name="Pitch" Type="int32">
-											<ModifierList>
-												<ModifierInfo>
-													<Modifier Name="" ID="{CF87CC55-A413-4AB3-8616-2D165BF73540}"/>
-												</ModifierInfo>
-											</ModifierList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{BE094745-0083-4838-8127-AD200955E898}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{E65B20DC-9472-48C0-B831-E4EF0C9EF8AE}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<Sound Name="Player_StarRain_01" ID="{76205B02-06A7-490C-AD16-3366FFEAA8CE}" ShortID="419739512">
+										<Sound Name="Player_Dash_01" ID="{76205B02-06A7-490C-AD16-3366FFEAA8CE}" ShortID="419739512">
 											<PropertyList>
 												<Property Name="Pitch" Type="int32">
 													<ModifierList>
@@ -281,7 +237,7 @@
 												</Property>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>5</Value>
+														<Value>4</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -307,6 +263,39 @@
 								</RandomSequenceContainer>
 							</ChildrenList>
 						</Folder>
+						<Folder Name="Player_Skill_StarRian" ID="{DA7E1A3B-29F7-4AD2-85F3-8CED7DB8413F}" ShortID="395563425">
+							<ChildrenList>
+								<RandomSequenceContainer Name="Player_Skill_StarRain" ID="{ADD45F9F-0A30-4CAF-BFE4-C47F20D684AF}" ShortID="859784456">
+									<PropertyList>
+										<Property Name="Inclusion" Type="bool">
+											<ValueList>
+												<Value>False</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{CF87CC55-A413-4AB3-8616-2D165BF73540}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-1</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{BE094745-0083-4838-8127-AD200955E898}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{E65B20DC-9472-48C0-B831-E4EF0C9EF8AE}"/>
+										</Reference>
+									</ReferenceList>
+								</RandomSequenceContainer>
+							</ChildrenList>
+						</Folder>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Creature" ID="{7F6830FF-A937-4B43-8F03-40BDF7479E20}" ShortID="916935925">
@@ -315,12 +304,12 @@
 							<PropertyList>
 								<Property Name="Highpass" Type="int16">
 									<ValueList>
-										<Value>10</Value>
+										<Value>25</Value>
 									</ValueList>
 								</Property>
 								<Property Name="Lowpass" Type="int16">
 									<ValueList>
-										<Value>20</Value>
+										<Value>15</Value>
 									</ValueList>
 								</Property>
 								<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
@@ -339,7 +328,7 @@
 								</Property>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-3</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class MissionA : MonoBehaviour
+public class MissionA : Mission
 {
-    public MissionTrigger missionTrigger;
-
     public bool spawning = false;
     int waveLevel = 0;
 
@@ -28,7 +26,7 @@ public class MissionA : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                MissionEnd();
+                ClearMission();
                 missionEnd = true;
             }
 
@@ -47,7 +45,7 @@ public class MissionA : MonoBehaviour
         }
 
 
-        if (missionTrigger.isStart)
+        if (MissionOperate)
         {
             if (!spawning)
             {
@@ -116,20 +114,11 @@ public class MissionA : MonoBehaviour
 
                 break;
             case 3:
-                MissionEnd();
+                ClearMission();
 
                 break;
         }
 
         waveLevel++;
-    }
-
-    public void MissionEnd()
-    {
-        EndTrigger.SetActive(true);
-        PortalEffect.SetActive(true);
-
-        GameStatus._Instance._MissionStatus = false;
-        GameStatus._Instance.RemoveAllActiveMonster();
     }
 }
