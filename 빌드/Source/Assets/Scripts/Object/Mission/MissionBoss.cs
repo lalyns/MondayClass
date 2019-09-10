@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TempMissionBoss : MonoBehaviour
+public class MissionBoss : Mission
 {
-    public MissionTrigger missionTrigger;
-
-    public static TempMissionBoss _Instance;
+    public static MissionBoss _Instance;
     private void Start()
     {
         if (_Instance == null)
         {
-            _Instance = GetComponent<TempMissionBoss>();
+            _Instance = GetComponent<MissionBoss>();
         }
         else
         {

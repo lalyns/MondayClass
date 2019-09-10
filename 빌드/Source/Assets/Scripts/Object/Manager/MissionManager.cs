@@ -15,16 +15,40 @@ public class MissionManager : MonoBehaviour
         Last,
     }
 
-    public static MissionManager _Instance;
-    public static MissionManager GetMissionManager {
+    [Range(0, 1)] public float WidthRatio;
+    [Range(0, 1)] public float HeightRatio;
+
+    private static MissionManager _Instance;
+    public static MissionManager Instance {
         get {
             if(_Instance == null)
             {
                 _Instance = FindObjectOfType<MissionManager>();
             }
-
-            return _Instance; }
+            return _Instance;
+        }
     }
+
+    [SerializeField] private Mission[] _Missions;
+    public Mission[] Mission {
+        get {
+            //if (_Missions == null)
+            //{
+            //    GameObject[] maps = GameObject.FindGameObjectsWithTag("Mission");
+            //    _Missions = new Mission[maps.Length];
+
+            //    int i = 0;
+            //    foreach(GameObject map in maps)
+            //        _Missions[i++] = map.GetComponent<Mission>();
+            //}
+            return _Missions;
+        }
+    }
+
+    public Mission CurrentMission;
+
+    // For Editor Using
+    [HideInInspector] public bool OnInspectating;
 
     public void Awake()
     {
@@ -36,8 +60,24 @@ public class MissionManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        foreach(Mission mission in Mission) {
+            Debug.Log("배열확인 : " + mission.name);
+        }
     }
 
+    private void OnGUI()
+    {
+        if (!OnInspectating) return;
+
+        string discribe = "현재 던전 : " + CurrentMission.gameObject.name.ToString();
+
+        if(GUI.Button(new Rect(Screen.width * WidthRatio, Screen.height * HeightRatio, 150, 100),
+            discribe)
+            )
+        {
+        }
+    }
 
 
     //public MissionData[] _MissionDatas;
