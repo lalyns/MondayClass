@@ -57,6 +57,8 @@ public class MacFSMManager : FSMManager
 
     public GameObject _PopupEffect;
 
+    public MonsterSound _Sound;
+
     protected override void Awake()
     {
         base.Awake();
@@ -64,6 +66,7 @@ public class MacFSMManager : FSMManager
         _CC = GetComponent<CharacterController>();
         _Stat = GetComponent<MacStat>();
         _Anim = GetComponentInChildren<Animator>();
+        _Sound = GetComponent<MonsterSound>();
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
@@ -112,6 +115,7 @@ public class MacFSMManager : FSMManager
         Shake.instance.ShakeCamera();
 
         Stat.TakeDamage(Stat, 350);
+        _Sound.PlayHitSFX();
         //Debug.Log(Stat.Hp);
 
         //hit스크립트로넘겨줌

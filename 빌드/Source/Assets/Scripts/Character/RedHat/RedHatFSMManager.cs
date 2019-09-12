@@ -57,6 +57,8 @@ public class RedHatFSMManager : FSMManager
     public GameObject hitEffect_Skill1;
     public Transform hitLocation;
 
+    public MonsterSound _Sound;
+
     protected override void Awake()
     {
         base.Awake();
@@ -64,6 +66,7 @@ public class RedHatFSMManager : FSMManager
         _CC = GetComponent<CharacterController>();
         _Stat = GetComponent<RedHatStat>();
         _Anim = GetComponentInChildren<Animator>();
+        _Sound = GetComponent<MonsterSound>();
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
@@ -113,6 +116,7 @@ public class RedHatFSMManager : FSMManager
         //hp--;
         //카메라쉐이킹
         Shake.instance.ShakeCamera(0.3f, 0.3f, 0.7f);
+        _Sound.PlayHitSFX();
 
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)

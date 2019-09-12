@@ -23,7 +23,7 @@ public class LilithPOPUP : LilithFSMState
     {
         base.Update();
 
-        if (!TempMissionBoss._Instance.missionTrigger.isStart) return;
+        if (!MissionBoss._Instance.MissionOperate) return;
 
         _curTime += Time.deltaTime;
 

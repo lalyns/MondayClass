@@ -9,6 +9,7 @@ public class PlayerATTACK1 : FSMState
     public override void BeginState()
     {
         base.BeginState();
+        _manager._Sound.PlayAttackSFX();
     }
 
     public override void EndState()
