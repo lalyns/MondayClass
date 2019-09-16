@@ -441,12 +441,15 @@ public class PlayerFSMManager : FSMManager
             return;
         
         Dash();
+
+        Attack();
+
+
         if (isSkill2)
             return;
         if (isSpecial)
             return;
 
-            Attack();
 
         if (Skill1_Amount <= 1)
         {
