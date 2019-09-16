@@ -95,15 +95,28 @@ public class GameManager : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = false;
-                _Instance._cursurImage.enabled = true;
+                try
+                {
+                    _Instance._cursurImage.enabled = true;
+                }
+                catch
+                {
 
+                }
 
             }
             else
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                _Instance._cursurImage.enabled = false;
+                try
+                {
+                    _Instance._cursurImage.enabled = false;
+                }
+                catch
+                {
+
+                }
             }
         }
     }

@@ -722,7 +722,7 @@ public class PlayerFSMManager : FSMManager
 
                 Skill1Timer1 = 0;
                 isShoot = false;
-               // _monster.Clear();
+                _monster.Clear();
             }
         }
         if (isSkill1CTime)
