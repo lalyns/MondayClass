@@ -9,6 +9,7 @@ public class MouseCursor : MonoBehaviour
     {
     }
 
+    public bool istitle = true;
     public bool cursorMode = true;
 
     private void Update()
@@ -17,7 +18,8 @@ public class MouseCursor : MonoBehaviour
         screenPoint.z = 10.0f; //distance of the plane from the camera
         transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
 
-        GameManager.CursorMode(cursorMode);
+        if(istitle)
+            GameManager.CursorMode(cursorMode);
 
         if (Input.GetKeyDown(KeyCode.K))
         {
