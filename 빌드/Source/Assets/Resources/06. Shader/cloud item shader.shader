@@ -68,7 +68,7 @@
 			shadowCol = _shadowColor;
 
 			float3 shadow;
-			shadow = smoothstep(_smoothMin, _smoothMax, 1 - shade) ;
+			shadow = smoothstep(_smoothMin, _smoothMax, 1 - ndotV) ;
 			
 			float3 spec;
 			spec = saturate(pow(ndotV, _specPow)) * _specColor;
