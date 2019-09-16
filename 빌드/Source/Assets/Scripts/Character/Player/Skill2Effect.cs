@@ -16,11 +16,17 @@ public class Skill2Effect : MonoBehaviour
         //Sphere.enabled = false;
         Sphere = GetComponent<SphereCollider>();
         player = PlayerFSMManager.instance;
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_time <= 0.1f)
+        {
+            transform.position = player.Skill2_Parent.position;
+        }
 
         _time += Time.deltaTime;
         
@@ -36,20 +42,7 @@ public class Skill2Effect : MonoBehaviour
             Debug.Log("시간 지남");
             try
             {
-                //// 몬스터 가져온 후
-                //_monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
-
-
-                //if (_monster.Count == 0)
-                //    return;
-
-                //for (int i = 0; i < _monster.Count; i++)
-                //{
-                //    if (Vector3.Distance(transform.position, _monster[i].transform.position) >= 3f)
-                //    {
-                //        _monster[i].transform.position = new Vector3(transform.position.x + randX, transform.position.y, transform.position.z + randZ);
-                //    }
-                //}
+              
             }
             catch
             {
@@ -58,7 +51,8 @@ public class Skill2Effect : MonoBehaviour
             player.isSkill2 = false;
             _time = 0;
             //Sphere.transform.gameObject.SetActive(false);
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            gameObject.SetActive(false);
 
         }
 
