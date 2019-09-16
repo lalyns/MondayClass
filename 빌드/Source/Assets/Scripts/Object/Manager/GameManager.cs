@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     bool _SimpleMode = false;
     public GameObject _MissionSimple;
     public GameObject _MissionFull;
+    public Image _cursurImage;
 
     public bool _IsDummyScene = false;
     public int curScore = 0;
@@ -92,12 +94,16 @@ public class GameManager : MonoBehaviour
             if (isLock)
             {
                 Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                Cursor.visible = false;
+                _Instance._cursurImage.enabled = true;
+
+
             }
             else
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                _Instance._cursurImage.enabled = false;
             }
         }
     }
