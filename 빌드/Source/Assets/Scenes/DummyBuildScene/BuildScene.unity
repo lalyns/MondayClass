@@ -2005,7 +2005,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _LimitTime: 9
   _MissionSelector: {fileID: 1852914813}
-  EndTrigger: {fileID: 1018151162}
+  EndTrigger: {fileID: 0}
   PortalEffect: {fileID: 1465884966}
   protectedTarget: {fileID: 552379988}
   _ProtectedTargetHP: 200
@@ -8232,6 +8232,7 @@ PrefabInstance:
       objectReference: {fileID: 4925407726362959932}
     m_RemovedComponents:
     - {fileID: 7045993434192529966, guid: db4666837c9f4f243843f2d4f700c1ff, type: 3}
+    - {fileID: 99550152, guid: db4666837c9f4f243843f2d4f700c1ff, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: db4666837c9f4f243843f2d4f700c1ff, type: 3}
 --- !u!1 &454341440 stripped
 GameObject:
@@ -8251,7 +8252,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 454341439}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &454341443
+--- !u!114 &454341445
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -16860,12 +16861,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1004221403}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1018151162 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2801441691748134671, guid: db4666837c9f4f243843f2d4f700c1ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 1465884965}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1022202383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24963,6 +24958,10 @@ PrefabInstance:
       objectReference: {fileID: 1465884966}
     - target: {fileID: 3858484561100942160, guid: db4666837c9f4f243843f2d4f700c1ff,
         type: 3}
+      propertyPath: nextDungeon
+      value: 
+      objectReference: {fileID: 4925407726362959932}
+    - target: {fileID: 99550152, guid: db4666837c9f4f243843f2d4f700c1ff, type: 3}
       propertyPath: nextDungeon
       value: 
       objectReference: {fileID: 4925407726362959932}
@@ -39534,6 +39533,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Portal
       objectReference: {fileID: 0}
+    - target: {fileID: 2801441691341514723, guid: db4666837c9f4f243843f2d4f700c1ff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2801441691748134668, guid: db4666837c9f4f243843f2d4f700c1ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -39601,6 +39605,10 @@ PrefabInstance:
       objectReference: {fileID: 1306522362}
     - target: {fileID: 3858484561100942160, guid: db4666837c9f4f243843f2d4f700c1ff,
         type: 3}
+      propertyPath: nextDungeon
+      value: 
+      objectReference: {fileID: 4925407726362959932}
+    - target: {fileID: 99550152, guid: db4666837c9f4f243843f2d4f700c1ff, type: 3}
       propertyPath: nextDungeon
       value: 
       objectReference: {fileID: 4925407726362959932}
@@ -59771,8 +59779,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7045993434192529966, guid: db4666837c9f4f243843f2d4f700c1ff,
-        type: 3}
+    - target: {fileID: 99550152, guid: db4666837c9f4f243843f2d4f700c1ff, type: 3}
       propertyPath: nextDungeon
       value: 
       objectReference: {fileID: 8338439578398296726}
@@ -93866,7 +93873,7 @@ MonoBehaviour:
   PortalEffect: {fileID: 1306522362}
   goalScore: 5
   starDropCool: 5
-  star: {fileID: 7242914150444159907, guid: a0c1d8d6f1ce75644bb7872e1a67a56b, type: 3}
+  star: {fileID: 7242914150444159907, guid: cb28f3c5b4876ed40b71f110a5e1cda4, type: 3}
   dropLocation:
   - {fileID: 3858484560341225487}
   - {fileID: 3858484559874740356}
