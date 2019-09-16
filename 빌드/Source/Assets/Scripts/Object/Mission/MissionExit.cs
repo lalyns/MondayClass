@@ -28,7 +28,7 @@ public class MissionExit : MonoBehaviour
         {
             if (GameManager._Instance._IsDummyScene)
             {
-                MissionManager.Instance.CurrentMission.NextMission(other.transform);
+                MissionManager.Instance.CurrentMission.MissionSelect();
 
             }
         }
