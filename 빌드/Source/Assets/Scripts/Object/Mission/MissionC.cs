@@ -2,19 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MissionB : Mission
+public class MissionC : Mission
 {
     bool missionEnd = false;
 
     public GameObject EndTrigger;
     public GameObject PortalEffect;
 
-    public int goalScore = 5;
-
-    float starDropTime = 0;
-    public float starDropCool = 5f;
-    public GameObject star;
-    public Transform[] dropLocation;
+    public ProtectedTarget protectedTarget;
+    public int _ProtectedTargetHP;
 
     float spawnTime = 0;
     public float spawnCool = 3f;
@@ -28,18 +24,15 @@ public class MissionB : Mission
     // Start is called before the first frame update
     protected override void Start()
     {
-        
+        protectedTarget.hp = _ProtectedTargetHP;
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-        starDropTime += Time.deltaTime;
-        spawnTime += Time.deltaTime;
-
         if (Input.GetKey(KeyCode.LeftAlt))
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.V))
             {
                 ClearMission();
                 missionEnd = true;
@@ -51,22 +44,20 @@ public class MissionB : Mission
 
         if (GameStatus._Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
 
+        spawnTime += Time.deltaTime;
+
         if (MissionOperate)
         {
-            if (starDropTime > starDropCool)
-            {
-                DropStar();
-                starDropTime = 0;
-            }
-
+            Debug.Log("AA");
             if(spawnTime > spawnCool)
             {
+                Debug.Log("BB");
                 Spawn();
                 spawnTime = 0;
             }
         }
 
-        if (GameManager._Instance.curScore >= goalScore)
+        if (GameStatus._Instance._LimitTime <= 0 && protectedTarget.hp >= 0)
         {
             ClearMission();
             missionEnd = true;
@@ -127,10 +118,4 @@ public class MissionB : Mission
         }
     }
 
-    void DropStar()
-    {
-        int randPos = UnityEngine.Random.Range(0, dropLocation.Length - 1);
-
-        GameObject temp = Instantiate(star, dropLocation[randPos].position, Quaternion.identity);
-    }
 }
