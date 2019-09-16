@@ -76,14 +76,33 @@ public class Mission : MonoBehaviour
         Exit.Colliders.enabled = true;
     }
 
+    public GameObject _MissionSelector;
+
+    // 미션 선택지 호출
+    public void MissionSelect()
+    {
+        _MissionSelector.SetActive(true);
+        GameManager.CursorMode(true);
+        Time.timeScale = 0.0f;
+    }
+
     // 선택지 출력 후 미션 이동 구현할 것
-    public void NextMission(Transform player)
+    public void NextMission()
     {
         Exit.nextDungeon.SetActive(true);
-        player.position = Exit.nextDungeon.GetComponentInChildren<DungeonEnter>().transform.position;
+
+        GameStatus._Instance._PlayerInstance.
+            GetComponentInChildren<Animator>().
+            transform.position
+            = Exit.nextDungeon.GetComponentInChildren<DungeonEnter>()
+            .transform.position;
 
         MissionManager.Instance.CurrentMission =
             MissionManager.Instance.Mission[GameManager.stageLevel];
+
+        _MissionSelector.SetActive(false);
+        GameManager.CursorMode(false);
+        Time.timeScale = 1.0f;
     }
     
     #region 폐기

@@ -69,6 +69,11 @@ public class MissionButton : MonoBehaviour
     public void SetMissionOnClick()
     {
         //MissionManager.SetMissionOnClick(_ChoiceNum);
-    }
+        if (GameManager.stageLevel == 0)
+            TempMissionExit._Instance.NextMission();
 
+        if(GameManager.stageLevel != 0)
+            MissionManager.Instance.CurrentMission.NextMission();
+    }
+    
 }
