@@ -455,13 +455,12 @@ public class PlayerFSMManager : FSMManager
         //{
         //    Skill1Set(Skill1_Effects);
         //}
-        if(_monster.Count <= 0) {
-            for (int i = 0; i < 5; i++)
-                Skill1_Shoots[i].SetActive(false);
-            Debug.Log("찍히냐?");
-            isShoot = false;
+        //if(_monster.Count <= 0) {
+        //    for (int i = 0; i < 5; i++)
+        //        Skill1_Shoots[i].SetActive(false);
+        //    isShoot = false;
 
-        }
+        //}
     }
 
     public override void NotifyTargetKilled()
@@ -604,8 +603,16 @@ public class PlayerFSMManager : FSMManager
 
             if (Skill1_Amount >= i + 2)
             {
-                if(Vector3.Distance(effects[i].transform.position, targets[rands[i]].transform.position) >= distance)
-                    effects[i].transform.position = Vector3.MoveTowards(effects[i].transform.position, targets[rands[i]].transform.position, skill1Speed * Time.deltaTime);
+                try
+                {
+                    if (Vector3.Distance(effects[i].transform.position, targets[rands[i]].transform.position) >= distance)
+                        effects[i].transform.position = Vector3.MoveTowards(effects[i].transform.position, targets[rands[i]].transform.position, skill1Speed * Time.deltaTime);
+
+                }
+                catch
+                {
+
+                }
             }
             
         }
