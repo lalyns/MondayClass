@@ -125,6 +125,48 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4124459701739823060}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &29274416 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5432222725066181736, guid: b9c3e744a5e40e04e9b91d9372569807,
+    type: 3}
+  m_PrefabInstance: {fileID: 3616355219470326245}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &29274417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29274416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 786f243f43fec4a47942cb33c5bebab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDefaultListener: 1
+  listenerId: 0
+--- !u!114 &29274418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29274416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef8a0ba3a5593884e8046bb434ca0df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  m_positionOffsetData:
+    KeepMe: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
 --- !u!4 &39347840 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 399281959512923607, guid: bbf30b6a9ccd3ee42b2e2973dfb47cac,
@@ -610,19 +652,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4cd5807f043d74fa05a980f2b7d694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerList: f7e1664c
-  useOtherObject: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7a03eccdea1f3034aac41e018e64c279,
-      type: 2}
-  decodeBank: 0
-  loadAsynchronous: 0
-  saveDecodedBank: 0
-  unloadTriggerList: 958ca0ea
-  bankNameInternal: 
-  valueGuidInternal: 
 --- !u!114 &131408824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,22 +664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ffb7cbe459cbe14696f8f892c3808ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationSettings: {fileID: 11400000, guid: 7f4a20129fadab948897d2f9fdb7258f,
-    type: 2}
-  basePath: 
-  language: 
-  defaultPoolSize: 0
-  lowerPoolSize: 0
-  streamingPoolSize: 0
-  preparePoolSize: 0
-  memoryCutoffThreshold: 0
-  monitorPoolSize: 0
-  monitorQueuePoolSize: 0
-  callbackManagerBufferSize: 0
-  spatialAudioPoolSize: 0
-  maxSoundPropagationDepth: 0
-  diffractionFlags: 11
-  engineLogging: 0
 --- !u!4 &131408825
 Transform:
   m_ObjectHideFlags: 0
@@ -3835,6 +3848,7 @@ MonoBehaviour:
   _LimitTime: 180
   _MissionStatus: 0
   _DummyLocationEffect: {fileID: 735555259}
+  _PlayerInstance: {fileID: 0}
 --- !u!114 &896013446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3851,6 +3865,7 @@ MonoBehaviour:
   _CharacterControl: 1
   _MissionSimple: {fileID: 0}
   _MissionFull: {fileID: 0}
+  _cursurImage: {fileID: 0}
   _IsDummyScene: 1
   curScore: 0
 --- !u!4 &896013447
@@ -5034,6 +5049,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1983162843}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1240504506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1240504508}
+  - component: {fileID: 1240504507}
+  m_Layer: 0
+  m_Name: WwiseGlobal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1240504507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240504506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed9d03040b17b44893b4c03b72e0985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationSettings: {fileID: 11400000, guid: 9bcf49ecaa5b9774eb42b0f51c4b026c,
+    type: 2}
+  basePath: 
+  language: 
+  defaultPoolSize: 0
+  lowerPoolSize: 0
+  streamingPoolSize: 0
+  preparePoolSize: 0
+  memoryCutoffThreshold: 0
+  monitorPoolSize: 0
+  monitorQueuePoolSize: 0
+  callbackManagerBufferSize: 0
+  spatialAudioPoolSize: 0
+  maxSoundPropagationDepth: 0
+  diffractionFlags: 11
+  engineLogging: 0
+--- !u!4 &1240504508
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240504506}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1247704682
 GameObject:
@@ -30545,6 +30619,11 @@ PrefabInstance:
       propertyPath: sp_Icon
       value: 
       objectReference: {fileID: 1304553021}
+    - target: {fileID: 5432222726558621066, guid: b9c3e744a5e40e04e9b91d9372569807,
+        type: 3}
+      propertyPath: skill1ShootTime
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9c3e744a5e40e04e9b91d9372569807, type: 3}
 --- !u!1001 &3618632987188396555
@@ -44652,6 +44731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7482ed9f1ba73444ea5533aebe107361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _LimitTime: 180
+  _MissionSelector: {fileID: 0}
   spawning: 0
   EndTrigger: {fileID: 0}
   PortalEffect: {fileID: 1744253438}
@@ -63635,9 +63716,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa4a30193db97544a6f5fd0eada7272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _LimitTime: 180
+  _MissionSelector: {fileID: 0}
   EndTrigger: {fileID: 0}
   PortalEffect: {fileID: 1306522362}
-  spawning: 0
   goalScore: 5
   starDropCool: 5
   star: {fileID: 7242914150444159907, guid: a0c1d8d6f1ce75644bb7872e1a67a56b, type: 3}
