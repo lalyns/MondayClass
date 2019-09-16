@@ -128,13 +128,13 @@ public class TempDungeon : MonoBehaviour
                     int RandomType = UnityEngine.Random.Range(0, 9999) % 2;
                     if (RandomType == 0)
                     {
-                        GameObject temp = Instantiate(RedHat, SpawnPos[RandomPos].position, Quaternion.identity);
-                        temp.transform.parent = Waves[0].transform;
+                        //GameObject temp = Instantiate(RedHat, SpawnPos[RandomPos].position, Quaternion.identity);
+                        //temp.transform.parent = Waves[0].transform;
                     }
                     else if(RandomType == 1)
                     {
-                        GameObject temp = Instantiate(Mac, SpawnPos[RandomPos].position, Quaternion.identity);
-                        temp.transform.parent = Waves[0].transform;
+                        //GameObject temp = Instantiate(Mac, SpawnPos[RandomPos].position, Quaternion.identity);
+                        //temp.transform.parent = Waves[0].transform;
                     }
 
                     i++;

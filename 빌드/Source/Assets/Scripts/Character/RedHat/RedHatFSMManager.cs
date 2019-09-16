@@ -47,22 +47,26 @@ public class RedHatFSMManager : FSMManager
     public Animator Anim { get { return _Anim; } }
 
     public Transform _AttackTransform;
-    public MeshRenderer _MR;
+    public SkinnedMeshRenderer _MR;
 
     public CharacterStat _lastAttack;
 
     public Slider _HPSilder;
-
-    public float HP = 100;
     public GameObject hitEffect;
+    public GameObject hitEffect_Special;
+    public GameObject hitEffect_Skill1;
+    public Transform hitLocation;
+
+    public MonsterSound _Sound;
+
     protected override void Awake()
     {
         base.Awake();
 
-        HP = 10;
         _CC = GetComponent<CharacterController>();
         _Stat = GetComponent<RedHatStat>();
         _Anim = GetComponentInChildren<Animator>();
+        _Sound = GetComponent<MonsterSound>();
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
@@ -80,6 +84,8 @@ public class RedHatFSMManager : FSMManager
             _States.Add(s, state);
             state.enabled = false;
         }
+
+        monsterType = ObjectManager.MonsterType.RedHat;
     }
 
     private void Start()
@@ -103,14 +109,16 @@ public class RedHatFSMManager : FSMManager
 
     public void OnHit()
     {
-        Stat.TakeDamage(Stat, 400);
+        
+
+        Stat.TakeDamage(Stat, 350);
 
         //hp--;
         //카메라쉐이킹
         Shake.instance.ShakeCamera(0.3f, 0.3f, 0.7f);
-        //hit스크립트로넘겨줌
-        Instantiate(hitEffect, this.transform.position, Quaternion.identity);
+        _Sound.PlayHitSFX();
 
+        //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {
             SetState(RedHatState.HIT);
@@ -138,8 +146,12 @@ public class RedHatFSMManager : FSMManager
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Wea`pon")
+        if (other.transform.tag == "Weapon")
         {
+            if (PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
+            if (!PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
 
             if (Stat.Hp > 0)
             {
@@ -147,25 +159,43 @@ public class RedHatFSMManager : FSMManager
             }
             //ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.RedHat);        
         }
+
         if (other.transform.tag == "Ball")
         {
+            Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
+
+
             if (Stat.Hp > 0)
             {
                 OnHit();
+
+                other.transform.gameObject.SetActive(false);
             }
-            
+
         }
+       
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.transform.tag == "Ball")
+        //if (other.transform.tag == "Ball")
+        //{
+        //    if (Stat.Hp > 0)
+        //    {
+        //        OnHit();
+        //    }
+
+
+        //}
+        if (other.transform.tag == "Skill2")
         {
+            if (PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
+            else
+                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
             if (Stat.Hp > 0)
             {
                 OnHit();
             }
-
-            
         }
     }
 

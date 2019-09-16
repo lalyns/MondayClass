@@ -20,12 +20,16 @@ public class PlayerSKILL3 : FSMState
         _manager.isSkill3 = false;
         _manager.Skill3_Start.SetActive(false);
         isAttack = false;
+        _manager.isCantMove = false;
+        _manager.isAttackOne = false;
+        _manager.isAttackTwo = false;
+        _manager.isAttackThree = false;
     }
     bool isAttack;
     private void Update()
     {
         //1.7초동안 못움직임.
-        _manager.isCantMove = _time <= 1.7f ? true : false;
+        _manager.isCantMove = _time <= 4.7f ? true : false;
 
         _time += Time.deltaTime;
 
@@ -33,7 +37,7 @@ public class PlayerSKILL3 : FSMState
         if (isAttack)
             _manager.Skill3Attack();
         else
-            _manager.Skill3Cancle();
+            _manager.Skill3Cancel();
 
 
         if ((_time >= 1.2f && _time < 1.4f) 
@@ -51,18 +55,19 @@ public class PlayerSKILL3 : FSMState
 
         if (_time >= 1.7f)
         {
-            if (_manager.OnMove())
-            {
-                _manager.SetState(PlayerState.RUN);
-            }
+            _manager.Dash();
+            //if (_manager.OnMove())
+            //{
+            //    _manager.SetState(PlayerState.RUN);
+            //}
         }
         if (_time >= 4.2f)
         {
             _manager.Skill3_End.SetActive(true);
-            if (_manager.OnMove())
-            {
-                _manager.SetState(PlayerState.RUN);
-            }
+            //if (_manager.OnMove())
+            //{
+            //    _manager.SetState(PlayerState.RUN);
+            //}
         }
         if (_time >= 4.8f)
         {

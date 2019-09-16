@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProtectedTarget : MonoBehaviour
 {
-    public Defence _Defence;
+    public MissionC _Defence;
 
     [System.NonSerialized] public int hp;
 
@@ -20,7 +20,7 @@ public class ProtectedTarget : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "Bullet")
+        if (other.transform.tag == "MonsterWeapon")
         {
             hp -= 10;
         }

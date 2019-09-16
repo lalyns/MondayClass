@@ -11,15 +11,21 @@ public class PlayerSKILL2 : FSMState
     public float SKill2_CollTime;
 
     float _time;
+    bool isBox;
     public override void BeginState()
     {
         base.BeginState();
-        
+        isBox = false;   
+
     }
 
     public override void EndState()
     {
         base.EndState();
+        //_manager.isSkill2 = false;
+        _manager.isAttackOne = false;
+        _manager.isAttackTwo = false;
+        _manager.isAttackThree = false;
     }
 
     void Update()
@@ -28,10 +34,11 @@ public class PlayerSKILL2 : FSMState
 
         _time += Time.deltaTime;
 
-        if (_time >= 0.5f)
+        if (_time >= 0.1f && !isBox)
         {
+            //Instantiate(_manager.Skill2_Start, _manager.Skill2_Parent.transform.position, _manager.Skill2_Start.transform.rotation);
             _manager.Skill2_Start.SetActive(true);
-
+            isBox = true;
         }
 
         if (_time >= 1f)

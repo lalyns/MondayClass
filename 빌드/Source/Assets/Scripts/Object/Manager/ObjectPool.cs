@@ -73,7 +73,14 @@ public class ObjectPool : MonoBehaviour
         if(type == "monster")
         {
             GameStatus._Instance.AddActivedMonsterList(item);
-            item.GetComponent<MacFSMManager>().SetState(MacState.POPUP);
+            try
+            {
+                item.GetComponent<MacFSMManager>().SetState(MacState.POPUP);
+            }
+            catch
+            {
+                item.GetComponent<RedHatFSMManager>().SetState(RedHatState.POPUP);
+            }
         }
     }
 
@@ -161,13 +168,26 @@ public class ObjectPool : MonoBehaviour
 
         _InActiveItemPool.AddLast(go);
 
-        try
+    }
+
+    public void ItemReturnPool(GameObject go, string type)
+    {
+        if (_ActiveItem.Count == 0)
+        {
+            return;
+        }
+
+        _ActiveItem.Remove(go);
+
+        go.transform.localPosition = this.transform.position;
+        go.SetActive(false);
+
+        _InActiveItemPool.AddLast(go);
+
+        if (type == "monster")
         {
             GameStatus._Instance.RemoveActivedMonsterList(go);
         }
-        catch
-        {
-
-        }
+        
     }
 }

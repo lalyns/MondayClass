@@ -8,7 +8,7 @@ public class Dungeon : MonoBehaviour
     public Transform _EnterPosition;
     public Collider _ExitPosition;
     public Transform _RespawnParent;
-    public MissionTrigger _Trigger;
+    public MissionEnter _Trigger;
     public Mission _Mission;
 
     [System.NonSerialized] public Transform[] _RespawnPositions;
