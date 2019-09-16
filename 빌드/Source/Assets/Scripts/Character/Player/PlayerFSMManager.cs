@@ -21,11 +21,11 @@ public enum PlayerState
 [ExecuteInEditMode]
 public class PlayerFSMManager : FSMManager
 {
-   // public AudioSource musicPlayer;
+    //public AudioSource musicPlayer;
     //public AudioClip _dashSound;
-   // public AudioClip _attackSound;
-   // public AudioClip _runSound;
-  //  public AudioClip _skill1Sound;
+    //public AudioClip _attackSound;
+    //public AudioClip _runSound;
+    //public AudioClip _skill1Sound;
 
     public PlayerSound _Sound;
 
@@ -441,12 +441,15 @@ public class PlayerFSMManager : FSMManager
             return;
         
         Dash();
+
+        Attack();
+
+
         if (isSkill2)
             return;
         if (isSpecial)
             return;
 
-            Attack();
 
         if (Skill1_Amount <= 1)
         {
@@ -763,6 +766,7 @@ public class PlayerFSMManager : FSMManager
             return;
         }
     }
+
     public static PlayerFSMManager instance;
 
 

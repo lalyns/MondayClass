@@ -36,8 +36,8 @@ public class PlayerSKILL2 : FSMState
 
         if (_time >= 0.1f && !isBox)
         {
-            Instantiate(_manager.Skill2_Start, _manager.Skill2_Parent.transform.position, _manager.Skill2_Start.transform.rotation);
-            //_manager.Skill2_Start.SetActive(true);
+            //Instantiate(_manager.Skill2_Start, _manager.Skill2_Parent.transform.position, _manager.Skill2_Start.transform.rotation);
+            _manager.Skill2_Start.SetActive(true);
             isBox = true;
         }
 

@@ -23,6 +23,7 @@ public class MissionEnter : MonoBehaviour
             {
                 if (!MissionManager.Instance.CurrentMission.MissionOperate)
                 {
+                    GameStatus._Instance._LimitTime = 180f;
                     MissionManager.Instance.CurrentMission.OperateMission();
                 }
             }

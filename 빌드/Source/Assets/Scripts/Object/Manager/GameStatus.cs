@@ -12,7 +12,16 @@ public class GameStatus : MonoBehaviour
     public bool _MissionStatus = false;
 
     public GameObject _DummyLocationEffect;
+
+    public PlayerFSMManager _PlayerInstance;
+
+
     bool dummySet = false;
+
+    public void Awake()
+    {
+        _PlayerInstance = PlayerFSMManager.instance;
+    }
 
     public void Start()
     {

@@ -42,6 +42,8 @@ public class TempMissionProgress : MonoBehaviour
     }
 
     // 미션 표시창 구성
+    public Text MissionName;
+
     public Image _missionType;
     public Sprite _anihilation;
     public Sprite _survive;
@@ -68,6 +70,7 @@ public class TempMissionProgress : MonoBehaviour
 
     public static void SetMission1()
     {
+        _Instance.MissionName.text = "섬멸 미션";
         _Instance._missionType.sprite = _Instance._anihilation;
         _Instance._goalIcon.sprite = _Instance._mob;
 
@@ -90,6 +93,7 @@ public class TempMissionProgress : MonoBehaviour
 
     public static void SetMission2()
     {
+        _Instance.MissionName.text = "생존 미션";
         _Instance._missionType.sprite = _Instance._survive;
         _Instance._goalIcon.sprite = _Instance._star;
 
