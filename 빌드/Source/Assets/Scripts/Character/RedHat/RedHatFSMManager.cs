@@ -173,6 +173,7 @@ public class RedHatFSMManager : FSMManager
             }
 
         }
+       
     }
     private void OnTriggerStay(Collider other)
     {
@@ -183,8 +184,19 @@ public class RedHatFSMManager : FSMManager
         //        OnHit();
         //    }
 
-            
+
         //}
+        if (other.transform.tag == "Skill2")
+        {
+            if (PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
+            else
+                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
+            if (Stat.Hp > 0)
+            {
+                OnHit();
+            }
+        }
     }
 
     public override void SetDeadState()

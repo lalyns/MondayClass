@@ -139,7 +139,7 @@ public class MacFSMManager : FSMManager
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "Weapon")
+        if (other.transform.tag == "Weapon")
         {
             if (PlayerFSMManager.instance.isNormal)
                 Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
@@ -163,13 +163,13 @@ public class MacFSMManager : FSMManager
                 }
             }
         }
-        if(other.transform.tag == "Ball")
+        if (other.transform.tag == "Ball")
         {
             Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
-            
+
 
             if (Stat.Hp > 0)
-            {                
+            {
                 OnHit();
                 try
                 {
@@ -193,8 +193,16 @@ public class MacFSMManager : FSMManager
                 }
             }
         }
-        if(other.transform.tag == "Skill2")
+        if (other.transform.tag == "Skill2")
         {
+            if (PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
+            else
+                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
+            if (Stat.Hp > 0)
+            {
+                OnHit();
+            }
         }
     }
     private void OnTriggerStay(Collider other)
@@ -216,6 +224,18 @@ public class MacFSMManager : FSMManager
                 {
 
                 }
+            }
+        }
+
+        if (other.transform.tag == "Skill2")
+        {
+            if (PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
+            else
+                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
+            if (Stat.Hp > 0)
+            {
+                OnHit();
             }
         }
     }
