@@ -7,14 +7,15 @@ public class Skill2Effect : MonoBehaviour
     private List<GameObject> _monster = new List<GameObject>();
 
     public float _time;
-    BoxCollider box;
-
+    SphereCollider Sphere;
+    PlayerFSMManager player;
     public float randX, randZ;
     // Start is called before the first frame update
     void Start()
     {
-        //box.enabled = false;
-        box = GetComponent<BoxCollider>();
+        //Sphere.enabled = false;
+        Sphere = GetComponent<SphereCollider>();
+        player = PlayerFSMManager.instance;
     }
 
     // Update is called once per frame
@@ -22,7 +23,7 @@ public class Skill2Effect : MonoBehaviour
     {
 
         _time += Time.deltaTime;
-
+        
    
 
         randX = Random.Range(0, 3f);
@@ -30,7 +31,7 @@ public class Skill2Effect : MonoBehaviour
 
         
 
-        if(_time>= 1.5f)
+        if(_time>= 3f)
         {
             Debug.Log("시간 지남");
             try
@@ -54,9 +55,10 @@ public class Skill2Effect : MonoBehaviour
             {
 
             }
-
+            player.isSkill2 = false;
             _time = 0;
-            //box.transform.gameObject.SetActive(false);
+            //Sphere.transform.gameObject.SetActive(false);
+            Destroy(this.gameObject);
 
         }
 

@@ -8,6 +8,9 @@ public class GameStatus : MonoBehaviour
 
     public static bool _EditorMode = false;
 
+    public float _LimitTime = 180;
+    public bool _MissionStatus = false;
+
     public GameObject _DummyLocationEffect;
     bool dummySet = false;
 
@@ -102,6 +105,11 @@ public class GameStatus : MonoBehaviour
             {
                 RemoveAllActiveMonster();
             }
+
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                MissionManager.Instance.OnInspectating = !MissionManager.Instance.OnInspectating;
+            }
         }
 
         if (dummySet)
@@ -116,7 +124,13 @@ public class GameStatus : MonoBehaviour
 #endif
 
 #if UNITY_STANDALONE
+
 #endif
+        if (_MissionStatus)
+        {
+            _LimitTime -= Time.deltaTime;
+        }
+
     }
 
 #if UNITY_EDITOR

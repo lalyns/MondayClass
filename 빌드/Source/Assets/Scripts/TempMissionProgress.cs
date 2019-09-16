@@ -5,73 +5,107 @@ using UnityEngine.UI;
 
 public class TempMissionProgress : MonoBehaviour
 {
-    public GameObject Mission1;
-    public TempDungeon dungeon1;
-    //public GameObject Mission1tab;
-    public GameObject Mission2;
-    public TempDungeon dungeon2;
-    //public GameObject Mission2tab;
+    //public GameObject Mission1;
+    //public TempDungeon dungeon1;
+    ////public GameObject Mission1tab;
+    //public GameObject Mission2;
+    //public TempDungeon dungeon2;
+    ////public GameObject Mission2tab;
 
-    public Image MissionIcon;
-    public Image RemainIcon;
+    //public Image MissionIcon;
+    //public Image RemainIcon;
 
-    public Sprite mission1;
-    public Sprite mission2;
+    //public Sprite mission1;
+    //public Sprite mission2;
 
-    public Sprite remain1;
-    public Sprite remain2;
+    //public Sprite remain1;
+    //public Sprite remain2;
 
-    public Text MissionType;
-    public string MissionType1;
-    public string MissionType2;
+    //public Text MissionType;
+    //public string MissionType1;
+    //public string MissionType2;
+
+    //public Text _Time;
+    //public Text _Remain;
+
+    public static TempMissionProgress _Instance;
+    public void Start()
+    {
+        if(_Instance == null)
+        {
+            _Instance = GetComponent<TempMissionProgress>();
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    // 미션 표시창 구성
+    public Image _missionType;
+    public Sprite _anihilation;
+    public Sprite _survive;
+
+    public Image _goalIcon;
+    public Sprite _mob;
+    public Sprite _star;
 
     public Text _Time;
     public Text _Remain;
 
-
-    void Update()
+    private void Update()
     {
-        if (GameManager._Instance._IsDummyScene)
-        {
-            if (GameManager.stageLevel == 0)
-            {
-                MissionIcon.sprite = mission1;
-                RemainIcon.sprite = remain1;
+        if (GameManager.stageLevel == 1) {
+            SetMission1();
 
-                MissionType.text = MissionType1;
-
-                int m = (int)(dungeon1.MissionTime / 60f);
-                int s = (int)(dungeon1.MissionTime % 60f);
-
-                _Time.text = m + " : " + s;
-
-
-                int r;
-                try
-                {
-                    r = dungeon1.Waves[dungeon1.CurWave].transform.childCount;
-                }
-                catch
-                {
-                    r = 0;
-                }
-                _Remain.text = "" + r;
-            }
-
-            if (GameManager.stageLevel == 1)
-            {
-                MissionIcon.sprite = mission2;
-                RemainIcon.sprite = remain2;
-
-                int m = (int)(dungeon2.MissionTime / 60f);
-                int s = (int)(dungeon2.MissionTime % 60f);
-
-                _Time.text = m + " : " + s;
-
-                int r = GameManager._Instance.curScore;
-                int rMax = dungeon2.clearCount;
-                _Remain.text = r + " / " + rMax;
-            }
         }
+
+        if (GameManager.stageLevel == 2) {
+            SetMission2();
+
+        }
+    }
+
+    public static void SetMission1()
+    {
+        _Instance._missionType.sprite = _Instance._anihilation;
+        _Instance._goalIcon.sprite = _Instance._mob;
+
+        float curTime = GameStatus._Instance._LimitTime;
+        int min = (int)(curTime / 60f);
+        int sec = (int)(curTime % 60f);
+
+        if (sec >= 10)
+        {
+            _Instance._Time.text = min + "'" + sec + "''";
+        }
+        else
+        {
+            _Instance._Time.text = min + "'0" + sec + "''";
+        }
+
+        _Instance._Remain.text = GameStatus._Instance.ActivedMonsterList.Count + "마리";
+
+    }
+
+    public static void SetMission2()
+    {
+        _Instance._missionType.sprite = _Instance._survive;
+        _Instance._goalIcon.sprite = _Instance._star;
+
+        float curTime = GameStatus._Instance._LimitTime;
+        int min = (int)(curTime / 60f);
+        int sec = (int)(curTime % 60f);
+
+        if (sec >= 10)
+        {
+            _Instance._Time.text = min + "'" + sec + "''";
+        }
+        else
+        {
+            _Instance._Time.text = min + "'0" + sec + "''";
+        }
+
+        _Instance._Remain.text = GameManager._Instance.curScore + " 개 / 5 개";
     }
 }

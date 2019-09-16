@@ -7,16 +7,19 @@ public class PlayerAnimEvent : MonoBehaviour
     [SerializeField]
     InputHandler input;
     PlayerFSMManager player;
-    public TrailRenderer trailRenderer;
-
+    public TrailRenderer Normal_trail;
+    public TrailRenderer Special_trail;
     public ParticleSystem particle;
-
+    bool isNormal;
     private void Start()    
     {
         //input = InputHandler.instance;
         player = PlayerFSMManager.instance;
     }
-
+    private void Update()
+    {
+        isNormal = player.pc_Icon.gameObject.activeSelf;
+    }
     void hitCheck()
     {
         if (null != player)
@@ -25,7 +28,10 @@ public class PlayerAnimEvent : MonoBehaviour
             player.AttackCheck();
             try
             {
-                trailRenderer.gameObject.SetActive(true);
+                if (isNormal)
+                    Normal_trail.gameObject.SetActive(true);
+                if (!isNormal)
+                    Special_trail.gameObject.SetActive(true);
             }
             catch
             {
@@ -41,7 +47,10 @@ public class PlayerAnimEvent : MonoBehaviour
             player.AttackCancel();
             try
             {
-                trailRenderer.gameObject.SetActive(false);
+                if (isNormal)
+                    Normal_trail.gameObject.SetActive(false);
+                if (!isNormal)
+                    Special_trail.gameObject.SetActive(false);
             }
             catch
             {
@@ -71,6 +80,11 @@ public class PlayerAnimEvent : MonoBehaviour
         {
 
         }
+    }
+
+    void footstepsound()
+    {
+        player._Sound.PlayFootStepSFX();
     }
 
     public void StopParticle()
