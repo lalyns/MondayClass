@@ -166,12 +166,20 @@ public class MacFSMManager : FSMManager
         if(other.transform.tag == "Ball")
         {
             Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
+            
 
             if (Stat.Hp > 0)
             {                
                 OnHit();
+                try
+                {
+                    other.transform.gameObject.SetActive(false);
+                }
+                catch
+                {
 
-                other.transform.gameObject.SetActive(false);
+                }
+
             }
 
             if (_CurrentState == MacState.ATTACK)
