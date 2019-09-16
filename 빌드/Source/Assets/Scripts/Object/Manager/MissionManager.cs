@@ -70,7 +70,10 @@ public class MissionManager : MonoBehaviour
     {
         if (!OnInspectating) return;
 
-        string discribe = "현재 던전 : " + CurrentMission.gameObject.name.ToString();
+        string discribe = "현재 던전 : " + CurrentMission.gameObject.name.ToString() +
+                            "\n 미션 정보 : " + CurrentMission.MissionOperate
+                            
+            ;
 
         if(GUI.Button(new Rect(Screen.width * WidthRatio, Screen.height * HeightRatio, 150, 100),
             discribe)

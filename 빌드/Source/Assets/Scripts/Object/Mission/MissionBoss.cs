@@ -5,7 +5,8 @@ using UnityEngine;
 public class MissionBoss : Mission
 {
     public static MissionBoss _Instance;
-    private void Start()
+
+    protected override void Start()
     {
         if (_Instance == null)
         {
