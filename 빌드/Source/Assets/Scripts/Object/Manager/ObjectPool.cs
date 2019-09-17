@@ -38,7 +38,7 @@ public class ObjectPool : MonoBehaviour
     /// 오브젝트 풀 내부의 오브젝트 작동을 위한 매소드
     /// </summary>
     /// <param name="respawnTrans"> 오브젝트 스폰 위치 </param>
-    public void ItemSetActive(Transform respawnTrans)
+    public GameObject ItemSetActive(Transform respawnTrans)
     {
         if(_InActiveItemPool.Count == 0)
         {
@@ -52,6 +52,8 @@ public class ObjectPool : MonoBehaviour
         item.SetActive(true);
 
         _ActiveItem.AddLast(item);
+
+        return item;
     }
 
 

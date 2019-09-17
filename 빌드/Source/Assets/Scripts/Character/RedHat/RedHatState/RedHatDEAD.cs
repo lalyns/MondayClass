@@ -8,14 +8,15 @@ public class RedHatDEAD : RedHatFSMState
     {
         base.BeginState();
 
-        if (!GameManager._Instance._IsDummyScene)
+
+        if (_manager.dashEffect != null)
         {
-            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.RedHat);
+            EffectPoolManager._Instance._RedHatEffectPool.ItemReturnPool(_manager.dashEffect);
+            _manager.dashEffect = null;
         }
-        else
-        {
-            MonsterPoolManager._Instance._RedHat.ItemReturnPool(gameObject, "monster");
-        }
+
+        MonsterPoolManager._Instance._RedHat.ItemReturnPool(gameObject, "monster");
+
     }
 
     public override void EndState()

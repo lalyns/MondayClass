@@ -48,10 +48,8 @@ public class MissionC : Mission
 
         if (MissionOperate)
         {
-            Debug.Log("AA");
             if(spawnTime > spawnCool)
             {
-                Debug.Log("BB");
                 Spawn();
                 spawnTime = 0;
             }

@@ -1,33 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TempMissionProgress : MonoBehaviour
 {
-    //public GameObject Mission1;
-    //public TempDungeon dungeon1;
-    ////public GameObject Mission1tab;
-    //public GameObject Mission2;
-    //public TempDungeon dungeon2;
-    ////public GameObject Mission2tab;
-
-    //public Image MissionIcon;
-    //public Image RemainIcon;
-
-    //public Sprite mission1;
-    //public Sprite mission2;
-
-    //public Sprite remain1;
-    //public Sprite remain2;
-
-    //public Text MissionType;
-    //public string MissionType1;
-    //public string MissionType2;
-
-    //public Text _Time;
-    //public Text _Remain;
-
+    
     public static TempMissionProgress _Instance;
     public void Start()
     {
@@ -47,10 +26,12 @@ public class TempMissionProgress : MonoBehaviour
     public Image _missionType;
     public Sprite _anihilation;
     public Sprite _survive;
+    public Sprite _defence;
 
     public Image _goalIcon;
     public Sprite _mob;
     public Sprite _star;
+    public Sprite _pillarHP;
 
     public Text _Time;
     public Text _Remain;
@@ -65,6 +46,11 @@ public class TempMissionProgress : MonoBehaviour
         if (GameManager.stageLevel == 2) {
             SetMission2();
 
+        }
+
+        if(GameManager.stageLevel == 3)
+        {
+            SetMission3();
         }
     }
 
@@ -111,5 +97,30 @@ public class TempMissionProgress : MonoBehaviour
         }
 
         _Instance._Remain.text = GameManager._Instance.curScore + " 개 / 5 개";
+    }
+
+    private void SetMission3()
+    {
+        _Instance.MissionName.text = "방어 미션";
+        _Instance._missionType.sprite = _Instance._defence;
+        _Instance._goalIcon.sprite = _Instance._pillarHP;
+
+        float curTime = GameStatus._Instance._LimitTime;
+        int min = (int)(curTime / 60f);
+        int sec = (int)(curTime % 60f);
+
+        if (sec >= 10)
+        {
+            _Instance._Time.text = min + "'" + sec + "''";
+        }
+        else
+        {
+            _Instance._Time.text = min + "'0" + sec + "''";
+        }
+
+        MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
+
+        _Instance._Remain.text = mission.protectedTarget.hp +
+            " / " + mission._ProtectedTargetHP;
     }
 }

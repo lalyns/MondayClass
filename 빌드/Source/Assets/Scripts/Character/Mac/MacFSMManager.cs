@@ -59,6 +59,7 @@ public class MacFSMManager : FSMManager
 
     public MonsterSound _Sound;
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -132,6 +133,8 @@ public class MacFSMManager : FSMManager
         }
         else
         {
+            
+
             SetDeadState();
         }
 
