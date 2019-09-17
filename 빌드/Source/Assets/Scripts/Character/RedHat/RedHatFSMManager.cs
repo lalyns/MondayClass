@@ -59,6 +59,8 @@ public class RedHatFSMManager : FSMManager
 
     public MonsterSound _Sound;
 
+    public GameObject dashEffect;
+
     protected override void Awake()
     {
         base.Awake();
@@ -121,6 +123,8 @@ public class RedHatFSMManager : FSMManager
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {
+            if (CurrentState == RedHatState.DASH) return;
+
             SetState(RedHatState.HIT);
 
             //플레이어 쳐다본 후
@@ -203,6 +207,7 @@ public class RedHatFSMManager : FSMManager
     {
         base.SetDeadState();
 
+        Debug.Log("Dead");
         SetState(RedHatState.DEAD);
     }
 
