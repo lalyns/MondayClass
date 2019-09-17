@@ -59,6 +59,8 @@ public class MacFSMManager : FSMManager
 
     public MonsterSound _Sound;
 
+    public Collider _PriorityTarget;
+    public float _DetectingRange;
 
     protected override void Awake()
     {

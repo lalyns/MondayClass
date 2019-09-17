@@ -119,7 +119,7 @@ public class ObjectPool : MonoBehaviour
         _ActiveItem.AddLast(item);
     }
 
-    public void ItemSetActive(Transform respawnTrans, CharacterController start, CapsuleCollider target)
+    public void ItemSetActive(Transform respawnTrans, CharacterController start, Collider target)
     {
         if (_InActiveItemPool.Count == 0)
         {

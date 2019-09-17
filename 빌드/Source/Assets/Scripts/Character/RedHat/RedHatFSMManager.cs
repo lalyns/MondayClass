@@ -61,6 +61,10 @@ public class RedHatFSMManager : FSMManager
 
     public GameObject dashEffect;
 
+    public float _DetectingRange;
+
+    public Collider _PriorityTarget;
+
     protected override void Awake()
     {
         base.Awake();
@@ -161,7 +165,6 @@ public class RedHatFSMManager : FSMManager
             {
                 OnHit();
             }
-            //ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.RedHat);        
         }
 
         if (other.transform.tag == "Ball")
@@ -181,15 +184,6 @@ public class RedHatFSMManager : FSMManager
     }
     private void OnTriggerStay(Collider other)
     {
-        //if (other.transform.tag == "Ball")
-        //{
-        //    if (Stat.Hp > 0)
-        //    {
-        //        OnHit();
-        //    }
-
-
-        //}
         if (other.transform.tag == "Skill2")
         {
             if (PlayerFSMManager.instance.isNormal)

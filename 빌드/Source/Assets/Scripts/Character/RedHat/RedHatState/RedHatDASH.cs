@@ -17,12 +17,13 @@ public class RedHatDASH : RedHatFSMState
 
     public override void BeginState()
     {
-        _TargetPos = _manager.PlayerCapsule.transform.position;
+        _TargetPos = _manager._PriorityTarget.transform.position;
 
         _manager._MR.material = _manager.Stat._DashMat;
         try
         {
             _manager.dashEffect = EffectPoolManager._Instance._RedHatEffectPool.ItemSetActive(this.transform);
+            _manager.dashEffect.GetComponent<tempLook>().TargetSet(_manager._PriorityTarget);
         }
         catch
         {
@@ -48,14 +49,12 @@ public class RedHatDASH : RedHatFSMState
     {
         _Time += Time.deltaTime;
 
-        Debug.Log("Dash Effect name : " + _manager.dashEffect);
-
         float maxDistance = _DashTime * _manager.Stat.statData._DashSpeed;
         if (_Time < _DashReadyTime)
         {
             //if (!_IsDrawDashRoute)
             {
-                transform.LookAt(_manager.PlayerCapsule.transform);
+                transform.LookAt(_manager._PriorityTarget.transform);
 
                 dashEndPos = this.transform.position;
                 dashEndPos += transform.forward * _manager.Stat.statData._DashRange;
@@ -79,7 +78,7 @@ public class RedHatDASH : RedHatFSMState
 
         else if(_Time > _DashReadyTime + _DashTime + _DashAfterDelay)
         {
-            if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) <= _manager.Stat.AttackRange)
+            if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) <= _manager.Stat.AttackRange)
             {
                 _manager.SetState(RedHatState.ATTACK);
             }
