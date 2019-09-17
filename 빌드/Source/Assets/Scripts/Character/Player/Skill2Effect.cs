@@ -52,10 +52,26 @@ public class Skill2Effect : MonoBehaviour
             _time = 0;
             //Sphere.transform.gameObject.SetActive(false);
             //Destroy(this.gameObject);
+            _triggerTime = 0;
             gameObject.SetActive(false);
 
         }
 
+    }
+    public float _triggerTime = 0;
+    private void OnTriggerStay(Collider other)
+    {
+        
+        if (other.transform.tag == "Monster")
+        {
+            _triggerTime += Time.deltaTime;
+
+            if (_triggerTime <= 2f)
+            {
+                other.transform.position = Vector3.MoveTowards(other.transform.position, transform.position, 1f * Time.deltaTime);
+            }
+            
+        }
     }
 
 }
