@@ -59,6 +59,12 @@ public class RedHatFSMManager : FSMManager
 
     public MonsterSound _Sound;
 
+    public GameObject dashEffect;
+
+    public float _DetectingRange;
+
+    public Collider _PriorityTarget;
+
     protected override void Awake()
     {
         base.Awake();
@@ -121,6 +127,8 @@ public class RedHatFSMManager : FSMManager
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {
+            if (CurrentState == RedHatState.DASH) return;
+
             SetState(RedHatState.HIT);
 
             //플레이어 쳐다본 후
@@ -157,7 +165,6 @@ public class RedHatFSMManager : FSMManager
             {
                 OnHit();
             }
-            //ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.RedHat);        
         }
 
         if (other.transform.tag == "Ball")
@@ -173,24 +180,28 @@ public class RedHatFSMManager : FSMManager
             }
 
         }
+       
     }
     private void OnTriggerStay(Collider other)
     {
-        //if (other.transform.tag == "Ball")
-        //{
-        //    if (Stat.Hp > 0)
-        //    {
-        //        OnHit();
-        //    }
-
-            
-        //}
+        if (other.transform.tag == "Skill2")
+        {
+            if (PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
+            else
+                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
+            if (Stat.Hp > 0)
+            {
+                OnHit();
+            }
+        }
     }
 
     public override void SetDeadState()
     {
         base.SetDeadState();
 
+        Debug.Log("Dead");
         SetState(RedHatState.DEAD);
     }
 

@@ -38,6 +38,9 @@ public class Mission : MonoBehaviour
         internal set { _MissionOperate = value; }
     }
 
+    public int _LimitTime = 180;
+    public MissionManager.MissionType MissionType;
+
     protected virtual void Awake()
     {
         Enter = GetComponentInChildren<MissionEnter>();
@@ -59,9 +62,10 @@ public class Mission : MonoBehaviour
 
     public void OperateMission()
     {
-        Debug.Log(GameManager.stageLevel);
         GameManager.stageLevel++;
         GameStatus._Instance._MissionStatus = true;
+
+        GameStatus._Instance._LimitTime = _LimitTime;
 
         MissionOperate = true;
         Exit.Colliders.enabled = false;

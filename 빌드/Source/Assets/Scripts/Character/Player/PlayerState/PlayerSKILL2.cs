@@ -44,7 +44,10 @@ public class PlayerSKILL2 : FSMState
         if (_time >= 1f)
         {
             _time = 0;
-            _manager.SetState(PlayerState.IDLE);
+            if (_manager.OnMove())
+                _manager.SetState(PlayerState.RUN); 
+            else
+                _manager.SetState(PlayerState.IDLE);
             return;
         }
     }

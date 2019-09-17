@@ -78,7 +78,7 @@ public class PlayerFSMManager : FSMManager
     [Header("스킬1번 날라가는 속도,")]
     public float skill1Speed = 20f;
     [Header("스킬1번 날라가는 시간,")]
-    public float skill1ShootTime = 2f;
+    public float skill1ShootTime = 4f;
 
     
     public bool isAttackOne, isAttackTwo, isAttackThree, isSkill2;
@@ -429,32 +429,45 @@ public class PlayerFSMManager : FSMManager
 
 
         ChangeModel();
+
+        if (isSpecial)
+            return;
+
+
         GetInput();
         Skill1();
         AttackDirection();
         
         Skill2();
         Skill3();
+
+
+
         
+
+        Attack();
+        Dash();
 
         if (isSkill3)
             return;
+
+
         
-        Dash();
-
-        Attack();
-
-
         if (isSkill2)
             return;
-        if (isSpecial)
-            return;
+      
 
+       
+        //if (Skill1_Amount >= 1)
+        //{
+        //    Skill1Set(Skill1_Effects);
+        //}
+        //if(_monster.Count <= 0) {
+        //    for (int i = 0; i < 5; i++)
+        //        Skill1_Shoots[i].SetActive(false);
+        //    isShoot = false;
 
-        if (Skill1_Amount <= 1)
-        {
-            Skill1Set(Skill1_Shoots);
-        }
+        //}
     }
 
     public override void NotifyTargetKilled()
@@ -597,27 +610,44 @@ public class PlayerFSMManager : FSMManager
 
             if (Skill1_Amount >= i + 2)
             {
-                if(Vector3.Distance(effects[i].transform.position, targets[rands[i]].transform.position) >= distance)
-                    effects[i].transform.position = Vector3.MoveTowards(effects[i].transform.position, targets[rands[i]].transform.position, skill1Speed * Time.deltaTime);
+                try
+                {
+                    if (Vector3.Distance(effects[i].transform.position, targets[rands[i]].transform.position) >= distance)
+                        effects[i].transform.position = Vector3.MoveTowards(effects[i].transform.position, targets[rands[i]].transform.position, skill1Speed * Time.deltaTime);
+
+                }
+                catch
+                {
+
+                }
             }
             
+        }
+    }
+    void skillReturn(GameObject[] effects)
+    {
+        for(int i=0; i<5; i++)
+        {
+            effects[i].SetActive(false);
         }
     }
     void Skill1Return(GameObject[] effects, GameObject[] shoots, List<GameObject> target, int[] rands, float distance)
     {
         for (int i = 0; i < 5; i++)
         {
-            if (Skill1_Amount < 2)
-                return;
-
-            if (Skill1_Amount >= i + 2)
-            {
-                if (Vector3.Distance(shoots[i].transform.position, target[rands[i]].transform.position) <= distance)
+           
+                //if (Vector3.Distance(shoots[i].transform.position, target[rands[i]].transform.position) <= distance)
+                //{
+                //shoots[i].transform.position = effects[i].transform.position;
+                try
                 {
-                    //shoots[i].transform.position = effects[i].transform.position;
-                    //shoots[i].SetActive(false);
+                    shoots[i].SetActive(false);
                 }
-            }
+                catch
+                {
+
+                }
+                //}
         }
     }
 
@@ -709,11 +739,23 @@ public class PlayerFSMManager : FSMManager
             // 날린다
             Skill1Shoot(Skill1_Shoots, _monster, randomShoot, 0);
 
-            Skill1Return(Skill1_Effects, Skill1_Shoots, _monster, randomShoot, 0.01f);
+            if (_monster.Count == 0)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Skill1_Shoots[i].transform.position = Skill1_Effects[i].transform.position;
+                }
+
+                skillReturn(Skill1_Shoots);
+                Skill1Timer1 = 0;
+                isShoot = false;
+                Skill1_Amount = 1;
+            }
 
             if (Skill1Timer1 >= skill1ShootTime)
             {
-                Skill1_Amount = 1;
+                
+                //Skill1Return(Skill1_Effects, Skill1_Shoots, _monster, randomShoot, 0);
 
                 for (int i = 0; i < 5; i++)
                 {
@@ -722,7 +764,9 @@ public class PlayerFSMManager : FSMManager
 
                 Skill1Timer1 = 0;
                 isShoot = false;
-               // _monster.Clear();
+
+                Skill1_Amount = 1;
+
             }
         }
         if (isSkill1CTime)

@@ -9,7 +9,6 @@ public class MissionB : Mission
     public GameObject EndTrigger;
     public GameObject PortalEffect;
 
-    public bool spawning = false;
     public int goalScore = 5;
 
     float starDropTime = 0;
@@ -27,13 +26,13 @@ public class MissionB : Mission
     public List<Transform> oldSpawnList = new List<Transform>();
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         starDropTime += Time.deltaTime;
         spawnTime += Time.deltaTime;
