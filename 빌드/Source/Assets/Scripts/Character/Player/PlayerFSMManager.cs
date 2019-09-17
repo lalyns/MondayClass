@@ -429,28 +429,35 @@ public class PlayerFSMManager : FSMManager
 
 
         ChangeModel();
+
+        if (isSpecial)
+            return;
+
+
         GetInput();
         Skill1();
         AttackDirection();
         
         Skill2();
         Skill3();
+
+
+
         
+
+        Attack();
+        Dash();
 
         if (isSkill3)
             return;
+
+
         
-        Dash();
-
-        Attack();
-
-
         if (isSkill2)
             return;
-        if (isSpecial)
-            return;
+      
 
-
+       
         //if (Skill1_Amount >= 1)
         //{
         //    Skill1Set(Skill1_Effects);

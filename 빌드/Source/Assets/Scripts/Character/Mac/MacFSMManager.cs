@@ -193,17 +193,7 @@ public class MacFSMManager : FSMManager
                 }
             }
         }
-        if (other.transform.tag == "Skill2")
-        {
-            if (PlayerFSMManager.instance.isNormal)
-                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
-            else
-                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
-            if (Stat.Hp > 0)
-            {
-                OnHit();
-            }
-        }
+       
     }
     private void OnTriggerStay(Collider other)
     {
@@ -229,13 +219,12 @@ public class MacFSMManager : FSMManager
 
         if (other.transform.tag == "Skill2")
         {
-            if (PlayerFSMManager.instance.isNormal)
-                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
-            else
-                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
+           
+            Stat.TakeDamage(Stat, 10f);
+
             if (Stat.Hp > 0)
             {
-                OnHit();
+                SetState(MacState.HIT);
             }
         }
     }
