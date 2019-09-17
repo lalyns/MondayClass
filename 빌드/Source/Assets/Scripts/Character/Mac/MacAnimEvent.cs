@@ -35,14 +35,14 @@ public class MacAnimEvent : MonoBehaviour
         EffectPoolManager._Instance._MacBulletPool.ItemSetActive(
             bulletLuancher, 
             FSMManager.CC,
-            FSMManager.PlayerCapsule);
+            FSMManager._PriorityTarget);
 
     }
 
     public void CastingSkill()
     {
         EffectPoolManager._Instance._MacSkillPool.ItemSetActive(skillLuancher,
-            this.GetComponentInParent<MacFSMManager>().CC,
-            this.GetComponentInParent<MacFSMManager>().PlayerCapsule);
+            FSMManager.CC,
+            FSMManager._PriorityTarget);
     }
 }

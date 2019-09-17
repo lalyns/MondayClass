@@ -1739,13 +1739,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 350ee1efc43a86b4e9a7dab5e398b33e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _LimitTime: 9
+  _LimitTime: 120
+  MissionType: 1
   _MissionSelector: {fileID: 1852914813}
   EndTrigger: {fileID: 0}
   PortalEffect: {fileID: 1465884966}
   protectedTarget: {fileID: 552379988}
   _ProtectedTargetHP: 200
-  spawnCool: 3
+  spawnCool: 15
   mobSet:
   - {x: 2, y: 0}
   - {x: 1, y: 1}
@@ -67468,6 +67469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _LimitTime: 180
+  MissionType: 3
   _MissionSelector: {fileID: 0}
 --- !u!114 &4925407726362959934
 MonoBehaviour:
@@ -70712,6 +70714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _LimitTime: 180
+  MissionType: 0
   _MissionSelector: {fileID: 1852914813}
   spawning: 0
   EndTrigger: {fileID: 0}
@@ -74117,6 +74120,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 497035557260411847, guid: b9c3e744a5e40e04e9b91d9372569807, type: 3}
+    - {fileID: 960403635, guid: b9c3e744a5e40e04e9b91d9372569807, type: 3}
+    - {fileID: 960403619, guid: b9c3e744a5e40e04e9b91d9372569807, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b9c3e744a5e40e04e9b91d9372569807, type: 3}
 --- !u!1 &5586419557772624308 stripped
 GameObject:
@@ -89252,6 +89257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _LimitTime: 180
+  MissionType: 2
   _MissionSelector: {fileID: 1852914813}
   EndTrigger: {fileID: 0}
   PortalEffect: {fileID: 1306522362}
