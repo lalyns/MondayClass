@@ -15,8 +15,6 @@ public class RedHatDASH : RedHatFSMState
     Vector3 _TargetPos = Vector3.zero;
     Vector3 dashEndPos = Vector3.zero;
 
-    GameObject dashEffect;
-
     public override void BeginState()
     {
         _TargetPos = _manager.PlayerCapsule.transform.position;
@@ -24,7 +22,7 @@ public class RedHatDASH : RedHatFSMState
         _manager._MR.material = _manager.Stat._DashMat;
         try
         {
-            EffectPoolManager._Instance._RedHatEffectPool.ItemSetActive(this.transform);
+            _manager.dashEffect = EffectPoolManager._Instance._RedHatEffectPool.ItemSetActive(this.transform);
         }
         catch
         {
@@ -41,12 +39,16 @@ public class RedHatDASH : RedHatFSMState
         Vector3 _TargetPos = Vector3.zero;
         _manager._MR.material = _manager.Stat._NormalMat;
 
+        //_manager.dashEffect = null;
+
         base.EndState();
     }
 
     protected override void Update()
     {
         _Time += Time.deltaTime;
+
+        Debug.Log("Dash Effect name : " + _manager.dashEffect);
 
         float maxDistance = _DashTime * _manager.Stat.statData._DashSpeed;
         if (_Time < _DashReadyTime)
