@@ -5,7 +5,7 @@ using UnityEngine;
 public class LilithPATTERNEND : LilithFSMState
 {
     float _Time1 = 0;
-    float _Delay = 2f;
+    float _Delay = 20f;
 
     bool pattern = false;
 

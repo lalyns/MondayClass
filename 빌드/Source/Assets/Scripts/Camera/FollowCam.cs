@@ -93,13 +93,13 @@ public class FollowCam : MonoBehaviour
 
         r_y = Input.GetAxis("Mouse Y");
 
-        if (player.isMouseYLock)
-        {
-            distance = 3.25f;
-            originHeight = 2.67f;
-            targetOffset = 0.94f;
-            return;
-        }
+        //if (player.isMouseYLock)
+        //{
+        //    distance = 3.25f;
+        //    originHeight = 2.67f;
+        //    targetOffset = 0.94f;
+        //    return;
+        //}
 
         // 마우스 위치와 높이값
         if (!isMax && !isMin)
