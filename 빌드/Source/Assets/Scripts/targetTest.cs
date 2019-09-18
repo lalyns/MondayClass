@@ -17,6 +17,6 @@ public class targetTest : MonoBehaviour
     {
         this.transform.position = new Vector3(this.transform.position.x,
             player.position.y, this.transform.position.z);
-        this.transform.LookAt(Camera.main.transform);
+        this.transform.LookAt(Shake.instance.transform);
     }
 }

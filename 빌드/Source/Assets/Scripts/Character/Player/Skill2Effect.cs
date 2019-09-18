@@ -4,22 +4,29 @@ using UnityEngine;
 
 public class Skill2Effect : MonoBehaviour
 {
-    private List<GameObject> _monster = new List<GameObject>();
 
-    public float _time;
+    float _time;
     SphereCollider Sphere;
     PlayerFSMManager player;
-    public float randX, randZ;
+    float _triggerTime = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         //Sphere.enabled = false;
         Sphere = GetComponent<SphereCollider>();
         player = PlayerFSMManager.instance;
-
+        
         
     }
-
+    private void OnEnable()
+    {
+        Sphere.enabled = true;
+    }
+    private void OnDisable()
+    {
+        _time = 0;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -28,34 +35,46 @@ public class Skill2Effect : MonoBehaviour
             transform.position = player.Skill2_Parent.position;
         }
 
+
         _time += Time.deltaTime;
-        
-   
 
-        randX = Random.Range(0, 3f);
-        randZ = Random.Range(0, 3f);
-
-        
-
-        if(_time>= 3f)
+        if (_time >= 3f)
         {
             Debug.Log("시간 지남");
             try
             {
-              
+
             }
             catch
             {
 
             }
-            player.isSkill2 = false;
-            _time = 0;
-            //Sphere.transform.gameObject.SetActive(false);
-            //Destroy(this.gameObject);
-            gameObject.SetActive(false);
-
+            //_time = 0;
+            _triggerTime = 0;
+            //gameObject.SetActive(false);
+            Sphere.enabled = false;
         }
+        //if (_time >= 10f)
+        //{
+        //    player.isSkill2 = false;
+        //}
+        player.Skill2UIReset();
 
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        
+        if (other.transform.tag == "Monster")
+        {
+            _triggerTime += Time.deltaTime;
+
+            if (_triggerTime <= 2f)
+            {
+                other.transform.position = Vector3.MoveTowards(other.transform.position, transform.position, 2f * Time.deltaTime);
+                other.transform.LookAt(transform.position);
+            }
+            
+        }
     }
 
 }

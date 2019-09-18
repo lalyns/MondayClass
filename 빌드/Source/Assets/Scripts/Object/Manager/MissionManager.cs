@@ -12,6 +12,7 @@ public class MissionManager : MonoBehaviour
         Annihilation = 0,
         Defence = 1,
         Survival = 2,
+        Boss = 3,
         Last,
     }
 
@@ -46,6 +47,8 @@ public class MissionManager : MonoBehaviour
     }
 
     public Mission CurrentMission;
+
+    public MissionType CurrentMissionType => CurrentMission.MissionType; 
 
     // For Editor Using
     [HideInInspector] public bool OnInspectating;

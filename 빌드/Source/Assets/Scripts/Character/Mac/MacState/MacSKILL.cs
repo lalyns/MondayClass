@@ -18,9 +18,9 @@ public class MacSKILL : MacFSMState
 
     private void Update()
     {
-        transform.LookAt(_manager.PlayerCapsule.transform);
+        transform.LookAt(_manager._PriorityTarget.transform);
 
-        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) > _manager.Stat.statData._AttackRange)
+        if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) > _manager.Stat.statData._AttackRange)
         {
             _manager.SetState(MacState.CHASE);
         }

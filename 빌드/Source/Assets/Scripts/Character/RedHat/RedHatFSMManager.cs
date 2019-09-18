@@ -55,9 +55,16 @@ public class RedHatFSMManager : FSMManager
     public GameObject hitEffect;
     public GameObject hitEffect_Special;
     public GameObject hitEffect_Skill1;
+    public GameObject hitEffect_Skill1_Special;
     public Transform hitLocation;
 
     public MonsterSound _Sound;
+
+    public GameObject dashEffect;
+
+    public float _DetectingRange;
+
+    public Collider _PriorityTarget;
 
     protected override void Awake()
     {
@@ -121,6 +128,8 @@ public class RedHatFSMManager : FSMManager
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {
+            if (CurrentState == RedHatState.DASH) return;
+
             SetState(RedHatState.HIT);
 
             //플레이어 쳐다본 후
@@ -157,12 +166,15 @@ public class RedHatFSMManager : FSMManager
             {
                 OnHit();
             }
-            //ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.RedHat);        
         }
 
         if (other.transform.tag == "Ball")
         {
-            Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
+            if (PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
+            if (!PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect_Skill1_Special, hitLocation.transform.position, Quaternion.identity);
+
 
 
             if (Stat.Hp > 0)
@@ -177,15 +189,6 @@ public class RedHatFSMManager : FSMManager
     }
     private void OnTriggerStay(Collider other)
     {
-        //if (other.transform.tag == "Ball")
-        //{
-        //    if (Stat.Hp > 0)
-        //    {
-        //        OnHit();
-        //    }
-
-
-        //}
         if (other.transform.tag == "Skill2")
         {
             if (PlayerFSMManager.instance.isNormal)
@@ -203,6 +206,7 @@ public class RedHatFSMManager : FSMManager
     {
         base.SetDeadState();
 
+        Debug.Log("Dead");
         SetState(RedHatState.DEAD);
     }
 
