@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
-
+using UnityEngine.Timeline;
 public enum PlayerState
 {
     IDLE = 0,
@@ -202,17 +202,22 @@ public class PlayerFSMManager : FSMManager
         SetState(startState);
         _isinit = true;
 
-        FloatParameter temp = new FloatParameter
-        {
-            value = 0.5f
-        };
-        vignette.opacity = temp;
+        //FloatParameter temp = new FloatParameter
+        //{
+        //    value = 0.5f
+        //};
+        //vignette.opacity = temp;
+
+        vignette.opacity.value = 1f;
+        //vignette.color.value = new Color(255, 255, 255);
+        //vignette.mask = 
+
         BoolParameter tempbool = new BoolParameter
         {
             value = true
         };
         vignette.enabled = tempbool;
-
+      
 
         //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
         Skill1UI.fillAmount = 1f;
