@@ -47,6 +47,9 @@ public class LilithFSMManager : FSMManager
 
     public Transform BulletCenter;
 
+    public Transform Weapon;
+    public Animator WeaponAnimator;
+
     [Range(0, 1)] public float[] _PhaseThreshold = new float[3];
     public int _Phase = 0;
 

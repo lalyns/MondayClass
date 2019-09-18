@@ -26,13 +26,15 @@ public class PlayerSKILL3 : FSMState
         _manager.isAttackTwo = false;
         _manager.isAttackThree = false;
 
-        isLock = false;
+        //isLock = false;
     }
-    bool isAttack;
 
+    bool isAttack;
     bool isLock;
+
     private void Update()
     {
+        Shake.instance.ShakeCamera(3f, 0.1f, 1f);
         //1.7초동안 못움직임.
         _manager.isCantMove = _time <= 4.7f ? true : false;
 
@@ -58,13 +60,14 @@ public class PlayerSKILL3 : FSMState
         else
             isAttack = false;
 
-        if (_time >= 1.7f && !isLock)
+        if (_time >= 1.7f)// && !isLock)
         {
-            _manager.Dash();
-            _manager.Skill3_End.transform.position = _manager.Skill3_Start.transform.position;
-            _manager.Skill3_End.transform.rotation = _manager.Skill3_Start.transform.rotation;
-            _manager.Skill3_End.SetActive(true);
-            isLock = true;
+            if (_manager.isFlash)
+            {
+                _manager.Skill3_End.transform.position = _manager.Skill3_Start.transform.position;
+                _manager.Skill3_End.transform.rotation = _manager.Skill3_Start.transform.rotation;
+                _manager.Skill3_End.SetActive(true);
+            }//isLock = true;
             //if (_manager.OnMove())
             //{
             //    _manager.SetState(PlayerState.RUN);
