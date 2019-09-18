@@ -28,6 +28,9 @@ public class LilithPATTERNA : LilithFSMState
         base.BeginState();
 
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        _manager.Weapon.gameObject.SetActive(true);
+        _manager.Weapon.transform.position = this.transform.position;
+        _manager.WeaponAnimator.SetInteger("CurrentState" ,1);
     }
 
     public override void EndState()
