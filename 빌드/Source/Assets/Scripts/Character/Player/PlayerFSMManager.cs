@@ -208,7 +208,7 @@ public class PlayerFSMManager : FSMManager
         //};
         //vignette.opacity = temp;
 
-        vignette.opacity.value = 1f;
+        //vignette.opacity.value = 1f;
         //vignette.color.value = new Color(255, 255, 255);
         //vignette.mask = 
 
@@ -389,7 +389,7 @@ public class PlayerFSMManager : FSMManager
 
         Skill2Set();
 
-        mainCamera.gameObject.SetActive(true);
+        //mainCamera.gameObject.SetActive(true);
         _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
 
         //Skill2_Start.transform.position = new Vector3(_anim.transform.position.x, _anim.transform.position.y, _anim.transform.position.z +skill2_Distance);
