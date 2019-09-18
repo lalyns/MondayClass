@@ -39,7 +39,7 @@ public class Mission : MonoBehaviour
     }
 
     public int _LimitTime = 180;
-
+    public MissionManager.MissionType MissionType;
 
     protected virtual void Awake()
     {

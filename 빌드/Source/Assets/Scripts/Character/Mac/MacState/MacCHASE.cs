@@ -21,7 +21,7 @@ public class MacCHASE : MacFSMState
 
     private void Update()
     {
-        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) < _manager.Stat._AttackRange)
+        if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) < _manager.Stat._AttackRange)
         {
             _manager.SetState(MacState.ATTACK);
         }
@@ -30,9 +30,9 @@ public class MacCHASE : MacFSMState
         {
             _manager._MR.material = _manager.Stat._NormalMat;
 
-            _manager.CC.transform.LookAt(_manager.PlayerCapsule.transform);
+            _manager.CC.transform.LookAt(_manager._PriorityTarget.transform);
 
-            Vector3 moveDir = (_manager.PlayerCapsule.transform.position
+            Vector3 moveDir = (_manager._PriorityTarget.transform.position
                 - _manager.CC.transform.position).normalized;
 
             moveDir.y = 0;

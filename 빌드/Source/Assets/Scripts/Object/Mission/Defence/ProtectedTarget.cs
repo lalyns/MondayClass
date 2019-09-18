@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProtectedTarget : MonoBehaviour
 {
     public MissionC _Defence;
+    [HideInInspector] public Collider Collider => GetComponent<Collider>();
 
     [System.NonSerialized] public int hp;
 
