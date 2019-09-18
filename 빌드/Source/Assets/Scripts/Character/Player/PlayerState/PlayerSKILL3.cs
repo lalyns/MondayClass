@@ -13,7 +13,10 @@ public class PlayerSKILL3 : FSMState
         _manager.Skill3_End.SetActive(false);
         isLock = false;
     }
-
+    private void OnEnable()
+    {
+        
+    }
     public override void EndState()
     {
         base.EndState();
@@ -33,6 +36,7 @@ public class PlayerSKILL3 : FSMState
     bool isLock;
     private void Update()
     {
+        Shake.instance.ShakeCamera(0.5f, 0.3f, 0.1f);
         //1.7초동안 못움직임.
         _manager.isCantMove = _time <= 4.7f ? true : false;
 
@@ -61,9 +65,9 @@ public class PlayerSKILL3 : FSMState
         if (_time >= 1.7f && !isLock)
         {
             _manager.Dash();
-            _manager.Skill3_End.transform.position = _manager.Skill3_Start.transform.position;
-            _manager.Skill3_End.transform.rotation = _manager.Skill3_Start.transform.rotation;
-            _manager.Skill3_End.SetActive(true);
+            //_manager.Skill3_End.transform.position = _manager.Skill3_Start.transform.position;
+            //_manager.Skill3_End.transform.rotation = _manager.Skill3_Start.transform.rotation;
+            //_manager.Skill3_End.SetActive(true);
             isLock = true;
             //if (_manager.OnMove())
             //{
