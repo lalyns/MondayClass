@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
+
 public enum PlayerState
 {
     IDLE = 0,
@@ -26,7 +28,7 @@ public class PlayerFSMManager : FSMManager
     //public AudioClip _attackSound;
     //public AudioClip _runSound;
     //public AudioClip _skill1Sound;
-
+    
     public PlayerSound _Sound;
 
     private bool _onAttack = false;
@@ -57,7 +59,7 @@ public class PlayerFSMManager : FSMManager
 
     private PlayerStat _stat;
     public PlayerStat Stat { get { return _stat; } }
-
+    
     private Animator _anim;
     public Animator Anim { get { return _anim; } }
 
@@ -116,6 +118,13 @@ public class PlayerFSMManager : FSMManager
     CameraManager camManager;
     FollowCam followCam;
     Camera mainCamera;
+    PostProcessVolume volume;
+    PostProcessLayer layer;
+    PostProcessEffectSettings asdf;
+    public Cinemachine.CinemachineVirtualCamera CMvcam2;
+
+    
+
     Shake shake;
 
 
@@ -143,6 +152,10 @@ public class PlayerFSMManager : FSMManager
         _stat = GetComponent<PlayerStat>();
         _anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<PlayerSound>();
+        
+        CMvcam2 = GameObject.Find("CMvcam2").GetComponent<Cinemachine.CinemachineVirtualCamera>();
+
+        vignette = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Vignette>();
 
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
@@ -188,6 +201,18 @@ public class PlayerFSMManager : FSMManager
     {
         SetState(startState);
         _isinit = true;
+
+        FloatParameter temp = new FloatParameter
+        {
+            value = 0.5f
+        };
+        vignette.opacity = temp;
+        BoolParameter tempbool = new BoolParameter
+        {
+            value = true
+        };
+        vignette.enabled = tempbool;
+
 
         //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
         Skill1UI.fillAmount = 1f;
@@ -270,10 +295,17 @@ public class PlayerFSMManager : FSMManager
     public float skill2_maxDis;
 
     public Transform Skill2_Parent;
-  
+    public Vignette vignette;
 
     private void Update()
     {
+        if(isSkill3)
+            CMvcam2.m_Lens.FieldOfView = 70f;
+
+        else
+            CMvcam2.m_Lens.FieldOfView = 60f;
+
+        
         //isNormal = Normal.activeSelf;
         try
         {
@@ -502,7 +534,12 @@ public class PlayerFSMManager : FSMManager
             FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
             FlashEffect2.SetActive(false);
             SetState(PlayerState.RUN);
-
+            if (isSkill3)
+            {
+                Skill3_End.transform.position = Skill3_Start.transform.position;
+                Skill3_End.transform.rotation = Skill3_Start.transform.rotation;
+                Skill3_End.SetActive(true);
+            }
         }
 
         if (isFlash)
@@ -871,6 +908,7 @@ public class PlayerFSMManager : FSMManager
 
             SetState(PlayerState.SKILL3);
             isSkill3 = true;
+
             return;
         }
     }
