@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Timeline;
+
 public enum PlayerState
 {
     IDLE = 0,
@@ -142,9 +143,20 @@ public class PlayerFSMManager : FSMManager
     public GameObject Skill3_End;
 
     public GameObject Skill2_Start;
+    public GameObject FlashEffect1, FlashEffect2;
+    public Vector3 FlashPosition;
+    bool isFlashStart = false;
+    [Header("스킬2번 현재 거리, 최소거리, 최대거리")]
+    public float skill2_Distance;
+    public float skill2_minDis;
+    public float skill2_maxDis;
+
+    public Transform Skill2_Parent;
+    public Vignette vignette;
+    public bool isShake = false;
 
     public bool isMouseYLock;
-
+    Bloom bloom;
 
     protected override void Awake()
     {
@@ -159,7 +171,7 @@ public class PlayerFSMManager : FSMManager
         CMvcam2 = GameObject.Find("CMvcam2").GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
         vignette = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Vignette>();
-
+        bloom = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Bloom>();
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
         SKill2_Sphere = Skill2_Start.GetComponent<SphereCollider>();
@@ -199,28 +211,61 @@ public class PlayerFSMManager : FSMManager
         randomShoot = new int[5];
        // musicPlayer = GetComponent<AudioSource>();
     }
+    VignetteModeParameter parameter;
+    public Texture aaasdf;
+    public TextureParameter Concent = new TextureParameter();
 
     private void Start()
     {
+        Debug.Log("1");
+        
         SetState(startState);
         _isinit = true;
+        Debug.Log("2");
 
-        //FloatParameter temp = new FloatParameter
-        //{
-        //    value = 0.5f
-        //};
-        //vignette.opacity = temp;
+        bloom.active = true;
+        bloom.enabled.Override(false);
 
-        //vignette.opacity.value = 1f;
-        //vignette.color.value = new Color(255, 255, 255);
+        bloom.enabled = new BoolParameter() { value = false, overrideState = false };
+                      
+        vignette.active = true;
+        vignette.enabled.Override(true);
+        vignette.enabled = new BoolParameter() { value = true, overrideState = true };        
+        vignette.mode.overrideState = true;
+        vignette.color.overrideState = true;
+        vignette.mask.overrideState = true;
+        vignette.opacity.overrideState = true;        
+        parameter = vignette.mode;
+        parameter.value = VignetteMode.Masked;
+        vignette.color.value = new Color(0, 0, 0, 255);
+        vignette.mask = Concent;
+        //Concent.
+        vignette.mask.value = null;
+        //vignette.mask.defaultState = false;
+        //Concent.overrideState = true;
+        //Concent.defaultState = TextureParameterDefault.White;
+        //vignette.mask = new TextureParameter { value = null };
+        vignette.mask.overrideState = true;
+        
+        //vignette.mask.overrideState = true;
+        vignette.opacity.value = 0.9f;
+
+
+
+
+        //vignette.mask = Concent;
+        //Concent.value = aaasdf;
+        //vignette.mode = parameter.value;
+
         //vignette.mask = 
+        //vignette.mode = mos;
 
         //BoolParameter tempbool = new BoolParameter
         //{
         //    value = true
         //};
         //vignette.enabled = tempbool;
-      
+
 
         //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
         Skill1UI.fillAmount = 1f;
@@ -297,17 +342,7 @@ public class PlayerFSMManager : FSMManager
         Skill3_Capsule.enabled = false;
     }
 
-    public GameObject FlashEffect1, FlashEffect2;
-    public Vector3 FlashPosition;
-    bool isFlashStart = false;
-    [Header("스킬2번 현재 거리, 최소거리, 최대거리")]
-    public float skill2_Distance;
-    public float skill2_minDis;
-    public float skill2_maxDis;
-
-    public Transform Skill2_Parent;
-    public Vignette vignette;
-    public bool isShake = false;
+    
     private void Update()
     {
         if(isSkill3)
@@ -400,7 +435,7 @@ public class PlayerFSMManager : FSMManager
     private void FixedUpdate()
     {
         if(isShake)
-            StartCoroutine(shake.ShakeCamera(0.3f, 0.03f, 0.1f));
+            StartCoroutine(shake.ShakeCamera(.2f, 0.02f, 0.0f));
 
         if (isSpecial)
             return;
