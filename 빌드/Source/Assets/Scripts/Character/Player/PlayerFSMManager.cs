@@ -264,7 +264,7 @@ public class PlayerFSMManager : FSMManager
         //vignette.mask.overrideState = true;
 
         //vignette.mask.overrideState = true;
-        vignette.opacity.value = 0.5f;
+        vignette.opacity.value = 0f;
 
 
 
