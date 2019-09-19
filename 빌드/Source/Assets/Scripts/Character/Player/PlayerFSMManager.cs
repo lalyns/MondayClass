@@ -212,11 +212,11 @@ public class PlayerFSMManager : FSMManager
         //vignette.color.value = new Color(255, 255, 255);
         //vignette.mask = 
 
-        BoolParameter tempbool = new BoolParameter
-        {
-            value = true
-        };
-        vignette.enabled = tempbool;
+        //BoolParameter tempbool = new BoolParameter
+        //{
+        //    value = true
+        //};
+        //vignette.enabled = tempbool;
       
 
         //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
