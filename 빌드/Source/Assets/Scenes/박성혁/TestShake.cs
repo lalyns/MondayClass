@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class TestShake : MonoBehaviour
 {
+
+    public float duration =0.05f;
+    public float magitudePos = 0.03f;
+    public float magtitudeRot = 0.1f;
+
     public Transform mainCamera;
     private Vector3 originPos;
     private Quaternion originRot;
@@ -22,7 +27,7 @@ public class TestShake : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            StartCoroutine(ShakeCamera(1f, 0.3f, 0.1f));
+            StartCoroutine(ShakeCamera(duration, magitudePos, magtitudeRot));
         }
     }
 
