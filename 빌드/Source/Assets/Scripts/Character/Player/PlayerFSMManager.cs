@@ -209,14 +209,15 @@ public class PlayerFSMManager : FSMManager
             
         }
         randomShoot = new int[5];
-       // musicPlayer = GetComponent<AudioSource>();
+        // musicPlayer = GetComponent<AudioSource>();
     }
     VignetteModeParameter parameter;
-    public Texture aaasdf;
-    public TextureParameter Concent = new TextureParameter();
+    //public Texture2D aaasdf;
+    public TextureParameter Concent;
 
     private void Start()
     {
+
         Debug.Log("1");
         
         SetState(startState);
@@ -225,9 +226,12 @@ public class PlayerFSMManager : FSMManager
 
         bloom.active = true;
         bloom.enabled.Override(false);
-
+        
         bloom.enabled = new BoolParameter() { value = false, overrideState = false };
-                      
+
+        //Concent.value = aaasdf;
+
+
         vignette.active = true;
         vignette.enabled.Override(true);
         vignette.enabled = new BoolParameter() { value = true, overrideState = true };        
@@ -237,18 +241,30 @@ public class PlayerFSMManager : FSMManager
         vignette.opacity.overrideState = true;        
         parameter = vignette.mode;
         parameter.value = VignetteMode.Masked;
-        vignette.color.value = new Color(0, 0, 0, 255);
-        vignette.mask = Concent;
+        vignette.color.value = new Color(102, 0, 153, 30);
+
+        
+        Debug.Log(Concent + "ㅋㅋ");
+        Concent.overrideState = true;
+        Concent.defaultState = TextureParameterDefault.White;
+
+
+        //vignette.mask = Concent;
+        //vignette.mask = Concent;
+        //vignette.mask = Concent;
+        Debug.Log(vignette.mask + "마스크3");
         //Concent.
-        vignette.mask.value = null;
+        //  Debug.Log(Concent.value + "ㅋㅋㅋ");
+        // Debug.Log(aaasdf + "z");
+        vignette.mask.value = Concent.value;
         //vignette.mask.defaultState = false;
         //Concent.overrideState = true;
         //Concent.defaultState = TextureParameterDefault.White;
         //vignette.mask = new TextureParameter { value = null };
-        vignette.mask.overrideState = true;
-        
         //vignette.mask.overrideState = true;
-        vignette.opacity.value = 0.9f;
+
+        //vignette.mask.overrideState = true;
+        vignette.opacity.value = 0.5f;
 
 
 

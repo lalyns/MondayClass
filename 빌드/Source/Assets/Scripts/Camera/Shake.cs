@@ -11,7 +11,6 @@ public class Shake : MonoBehaviour
     private Vector3 originPos;
     private Quaternion originRot;
 
-    InputHandler input;
 
     public static Shake instance;
     // Start is called before the first frame update
@@ -20,7 +19,6 @@ public class Shake : MonoBehaviour
         instance = this;
         originPos = shakeCamera.localPosition;
         originRot = shakeCamera.localRotation;
-        input = InputHandler.instance;
 
     }
 
