@@ -124,6 +124,8 @@ public class RedHatFSMManager : FSMManager
         //카메라쉐이킹
         Shake.instance.ShakeCamera(0.3f, 0.3f, 0.7f);
         _Sound.PlayHitSFX();
+        if (PlayerFSMManager.instance.isNormal)
+            PlayerFSMManager.instance.SpecialGauge += 4;
 
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)

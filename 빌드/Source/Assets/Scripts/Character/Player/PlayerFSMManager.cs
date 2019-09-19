@@ -72,12 +72,14 @@ public class PlayerFSMManager : FSMManager
 
     [SerializeField]
     private List<GameObject> _monster = new List<GameObject>();
-
-    public Image Skill1UI, Skill2UI;
+    public int SpecialGauge = 0;
+    public Image SpecialGauge_Image;
+    public Image Skill1UI, Skill2UI, Skill3UI;
     Vector3 target;
     [SerializeField]
     float Skill1Timer1, Skill1Timer2;
-    float Skill2Timer = 10f;
+    [SerializeField]
+    float Skill2CTime, Skill3CTime = 10f;
     [Header("스킬1번 날라가는 속도,")]
     public float skill1Speed = 20f;
     [Header("스킬1번 날라가는 시간,")]
@@ -124,8 +126,7 @@ public class PlayerFSMManager : FSMManager
     public Cinemachine.CinemachineVirtualCamera CMvcam2;
 
     
-
-    Shake shake;
+    public Shake shake;
 
 
     public GameObject[] Skill1_Effects;
@@ -143,6 +144,8 @@ public class PlayerFSMManager : FSMManager
     public GameObject Skill2_Start;
 
     public bool isMouseYLock;
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -212,18 +215,18 @@ public class PlayerFSMManager : FSMManager
         //vignette.color.value = new Color(255, 255, 255);
         //vignette.mask = 
 
-        BoolParameter tempbool = new BoolParameter
-        {
-            value = true
-        };
-        vignette.enabled = tempbool;
+        //BoolParameter tempbool = new BoolParameter
+        //{
+        //    value = true
+        //};
+        //vignette.enabled = tempbool;
       
 
         //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
         Skill1UI.fillAmount = 1f;
         Skill1UI.gameObject.SetActive(false);
-        //Skill2UI.fillAmount = 1f;
-        //Skill2UI.gameObject.SetActive(false);
+        Skill2UI.fillAmount = 1f;
+        Skill2UI.gameObject.SetActive(false);
 
         _attack1Time = AnimationLength("PC_Anim_Attack_001") / 1.3f;
         _attack2Time = AnimationLength("PC_Anim_Attack_002") / 1.3f;
@@ -276,10 +279,13 @@ public class PlayerFSMManager : FSMManager
 
     public void AttackCheck()
     {
+        isShake = true;
+
         Attack_Capsule.enabled = true;
     }
     public void AttackCancel()
     {
+        isShake = false;
         Attack_Capsule.enabled = false;
     }
     public void Skill3Attack()
@@ -301,7 +307,7 @@ public class PlayerFSMManager : FSMManager
 
     public Transform Skill2_Parent;
     public Vignette vignette;
-
+    public bool isShake = false;
     private void Update()
     {
         if(isSkill3)
@@ -346,23 +352,35 @@ public class PlayerFSMManager : FSMManager
         Skill3();
 
 
-
+        if (SpecialGauge_Image.fillAmount <= 0)
+            SpecialGauge_Image.fillAmount = 0;
+        if (SpecialGauge_Image.fillAmount >= 1)
+        {
+            SpecialGauge_Image.fillAmount = 1;
+        }
         
 
         Attack();
         Dash();
 
         Skill3MouseLock();
+        if(isNormal)
+            SpecialGauge_Image.fillAmount = SpecialGauge / 100f;
 
-
+        Skill3UIReset();
         if (!isNormal)
         {
-            normalTimer += Time.deltaTime;
-            if(normalTimer >= 30f)
+            normalTimer -= Time.deltaTime;
+
+            SpecialGauge_Image.fillAmount = (normalTimer * 3.33f) / 100f;
+
+
+            if (normalTimer <= 0f)
             {
                 isNormal = true;
                 ChangeNormal();
-                normalTimer = 0;
+                normalTimer = 30;
+                
             }
         }
         
@@ -376,11 +394,14 @@ public class PlayerFSMManager : FSMManager
         if (isSkill2)
             return;
     }
-    float normalTimer = 0;
+    float normalTimer = 30f;
 
     
     private void FixedUpdate()
     {
+        if(isShake)
+            StartCoroutine(shake.ShakeCamera(0.3f, 0.03f, 0.1f));
+
         if (isSpecial)
             return;
 
@@ -449,7 +470,7 @@ public class PlayerFSMManager : FSMManager
     }
     public void ChangeModel()
     {
-        if (isNormal)
+        if (isNormal && SpecialGauge >=100)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -534,6 +555,8 @@ public class PlayerFSMManager : FSMManager
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            isShake = true;
+            
             isFlash = true;
             isFlashStart = true;
             FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
@@ -546,7 +569,7 @@ public class PlayerFSMManager : FSMManager
                 Skill3_End.SetActive(true);
             }
         }
-
+        
         if (isFlash)
         {
             if (isNormal)
@@ -884,7 +907,7 @@ public class PlayerFSMManager : FSMManager
         {
             SetState(PlayerState.SKILL2);
             isSkill2 = true;
-            //Skill2UI.gameObject.SetActive(true);
+            Skill2UI.gameObject.SetActive(true);
             return;
         }
     }
@@ -934,19 +957,36 @@ public class PlayerFSMManager : FSMManager
 
     public void Skill2UIReset()
     {
-        Skill2Timer -= Time.deltaTime;
-        //Skill2UI.fillAmount = Skill2Timer / 10f;
-        Debug.Log(Skill2Timer + "로그 찎힌다.");
-        if(Skill2Timer <= 0)
+        Skill2CTime -= Time.deltaTime;
+        Skill2UI.fillAmount = Skill2CTime / 10f;
+        if(Skill2CTime <= 0)        
         {
-            Skill2Timer = 10f;
-            //  Skill2UI.fillAmount = 1f;
-            //Skill2UI.gameObject.SetActive(false);
+            Skill2CTime = 10f;
+              Skill2UI.fillAmount = 1f;
+            Skill2UI.gameObject.SetActive(false);
             Skill2_Start.SetActive(false);
             isSkill2 = false;
         }
     }
+    
+    public void Skill3UIReset()
+    {        
+        if (Skill3_End.activeSelf)
+        {
+            Skill3UI.gameObject.SetActive(true);
+            Skill3CTime -= Time.deltaTime;
+            Skill3UI.fillAmount = Skill3CTime / 10f;
 
+            if(Skill3CTime <= 0)
+            {
+                Skill3CTime = 10f;
+                Skill3UI.fillAmount = 1f;
+                Skill3UI.gameObject.SetActive(false);
+                Skill3_End.SetActive(false);                
+            }
+
+        }
+    }
 
 
     public static PlayerFSMManager instance;
