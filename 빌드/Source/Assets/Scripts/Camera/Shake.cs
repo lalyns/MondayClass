@@ -29,10 +29,10 @@ public class Shake : MonoBehaviour
     {
     }
 
-
     public IEnumerator ShakeCamera(float duration = 0.05f, float magnitudePos = 0.03f, float magitudeRot = 0.1f)
     {
         float passTime = 0.0f;
+
 
         while (passTime < duration)
         {
@@ -46,7 +46,6 @@ public class Shake : MonoBehaviour
                 shakeCamera.localRotation = Quaternion.Euler(shakeRot);
 
             }
-
             passTime += Time.deltaTime;
 
             yield return null;

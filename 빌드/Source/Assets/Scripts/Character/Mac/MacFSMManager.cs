@@ -121,7 +121,8 @@ public class MacFSMManager : FSMManager
         Stat.TakeDamage(Stat, 350);
         _Sound.PlayHitSFX();
         //Debug.Log(Stat.Hp);
-
+        if(PlayerFSMManager.instance.isNormal)
+            PlayerFSMManager.instance.SpecialGauge += 4;
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {
