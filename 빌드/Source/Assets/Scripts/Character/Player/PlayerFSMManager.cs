@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Timeline;
+
 public enum PlayerState
 {
     IDLE = 0,
@@ -72,12 +73,14 @@ public class PlayerFSMManager : FSMManager
 
     [SerializeField]
     private List<GameObject> _monster = new List<GameObject>();
-
-    public Image Skill1UI, Skill2UI;
+    public int SpecialGauge = 0;
+    public Image SpecialGauge_Image;
+    public Image Skill1UI, Skill2UI, Skill3UI;
     Vector3 target;
     [SerializeField]
     float Skill1Timer1, Skill1Timer2;
-    float Skill2Timer = 10f;
+    [SerializeField]
+    float Skill2CTime, Skill3CTime = 10f;
     [Header("스킬1번 날라가는 속도,")]
     public float skill1Speed = 20f;
     [Header("스킬1번 날라가는 시간,")]
@@ -124,8 +127,7 @@ public class PlayerFSMManager : FSMManager
     public Cinemachine.CinemachineVirtualCamera CMvcam2;
 
     
-
-    Shake shake;
+    public Shake shake;
 
 
     public GameObject[] Skill1_Effects;
@@ -141,8 +143,21 @@ public class PlayerFSMManager : FSMManager
     public GameObject Skill3_End;
 
     public GameObject Skill2_Start;
+    public GameObject FlashEffect1, FlashEffect2;
+    public Vector3 FlashPosition;
+    bool isFlashStart = false;
+    [Header("스킬2번 현재 거리, 최소거리, 최대거리")]
+    public float skill2_Distance;
+    public float skill2_minDis;
+    public float skill2_maxDis;
+
+    public Transform Skill2_Parent;
+    public Vignette vignette;
+    public bool isShake = false;
 
     public bool isMouseYLock;
+    Bloom bloom;
+
     protected override void Awake()
     {
         base.Awake();
@@ -156,7 +171,7 @@ public class PlayerFSMManager : FSMManager
         CMvcam2 = GameObject.Find("CMvcam2").GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
         vignette = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Vignette>();
-
+        bloom = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Bloom>();
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
         SKill2_Sphere = Skill2_Start.GetComponent<SphereCollider>();
@@ -196,34 +211,67 @@ public class PlayerFSMManager : FSMManager
         randomShoot = new int[5];
        // musicPlayer = GetComponent<AudioSource>();
     }
+    VignetteModeParameter parameter;
+    public Texture aaasdf;
+    public TextureParameter Concent = new TextureParameter();
 
     private void Start()
     {
+        Debug.Log("1");
+        
         SetState(startState);
         _isinit = true;
+        Debug.Log("2");
 
-        //FloatParameter temp = new FloatParameter
-        //{
-        //    value = 0.5f
-        //};
-        //vignette.opacity = temp;
+        bloom.active = true;
+        bloom.enabled.Override(false);
 
-        //vignette.opacity.value = 1f;
-        //vignette.color.value = new Color(255, 255, 255);
+        bloom.enabled = new BoolParameter() { value = false, overrideState = false };
+                      
+        vignette.active = true;
+        vignette.enabled.Override(true);
+        vignette.enabled = new BoolParameter() { value = true, overrideState = true };        
+        vignette.mode.overrideState = true;
+        vignette.color.overrideState = true;
+        vignette.mask.overrideState = true;
+        vignette.opacity.overrideState = true;        
+        parameter = vignette.mode;
+        parameter.value = VignetteMode.Masked;
+        vignette.color.value = new Color(0, 0, 0, 255);
+        vignette.mask = Concent;
+        //Concent.
+        vignette.mask.value = null;
+        //vignette.mask.defaultState = false;
+        //Concent.overrideState = true;
+        //Concent.defaultState = TextureParameterDefault.White;
+        //vignette.mask = new TextureParameter { value = null };
+        vignette.mask.overrideState = true;
+        
+        //vignette.mask.overrideState = true;
+        vignette.opacity.value = 0.9f;
+
+
+
+
+        //vignette.mask = Concent;
+        //Concent.value = aaasdf;
+        //vignette.mode = parameter.value;
+
         //vignette.mask = 
+        //vignette.mode = mos;
 
         //BoolParameter tempbool = new BoolParameter
         //{
         //    value = true
         //};
         //vignette.enabled = tempbool;
-      
+
 
         //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
         Skill1UI.fillAmount = 1f;
         Skill1UI.gameObject.SetActive(false);
-        //Skill2UI.fillAmount = 1f;
-        //Skill2UI.gameObject.SetActive(false);
+        Skill2UI.fillAmount = 1f;
+        Skill2UI.gameObject.SetActive(false);
 
         _attack1Time = AnimationLength("PC_Anim_Attack_001") / 1.3f;
         _attack2Time = AnimationLength("PC_Anim_Attack_002") / 1.3f;
@@ -276,10 +324,13 @@ public class PlayerFSMManager : FSMManager
 
     public void AttackCheck()
     {
+        isShake = true;
+
         Attack_Capsule.enabled = true;
     }
     public void AttackCancel()
     {
+        isShake = false;
         Attack_Capsule.enabled = false;
     }
     public void Skill3Attack()
@@ -291,17 +342,7 @@ public class PlayerFSMManager : FSMManager
         Skill3_Capsule.enabled = false;
     }
 
-    public GameObject FlashEffect1, FlashEffect2;
-    public Vector3 FlashPosition;
-    bool isFlashStart = false;
-    [Header("스킬2번 현재 거리, 최소거리, 최대거리")]
-    public float skill2_Distance;
-    public float skill2_minDis;
-    public float skill2_maxDis;
-
-    public Transform Skill2_Parent;
-    public Vignette vignette;
-
+    
     private void Update()
     {
         if(isSkill3)
@@ -346,23 +387,35 @@ public class PlayerFSMManager : FSMManager
         Skill3();
 
 
-
+        if (SpecialGauge_Image.fillAmount <= 0)
+            SpecialGauge_Image.fillAmount = 0;
+        if (SpecialGauge_Image.fillAmount >= 1)
+        {
+            SpecialGauge_Image.fillAmount = 1;
+        }
         
 
         Attack();
         Dash();
 
         Skill3MouseLock();
+        if(isNormal)
+            SpecialGauge_Image.fillAmount = SpecialGauge / 100f;
 
-
+        Skill3UIReset();
         if (!isNormal)
         {
-            normalTimer += Time.deltaTime;
-            if(normalTimer >= 30f)
+            normalTimer -= Time.deltaTime;
+
+            SpecialGauge_Image.fillAmount = (normalTimer * 3.33f) / 100f;
+
+
+            if (normalTimer <= 0f)
             {
                 isNormal = true;
                 ChangeNormal();
-                normalTimer = 0;
+                normalTimer = 30;
+                
             }
         }
         
@@ -376,11 +429,14 @@ public class PlayerFSMManager : FSMManager
         if (isSkill2)
             return;
     }
-    float normalTimer = 0;
+    float normalTimer = 30f;
 
     
     private void FixedUpdate()
     {
+        if(isShake)
+            StartCoroutine(shake.ShakeCamera(.2f, 0.02f, 0.0f));
+
         if (isSpecial)
             return;
 
@@ -449,7 +505,7 @@ public class PlayerFSMManager : FSMManager
     }
     public void ChangeModel()
     {
-        if (isNormal)
+        if (isNormal && SpecialGauge >=100)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -534,6 +590,8 @@ public class PlayerFSMManager : FSMManager
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            isShake = true;
+            
             isFlash = true;
             isFlashStart = true;
             FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
@@ -546,7 +604,7 @@ public class PlayerFSMManager : FSMManager
                 Skill3_End.SetActive(true);
             }
         }
-
+        
         if (isFlash)
         {
             if (isNormal)
@@ -884,7 +942,7 @@ public class PlayerFSMManager : FSMManager
         {
             SetState(PlayerState.SKILL2);
             isSkill2 = true;
-            //Skill2UI.gameObject.SetActive(true);
+            Skill2UI.gameObject.SetActive(true);
             return;
         }
     }
@@ -934,19 +992,36 @@ public class PlayerFSMManager : FSMManager
 
     public void Skill2UIReset()
     {
-        Skill2Timer -= Time.deltaTime;
-        //Skill2UI.fillAmount = Skill2Timer / 10f;
-        Debug.Log(Skill2Timer + "로그 찎힌다.");
-        if(Skill2Timer <= 0)
+        Skill2CTime -= Time.deltaTime;
+        Skill2UI.fillAmount = Skill2CTime / 10f;
+        if(Skill2CTime <= 0)        
         {
-            Skill2Timer = 10f;
-            //  Skill2UI.fillAmount = 1f;
-            //Skill2UI.gameObject.SetActive(false);
+            Skill2CTime = 10f;
+              Skill2UI.fillAmount = 1f;
+            Skill2UI.gameObject.SetActive(false);
             Skill2_Start.SetActive(false);
             isSkill2 = false;
         }
     }
+    
+    public void Skill3UIReset()
+    {        
+        if (Skill3_End.activeSelf)
+        {
+            Skill3UI.gameObject.SetActive(true);
+            Skill3CTime -= Time.deltaTime;
+            Skill3UI.fillAmount = Skill3CTime / 10f;
 
+            if(Skill3CTime <= 0)
+            {
+                Skill3CTime = 10f;
+                Skill3UI.fillAmount = 1f;
+                Skill3UI.gameObject.SetActive(false);
+                Skill3_End.SetActive(false);                
+            }
+
+        }
+    }
 
 
     public static PlayerFSMManager instance;
