@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(LilithFSMManager))]
-public class LilithFSMState : MonoBehaviour
+[RequireComponent(typeof(RirisFSMManager))]
+public class RirisFSMState : MonoBehaviour
 {
-    protected LilithFSMManager _manager;
+    protected RirisFSMManager _manager;
     protected float _Skill1Time;
 
     private void Awake()
     {
-        _manager = GetComponent<LilithFSMManager>();
+        _manager = GetComponent<RirisFSMManager>();
     }
 
     public virtual void BeginState()

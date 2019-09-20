@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 불릿패턴
-public class LilithPATTERNC : LilithFSMState
+public class RirisPATTERNC : RirisFSMState
 {
     float _CurrentTime = 0;
 
@@ -71,6 +71,6 @@ public class LilithPATTERNC : LilithFSMState
             yield return new WaitForSeconds(0.6f);
         }
 
-        _manager.SetState(LilithState.PATTERNEND);
+        _manager.SetState(RirisState.PATTERNEND);
     }
 }

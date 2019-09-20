@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LilithPOPUP : LilithFSMState
+public class RirisPOPUP : RirisFSMState
 {
     float _PopUpTime = 2.0f;
     float _curTime = 0.0f;
@@ -10,6 +10,7 @@ public class LilithPOPUP : LilithFSMState
     public override void BeginState()
     {
         base.BeginState();
+        _manager._Weapon.gameObject.SetActive(false);
     }
 
     public override void EndState()
@@ -29,7 +30,7 @@ public class LilithPOPUP : LilithFSMState
 
         if (_curTime > _PopUpTime)
         {
-            _manager.SetState(LilithState.PATTERNEND);
+            _manager.SetState(RirisState.PATTERNEND);
         }
     }
 

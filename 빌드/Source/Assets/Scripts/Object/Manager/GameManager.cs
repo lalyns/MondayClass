@@ -10,6 +10,14 @@ public class GameManager : MonoBehaviour
     public static bool isPopUp = false;
     public bool _EditorCursorLock = true;
 
+    public bool _ActiveAllUI;
+    public bool _ActivePlayerUI;
+    public bool _ActiveMonsterUI;
+    public bool _ActiveSystemUI;
+
+    public bool _TimeMagnificationMode;
+    [Range(0,5)] public float _TimeMagnificationValue;
+
     public bool _CharacterControl = true;
 
     bool _SimpleMode = false;
@@ -54,6 +62,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Time.timeScale = _TimeMagnificationMode ? _TimeMagnificationValue : 1.0f;
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (!_SimpleMode)

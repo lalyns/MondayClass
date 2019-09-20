@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossBullet : MonoBehaviour
 {
-    LilithFSMManager lilithFSMManager;
+    RirisFSMManager RirisFSMManager;
     ObjectPool bulletPool;
 
     Collider collider;
@@ -22,7 +22,7 @@ public class BossBullet : MonoBehaviour
 
     private void Start()
     {
-        lilithFSMManager = GameObject.FindGameObjectWithTag("Boss").GetComponent<LilithFSMManager>();
+        RirisFSMManager = GameObject.FindGameObjectWithTag("Boss").GetComponent<RirisFSMManager>();
 
         bulletPool = GameObject.FindGameObjectWithTag("BossBulletPool").GetComponent<ObjectPool>();
         collider = GetComponent<Collider>();
@@ -34,8 +34,8 @@ public class BossBullet : MonoBehaviour
         time += Time.deltaTime;
         if(time < 1f)
         {
-            speed = lilithFSMManager.Stat._BulletSpeed;
-            lifeTime = lilithFSMManager.Stat._BulletLifeTime;
+            speed = RirisFSMManager.Stat._BulletSpeed;
+            lifeTime = RirisFSMManager.Stat._BulletLifeTime;
             SetBullet();
         }
         else if(time >= 1f && !IsFire)
@@ -58,11 +58,11 @@ public class BossBullet : MonoBehaviour
     {
         if (directionType)
         {
-            direction = (this.transform.position - lilithFSMManager.BulletCenter.position).normalized;
+            direction = (this.transform.position - RirisFSMManager.BulletCenter.position).normalized;
         }
         else
         {
-            direction = GameLib.DirectionToCharacter(collider, lilithFSMManager.PlayerCapsule);
+            direction = GameLib.DirectionToCharacter(collider, RirisFSMManager.PlayerCapsule);
         }
     }
 

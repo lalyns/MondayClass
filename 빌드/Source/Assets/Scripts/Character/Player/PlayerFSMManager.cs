@@ -284,10 +284,17 @@ public class PlayerFSMManager : FSMManager
 
 
         //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
-        Skill1UI.fillAmount = 1f;
-        Skill1UI.gameObject.SetActive(false);
-        Skill2UI.fillAmount = 1f;
-        Skill2UI.gameObject.SetActive(false);
+        try
+        {
+            Skill1UI.fillAmount = 1f;
+            Skill1UI.gameObject.SetActive(false);
+            Skill2UI.fillAmount = 1f;
+            Skill2UI.gameObject.SetActive(false);
+        }
+        catch
+        {
+
+        }
 
         _attack1Time = AnimationLength("PC_Anim_Attack_001") / 1.3f;
         _attack2Time = AnimationLength("PC_Anim_Attack_002") / 1.3f;
@@ -396,18 +403,31 @@ public class PlayerFSMManager : FSMManager
 
 
         GetInput();
-        Skill1();
+        try
+        {
+            Skill1();
+        }
+        catch
+        {
+
+        }
         AttackDirection();
         
         Skill2();
         Skill3();
 
-
-        if (SpecialGauge_Image.fillAmount <= 0)
-            SpecialGauge_Image.fillAmount = 0;
-        if (SpecialGauge_Image.fillAmount >= 1)
+        try
         {
-            SpecialGauge_Image.fillAmount = 1;
+            if (SpecialGauge_Image.fillAmount <= 0)
+                SpecialGauge_Image.fillAmount = 0;
+            if (SpecialGauge_Image.fillAmount >= 1)
+            {
+                SpecialGauge_Image.fillAmount = 1;
+            }
+        }
+        catch
+        {
+
         }
         
 
@@ -415,16 +435,27 @@ public class PlayerFSMManager : FSMManager
         Dash();
 
         Skill3MouseLock();
+        try { 
         if(isNormal)
             SpecialGauge_Image.fillAmount = SpecialGauge / 100f;
+        }
+        catch
+        {
 
+        }
         Skill3UIReset();
         if (!isNormal)
         {
             normalTimer -= Time.deltaTime;
 
-            SpecialGauge_Image.fillAmount = (normalTimer * 3.33f) / 100f;
+            try
+            {
+                SpecialGauge_Image.fillAmount = (normalTimer * 3.33f) / 100f;
+            }
+            catch
+            {
 
+            }
 
             if (normalTimer <= 0f)
             {
@@ -659,7 +690,14 @@ public class PlayerFSMManager : FSMManager
             if (flashTimer >= 0.2f && flashTimer <= 0.23f)
             {
                 FlashEffect2.SetActive(true);
-                _Sound.PlayDashSFX();
+                try
+                {
+                    _Sound.PlayDashSFX();
+                }
+                catch
+                {
+
+                }
                 isCantMove = false;
 
 
@@ -886,7 +924,14 @@ public class PlayerFSMManager : FSMManager
                 isShoot = true;
                 isSkill1CTime = true;
                 isBall = false;
-                _Sound.PlaySkill1SFX();
+                try
+                {
+                    _Sound.PlaySkill1SFX();
+                }
+                catch
+                {
+
+                }
             }
         }
         // 스킬이 날라가기 시작하면

@@ -32,7 +32,7 @@ public class Mission : MonoBehaviour
         }
     }
 
-    protected bool _MissionOperate;
+    [SerializeField] protected bool _MissionOperate;
     public bool MissionOperate {
         get { return _MissionOperate; }
         internal set { _MissionOperate = value; }
@@ -47,7 +47,14 @@ public class Mission : MonoBehaviour
         //Enter.Colliders.enabled = false;
 
         Exit = GetComponentInChildren<MissionExit>();
-        Exit.Colliders.enabled = false;
+        try
+        {
+            Exit.Colliders.enabled = false;
+        }
+        catch
+        {
+
+        }
     }
 
     protected virtual void Start()
@@ -85,7 +92,14 @@ public class Mission : MonoBehaviour
     // 미션 선택지 호출
     public void MissionSelect()
     {
-        _MissionSelector.SetActive(true);
+        try
+        {
+            _MissionSelector.SetActive(true);
+        }
+        catch
+        {
+
+        }
         GameManager.CursorMode(true);
         Time.timeScale = 0.0f;
     }
@@ -104,7 +118,14 @@ public class Mission : MonoBehaviour
         MissionManager.Instance.CurrentMission =
             MissionManager.Instance.Mission[GameManager.stageLevel];
 
-        _MissionSelector.SetActive(false);
+        try
+        {
+            _MissionSelector.SetActive(false);
+        }
+        catch
+        {
+
+        }
         GameManager.CursorMode(false);
         Time.timeScale = 1.0f;
     }
