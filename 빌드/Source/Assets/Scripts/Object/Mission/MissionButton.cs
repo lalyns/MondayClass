@@ -19,6 +19,7 @@ public class MissionButton : MonoBehaviour
     public Image _RewardIcon;
     public Text _RewardText;
 
+    public Mission _Mission;
     public MissionManager.MissionType _MissionType;
 
     public void Awake()
@@ -42,6 +43,8 @@ public class MissionButton : MonoBehaviour
         _MissionName.sprite = mission.Data.MissionName;
         _MissionIcon.sprite = mission.Data.MissionIcon;
         _MissionGoal.text = mission.Data.MissionGoal;
+
+        _Mission = mission;
     }
 
     /// <summary>
@@ -64,13 +67,13 @@ public class MissionButton : MonoBehaviour
     public void SetMissionOnClick()
     {
         //MissionManager.SetMissionOnClick(_ChoiceNum);
-        if (GameManager.stageLevel == 0)
-            TempMissionExit._Instance.NextMission();
+        //if (GameManager.stageLevel == 0)
+        //    TempMissionExit._Instance.NextMission();
 
-        if (GameManager.stageLevel != 0)
-            MissionManager.Instance.CurrentMission.NextMission();
+        //if (GameManager.stageLevel != 0)
+        //    MissionManager.Instance.CurrentMission.NextMission();
 
-        MissionManager.SelectMission();
+        MissionManager.SelectMission(_Mission);
     }
     
 }

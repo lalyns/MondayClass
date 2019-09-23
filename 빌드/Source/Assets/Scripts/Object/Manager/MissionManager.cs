@@ -44,7 +44,7 @@ public class MissionManager : MonoBehaviour
     }
 
     public Mission CurrentMission;
-    public MissionType CurrentMissionType => CurrentMission.MissionType;
+    public MissionType CurrentMissionType => CurrentMission.Data.MissionType;
 
     // For Editor Using
 
@@ -77,32 +77,45 @@ public class MissionManager : MonoBehaviour
         // 랜덤 미션 출력하기
         foreach(MissionButton choice in Instance.Choices)
         {
-            var type = UnityEngine.Random.Range(0, 999) % (int)MissionType.Last;
+            var type = UnityEngine.Random.Range(0, 999) % ((int)(MissionType.Last) - 1);
             choice.ChangeMission(Instance.Missions[type]);
         }
 
     }
 
-    public static void SelectMission() {
+    public static void SelectMission(Mission mission) {
+        
+        Instance.CurrentMission = mission;
         Instance.MissionSelector.SetActive(false);
         GameManager.CursorMode(false);
         GameManager.Instance.IsPuase = false;
+
+        // 페이드 Out
+        EnterMission();
     }
 
-    public void EnterMission() {
+    public static void EnterMission() {
+        // 캐릭터 위치변경
+        Instance.CurrentMission.gameObject.SetActive(true);
+        GameStatus._Instance._PlayerInstance.
+            GetComponentInChildren<Animator>().
+            transform.position =
+            Instance.CurrentMission.Enter.transform.position;
+        
+        // 페이드 IN
+    }
+
+    public static void StartMission() {
+        // 미션 시작지
+    }
+
+    public static void RewardMission() {
 
     }
 
-    public void StartMission() {
-
-    }
-
-    public void RewardMission() {
-
-    }
-
-    public void ExitMission() {
-
+    public static void ExitMission() {
+        Debug.Log(Instance.CurrentMission.ToString());
+        Instance.CurrentMission.RestMission();
     }
 
 

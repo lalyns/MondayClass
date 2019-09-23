@@ -140,7 +140,7 @@ public class GameStatus : MonoBehaviour
 #if UNITY_STANDALONE
 
 #endif
-        if (_MissionStatus)
+        if (MissionManager.Instance.CurrentMission.MissionOperate)
         {
             _LimitTime -= Time.deltaTime;
         }

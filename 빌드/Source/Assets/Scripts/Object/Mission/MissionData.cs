@@ -7,7 +7,7 @@ using UnityEditor;
 public class MissionData : ScriptableObject
 {
     // 미션 종류
-    public MissionManager.MissionType MissionTypes;
+    public MissionManager.MissionType MissionType;
 
     // 미션 이름
     public Sprite MissionName;
