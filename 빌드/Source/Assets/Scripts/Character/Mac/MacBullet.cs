@@ -9,6 +9,7 @@ public class MacBullet : MonoBehaviour
 
     public GameObject _SetEffect;
     public ParticleSystem[] _SetEffectParticles;
+    public ParticleSystem[] _DestroyEffectParticles;
 
     public GameObject _MoveEffect;
     public GameObject _DestroyEffect;
@@ -19,42 +20,34 @@ public class MacBullet : MonoBehaviour
     // 상수 목록
     [HideInInspector] public float _CreativeTime = 0.8f;
     [HideInInspector] public float _DestroyTime = 4.0f;
-    [HideInInspector] public float _DestroyConstTime = 0.65f;
+    [HideInInspector] public float _DestroyDelay = 0.65f;
 
     // 초기화 목록
     [HideInInspector] public float _PlayTime = 0.0f;
     [HideInInspector] public float _DestroyPlayTime = 0.0f;
 
     [HideInInspector] public bool _Move = false;
-    [HideInInspector] public bool _Play = false;
+    [HideInInspector] public bool _SetPlay = false;
     [HideInInspector] public bool _Destroy = false;
 
     private void Start()
     {
-        _MoveEffect.SetActive(false);
-
         switch (_Type)
         {
             case BulletType.Normal:
                 _CreativeTime = 0.8f;
                 _DestroyTime = 4.0f;
-                _DestroyConstTime = 0.65f;
+                _DestroyDelay = 0.65f;
                 break;
             case BulletType.Skill:
                 _CreativeTime = 1f;
-                _DestroyTime = 8.0f;
-                _DestroyConstTime = 0.65f;
+                _DestroyTime = 6.0f;
+                _DestroyDelay = 2.00f;
                 break;
         }
 
-        try
-        {
-            _DestroyEffect.SetActive(false);
-        }
-        catch
-        {
-
-        }
+        _MoveEffect.SetActive(false);
+        _DestroyEffect.SetActive(false);
     }
 
     // Update is called once per frame
@@ -66,13 +59,10 @@ public class MacBullet : MonoBehaviour
 
         if(_PlayTime < _CreativeTime)
         {
-            if (_Play) return;
+            if (_SetPlay) return;
 
-            foreach(ParticleSystem particle in _SetEffectParticles)
-            {
-                particle.Play();
-            }
-            _Play = !_Play;
+            PlayEffect(_SetEffectParticles);
+            _SetPlay = !_SetPlay;
         }
 
         if(_PlayTime > _CreativeTime && _PlayTime < _DestroyTime)
@@ -80,31 +70,35 @@ public class MacBullet : MonoBehaviour
             _SetEffect.SetActive(false);
             _MoveEffect.SetActive(true);
 
-            this.transform.position += dir * speed * Time.deltaTime;
+            if(!_Destroy)
+                this.transform.position += dir * speed * Time.deltaTime;
         }
 
         if(_PlayTime > _DestroyTime)
         {
             _MoveEffect.SetActive(false);
+            _DestroyEffect.SetActive(true);
 
-            try
-            {
-                _DestroyEffect.SetActive(true);
-            }
-            catch
-            {
+            if (_Destroy) return;
 
-            }
-
+            PlayEffect(_DestroyEffectParticles);
             _Destroy = true;
         }
 
         if (_Destroy) _DestroyPlayTime += Time.deltaTime;
 
-        if (_DestroyPlayTime > _DestroyConstTime)
+        if (_DestroyPlayTime > _DestroyDelay)
         {
             _DestroyPlayTime = 0;
             EffectReturnPool();
+        }
+    }
+
+    public void PlayEffect(ParticleSystem[] playlist)
+    {
+        foreach (ParticleSystem particle in playlist)
+        {
+            particle.Play();
         }
     }
 
@@ -126,7 +120,7 @@ public class MacBullet : MonoBehaviour
         pool.ItemReturnPool(this.gameObject);
 
         _Move = false;
-        _Play = false;
+        _SetPlay = false;
         _Destroy = false;
 
         _PlayTime = 0;
@@ -134,15 +128,7 @@ public class MacBullet : MonoBehaviour
 
         _SetEffect.SetActive(true);
         _MoveEffect.SetActive(false);
-
-        try
-        {
-            _DestroyEffect.SetActive(false);
-        }
-        catch
-        {
-
-        }
+        _DestroyEffect.SetActive(false);
 
     }
 
