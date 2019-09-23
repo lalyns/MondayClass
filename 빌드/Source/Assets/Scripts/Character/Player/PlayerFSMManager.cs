@@ -158,6 +158,8 @@ public class PlayerFSMManager : FSMManager
     public bool isMouseYLock;
     Bloom bloom;
 
+    public PostProcessProfile profile1;
+
     protected override void Awake()
     {
         base.Awake();
@@ -170,6 +172,7 @@ public class PlayerFSMManager : FSMManager
         
         CMvcam2 = GameObject.Find("CMvcam2").GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
+        GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile = profile1;
         vignette = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Vignette>();
         bloom = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Bloom>();
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
@@ -222,9 +225,9 @@ public class PlayerFSMManager : FSMManager
         _isinit = true;
 
         bloom.active = true;
-        bloom.enabled.Override(false);
+        bloom.enabled.Override(true);
         
-        bloom.enabled = new BoolParameter() { value = false, overrideState = false };
+        bloom.enabled = new BoolParameter() { value = true, overrideState = false };
 
         //Concent.value = aaasdf;
 
