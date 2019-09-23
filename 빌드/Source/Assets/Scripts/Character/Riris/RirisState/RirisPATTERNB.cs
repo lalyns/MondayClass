@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LilithPATTERNB : LilithFSMState
+public class RirisPATTERNB : RirisFSMState
 {
     float _Time1 = 0;
     bool _IsTele = false;
@@ -70,7 +70,7 @@ public class LilithPATTERNB : LilithFSMState
 
         if(_Time2 > _AttackEndTime)
         {
-            _manager.SetState(LilithState.PATTERNEND);
+            _manager.SetState(RirisState.PATTERNEND);
         }
 
     }

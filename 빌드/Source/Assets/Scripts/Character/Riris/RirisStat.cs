@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LilithStat : CharacterStat
+public class RirisStat : CharacterStat
 {
     public MonsterData monsterData;
 

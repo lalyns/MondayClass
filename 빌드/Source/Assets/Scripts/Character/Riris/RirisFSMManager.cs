@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum LilithState
+public enum RirisState
 {
     POPUP = 0,
     PATTERNA,
@@ -13,21 +13,21 @@ public enum LilithState
 }
 
 
-[RequireComponent(typeof(LilithStat))]
-public class LilithFSMManager : FSMManager
+[RequireComponent(typeof(RirisStat))]
+public class RirisFSMManager : FSMManager
 {
     private bool _isInit = false;
-    public LilithState startState = LilithState.POPUP;
-    private Dictionary<LilithState, LilithFSMState> _States = new Dictionary<LilithState, LilithFSMState>();
+    public RirisState startState = RirisState.POPUP;
+    private Dictionary<RirisState, RirisFSMState> _States = new Dictionary<RirisState, RirisFSMState>();
 
-    private LilithState _CurrentState;
-    public LilithState CurrentState {
+    private RirisState _CurrentState;
+    public RirisState CurrentState {
         get {
             return _CurrentState;
         }
     }
 
-    public LilithFSMState CurrentStateComponent {
+    public RirisFSMState CurrentStateComponent {
         get {
             return _States[_CurrentState];
         }
@@ -39,16 +39,23 @@ public class LilithFSMManager : FSMManager
     private CapsuleCollider _PlayerCapsule;
     public CapsuleCollider PlayerCapsule { get { return _PlayerCapsule; } }
 
-    private LilithStat _Stat;
-    public LilithStat Stat { get { return _Stat; } }
+    private RirisStat _Stat;
+    public RirisStat Stat { get { return _Stat; } }
 
     private Animator _Anim;
-    public Animator Anim { get { return _Anim; } }
+    public Animator Anim {
+        get {
+            if(_Anim == null) { _Anim = GetComponentInChildren<Animator>(); }
+            return _Anim;
+        }
+    }
+    public static float RirithPatternALength;
+    public static float WeaponPatternALength;
 
     public Transform BulletCenter;
 
-    public Transform Weapon;
-    public Animator WeaponAnimator;
+    public Transform _Weapon;
+    public Animator _WeaponAnimator;
 
     [Range(0, 1)] public float[] _PhaseThreshold = new float[3];
     public int _Phase = 0;
@@ -58,20 +65,20 @@ public class LilithFSMManager : FSMManager
         base.Awake();
 
         _CC = GetComponent<CharacterController>();
-        _Stat = GetComponent<LilithStat>();
+        _Stat = GetComponent<RirisStat>();
         _Anim = GetComponentInChildren<Animator>();
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
-        LilithState[] stateValues = (LilithState[])System.Enum.GetValues(typeof(LilithState));
-        foreach (LilithState s in stateValues)
+        RirisState[] stateValues = (RirisState[])System.Enum.GetValues(typeof(RirisState));
+        foreach (RirisState s in stateValues)
         {
-            System.Type FSMType = System.Type.GetType("Lilith" + s.ToString());
-            LilithFSMState state = (LilithFSMState)GetComponent(FSMType);
+            System.Type FSMType = System.Type.GetType("Riris" + s.ToString());
+            RirisFSMState state = (RirisFSMState)GetComponent(FSMType);
 
             if(null == state)
             {
-                state = (LilithFSMState)gameObject.AddComponent(FSMType);
+                state = (RirisFSMState)gameObject.AddComponent(FSMType);
             }
 
             _States.Add(s, state);
@@ -85,7 +92,7 @@ public class LilithFSMManager : FSMManager
         _isInit = true;
     }
 
-    public void SetState(LilithState newState)
+    public void SetState(RirisState newState)
     {
         if (_isInit)
         {
@@ -95,7 +102,10 @@ public class LilithFSMManager : FSMManager
         _CurrentState = newState;
         _States[_CurrentState].BeginState();
         _States[_CurrentState].enabled = true;
+
         _Anim.SetInteger("CurrentState", (int)_CurrentState);
+        _WeaponAnimator.SetInteger("CurrentState", (int)_CurrentState);
+        
     }
 
     public void TelePortToPos(Vector3 pos)
@@ -117,4 +127,5 @@ public class LilithFSMManager : FSMManager
         base.SetDeadState();
 
     }
+
 }

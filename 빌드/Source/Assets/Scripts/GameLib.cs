@@ -110,4 +110,17 @@ public static class GameLib
     {
         return (target.transform.position - monster.transform.position).normalized;
     }
+
+
+    public static float AnimationLength(Animator anim, string name)
+    {
+        float time = 0;
+
+        RuntimeAnimatorController ac = anim.runtimeAnimatorController;
+
+        for (int i = 0; i < ac.animationClips.Length; i++)
+            if (ac.animationClips[i].name == name)
+                time = ac.animationClips[i].length;
+        return time;
+    }
 }

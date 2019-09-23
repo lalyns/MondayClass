@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LilithPATTERNEND : LilithFSMState
+public class RirisPATTERNEND : RirisFSMState
 {
     float _Time1 = 0;
-    float _Delay = 20f;
+    float _Delay = 5f;
 
     bool pattern = false;
 
-    public LilithState[] _Pattern;
+    public RirisState[] _Pattern;
     public int _PrevPhase = 0;
     [HideInInspector] public int _Turn = 0;
 
@@ -22,6 +22,12 @@ public class LilithPATTERNEND : LilithFSMState
     {
         _Time1 = 0;
         _Turn++;
+
+        if (_Turn >= _Pattern.Length)
+        {
+            _Turn = 0;
+        }
+
         base.EndState();
     }
 
@@ -35,13 +41,8 @@ public class LilithPATTERNEND : LilithFSMState
 
         if (_Time1 > _Delay)
         {
-            if (_Turn > _Pattern.Length)
-            {
-                _Turn = 0;
-            }
 
-            LilithState nextState = _Pattern[_Turn];
-            Debug.Log(nextState.ToString());
+            RirisState nextState = _Pattern[_Turn];
             _manager.SetState(nextState);
 
             _Time1 = 0;
