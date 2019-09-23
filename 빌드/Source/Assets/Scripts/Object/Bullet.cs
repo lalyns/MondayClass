@@ -20,17 +20,6 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (_Size < _MaxSize)
-        //{
-        //    _Size += (float)_IncreaseSize / 100f * Time.deltaTime;
-        //}
-        //else
-        //{
-        //    _Size = _MaxSize;
-        //}
-
-        //transform.localScale = Vector3.one * _Size;
-
         if (_Move)
         {
             _Time += Time.deltaTime;
@@ -52,8 +41,6 @@ public class Bullet : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
-            if (isSkill) return;
-
             GameObject attack = Instantiate(_AttackEffect, this.transform.position, Quaternion.identity);
             attack.transform.LookAt(other.transform);
             Destroy(this.gameObject);
