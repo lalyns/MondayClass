@@ -1744,8 +1744,6 @@ MonoBehaviour:
   _LimitTime: 2
   MissionType: 1
   _MissionSelector: {fileID: 1852914813}
-  EndTrigger: {fileID: 152934965}
-  PortalEffect: {fileID: 1465884966}
   protectedTarget: {fileID: 552379988}
   _ProtectedTargetHP: 200
   spawnCool: 15
@@ -2031,50 +2029,6 @@ Transform:
   m_Father: {fileID: 2042221895}
   m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &144933883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
-  m_Name: Vignette(Clone)
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  mode:
-    overrideState: 1
-    value: 1
-  color:
-    overrideState: 1
-    value: {r: 102, g: 0, b: 153, a: 30}
-  center:
-    overrideState: 0
-    value: {x: 0.5, y: 0.5}
-  intensity:
-    overrideState: 0
-    value: 0
-  smoothness:
-    overrideState: 0
-    value: 0.2
-  roundness:
-    overrideState: 0
-    value: 1
-  rounded:
-    overrideState: 0
-    value: 0
-  mask:
-    overrideState: 1
-    value: {fileID: 2800000, guid: e1d4e10344ec2f4458cb3489a0e5cc37, type: 3}
-    defaultState: 1
-  opacity:
-    overrideState: 1
-    value: 0
 --- !u!1001 &149238585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2254,12 +2208,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4143432016232687596, guid: 41fb0110543a1eb45a2d4ca1fada1aec,
     type: 3}
   m_PrefabInstance: {fileID: 150034212}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &152934965 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2801441691748134671, guid: db4666837c9f4f243843f2d4f700c1ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 1465884965}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &153638762
 PrefabInstance:
@@ -7037,8 +6985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f90d3f1164a004e98f3ba4210f0c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextDungeon: {fileID: 5128621285748082541}
-  _MissionSelector: {fileID: 1852914813}
 --- !u!1001 &458286154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12257,7 +12203,7 @@ PrefabInstance:
     - target: {fileID: 2266015518036887709, guid: 7557a98b5ef5a8d458666efab7e7a126,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2266015518481851079, guid: 7557a98b5ef5a8d458666efab7e7a126,
         type: 3}
@@ -13112,12 +13058,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3910994110172313455, guid: 610e118b172317a46be085edd495536b,
     type: 3}
   m_PrefabInstance: {fileID: 886144640}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &887737146 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2801441691748134671, guid: db4666837c9f4f243843f2d4f700c1ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 350077582977391794}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &891409249
 PrefabInstance:
@@ -20667,6 +20607,8 @@ MonoBehaviour:
   - {fileID: 769959003}
   - {fileID: 416930168}
   - {fileID: 824236548}
+  MissionProgressUI: {fileID: 0}
+  MissionProgress: {fileID: 0}
 --- !u!1001 &1365479266
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22623,6 +22565,11 @@ PrefabInstance:
     - target: {fileID: 2801441691748134668, guid: db4666837c9f4f243843f2d4f700c1ff,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801441691341514723, guid: db4666837c9f4f243843f2d4f700c1ff,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 99550152, guid: db4666837c9f4f243843f2d4f700c1ff, type: 3}
@@ -25774,7 +25721,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd5c03f4706500418c53dce54a3963a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextDungeon: {fileID: 0}
   _PortalEffect: {fileID: 0}
 --- !u!65 &1672413070
 BoxCollider:
@@ -27048,12 +26994,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3910994110172313455, guid: 610e118b172317a46be085edd495536b,
     type: 3}
   m_PrefabInstance: {fileID: 1743409514}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1744253438 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2801441691341514723, guid: db4666837c9f4f243843f2d4f700c1ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 3481048083629429065}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1745771281
 PrefabInstance:
@@ -70813,8 +70753,6 @@ MonoBehaviour:
   MissionType: 0
   _MissionSelector: {fileID: 1852914813}
   spawning: 0
-  EndTrigger: {fileID: 0}
-  PortalEffect: {fileID: 1744253438}
   Wave1Locations:
   - {fileID: 349743924}
   - {fileID: 742310037}
@@ -89264,8 +89202,6 @@ MonoBehaviour:
   _LimitTime: 180
   MissionType: 2
   _MissionSelector: {fileID: 1852914813}
-  EndTrigger: {fileID: 887737146}
-  PortalEffect: {fileID: 1306522362}
   goalScore: 5
   starDropCool: 5
   star: {fileID: 7242914150444159907, guid: cb28f3c5b4876ed40b71f110a5e1cda4, type: 3}
