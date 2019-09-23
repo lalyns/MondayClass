@@ -32,6 +32,11 @@ public class Mission : MonoBehaviour
         }
     }
 
+    [SerializeField] protected MissionData _Data;
+    public MissionData Data {
+        get { return _Data; }
+    }
+
     [SerializeField] protected bool _MissionOperate;
     public bool MissionOperate {
         get { return _MissionOperate; }
@@ -116,7 +121,7 @@ public class Mission : MonoBehaviour
             .transform.position;
 
         MissionManager.Instance.CurrentMission =
-            MissionManager.Instance.Mission[GameManager.stageLevel];
+            MissionManager.Instance.Missions[GameManager.stageLevel];
 
         try
         {

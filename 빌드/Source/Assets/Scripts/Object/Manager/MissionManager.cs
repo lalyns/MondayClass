@@ -16,9 +16,6 @@ public class MissionManager : MonoBehaviour
         Last,
     }
 
-    [Range(0, 1)] public float WidthRatio;
-    [Range(0, 1)] public float HeightRatio;
-
     private static MissionManager _Instance;
     public static MissionManager Instance {
         get {
@@ -31,7 +28,7 @@ public class MissionManager : MonoBehaviour
     }
 
     [SerializeField] private Mission[] _Missions;
-    public Mission[] Mission {
+    public Mission[] Missions {
         get {
             //if (_Missions == null)
             //{
@@ -47,55 +44,67 @@ public class MissionManager : MonoBehaviour
     }
 
     public Mission CurrentMission;
-
-    public MissionType CurrentMissionType => CurrentMission.MissionType; 
+    public MissionType CurrentMissionType => CurrentMission.MissionType;
 
     // For Editor Using
-    [HideInInspector] public bool OnInspectating;
 
     public void Awake()
     {
         if(_Instance == null)
         {
             _Instance = GetComponent<MissionManager>();
+            
         }
         else
         {
             Destroy(gameObject);
         }
-
-        foreach(Mission mission in Mission) {
-            Debug.Log("배열확인 : " + mission.name);
-        }
     }
 
-    private void OnGUI()
-    {
-        if (!OnInspectating) return;
 
-        string discribe = "현재 던전 : " + CurrentMission.gameObject.name.ToString() +
-                            "\n 미션 정보 : " + CurrentMission.MissionOperate
-                            
-            ;
+    public GameObject MissionSelector;
+    public MissionButton[] Choices;
 
-        if(GUI.Button(new Rect(Screen.width * WidthRatio, Screen.height * HeightRatio, 150, 100),
-            discribe)
-            )
+    public GameObject MissionProgressUI;
+    public TempMissionProgress MissionProgress;
+
+    public static void PopUpMission() {
+        Instance.MissionSelector.SetActive(true);
+        GameManager.CursorMode(true);
+        GameManager.Instance.IsPuase = true;
+        GameManager.Instance.CharacterControl = false;
+
+        // 랜덤 미션 출력하기
+        foreach(MissionButton choice in Instance.Choices)
         {
+            var type = UnityEngine.Random.Range(0, 999) % (int)MissionType.Last;
+            choice.ChangeMission(Instance.Missions[type]);
         }
+
     }
 
+    public static void SelectMission() {
+        Instance.MissionSelector.SetActive(false);
+        GameManager.CursorMode(false);
+        GameManager.Instance.IsPuase = false;
+    }
 
-    //public MissionData[] _MissionDatas;
-    //public RewardData[] _RewardDatas;
+    public void EnterMission() {
 
-    //public GameObject _UIMission;
+    }
 
-    //public MissionButton[] _Choices;
+    public void StartMission() {
 
-    //public MissionType _CurrentMission;
+    }
 
-    //public static bool _IsMissionStart = false;
+    public void RewardMission() {
+
+    }
+
+    public void ExitMission() {
+
+    }
+
 
     #region 폐기
     //private void Awake()

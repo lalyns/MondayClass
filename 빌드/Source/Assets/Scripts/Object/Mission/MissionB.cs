@@ -49,6 +49,8 @@ public class MissionB : Mission
 
         if (missionEnd) return;
 
+        if (GameManager.stageLevel == 0) return;
+
         if (GameStatus._Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
 
         if (MissionOperate)
@@ -66,7 +68,7 @@ public class MissionB : Mission
             }
         }
 
-        if (GameManager._Instance.curScore >= goalScore)
+        if (GameManager.Instance.curScore >= goalScore)
         {
             ClearMission();
             missionEnd = true;

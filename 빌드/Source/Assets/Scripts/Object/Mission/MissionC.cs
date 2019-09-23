@@ -40,6 +40,8 @@ public class MissionC : Mission
 
         }
 
+        if (GameManager.stageLevel == 0) return;
+
         if (missionEnd) return;
 
         if (GameStatus._Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;

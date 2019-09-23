@@ -34,7 +34,7 @@ public class Bead : MonoBehaviour
     {
         Debug.Log(other.transform.name);
 
-        if (GameManager._Instance._IsDummyScene)
+        if (GameManager.Instance._IsDummyScene)
         {
             if (other.transform.tag == "Player")
             {

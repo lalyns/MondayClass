@@ -96,7 +96,7 @@ public class TempMissionProgress : MonoBehaviour
             _Instance._Time.text = min + "'0" + sec + "''";
         }
 
-        _Instance._Remain.text = GameManager._Instance.curScore + " 개 / 5 개";
+        _Instance._Remain.text = GameManager.Instance.curScore + " 개 / 5 개";
     }
 
     private void SetMission3()

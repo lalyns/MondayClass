@@ -218,11 +218,8 @@ public class PlayerFSMManager : FSMManager
     private void Start()
     {
 
-        Debug.Log("1");
-        
         SetState(startState);
         _isinit = true;
-        Debug.Log("2");
 
         bloom.active = true;
         bloom.enabled.Override(false);
