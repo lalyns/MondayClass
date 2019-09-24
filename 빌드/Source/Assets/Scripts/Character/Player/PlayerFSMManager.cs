@@ -80,9 +80,11 @@ public class PlayerFSMManager : FSMManager
     public GameObject[] Skill1Effeects;
     public bool isBall, isShoot, isSkill1CTime;
 
+    public AttackType attackType;
+
     [SerializeField]
     private List<GameObject> _monster = new List<GameObject>();
-    public int SpecialGauge = 0;
+    public float SpecialGauge = 0;
     public Image SpecialGauge_Image;
     public Image Skill1UI, Skill2UI, Skill3UI;
     Vector3 target;
@@ -227,9 +229,12 @@ public class PlayerFSMManager : FSMManager
     //public Texture2D aaasdf;
     public TextureParameter Concent;
 
+    float normalTimer;
+    float gaugePerSecond;
+
     private void Start()
     {
-
+        
         SetState(startState);
         _isinit = true;
 
@@ -255,7 +260,8 @@ public class PlayerFSMManager : FSMManager
         vignette.mask.value = Concent.value;      
         vignette.opacity.value = 0f;
 
-
+        normalTimer = Stat.transDuration;
+        gaugePerSecond = 100.0f / normalTimer;
 
 
         //vignette.mask = Concent;
@@ -416,10 +422,11 @@ public class PlayerFSMManager : FSMManager
         if (!isNormal)
         {
             normalTimer -= Time.deltaTime;
-
+            
             try
             {
-                SpecialGauge_Image.fillAmount = (normalTimer * 3.33f) / 100f;
+                SpecialGauge_Image.fillAmount = (normalTimer * gaugePerSecond) / 100.0f;
+                Debug.Log(SpecialGauge_Image.fillAmount);
             }
             catch
             {
@@ -430,7 +437,8 @@ public class PlayerFSMManager : FSMManager
             {
                 isNormal = true;
                 ChangeNormal();
-                normalTimer = 30;
+                SpecialGauge = 0;
+                normalTimer = Stat.transDuration;
                 
             }
         }
@@ -445,12 +453,11 @@ public class PlayerFSMManager : FSMManager
         if (isSkill2)
             return;
     }
-    float normalTimer = 30f;
 
     
     private void FixedUpdate()
     {
-        Debug.Log(Stat.Hp + "체력");
+        //Debug.Log(Stat.Hp + "체력");
 
         if(isShake)
             StartCoroutine(shake.ShakeCamera(.2f, 0.02f, 0.0f));
@@ -1058,22 +1065,14 @@ public class PlayerFSMManager : FSMManager
     {
         isShake = true;
 
-        // Attack_Capsule.enabled = true;
+         Attack_Capsule.enabled = true;
         
 
-        var hitTarget = GameLib.SimpleDamageProcess(_anim.transform, Stat.AttackRange,
-            "Monster", Stat, Stat.Damage);
-
-        if (hitTarget != null) _lastAttack = hitTarget;
-
-        Debug.Log(_lastAttack + "LastAttack");
-
-        Debug.Log(Stat.Damage + "Damage");
     }
     public void AttackCancel()
     {
         isShake = false;
-        // Attack_Capsule.enabled = false;
+         Attack_Capsule.enabled = false;
     }
     public void Skill3Attack()
     {

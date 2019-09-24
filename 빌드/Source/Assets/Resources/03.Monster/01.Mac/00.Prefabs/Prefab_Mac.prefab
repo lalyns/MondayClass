@@ -367,6 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b18644906041ce4791f994a5f1e2d7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer: 0
   lastHitBy: {fileID: 0}
   statData: {fileID: 11400000, guid: c4e880e7851cfe4489aa5466459f6054, type: 2}
   monsterData: {fileID: 11400000, guid: c4e880e7851cfe4489aa5466459f6054, type: 2}
@@ -412,6 +413,10 @@ MonoBehaviour:
   _Sound: {fileID: 0}
   _PriorityTarget: {fileID: 0}
   _DetectingRange: 20
+  KnockBackFlag: 0
+  KnockBackDuration: 0
+  KnockBackPower: 0
+  KnockBackDelay: 0
 --- !u!114 &5136133771846456272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,8 +544,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _manager: {fileID: 0}
   sub: 0
-  knockBackDuration: 0.1
-  knockBackPower: 0.3
 --- !u!1 &4635790295767007043
 GameObject:
   m_ObjectHideFlags: 0

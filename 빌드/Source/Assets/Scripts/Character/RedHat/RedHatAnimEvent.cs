@@ -5,6 +5,7 @@ using UnityEngine;
 public class RedHatAnimEvent : MonoBehaviour
 {
     public RedHatATTACK _attackCp;
+    public RedHatHIT _hitCp;
 
     private void Awake()
     {
@@ -38,5 +39,10 @@ public class RedHatAnimEvent : MonoBehaviour
     {
         if (null != _attackCp)
             _attackCp.AttackCheck();
+    }
+
+    void HitEnd()
+    {
+        _hitCp.hitEnd = true;
     }
 }

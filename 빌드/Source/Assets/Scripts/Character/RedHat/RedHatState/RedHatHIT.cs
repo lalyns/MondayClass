@@ -5,66 +5,65 @@ using UnityEngine;
 public class RedHatHIT : RedHatFSMState
 {
     bool knockBack = true;
-    public float knockBackDuration = 1.5f;
-    public float knockBackPower = 3.0f;
-    public float knockBackDelay = 0.3f;
+    int knockBackDuration = 1;
+    float knockBackPower = 3.0f;
+    float knockBackDelay = 0.3f;
 
     float _Count = 0;
+    public bool hitEnd = false;
 
     Vector3 knockBackTargetPos = Vector3.zero;
     public override void BeginState()
     {
         base.BeginState();
 
-        knockBack = true;
-        knockBackTargetPos = transform.position +
-            _manager.PlayerCapsule.transform.forward * knockBackPower;
-        knockBackTargetPos.y = this.transform.position.y;
-    }
+        knockBack = _manager.KnockBackFlag;
+        knockBackDuration = _manager.KnockBackDuration;
+        knockBackPower = _manager.KnockBackPower;
+        knockBackDelay = _manager.KnockBackDelay;
 
+        Vector3 direction = (_manager.PlayerCapsule.transform.forward).normalized;
+        direction.y = 0;
+        knockBackTargetPos = direction + this.transform.position;
+    }
     public override void EndState()
     {
         base.EndState();
         _Count = 0;
+        hitEnd = false;
     }
 
     protected override void Update()
     {
         base.Update();
 
-
-        if (!knockBack)
-        {
-            _Count += Time.deltaTime;
-
-            if(_Count>=knockBackDelay)
-                _manager.SetState(RedHatState.CHASE);
-        }
+        if (hitEnd)
+            _manager.SetState(RedHatState.CHASE);
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
 
-        StartCoroutine(KnockBack(knockBackDuration, knockBackPower));
+        
+
+        if(knockBack)
+            StartCoroutine(KnockBack(knockBackDuration, knockBackPower));
     }
 
-    public IEnumerator KnockBack(float dur, float power)
+    public IEnumerator KnockBack(int dur, float power)
     {
-        float timer = 0.0f;
         Vector3 direction = _manager.PlayerCapsule.transform.forward.normalized;
+        direction.y = 0;
 
-        while (timer <= dur)
+        for (int time = 0; time < dur; time++)
         {
-            timer += Time.deltaTime;
 
-            //transform.position = Vector3.Lerp(this.transform.position, knockBackTargetPos, 0.15f * Time.deltaTime);
-            transform.position += direction * Time.deltaTime;
+            transform.position = knockBackTargetPos + direction * (power);
 
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSeconds(0.1f);
         }
 
         knockBack = false;
-
     }
 }
