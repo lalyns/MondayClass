@@ -8,10 +8,7 @@ public class TempMissionExit : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
-            if (GameManager.Instance._IsDummyScene)
-            {
-                MissionManager.PopUpMission();
-            }
+            MissionManager.PopUpMission();
         }
     }
 }

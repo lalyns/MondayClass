@@ -16,7 +16,7 @@ public class RirisPOPUP : RirisFSMState
     public override void EndState()
     {
         _curTime = 0.0f;
-        GameStatus._Instance.ActivedMonsterList.Add(this.gameObject);
+        GameStatus.Instance.ActivedMonsterList.Add(this.gameObject);
         base.EndState();
     }
 

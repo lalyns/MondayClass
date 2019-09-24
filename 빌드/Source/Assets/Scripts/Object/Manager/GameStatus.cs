@@ -5,6 +5,18 @@ using UnityEngine;
 public class GameStatus : MonoBehaviour
 {
     public static GameStatus _Instance;
+    public static GameStatus Instance {
+        get {
+            if (_Instance == null)
+            {
+                _Instance = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameStatus>();
+            }
+            return _Instance;
+        }
+        set {
+            _Instance = value;
+        }
+    }
 
     public static bool _EditorMode = false;
 
@@ -26,7 +38,7 @@ public class GameStatus : MonoBehaviour
     {
         if(_Instance == null)
         {
-            _Instance = GetComponent<GameStatus>();
+            Instance = GetComponent<GameStatus>();
         }
         else
         {

@@ -97,16 +97,18 @@ public class MissionManager : MonoBehaviour
     public static void EnterMission() {
         // 캐릭터 위치변경
         Instance.CurrentMission.gameObject.SetActive(true);
-        GameStatus._Instance._PlayerInstance.
+        GameStatus.Instance._PlayerInstance.
             GetComponentInChildren<Animator>().
             transform.position =
             Instance.CurrentMission.Enter.transform.position;
         
         // 페이드 IN
+
     }
 
     public static void StartMission() {
         // 미션 시작지
+        Instance.CurrentMission.OperateMission();
     }
 
     public static void RewardMission() {
@@ -114,7 +116,6 @@ public class MissionManager : MonoBehaviour
     }
 
     public static void ExitMission() {
-        Debug.Log(Instance.CurrentMission.ToString());
         Instance.CurrentMission.RestMission();
     }
 
