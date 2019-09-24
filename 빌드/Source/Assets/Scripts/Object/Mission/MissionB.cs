@@ -66,7 +66,7 @@ public class MissionB : Mission
             }
         }
 
-        if (GameManager._Instance.curScore >= goalScore)
+        if (GameManager.Instance.curScore >= goalScore)
         {
             ClearMission();
             missionEnd = true;

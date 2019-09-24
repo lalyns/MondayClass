@@ -9,7 +9,7 @@ public class MacDEAD : MacFSMState
         base.BeginState();
 
 
-        if (!GameManager._Instance._IsDummyScene)
+        if (!GameManager.Instance._IsDummyScene)
         {
             ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.Mac);
         }

@@ -26,7 +26,7 @@ public class MissionExit : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
-            if (GameManager._Instance._IsDummyScene)
+            if (GameManager.Instance._IsDummyScene)
             {
                 MissionManager.Instance.CurrentMission.MissionSelect();
 

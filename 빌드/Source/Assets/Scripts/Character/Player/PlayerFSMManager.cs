@@ -365,9 +365,25 @@ public class PlayerFSMManager : FSMManager
         Skill3_Capsule.enabled = false;
     }
 
-    
+    private void SetUI()
+    {
+        
+    }
+
     private void Update()
     {
+    
+        if (GameManager.Instance._ActivePlayerUI)
+        {
+            // UI 참조 안하게.
+            Skill1UI = null;
+            Skill2UI = null;
+            Skill3UI = null;
+            SpecialGauge_Image = null;
+            pc_Icon = null;
+            sp_Icon = null;
+        }
+
         if(isSkill3)
             CMvcam2.m_Lens.FieldOfView = 70f;
 

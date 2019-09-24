@@ -145,7 +145,7 @@ public class TempDungeon : MonoBehaviour
             MonsterRespawnTime = 0;
         }
 
-        if(GameManager._Instance.curScore >= clearCount)
+        if(GameManager.Instance.curScore >= clearCount)
         {
             MissionStart = false;
             MissionEnd();

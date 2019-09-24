@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager _Instance;
+    public static GameManager Instance;
 
     public static bool isPopUp = false;
     public bool _EditorCursorLock = true;
@@ -32,9 +32,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(_Instance == null)
+        
+        if(Instance == null)
         {
-            _Instance = GetComponent<GameManager>();
+            Instance = GetComponent<GameManager>();
         }
         else
         {
@@ -99,7 +100,7 @@ public class GameManager : MonoBehaviour
     /// <param name="isLock"></param>
     public static void CursorMode(bool isLock)
     {
-        if (_Instance._EditorCursorLock)
+        if (Instance._EditorCursorLock)
         {
             if (isLock)
             {
@@ -107,7 +108,7 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = false;
                 try
                 {
-                    _Instance._cursurImage.enabled = true;
+                    Instance._cursurImage.enabled = true;
                 }
                 catch
                 {
@@ -122,7 +123,7 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = false;
                 try
                 {
-                    _Instance._cursurImage.enabled = false;
+                    Instance._cursurImage.enabled = false;
                 }
                 catch
                 {
@@ -134,7 +135,7 @@ public class GameManager : MonoBehaviour
 
     public static void TempScoreAdd()
     {
-        _Instance.curScore += 1;
+        Instance.curScore += 1;
     }
 
     

@@ -18,7 +18,7 @@ public class TempMissionExit : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
-            if (GameManager._Instance._IsDummyScene)
+            if (GameManager.Instance._IsDummyScene)
             {
                 MissionStart();
             }
