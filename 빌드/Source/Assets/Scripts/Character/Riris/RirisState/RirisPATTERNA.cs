@@ -7,12 +7,16 @@ public class RirisPATTERNA : RirisFSMState
     public GameObject _PatternAReadyEffect;
 
     public bool SetJumpState = false;
+
+    public float targetSetDelay = 1.3f;
     public float stompDelay = 1.5f;
+
     float stompCount = 0;
 
     public bool StompEnd = false;
 
     Transform playerTransform;
+    Vector3 targetPos;
 
     public override void BeginState()
     {
@@ -43,8 +47,12 @@ public class RirisPATTERNA : RirisFSMState
         if (SetJumpState) {
             stompCount += Time.deltaTime;
 
+            if (stompCount < targetSetDelay)
+            {
+                targetPos = playerTransform.position;
+            }
             _PatternAReadyEffect.SetActive(true);
-            _PatternAReadyEffect.transform.position = playerTransform.position;
+            _PatternAReadyEffect.transform.position = targetPos;
         }
 
 
@@ -64,8 +72,8 @@ public class RirisPATTERNA : RirisFSMState
     {
         _PatternAReadyEffect.SetActive(false);
 
-        transform.position = playerTransform.position;
-        _manager._Weapon.position = playerTransform.position;
+        transform.position = targetPos;
+        _manager._Weapon.position = targetPos;
 
         _manager.Anim.SetBool("Stomp", true);
         _manager._WeaponAnimator.SetBool("Stomp", true);

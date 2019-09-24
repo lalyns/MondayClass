@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MacBullet : MonoBehaviour
 {
-    public enum BulletType { Normal, Skill }
-    public BulletType _Type;
+    public enum MacBulletType { Normal, Skill }
+    public MacBulletType _Type;
 
     public GameObject _CreateEffect;
     public ParticleSystem[] _CreateEffectParticles;
@@ -18,28 +18,28 @@ public class MacBullet : MonoBehaviour
     public float speed = 3f;
 
     // 상수 목록
-    [HideInInspector] public float _CreativeTime;
-    [HideInInspector] public float _DestroyTime;
-    [HideInInspector] public float _DestroyDelay;
+     public float _CreativeTime;
+     public float _DestroyTime;
+     public float _DestroyDelay;
 
     // 초기화 목록
-    [HideInInspector] public float _PlayTime = 0.0f;
-    [HideInInspector] public float _DestroyPlayTime = 0.0f;
+     public float _PlayTime = 0.0f;
+     public float _DestroyPlayTime = 0.0f;
 
-    [HideInInspector] public bool _Move = false;
-    [HideInInspector] public bool _SetPlay = false;
-    [HideInInspector] public bool _Destroy = false;
+     public bool _Move = false;
+     public bool _SetPlay = false;
+     public bool _Destroy = false;
 
     private void Start()
     {
         switch (_Type)
         {
-            case BulletType.Normal:
+            case MacBulletType.Normal:
                 _CreativeTime = 0.800f;
                 _DestroyTime = 4.000f;
                 _DestroyDelay = 0.650f;
                 break;
-            case BulletType.Skill:
+            case MacBulletType.Skill:
                 _CreativeTime = 1.000f;
                 _DestroyTime = 5.000f;
                 _DestroyDelay = 1.100f;
@@ -76,12 +76,10 @@ public class MacBullet : MonoBehaviour
                 this.transform.position += dir * speed * Time.deltaTime;
         }
 
-        if(_PlayTime > _CreativeTime + _DestroyTime)
+        if(_PlayTime > _CreativeTime + _DestroyTime && !_Destroy)
         {
             _MoveEffect.SetActive(false);
             _DestroyEffect.SetActive(true);
-
-            if (_Destroy) return;
 
             PlayEffect(_DestroyEffectParticles);
             _Destroy = true;
@@ -110,10 +108,10 @@ public class MacBullet : MonoBehaviour
 
         switch (_Type)
         {
-            case BulletType.Normal:
+            case MacBulletType.Normal:
                 pool = EffectPoolManager._Instance._MacBulletPool;
                 break;
-            case BulletType.Skill:
+            case MacBulletType.Skill:
                 pool = EffectPoolManager._Instance._MacSkillPool;
                 break;
         }

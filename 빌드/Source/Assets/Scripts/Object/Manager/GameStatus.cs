@@ -49,6 +49,9 @@ public class GameStatus : MonoBehaviour
     // 게임 메뉴 정보
 
     // 던전 정보
+    /// <summary>
+    /// 활동중인 몬스터 리스트
+    /// </summary>
     private List<GameObject> _ActivedMonsterList = new List<GameObject>();
     public List<GameObject> ActivedMonsterList {
         get {
@@ -152,9 +155,16 @@ public class GameStatus : MonoBehaviour
 #if UNITY_STANDALONE
 
 #endif
-        if (MissionManager.Instance.CurrentMission.MissionOperate)
+        try
         {
-            _LimitTime -= Time.deltaTime;
+            if (MissionManager.Instance.CurrentMission.MissionOperate)
+            {
+                _LimitTime -= Time.deltaTime;
+            }
+        }
+        catch
+        {
+
         }
 
     }
