@@ -9,7 +9,7 @@ public class RedHatAnimEvent : MonoBehaviour
 
     private void Awake()
     {
-        
+        _attackCp = GameObject.FindGameObjectWithTag("Monster").GetComponent<RedHatATTACK>();
     }
 
     public CapsuleCollider _WeaponCapsule;
