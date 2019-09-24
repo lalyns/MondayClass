@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class MacSKILL : MacFSMState
 {
+    public bool isLookAt = true;
+
     public override void BeginState()
     {
         base.BeginState();
+        isLookAt = true;
     }
 
     public override void EndState()
@@ -18,7 +21,8 @@ public class MacSKILL : MacFSMState
 
     private void Update()
     {
-        transform.LookAt(_manager._PriorityTarget.transform);
+        if(isLookAt)
+            transform.LookAt(_manager._PriorityTarget.transform);
 
         if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) > _manager.Stat.statData._AttackRange)
         {

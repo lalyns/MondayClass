@@ -5,9 +5,20 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    private static GameManager _Instance;
+    public static GameManager Instance {
+        get {
+            if(_Instance == null)
+            {
+                _Instance = GameObject.Find("Prefab_Manager").GetComponent<GameManager>();
+            }
+            return _Instance;
+        }
+        set {
+            _Instance = value;
+        }
+    }
 
-    public static bool isPopUp = false;
     public bool _EditorCursorLock = true;
 
     public bool _ActiveAllUI;
@@ -15,10 +26,12 @@ public class GameManager : MonoBehaviour
     public bool _ActiveMonsterUI;
     public bool _ActiveSystemUI;
 
-    public bool _TimeMagnificationMode;
-    [Range(0,5)] public float _TimeMagnificationValue;
+    public bool TimeMagnificationMode;
+    [Range(0,5)] public float TimeMagnificationValue;
 
-    public bool _CharacterControl = true;
+    public bool CharacterControl = true;
+
+    public bool ControlManual;
 
     bool _SimpleMode = false;
     public GameObject _MissionSimple;
@@ -28,23 +41,18 @@ public class GameManager : MonoBehaviour
     public bool _IsDummyScene = false;
     public int curScore = 0;
 
+    public bool IsPuase;
     public static int stageLevel = 0;
 
     private void Awake()
     {
-        
-        if(Instance == null)
+        if(_Instance == null)
         {
-            Instance = GetComponent<GameManager>();
+            _Instance = GetComponent<GameManager>();
         }
         else
         {
             Destroy(gameObject);
-        }
-
-        if (_IsDummyScene)
-        {
-
         }
     }
 
@@ -58,12 +66,13 @@ public class GameManager : MonoBehaviour
 
     }
 
-    
+
 
     // Update is called once per frame
     void Update()
     {
-        Time.timeScale = _TimeMagnificationMode ? _TimeMagnificationValue : 1.0f;
+        if (!IsPuase) Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
+        else Time.timeScale = 0;
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
@@ -83,17 +92,47 @@ public class GameManager : MonoBehaviour
 
     }
 
-    //private void OnGUI()
-    //{
-    //    if (GUI.RepeatButton(new Rect(Screen.width / 100f * 80f , Screen.height * 0.8f, 230, 85), 
-    //        "조작법 \n" +
-    //        "이동 : W A S D \n" +
-    //        "공격 : 마우스 좌클릭\n" +
-    //        "회피 : LeftShift \n" +
-    //        "스킬 : F"
-    //        )) { }
-    //}
-    
+    #region OnGUI 도구
+    /// <summary>
+    /// GUI 변수 및 매소드
+    /// </summary>
+
+    [Range(0, 1)] public float WidthRatio;
+    [Range(0, 1)] public float HeightRatio;
+    [HideInInspector] public bool OnInspectating;
+
+    private void OnGUI()
+    {
+        if (OnInspectating) ViewDungeonStatus();
+        if (ControlManual) ViewControlManual();
+
+    }
+
+    private void ViewDungeonStatus()
+    {
+        string discribe = "현재 던전 : " + MissionManager.Instance.CurrentMission.gameObject.name.ToString() +
+                           "\n 미션 정보 : " + MissionManager.Instance.CurrentMission.MissionOperate
+           ;
+
+
+        if (GUI.Button(new Rect(Screen.width * WidthRatio, Screen.height * HeightRatio, 150, 100),discribe)) { }
+
+    }
+
+    private void ViewControlManual()
+    {
+        string discribe =
+            "조작법 \n" +
+            "이동 : W A S D \n" +
+            "공격 : 마우스 좌클릭 \n" +
+            "회피 : LeftShift \n" +
+            "스킬 : F";
+
+        if (GUI.RepeatButton(new Rect(Screen.width / 100f * 80f, Screen.height * 0.8f, 230, 85), discribe)) { }
+    }
+
+    #endregion
+
     /// <summary>
     /// 마우스 커서가 보이게 하는 매소드
     /// </summary>

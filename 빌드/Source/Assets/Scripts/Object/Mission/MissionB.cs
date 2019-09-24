@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class MissionB : Mission
 {
-    bool missionEnd = false;
-
-    public GameObject EndTrigger;
-    public GameObject PortalEffect;
-
     public int goalScore = 5;
 
     float starDropTime = 0;
@@ -34,25 +29,25 @@ public class MissionB : Mission
     // Update is called once per frame
     protected override void Update()
     {
-        starDropTime += Time.deltaTime;
-        spawnTime += Time.deltaTime;
-
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
                 ClearMission();
-                missionEnd = true;
+                MissionEnd = true;
             }
 
         }
 
-        if (missionEnd) return;
+        if (MissionEnd) return;
 
         if (GameStatus._Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
 
         if (MissionOperate)
         {
+            starDropTime += Time.deltaTime;
+            spawnTime += Time.deltaTime;
+
             if (starDropTime > starDropCool)
             {
                 DropStar();
@@ -69,7 +64,7 @@ public class MissionB : Mission
         if (GameManager.Instance.curScore >= goalScore)
         {
             ClearMission();
-            missionEnd = true;
+            MissionEnd = true;
         }
     }
 
@@ -125,6 +120,18 @@ public class MissionB : Mission
                 i++;
             }
         }
+    }
+
+    public override void RestMission()
+    {
+        base.RestMission();
+
+        Debug.Log("ResetB");
+
+        Exit.Colliders.enabled = false;
+        Exit._PortalEffect.SetActive(false);
+        MissionEnd = false;
+        MissionEnd = false;
     }
 
     void DropStar()

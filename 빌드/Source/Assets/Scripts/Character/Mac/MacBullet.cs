@@ -7,54 +7,48 @@ public class MacBullet : MonoBehaviour
     public enum BulletType { Normal, Skill }
     public BulletType _Type;
 
-    public GameObject _SetEffect;
-    public ParticleSystem[] _SetEffectParticles;
+    public GameObject _CreateEffect;
+    public ParticleSystem[] _CreateEffectParticles;
 
     public GameObject _MoveEffect;
     public GameObject _DestroyEffect;
+    public ParticleSystem[] _DestroyEffectParticles;
 
     [HideInInspector] public Vector3 dir;
     public float speed = 3f;
 
     // 상수 목록
-    [HideInInspector] public float _CreativeTime = 0.8f;
-    [HideInInspector] public float _DestroyTime = 4.0f;
-    [HideInInspector] public float _DestroyConstTime = 0.65f;
+    [HideInInspector] public float _CreativeTime;
+    [HideInInspector] public float _DestroyTime;
+    [HideInInspector] public float _DestroyDelay;
 
     // 초기화 목록
     [HideInInspector] public float _PlayTime = 0.0f;
     [HideInInspector] public float _DestroyPlayTime = 0.0f;
 
     [HideInInspector] public bool _Move = false;
-    [HideInInspector] public bool _Play = false;
+    [HideInInspector] public bool _SetPlay = false;
     [HideInInspector] public bool _Destroy = false;
 
     private void Start()
     {
-        _MoveEffect.SetActive(false);
-
         switch (_Type)
         {
             case BulletType.Normal:
-                _CreativeTime = 0.8f;
-                _DestroyTime = 4.0f;
-                _DestroyConstTime = 0.65f;
+                _CreativeTime = 0.800f;
+                _DestroyTime = 4.000f;
+                _DestroyDelay = 0.650f;
                 break;
             case BulletType.Skill:
-                _CreativeTime = 1f;
-                _DestroyTime = 8.0f;
-                _DestroyConstTime = 0.65f;
+                _CreativeTime = 1.000f;
+                _DestroyTime = 5.000f;
+                _DestroyDelay = 1.100f;
                 break;
         }
 
-        try
-        {
-            _DestroyEffect.SetActive(false);
-        }
-        catch
-        {
-
-        }
+        _CreateEffect.SetActive(true);
+        _MoveEffect.SetActive(false);
+        _DestroyEffect.SetActive(false);
     }
 
     // Update is called once per frame
@@ -66,45 +60,47 @@ public class MacBullet : MonoBehaviour
 
         if(_PlayTime < _CreativeTime)
         {
-            if (_Play) return;
-
-            foreach(ParticleSystem particle in _SetEffectParticles)
+            if (!_SetPlay)
             {
-                particle.Play();
+                PlayEffect(_CreateEffectParticles);
+                _SetPlay = !_SetPlay;
             }
-            _Play = !_Play;
         }
 
-        if(_PlayTime > _CreativeTime && _PlayTime < _DestroyTime)
+        if(_PlayTime > _CreativeTime && _PlayTime < _CreativeTime + _DestroyTime)
         {
-            _SetEffect.SetActive(false);
+            _CreateEffect.SetActive(false);
             _MoveEffect.SetActive(true);
 
-            this.transform.position += dir * speed * Time.deltaTime;
+            if(!_Destroy)
+                this.transform.position += dir * speed * Time.deltaTime;
         }
 
-        if(_PlayTime > _DestroyTime)
+        if(_PlayTime > _CreativeTime + _DestroyTime)
         {
             _MoveEffect.SetActive(false);
+            _DestroyEffect.SetActive(true);
 
-            try
-            {
-                _DestroyEffect.SetActive(true);
-            }
-            catch
-            {
+            if (_Destroy) return;
 
-            }
-
+            PlayEffect(_DestroyEffectParticles);
             _Destroy = true;
         }
 
         if (_Destroy) _DestroyPlayTime += Time.deltaTime;
 
-        if (_DestroyPlayTime > _DestroyConstTime)
+        if (_DestroyPlayTime > _DestroyDelay)
         {
             _DestroyPlayTime = 0;
             EffectReturnPool();
+        }
+    }
+
+    public void PlayEffect(ParticleSystem[] playlist)
+    {
+        foreach (ParticleSystem particle in playlist)
+        {
+            particle.Play();
         }
     }
 
@@ -126,23 +122,15 @@ public class MacBullet : MonoBehaviour
         pool.ItemReturnPool(this.gameObject);
 
         _Move = false;
-        _Play = false;
+        _SetPlay = false;
         _Destroy = false;
 
         _PlayTime = 0;
         _DestroyPlayTime = 0;
 
-        _SetEffect.SetActive(true);
+        _CreateEffect.SetActive(true);
         _MoveEffect.SetActive(false);
-
-        try
-        {
-            _DestroyEffect.SetActive(false);
-        }
-        catch
-        {
-
-        }
+        _DestroyEffect.SetActive(false);
 
     }
 

@@ -23,6 +23,7 @@ public class MissionEnter : MonoBehaviour
             {
                 if (!MissionManager.Instance.CurrentMission.MissionOperate)
                 {
+                    Debug.Log("EnterMission");
                     MissionManager.Instance.CurrentMission.OperateMission();
                 }
             }
