@@ -22,7 +22,7 @@ public class FollowCam : MonoBehaviour
 
     [Header("Etc Obstacle Setting")]
     //카메라가 올라갈 높이
-    public float heightAboveObstacle = 12.0f;
+    public float heightAboveObstacle     = 12.0f;
     //플레이어 투사할 레이캐스트의 높이 옵셋
     public float castOffset = 1.0f;
 
