@@ -48,6 +48,11 @@ public class RedHatFSMManager : FSMManager
 
     public Transform _AttackTransform;
     public SkinnedMeshRenderer _MR;
+    public Material[] Mats;
+
+    public SkinnedMeshRenderer _WPMR;
+    public Material WPMats;
+    
 
     //public CharacterStat _lastAttack;
 
@@ -79,6 +84,9 @@ public class RedHatFSMManager : FSMManager
         _Stat = GetComponent<RedHatStat>();
         _Anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<MonsterSound>();
+        Mats = _MR.materials;
+        WPMats = _WPMR.material;
+
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
@@ -130,9 +138,7 @@ public class RedHatFSMManager : FSMManager
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {
-            if (CurrentState == RedHatState.DASH) return;
-
-            Debug.Log("피격 상태변경");
+            if (CurrentState == RedHatState.DASH || CurrentState == RedHatState.HIT) return;
 
             SetState(RedHatState.HIT);
 

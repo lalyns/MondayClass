@@ -66,4 +66,9 @@ public class RedHatHIT : RedHatFSMState
 
         knockBack = false;
     }
+
+    public void HitEnd()
+    {
+        hitEnd = true;
+    }
 }
