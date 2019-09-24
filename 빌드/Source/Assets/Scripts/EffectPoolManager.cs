@@ -11,7 +11,8 @@ public class EffectPoolManager : MonoBehaviour
     public ObjectPool _MacBulletPool;
     public ObjectPool _MacSkillPool;
     public ObjectPool _BossBulletPool;
-    
+
+    public ObjectPool _MissionBBeadPool;
 
     private void Awake()
     {

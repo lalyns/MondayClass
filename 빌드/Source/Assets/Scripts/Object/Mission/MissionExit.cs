@@ -24,11 +24,8 @@ public class MissionExit : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
-            if (GameManager.Instance._IsDummyScene)
-            {
-                MissionManager.ExitMission();
-                MissionManager.PopUpMission();
-            }
+            MissionManager.ExitMission();
+            MissionManager.PopUpMission();
         }
     }
 }

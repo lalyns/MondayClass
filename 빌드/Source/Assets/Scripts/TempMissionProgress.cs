@@ -58,7 +58,7 @@ public class TempMissionProgress : MonoBehaviour
         _Instance._missionType.sprite = _Instance._anihilation;
         _Instance._goalIcon.sprite = _Instance._mob;
 
-        float curTime = GameStatus._Instance._LimitTime;
+        float curTime = GameStatus.Instance._LimitTime;
         int min = (int)(curTime / 60f);
         int sec = (int)(curTime % 60f);
 
@@ -71,7 +71,7 @@ public class TempMissionProgress : MonoBehaviour
             _Instance._Time.text = min + "'0" + sec + "''";
         }
 
-        _Instance._Remain.text = GameStatus._Instance.ActivedMonsterList.Count + "마리";
+        _Instance._Remain.text = GameStatus.Instance.ActivedMonsterList.Count + "마리";
 
     }
 
@@ -81,7 +81,7 @@ public class TempMissionProgress : MonoBehaviour
         _Instance._missionType.sprite = _Instance._survive;
         _Instance._goalIcon.sprite = _Instance._star;
 
-        float curTime = GameStatus._Instance._LimitTime;
+        float curTime = GameStatus.Instance._LimitTime;
         int min = (int)(curTime / 60f);
         int sec = (int)(curTime % 60f);
 
@@ -103,7 +103,7 @@ public class TempMissionProgress : MonoBehaviour
         _Instance._missionType.sprite = _Instance._defence;
         _Instance._goalIcon.sprite = _Instance._pillarHP;
 
-        float curTime = GameStatus._Instance._LimitTime;
+        float curTime = GameStatus.Instance._LimitTime;
         int min = (int)(curTime / 60f);
         int sec = (int)(curTime % 60f);
 

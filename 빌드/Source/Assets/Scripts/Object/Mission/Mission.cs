@@ -76,23 +76,27 @@ public class Mission : MonoBehaviour
 
     public virtual void RestMission()
     {
+        MissionEnd = false;
+        MissionOperate = false;
+        Exit.Colliders.enabled = false;
+        Exit._PortalEffect.SetActive(false);
 
     }
 
     public virtual void OperateMission()
     {
-        GameManager.stageLevel++;
-        GameStatus._Instance._MissionStatus = true;
-        GameStatus._Instance._LimitTime = _LimitTime;
+        GameStatus.Instance.StageLevel++;
+        GameStatus.Instance._MissionStatus = true;
+        GameStatus.Instance._LimitTime = _LimitTime;
 
         MissionOperate = true;
         Exit.Colliders.enabled = false;
     }
 
-    public void ClearMission()
+    public virtual void ClearMission()
     {
-        GameStatus._Instance._MissionStatus = false;
-        GameStatus._Instance.RemoveAllActiveMonster();
+        GameStatus.Instance._MissionStatus = false;
+        GameStatus.Instance.RemoveAllActiveMonster();
 
         Exit._PortalEffect.SetActive(true);
         Exit.Colliders.enabled = true;

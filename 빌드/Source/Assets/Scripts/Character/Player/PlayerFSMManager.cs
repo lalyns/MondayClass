@@ -904,7 +904,7 @@ public class PlayerFSMManager : FSMManager
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 // 주변 몬스터의 수를 파악 한 후에
-                _monster = GameStatus._Instance.ActivedMonsterList;
+                _monster = GameStatus.Instance.ActivedMonsterList;
 
                 if (_monster.Count == 0)
                     return;

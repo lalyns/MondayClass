@@ -32,8 +32,6 @@ public class Bead : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.transform.name);
-
         if (GameManager.Instance._IsDummyScene)
         {
             if (other.transform.tag == "Player")
@@ -46,40 +44,28 @@ public class Bead : MonoBehaviour
                 _GetEffect.transform.position = other.transform.position + Vector3.up;
                 _GetEffect.SetActive(true);
 
-                Destroy(this.gameObject, 3.5f);
+                MissionB mission = MissionManager.Instance.CurrentMission as MissionB;
+
+                if(mission.activeStar.Contains(this.gameObject))
+                    mission.activeStar.Remove(this.gameObject);
+
+                EffectPoolManager._Instance._MissionBBeadPool.ItemReturnPool(this.gameObject);
             }
             else if(other.transform.tag == "Stage")
             {
                 _StarMesh.SetActive(false);
 
-                Destroy(this.gameObject);
+                MissionB mission = MissionManager.Instance.CurrentMission as MissionB;
+
+                if (mission.activeStar.Contains(this.gameObject))
+                    mission.activeStar.Remove(this.gameObject);
+
+                EffectPoolManager._Instance._MissionBBeadPool.ItemReturnPool(this.gameObject);
             }
         }
         else
         {
-            //if (other.transform.tag == "Player")
-            //{
-            //    DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress += 10;
-            //    Debug.Log(DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._Progress);
-
-            //    DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[
-            //            DungeonManager.GetCurrentDungeon().GetComponent<Survive>().pos].SetActive(false);
-
-            //    _StarMesh.SetActive(false);
-            //    _GetEffect.SetActive(true);
-
-            //    Destroy(this.gameObject, 3.5f);
-            //}
-
-            //if (other.transform.tag == "Stage")
-            //{
-            //    DungeonManager.GetCurrentDungeon().GetComponent<Survive>()._BeadPositionEffect[
-            //            DungeonManager.GetCurrentDungeon().GetComponent<Survive>().pos].SetActive(false);
-
-            //    _StarMesh.SetActive(false);
-
-            //    Destroy(this.gameObject);
-            //}
+          
         }
     }
 
