@@ -97,7 +97,7 @@ public class ObjectPool : MonoBehaviour
         _InActiveItemPool.RemoveFirst();
 
         item.transform.position = respawnTrans.position;
-        item.GetComponent<BossBullet>().directionType = bulletType;
+        item.GetComponent<RirisBullet>().directionType = bulletType;
         item.SetActive(true);
 
         _ActiveItem.AddLast(item);
