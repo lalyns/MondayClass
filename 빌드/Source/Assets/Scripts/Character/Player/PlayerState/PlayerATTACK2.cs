@@ -16,6 +16,8 @@ public class PlayerATTACK2 : FSMState
     public override void EndState()
     {
         base.EndState();
+        _time = 0;
+
     }
 
     private void Update()

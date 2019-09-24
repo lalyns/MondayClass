@@ -135,6 +135,8 @@ public class RedHatFSMManager : FSMManager
         Stat.TakeDamage(playerStat, playerStat.DMG[(int)attackType]);
         SetKnockBack(playerStat, attackType);
 
+        StartCoroutine(Shake.instance.ShakeCamera(.2f, 0.03f, 0.1f));
+
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {
