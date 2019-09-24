@@ -23,6 +23,8 @@ public class PlayerATTACK3 : FSMState
         _manager.isAttackOne = false;
         _manager.isAttackTwo = false;
         _manager.isAttackThree = false;
+        _time = 0;
+
     }
 
     private void Update()

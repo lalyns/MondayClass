@@ -16,8 +16,10 @@ public class PlayerATTACK1 : FSMState
     public override void EndState()
     {
         base.EndState();
+        _time = 0;
+
     }
- 
+
     private void Update()
     {
         _time += Time.deltaTime;
