@@ -225,11 +225,8 @@ public class PlayerFSMManager : FSMManager
         _isinit = true;
 
         bloom.active = true;
-        bloom.enabled.Override(true);
-        
+        bloom.enabled.Override(true);        
         bloom.enabled = new BoolParameter() { value = true, overrideState = false };
-
-        //Concent.value = aaasdf;
 
 
         vignette.active = true;
@@ -238,32 +235,15 @@ public class PlayerFSMManager : FSMManager
         vignette.mode.overrideState = true;
         vignette.color.overrideState = true;
         vignette.mask.overrideState = true;
-        vignette.opacity.overrideState = true;        
+        vignette.opacity.overrideState = true;
+
         parameter = vignette.mode;
         parameter.value = VignetteMode.Masked;
-        vignette.color.value = new Color(102, 0, 153, 30);
-
-        
-        Debug.Log(Concent + "ㅋㅋ");
+        vignette.color.value = new Color(102, 0, 153, 30);        
         Concent.overrideState = true;
         Concent.defaultState = TextureParameterDefault.White;
-
-
-        //vignette.mask = Concent;
-        //vignette.mask = Concent;
-        //vignette.mask = Concent;
-        Debug.Log(vignette.mask + "마스크3");
-        //Concent.
-        //  Debug.Log(Concent.value + "ㅋㅋㅋ");
-        // Debug.Log(aaasdf + "z");
-        vignette.mask.value = Concent.value;
-        //vignette.mask.defaultState = false;
-        //Concent.overrideState = true;
-        //Concent.defaultState = TextureParameterDefault.White;
-        //vignette.mask = new TextureParameter { value = null };
-        //vignette.mask.overrideState = true;
-
-        //vignette.mask.overrideState = true;
+         
+        vignette.mask.value = Concent.value;      
         vignette.opacity.value = 0f;
 
 
@@ -271,19 +251,7 @@ public class PlayerFSMManager : FSMManager
 
         //vignette.mask = Concent;
         //Concent.value = aaasdf;
-        //vignette.mode = parameter.value;
 
-        //vignette.mask = 
-        //vignette.mode = mos;
-
-        //BoolParameter tempbool = new BoolParameter
-        //{
-        //    value = true
-        //};
-        //vignette.enabled = tempbool;
-
-
-        //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
         try
         {
             Skill1UI.fillAmount = 1f;
@@ -653,7 +621,6 @@ public class PlayerFSMManager : FSMManager
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            isShake = true;
             
             isFlash = true;
             isFlashStart = true;

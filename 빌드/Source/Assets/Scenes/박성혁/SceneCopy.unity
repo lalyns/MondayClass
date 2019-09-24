@@ -1726,6 +1726,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1919090139706422421}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &416737423 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8617359494973986785, guid: 7557a98b5ef5a8d458666efab7e7a126,
+    type: 3}
+  m_PrefabInstance: {fileID: 857776340}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &423204619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2948,50 +2960,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2342899874066708182}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &697226679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
-  m_Name: Vignette(Clone)
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  mode:
-    overrideState: 1
-    value: 1
-  color:
-    overrideState: 1
-    value: {r: 102, g: 0, b: 153, a: 30}
-  center:
-    overrideState: 0
-    value: {x: 0.5, y: 0.5}
-  intensity:
-    overrideState: 0
-    value: 0
-  smoothness:
-    overrideState: 0
-    value: 0.2
-  roundness:
-    overrideState: 0
-    value: 1
-  rounded:
-    overrideState: 0
-    value: 0
-  mask:
-    overrideState: 1
-    value: {fileID: 2800000, guid: e1d4e10344ec2f4458cb3489a0e5cc37, type: 3}
-    defaultState: 1
-  opacity:
-    overrideState: 1
-    value: 0
 --- !u!1 &704396886 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 80129007, guid: 6f470c6bc6146c64dbd2a3c0c42165b2,
@@ -3798,18 +3766,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _EditorCursorLock: 1
-  _ActiveAllUI: 1
-  _ActivePlayerUI: 1
+  _ActiveAllUI: 0
+  _ActivePlayerUI: 0
   _ActiveMonsterUI: 1
   _ActiveSystemUI: 1
-  _TimeMagnificationMode: 0
-  _TimeMagnificationValue: 0
-  _CharacterControl: 1
+  TimeMagnificationMode: 0
+  TimeMagnificationValue: 0
+  CharacterControl: 1
+  ControlManual: 0
   _MissionSimple: {fileID: 0}
   _MissionFull: {fileID: 0}
   _cursurImage: {fileID: 0}
   _IsDummyScene: 1
   curScore: 0
+  IsPuase: 0
+  WidthRatio: 0
+  HeightRatio: 0
+  OnInspectating: 0
 --- !u!4 &896013447
 Transform:
   m_ObjectHideFlags: 0
@@ -4961,6 +4934,50 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7151835443408991485}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1220097493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
+  m_Name: Vignette(Clone)
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  mode:
+    overrideState: 1
+    value: 1
+  color:
+    overrideState: 1
+    value: {r: 102, g: 0, b: 153, a: 30}
+  center:
+    overrideState: 0
+    value: {x: 0.5, y: 0.5}
+  intensity:
+    overrideState: 0
+    value: 0
+  smoothness:
+    overrideState: 0
+    value: 0.2
+  roundness:
+    overrideState: 0
+    value: 1
+  rounded:
+    overrideState: 0
+    value: 0
+  mask:
+    overrideState: 1
+    value: {fileID: 2800000, guid: bd28580219f229e4ebf7fc873ef792df, type: 3}
+    defaultState: 1
+  opacity:
+    overrideState: 1
+    value: 0
 --- !u!4 &1233758002 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 399281959512923607, guid: bbf30b6a9ccd3ee42b2e2973dfb47cac,
@@ -5160,6 +5177,18 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0796aa05e80b2a547accc989734065cd, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59ef093f8c552cd4187eec073ed505a5, type: 3}
+--- !u!114 &1262422464 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4717087811124353329, guid: 7557a98b5ef5a8d458666efab7e7a126,
+    type: 3}
+  m_PrefabInstance: {fileID: 857776340}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1264718684
 GameObject:
   m_ObjectHideFlags: 0
@@ -5337,12 +5366,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 3957fe02050316942986e8a9479adbba,
     type: 3}
   m_PrefabInstance: {fileID: 1300290680}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1306522362 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2801441691341514723, guid: db4666837c9f4f243843f2d4f700c1ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 350077582977391794}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1306862399
 GameObject:
@@ -5805,6 +5828,18 @@ Transform:
   m_Father: {fileID: 5380404939783408820}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1509639277 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8617359495078218265, guid: 7557a98b5ef5a8d458666efab7e7a126,
+    type: 3}
+  m_PrefabInstance: {fileID: 857776340}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1540913196
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6314,12 +6349,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 399281959512923607, guid: bbf30b6a9ccd3ee42b2e2973dfb47cac,
     type: 3}
   m_PrefabInstance: {fileID: 7055869217921503523}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1744253438 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2801441691341514723, guid: db4666837c9f4f243843f2d4f700c1ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 3481048083629429065}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1762661860 stripped
 MonoBehaviour:
@@ -7029,50 +7058,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0796aa05e80b2a547accc989734065cd, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3957fe02050316942986e8a9479adbba, type: 3}
---- !u!114 &2007126569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
-  m_Name: Vignette(Clone)
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  mode:
-    overrideState: 1
-    value: 1
-  color:
-    overrideState: 1
-    value: {r: 102, g: 0, b: 153, a: 30}
-  center:
-    overrideState: 0
-    value: {x: 0.5, y: 0.5}
-  intensity:
-    overrideState: 0
-    value: 0
-  smoothness:
-    overrideState: 0
-    value: 0.2
-  roundness:
-    overrideState: 0
-    value: 1
-  rounded:
-    overrideState: 0
-    value: 0
-  mask:
-    overrideState: 1
-    value: {fileID: 2800000, guid: e1d4e10344ec2f4458cb3489a0e5cc37, type: 3}
-    defaultState: 1
-  opacity:
-    overrideState: 1
-    value: 0
 --- !u!1 &2021542428
 GameObject:
   m_ObjectHideFlags: 0
@@ -19741,12 +19726,12 @@ PrefabInstance:
         type: 3}
       propertyPath: Skill2UI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1509639277}
     - target: {fileID: 5432222726558621066, guid: b9c3e744a5e40e04e9b91d9372569807,
         type: 3}
       propertyPath: Skill3UI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 416737423}
     - target: {fileID: 5432222726558621066, guid: b9c3e744a5e40e04e9b91d9372569807,
         type: 3}
       propertyPath: pc_Icon
@@ -19756,17 +19741,12 @@ PrefabInstance:
         type: 3}
       propertyPath: sp_Icon
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1262422464}
     - target: {fileID: 5432222726558621066, guid: b9c3e744a5e40e04e9b91d9372569807,
         type: 3}
       propertyPath: vignette
       value: 
-      objectReference: {fileID: 697226679}
-    - target: {fileID: 5432222726558621066, guid: b9c3e744a5e40e04e9b91d9372569807,
-        type: 3}
-      propertyPath: Skill2CTime
-      value: 10
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1220097493}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9c3e744a5e40e04e9b91d9372569807, type: 3}
 --- !u!1001 &1764665897696712620
@@ -44866,13 +44846,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7482ed9f1ba73444ea5533aebe107361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Data: {fileID: 0}
   _MissionOperate: 0
   _LimitTime: 180
   MissionType: 0
   _MissionSelector: {fileID: 0}
   spawning: 0
-  EndTrigger: {fileID: 0}
-  PortalEffect: {fileID: 1744253438}
   Wave1Locations:
   - {fileID: 349743924}
   - {fileID: 742310037}
@@ -63947,12 +63926,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa4a30193db97544a6f5fd0eada7272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Data: {fileID: 0}
   _MissionOperate: 0
   _LimitTime: 180
   MissionType: 0
   _MissionSelector: {fileID: 0}
-  EndTrigger: {fileID: 0}
-  PortalEffect: {fileID: 1306522362}
   goalScore: 5
   starDropCool: 5
   star: {fileID: 7242914150444159907, guid: a0c1d8d6f1ce75644bb7872e1a67a56b, type: 3}
