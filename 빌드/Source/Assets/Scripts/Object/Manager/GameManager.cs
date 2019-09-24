@@ -38,9 +38,7 @@ public class GameManager : MonoBehaviour
     public GameObject _MissionFull;
     public Image _cursurImage;
 
-    public bool _IsDummyScene = false;
     public int curScore = 0;
-
     public bool IsPuase;
 
     private void Awake()

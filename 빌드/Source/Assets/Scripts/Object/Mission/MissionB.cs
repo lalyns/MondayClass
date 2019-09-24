@@ -133,7 +133,7 @@ public class MissionB : Mission
         base.ClearMission();
 
         foreach (GameObject star in activeStar)
-            EffectPoolManager._Instance._MissionBBeadPool.ItemReturnPool(star);
+            EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(star);
 
     }
 
@@ -141,7 +141,7 @@ public class MissionB : Mission
     {
         int randPos = UnityEngine.Random.Range(0, dropLocation.Length - 1);
 
-        GameObject star = EffectPoolManager._Instance._MissionBBeadPool.ItemSetActive(dropLocation[randPos].position);
+        GameObject star = EffectPoolManager._Instance._MissionBstarPool.ItemSetActive(dropLocation[randPos].position);
         activeStar.Add(star);
     }
 }
