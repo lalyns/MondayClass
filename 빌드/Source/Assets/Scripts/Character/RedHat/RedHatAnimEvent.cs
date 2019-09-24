@@ -6,10 +6,11 @@ public class RedHatAnimEvent : MonoBehaviour
 {
     public RedHatATTACK _attackCp;
     public RedHatHIT _hitCp;
+    public RedHatDEAD _deadCp;
 
     private void Awake()
     {
-        _attackCp = GameObject.FindGameObjectWithTag("Monster").GetComponent<RedHatATTACK>();
+        _attackCp = GetComponentInParent<RedHatATTACK>();
     }
 
     public CapsuleCollider _WeaponCapsule;
@@ -41,8 +42,13 @@ public class RedHatAnimEvent : MonoBehaviour
             _attackCp.AttackCheck();
     }
 
-    void HitEnd()
+    public void HitEnd()
     {
-        _hitCp.hitEnd = true;
+        _hitCp.HitEnd();
+    }
+
+    public void NotifyDead()
+    {
+        _deadCp.DeadHelper();
     }
 }

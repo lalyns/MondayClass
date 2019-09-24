@@ -48,6 +48,7 @@ public class MacFSMManager : FSMManager
 
     public Transform _AttackTransform;
     public SkinnedMeshRenderer _MR;
+    public Material[] Mats;
 
     public Slider _HPSilder;
     public GameObject hitEffect;
@@ -76,6 +77,8 @@ public class MacFSMManager : FSMManager
         _Stat = GetComponent<MacStat>();
         _Anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<MonsterSound>();
+        Mats = _MR.materials;
+
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
