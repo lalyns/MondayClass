@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MissionExit : MonoBehaviour
 {
-    public GameObject nextDungeon;
-
     public GameObject _PortalEffect;
 
     private Collider _Colliders;
@@ -26,10 +24,10 @@ public class MissionExit : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
-            if (GameManager._Instance._IsDummyScene)
+            if (GameManager.Instance._IsDummyScene)
             {
-                MissionManager.Instance.CurrentMission.MissionSelect();
-
+                MissionManager.ExitMission();
+                MissionManager.PopUpMission();
             }
         }
     }

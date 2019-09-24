@@ -38,19 +38,17 @@ public class TempMissionProgress : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.stageLevel == 1) {
-            SetMission1();
-
-        }
-
-        if (GameManager.stageLevel == 2) {
-            SetMission2();
-
-        }
-
-        if(GameManager.stageLevel == 3)
+        switch(MissionManager.Instance.CurrentMissionType)
         {
-            SetMission3();
+            case MissionManager.MissionType.Annihilation:
+                SetMission1();
+                break;
+            case MissionManager.MissionType.Defence:
+                SetMission3();
+                break;
+            case MissionManager.MissionType.Survival:
+                SetMission2();
+                break;
         }
     }
 
@@ -96,7 +94,7 @@ public class TempMissionProgress : MonoBehaviour
             _Instance._Time.text = min + "'0" + sec + "''";
         }
 
-        _Instance._Remain.text = GameManager._Instance.curScore + " 개 / 5 개";
+        _Instance._Remain.text = GameManager.Instance.curScore + " 개 / 5 개";
     }
 
     private void SetMission3()

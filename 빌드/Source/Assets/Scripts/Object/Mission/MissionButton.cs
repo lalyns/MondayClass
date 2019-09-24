@@ -14,11 +14,12 @@ public class MissionButton : MonoBehaviour
     // 외부에서 변경되어야하는 정보들
     public Image _MissionName;
     public Image _MissionIcon;
-    public Text _MissionText;
+    public Text _MissionGoal;
 
     public Image _RewardIcon;
     public Text _RewardText;
 
+    public Mission _Mission;
     public MissionManager.MissionType _MissionType;
 
     public void Awake()
@@ -27,7 +28,7 @@ public class MissionButton : MonoBehaviour
 
         _MissionName = transform.GetChild(0).GetComponent<Image>();
         _MissionIcon = transform.GetChild(1).GetComponent<Image>();
-        _MissionText = transform.GetChild(2).GetComponent<Text>();
+        _MissionGoal = transform.GetChild(2).GetComponent<Text>();
         _RewardIcon = transform.GetChild(3).GetComponent<Image>();
         _RewardText = transform.GetChild(4).GetComponent<Text>();
     }
@@ -37,16 +38,13 @@ public class MissionButton : MonoBehaviour
     /// </summary>
     /// <param name="missionIcon"> 미션의 목표 표기 아이콘 </param>
     /// <param name="missionText"> 미션의 목표 설명 </param>
-    public void ChangeMission(MissionData missionData, MissionManager.MissionType type)
+    public void ChangeMission(Mission mission)
     {
-        Debug.Log((int)type);
-        //Sprite missionName = missionData.MissionName[(int)type];
-        //Sprite missionIcon = missionData.MissionIcon[(int)type];
-        //string missionText = missionData.MissionText[(int)type];
+        _MissionName.sprite = mission.Data.MissionName;
+        _MissionIcon.sprite = mission.Data.MissionIcon;
+        _MissionGoal.text = mission.Data.MissionGoal;
 
-        //_MissionName.sprite = missionName;
-        //_MissionIcon.sprite = missionIcon;
-        //_MissionText.text = missionText;
+        _Mission = mission;
     }
 
     /// <summary>
@@ -69,11 +67,13 @@ public class MissionButton : MonoBehaviour
     public void SetMissionOnClick()
     {
         //MissionManager.SetMissionOnClick(_ChoiceNum);
-        if (GameManager.stageLevel == 0)
-            TempMissionExit._Instance.NextMission();
+        //if (GameManager.stageLevel == 0)
+        //    TempMissionExit._Instance.NextMission();
 
-        if(GameManager.stageLevel != 0)
-            MissionManager.Instance.CurrentMission.NextMission();
+        //if (GameManager.stageLevel != 0)
+        //    MissionManager.Instance.CurrentMission.NextMission();
+
+        MissionManager.SelectMission(_Mission);
     }
     
 }
