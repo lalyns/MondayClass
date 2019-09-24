@@ -7,7 +7,8 @@ public class RedHatHIT : RedHatFSMState
     bool knockBack = true;
     public float knockBackDuration = 1.5f;
     public float knockBackPower = 3.0f;
-    public float knockDelay = 0.3f;
+    public float knockBackDelay = 0.3f;
+
     float _Count = 0;
 
     Vector3 knockBackTargetPos = Vector3.zero;
@@ -36,7 +37,7 @@ public class RedHatHIT : RedHatFSMState
         {
             _Count += Time.deltaTime;
 
-            if(_Count>=knockDelay)
+            if(_Count>=knockBackDelay)
                 _manager.SetState(RedHatState.CHASE);
         }
     }

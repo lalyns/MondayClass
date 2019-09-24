@@ -36,6 +36,7 @@ public class CharacterStat : MonoBehaviour
 
     [HideInInspector]
     public CharacterStat lastHitBy = null;
+
     [SerializeField]
     public StatData statData;
 
