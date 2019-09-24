@@ -19,6 +19,7 @@ public class MissionB : Mission
     int NumberOfMaxMonster = 20;
 
     public List<Transform> oldSpawnList = new List<Transform>();
+    public List<GameObject> activeStar = new List<GameObject>();
 
     // Start is called before the first frame update
     protected override void Start()
@@ -41,7 +42,7 @@ public class MissionB : Mission
 
         if (MissionEnd) return;
 
-        if (GameStatus._Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
+        if (GameStatus.Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
 
         if (MissionOperate)
         {
@@ -125,19 +126,22 @@ public class MissionB : Mission
     public override void RestMission()
     {
         base.RestMission();
+    }
 
-        Debug.Log("ResetB");
+    public override void ClearMission()
+    {
+        base.ClearMission();
 
-        Exit.Colliders.enabled = false;
-        Exit._PortalEffect.SetActive(false);
-        MissionEnd = false;
-        MissionEnd = false;
+        foreach (GameObject star in activeStar)
+            EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(star);
+
     }
 
     void DropStar()
     {
         int randPos = UnityEngine.Random.Range(0, dropLocation.Length - 1);
 
-        GameObject temp = Instantiate(star, dropLocation[randPos].position, Quaternion.identity);
+        GameObject star = EffectPoolManager._Instance._MissionBstarPool.ItemSetActive(dropLocation[randPos].position);
+        activeStar.Add(star);
     }
 }

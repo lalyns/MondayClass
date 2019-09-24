@@ -19,6 +19,7 @@ public class RedHatDASH : RedHatFSMState
     {
         _TargetPos = _manager._PriorityTarget.transform.position;
 
+        _manager.CC.detectCollisions = false;
         _manager._MR.material = _manager.Stat._DashMat;
         try
         {
@@ -41,6 +42,8 @@ public class RedHatDASH : RedHatFSMState
         _manager._MR.material = _manager.Stat._NormalMat;
 
         //_manager.dashEffect = null;
+
+        _manager.CC.detectCollisions = true;
 
         base.EndState();
     }

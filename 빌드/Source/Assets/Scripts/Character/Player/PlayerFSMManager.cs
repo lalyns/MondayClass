@@ -365,9 +365,25 @@ public class PlayerFSMManager : FSMManager
         Skill3_Capsule.enabled = false;
     }
 
-    
+    private void SetUI()
+    {
+        
+    }
+
     private void Update()
     {
+    
+        if (GameManager.Instance._ActivePlayerUI)
+        {
+            // UI 참조 안하게.
+            Skill1UI = null;
+            Skill2UI = null;
+            Skill3UI = null;
+            SpecialGauge_Image = null;
+            pc_Icon = null;
+            sp_Icon = null;
+        }
+
         if(isSkill3)
             CMvcam2.m_Lens.FieldOfView = 70f;
 
@@ -904,7 +920,7 @@ public class PlayerFSMManager : FSMManager
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 // 주변 몬스터의 수를 파악 한 후에
-                _monster = GameStatus._Instance.ActivedMonsterList;
+                _monster = GameStatus.Instance.ActivedMonsterList;
 
                 if (_monster.Count == 0)
                     return;

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
         get {
             if(_Instance == null)
             {
-                _Instance = GameObject.Find("Prefab_Manager").GetComponent<GameManager>();
+                _Instance = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
             }
             return _Instance;
         }
@@ -38,11 +38,8 @@ public class GameManager : MonoBehaviour
     public GameObject _MissionFull;
     public Image _cursurImage;
 
-    public bool _IsDummyScene = false;
     public int curScore = 0;
-
     public bool IsPuase;
-    public static int stageLevel = 0;
 
     private void Awake()
     {
@@ -111,9 +108,8 @@ public class GameManager : MonoBehaviour
     private void ViewDungeonStatus()
     {
         string discribe = "현재 던전 : " + MissionManager.Instance.CurrentMission.gameObject.name.ToString() +
-                           "\n 미션 정보 : " + MissionManager.Instance.CurrentMission.MissionOperate
-           ;
-
+                          "\n레벨 : " + GameStatus.Instance.StageLevel +
+                          "\n 미션 정보 : " + MissionManager.Instance.CurrentMission.MissionOperate;
 
         if (GUI.Button(new Rect(Screen.width * WidthRatio, Screen.height * HeightRatio, 150, 100),discribe)) { }
 

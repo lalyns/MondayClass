@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &294647396062472490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3002263732523422924}
+  - component: {fileID: 8204880867308991941}
+  m_Layer: 0
+  m_Name: MissionCStarEffectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3002263732523422924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294647396062472490}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1660828986152774808}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8204880867308991941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294647396062472490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd8162163a9aa347908c632b0c9d02f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _InitializeItemSize: 5
+  _PoolingItem: {fileID: 7242914150444159907, guid: cb28f3c5b4876ed40b71f110a5e1cda4,
+    type: 3}
 --- !u!1 &1660828985497221780
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +170,7 @@ Transform:
   - {fileID: 1660828985497221786}
   - {fileID: 2792837204453924901}
   - {fileID: 5741452760667066470}
+  - {fileID: 3002263732523422924}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -143,6 +190,7 @@ MonoBehaviour:
   _MacBulletPool: {fileID: 1660828985877369083}
   _MacSkillPool: {fileID: 2884919648646353529}
   _BossBulletPool: {fileID: 1660828985497221787}
+  _MissionBstarPool: {fileID: 8204880867308991941}
 --- !u!1 &3220969644083161294
 GameObject:
   m_ObjectHideFlags: 0

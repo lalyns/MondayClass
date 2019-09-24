@@ -39,7 +39,7 @@ public class MissionC : Mission
 
         if (MissionEnd) return;
 
-        if (GameStatus._Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
+        if (GameStatus.Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
 
 
         if (MissionOperate)
@@ -53,7 +53,7 @@ public class MissionC : Mission
             }
         }
 
-        if (!MissionEnd && GameStatus._Instance._LimitTime <= 0 && protectedTarget.hp >= 0)
+        if (!MissionEnd && GameStatus.Instance._LimitTime <= 0 && protectedTarget.hp >= 0)
         {
             ClearMission();
             MissionEnd = true;
@@ -64,12 +64,6 @@ public class MissionC : Mission
     {
         base.RestMission();
 
-        Debug.Log(this.name.ToString() + "ResetC");
-
-        MissionEnd = false;
-        MissionOperate = false;
-        Exit.Colliders.enabled = false;
-        Exit._PortalEffect.SetActive(false);
         spawnTime = 0;
     }
 

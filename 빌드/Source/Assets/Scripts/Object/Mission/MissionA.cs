@@ -6,6 +6,7 @@ using UnityEngine;
 public class MissionA : Mission
 {
     public bool spawning = false;
+
     int waveLevel = 0;
 
     public Transform[] Wave1Locations;
@@ -31,7 +32,7 @@ public class MissionA : Mission
 
         if (spawning)
         {
-            bool monsterCheck = GameStatus._Instance.ActivedMonsterList.Count == 0;
+            bool monsterCheck = GameStatus.Instance.ActivedMonsterList.Count == 0;
 
             if(monsterCheck)
             {
@@ -55,13 +56,7 @@ public class MissionA : Mission
     {
         base.RestMission();
 
-        Debug.Log("ResetA");
-
-        MissionOperate = false;
-        Exit.Colliders.enabled = false;
-        Exit._PortalEffect.SetActive(false);
         waveLevel = 0;
-        MissionEnd = false;
     }
 
     void Spawn()
