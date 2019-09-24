@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossBullet : MonoBehaviour
+public class RirisBullet : MonoBehaviour
 {
     RirisFSMManager RirisFSMManager;
     ObjectPool bulletPool;
