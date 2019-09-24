@@ -8,15 +8,7 @@ public class MacDEAD : MacFSMState
     {
         base.BeginState();
 
-
-        if (!GameManager._Instance._IsDummyScene)
-        {
-            ObjectManager.ReturnPoolMonster(this.gameObject, ObjectManager.MonsterType.Mac);
-        }
-        else
-        {
-            MonsterPoolManager._Instance._Mac.ItemReturnPool(gameObject, "monster");
-        }
+        MonsterPoolManager._Instance._Mac.ItemReturnPool(gameObject, "monster");
     }
 
     public override void EndState()
@@ -25,15 +17,7 @@ public class MacDEAD : MacFSMState
 
     }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
         
     }

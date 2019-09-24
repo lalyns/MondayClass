@@ -38,19 +38,17 @@ public class TempMissionProgress : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.stageLevel == 1) {
-            SetMission1();
-
-        }
-
-        if (GameManager.stageLevel == 2) {
-            SetMission2();
-
-        }
-
-        if(GameManager.stageLevel == 3)
+        switch(MissionManager.Instance.CurrentMissionType)
         {
-            SetMission3();
+            case MissionManager.MissionType.Annihilation:
+                SetMission1();
+                break;
+            case MissionManager.MissionType.Defence:
+                SetMission3();
+                break;
+            case MissionManager.MissionType.Survival:
+                SetMission2();
+                break;
         }
     }
 
@@ -60,7 +58,7 @@ public class TempMissionProgress : MonoBehaviour
         _Instance._missionType.sprite = _Instance._anihilation;
         _Instance._goalIcon.sprite = _Instance._mob;
 
-        float curTime = GameStatus._Instance._LimitTime;
+        float curTime = GameStatus.Instance._LimitTime;
         int min = (int)(curTime / 60f);
         int sec = (int)(curTime % 60f);
 
@@ -73,7 +71,7 @@ public class TempMissionProgress : MonoBehaviour
             _Instance._Time.text = min + "'0" + sec + "''";
         }
 
-        _Instance._Remain.text = GameStatus._Instance.ActivedMonsterList.Count + "마리";
+        _Instance._Remain.text = GameStatus.Instance.ActivedMonsterList.Count + "마리";
 
     }
 
@@ -83,7 +81,7 @@ public class TempMissionProgress : MonoBehaviour
         _Instance._missionType.sprite = _Instance._survive;
         _Instance._goalIcon.sprite = _Instance._star;
 
-        float curTime = GameStatus._Instance._LimitTime;
+        float curTime = GameStatus.Instance._LimitTime;
         int min = (int)(curTime / 60f);
         int sec = (int)(curTime % 60f);
 
@@ -96,7 +94,7 @@ public class TempMissionProgress : MonoBehaviour
             _Instance._Time.text = min + "'0" + sec + "''";
         }
 
-        _Instance._Remain.text = GameManager._Instance.curScore + " 개 / 5 개";
+        _Instance._Remain.text = GameManager.Instance.curScore + " 개 / 5 개";
     }
 
     private void SetMission3()
@@ -105,7 +103,7 @@ public class TempMissionProgress : MonoBehaviour
         _Instance._missionType.sprite = _Instance._defence;
         _Instance._goalIcon.sprite = _Instance._pillarHP;
 
-        float curTime = GameStatus._Instance._LimitTime;
+        float curTime = GameStatus.Instance._LimitTime;
         int min = (int)(curTime / 60f);
         int sec = (int)(curTime % 60f);
 

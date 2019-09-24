@@ -63,6 +63,11 @@ public class MacFSMManager : FSMManager
     public Collider _PriorityTarget;
     public float _DetectingRange;
 
+    public bool KnockBackFlag;
+    public float KnockBackDuration;
+    public float KnockBackPower;
+    public float KnockBackDelay;
+
     protected override void Awake()
     {
         base.Awake();
@@ -111,19 +116,14 @@ public class MacFSMManager : FSMManager
         _Anim.SetInteger("CurrentState", (int)_CurrentState);
     }
 
-    public void OnHit()
+    public override void OnHitForMonster(AttackType attackType)
     {
-      
-        //hp--;
-        //카메라쉐이킹
-        Shake.instance.ShakeCamera();
+        base.OnHitForMonster(attackType);
 
-        Stat.TakeDamage(Stat, 350);
-        _Sound.PlayHitSFX();
-        //Debug.Log(Stat.Hp);
-        if(PlayerFSMManager.instance.isNormal)
-            PlayerFSMManager.instance.SpecialGauge += 4;
-        //hit스크립트로넘겨줌
+        PlayerStat playerStat = PlayerFSMManager.instance.Stat;
+        Stat.TakeDamage(playerStat, playerStat.DMG[(int)attackType]);
+        SetKnockBack(playerStat, attackType);
+
         if (Stat.Hp > 0)
         {
             SetState(MacState.HIT);
@@ -144,6 +144,14 @@ public class MacFSMManager : FSMManager
 
     }
 
+    public void SetKnockBack(PlayerStat stat,AttackType attackType)
+    {
+        KnockBackFlag = stat.KnockBackFlag[(int)attackType];
+        KnockBackDuration = stat.KnockBackDuration[(int)attackType];
+        KnockBackPower = stat.KnockBackPower[(int)attackType];
+        KnockBackDelay = stat.KnockBackDelay[(int)attackType];
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Weapon")
@@ -156,7 +164,8 @@ public class MacFSMManager : FSMManager
             if (Stat.Hp > 0)
             {
                 //Debug.Log("Attacked");
-                OnHit();
+                //OnHit();
+                OnHitForMonster(PlayerFSMManager.instance.attackType);
             }
 
             if (_CurrentState == MacState.ATTACK)
@@ -180,7 +189,7 @@ public class MacFSMManager : FSMManager
 
             if (Stat.Hp > 0)
             {
-                OnHit();
+                //OnHit();
                 try
                 {
                     other.transform.gameObject.SetActive(false);

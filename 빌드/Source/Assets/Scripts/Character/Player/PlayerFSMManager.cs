@@ -19,7 +19,16 @@ public enum PlayerState
     SKILL3,
     DEAD,
 }
-
+public enum AttackType
+{
+    ATTACK1 = 0,
+    ATTACK2,
+    ATTACK3,
+    SKILL1,
+    SkILL2,
+    SKILL3,
+    SKILL4,
+}
 [RequireComponent(typeof(PlayerStat))]
 [ExecuteInEditMode]
 public class PlayerFSMManager : FSMManager
@@ -71,9 +80,11 @@ public class PlayerFSMManager : FSMManager
     public GameObject[] Skill1Effeects;
     public bool isBall, isShoot, isSkill1CTime;
 
+    public AttackType attackType;
+
     [SerializeField]
     private List<GameObject> _monster = new List<GameObject>();
-    public int SpecialGauge = 0;
+    public float SpecialGauge = 0;
     public Image SpecialGauge_Image;
     public Image Skill1UI, Skill2UI, Skill3UI;
     Vector3 target;
@@ -158,6 +169,8 @@ public class PlayerFSMManager : FSMManager
     public bool isMouseYLock;
     Bloom bloom;
 
+    public PostProcessProfile profile1;
+
     protected override void Awake()
     {
         base.Awake();
@@ -170,6 +183,7 @@ public class PlayerFSMManager : FSMManager
         
         CMvcam2 = GameObject.Find("CMvcam2").GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
+        GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile = profile1;
         vignette = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Vignette>();
         bloom = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Bloom>();
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
@@ -215,21 +229,18 @@ public class PlayerFSMManager : FSMManager
     //public Texture2D aaasdf;
     public TextureParameter Concent;
 
+    float normalTimer;
+    float gaugePerSecond;
+
     private void Start()
     {
-
-        Debug.Log("1");
         
         SetState(startState);
         _isinit = true;
-        Debug.Log("2");
 
         bloom.active = true;
-        bloom.enabled.Override(false);
-        
-        bloom.enabled = new BoolParameter() { value = false, overrideState = false };
-
-        //Concent.value = aaasdf;
+        bloom.enabled.Override(true);        
+        bloom.enabled = new BoolParameter() { value = true, overrideState = false };
 
 
         vignette.active = true;
@@ -238,52 +249,24 @@ public class PlayerFSMManager : FSMManager
         vignette.mode.overrideState = true;
         vignette.color.overrideState = true;
         vignette.mask.overrideState = true;
-        vignette.opacity.overrideState = true;        
+        vignette.opacity.overrideState = true;
+
         parameter = vignette.mode;
         parameter.value = VignetteMode.Masked;
-        vignette.color.value = new Color(102, 0, 153, 30);
-
-        
-        Debug.Log(Concent + "ㅋㅋ");
+        vignette.color.value = new Color(102, 0, 153, 30);        
         Concent.overrideState = true;
         Concent.defaultState = TextureParameterDefault.White;
-
-
-        //vignette.mask = Concent;
-        //vignette.mask = Concent;
-        //vignette.mask = Concent;
-        Debug.Log(vignette.mask + "마스크3");
-        //Concent.
-        //  Debug.Log(Concent.value + "ㅋㅋㅋ");
-        // Debug.Log(aaasdf + "z");
-        vignette.mask.value = Concent.value;
-        //vignette.mask.defaultState = false;
-        //Concent.overrideState = true;
-        //Concent.defaultState = TextureParameterDefault.White;
-        //vignette.mask = new TextureParameter { value = null };
-        //vignette.mask.overrideState = true;
-
-        //vignette.mask.overrideState = true;
+         
+        vignette.mask.value = Concent.value;      
         vignette.opacity.value = 0f;
 
-
+        normalTimer = Stat.transDuration;
+        gaugePerSecond = 100.0f / normalTimer;
 
 
         //vignette.mask = Concent;
         //Concent.value = aaasdf;
-        //vignette.mode = parameter.value;
 
-        //vignette.mask = 
-        //vignette.mode = mos;
-
-        //BoolParameter tempbool = new BoolParameter
-        //{
-        //    value = true
-        //};
-        //vignette.enabled = tempbool;
-
-
-        //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
         try
         {
             Skill1UI.fillAmount = 1f;
@@ -345,36 +328,28 @@ public class PlayerFSMManager : FSMManager
             vertical >= 0.01f || vertical <= -0.01f;
     }
 
-    public void AttackCheck()
+   
+    private void SetUI()
     {
-        isShake = true;
-
-        Attack_Capsule.enabled = true;
-    }
-    public void AttackCancel()
-    {
-        isShake = false;
-        Attack_Capsule.enabled = false;
-    }
-    public void Skill3Attack()
-    {
-        Skill3_Capsule.enabled = true;
-    }
-    public void Skill3Cancel()
-    {
-        Skill3_Capsule.enabled = false;
+        
     }
 
-    
     private void Update()
     {
-        if(isSkill3)
-            CMvcam2.m_Lens.FieldOfView = 70f;
+    
+        if (GameManager.Instance._ActivePlayerUI)
+        {
+            // UI 참조 안하게.
+            Skill1UI = null;
+            Skill2UI = null;
+            Skill3UI = null;
+            SpecialGauge_Image = null;
+            pc_Icon = null;
+            sp_Icon = null;
+        }
 
-        else
-            CMvcam2.m_Lens.FieldOfView = 60f;
 
-        
+
         //isNormal = Normal.activeSelf;
         try
         {
@@ -447,10 +422,11 @@ public class PlayerFSMManager : FSMManager
         if (!isNormal)
         {
             normalTimer -= Time.deltaTime;
-
+            
             try
             {
-                SpecialGauge_Image.fillAmount = (normalTimer * 3.33f) / 100f;
+                SpecialGauge_Image.fillAmount = (normalTimer * gaugePerSecond) / 100.0f;
+                Debug.Log(SpecialGauge_Image.fillAmount);
             }
             catch
             {
@@ -461,7 +437,8 @@ public class PlayerFSMManager : FSMManager
             {
                 isNormal = true;
                 ChangeNormal();
-                normalTimer = 30;
+                SpecialGauge = 0;
+                normalTimer = Stat.transDuration;
                 
             }
         }
@@ -476,11 +453,12 @@ public class PlayerFSMManager : FSMManager
         if (isSkill2)
             return;
     }
-    float normalTimer = 30f;
 
     
     private void FixedUpdate()
     {
+        //Debug.Log(Stat.Hp + "체력");
+
         if(isShake)
             StartCoroutine(shake.ShakeCamera(.2f, 0.02f, 0.0f));
 
@@ -637,7 +615,6 @@ public class PlayerFSMManager : FSMManager
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            isShake = true;
             
             isFlash = true;
             isFlashStart = true;
@@ -904,7 +881,7 @@ public class PlayerFSMManager : FSMManager
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 // 주변 몬스터의 수를 파악 한 후에
-                _monster = GameStatus._Instance.ActivedMonsterList;
+                _monster = GameStatus.Instance.ActivedMonsterList;
 
                 if (_monster.Count == 0)
                     return;
@@ -1083,6 +1060,29 @@ public class PlayerFSMManager : FSMManager
 
         }
     }
+
+    public void AttackCheck()
+    {
+        isShake = true;
+
+         Attack_Capsule.enabled = true;
+        
+
+    }
+    public void AttackCancel()
+    {
+        isShake = false;
+         Attack_Capsule.enabled = false;
+    }
+    public void Skill3Attack()
+    {
+        Skill3_Capsule.enabled = true;
+    }
+    public void Skill3Cancel()
+    {
+        Skill3_Capsule.enabled = false;
+    }
+
 
 
     public static PlayerFSMManager instance;

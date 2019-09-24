@@ -74,7 +74,7 @@ public class ObjectPool : MonoBehaviour
 
         if(type == "monster")
         {
-            GameStatus._Instance.AddActivedMonsterList(item);
+            GameStatus.Instance.AddActivedMonsterList(item);
             try
             {
                 item.GetComponent<MacFSMManager>().SetState(MacState.POPUP);
@@ -97,13 +97,13 @@ public class ObjectPool : MonoBehaviour
         _InActiveItemPool.RemoveFirst();
 
         item.transform.position = respawnTrans.position;
-        item.GetComponent<BossBullet>().directionType = bulletType;
+        item.GetComponent<RirisBullet>().directionType = bulletType;
         item.SetActive(true);
 
         _ActiveItem.AddLast(item);
     }
 
-    public void ItemSetActive(Vector3 respawnPos)
+    public GameObject ItemSetActive(Vector3 respawnPos)
     {
         if (_InActiveItemPool.Count == 0)
         {
@@ -117,6 +117,8 @@ public class ObjectPool : MonoBehaviour
         item.SetActive(true);
 
         _ActiveItem.AddLast(item);
+
+        return item;
     }
 
     public void ItemSetActive(Transform respawnTrans, CharacterController start, Collider target)
@@ -188,7 +190,7 @@ public class ObjectPool : MonoBehaviour
 
         if (type == "monster")
         {
-            GameStatus._Instance.RemoveActivedMonsterList(go);
+            GameStatus.Instance.RemoveActivedMonsterList(go);
         }
         
     }

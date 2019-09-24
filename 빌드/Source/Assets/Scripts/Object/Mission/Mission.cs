@@ -32,6 +32,11 @@ public class Mission : MonoBehaviour
         }
     }
 
+    [SerializeField] protected MissionData _Data;
+    public MissionData Data {
+        get { return _Data; }
+    }
+
     [SerializeField] protected bool _MissionOperate;
     public bool MissionOperate {
         get { return _MissionOperate; }
@@ -40,6 +45,8 @@ public class Mission : MonoBehaviour
 
     public int _LimitTime = 180;
     public MissionManager.MissionType MissionType;
+
+    protected bool MissionEnd = false;
 
     protected virtual void Awake()
     {
@@ -67,21 +74,29 @@ public class Mission : MonoBehaviour
 
     }
 
-    public void OperateMission()
+    public virtual void RestMission()
     {
-        GameManager.stageLevel++;
-        GameStatus._Instance._MissionStatus = true;
+        MissionEnd = false;
+        MissionOperate = false;
+        Exit.Colliders.enabled = false;
+        Exit._PortalEffect.SetActive(false);
 
-        GameStatus._Instance._LimitTime = _LimitTime;
+    }
+
+    public virtual void OperateMission()
+    {
+        GameStatus.Instance.StageLevel++;
+        GameStatus.Instance._MissionStatus = true;
+        GameStatus.Instance._LimitTime = _LimitTime;
 
         MissionOperate = true;
         Exit.Colliders.enabled = false;
     }
 
-    public void ClearMission()
+    public virtual void ClearMission()
     {
-        GameStatus._Instance._MissionStatus = false;
-        GameStatus._Instance.RemoveAllActiveMonster();
+        GameStatus.Instance._MissionStatus = false;
+        GameStatus.Instance.RemoveAllActiveMonster();
 
         Exit._PortalEffect.SetActive(true);
         Exit.Colliders.enabled = true;
@@ -89,47 +104,6 @@ public class Mission : MonoBehaviour
 
     public GameObject _MissionSelector;
 
-    // 미션 선택지 호출
-    public void MissionSelect()
-    {
-        try
-        {
-            _MissionSelector.SetActive(true);
-        }
-        catch
-        {
-
-        }
-        GameManager.CursorMode(true);
-        Time.timeScale = 0.0f;
-    }
-
-    // 선택지 출력 후 미션 이동 구현할 것
-    public void NextMission()
-    {
-        Exit.nextDungeon.SetActive(true);
-
-        GameStatus._Instance._PlayerInstance.
-            GetComponentInChildren<Animator>().
-            transform.position
-            = Exit.nextDungeon.GetComponentInChildren<DungeonEnter>()
-            .transform.position;
-
-        MissionManager.Instance.CurrentMission =
-            MissionManager.Instance.Mission[GameManager.stageLevel];
-
-        try
-        {
-            _MissionSelector.SetActive(false);
-        }
-        catch
-        {
-
-        }
-        GameManager.CursorMode(false);
-        Time.timeScale = 1.0f;
-    }
-    
     #region 폐기
     //public int _CurrentMissionLevel;
     //public bool _IsMissionStart;

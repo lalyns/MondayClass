@@ -308,6 +308,7 @@ GameObject:
   - component: {fileID: 529329073211170107}
   - component: {fileID: 1765374230791495563}
   - component: {fileID: 6174156086311316546}
+  - component: {fileID: 5834709262980405726}
   m_Layer: 0
   m_Name: Prefab_Mac
   m_TagString: Monster
@@ -366,6 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b18644906041ce4791f994a5f1e2d7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer: 0
   lastHitBy: {fileID: 0}
   statData: {fileID: 11400000, guid: c4e880e7851cfe4489aa5466459f6054, type: 2}
   monsterData: {fileID: 11400000, guid: c4e880e7851cfe4489aa5466459f6054, type: 2}
@@ -398,7 +400,7 @@ MonoBehaviour:
   _AttackTransform: {fileID: 2470283996394807890}
   _MR: {fileID: 537192819454032019}
   _HPSilder: {fileID: 5839632007351078513}
-  hitEffect: {fileID: 121832780941730155, guid: 2667e56a7f52a974baaa82b17f6778e7,
+  hitEffect: {fileID: 7020711604762157689, guid: 2667e56a7f52a974baaa82b17f6778e7,
     type: 3}
   hitEffect_Special: {fileID: 7638383395209803260, guid: 39b1e51284a1d0043b3676478c2bc4ab,
     type: 3}
@@ -411,6 +413,10 @@ MonoBehaviour:
   _Sound: {fileID: 0}
   _PriorityTarget: {fileID: 0}
   _DetectingRange: 20
+  KnockBackFlag: 0
+  KnockBackDuration: 0
+  KnockBackPower: 0
+  KnockBackDelay: 0
 --- !u!114 &5136133771846456272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,6 +530,20 @@ MonoBehaviour:
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: f6a0e25a7cb21b243b4deb0e500b8c8f,
       type: 2}
+--- !u!114 &5834709262980405726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3694473066860267770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c461bd4dfc8c5c54f9a272013e249546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _manager: {fileID: 0}
+  sub: 0
 --- !u!1 &4635790295767007043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,12 +1251,6 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: a2196af4f07abbf489b5d10b06af464d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 751288ee72aaff442a823885afec6ea8, type: 3}
---- !u!4 &537192819457370603 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400088, guid: 751288ee72aaff442a823885afec6ea8,
-    type: 3}
-  m_PrefabInstance: {fileID: 537192819457241907}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &537192819457144267 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100088, guid: 751288ee72aaff442a823885afec6ea8,
@@ -1246,6 +1260,12 @@ GameObject:
 --- !u!137 &537192819454032019 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 13700000, guid: 751288ee72aaff442a823885afec6ea8,
+    type: 3}
+  m_PrefabInstance: {fileID: 537192819457241907}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &537192819457370603 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400088, guid: 751288ee72aaff442a823885afec6ea8,
     type: 3}
   m_PrefabInstance: {fileID: 537192819457241907}
   m_PrefabAsset: {fileID: 0}

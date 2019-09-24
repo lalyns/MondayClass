@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class MissionB : Mission
 {
-    bool missionEnd = false;
-
-    public GameObject EndTrigger;
-    public GameObject PortalEffect;
-
     public int goalScore = 5;
 
     float starDropTime = 0;
@@ -24,6 +19,7 @@ public class MissionB : Mission
     int NumberOfMaxMonster = 20;
 
     public List<Transform> oldSpawnList = new List<Transform>();
+    public List<GameObject> activeStar = new List<GameObject>();
 
     // Start is called before the first frame update
     protected override void Start()
@@ -34,25 +30,25 @@ public class MissionB : Mission
     // Update is called once per frame
     protected override void Update()
     {
-        starDropTime += Time.deltaTime;
-        spawnTime += Time.deltaTime;
-
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
                 ClearMission();
-                missionEnd = true;
+                MissionEnd = true;
             }
 
         }
 
-        if (missionEnd) return;
+        if (MissionEnd) return;
 
-        if (GameStatus._Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
+        if (GameStatus.Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
 
         if (MissionOperate)
         {
+            starDropTime += Time.deltaTime;
+            spawnTime += Time.deltaTime;
+
             if (starDropTime > starDropCool)
             {
                 DropStar();
@@ -66,10 +62,10 @@ public class MissionB : Mission
             }
         }
 
-        if (GameManager._Instance.curScore >= goalScore)
+        if (GameManager.Instance.curScore >= goalScore)
         {
             ClearMission();
-            missionEnd = true;
+            MissionEnd = true;
         }
     }
 
@@ -127,10 +123,25 @@ public class MissionB : Mission
         }
     }
 
+    public override void RestMission()
+    {
+        base.RestMission();
+    }
+
+    public override void ClearMission()
+    {
+        base.ClearMission();
+
+        foreach (GameObject star in activeStar)
+            EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(star);
+
+    }
+
     void DropStar()
     {
         int randPos = UnityEngine.Random.Range(0, dropLocation.Length - 1);
 
-        GameObject temp = Instantiate(star, dropLocation[randPos].position, Quaternion.identity);
+        GameObject star = EffectPoolManager._Instance._MissionBstarPool.ItemSetActive(dropLocation[randPos].position);
+        activeStar.Add(star);
     }
 }

@@ -4,48 +4,49 @@ using UnityEngine;
 
 public class MacBullet : MonoBehaviour
 {
-    public enum BulletType { Normal, Skill }
-    public BulletType _Type;
+    public enum MacBulletType { Normal, Skill }
+    public MacBulletType _Type;
 
-    public GameObject _SetEffect;
-    public ParticleSystem[] _SetEffectParticles;
-    public ParticleSystem[] _DestroyEffectParticles;
+    public GameObject _CreateEffect;
+    public ParticleSystem[] _CreateEffectParticles;
 
     public GameObject _MoveEffect;
     public GameObject _DestroyEffect;
+    public ParticleSystem[] _DestroyEffectParticles;
 
     [HideInInspector] public Vector3 dir;
     public float speed = 3f;
 
     // 상수 목록
-    [HideInInspector] public float _CreativeTime = 0.8f;
-    [HideInInspector] public float _DestroyTime = 4.0f;
-    [HideInInspector] public float _DestroyDelay = 0.65f;
+     public float _CreativeTime;
+     public float _DestroyTime;
+     public float _DestroyDelay;
 
     // 초기화 목록
-    [HideInInspector] public float _PlayTime = 0.0f;
-    [HideInInspector] public float _DestroyPlayTime = 0.0f;
+     public float _PlayTime = 0.0f;
+     public float _DestroyPlayTime = 0.0f;
 
-    [HideInInspector] public bool _Move = false;
-    [HideInInspector] public bool _SetPlay = false;
-    [HideInInspector] public bool _Destroy = false;
+     public bool _Move = false;
+     public bool _SetPlay = false;
+     public bool _Destroy = false;
 
     private void Start()
     {
         switch (_Type)
         {
-            case BulletType.Normal:
-                _CreativeTime = 0.8f;
-                _DestroyTime = 4.0f;
-                _DestroyDelay = 0.65f;
+            case MacBulletType.Normal:
+                _CreativeTime = 0.800f;
+                _DestroyTime = 4.000f;
+                _DestroyDelay = 0.650f;
                 break;
-            case BulletType.Skill:
-                _CreativeTime = 1f;
-                _DestroyTime = 5.0f;
-                _DestroyDelay = 2.00f;
+            case MacBulletType.Skill:
+                _CreativeTime = 1.000f;
+                _DestroyTime = 5.000f;
+                _DestroyDelay = 1.100f;
                 break;
         }
 
+        _CreateEffect.SetActive(true);
         _MoveEffect.SetActive(false);
         _DestroyEffect.SetActive(false);
     }
@@ -59,27 +60,26 @@ public class MacBullet : MonoBehaviour
 
         if(_PlayTime < _CreativeTime)
         {
-            if (_SetPlay) return;
-
-            PlayEffect(_SetEffectParticles);
-            _SetPlay = !_SetPlay;
+            if (!_SetPlay)
+            {
+                PlayEffect(_CreateEffectParticles);
+                _SetPlay = !_SetPlay;
+            }
         }
 
-        if(_PlayTime > _CreativeTime && _PlayTime < _DestroyTime)
+        if(_PlayTime > _CreativeTime && _PlayTime < _CreativeTime + _DestroyTime)
         {
-            _SetEffect.SetActive(false);
+            _CreateEffect.SetActive(false);
             _MoveEffect.SetActive(true);
 
             if(!_Destroy)
                 this.transform.position += dir * speed * Time.deltaTime;
         }
 
-        if(_PlayTime > _DestroyTime)
+        if(_PlayTime > _CreativeTime + _DestroyTime && !_Destroy)
         {
             _MoveEffect.SetActive(false);
             _DestroyEffect.SetActive(true);
-
-            if (_Destroy) return;
 
             PlayEffect(_DestroyEffectParticles);
             _Destroy = true;
@@ -108,10 +108,10 @@ public class MacBullet : MonoBehaviour
 
         switch (_Type)
         {
-            case BulletType.Normal:
+            case MacBulletType.Normal:
                 pool = EffectPoolManager._Instance._MacBulletPool;
                 break;
-            case BulletType.Skill:
+            case MacBulletType.Skill:
                 pool = EffectPoolManager._Instance._MacSkillPool;
                 break;
         }
@@ -126,7 +126,7 @@ public class MacBullet : MonoBehaviour
         _PlayTime = 0;
         _DestroyPlayTime = 0;
 
-        _SetEffect.SetActive(true);
+        _CreateEffect.SetActive(true);
         _MoveEffect.SetActive(false);
         _DestroyEffect.SetActive(false);
 

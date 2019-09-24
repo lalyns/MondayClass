@@ -11,8 +11,9 @@ public class PlayerATTACK3 : FSMState
         base.BeginState();
         isAttackOne = false;
         _manager._Sound.PlayAttackSFX();
+        _manager.attackType = AttackType.ATTACK3;
 
-        
+
 
     }
 

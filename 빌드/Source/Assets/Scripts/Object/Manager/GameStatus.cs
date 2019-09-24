@@ -5,6 +5,18 @@ using UnityEngine;
 public class GameStatus : MonoBehaviour
 {
     public static GameStatus _Instance;
+    public static GameStatus Instance {
+        get {
+            if (_Instance == null)
+            {
+                _Instance = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameStatus>();
+            }
+            return _Instance;
+        }
+        set {
+            _Instance = value;
+        }
+    }
 
     public static bool _EditorMode = false;
 
@@ -17,7 +29,6 @@ public class GameStatus : MonoBehaviour
 
 
     bool dummySet = false;
-
     public void Awake()
     {
         _PlayerInstance = PlayerFSMManager.instance;
@@ -27,7 +38,7 @@ public class GameStatus : MonoBehaviour
     {
         if(_Instance == null)
         {
-            _Instance = GetComponent<GameStatus>();
+            Instance = GetComponent<GameStatus>();
         }
         else
         {
@@ -38,12 +49,21 @@ public class GameStatus : MonoBehaviour
     // 게임 메뉴 정보
 
     // 던전 정보
-    List<GameObject> _ActivedMonsterList = new List<GameObject>();
-
+    /// <summary>
+    /// 활동중인 몬스터 리스트
+    /// </summary>
+    private List<GameObject> _ActivedMonsterList = new List<GameObject>();
     public List<GameObject> ActivedMonsterList {
         get {
             return _ActivedMonsterList;
         }
+        internal set { _ActivedMonsterList = value; }
+    }
+
+    private int _StageLevel = 0;
+    public int StageLevel {
+        get { return _StageLevel; }
+        internal set { _StageLevel = value; }
     }
 
     /// <summary>
@@ -54,7 +74,7 @@ public class GameStatus : MonoBehaviour
     {
         // 해당객체가 몬스터인지 판별할것
 
-        _ActivedMonsterList.Add(monster);
+        ActivedMonsterList.Add(monster);
 
     }
 
@@ -66,7 +86,7 @@ public class GameStatus : MonoBehaviour
     {
         if (_ActivedMonsterList.Contains(monster))
         {
-            _ActivedMonsterList.Remove(monster);
+            ActivedMonsterList.Remove(monster);
         }
     }
 
@@ -117,7 +137,12 @@ public class GameStatus : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.I))
             {
-                MissionManager.Instance.OnInspectating = !MissionManager.Instance.OnInspectating;
+                GameManager.Instance.OnInspectating = !GameManager.Instance.OnInspectating;
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                PlayerFSMManager.instance.SpecialGauge = 100.0f;
             }
         }
 
@@ -135,9 +160,16 @@ public class GameStatus : MonoBehaviour
 #if UNITY_STANDALONE
 
 #endif
-        if (_MissionStatus)
+        try
         {
-            _LimitTime -= Time.deltaTime;
+            if (MissionManager.Instance.CurrentMission.MissionOperate)
+            {
+                _LimitTime -= Time.deltaTime;
+            }
+        }
+        catch
+        {
+
         }
 
     }

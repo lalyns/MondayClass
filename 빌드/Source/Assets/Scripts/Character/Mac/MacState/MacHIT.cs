@@ -4,12 +4,28 @@ using UnityEngine;
 
 public class MacHIT : MacFSMState
 {
-    float time = 2.0f;
-    float curTime = 0.0f;
+    bool knockBack = true;
+    float knockBackDuration = 1.5f;
+    float knockBackPower = 3.0f;
+
+    float knockBackDelay = 0.3f;
+
+    float _Count = 0;
+
+    Vector3 knockBackTargetPos = Vector3.zero;
 
     public override void BeginState()
     {
         base.BeginState();
+
+        knockBack = _manager.KnockBackFlag;
+        knockBackDuration = _manager.KnockBackDuration;
+        knockBackPower = _manager.KnockBackPower;
+        knockBackDelay = _manager.KnockBackDelay;
+        
+        Vector3 direction = (_manager.PlayerCapsule.transform.forward).normalized;
+        direction.y = 0;
+        knockBackTargetPos = direction + this.transform.position;
     }
 
     public override void EndState()
@@ -20,17 +36,38 @@ public class MacHIT : MacFSMState
     private void Update()
     {
 
-        curTime += Time.deltaTime;
-
-        if (curTime > time)
+        if (!knockBack)
         {
-            _manager.SetState(MacState.CHASE);
+            _Count += Time.deltaTime;
+
+            if (_Count >= knockBackDelay)
+                _manager.SetState(MacState.CHASE);
         }
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if(knockBack)
+            StartCoroutine(KnockBack(knockBackDuration, knockBackPower));
+    }
+
+    public IEnumerator KnockBack(float dur, float power)
+    {
+        Vector3 direction = _manager.PlayerCapsule.transform.forward.normalized;
+        direction.y = 0;
+
+        
+        for (int time = 0; time < dur; time++)
+        {
+
+            transform.position = knockBackTargetPos + direction * (power);
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        knockBack = false;
     }
 
 }

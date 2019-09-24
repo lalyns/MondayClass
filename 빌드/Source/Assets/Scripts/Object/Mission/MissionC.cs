@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class MissionC : Mission
 {
-    bool missionEnd = false;
-
-    public GameObject EndTrigger;
-    public GameObject PortalEffect;
 
     public ProtectedTarget protectedTarget;
     public int _ProtectedTargetHP;
@@ -21,9 +17,10 @@ public class MissionC : Mission
 
     public List<Transform> oldSpawnList = new List<Transform>();
 
-    // Start is called before the first frame update
-    protected override void Start()
+    public override void OperateMission()
     {
+        base.OperateMission();
+
         protectedTarget.hp = _ProtectedTargetHP;
     }
 
@@ -35,31 +32,39 @@ public class MissionC : Mission
             if (Input.GetKeyDown(KeyCode.V))
             {
                 ClearMission();
-                missionEnd = true;
+                MissionEnd = true;
             }
 
         }
 
-        if (missionEnd) return;
+        if (MissionEnd) return;
 
-        if (GameStatus._Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
+        if (GameStatus.Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
 
-        spawnTime += Time.deltaTime;
 
         if (MissionOperate)
         {
-            if(spawnTime > spawnCool)
+            spawnTime += Time.deltaTime;
+
+            if (spawnTime > spawnCool)
             {
                 Spawn();
                 spawnTime = 0;
             }
         }
 
-        if (GameStatus._Instance._LimitTime <= 0 && protectedTarget.hp >= 0)
+        if (!MissionEnd && GameStatus.Instance._LimitTime <= 0 && protectedTarget.hp >= 0)
         {
             ClearMission();
-            missionEnd = true;
+            MissionEnd = true;
         }
+    }
+
+    public override void RestMission()
+    {
+        base.RestMission();
+
+        spawnTime = 0;
     }
 
     void Spawn()
