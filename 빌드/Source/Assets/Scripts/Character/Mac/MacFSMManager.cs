@@ -53,11 +53,15 @@ public class MacFSMManager : FSMManager
     public GameObject hitEffect;
     public GameObject hitEffect_Special;
     public GameObject hitEffect_Skill1;
+    public GameObject hitEffect_Skill1_Special;
     public Transform hitLocation;
 
     public GameObject _PopupEffect;
 
     public MonsterSound _Sound;
+
+    public Collider _PriorityTarget;
+    public float _DetectingRange;
 
     protected override void Awake()
     {
@@ -117,7 +121,8 @@ public class MacFSMManager : FSMManager
         Stat.TakeDamage(Stat, 350);
         _Sound.PlayHitSFX();
         //Debug.Log(Stat.Hp);
-
+        if(PlayerFSMManager.instance.isNormal)
+            PlayerFSMManager.instance.SpecialGauge += 4;
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {
@@ -132,6 +137,8 @@ public class MacFSMManager : FSMManager
         }
         else
         {
+            
+
             SetDeadState();
         }
 
@@ -139,7 +146,7 @@ public class MacFSMManager : FSMManager
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "Weapon")
+        if (other.transform.tag == "Weapon")
         {
             if (PlayerFSMManager.instance.isNormal)
                 Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
@@ -163,15 +170,26 @@ public class MacFSMManager : FSMManager
                 }
             }
         }
-        if(other.transform.tag == "Ball")
+        if (other.transform.tag == "Ball")
         {
-            Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
+            if (PlayerFSMManager.instance.isNormal)
+                Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
+            else
+                Instantiate(hitEffect_Skill1_Special, hitLocation.transform.position, Quaternion.identity);
+
 
             if (Stat.Hp > 0)
-            {                
+            {
                 OnHit();
+                try
+                {
+                    other.transform.gameObject.SetActive(false);
+                }
+                catch
+                {
 
-                other.transform.gameObject.SetActive(false);
+                }
+
             }
 
             if (_CurrentState == MacState.ATTACK)
@@ -185,9 +203,7 @@ public class MacFSMManager : FSMManager
                 }
             }
         }
-        if(other.transform.tag == "Skill2")
-        {
-        }
+       
     }
     private void OnTriggerStay(Collider other)
     {
@@ -208,6 +224,17 @@ public class MacFSMManager : FSMManager
                 {
 
                 }
+            }
+        }
+
+        if (other.transform.tag == "Skill2")
+        {
+           
+            Stat.TakeDamage(Stat, 10f);
+
+            if (Stat.Hp > 0)
+            {
+                SetState(MacState.HIT);
             }
         }
     }

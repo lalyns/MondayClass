@@ -6,6 +6,8 @@ public class MacATTACK : MacFSMState
 {
     public int _AttackTimes = 0;
 
+    public bool isLookAt = true;
+
     public override void BeginState()
     {
         base.BeginState();
@@ -16,7 +18,7 @@ public class MacATTACK : MacFSMState
         }
         
         _AttackTimes++;
-
+        isLookAt = true;
         //Debug.Log(string.Format("공격횟수 : {0}", _AttackTimes));
     }
 
@@ -27,9 +29,9 @@ public class MacATTACK : MacFSMState
 
     private void Update()
     {
-        transform.LookAt(_manager.PlayerCapsule.transform);
+        if(isLookAt) transform.LookAt(_manager._PriorityTarget.transform);
 
-        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) > _manager.Stat.statData._AttackRange)
+        if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) > _manager.Stat.statData._AttackRange)
         {
             _manager.SetState(MacState.CHASE);
         }

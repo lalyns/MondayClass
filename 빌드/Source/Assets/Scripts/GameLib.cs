@@ -96,18 +96,31 @@ public static class GameLib
         return GeometryUtility.TestPlanesAABB(ps, cc.bounds);
     }
 
-    public static float DistanceToCharacter(CharacterController monster, CapsuleCollider player)
+    public static float DistanceToCharacter(CharacterController monster, Collider target)
     {
-        return Vector3.Distance(monster.transform.position, player.transform.position);
+        return Vector3.Distance(monster.transform.position, target.transform.position);
     }
 
-    public static Vector3 DirectionToCharacter(CharacterController monster, CapsuleCollider player)
+    public static Vector3 DirectionToCharacter(CharacterController monster, Collider target)
     {
-        return (player.transform.position - monster.transform.position).normalized;
+        return (target.transform.position - monster.transform.position).normalized;
     }
 
-    public static Vector3 DirectionToCharacter(Collider monster, CapsuleCollider player)
+    public static Vector3 DirectionToCharacter(Collider monster, Collider target)
     {
-        return (player.transform.position - monster.transform.position).normalized;
+        return (target.transform.position - monster.transform.position).normalized;
+    }
+
+
+    public static float AnimationLength(Animator anim, string name)
+    {
+        float time = 0;
+
+        RuntimeAnimatorController ac = anim.runtimeAnimatorController;
+
+        for (int i = 0; i < ac.animationClips.Length; i++)
+            if (ac.animationClips[i].name == name)
+                time = ac.animationClips[i].length;
+        return time;
     }
 }

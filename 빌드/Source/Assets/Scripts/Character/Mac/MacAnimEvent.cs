@@ -31,18 +31,35 @@ public class MacAnimEvent : MonoBehaviour
 
     public void CastingAttack()
     {
+        MacATTACK attack = _Manager.CurrentStateComponent as MacATTACK;
+        try
+        {
+            attack.isLookAt = false;
+        }
+        catch
+        {
 
+        }
         EffectPoolManager._Instance._MacBulletPool.ItemSetActive(
             bulletLuancher, 
             FSMManager.CC,
-            FSMManager.PlayerCapsule);
+            FSMManager._PriorityTarget);
 
     }
 
     public void CastingSkill()
     {
+        MacSKILL skill = _Manager.CurrentStateComponent as MacSKILL;
+        try
+        {
+            skill.isLookAt = false;
+        }
+        catch
+        {
+
+        }
         EffectPoolManager._Instance._MacSkillPool.ItemSetActive(skillLuancher,
-            this.GetComponentInParent<MacFSMManager>().CC,
-            this.GetComponentInParent<MacFSMManager>().PlayerCapsule);
+            FSMManager.CC,
+            FSMManager._PriorityTarget);
     }
 }

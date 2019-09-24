@@ -22,12 +22,15 @@ public class FollowCam : MonoBehaviour
 
     [Header("Etc Obstacle Setting")]
     //카메라가 올라갈 높이
-    public float heightAboveObstacle = 12.0f;
+    public float heightAboveObstacle     = 12.0f;
     //플레이어 투사할 레이캐스트의 높이 옵셋
     public float castOffset = 1.0f;
 
+    PlayerFSMManager player;
     void Start()
     {
+        player = PlayerFSMManager.instance;
+
         originHeight = height;
         //target = GameObject.Find("Target").GetComponent<Transform>();
         target = GameObject.Find("PC_Rig").GetComponent<Transform>();
@@ -87,9 +90,16 @@ public class FollowCam : MonoBehaviour
     {
         //if (InputHandler.instance.isSpecial)
         //    return;
-
+       
         r_y = Input.GetAxis("Mouse Y");
-
+        
+        if (player.isMouseYLock)
+        {
+            distance = 3.25f;
+            originHeight = 2.67f;
+            targetOffset = 0.94f;
+            return;
+        }
 
         // 마우스 위치와 높이값
         if (!isMax && !isMin)

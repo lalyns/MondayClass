@@ -6,12 +6,8 @@ using UnityEngine;
 public class MissionA : Mission
 {
     public bool spawning = false;
+
     int waveLevel = 0;
-
-    bool missionEnd = false;
-
-    public GameObject EndTrigger;
-    public GameObject PortalEffect;
 
     public Transform[] Wave1Locations;
     public ObjectManager.MonsterType[] Wave1MonsterType;
@@ -20,23 +16,23 @@ public class MissionA : Mission
     public Transform[] Wave3Locations;
     public ObjectManager.MonsterType[] Wave3MonsterType;
 
-    public void Update()
+    protected override void Update()
     {
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 ClearMission();
-                missionEnd = true;
+                MissionEnd = true;
             }
 
         }
 
-        if (missionEnd) return;
+        if (MissionEnd) return;
 
         if (spawning)
         {
-            bool monsterCheck = GameStatus._Instance.ActivedMonsterList.Count == 0;
+            bool monsterCheck = GameStatus.Instance.ActivedMonsterList.Count == 0;
 
             if(monsterCheck)
             {
@@ -54,6 +50,13 @@ public class MissionA : Mission
             }
         }
 
+    }
+
+    public override void RestMission()
+    {
+        base.RestMission();
+
+        waveLevel = 0;
     }
 
     void Spawn()

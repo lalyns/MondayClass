@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerSound : MonoBehaviour
 {
     public AK.Wwise.Event _FootStep = new AK.Wwise.Event();
-    public void PlayFootStepSFX() { _FootStep.Post(gameObject); }
+    public void PlayFootStepSFX() {
+        //_FootStep.Post(gameObject);
+    }
 
     public AK.Wwise.Event _Dash = new AK.Wwise.Event();
     public void PlayDashSFX() { _Dash.Post(gameObject); }

@@ -32,11 +32,21 @@ public class Mission : MonoBehaviour
         }
     }
 
-    protected bool _MissionOperate;
+    [SerializeField] protected MissionData _Data;
+    public MissionData Data {
+        get { return _Data; }
+    }
+
+    [SerializeField] protected bool _MissionOperate;
     public bool MissionOperate {
         get { return _MissionOperate; }
         internal set { _MissionOperate = value; }
     }
+
+    public int _LimitTime = 180;
+    public MissionManager.MissionType MissionType;
+
+    protected bool MissionEnd = false;
 
     protected virtual void Awake()
     {
@@ -44,7 +54,14 @@ public class Mission : MonoBehaviour
         //Enter.Colliders.enabled = false;
 
         Exit = GetComponentInChildren<MissionExit>();
-        Exit.Colliders.enabled = false;
+        try
+        {
+            Exit.Colliders.enabled = false;
+        }
+        catch
+        {
+
+        }
     }
 
     protected virtual void Start()
@@ -57,35 +74,36 @@ public class Mission : MonoBehaviour
 
     }
 
-    public void OperateMission()
+    public virtual void RestMission()
     {
-        Debug.Log(GameManager.stageLevel);
-        GameManager.stageLevel++;
-        GameStatus._Instance._MissionStatus = true;
+        MissionEnd = false;
+        MissionOperate = false;
+        Exit.Colliders.enabled = false;
+        Exit._PortalEffect.SetActive(false);
+
+    }
+
+    public virtual void OperateMission()
+    {
+        GameStatus.Instance.StageLevel++;
+        GameStatus.Instance._MissionStatus = true;
+        GameStatus.Instance._LimitTime = _LimitTime;
 
         MissionOperate = true;
         Exit.Colliders.enabled = false;
     }
 
-    public void ClearMission()
+    public virtual void ClearMission()
     {
-        GameStatus._Instance._MissionStatus = false;
-        GameStatus._Instance.RemoveAllActiveMonster();
+        GameStatus.Instance._MissionStatus = false;
+        GameStatus.Instance.RemoveAllActiveMonster();
 
         Exit._PortalEffect.SetActive(true);
         Exit.Colliders.enabled = true;
     }
 
-    // 선택지 출력 후 미션 이동 구현할 것
-    public void NextMission(Transform player)
-    {
-        Exit.nextDungeon.SetActive(true);
-        player.position = Exit.nextDungeon.GetComponentInChildren<DungeonEnter>().transform.position;
+    public GameObject _MissionSelector;
 
-        MissionManager.Instance.CurrentMission =
-            MissionManager.Instance.Mission[GameManager.stageLevel];
-    }
-    
     #region 폐기
     //public int _CurrentMissionLevel;
     //public bool _IsMissionStart;

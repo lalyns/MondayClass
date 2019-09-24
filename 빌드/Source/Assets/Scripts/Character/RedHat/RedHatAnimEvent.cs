@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class RedHatAnimEvent : MonoBehaviour
 {
+    public RedHatATTACK _attackCp;
+
+    private void Awake()
+    {
+        
+    }
+
     public CapsuleCollider _WeaponCapsule;
     // Start is called before the first frame update
     void Start()
@@ -25,5 +32,11 @@ public class RedHatAnimEvent : MonoBehaviour
     void DisableWeaponTrigger()
     {
         _WeaponCapsule.enabled = false;
+    }
+
+    void HitCheck()
+    {
+        if (null != _attackCp)
+            _attackCp.AttackCheck();
     }
 }

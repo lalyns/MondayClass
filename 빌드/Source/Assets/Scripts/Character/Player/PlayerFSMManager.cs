@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Timeline;
+
 public enum PlayerState
 {
     IDLE = 0,
@@ -16,17 +19,26 @@ public enum PlayerState
     SKILL3,
     DEAD,
 }
-
+public enum AttackType
+{
+    ATTACK1 = 0,
+    ATTACK2,
+    ATTACK3,
+    SKILL1,
+    SkILL2,
+    SKILL3,
+    SKILL4,
+}
 [RequireComponent(typeof(PlayerStat))]
 [ExecuteInEditMode]
 public class PlayerFSMManager : FSMManager
 {
-   // public AudioSource musicPlayer;
+    //public AudioSource musicPlayer;
     //public AudioClip _dashSound;
-   // public AudioClip _attackSound;
-   // public AudioClip _runSound;
-  //  public AudioClip _skill1Sound;
-
+    //public AudioClip _attackSound;
+    //public AudioClip _runSound;
+    //public AudioClip _skill1Sound;
+    
     public PlayerSound _Sound;
 
     private bool _onAttack = false;
@@ -57,7 +69,7 @@ public class PlayerFSMManager : FSMManager
 
     private PlayerStat _stat;
     public PlayerStat Stat { get { return _stat; } }
-
+    
     private Animator _anim;
     public Animator Anim { get { return _anim; } }
 
@@ -70,15 +82,18 @@ public class PlayerFSMManager : FSMManager
 
     [SerializeField]
     private List<GameObject> _monster = new List<GameObject>();
-
-    public Image Skill1UI;
+    public int SpecialGauge = 0;
+    public Image SpecialGauge_Image;
+    public Image Skill1UI, Skill2UI, Skill3UI;
     Vector3 target;
     [SerializeField]
     float Skill1Timer1, Skill1Timer2;
+    [SerializeField]
+    float Skill2CTime, Skill3CTime = 10f;
     [Header("스킬1번 날라가는 속도,")]
     public float skill1Speed = 20f;
     [Header("스킬1번 날라가는 시간,")]
-    public float skill1ShootTime = 2f;
+    public float skill1ShootTime = 4f;
 
     
     public bool isAttackOne, isAttackTwo, isAttackThree, isSkill2;
@@ -115,11 +130,20 @@ public class PlayerFSMManager : FSMManager
     CameraManager camManager;
     FollowCam followCam;
     Camera mainCamera;
-    Shake shake;
+    PostProcessVolume volume;
+    PostProcessLayer layer;
+    PostProcessEffectSettings asdf;
+    public Cinemachine.CinemachineVirtualCamera CMvcam2;
+
+    
+    public Shake shake;
 
 
     public GameObject[] Skill1_Effects;
     public GameObject[] Skill1_Shoots;
+    public GameObject[] Skill1_Special_Effects;
+    public GameObject[] Skill1_Special_Shoots;
+
     public int Skill1_Amount = 1;
 
     public int[] randomShoot;
@@ -128,17 +152,38 @@ public class PlayerFSMManager : FSMManager
     public GameObject Skill3_End;
 
     public GameObject Skill2_Start;
+    public GameObject FlashEffect1, FlashEffect2;
+    public Vector3 FlashPosition;
+    bool isFlashStart = false;
+    [Header("스킬2번 현재 거리, 최소거리, 최대거리")]
+    public float skill2_Distance;
+    public float skill2_minDis;
+    public float skill2_maxDis;
+
+    public Transform Skill2_Parent;
+    public Vignette vignette;
+    public bool isShake = false;
+
+    public bool isMouseYLock;
+    Bloom bloom;
+
+    public PostProcessProfile profile1;
 
     protected override void Awake()
     {
         base.Awake();
         SetGizmoColor(Color.red);
-
+        
         _cc = GetComponentInChildren<CapsuleCollider>();
         _stat = GetComponent<PlayerStat>();
         _anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<PlayerSound>();
+        
+        CMvcam2 = GameObject.Find("CMvcam2").GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
+        GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile = profile1;
+        vignette = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Vignette>();
+        bloom = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Bloom>();
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
         SKill2_Sphere = Skill2_Start.GetComponent<SphereCollider>();
@@ -163,6 +208,7 @@ public class PlayerFSMManager : FSMManager
         isSkill2 = false;
         isInputLock = false;
         isSpecial = false;
+        isMouseYLock = false;
         try
         {
             pc_Icon.gameObject.SetActive(true);
@@ -175,17 +221,58 @@ public class PlayerFSMManager : FSMManager
             
         }
         randomShoot = new int[5];
-       // musicPlayer = GetComponent<AudioSource>();
+        // musicPlayer = GetComponent<AudioSource>();
     }
+    VignetteModeParameter parameter;
+    //public Texture2D aaasdf;
+    public TextureParameter Concent;
 
     private void Start()
     {
+
         SetState(startState);
         _isinit = true;
 
-        //Skill1UI = GameObject.Find("Skill1_CoolTime").GetComponent<Image>();
-        Skill1UI.fillAmount = 1f;
-        Skill1UI.gameObject.SetActive(false);
+        bloom.active = true;
+        bloom.enabled.Override(true);        
+        bloom.enabled = new BoolParameter() { value = true, overrideState = false };
+
+
+        vignette.active = true;
+        vignette.enabled.Override(true);
+        vignette.enabled = new BoolParameter() { value = true, overrideState = true };        
+        vignette.mode.overrideState = true;
+        vignette.color.overrideState = true;
+        vignette.mask.overrideState = true;
+        vignette.opacity.overrideState = true;
+
+        parameter = vignette.mode;
+        parameter.value = VignetteMode.Masked;
+        vignette.color.value = new Color(102, 0, 153, 30);        
+        Concent.overrideState = true;
+        Concent.defaultState = TextureParameterDefault.White;
+         
+        vignette.mask.value = Concent.value;      
+        vignette.opacity.value = 0f;
+
+
+
+
+        //vignette.mask = Concent;
+        //Concent.value = aaasdf;
+
+        try
+        {
+            Skill1UI.fillAmount = 1f;
+            Skill1UI.gameObject.SetActive(false);
+            Skill2UI.fillAmount = 1f;
+            Skill2UI.gameObject.SetActive(false);
+        }
+        catch
+        {
+
+        }
+
         _attack1Time = AnimationLength("PC_Anim_Attack_001") / 1.3f;
         _attack2Time = AnimationLength("PC_Anim_Attack_002") / 1.3f;
         _attack3Time = AnimationLength("PC_Anim_Attack_003_2") / 1.3f;
@@ -201,7 +288,12 @@ public class PlayerFSMManager : FSMManager
         for (int i = 0; i < 5; i++)
         {
             Skill1_Effects[i].SetActive(false);
+            Skill1_Shoots[i].SetActive(false);
+            Skill1_Special_Effects[i].SetActive(false);
+            Skill1_Special_Shoots[i].SetActive(false);
         }
+
+
         //camManager = CameraManager.singleton;
         //camManager.Init(this.transform);
         shake = GameObject.Find("CameraRig").GetComponent<Shake>();
@@ -230,183 +322,28 @@ public class PlayerFSMManager : FSMManager
             vertical >= 0.01f || vertical <= -0.01f;
     }
 
-    public void AttackCheck()
+   
+    private void SetUI()
     {
-        Attack_Capsule.enabled = true;
-    }
-    public void AttackCancel()
-    {
-        Attack_Capsule.enabled = false;
-    }
-    public void Skill3Attack()
-    {
-        Skill3_Capsule.enabled = true;
-    }
-    public void Skill3Cancel()
-    {
-        Skill3_Capsule.enabled = false;
-    }
-
-    public GameObject FlashEffect1, FlashEffect2;
-    public Vector3 FlashPosition;
-    bool isFlashStart = false;
-    [Header("스킬2번 현재 거리, 최소거리, 최대거리")]
-    public float skill2_Distance;
-    public float skill2_minDis;
-    public float skill2_maxDis;
-
-    public Transform Skill2_Parent;
-    public void Dash()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            isFlash = true;
-            isFlashStart = true;
-            FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
-            FlashEffect2.SetActive(false);
-            SetState(PlayerState.RUN);
-
-        }
-
-        if (isFlash)
-        {
-            if(isNormal)
-                Normal.SetActive(false);
-            if (!isNormal)
-                Special.SetActive(false);
-            try
-            {
-                FlashEffect1.SetActive(true);
-                FlashEffect1.transform.position = FlashPosition;
-                FlashEffect2.transform.position = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
-            }
-            catch
-            {
-
-            }
-            //isCantMove = true;
-            flashTimer += Time.deltaTime;
-            if (_h >= 0.01f && flashTimer <= 0.2f)
-            {
-                _anim.transform.Translate(Vector3.right * 20f * Time.deltaTime);
-            }
-            if (_h <= -0.01f && flashTimer <= 0.2f)
-            {
-                _anim.transform.Translate(Vector3.right * -20f * Time.deltaTime);
-            }
-            if (_h == 0 && _v >= 0 && flashTimer <= 0.2f)
-            {
-                _anim.transform.Translate(Vector3.forward * 20f * Time.deltaTime);
-            }
-            if (_h == 0 && _v <= -0.01f && flashTimer <= 0.2f)
-            {
-                _anim.transform.Translate(Vector3.forward * -20f * Time.deltaTime);
-            }
-
-            if (flashTimer >= 0.2f && flashTimer <= 0.23f)
-            {
-                FlashEffect2.SetActive(true);
-                _Sound.PlayDashSFX();
-                isCantMove = false;
-
-
-            }
-            if (flashTimer >= 0.3f)
-            {
-                if(isNormal)
-                    Normal.SetActive(true);
-                if (!isNormal)
-                    Special.SetActive(true);
-
-            }
-            if (flashTimer >= 0.5f)
-            {
-                try
-                {
-                    FlashEffect1.SetActive(false);
-                }
-                catch
-                {
-
-                }
-                isFlash = false;
-                isAttackOne = false;
-                flashTimer = 0;
-                return;
-            }
-        }
-
-        //    Normal.SetActive(false);
-        //    isFlash = true;
-        //    if (isFlash)
-        //    {
-        //        flashTimer += Time.deltaTime;
-        //        isCantMove = true;
-        //        if (_h >= 0.01)
-        //        {
-        //            //_anim.transform.Translate(Vector3.right * 10f * Time.deltaTime);
-        //            //오른쪽으로 오지게 이동.
-        //        }
-        //        if (_h <= -0.01f)
-        //        {
-        //            //왼쪽으로 오지게 이동.
-        //        }
-        //        if (_h == 0 && _v >= 0)
-        //        {
-        //            //앞으로 오지게 이동
-        //        }
-        //        if (_h == 0 && _v <= -0.01)
-        //        {
-        //            //뒤로 오지게 이동
-        //        }
-        //        if (flashTimer >= 0.3f)
-        //        {
-        //            flashTimer = 0;
-        //            Normal.SetActive(true);
-        //            isFlash = false;
-        //            isCantMove = false;
-        //        }
-        //    }
-        //}
-    }
-    private void FixedUpdate()
-    {
-        if (isSpecial)
-            return;
-
-        r_x = Input.GetAxis("Mouse X");
-
-
-        Skill2Set();
-
-        mainCamera.gameObject.SetActive(true);
-        _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
         
-        //Skill2_Start.transform.position = new Vector3(_anim.transform.position.x, _anim.transform.position.y, _anim.transform.position.z +skill2_Distance);
-    }
-
-
-    void Skill2Set()
-    {
-        //if (isSkill2)
-        //    return;
-        try
-        {
-            skill2_Distance = 14f / followCam.height;
-        }
-        catch
-        {
-
-        }
-
-        if (skill2_Distance >= skill2_maxDis)
-            skill2_Distance = skill2_maxDis;
-
-        Skill2_Parent.localPosition = new Vector3(0, 0.18f, skill2_Distance);
     }
 
     private void Update()
     {
+    
+        if (GameManager.Instance._ActivePlayerUI)
+        {
+            // UI 참조 안하게.
+            Skill1UI = null;
+            Skill2UI = null;
+            Skill3UI = null;
+            SpecialGauge_Image = null;
+            pc_Icon = null;
+            sp_Icon = null;
+        }
+
+
+
         //isNormal = Normal.activeSelf;
         try
         {
@@ -429,29 +366,107 @@ public class PlayerFSMManager : FSMManager
 
 
         ChangeModel();
+
+        if (isSpecial)
+            return;
+
+
         GetInput();
-        Skill1();
+        try
+        {
+            Skill1();
+        }
+        catch
+        {
+
+        }
         AttackDirection();
         
         Skill2();
         Skill3();
+
+        try
+        {
+            if (SpecialGauge_Image.fillAmount <= 0)
+                SpecialGauge_Image.fillAmount = 0;
+            if (SpecialGauge_Image.fillAmount >= 1)
+            {
+                SpecialGauge_Image.fillAmount = 1;
+            }
+        }
+        catch
+        {
+
+        }
         
 
-        if (isSkill3)
-            return;
-        
+        Attack();
         Dash();
+
+        Skill3MouseLock();
+        try { 
+        if(isNormal)
+            SpecialGauge_Image.fillAmount = SpecialGauge / 100f;
+        }
+        catch
+        {
+
+        }
+        Skill3UIReset();
+        if (!isNormal)
+        {
+            normalTimer -= Time.deltaTime;
+
+            try
+            {
+                SpecialGauge_Image.fillAmount = (normalTimer * 3.33f) / 100f;
+            }
+            catch
+            {
+
+            }
+
+            if (normalTimer <= 0f)
+            {
+                isNormal = true;
+                ChangeNormal();
+                normalTimer = 30;
+                
+            }
+        }
+        
+        if (_monster.Count <= 0)
+        {
+           
+            skillReturn(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
+            isShoot = false;
+
+        }
         if (isSkill2)
             return;
+    }
+    float normalTimer = 30f;
+
+    
+    private void FixedUpdate()
+    {
+        Debug.Log(Stat.Hp + "체력");
+
+        if(isShake)
+            StartCoroutine(shake.ShakeCamera(.2f, 0.02f, 0.0f));
+
         if (isSpecial)
             return;
 
-            Attack();
+        r_x = Input.GetAxis("Mouse X");
 
-        if (Skill1_Amount <= 1)
-        {
-            Skill1Set(Skill1_Shoots);
-        }
+
+        Skill2Set();
+
+        //mainCamera.gameObject.SetActive(true);
+        _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
+
+        //Skill2_Start.transform.position = new Vector3(_anim.transform.position.x, _anim.transform.position.y, _anim.transform.position.z +skill2_Distance);
     }
 
     public override void NotifyTargetKilled()
@@ -491,23 +506,42 @@ public class PlayerFSMManager : FSMManager
                 time = ac.animationClips[i].length;
         return time;
     }
+    void ChangeNormal()
+    {
+        try
+        {
+            pc_Icon.gameObject.SetActive(true);
+            sp_Icon.gameObject.SetActive(false);
 
+            Normal.SetActive(true);
+            Special.SetActive(false);            
+        }
+        catch
+        {
+
+        }
+    }
     public void ChangeModel()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (isNormal && SpecialGauge >=100)
         {
-            try
+            if (Input.GetKeyDown(KeyCode.R))
             {
-                pc_Icon.gameObject.SetActive (false);
-                sp_Icon.gameObject.SetActive(true);
-            }
-            catch
-            {
+                try
+                {
+                    pc_Icon.gameObject.SetActive(false);
+                    sp_Icon.gameObject.SetActive(true);
+                }
+                catch
+                {
 
+                }
+                isSpecial = true;
+                TimeLine.SetActive(true);
+                skillReturn(Skill1_Effects, Skill1_Special_Effects, isNormal);
             }
-            isSpecial = true;
-            TimeLine.SetActive(true);
         }
+
         if (isSpecial)
         {
             WeaponTransformEffect.SetActive(true);
@@ -568,24 +602,178 @@ public class PlayerFSMManager : FSMManager
         }
 
     }
-    // 스킬 켜주고 꺼주고 하는 함수
-    void Skill1Set(GameObject[] effects)
+
+
+    public void Dash()
     {
-        if (Skill1_Amount <= 1)
-            for (int i = 0; i < 5; i++)
-                effects[i].SetActive(false);
-        if (Skill1_Amount >= 2)
-            effects[0].SetActive(true);
-        if (Skill1_Amount >= 3)
-            effects[1].SetActive(true);
-        if (Skill1_Amount >= 4)
-            effects[2].SetActive(true);
-        if (Skill1_Amount >= 5)
-            effects[3].SetActive(true);
-        if (Skill1_Amount >= 6)
-            effects[4].SetActive(true);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            
+            isFlash = true;
+            isFlashStart = true;
+            FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
+            FlashEffect2.SetActive(false);
+            SetState(PlayerState.RUN);
+            if (isSkill3)
+            {
+                Skill3_End.transform.position = Skill3_Start.transform.position;
+                Skill3_End.transform.rotation = Skill3_Start.transform.rotation;
+                Skill3_End.SetActive(true);
+            }
+        }
+        
+        if (isFlash)
+        {
+            if (isNormal)
+                Normal.SetActive(false);
+            if (!isNormal)
+                Special.SetActive(false);
+            try
+            {
+                FlashEffect1.SetActive(true);
+                FlashEffect1.transform.position = FlashPosition;
+                FlashEffect2.transform.position = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
+            }
+            catch
+            {
+
+            }
+            //isCantMove = true;
+            flashTimer += Time.deltaTime;
+            if (_h >= 0.01f && flashTimer <= 0.2f)
+            {
+                _anim.transform.Translate(Vector3.right * 20f * Time.deltaTime);
+            }
+            if (_h <= -0.01f && flashTimer <= 0.2f)
+            {
+                _anim.transform.Translate(Vector3.right * -20f * Time.deltaTime);
+            }
+            if (_h == 0 && _v >= 0 && flashTimer <= 0.2f)
+            {
+                _anim.transform.Translate(Vector3.forward * 20f * Time.deltaTime);
+            }
+            if (_h == 0 && _v <= -0.01f && flashTimer <= 0.2f)
+            {
+                _anim.transform.Translate(Vector3.forward * -20f * Time.deltaTime);
+            }
+
+            if (flashTimer >= 0.2f && flashTimer <= 0.23f)
+            {
+                FlashEffect2.SetActive(true);
+                try
+                {
+                    _Sound.PlayDashSFX();
+                }
+                catch
+                {
+
+                }
+                isCantMove = false;
+
+
+            }
+            if (flashTimer >= 0.3f)
+            {
+                if (isNormal)
+                    Normal.SetActive(true);
+                if (!isNormal)
+                    Special.SetActive(true);
+
+            }
+            if (flashTimer >= 0.5f)
+            {
+                try
+                {
+                    FlashEffect1.SetActive(false);
+                }
+                catch
+                {
+
+                }
+                isFlash = false;
+                isAttackOne = false;
+                flashTimer = 0;
+                return;
+            }
+        }
     }
-    void Skill1Shoot(GameObject[] effects, List<GameObject> targets, int[] rands, float distance)
+
+
+
+    
+    
+    // 스킬 켜주고 꺼주고 하는 함수
+    void Skill1Set(GameObject[] effects, GameObject[] effects_special, bool isnormal)
+    {
+        if (isnormal)
+        {
+            if (Skill1_Amount <= 1)
+                for (int i = 0; i < 5; i++)
+                {
+                    effects[i].SetActive(false);
+                }
+            if (Skill1_Amount >= 2)
+            {
+                effects[0].SetActive(true);
+                effects_special[0].SetActive(false);
+            }
+            if (Skill1_Amount >= 3)
+            {
+                effects[1].SetActive(true);
+                effects_special[1].SetActive(false);
+            }
+            if (Skill1_Amount >= 4)
+            {
+                effects[2].SetActive(true);
+                effects_special[2].SetActive(false);
+            }
+            if (Skill1_Amount >= 5)
+            {
+                effects[3].SetActive(true);
+                effects_special[3].SetActive(false);
+            }
+            if (Skill1_Amount >= 6)
+            {
+                effects[4].SetActive(true);
+                effects_special[4].SetActive(false);
+            }
+        }
+        else
+        {
+            if (Skill1_Amount <= 1)
+                for (int i = 0; i < 5; i++)
+                {
+                    effects_special[i].SetActive(false);
+                }
+            if (Skill1_Amount >= 2)
+            {
+                effects_special[0].SetActive(true);
+                effects[0].SetActive(false);
+            }
+            if (Skill1_Amount >= 3)
+            {
+                effects_special[1].SetActive(true);
+                effects[1].SetActive(false);
+            }
+            if (Skill1_Amount >= 4)
+            {
+                effects_special[2].SetActive(true);
+                effects[2].SetActive(false);
+            }
+            if (Skill1_Amount >= 5)
+            {
+                effects_special[3].SetActive(true);
+                effects[3].SetActive(false);
+            }
+            if (Skill1_Amount >= 6)
+            {
+                effects_special[4].SetActive(true);
+                effects[4].SetActive(false);
+            }
+        }
+       
+    }
+    void Skill1Shoot(GameObject[] effects, GameObject[] effects_special, List<GameObject> targets, int[] rands, float distance, bool isnormal)
     {
         for(int i=0; i<5; i++)
         {
@@ -594,30 +782,60 @@ public class PlayerFSMManager : FSMManager
 
             if (Skill1_Amount >= i + 2)
             {
-                if(Vector3.Distance(effects[i].transform.position, targets[rands[i]].transform.position) >= distance)
-                    effects[i].transform.position = Vector3.MoveTowards(effects[i].transform.position, targets[rands[i]].transform.position, skill1Speed * Time.deltaTime);
+                try
+                {
+                    if (isnormal)
+                    {
+                        if (Vector3.Distance(effects[i].transform.position, targets[rands[i]].transform.position) >= distance)
+                            effects[i].transform.position = Vector3.MoveTowards(effects[i].transform.position, targets[rands[i]].transform.position, skill1Speed * Time.deltaTime);
+                    }
+                    else
+                    {
+                        if (Vector3.Distance(effects_special[i].transform.position, targets[rands[i]].transform.position) >= distance)
+                            effects_special[i].transform.position = Vector3.MoveTowards(effects_special[i].transform.position, targets[rands[i]].transform.position, skill1Speed * Time.deltaTime);
+                    }
+
+                }
+                catch
+                {
+
+                }
             }
             
         }
     }
-    void Skill1Return(GameObject[] effects, GameObject[] shoots, List<GameObject> target, int[] rands, float distance)
+    void skillReturn(GameObject[] effects, GameObject[] effects_special, bool isnormal)
     {
-        for (int i = 0; i < 5; i++)
+        if (isnormal)
         {
-            if (Skill1_Amount < 2)
-                return;
-
-            if (Skill1_Amount >= i + 2)
+            for (int i = 0; i < 5; i++)
             {
-                if (Vector3.Distance(shoots[i].transform.position, target[rands[i]].transform.position) <= distance)
-                {
-                    //shoots[i].transform.position = effects[i].transform.position;
-                    //shoots[i].SetActive(false);
-                }
+                effects[i].SetActive(false);
             }
         }
-    }
+        else
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                effects_special[i].SetActive(false);
+            }
+        }
 
+    }
+    void Skill1PositionSet(GameObject[] normal_effect, GameObject[] normal_shoot, GameObject[] special_shoot, bool isnormal)
+    {
+        if (isnormal)
+        {
+            for (int i = 0; i < 5; i++)
+                normal_shoot[i].transform.position = normal_effect[i].transform.position;
+        }
+        else
+        {
+            for (int i = 0; i < 5; i++)
+                special_shoot[i].transform.position = normal_effect[i].transform.position;
+        }
+
+    }         
     public void Skill1()
     {
         
@@ -629,7 +847,6 @@ public class PlayerFSMManager : FSMManager
                 attackCount = 0;
                 Skill1_Amount++;
 
-                // Skill1Effeects[0].gameObject.SetActive(true);
                 isBall = true;
             }
         }
@@ -648,7 +865,7 @@ public class PlayerFSMManager : FSMManager
                 Skill1_Amount = 6;
         }
         // 만약 구체 갯수가 0개면 다 꺼줌.
-        Skill1Set(Skill1_Effects);
+        Skill1Set(Skill1_Effects, Skill1_Special_Effects, isNormal);
 
         // 구체가 1개 이상 있는 상태에서
         if (isBall)
@@ -656,17 +873,14 @@ public class PlayerFSMManager : FSMManager
             // 1 누르면
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-
                 // 주변 몬스터의 수를 파악 한 후에
-                _monster = GameStatus._Instance.ActivedMonsterList;
-
-                //_monster.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
+                _monster = GameStatus.Instance.ActivedMonsterList;
 
                 if (_monster.Count == 0)
                     return;
 
                 // 떠있는 구체 -> 날라가는 구체로 Active를 수정 후.
-                Skill1Set(Skill1_Shoots);
+                Skill1Set(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
 
                 // 몬스터 수의 값을 랜덤함수 5개를 돌려서 배치 시킨 후.
                 for (int i = 0; i < 5; i++)
@@ -674,67 +888,106 @@ public class PlayerFSMManager : FSMManager
                     randomShoot[i] = Random.Range((int)0, (int)_monster.Count);
                 }
 
-                
-
-
-             
-
                 Skill1UI.gameObject.SetActive(true);
-
-
 
                 // 스킬이 날라간다.
                 isShoot = true;
                 isSkill1CTime = true;
                 isBall = false;
-                _Sound.PlaySkill1SFX();
+                try
+                {
+                    _Sound.PlaySkill1SFX();
+                }
+                catch
+                {
+
+                }
             }
         }
         // 스킬이 날라가기 시작하면
         if (isShoot)
         {
 
-
-            // 기존 떠있던 이펙트의 Active를 꺼주고.
-            for (int i = 0; i < 5; i++)
-            {
-                Skill1_Effects[i].SetActive(false);
-            }
+            skillReturn(Skill1_Effects, Skill1_Special_Effects, isNormal);
 
             // 날라가는 시간을 정해준 후에.
             Skill1Timer1 += Time.deltaTime;
             // 날린다
-            Skill1Shoot(Skill1_Shoots, _monster, randomShoot, 0);
+            Skill1Shoot(Skill1_Shoots, Skill1_Special_Shoots, _monster, randomShoot, 0, isNormal);
 
-            Skill1Return(Skill1_Effects, Skill1_Shoots, _monster, randomShoot, 0.01f);
-
-            if (Skill1Timer1 >= skill1ShootTime)
+            if (_monster.Count == 0)
             {
-                Skill1_Amount = 1;
 
                 for (int i = 0; i < 5; i++)
                 {
                     Skill1_Shoots[i].transform.position = Skill1_Effects[i].transform.position;
                 }
 
+                skillReturn(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1Timer1 = 0;
                 isShoot = false;
-               // _monster.Clear();
+                Skill1_Amount = 1;
+            }
+
+            if (Skill1Timer1 >= skill1ShootTime)
+            {
+
+                Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
+
+                Skill1Timer1 = 0;
+                isShoot = false;
+
+                Skill1_Amount = 1;
+
             }
         }
         if (isSkill1CTime)
         {
-            Skill1Timer2 -= Time.deltaTime;
-            Skill1UI.fillAmount = Skill1Timer2 / 10f;
-            if (Skill1Timer2 <= 0)
-            {
-                Skill1Timer2 = 10f;
-                Skill1UI.fillAmount = 1f;
-                Skill1UI.gameObject.SetActive(false);
-
-                isSkill1CTime = false;
-            }
+            SKill1UIReset();
         }
+    }
+
+    void Skill2Set()
+    {
+        //if (isSkill2)
+        //    return;
+        try
+        {
+            skill2_Distance = 14f / followCam.height;
+        }
+        catch
+        {
+
+        }
+
+        if (skill2_Distance >= skill2_maxDis)
+            skill2_Distance = skill2_maxDis;
+
+        Skill2_Parent.localPosition = new Vector3(0, 0.18f, skill2_Distance);
+    }
+    public void Skill2()
+    {
+        if (isSkill2)
+            return;
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetState(PlayerState.SKILL2);
+            isSkill2 = true;
+            Skill2UI.gameObject.SetActive(true);
+            return;
+        }
+    }
+
+    void Skill3MouseLock()
+    {
+        if (isSkill3)
+        {
+            isMouseYLock = true;
+            return;
+        }
+        else
+            isMouseYLock = false;
+
     }
     public void Skill3()
     {
@@ -749,21 +1002,89 @@ public class PlayerFSMManager : FSMManager
 
             SetState(PlayerState.SKILL3);
             isSkill3 = true;
+
             return;
         }
     }
-    public void Skill2()
+    
+    public void SKill1UIReset()
     {
-        if (isSkill2)
-            return;
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        Skill1Timer2 -= Time.deltaTime;
+        Skill1UI.fillAmount = Skill1Timer2 / 10f;
+        if (Skill1Timer2 <= 0)
         {
-            SetState(PlayerState.SKILL2);
-            isSkill2 = true;
-            return;
+            Skill1Timer2 = 10f;            
+            Skill1UI.fillAmount = 1f;
+            Skill1UI.gameObject.SetActive(false);
+            isSkill1CTime = false;
         }
     }
+    
+
+    public void Skill2UIReset()
+    {
+        Skill2CTime -= Time.deltaTime;
+        Skill2UI.fillAmount = Skill2CTime / 10f;
+        if(Skill2CTime <= 0)        
+        {
+            Skill2CTime = 10f;
+              Skill2UI.fillAmount = 1f;
+            Skill2UI.gameObject.SetActive(false);
+            Skill2_Start.SetActive(false);
+            isSkill2 = false;
+        }
+    }
+    
+    public void Skill3UIReset()
+    {        
+        if (Skill3_End.activeSelf)
+        {
+            Skill3UI.gameObject.SetActive(true);
+            Skill3CTime -= Time.deltaTime;
+            Skill3UI.fillAmount = Skill3CTime / 10f;
+
+            if(Skill3CTime <= 0)
+            {
+                Skill3CTime = 10f;
+                Skill3UI.fillAmount = 1f;
+                Skill3UI.gameObject.SetActive(false);
+                Skill3_End.SetActive(false);                
+            }
+
+        }
+    }
+
+    public void AttackCheck()
+    {
+        isShake = true;
+
+        // Attack_Capsule.enabled = true;
+        
+
+        var hitTarget = GameLib.SimpleDamageProcess(_anim.transform, Stat.AttackRange,
+            "Monster", Stat, Stat.Damage);
+
+        if (hitTarget != null) _lastAttack = hitTarget;
+
+        Debug.Log(_lastAttack + "LastAttack");
+
+        Debug.Log(Stat.Damage + "Damage");
+    }
+    public void AttackCancel()
+    {
+        isShake = false;
+        // Attack_Capsule.enabled = false;
+    }
+    public void Skill3Attack()
+    {
+        Skill3_Capsule.enabled = true;
+    }
+    public void Skill3Cancel()
+    {
+        Skill3_Capsule.enabled = false;
+    }
+
+
+
     public static PlayerFSMManager instance;
-
-
 }

@@ -21,7 +21,7 @@ public class RedHatATTACK : RedHatFSMState
 
         DahsCheck();
 
-        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) < _manager.Stat.statData._AttackRange)
+        if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) < _manager.Stat.statData._AttackRange)
         {
             
         }

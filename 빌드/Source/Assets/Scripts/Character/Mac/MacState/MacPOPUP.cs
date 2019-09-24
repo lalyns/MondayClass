@@ -12,6 +12,8 @@ public class MacPOPUP : MacFSMState
         _manager.Stat.SetHp(_manager.Stat.MaxHp);
 
         EffectPlay();
+
+        TargetPrioritySet();
     }
 
     public override void EndState()
@@ -34,5 +36,35 @@ public class MacPOPUP : MacFSMState
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+    }
+
+    private void TargetPrioritySet()
+    {
+        if (MissionManager.Instance.CurrentMissionType == MissionManager.MissionType.Defence)
+        {
+
+            Collider[] allTarget = Physics.OverlapSphere(this.transform.position, _manager._DetectingRange);
+
+            foreach (Collider target in allTarget)
+            {
+                if (target.tag == "Player")
+                {
+                    _manager._PriorityTarget = PlayerFSMManager.
+                        instance.GetComponentInChildren<Animator>()
+                        .GetComponent<Collider>();
+                }
+                else
+                {
+                    MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
+                    _manager._PriorityTarget = mission.protectedTarget.Collider;
+                }
+            }
+        }
+        else
+        {
+            _manager._PriorityTarget = PlayerFSMManager.
+                instance.GetComponentInChildren<Animator>()
+                .GetComponent<Collider>();
+        }
     }
 }

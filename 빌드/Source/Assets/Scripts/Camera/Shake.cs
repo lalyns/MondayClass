@@ -11,7 +11,6 @@ public class Shake : MonoBehaviour
     private Vector3 originPos;
     private Quaternion originRot;
 
-    InputHandler input;
 
     public static Shake instance;
     // Start is called before the first frame update
@@ -20,7 +19,6 @@ public class Shake : MonoBehaviour
         instance = this;
         originPos = shakeCamera.localPosition;
         originRot = shakeCamera.localRotation;
-        input = InputHandler.instance;
 
     }
 
@@ -29,10 +27,10 @@ public class Shake : MonoBehaviour
     {
     }
 
-
     public IEnumerator ShakeCamera(float duration = 0.05f, float magnitudePos = 0.03f, float magitudeRot = 0.1f)
     {
         float passTime = 0.0f;
+
 
         while (passTime < duration)
         {
@@ -46,7 +44,6 @@ public class Shake : MonoBehaviour
                 shakeCamera.localRotation = Quaternion.Euler(shakeRot);
 
             }
-
             passTime += Time.deltaTime;
 
             yield return null;

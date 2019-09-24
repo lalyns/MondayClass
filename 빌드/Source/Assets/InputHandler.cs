@@ -388,7 +388,7 @@ public class InputHandler : MonoBehaviour
                 isAttackOne = true;
 
             
-            //StartCoroutine(shake.ShakeCamera());
+            
 
         }
 
