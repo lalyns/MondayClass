@@ -504,50 +504,6 @@ MonoBehaviour:
   unloadTriggerList: 958ca0ea
   bankNameInternal: 
   valueGuidInternal: 
---- !u!114 &332856292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
-  m_Name: Vignette(Clone)
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  mode:
-    overrideState: 1
-    value: 1
-  color:
-    overrideState: 1
-    value: {r: 102, g: 0, b: 153, a: 30}
-  center:
-    overrideState: 0
-    value: {x: 0.5, y: 0.5}
-  intensity:
-    overrideState: 0
-    value: 0
-  smoothness:
-    overrideState: 0
-    value: 0.2
-  roundness:
-    overrideState: 0
-    value: 1
-  rounded:
-    overrideState: 0
-    value: 0
-  mask:
-    overrideState: 1
-    value: {fileID: 2800000, guid: e1d4e10344ec2f4458cb3489a0e5cc37, type: 3}
-    defaultState: 1
-  opacity:
-    overrideState: 1
-    value: 0
 --- !u!4 &363977470 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3840080686581853849, guid: d1dbaffd01c35cf4bba671673d05a559,
@@ -931,6 +887,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _manager: {fileID: 0}
   _time: 0
+  _opacityTimer: 0
+  _viewTimer: 0
+  isMax: 0
+  isMin: 0
 --- !u!1001 &921870158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1207,7 +1167,7 @@ GameObject:
   - component: {fileID: 1710243414}
   m_Layer: 0
   m_Name: Prefab_Manager
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

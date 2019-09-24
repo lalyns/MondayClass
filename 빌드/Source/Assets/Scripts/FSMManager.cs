@@ -19,6 +19,7 @@ public class FSMManager : MonoBehaviour
     public CharacterStat stats;
     public StatData MyStatData { get { return _statData; } }
 
+
     [HideInInspector] public ObjectManager.MonsterType monsterType;
 
     protected virtual void Awake()
@@ -52,6 +53,11 @@ public class FSMManager : MonoBehaviour
                 Gizmos.matrix = temp;
             }
         }
+    }
+
+    public virtual void LastHitBy()
+    {
+
     }
 
     public virtual void NotifyTargetKilled() { }
