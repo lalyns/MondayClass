@@ -19,7 +19,16 @@ public enum PlayerState
     SKILL3,
     DEAD,
 }
-
+public enum AttackType
+{
+    ATTACK1 = 0,
+    ATTACK2,
+    ATTACK3,
+    SKILL1,
+    SkILL2,
+    SKILL3,
+    SKILL4,
+}
 [RequireComponent(typeof(PlayerStat))]
 [ExecuteInEditMode]
 public class PlayerFSMManager : FSMManager
@@ -313,26 +322,7 @@ public class PlayerFSMManager : FSMManager
             vertical >= 0.01f || vertical <= -0.01f;
     }
 
-    public void AttackCheck()
-    {
-        isShake = true;
-
-        Attack_Capsule.enabled = true;
-    }
-    public void AttackCancel()
-    {
-        isShake = false;
-        Attack_Capsule.enabled = false;
-    }
-    public void Skill3Attack()
-    {
-        Skill3_Capsule.enabled = true;
-    }
-    public void Skill3Cancel()
-    {
-        Skill3_Capsule.enabled = false;
-    }
-
+   
     private void SetUI()
     {
         
@@ -460,6 +450,8 @@ public class PlayerFSMManager : FSMManager
     
     private void FixedUpdate()
     {
+        Debug.Log(Stat.Hp + "체력");
+
         if(isShake)
             StartCoroutine(shake.ShakeCamera(.2f, 0.02f, 0.0f));
 
@@ -1061,6 +1053,37 @@ public class PlayerFSMManager : FSMManager
 
         }
     }
+
+    public void AttackCheck()
+    {
+        isShake = true;
+
+        // Attack_Capsule.enabled = true;
+        
+
+        var hitTarget = GameLib.SimpleDamageProcess(_anim.transform, Stat.AttackRange,
+            "Monster", Stat, Stat.Damage);
+
+        if (hitTarget != null) _lastAttack = hitTarget;
+
+        Debug.Log(_lastAttack + "LastAttack");
+
+        Debug.Log(Stat.Damage + "Damage");
+    }
+    public void AttackCancel()
+    {
+        isShake = false;
+        // Attack_Capsule.enabled = false;
+    }
+    public void Skill3Attack()
+    {
+        Skill3_Capsule.enabled = true;
+    }
+    public void Skill3Cancel()
+    {
+        Skill3_Capsule.enabled = false;
+    }
+
 
 
     public static PlayerFSMManager instance;

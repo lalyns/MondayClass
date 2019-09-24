@@ -7,6 +7,10 @@ public class CharacterStat : MonoBehaviour
     protected float _str = 10.0f;
     public float Str { get { return _str; } }
 
+    protected int _damage = 100;
+    public int Damage { get { return _damage; } }
+
+
     protected float _maxHp = 1000.0f;
     public float MaxHp { get { return _maxHp; } }
 
@@ -23,9 +27,13 @@ public class CharacterStat : MonoBehaviour
     protected float _turnSpeed = 540.0f;
     public float TurnSpeed { get { return _turnSpeed; } }
 
-    protected float _attackRange = 2.0f;
+    protected float _attackRange = 1.0f;
     public float AttackRange { get { return _attackRange; } }
-    
+          
+       
+
+
+
     [HideInInspector]
     public CharacterStat lastHitBy = null;
     [SerializeField]

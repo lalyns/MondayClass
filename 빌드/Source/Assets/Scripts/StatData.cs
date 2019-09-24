@@ -5,9 +5,17 @@ using UnityEngine;
 [CreateAssetMenu]
 public class StatData : ScriptableObject
 {
+    public bool _IsKnockBack;
+    public float _KnockBackDistance;
+    public float _KncokBackTime;
+    public int _Damage;
+    public float _MaxHp;
+
+
+
     public float _MoveSpeed;
     public float _AttackSpeed;
-    public float _MaxHp;
+    
     public float _Deffece;
 
     public float _Offence;
