@@ -6,6 +6,7 @@ public class HPUI : MonoBehaviour
 {
     InputHandler input;
     // Start is called before the first frame update
+
     void Start()
     {
         input = InputHandler.instance;

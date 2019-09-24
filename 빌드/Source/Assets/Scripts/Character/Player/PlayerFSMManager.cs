@@ -457,7 +457,6 @@ public class PlayerFSMManager : FSMManager
     
     private void FixedUpdate()
     {
-        //Debug.Log(Stat.Hp + "체력");
 
         if(isShake)
             StartCoroutine(shake.ShakeCamera(.2f, 0.02f, 0.0f));
