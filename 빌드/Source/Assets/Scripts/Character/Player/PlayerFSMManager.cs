@@ -352,13 +352,8 @@ public class PlayerFSMManager : FSMManager
             sp_Icon = null;
         }
 
-        if(isSkill3)
-            CMvcam2.m_Lens.FieldOfView = 70f;
 
-        else
-            CMvcam2.m_Lens.FieldOfView = 60f;
 
-        
         //isNormal = Normal.activeSelf;
         try
         {
