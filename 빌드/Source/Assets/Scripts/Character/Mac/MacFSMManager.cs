@@ -127,6 +127,8 @@ public class MacFSMManager : FSMManager
         Stat.TakeDamage(playerStat, playerStat.DMG[(int)attackType]);
         SetKnockBack(playerStat, attackType);
 
+        StartCoroutine(Shake.instance.ShakeCamera(.2f, 0.03f, 0.1f));
+
         if (Stat.Hp > 0)
         {
             SetState(MacState.HIT);
@@ -195,6 +197,7 @@ public class MacFSMManager : FSMManager
                 //OnHit();
                 try
                 {
+                    OnHitForMonster(AttackType.SKILL1);
                     other.transform.gameObject.SetActive(false);
                 }
                 catch
