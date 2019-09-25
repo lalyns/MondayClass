@@ -43,12 +43,11 @@ public class tempLook : MonoBehaviour
 
         if (_Time > _DashReadyTime && _Time < _DashReadyTime + _DashTime)
         {
-
+            EffectEnd();
         }
 
         if (_Time > _DashReadyTime + _DashTime)
         {
-            EffectEnd();
         }
     }
 
