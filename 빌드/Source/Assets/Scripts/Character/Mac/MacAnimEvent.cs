@@ -16,6 +16,9 @@ public class MacAnimEvent : MonoBehaviour
         }
     }
 
+    public MacHIT _hitCp;
+    public MacDEAD _deadCp;
+
     public Transform bulletLuancher;
     public Transform skillLuancher;
 
@@ -61,5 +64,15 @@ public class MacAnimEvent : MonoBehaviour
         EffectPoolManager._Instance._MacSkillPool.ItemSetActive(skillLuancher,
             FSMManager.CC,
             FSMManager._PriorityTarget);
+    }
+
+    public void HitEnd()
+    {
+        _hitCp.HitEnd();
+    }
+
+    public void NotifyDead()
+    {
+        _deadCp.DeadHelper();
     }
 }
