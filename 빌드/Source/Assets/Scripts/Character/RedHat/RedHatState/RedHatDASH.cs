@@ -20,7 +20,6 @@ public class RedHatDASH : RedHatFSMState
         _TargetPos = _manager._PriorityTarget.transform.position;
 
         _manager.CC.detectCollisions = false;
-        _manager._MR.material = _manager.Stat._DashMat;
         try
         {
             _manager.dashEffect = EffectPoolManager._Instance._RedHatEffectPool.ItemSetActive(this.transform);
@@ -39,7 +38,6 @@ public class RedHatDASH : RedHatFSMState
     {
         _Time = 0.0f;
         Vector3 _TargetPos = Vector3.zero;
-        _manager._MR.material = _manager.Stat._NormalMat;
 
         //_manager.dashEffect = null;
 
