@@ -9,7 +9,6 @@ public class RedHatHIT : RedHatFSMState
     float knockBackPower = 3.0f;
     float knockBackDelay = 0.3f;
 
-    float _Count = 0;
     public bool hitEnd = false;
 
     bool blink = false;
@@ -34,7 +33,7 @@ public class RedHatHIT : RedHatFSMState
     public override void EndState()
     {
         base.EndState();
-        _Count = 0;
+
         hitEnd = false;
 
         _manager.WPMats.SetFloat("_Hittrigger", 0);
@@ -70,7 +69,6 @@ public class RedHatHIT : RedHatFSMState
         int i = 0;
 
         while (i++<4) {
-            Debug.Log("Hit Call" + i);
             float BV = blink ? 0 : 1;
 
             _manager.WPMats.SetFloat("_Hittrigger", BV);

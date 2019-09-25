@@ -28,7 +28,6 @@ public class MacCHASE : MacFSMState
 
         else
         {
-            _manager._MR.material = _manager.Stat._NormalMat;
 
             _manager.CC.transform.LookAt(_manager._PriorityTarget.transform);
 
