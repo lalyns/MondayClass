@@ -21,7 +21,7 @@
 	[HDR]_DissolveEdgeColor("Dissolve Edge Color", Color) = (1,1,1,0)
 	_DissolveIntensity("Dissolve Intensity", Range(0.0, 1.0)) = 0
 	_DissolveEdgeRange("Dissolve Edge Range", Range(0.0, 1.0)) = 0.1
-	[Toggle]_DissolveEdgeMultiplier("Dissolve Edge Multiplier", Float) = 8
+	[Toggle]_DissolveEdgeMultiplier("Dissolve Edge Multiplier", float) = 8
 	//_DissolveEdgeMultiplier("Dissolve Edge Multiplier", Float) = 8
 		  
 	[HDR]_HitColor("HitColor", Color) = (1,1,1,1)

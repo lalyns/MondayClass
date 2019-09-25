@@ -5,10 +5,12 @@ using UnityEngine;
 public class RedHatAnimEvent : MonoBehaviour
 {
     public RedHatATTACK _attackCp;
+    public RedHatHIT _hitCp;
+    public RedHatDEAD _deadCp;
 
     private void Awake()
     {
-        
+        _attackCp = GetComponentInParent<RedHatATTACK>();
     }
 
     public CapsuleCollider _WeaponCapsule;
@@ -38,5 +40,15 @@ public class RedHatAnimEvent : MonoBehaviour
     {
         if (null != _attackCp)
             _attackCp.AttackCheck();
+    }
+
+    public void HitEnd()
+    {
+        _hitCp.HitEnd();
+    }
+
+    public void NotifyDead()
+    {
+        _deadCp.DeadHelper();
     }
 }

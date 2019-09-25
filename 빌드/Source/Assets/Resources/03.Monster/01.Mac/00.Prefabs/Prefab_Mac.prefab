@@ -325,7 +325,7 @@ Transform:
   m_GameObject: {fileID: 3694473066860267770}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 3564954189246592852}
   - {fileID: 4933950287443581949}
@@ -367,6 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b18644906041ce4791f994a5f1e2d7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer: 0
   lastHitBy: {fileID: 0}
   statData: {fileID: 11400000, guid: c4e880e7851cfe4489aa5466459f6054, type: 2}
   monsterData: {fileID: 11400000, guid: c4e880e7851cfe4489aa5466459f6054, type: 2}
@@ -398,6 +399,7 @@ MonoBehaviour:
   startState: 0
   _AttackTransform: {fileID: 2470283996394807890}
   _MR: {fileID: 537192819454032019}
+  Mats: []
   _HPSilder: {fileID: 5839632007351078513}
   hitEffect: {fileID: 7020711604762157689, guid: 2667e56a7f52a974baaa82b17f6778e7,
     type: 3}
@@ -412,6 +414,10 @@ MonoBehaviour:
   _Sound: {fileID: 0}
   _PriorityTarget: {fileID: 0}
   _DetectingRange: 20
+  KnockBackFlag: 0
+  KnockBackDuration: 0
+  KnockBackPower: 0
+  KnockBackDelay: 0
 --- !u!114 &5136133771846456272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,8 +545,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _manager: {fileID: 0}
   sub: 0
-  knockBackDuration: 0.1
-  knockBackPower: 0.3
 --- !u!1 &4635790295767007043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,6 +1175,10 @@ PrefabInstance:
       value: MMC_Move
       objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: 751288ee72aaff442a823885afec6ea8, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: 751288ee72aaff442a823885afec6ea8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9e0073445dbb1804e9cb53466e44c22e, type: 2}
@@ -1196,6 +1204,10 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 9e0073445dbb1804e9cb53466e44c22e, type: 2}
     - target: {fileID: 13700000, guid: 751288ee72aaff442a823885afec6ea8, type: 3}
       propertyPath: m_Materials.Array.data[6]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9e0073445dbb1804e9cb53466e44c22e, type: 2}
+    - target: {fileID: 13700000, guid: 751288ee72aaff442a823885afec6ea8, type: 3}
+      propertyPath: m_Materials.Array.data[7]
       value: 
       objectReference: {fileID: 2100000, guid: 9e0073445dbb1804e9cb53466e44c22e, type: 2}
     - target: {fileID: 400088, guid: 751288ee72aaff442a823885afec6ea8, type: 3}

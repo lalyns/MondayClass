@@ -14,6 +14,8 @@ public class PlayerSKILL3 : FSMState
         isLock = false;
         isMax = false;
         isMin = false;
+
+        _manager.attackType = AttackType.SkILL2;
     }
 
     public override void EndState()

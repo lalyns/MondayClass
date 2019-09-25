@@ -15,7 +15,9 @@ public class PlayerSKILL2 : FSMState
     public override void BeginState()
     {
         base.BeginState();
-        isBox = false;   
+        isBox = false;
+
+        _manager.attackType = AttackType.SkILL2;
 
     }
 

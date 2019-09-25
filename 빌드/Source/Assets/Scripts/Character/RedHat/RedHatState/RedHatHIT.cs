@@ -5,66 +5,103 @@ using UnityEngine;
 public class RedHatHIT : RedHatFSMState
 {
     bool knockBack = true;
-    public float knockBackDuration = 1.5f;
-    public float knockBackPower = 3.0f;
-    public float knockBackDelay = 0.3f;
+    int knockBackDuration = 1;
+    float knockBackPower = 3.0f;
+    float knockBackDelay = 0.3f;
 
     float _Count = 0;
+    public bool hitEnd = false;
+
+    bool blink = false;
 
     Vector3 knockBackTargetPos = Vector3.zero;
+
     public override void BeginState()
     {
         base.BeginState();
 
-        knockBack = true;
-        knockBackTargetPos = transform.position +
-            _manager.PlayerCapsule.transform.forward * knockBackPower;
-        knockBackTargetPos.y = this.transform.position.y;
-    }
+        knockBack = _manager.KnockBackFlag;
+        knockBackDuration = _manager.KnockBackDuration;
+        knockBackPower = _manager.KnockBackPower;
+        knockBackDelay = _manager.KnockBackDelay;
 
+        Vector3 direction = (_manager.PlayerCapsule.transform.forward).normalized;
+        direction.y = 0;
+        knockBackTargetPos = direction + this.transform.position;
+
+        StartCoroutine(Blink());
+    }
     public override void EndState()
     {
         base.EndState();
         _Count = 0;
+        hitEnd = false;
+
+        _manager.WPMats.SetFloat("_Hittrigger", 0);
+        foreach (Material mat in _manager.Mats)
+        {
+            mat.SetFloat("_Hittrigger", 0);
+        }
+
     }
 
     protected override void Update()
     {
         base.Update();
 
-
-        if (!knockBack)
+        if (!hitEnd)
         {
-            _Count += Time.deltaTime;
-
-            if(_Count>=knockBackDelay)
-                _manager.SetState(RedHatState.CHASE);
         }
+
+        if (hitEnd)
+            _manager.SetState(RedHatState.CHASE);
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
 
-        StartCoroutine(KnockBack(knockBackDuration, knockBackPower));
+        if(knockBack)
+            StartCoroutine(KnockBack(knockBackDuration, knockBackPower));
     }
 
-    public IEnumerator KnockBack(float dur, float power)
+    public IEnumerator Blink()
     {
-        float timer = 0.0f;
+        int i = 0;
+
+        while (i++<4) {
+            Debug.Log("Hit Call" + i);
+            float BV = blink ? 0 : 1;
+
+            _manager.WPMats.SetFloat("_Hittrigger", BV);
+            foreach (Material mat in _manager.Mats)
+            {
+                mat.SetFloat("_Hittrigger", BV);
+            }
+
+            blink = !blink;
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
+    public IEnumerator KnockBack(int dur, float power)
+    {
         Vector3 direction = _manager.PlayerCapsule.transform.forward.normalized;
+        direction.y = 0;
 
-        while (timer <= dur)
+        for (int time = 0; time < dur; time++)
         {
-            timer += Time.deltaTime;
 
-            //transform.position = Vector3.Lerp(this.transform.position, knockBackTargetPos, 0.15f * Time.deltaTime);
-            transform.position += direction * Time.deltaTime;
+            transform.position = knockBackTargetPos + direction * (power);
 
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSeconds(0.1f);
         }
 
         knockBack = false;
+    }
 
+    public void HitEnd()
+    {
+        hitEnd = true;
     }
 }

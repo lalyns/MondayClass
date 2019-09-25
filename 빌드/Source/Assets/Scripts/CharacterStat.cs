@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterStat : MonoBehaviour
 {
+    public bool isPlayer;
+
     protected float _str = 10.0f;
     public float Str { get { return _str; } }
 
@@ -50,21 +52,29 @@ public class CharacterStat : MonoBehaviour
         _hp = Mathf.Clamp(_hp - damage, 0, _maxHp);
         //Debug.Log(string.Format("Name: {0}, HP: {1}", transform.name, Hp));
 
-        if(_hp <= 0)
+        if (from.isPlayer)
         {
-            if (lastHitBy == null)
-                lastHitBy = from;
-
-            try
-            {
-                GetComponent<FSMManager>().SetDeadState();
-                from.GetComponent<FSMManager>().NotifyTargetKilled();
-            }
-            catch
-            {
-
-            }
+            var playerStat = from as PlayerStat;
+            
+            if (PlayerFSMManager.instance.isNormal)
+                PlayerFSMManager.instance.SpecialGauge += playerStat.feverGaugeGetValue;
         }
+
+        //if (_hp <= 0)
+        //{
+        //    if (lastHitBy == null)
+        //        lastHitBy = from;
+
+        //    try
+        //    {
+        //        GetComponent<FSMManager>().SetDeadState();
+        //        from.GetComponent<FSMManager>().NotifyTargetKilled();
+        //    }
+        //    catch
+        //    {
+
+        //    }
+        //}
     }
 
     private static float CalcDamage(CharacterStat from, CharacterStat to)

@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class RedHatDEAD : RedHatFSMState
 {
+    bool Dead = false;
+    float time = 0;
+
     public override void BeginState()
     {
         base.BeginState();
 
+        time = 0;
+        Dead = false;
 
         if (_manager.dashEffect != null)
         {
@@ -15,13 +20,30 @@ public class RedHatDEAD : RedHatFSMState
             _manager.dashEffect = null;
         }
 
-        MonsterPoolManager._Instance._RedHat.ItemReturnPool(gameObject, "monster");
-
+        _manager.WPMats.SetFloat("_DissolveEdgeMultiplier", 8);
+        foreach (Material mat in _manager.Mats)
+        {
+            mat.SetFloat("_DissolveEdgeMultiplier", 8);
+        }
     }
 
     public override void EndState()
     {
         base.EndState();
+
+        _manager.WPMats.SetFloat("_DissolveEdgeMultiplier", 0);
+        _manager.WPMats.SetFloat("_DissolveIntensity", 0);
+
+        foreach (Material mat in _manager.Mats)
+        {
+            mat.SetFloat("_DissolveEdgeMultiplier", 0);
+            mat.SetFloat("_DissolveIntensity", 0);
+        }
+
+        MonsterPoolManager._Instance._RedHat.ItemReturnPool(gameObject, "monster");
+        time = 0;
+        Dead = false;
+
     }
 
     // Start is called before the first frame update
@@ -35,11 +57,32 @@ public class RedHatDEAD : RedHatFSMState
     {
         base.Update();
 
-        
+        time += 0.45f * Time.deltaTime;
+
+        _manager.WPMats.SetFloat("_DissolveIntensity", time);
+        foreach (Material mat in _manager.Mats)
+        {
+            mat.SetFloat("_DissolveIntensity", time);
+        }
+
+        if(time > 0.7 && !Dead)
+        {
+            Dead = true;
+        }
+
+        if (Dead) {
+            EndState();
+            Dead = false;
+        }
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+    }
+
+    public void DeadHelper()
+    {
+        Dead = true;
     }
 }
