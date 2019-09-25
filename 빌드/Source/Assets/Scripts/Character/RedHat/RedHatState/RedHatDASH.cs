@@ -5,7 +5,7 @@ using UnityEngine;
 public class RedHatDASH : RedHatFSMState
 {
     float _DashTime = 1f;
-    float _DashReadyTime = 1.5f;
+    float _DashReadyTime = 0.9f;
     float _DashAfterDelay = 1.5f;
     float _Time = 0.0f;
 
@@ -53,6 +53,7 @@ public class RedHatDASH : RedHatFSMState
         _Time += Time.deltaTime;
 
         float maxDistance = _DashTime * _manager.Stat.statData._DashSpeed;
+
         if (_Time < _DashReadyTime)
         {
             //if (!_IsDrawDashRoute)

@@ -139,6 +139,11 @@ public class GameStatus : MonoBehaviour
             {
                 GameManager.Instance.OnInspectating = !GameManager.Instance.OnInspectating;
             }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                PlayerFSMManager.instance.SpecialGauge = 100.0f;
+            }
         }
 
         if (dummySet)

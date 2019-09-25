@@ -19,6 +19,9 @@ public class FSMManager : MonoBehaviour
     public CharacterStat stats;
     public StatData MyStatData { get { return _statData; } }
 
+    //[HideInInspector]
+    //public CharacterStat _lastAttack;
+
     [HideInInspector] public ObjectManager.MonsterType monsterType;
 
     protected virtual void Awake()
@@ -54,6 +57,11 @@ public class FSMManager : MonoBehaviour
         }
     }
 
+    public virtual void LastHitBy()
+    {
+
+    }
+
     public virtual void NotifyTargetKilled() { }
 
     public virtual void SetDeadState() {
@@ -64,4 +72,14 @@ public class FSMManager : MonoBehaviour
     }
 
     public virtual bool IsDie() { return false; }
+
+    public virtual void OnHitForMonster(AttackType attackType)
+    {
+
+    }
+
+    public virtual void OnHitForPlayer()
+    {
+
+    }
 }

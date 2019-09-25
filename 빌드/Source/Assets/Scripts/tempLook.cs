@@ -8,7 +8,7 @@ public class tempLook : MonoBehaviour
     bool targetSet = false;
 
     public float _Time = 0;
-    public float _DashReadyTime = 1.5f;
+    public float _DashReadyTime = 0.9f;
     public float _DashTime = 2.5f;
 
     // Start is called before the first frame update

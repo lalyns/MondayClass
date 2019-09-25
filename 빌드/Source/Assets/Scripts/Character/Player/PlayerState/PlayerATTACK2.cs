@@ -10,11 +10,14 @@ public class PlayerATTACK2 : FSMState
     {
         base.BeginState();
         _manager._Sound.PlayAttackSFX();
+        _manager.attackType = AttackType.ATTACK2;
     }
 
     public override void EndState()
     {
         base.EndState();
+        _time = 0;
+
     }
 
     private void Update()

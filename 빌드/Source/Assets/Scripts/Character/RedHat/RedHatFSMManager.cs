@@ -48,8 +48,13 @@ public class RedHatFSMManager : FSMManager
 
     public Transform _AttackTransform;
     public SkinnedMeshRenderer _MR;
+    public Material[] Mats;
 
-    public CharacterStat _lastAttack;
+    public SkinnedMeshRenderer _WPMR;
+    public Material WPMats;
+    
+
+    //public CharacterStat _lastAttack;
 
     public Slider _HPSilder;
     public GameObject hitEffect;
@@ -66,6 +71,11 @@ public class RedHatFSMManager : FSMManager
 
     public Collider _PriorityTarget;
 
+    public bool KnockBackFlag;
+    public int KnockBackDuration;
+    public float KnockBackPower;
+    public float KnockBackDelay;
+
     protected override void Awake()
     {
         base.Awake();
@@ -74,6 +84,9 @@ public class RedHatFSMManager : FSMManager
         _Stat = GetComponent<RedHatStat>();
         _Anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<MonsterSound>();
+        Mats = _MR.materials;
+        WPMats = _WPMR.material;
+
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
@@ -114,23 +127,20 @@ public class RedHatFSMManager : FSMManager
         _Anim.SetInteger("CurrentState", (int)_CurrentState);
     }
 
-    public void OnHit()
+    public override void OnHitForMonster(AttackType attackType)
     {
-        
+        base.OnHitForMonster(attackType);
 
-        Stat.TakeDamage(Stat, 350);
+        PlayerStat playerStat = PlayerFSMManager.instance.Stat;
+        Stat.TakeDamage(playerStat, playerStat.DMG[(int)attackType]);
+        SetKnockBack(playerStat, attackType);
 
-        //hp--;
-        //카메라쉐이킹
-        Shake.instance.ShakeCamera(0.3f, 0.3f, 0.7f);
-        _Sound.PlayHitSFX();
-        if (PlayerFSMManager.instance.isNormal)
-            PlayerFSMManager.instance.SpecialGauge += 4;
+        StartCoroutine(Shake.instance.ShakeCamera(.2f, 0.03f, 0.1f));
 
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {
-            if (CurrentState == RedHatState.DASH) return;
+            if (CurrentState == RedHatState.DASH || CurrentState == RedHatState.HIT) return;
 
             SetState(RedHatState.HIT);
 
@@ -139,10 +149,7 @@ public class RedHatFSMManager : FSMManager
             {
                 transform.localEulerAngles = Vector3.zero;
                 transform.LookAt(PlayerFSMManager.instance.Anim.transform);
-                // 뒤로 밀림
-                transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
                 //플레이어피버게이지증가?
-                //InputHandler.instance.FeverGauge++;
             }
             catch
             {
@@ -153,6 +160,14 @@ public class RedHatFSMManager : FSMManager
         {
             SetDeadState();
         }
+    }
+
+    public void SetKnockBack(PlayerStat stat, AttackType attackType)
+    {
+        KnockBackFlag = stat.KnockBackFlag[(int)attackType];
+        KnockBackDuration = stat.KnockBackDuration[(int)attackType];
+        KnockBackPower = stat.KnockBackPower[(int)attackType];
+        KnockBackDelay = stat.KnockBackDelay[(int)attackType];
     }
 
     public void OnTriggerEnter(Collider other)
@@ -166,7 +181,7 @@ public class RedHatFSMManager : FSMManager
 
             if (Stat.Hp > 0)
             {
-                OnHit();
+                OnHitForMonster(PlayerFSMManager.instance.attackType);
             }
         }
 
@@ -181,8 +196,8 @@ public class RedHatFSMManager : FSMManager
 
             if (Stat.Hp > 0)
             {
-                OnHit();
-
+                //OnHit();
+                OnHitForMonster(AttackType.SKILL1);
                 other.transform.gameObject.SetActive(false);
             }
 
@@ -199,7 +214,7 @@ public class RedHatFSMManager : FSMManager
                 Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
             if (Stat.Hp > 0)
             {
-                OnHit();
+                //OnHit();
             }
         }
     }

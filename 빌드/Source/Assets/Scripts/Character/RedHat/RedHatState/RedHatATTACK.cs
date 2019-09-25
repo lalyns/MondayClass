@@ -38,7 +38,7 @@ public class RedHatATTACK : RedHatFSMState
             _manager.Stat.AttackRange,
             "Player", _manager.Stat);
 
-        if (hitTarget != null) _manager._lastAttack = hitTarget;
+        //if (hitTarget != null) _manager._lastAttack = hitTarget;
     }
 
     protected override void FixedUpdate()
