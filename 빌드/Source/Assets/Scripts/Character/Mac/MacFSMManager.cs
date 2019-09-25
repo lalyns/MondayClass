@@ -123,6 +123,8 @@ public class MacFSMManager : FSMManager
     {
         base.OnHitForMonster(attackType);
 
+        if (CurrentState == MacState.DEAD) return;
+
         PlayerStat playerStat = PlayerFSMManager.instance.Stat;
         Stat.TakeDamage(playerStat, playerStat.DMG[(int)attackType]);
         SetKnockBack(playerStat, attackType);
@@ -131,6 +133,8 @@ public class MacFSMManager : FSMManager
 
         if (Stat.Hp > 0)
         {
+            if (CurrentState == MacState.HIT) return;
+
             SetState(MacState.HIT);
             //플레이어 쳐다본 후
             transform.localEulerAngles = Vector3.zero;

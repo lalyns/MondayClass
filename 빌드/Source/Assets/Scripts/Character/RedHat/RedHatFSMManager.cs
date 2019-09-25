@@ -131,6 +131,8 @@ public class RedHatFSMManager : FSMManager
     {
         base.OnHitForMonster(attackType);
 
+        if (CurrentState == RedHatState.DEAD) return;
+
         PlayerStat playerStat = PlayerFSMManager.instance.Stat;
         Stat.TakeDamage(playerStat, playerStat.DMG[(int)attackType]);
         SetKnockBack(playerStat, attackType);
