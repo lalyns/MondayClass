@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class MacHIT : MacFSMState
 {
-    public bool knockBack = true;
-    public float knockBackDuration = 1.5f;
-    public float knockBackPower = 3.0f;
+    bool knockBack = true;
+    float knockBackDuration = 1.5f;
+    float knockBackPower = 3.0f;
 
-    public float knockDelay = 0.3f;
+    float knockBackDelay = 0.3f;
+
     float _Count = 0;
+    
+    bool blink = false;
 
     Vector3 knockBackTargetPos = Vector3.zero;
 
@@ -17,25 +20,37 @@ public class MacHIT : MacFSMState
     {
         base.BeginState();
 
-        knockBack = true;
-        knockBackTargetPos = transform.position +
-            _manager.PlayerCapsule.transform.forward * knockBackPower;
-        knockBackTargetPos.y = this.transform.position.y;
+        knockBack = _manager.KnockBackFlag;
+        knockBackDuration = _manager.KnockBackDuration;
+        knockBackPower = _manager.KnockBackPower;
+        knockBackDelay = _manager.KnockBackDelay;
+
+        Vector3 direction = (_manager.PlayerCapsule.transform.forward).normalized;
+        direction.y = 0;
+        knockBackTargetPos = direction + this.transform.position;
     }
 
     public override void EndState()
     {
         base.EndState();
+
+        _Count = 0;
+        foreach (Material mat in _manager.Mats)
+        {
+            mat.SetFloat("_Hittrigger", 0);
+        }
+
     }
 
-    private void Update()
+    protected override void Update()
     {
+        StartCoroutine(Blink());
 
         if (!knockBack)
         {
             _Count += Time.deltaTime;
 
-            if (_Count >= knockDelay)
+            if (_Count >= knockBackDelay)
                 _manager.SetState(MacState.CHASE);
         }
     }
@@ -44,26 +59,38 @@ public class MacHIT : MacFSMState
     {
         base.FixedUpdate();
 
-        StartCoroutine(KnockBack(knockBackDuration, knockBackPower));
+        if(knockBack)
+            StartCoroutine(KnockBack(knockBackDuration, knockBackPower));
+    }
+
+    public IEnumerator Blink()
+    {
+        float BV = blink ? 0 : 1;
+
+        foreach (Material mat in _manager.Mats)
+        {
+            mat.SetFloat("_Hittrigger", BV);
+        }
+
+
+        yield return new WaitForSeconds(0.1f);
     }
 
     public IEnumerator KnockBack(float dur, float power)
     {
-        float timer = 0.0f;
         Vector3 direction = _manager.PlayerCapsule.transform.forward.normalized;
+        direction.y = 0;
 
-        while(timer <= dur)
+        
+        for (int time = 0; time < dur; time++)
         {
-            timer += Time.deltaTime;
 
-            //transform.position = Vector3.Lerp(this.transform.position, knockBackTargetPos, 0.15f * Time.deltaTime);
-            transform.position += direction * Time.deltaTime;
+            transform.position = knockBackTargetPos + direction * (power);
 
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSeconds(0.1f);
         }
 
         knockBack = false;
-
     }
 
 }

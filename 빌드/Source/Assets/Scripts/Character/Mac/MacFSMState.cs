@@ -27,7 +27,7 @@ public class MacFSMState : MonoBehaviour
 
     }
 
-    private void Update()
+    protected virtual void Update()
     {
 
     }
