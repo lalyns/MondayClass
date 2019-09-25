@@ -5,7 +5,7 @@ using UnityEngine;
 public class RirisPATTERNEND : RirisFSMState
 {
     float _Time1 = 0;
-    float _Delay = 5f;
+    public float _Delay = 5f;
 
     bool pattern = false;
 
