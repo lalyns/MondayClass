@@ -8,7 +8,6 @@ public class RedHatCHASE : RedHatFSMState
 
     public override void BeginState()
     {
-        _manager._MR.material = _manager.Stat._NormalMat;
         base.BeginState();
     }
 

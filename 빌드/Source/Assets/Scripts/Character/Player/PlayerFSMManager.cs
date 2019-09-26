@@ -21,13 +21,14 @@ public enum PlayerState
 }
 public enum AttackType
 {
-    ATTACK1 = 0,
-    ATTACK2,
-    ATTACK3,
-    SKILL1,
-    SkILL2,
-    SKILL3,
-    SKILL4,
+    NONE = 0,
+    ATTACK1 = 1,
+    ATTACK2 = 1<<2,
+    ATTACK3 = 1<<3,
+    SKILL1 = 1<<4,
+    SkILL2 = 1<<5,
+    SKILL3 = 1<<6,
+    SKILL4 = 1<<7,
 }
 [RequireComponent(typeof(PlayerStat))]
 [ExecuteInEditMode]
@@ -232,6 +233,8 @@ public class PlayerFSMManager : FSMManager
     float normalTimer;
     float gaugePerSecond;
 
+    public int ShieldCount;
+
     private void Start()
     {
 
@@ -321,7 +324,7 @@ public class PlayerFSMManager : FSMManager
         _anim.SetInteger("CurrentState", (int)_currentState);
     }
 
-    // 움직이는지 체크하는 함수
+
     public bool OnMove()
     {
         return horizontal >= 0.01f || horizontal <= -0.01f ||
@@ -447,7 +450,7 @@ public class PlayerFSMManager : FSMManager
         if (_monster.Count <= 0)
         {
 
-            skillReturn(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
+            Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
             isShoot = false;
 
         }
@@ -542,7 +545,9 @@ public class PlayerFSMManager : FSMManager
                 }
                 isSpecial = true;
                 TimeLine.SetActive(true);
-                skillReturn(Skill1_Effects, Skill1_Special_Effects, isNormal);
+                Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
+                Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
+
             }
         }
 
@@ -715,6 +720,7 @@ public class PlayerFSMManager : FSMManager
                 for (int i = 0; i < 5; i++)
                 {
                     effects[i].SetActive(false);
+                    effects_special[i].SetActive(false);
                 }
             if (Skill1_Amount >= 2)
             {
@@ -730,23 +736,16 @@ public class PlayerFSMManager : FSMManager
             {
                 effects[2].SetActive(true);
                 effects_special[2].SetActive(false);
-            }
-            if (Skill1_Amount >= 5)
-            {
-                effects[3].SetActive(true);
                 effects_special[3].SetActive(false);
-            }
-            if (Skill1_Amount >= 6)
-            {
-                effects[4].SetActive(true);
                 effects_special[4].SetActive(false);
-            }
+            }           
         }
         else
         {
             if (Skill1_Amount <= 1)
                 for (int i = 0; i < 5; i++)
                 {
+                    effects[i].SetActive(false);
                     effects_special[i].SetActive(false);
                 }
             if (Skill1_Amount >= 2)
@@ -808,7 +807,7 @@ public class PlayerFSMManager : FSMManager
 
         }
     }
-    void skillReturn(GameObject[] effects, GameObject[] effects_special, bool isnormal)
+    void Skill1Return(GameObject[] effects, GameObject[] effects_special, bool isnormal)
     {
 
         for (int i = 0; i < 5; i++)
@@ -908,7 +907,7 @@ public class PlayerFSMManager : FSMManager
         if (isShoot)
         {
 
-            skillReturn(Skill1_Effects, Skill1_Special_Effects, isNormal);
+            Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
 
             // 날라가는 시간을 정해준 후에.
             Skill1Timer1 += Time.deltaTime;
@@ -923,7 +922,7 @@ public class PlayerFSMManager : FSMManager
                     Skill1_Shoots[i].transform.position = Skill1_Effects[i].transform.position;
                 }
 
-                skillReturn(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
+                Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1Timer1 = 0;
                 isShoot = false;
                 Skill1_Amount = 1;
