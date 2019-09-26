@@ -447,7 +447,7 @@ public class PlayerFSMManager : FSMManager
         if (_monster.Count <= 0)
         {
 
-            skillReturn(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
+            Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
             isShoot = false;
 
         }
@@ -542,7 +542,9 @@ public class PlayerFSMManager : FSMManager
                 }
                 isSpecial = true;
                 TimeLine.SetActive(true);
-                skillReturn(Skill1_Effects, Skill1_Special_Effects, isNormal);
+                Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
+                Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
+
             }
         }
 
@@ -715,6 +717,7 @@ public class PlayerFSMManager : FSMManager
                 for (int i = 0; i < 5; i++)
                 {
                     effects[i].SetActive(false);
+                    effects_special[i].SetActive(false);
                 }
             if (Skill1_Amount >= 2)
             {
@@ -730,23 +733,16 @@ public class PlayerFSMManager : FSMManager
             {
                 effects[2].SetActive(true);
                 effects_special[2].SetActive(false);
-            }
-            if (Skill1_Amount >= 5)
-            {
-                effects[3].SetActive(true);
                 effects_special[3].SetActive(false);
-            }
-            if (Skill1_Amount >= 6)
-            {
-                effects[4].SetActive(true);
                 effects_special[4].SetActive(false);
-            }
+            }           
         }
         else
         {
             if (Skill1_Amount <= 1)
                 for (int i = 0; i < 5; i++)
                 {
+                    effects[i].SetActive(false);
                     effects_special[i].SetActive(false);
                 }
             if (Skill1_Amount >= 2)
@@ -808,7 +804,7 @@ public class PlayerFSMManager : FSMManager
 
         }
     }
-    void skillReturn(GameObject[] effects, GameObject[] effects_special, bool isnormal)
+    void Skill1Return(GameObject[] effects, GameObject[] effects_special, bool isnormal)
     {
 
         for (int i = 0; i < 5; i++)
@@ -908,7 +904,7 @@ public class PlayerFSMManager : FSMManager
         if (isShoot)
         {
 
-            skillReturn(Skill1_Effects, Skill1_Special_Effects, isNormal);
+            Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
 
             // 날라가는 시간을 정해준 후에.
             Skill1Timer1 += Time.deltaTime;
@@ -923,7 +919,7 @@ public class PlayerFSMManager : FSMManager
                     Skill1_Shoots[i].transform.position = Skill1_Effects[i].transform.position;
                 }
 
-                skillReturn(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
+                Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1Timer1 = 0;
                 isShoot = false;
                 Skill1_Amount = 1;
