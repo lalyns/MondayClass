@@ -8,6 +8,8 @@ public class RedHatFSMState : MonoBehaviour
     protected RedHatFSMManager _manager;
     protected float _Skill1Time;
 
+    protected bool useGravity = true;
+    
     private void Awake()
     {
         _manager = GetComponent<RedHatFSMManager>();
@@ -52,10 +54,12 @@ public class RedHatFSMState : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        Vector3 gravity = Vector3.zero;
-        gravity.y = Physics.gravity.y * Time.deltaTime;
-
-        _manager.CC.Move(gravity);
+        if (useGravity)
+        {
+            Vector3 gravity = Vector3.zero;
+            gravity.y = Physics.gravity.y * Time.deltaTime;
+            _manager.CC.Move(gravity);
+        }
     }
 
 }
