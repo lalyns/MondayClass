@@ -71,6 +71,7 @@ public class MissionManager : MonoBehaviour
     public static void PopUpMission() {
         Instance.MissionSelector.SetActive(true);
         GameManager.CursorMode(true);
+        Input.ResetInputAxes();
         GameManager.Instance.IsPuase = true;
         GameManager.Instance.CharacterControl = false;
 
@@ -91,7 +92,8 @@ public class MissionManager : MonoBehaviour
         GameManager.Instance.IsPuase = false;
 
         // 페이드 Out
-        EnterMission();
+        GameManager.Instance.SetFadeInOut(false);
+        //EnterMission();
     }
 
     public static void EnterMission() {
@@ -101,9 +103,9 @@ public class MissionManager : MonoBehaviour
             GetComponentInChildren<Animator>().
             transform.position =
             Instance.CurrentMission.Enter.transform.position;
-        
-        // 페이드 IN
 
+        // 페이드 Out
+        GameManager.Instance.SetFadeInOut(true);
     }
 
     public static void StartMission() {

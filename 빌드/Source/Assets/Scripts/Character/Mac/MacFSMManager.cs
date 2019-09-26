@@ -135,6 +135,11 @@ public class MacFSMManager : FSMManager
 
         if (CurrentState == MacState.DEAD) return;
 
+        if (PlayerFSMManager.instance.isNormal)
+            Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
+        else
+            Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
+
         CurrentAttackType = attackType;
         int value = TransformTypeToInt(attackType);
 
@@ -208,11 +213,6 @@ public class MacFSMManager : FSMManager
     {
         if (other.transform.tag == "Weapon")
         {
-            if (PlayerFSMManager.instance.isNormal)
-                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
-            else
-                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
-
             if (Stat.Hp > 0)
             {
                 //Debug.Log("Attacked");

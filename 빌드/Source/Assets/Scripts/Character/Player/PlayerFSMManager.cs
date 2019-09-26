@@ -23,12 +23,12 @@ public enum AttackType
 {
     NONE = 0,
     ATTACK1 = 1,
-    ATTACK2 = 1<<2,
-    ATTACK3 = 1<<3,
-    SKILL1 = 1<<4,
-    SkILL2 = 1<<5,
-    SKILL3 = 1<<6,
-    SKILL4 = 1<<7,
+    ATTACK2 = 1 << 2,
+    ATTACK3 = 1 << 3,
+    SKILL1 = 1 << 4,
+    SkILL2 = 1 << 5,
+    SKILL3 = 1 << 6,
+    SKILL4 = 1 << 7,
 }
 [RequireComponent(typeof(PlayerStat))]
 [ExecuteInEditMode]
@@ -373,6 +373,11 @@ public class PlayerFSMManager : FSMManager
         if (isInputLock)
             return;
 
+        if (!GameManager.Instance.CharacterControl)
+        {
+            isCantMove = true;
+            return;
+        }
 
         ChangeModel();
 
