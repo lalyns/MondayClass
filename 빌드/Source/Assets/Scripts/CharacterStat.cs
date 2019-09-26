@@ -16,7 +16,7 @@ public class CharacterStat : MonoBehaviour
     protected float _maxHp = 1000.0f;
     public float MaxHp { get { return _maxHp; } }
 
-    protected float _hp = 1000.0f;
+    public float _hp = 1000.0f;
     public float Hp { get { return _hp; } }
     public void SetHp(float hp)
     {

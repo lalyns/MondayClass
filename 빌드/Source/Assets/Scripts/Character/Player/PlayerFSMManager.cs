@@ -21,13 +21,14 @@ public enum PlayerState
 }
 public enum AttackType
 {
-    ATTACK1 = 0,
-    ATTACK2,
-    ATTACK3,
-    SKILL1,
-    SkILL2,
-    SKILL3,
-    SKILL4,
+    NONE = 0,
+    ATTACK1 = 1,
+    ATTACK2 = 1<<2,
+    ATTACK3 = 1<<3,
+    SKILL1 = 1<<4,
+    SkILL2 = 1<<5,
+    SKILL3 = 1<<6,
+    SKILL4 = 1<<7,
 }
 [RequireComponent(typeof(PlayerStat))]
 [ExecuteInEditMode]
@@ -232,6 +233,8 @@ public class PlayerFSMManager : FSMManager
     float normalTimer;
     float gaugePerSecond;
 
+    public bool isShield;
+
     private void Start()
     {
 
@@ -321,7 +324,7 @@ public class PlayerFSMManager : FSMManager
         _anim.SetInteger("CurrentState", (int)_currentState);
     }
 
-    // 움직이는지 체크하는 함수
+
     public bool OnMove()
     {
         return horizontal >= 0.01f || horizontal <= -0.01f ||
