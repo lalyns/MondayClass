@@ -29,9 +29,10 @@ public static class GameLib
     // 여러 오브젝트들에 대해 간단한 정보로 피해를 입히는 함수.
     public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat)
     {
-        if (PlayerFSMManager.instance.isShield)
+        if (PlayerFSMManager.instance.ShieldCount > 0)
         {
-            PlayerFSMManager.instance.isShield = false;
+            PlayerFSMManager.instance.ShieldCount--;
+            //PlayerFSMManager.instance.isShield = false;
             return null;
         }
         else

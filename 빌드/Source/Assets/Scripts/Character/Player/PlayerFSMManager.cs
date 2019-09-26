@@ -233,7 +233,7 @@ public class PlayerFSMManager : FSMManager
     float normalTimer;
     float gaugePerSecond;
 
-    public bool isShield;
+    public int ShieldCount;
 
     private void Start()
     {
