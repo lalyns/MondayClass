@@ -111,7 +111,6 @@ public static class GameLib
         return (target.transform.position - monster.transform.position).normalized;
     }
 
-
     public static float AnimationLength(Animator anim, string name)
     {
         float time = 0;
@@ -122,5 +121,22 @@ public static class GameLib
             if (ac.animationClips[i].name == name)
                 time = ac.animationClips[i].length;
         return time;
+    }
+
+    public static IEnumerator Blink(Material mat, int duration = 6, float timer = 0.15f)
+    {
+        int i = 0;
+        bool blink = false;
+
+        while(i++ < duration)
+        {
+            float value = blink ? 0.0f : 1.0f;
+
+            mat.SetFloat("_Hittrigger", value);
+            blink = !blink;
+            yield return new WaitForSeconds(0.15f);
+        }
+
+        mat.SetFloat("_Hittrigger", 0.0f);
     }
 }

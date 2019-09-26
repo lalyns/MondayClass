@@ -12,8 +12,6 @@ public class MacHIT : MacFSMState
 
     float _Count = 0;
     
-    bool blink = false;
-
     bool hitEnd = false;
 
     Vector3 knockBackTargetPos = Vector3.zero;
@@ -31,7 +29,10 @@ public class MacHIT : MacFSMState
         direction.y = 0;
         knockBackTargetPos = direction + this.transform.position;
 
-        StartCoroutine(Blink());
+        foreach (Material mat in _manager.Mats)
+        {
+            StartCoroutine(GameLib.Blink(mat));
+        }
     }
 
     public override void EndState()
@@ -64,23 +65,6 @@ public class MacHIT : MacFSMState
 
         if(knockBack)
             StartCoroutine(KnockBack(knockBackDuration, knockBackPower));
-    }
-
-    public IEnumerator Blink()
-    {
-        int i = 0;
-        while (i++ < 4)
-        {
-            float BV = blink ? 0 : 1;
-
-            foreach (Material mat in _manager.Mats)
-            {
-                mat.SetFloat("_Hittrigger", BV);
-            }
-
-            blink = !blink;
-            yield return new WaitForSeconds(0.15f);
-        }
     }
 
     public IEnumerator KnockBack(float dur, float power)
