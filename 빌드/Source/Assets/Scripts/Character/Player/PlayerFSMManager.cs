@@ -375,7 +375,8 @@ public class PlayerFSMManager : FSMManager
 
         if (!GameManager.Instance.CharacterControl)
         {
-            isCantMove = true;
+            SetState(PlayerState.IDLE);
+            //isCantMove = true;
             return;
         }
 
