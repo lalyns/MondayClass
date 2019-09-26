@@ -44,6 +44,7 @@ public class RedHatHIT : RedHatFSMState
             mat.SetFloat("_Hittrigger", 0);
         }
 
+        _manager.CurrentAttackType = AttackType.NONE;
     }
 
     protected override void Update()
