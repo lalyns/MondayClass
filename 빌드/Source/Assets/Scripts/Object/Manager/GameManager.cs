@@ -42,8 +42,8 @@ public class GameManager : MonoBehaviour
     public bool IsPuase;
 
     public Image FadeInOutPanel;
-    public bool fadePlay = false;
     public float fadeInOutSpeed = 10.0f;
+    public Animator FadeInOutAnim;
 
     private void Awake()
     {
@@ -216,10 +216,11 @@ public class GameManager : MonoBehaviour
             temp.a = i / 100f;
             Debug.Log(temp.a);
             FadeInOutPanel.color = temp;
-
-            yield return new WaitForSeconds(1f);
+            
+            yield return new WaitForSeconds(0.15f);
         }
-        fadePlay = false;
-        Instance.CharacterControl = true;
+        FadeInOutAnim.Play("FadeInOut");
+        CharacterControl = true;
+
     }
 }
