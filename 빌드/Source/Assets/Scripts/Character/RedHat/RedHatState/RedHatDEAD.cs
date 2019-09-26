@@ -25,6 +25,9 @@ public class RedHatDEAD : RedHatFSMState
         {
             mat.SetFloat("_DissolveEdgeMultiplier", 8);
         }
+
+        useGravity = false;
+        _manager.CC.detectCollisions = false;
     }
 
     public override void EndState()
@@ -40,6 +43,9 @@ public class RedHatDEAD : RedHatFSMState
             mat.SetFloat("_DissolveIntensity", 0);
         }
 
+        useGravity = true;
+        _manager.CC.detectCollisions = true;
+        
         MonsterPoolManager._Instance._RedHat.ItemReturnPool(gameObject, "monster");
         time = 0;
         Dead = false;
