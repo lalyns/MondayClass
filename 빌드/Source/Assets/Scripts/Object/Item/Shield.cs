@@ -13,11 +13,11 @@ public class Shield : MonoBehaviour
         player = PlayerFSMManager.instance;    
     }
 
-    /*void ShieldPlayer()
+    void ShieldPlayer()
     {
-        player.isShield = true;
+        player.ShieldCount = 3;
     }
-    */
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Player")
