@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviour
             
             yield return new WaitForSeconds(0.15f);
         }
-        FadeInOutAnim.Play("FadeInOut");
+        //FadeInOutAnim.Play("FadeInOut");
         CharacterControl = true;
 
     }

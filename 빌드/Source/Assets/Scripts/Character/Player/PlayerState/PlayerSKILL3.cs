@@ -34,6 +34,11 @@ public class PlayerSKILL3 : FSMState
         //isLock = false;
         _viewTimer = 0f;
         _opacityTimer = 0f;
+
+
+        _manager.Skill3_End.transform.position = _manager.Skill3_Start.transform.position;
+        _manager.Skill3_End.transform.rotation = _manager.Skill3_Start.transform.rotation;
+        _manager.Skill3_End.SetActive(true);
     }
 
     bool isAttack;
@@ -127,30 +132,15 @@ public class PlayerSKILL3 : FSMState
         else
             isAttack = false;
 
-        if (_time >= 1.7f)// && !isLock)
-        {
-            if (_manager.isFlash)
-            {
-                _manager.Skill3_End.transform.position = _manager.Skill3_Start.transform.position;
-                _manager.Skill3_End.transform.rotation = _manager.Skill3_Start.transform.rotation;
-                _manager.Skill3_End.SetActive(true);
-            }//isLock = true;
-            //if (_manager.OnMove())
-            //{
-            //    _manager.SetState(PlayerState.RUN);
-            //}
-        }
+
         if (_time >= 4.2f && !isLock)
         {
             _manager.Skill3_End.transform.position = _manager.Skill3_Start.transform.position;
             _manager.Skill3_End.transform.rotation = _manager.Skill3_Start.transform.rotation;
             _manager.Skill3_End.SetActive(true);
             isLock = true;
-            //if (_manager.OnMove())
-            //{
-            //    _manager.SetState(PlayerState.RUN);
-            //}
         }
+
         if (_time >= 4.8f)
         {
             _manager.SetState(PlayerState.IDLE);

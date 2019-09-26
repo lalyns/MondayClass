@@ -90,7 +90,7 @@ public class PlayerFSMManager : FSMManager
     public Image Skill1UI, Skill2UI, Skill3UI;
     Vector3 target;
     [SerializeField]
-    float Skill1Timer1, Skill1Timer2;
+    float Skill1Timer1, Skill1CTime;
     [SerializeField]
     float Skill2CTime, Skill3CTime = 10f;
     [Header("스킬1번 날라가는 속도,")]
@@ -308,7 +308,7 @@ public class PlayerFSMManager : FSMManager
         shake = GameObject.Find("CameraRig").GetComponent<Shake>();
         mainCamera = GameObject.Find("mainCam").GetComponent<Camera>();
         followCam = shake.GetComponent<FollowCam>();
-        Skill1Timer2 = 10f;
+        Skill1CTime = 10f;
     }
 
     public void SetState(PlayerState newState)
@@ -372,11 +372,10 @@ public class PlayerFSMManager : FSMManager
 
         if (isInputLock)
             return;
-
+        // Fade In Out 시 적용됨.
         if (!GameManager.Instance.CharacterControl)
         {
             SetState(PlayerState.IDLE);
-            //isCantMove = true;
             return;
         }
 
@@ -436,7 +435,6 @@ public class PlayerFSMManager : FSMManager
             try
             {
                 SpecialGauge_Image.fillAmount = (normalTimer * gaugePerSecond) / 100.0f;
-                Debug.Log(SpecialGauge_Image.fillAmount);
             }
             catch
             {
@@ -1005,7 +1003,7 @@ public class PlayerFSMManager : FSMManager
     }
     public void Skill3()
     {
-        if (isSkill3)
+        if (isSkill3 || Skill3_End.activeSelf)
             return;
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
@@ -1023,17 +1021,18 @@ public class PlayerFSMManager : FSMManager
 
     public void SKill1UIReset()
     {
-        Skill1Timer2 -= Time.deltaTime;
-        Skill1UI.fillAmount = Skill1Timer2 / 10f;
-        if (Skill1Timer2 <= 0)
+        Skill1CTime -= Time.deltaTime;
+        Skill1UI.fillAmount = Skill1CTime / 10f;
+        if (Skill1CTime <= 0)
         {
-            Skill1Timer2 = 10f;
+            Skill1CTime = 10f;
             Skill1UI.fillAmount = 1f;
             Skill1UI.gameObject.SetActive(false);
             isSkill1CTime = false;
         }
     }
 
+    
 
     public void Skill2UIReset()
     {
@@ -1089,8 +1088,45 @@ public class PlayerFSMManager : FSMManager
     {
         Skill3_Capsule.enabled = false;
     }
+    public void SkillCoolHalfReset()
+    {
+        // 스킬 1번 쿨타임 절반 만들기
+        if (isSkill1CTime)
+            Skill1CTime /= 2f;
+        // 스킬 2번 쿨타임 절반 만들기
+        if (isSkill2)
+            Skill2CTime /= 2f;
+        // 스킬 3번 쿨타임 절반 만들기
+        if (Skill3_End.activeSelf)
+            Skill3CTime /= 2f;
+    }
+    public void SkillCoolReset()
+    {
+        // 스킬 1번 쿨타임 관련.
+        Skill1CTime = 10f;
+        Skill1UI.fillAmount = 1f;
+        Skill1UI.gameObject.SetActive(false);
+        isSkill1CTime = false;
+
+        // 스킬 2번 쿨타임 관련.
+        Skill2CTime = 10f;
+        Skill2UI.fillAmount = 1f;
+        Skill2UI.gameObject.SetActive(false);
+        Skill2_Start.SetActive(false);
+        isSkill2 = false;
+
+        // 스킬 3번 쿨타임 관련.
+        Skill3CTime = 10f;
+        Skill3UI.fillAmount = 1f;
+        Skill3UI.gameObject.SetActive(false);
+        Skill3_End.SetActive(false);
 
 
+        if (isNormal)
+                Skill1_Amount = 4;
+        else
+                Skill1_Amount = 6;
+    }
 
     public static PlayerFSMManager instance;
 }
