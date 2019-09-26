@@ -15,7 +15,7 @@ public class Shield : MonoBehaviour
 
     void ShieldPlayer()
     {
-        player.isShield = true;
+        player.ShieldCount = 3;
     }
 
     private void OnTriggerEnter(Collider other)

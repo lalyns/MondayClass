@@ -26,23 +26,31 @@ public static class GameLib
         return Physics.BoxCastAll(transform.position, transform.lossyScale / 2,
             Range * transform.forward);
     }
-
     // 여러 오브젝트들에 대해 간단한 정보로 피해를 입히는 함수.
     public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat)
     {
-        CharacterStat lastHit = null;
-        foreach (var hitObject in hitObjects)
+        if (PlayerFSMManager.instance.ShieldCount > 0)
         {
-            if (hitObject.collider.gameObject.tag == targetTag)
-            {
-                CharacterStat targetStat =
-                    hitObject.collider.GetComponentInParent<CharacterStat>();
-
-                CharacterStat.ProcessDamage(ownerStat, targetStat);
-                lastHit = targetStat;
-            }
+            PlayerFSMManager.instance.ShieldCount--;
+            //PlayerFSMManager.instance.isShield = false;
+            return null;
         }
-        return lastHit;
+        else
+        {
+            CharacterStat lastHit = null;
+            foreach (var hitObject in hitObjects)
+            {
+                if (hitObject.collider.gameObject.tag == targetTag)
+                {
+                    CharacterStat targetStat =
+                        hitObject.collider.GetComponentInParent<CharacterStat>();
+
+                    CharacterStat.ProcessDamage(ownerStat, targetStat);
+                    lastHit = targetStat;
+                }
+            }
+            return lastHit;
+        }
     }
 
     // 여러 오브젝트들에 대해 간단한 정보로 피해를 입히는 함수.

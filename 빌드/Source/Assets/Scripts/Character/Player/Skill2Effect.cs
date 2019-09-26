@@ -11,18 +11,17 @@ public class Skill2Effect : MonoBehaviour
     float _triggerTime = 0;
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        //Sphere.enabled = false;
         Sphere = GetComponent<SphereCollider>();
         player = PlayerFSMManager.instance;
-        
-        
+
     }
-    private void OnEnable()
+    void Start()
     {
         Sphere.enabled = true;
     }
+
     private void OnDisable()
     {
         _time = 0;
