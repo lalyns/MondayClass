@@ -41,6 +41,10 @@ public class GameManager : MonoBehaviour
     public int curScore = 0;
     public bool IsPuase;
 
+    public Image FadeInOutPanel;
+    public float fadeInOutSpeed = 10.0f;
+    public Animator FadeInOutAnim;
+
     private void Awake()
     {
         if(_Instance == null)
@@ -87,6 +91,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        
     }
 
     #region OnGUI 도구
@@ -173,5 +178,49 @@ public class GameManager : MonoBehaviour
         Instance.curScore += 1;
     }
 
-    
+
+    public void SetFadeInOut(bool value)
+    {
+        if (value)
+            StartCoroutine(FadeIn(fadeInOutSpeed));
+        else
+            StartCoroutine(FadeOut(fadeInOutSpeed));
+    }
+
+    public IEnumerator FadeOut(float speed)
+    {
+        float i = 0;
+        int callWrite = 0;
+
+        Color temp = FadeInOutPanel.color;
+        for(i=0; i<= 100; )
+        {
+            i += speed;
+            temp.a = i / 100f;
+            Debug.Log(temp.a + " : " + callWrite);
+            FadeInOutPanel.color = temp;
+
+            yield return new WaitForSeconds(0.15f);
+        }
+        MissionManager.EnterMission();
+    }
+
+    public IEnumerator FadeIn(float speed)
+    {
+        float i = 100;
+
+        Color temp = FadeInOutPanel.color;
+        for (i = 100; i >= 0; )
+        {
+            i -= speed;
+            temp.a = i / 100f;
+            Debug.Log(temp.a);
+            FadeInOutPanel.color = temp;
+            
+            yield return new WaitForSeconds(0.15f);
+        }
+        FadeInOutAnim.Play("FadeInOut");
+        CharacterControl = true;
+
+    }
 }

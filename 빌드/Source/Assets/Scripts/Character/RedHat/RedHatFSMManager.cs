@@ -133,8 +133,6 @@ public class RedHatFSMManager : FSMManager
     {
         base.OnHitForMonster(attackType);
 
-        Debug.Log("Player's Attack Type : " + attackType.ToString());
-
         if((attackType == AttackType.ATTACK1 
             || attackType == AttackType.ATTACK2 
             || attackType == AttackType.ATTACK3) 
@@ -143,7 +141,13 @@ public class RedHatFSMManager : FSMManager
             return;
         }
 
+
         if (CurrentState == RedHatState.DEAD) return;
+
+        if (PlayerFSMManager.instance.isNormal)
+            Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
+        if (!PlayerFSMManager.instance.isNormal)
+            Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
 
         CurrentAttackType = attackType;
         int value = TransformTypeToInt(attackType);
@@ -221,11 +225,6 @@ public class RedHatFSMManager : FSMManager
     {
         if (other.transform.tag == "Weapon")
         {
-            if (PlayerFSMManager.instance.isNormal)
-                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
-            if (!PlayerFSMManager.instance.isNormal)
-                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
-
             if (Stat.Hp > 0)
             {
                 OnHitForMonster(PlayerFSMManager.instance.attackType);
