@@ -10,24 +10,48 @@ public class Healing : MonoBehaviour
     public int _HealValue;
 
     [Header("HOT가 True일떄")]
-    public int _HealingTime;
+    public float _HealingTime;
     public float interval = 0.2f;
 
-    public PlayerFSMManager player;
+    PlayerFSMManager player;
+    SphereCollider sphere;
+    BoxCollider box;
+    ParticleSystem particle;
 
+    float _time;
+    public float CoolTime = 10f;
 
     private void Awake()
     {
         player = PlayerFSMManager.instance;
+
+        sphere = GetComponent<SphereCollider>();
+        box = GetComponentInChildren<BoxCollider>();
+
+        particle = GetComponentInChildren<ParticleSystem>();
+
+        particle.gameObject.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (!box.gameObject.activeSelf)
+        {
+            _time += Time.deltaTime;
+
+            if (_time >= CoolTime)
+            {
+                _time = 0;
+                box.gameObject.SetActive(true);
+                sphere.enabled = true;
+            }
+        }
+
+    }
     public void HealPlayer()
     {
-        // 플레이어 체력 회복
         if (!HOT)
         {
-            //조건 판단 (현재채력 + 힐량 > 최대체력)일때, 어떻게 처리할것인지 조건 추가
-            //hp += _HealValue;
             if (player.Stat._hp + _HealValue > player.Stat.MaxHp)
                 player.Stat._hp = player.Stat.MaxHp;
             else
@@ -37,30 +61,28 @@ public class Healing : MonoBehaviour
         {
             for(int i=0; i<_HealingTime; i++)
             {
-                //조건 판단 (현재채력 + 힐량 > 최대체력)일때, 어떻게 처리할것인지 조건 추가
                 if (player.Stat._hp + _HealValue > player.Stat.MaxHp)
                     player.Stat._hp = player.Stat.MaxHp;
                 else
                     player.Stat._hp += _HealValue;
-
-                StartCoroutine("TimeWaiting");
             }
+            StartCoroutine("TimeWaiting");
+
         }
     }
 
-    // 회복 지연시간
     public IEnumerator TimeWaiting()
     {
         yield return new WaitForSeconds(interval);
     }
-
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.transform.tag == "Player")
         {
             HealPlayer();
-            gameObject.SetActive(false);
+            sphere.enabled = false;
+            box.gameObject.SetActive(false);
+            particle.gameObject.SetActive(true);
         }
     }
 }

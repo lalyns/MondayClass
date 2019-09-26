@@ -28,10 +28,6 @@ public class MacPOPUP : MacFSMState
         _manager._PopupEffect.GetComponent<Animator>().Play("Ani");
     }
 
-    private void Update()
-    {
-
-    }
 
     protected override void FixedUpdate()
     {

@@ -5,15 +5,46 @@ using UnityEngine;
 public class Gauge : MonoBehaviour
 {
     public float _GaugeValue;
-    PlayerFSMManager player;
 
+    PlayerFSMManager player;
+    SphereCollider sphere;
+    BoxCollider box;
+    ParticleSystem particle;
+
+    float _time;
+    public float CoolTime = 10f;
     private void Awake()
     {
         player = PlayerFSMManager.instance;
+
+        sphere = GetComponent<SphereCollider>();
+        box = GetComponentInChildren<BoxCollider>();
+
+        particle = GetComponentInChildren<ParticleSystem>();
+
+        particle.gameObject.SetActive(false);
     }
+    
+    private void Update()
+    {
+        if (!box.gameObject.activeSelf)
+        {
+            _time += Time.deltaTime;
+
+            if (_time >= CoolTime)
+            {
+                _time = 0;
+                box.gameObject.SetActive(true);
+                sphere.enabled = true;
+                particle.gameObject.SetActive(false);
+            }
+        }
+        
+        
+    }
+    
     public void GaugePlayer()
     {
-        //조건 판단 (현재게이지 + 추가게이지량 > 최대게이지량)일때, 어떻게 처리할것인지 조건 추가
         if (player.SpecialGauge + _GaugeValue > 100)
             player.SpecialGauge = 100;
         else
@@ -26,7 +57,9 @@ public class Gauge : MonoBehaviour
         if(other.transform.tag == "Player")
         {
             GaugePlayer();
-            gameObject.SetActive(false);
+            sphere.enabled = false;
+            box.gameObject.SetActive(false);
+            particle.gameObject.SetActive(true);
         }
     }
 }
