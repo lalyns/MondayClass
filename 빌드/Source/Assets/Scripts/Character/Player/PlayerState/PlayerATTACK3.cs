@@ -29,8 +29,9 @@ public class PlayerATTACK3 : FSMState
 
     private void Update()
     {
-        _time += Time.deltaTime;
-      
+
+        _time += Time.deltaTime;     
+        
         if ((Input.GetMouseButtonDown(0) && !isAttackOne) && _time >= 0.3f)
         {
             isAttackOne = true;

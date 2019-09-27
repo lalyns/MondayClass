@@ -154,7 +154,7 @@ public class RedHatFSMManager : FSMManager
         Stat.TakeDamage(playerStat, playerStat.DMG[value]);
         SetKnockBack(playerStat, value);
 
-        StartCoroutine(Shake.instance.ShakeCamera(.2f, 0.03f, 0.1f));
+        StartCoroutine(Shake.instance.ShakeCamera(.1f, .2f, 0.1f));
 
         //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
@@ -235,30 +235,33 @@ public class RedHatFSMManager : FSMManager
                 Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
             if (!PlayerFSMManager.instance.isNormal)
                 Instantiate(hitEffect_Skill1_Special, hitLocation.transform.position, Quaternion.identity);
-
-
-
+                       
             if (Stat.Hp > 0)
             {
                 //OnHit();
                 OnHitForMonster(AttackType.SKILL1);
                 other.transform.gameObject.SetActive(false);
             }
-
         }
-       
+        if (other.transform.tag == "Skill2")
+        {
+            SetState(RedHatState.HIT);
+        }
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.transform.tag == "Skill2")
         {
-            if (PlayerFSMManager.instance.isNormal)
-                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
-            else
-                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
             if (Stat.Hp > 0)
             {
-                //OnHit();
+                try
+                {
+                    OnHitForMonster(AttackType.SkILL2);
+                }
+                catch
+                {
+
+                }
             }
         }
     }
