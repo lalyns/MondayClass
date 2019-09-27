@@ -83,7 +83,7 @@ public class PlayerFSMManager : FSMManager
     float vertical, horizontal;
     public float attackCount;
     public GameObject[] Skill1Effeects;
-    public bool isBall, isShoot, isSkill1CTime;
+    public bool isBall, isShoot, isSkill1CTime, isSkill2CTime, isSkill3CTime;
 
     public AttackType attackType;
 
@@ -515,7 +515,7 @@ public class PlayerFSMManager : FSMManager
                 TimeLine.SetActive(true);
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
-
+                Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
             }
         }
 
@@ -913,10 +913,7 @@ public class PlayerFSMManager : FSMManager
         }
 
         //스킬 쿨타임 도는 함수
-        if (isSkill1CTime)
-        {
-            SKill1UIReset();
-        }
+        SKill1UIReset();
     }
 
     void Skill2Set()
@@ -981,14 +978,17 @@ public class PlayerFSMManager : FSMManager
 
     public void SKill1UIReset()
     {
-        Skill1CTime -= Time.deltaTime;
-        Skill1UI.fillAmount = Skill1CTime / 10f;
-        if (Skill1CTime <= 0)
+        if (isSkill1CTime)
         {
-            Skill1CTime = 10f;
-            Skill1UI.fillAmount = 1f;
-            Skill1UI.gameObject.SetActive(false);
-            isSkill1CTime = false;
+            Skill1CTime -= Time.deltaTime;
+            Skill1UI.fillAmount = Skill1CTime / 10f;
+            if (Skill1CTime <= 0)
+            {
+                Skill1CTime = 10f;
+                Skill1UI.fillAmount = 1f;
+                Skill1UI.gameObject.SetActive(false);
+                isSkill1CTime = false;
+            }
         }
     }
 
@@ -996,21 +996,25 @@ public class PlayerFSMManager : FSMManager
 
     public void Skill2UIReset()
     {
-        Skill2CTime -= Time.deltaTime;
-        Skill2UI.fillAmount = Skill2CTime / 10f;
-        if (Skill2CTime <= 0)
+        if (isSkill2CTime)
         {
-            Skill2CTime = 10f;
-            Skill2UI.fillAmount = 1f;
-            Skill2UI.gameObject.SetActive(false);
-            Skill2_Start.SetActive(false);
-            isSkill2 = false;
+            Skill2CTime -= Time.deltaTime;
+            Skill2UI.fillAmount = Skill2CTime / 10f;
+            if (Skill2CTime <= 0)
+            {
+                Skill2CTime = 10f;
+                Skill2UI.fillAmount = 1f;
+                Skill2UI.gameObject.SetActive(false);
+                Skill2_Start.SetActive(false);
+                isSkill2 = false;
+                isSkill2CTime = false;
+            }
         }
     }
 
     public void Skill3UIReset()
     {
-        if (Skill3_End.activeSelf)
+        if (isSkill3CTime)
         {
             Skill3UI.gameObject.SetActive(true);
             Skill3CTime -= Time.deltaTime;
@@ -1022,6 +1026,7 @@ public class PlayerFSMManager : FSMManager
                 Skill3UI.fillAmount = 1f;
                 Skill3UI.gameObject.SetActive(false);
                 Skill3_End.SetActive(false);
+                isSkill3CTime = false;
             }
 
         }
@@ -1054,10 +1059,10 @@ public class PlayerFSMManager : FSMManager
         if (isSkill1CTime)
             Skill1CTime /= 2f;
         // 스킬 2번 쿨타임 절반 만들기
-        if (isSkill2)
+        if (isSkill2CTime)
             Skill2CTime /= 2f;
         // 스킬 3번 쿨타임 절반 만들기
-        if (Skill3_End.activeSelf)
+        if (isSkill3CTime)
             Skill3CTime /= 2f;
     }
     public void SkillCoolReset()
@@ -1067,6 +1072,8 @@ public class PlayerFSMManager : FSMManager
         Skill1UI.fillAmount = 1f;
         Skill1UI.gameObject.SetActive(false);
         isSkill1CTime = false;
+        isSkill2CTime = false;
+        isSkill3CTime = false;
         isBall = true;
         if (isNormal)
             Skill1_Amount = 4;

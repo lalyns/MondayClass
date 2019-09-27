@@ -40,8 +40,8 @@ public class Skill2Effect : MonoBehaviour
         {
             _triggerTime = 0;
             Sphere.enabled = false;
-           // gameObject.SetActive(false);
-
+            // gameObject.SetActive(false);
+            //player.isSkill2CTime = true;
         }
         //if (_time >= 10f)
         //{
