@@ -24,6 +24,7 @@ public class UserInterface : MonoBehaviour
         CurrentGoal = fullModeUIs.Goal;
     }
 
+    #region Canvas Control Function
     [SerializeField] private bool activeAllUI = true;
     [SerializeField] private bool activePlayerUI = true;
     [SerializeField] private bool activeMonsterUI = true;
@@ -65,6 +66,7 @@ public class UserInterface : MonoBehaviour
         Instance.activeMissionSelectionUI = isActive;
         Instance.MissionSelectionUICanvas.SetActive(isActive);
     }
+    #endregion
 
     private PlayerFSMManager playerFSMManager => PlayerFSMManager.Instance;
     private void Update()
@@ -80,6 +82,8 @@ public class UserInterface : MonoBehaviour
         {
             ProgressUI();
         }
+
+        if (cursorMode) CursorLocation();
     }
 
     #region Player User Interface
@@ -129,6 +133,65 @@ public class UserInterface : MonoBehaviour
     #endregion
 
     #region System User Interface
+    // 커서가 보이는지 여부
+    [Space(5)][Header("System User Interface")]
+    private bool cursorMode = false;
+    public Transform CursorTransform;
+    private Image CursorImage => CursorTransform.GetComponent<Image>();
+
+    public static void SetCursorMode(bool mode)
+    {
+        Instance.cursorMode = mode;
+
+        Cursor.lockState = mode ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = false;
+        Instance.CursorImage.enabled = mode;
+    }
+
+    private void CursorLocation()
+    {
+        var screenPoint = Input.mousePosition;
+        screenPoint.z = 10.0f;
+        CursorTransform.position = Camera.main.ScreenToWorldPoint(screenPoint);
+    }
+
+    // FadeIn FadeOut
+    public Image FadeInOutImage;
+    public float FadeInOutSpeed = 10.0f;
+    
+    public static IEnumerator FadeIn(float speed)
+    {
+        float i = 100;
+
+        var alpha = Instance.FadeInOutImage.color;
+        for (i = 100; i >= 0;)
+        {
+            i -= speed;
+            alpha.a = i / 100f;
+            Instance.FadeInOutImage.color = alpha;
+
+            yield return new WaitForSeconds(0.15f);
+        }
+    }
+
+    public static IEnumerator FadeOut(float speed)
+    {
+        float i = 0;
+
+        var alpha = Instance.FadeInOutImage.color;
+        for (i = 0; i <= 100;)
+        {
+            i += speed;
+            alpha.a = i / 100f;
+            Instance.FadeInOutImage.color = alpha;
+
+            yield return new WaitForSeconds(0.15f);
+        }
+    }
+
+    // Screen Blur
+
+    // 게임 설정
 
     #endregion
 
@@ -137,7 +200,7 @@ public class UserInterface : MonoBehaviour
     [Space(5)][Header("Mission Progress User Interface")]
     // 간략모드 활성화 여부
     private bool MPSimpleMode = false;
-    private static void SetMPMode(bool value)
+    public static void SetMPMode(bool value)
     {
         Instance.MPSimpleMode = value;
         Instance.FullMode.SetActive(!value);
@@ -151,9 +214,7 @@ public class UserInterface : MonoBehaviour
     {
         public Image MissionIcon;
         public Text MissionText;
-
         public Text Timer;
-
         public Image GoalIcon;
         public Text Goal;
     }
@@ -212,10 +273,36 @@ public class UserInterface : MonoBehaviour
         CurrentGoal.text = text;
     }
 
+    private void SetSimpleGoal(MissionType type)
+    {
+        var text = "";
+        switch (type)
+        {
+            case MissionType.Annihilation:
+                text = GameStatus.Instance.ActivedMonsterList.Count + " ";
+                break;
+            case MissionType.Defence:
+                MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
+                text = mission.protectedTarget.hp + " / " + mission._ProtectedTargetHP;
+                break;
+            case MissionType.Survival:
+                text = GameManager.Instance.curScore + " / 5";
+                break;
+            case MissionType.Boss:
+                text = "리리스를 처치하시오";
+                break;
+        }
+
+        CurrentGoal.text = text;
+    }
+
     private void ProgressUI()
     {
         SetTimer(GameStatus.Instance._LimitTime);
-        SetGoal(MissionManager.Instance.CurrentMissionType);
+        if (!MPSimpleMode)
+            SetGoal(MissionManager.Instance.CurrentMissionType);
+        else
+            SetSimpleGoal(MissionManager.Instance.CurrentMissionType);
     }
 
     #endregion

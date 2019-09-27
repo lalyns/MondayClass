@@ -29,16 +29,25 @@ public class GameManager : MonoBehaviour
     public bool ControlManual;
 
     bool _SimpleMode = false;
-    public GameObject _MissionSimple;
-    public GameObject _MissionFull;
-    public Image _cursurImage;
 
     public int curScore = 0;
     public bool IsPuase;
 
     public Image FadeInOutPanel;
     public float fadeInOutSpeed = 10.0f;
-    public Animator FadeInOutAnim;
+
+    [System.Serializable]
+    public class UIActive
+    {
+        public bool all = true;
+        public bool player = true;
+        public bool monster = true;
+        public bool system = true;
+        public bool progress = false;
+        public bool selector = true;
+    }
+    public UIActive uIActive;
+
 
     private void Awake()
     {
@@ -60,6 +69,11 @@ public class GameManager : MonoBehaviour
             Cursor.visible = false;
         }
 
+        UserInterface.SetAllUserInterface(uIActive.all);
+        UserInterface.SetPlayerUserInterface(uIActive.player);
+        UserInterface.SetSystemInterface(uIActive.system);
+        UserInterface.SetMissionProgressUserInterface(uIActive.progress);
+        UserInterface.SetMissionSelectionUI(uIActive.selector);
     }
 
 
@@ -70,20 +84,11 @@ public class GameManager : MonoBehaviour
         if (!IsPuase) Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
         else Time.timeScale = 0;
 
+        // 키입력 매니저로 이동할것
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (!_SimpleMode)
-            {
-                _MissionSimple.SetActive(true);
-                _MissionFull.SetActive(false);
-                _SimpleMode = !_SimpleMode;
-            }
-            else
-            {
-                _MissionSimple.SetActive(false);
-                _MissionFull.SetActive(true);
-                _SimpleMode = !_SimpleMode;
-            }
+            _SimpleMode = !_SimpleMode;
+            UserInterface.SetMPMode(_SimpleMode);
         }
 
         
@@ -129,45 +134,6 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    /// <summary>
-    /// 마우스 커서가 보이게 하는 매소드
-    /// </summary>
-    /// <param name="isLock"></param>
-    public static void CursorMode(bool isLock)
-    {
-        if (Instance._EditorCursorLock)
-        {
-            if (isLock)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = false;
-                try
-                {
-                    Instance._cursurImage.enabled = true;
-                }
-                catch
-                {
-
-                }
-
-
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                try
-                {
-                    Instance._cursurImage.enabled = false;
-                }
-                catch
-                {
-
-                }
-            }
-        }
-    }
-
     public static void TempScoreAdd()
     {
         Instance.curScore += 1;
@@ -185,14 +151,13 @@ public class GameManager : MonoBehaviour
     public IEnumerator FadeOut(float speed)
     {
         float i = 0;
-        int callWrite = 0;
 
-        Color temp = FadeInOutPanel.color;
+        var alpha = FadeInOutPanel.color;
         for(i=0; i<= 100; )
         {
             i += speed;
-            temp.a = i / 100f;
-            FadeInOutPanel.color = temp;
+            alpha.a = i / 100f;
+            FadeInOutPanel.color = alpha;
 
             yield return new WaitForSeconds(0.15f);
         }
@@ -203,12 +168,12 @@ public class GameManager : MonoBehaviour
     {
         float i = 100;
 
-        Color tempColor = FadeInOutPanel.color;
+        var alpha = FadeInOutPanel.color;
         for (i = 100; i >= 0; )
         {
             i -= speed;
-            tempColor.a = i / 100f;
-            FadeInOutPanel.color = tempColor;
+            alpha.a = i / 100f;
+            FadeInOutPanel.color = alpha;
             
             yield return new WaitForSeconds(0.15f);
         }

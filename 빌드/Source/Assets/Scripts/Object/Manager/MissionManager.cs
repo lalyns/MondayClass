@@ -66,11 +66,10 @@ public class MissionManager : MonoBehaviour
     public MissionButton[] Choices;
 
     public GameObject MissionProgressUI;
-    public TempMissionProgress MissionProgress;
 
     public static void PopUpMission() {
         Instance.MissionSelector.SetActive(true);
-        GameManager.CursorMode(true);
+        UserInterface.SetCursorMode(true);
         Input.ResetInputAxes();
         GameManager.Instance.IsPuase = true;
         GameManager.Instance.CharacterControl = false;
@@ -88,7 +87,7 @@ public class MissionManager : MonoBehaviour
         
         Instance.CurrentMission = mission;
         Instance.MissionSelector.SetActive(false);
-        GameManager.CursorMode(false);
+        UserInterface.SetCursorMode(false);
         GameManager.Instance.IsPuase = false;
         UserInterface.FullModeSetMP();
 
@@ -112,6 +111,7 @@ public class MissionManager : MonoBehaviour
     public static void StartMission() {
         // 미션 시작지
         Instance.CurrentMission.OperateMission();
+        UserInterface.SetMissionProgressUserInterface(true);
     }
 
     public static void RewardMission() {

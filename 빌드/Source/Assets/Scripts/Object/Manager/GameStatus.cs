@@ -181,7 +181,7 @@ public class GameStatus : MonoBehaviour
         dummySet = true;
         _EditorMode = true;
         _DummyLocationEffect.SetActive(true);
-        GameManager.CursorMode(true);
+        UserInterface.SetCursorMode(true);
     }
 
     public void SummonEffect()
@@ -207,7 +207,7 @@ public class GameStatus : MonoBehaviour
             "monster");
         dummySet = false;
         _DummyLocationEffect.SetActive(false);
-        GameManager.CursorMode(false);
+        UserInterface.SetCursorMode(false);
     }
 #endif
 
