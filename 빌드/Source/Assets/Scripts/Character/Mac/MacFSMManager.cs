@@ -147,7 +147,7 @@ public class MacFSMManager : FSMManager
         Stat.TakeDamage(playerStat, playerStat.DMG[value]);
         SetKnockBack(playerStat, value);
 
-        StartCoroutine(Shake.instance.ShakeCamera(.2f, 0.03f, 0.1f));
+        StartCoroutine(Shake.instance.ShakeCamera(.1f, 0.2f, 0.1f));
 
         if (Stat.Hp > 0)
         {
