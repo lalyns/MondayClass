@@ -102,14 +102,14 @@ public class GameStatus : MonoBehaviour
 
         foreach(GameObject mob in active)
         {
-            ObjectManager.MonsterType type = mob.GetComponent<FSMManager>().monsterType;
+            MonsterType type = mob.GetComponent<FSMManager>().monsterType;
 
             switch (type)
             {
-                case ObjectManager.MonsterType.RedHat:
+                case MonsterType.RedHat:
                     MonsterPoolManager._Instance._RedHat.ItemReturnPool(mob);
                     break;
-                case ObjectManager.MonsterType.Mac:
+                case MonsterType.Mac:
                     MonsterPoolManager._Instance._Mac.ItemReturnPool(mob);
                     break;
             }

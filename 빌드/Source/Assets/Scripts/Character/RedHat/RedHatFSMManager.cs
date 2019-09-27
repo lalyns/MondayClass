@@ -47,12 +47,11 @@ public class RedHatFSMManager : FSMManager
     public Animator Anim { get { return _Anim; } }
 
     public Transform _AttackTransform;
-    public SkinnedMeshRenderer _MR;
-    public Material[] Mats;
 
+    // Renderers
+    public SkinnedMeshRenderer _MR;
     public SkinnedMeshRenderer _WPMR;
-    public Material WPMats;
-    
+    public List<Material> materialList = new List<Material>();
 
     //public CharacterStat _lastAttack;
 
@@ -86,9 +85,9 @@ public class RedHatFSMManager : FSMManager
         _Stat = GetComponent<RedHatStat>();
         _Anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<MonsterSound>();
-        Mats = _MR.materials;
-        WPMats = _WPMR.material;
 
+        materialList.AddRange(_MR.materials);
+        materialList.AddRange(_WPMR.materials);
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
@@ -107,7 +106,7 @@ public class RedHatFSMManager : FSMManager
             state.enabled = false;
         }
 
-        monsterType = ObjectManager.MonsterType.RedHat;
+        monsterType = MonsterType.RedHat;
     }
 
     private void Start()
@@ -140,7 +139,6 @@ public class RedHatFSMManager : FSMManager
         {
             return;
         }
-
 
         if (CurrentState == RedHatState.DEAD) return;
 
