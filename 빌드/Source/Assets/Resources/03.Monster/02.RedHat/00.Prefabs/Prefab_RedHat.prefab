@@ -157,9 +157,8 @@ MonoBehaviour:
   startState: 0
   _AttackTransform: {fileID: 0}
   _MR: {fileID: 1140683509762228674}
-  Mats: []
   _WPMR: {fileID: 1140683509762228672}
-  WPMats: {fileID: 0}
+  materialList: []
   _HPSilder: {fileID: 4517262054362800498}
   hitEffect: {fileID: 7020711604762157689, guid: 2667e56a7f52a974baaa82b17f6778e7,
     type: 3}
@@ -178,6 +177,7 @@ MonoBehaviour:
   KnockBackDuration: 0
   KnockBackPower: 0
   KnockBackDelay: 0
+  CurrentAttackType: 0
 --- !u!114 &2020198653491668466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +191,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
+  _dmg: 00000000000000000000000000000000000000000000000000000000
+  _KnockBackFlag: 00000000000000
+  _KnockBackDuration: 00000000000000000000000000000000000000000000000000000000
+  _KnockBackPower:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  _KnockBackDelay:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  _hp: 1000
   lastHitBy: {fileID: 0}
   statData: {fileID: 11400000, guid: 08f6433d6080f394088735ab728afc81, type: 2}
   monsterData: {fileID: 11400000, guid: 08f6433d6080f394088735ab728afc81, type: 2}
@@ -857,10 +877,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 26fa4da1e88800f4881f54387ff6b1dd, type: 2}
-    - target: {fileID: 13700000, guid: 9133eb8b3af9737468fa1a811eb60371, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: 9133eb8b3af9737468fa1a811eb60371, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
