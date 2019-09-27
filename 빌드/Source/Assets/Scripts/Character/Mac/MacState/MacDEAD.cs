@@ -17,7 +17,11 @@ public class MacDEAD : MacFSMState
         foreach (Material mat in _manager.Mats)
         {
             mat.SetFloat("_DissolveEdgeMultiplier", 8);
+            _manager.CC.detectCollisions = false;
         }
+
+        useGravity = false;
+        _manager.CC.detectCollisions = false;
     }
 
     public override void EndState()
@@ -31,7 +35,12 @@ public class MacDEAD : MacFSMState
         }
 
         time = 0;
+
         Dead = true;
+
+        useGravity = true;
+        _manager.CC.detectCollisions = true;
+
         MonsterPoolManager._Instance._Mac.ItemReturnPool(gameObject, "monster");
     }
 

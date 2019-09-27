@@ -69,6 +69,8 @@ public class MacFSMManager : FSMManager
     public float KnockBackPower;
     public float KnockBackDelay;
 
+    public AttackType CurrentAttackType = AttackType.NONE;
+
     protected override void Awake()
     {
         base.Awake();
@@ -123,14 +125,34 @@ public class MacFSMManager : FSMManager
     {
         base.OnHitForMonster(attackType);
 
+        if ((attackType == AttackType.ATTACK1
+            || attackType == AttackType.ATTACK2
+            || attackType == AttackType.ATTACK3)
+            && ((int)CurrentAttackType & (int)attackType) != 0)
+        {
+            return;
+        }
+
+        if (CurrentState == MacState.DEAD) return;
+
+        if (PlayerFSMManager.instance.isNormal)
+            Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
+        else
+            Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
+
+        CurrentAttackType = attackType;
+        int value = TransformTypeToInt(attackType);
+
         PlayerStat playerStat = PlayerFSMManager.instance.Stat;
-        Stat.TakeDamage(playerStat, playerStat.DMG[(int)attackType]);
-        SetKnockBack(playerStat, attackType);
+        Stat.TakeDamage(playerStat, playerStat.DMG[value]);
+        SetKnockBack(playerStat, value);
 
         StartCoroutine(Shake.instance.ShakeCamera(.2f, 0.03f, 0.1f));
 
         if (Stat.Hp > 0)
         {
+            if (CurrentState == MacState.HIT) return;
+
             SetState(MacState.HIT);
             //플레이어 쳐다본 후
             transform.localEulerAngles = Vector3.zero;
@@ -149,23 +171,48 @@ public class MacFSMManager : FSMManager
 
     }
 
-    public void SetKnockBack(PlayerStat stat,AttackType attackType)
+    public void SetKnockBack(PlayerStat stat,int attackType)
     {
-        KnockBackFlag = stat.KnockBackFlag[(int)attackType];
-        KnockBackDuration = stat.KnockBackDuration[(int)attackType];
-        KnockBackPower = stat.KnockBackPower[(int)attackType];
-        KnockBackDelay = stat.KnockBackDelay[(int)attackType];
+        KnockBackFlag = stat.KnockBackFlag[attackType];
+        KnockBackDuration = stat.KnockBackDuration[attackType];
+        KnockBackPower = stat.KnockBackPower[attackType];
+        KnockBackDelay = stat.KnockBackDelay[attackType];
+    }
+
+    public int TransformTypeToInt(AttackType type)
+    {
+        switch (type)
+        {
+            case AttackType.ATTACK1:
+                return 0;
+
+            case AttackType.ATTACK2:
+                return 1;
+
+            case AttackType.ATTACK3:
+                return 2;
+
+            case AttackType.SKILL1:
+                return 3;
+
+            case AttackType.SkILL2:
+                return 4;
+
+            case AttackType.SKILL3:
+                return 5;
+
+            case AttackType.SKILL4:
+                return 6;
+
+            default:
+                return -1;
+        }
     }
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Weapon")
         {
-            if (PlayerFSMManager.instance.isNormal)
-                Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
-            else
-                Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
-
             if (Stat.Hp > 0)
             {
                 //Debug.Log("Attacked");

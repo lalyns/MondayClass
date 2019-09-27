@@ -10,41 +10,79 @@ public class Healing : MonoBehaviour
     public int _HealValue;
 
     [Header("HOT가 True일떄")]
-    public int _HealingTime;
+    public float _HealingTime;
     public float interval = 0.2f;
 
-    public void HealPlayer()
+    PlayerFSMManager player;
+    SphereCollider sphere;
+    BoxCollider box;
+    ParticleSystem particle;
+
+    float _time;
+    public float CoolTime = 10f;
+
+    private void Awake()
     {
-        // 플레이어 체력 관련 정보 삽입
-        int hp = 100;
+        player = PlayerFSMManager.instance;
 
-        // 플레이어 체력 회복
+        sphere = GetComponent<SphereCollider>();
+        box = GetComponentInChildren<BoxCollider>();
 
-        if (!HOT)
+        particle = GetComponentInChildren<ParticleSystem>();
+
+        particle.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (!box.gameObject.activeSelf)
         {
-            //조건 판단 (현재채력 + 힐량 > 최대체력)일때, 어떻게 처리할것인지 조건 추가
+            _time += Time.deltaTime;
 
-            hp += _HealValue;
+            if (_time >= CoolTime)
+            {
+                _time = 0;
+                box.gameObject.SetActive(true);
+                sphere.enabled = true;
+            }
         }
 
+    }
+    public void HealPlayer()
+    {
+        if (!HOT)
+        {
+            if (player.Stat._hp + _HealValue > player.Stat.MaxHp)
+                player.Stat._hp = player.Stat.MaxHp;
+            else
+                player.Stat._hp += _HealValue;
+        }
         else
         {
             for(int i=0; i<_HealingTime; i++)
             {
-                //조건 판단 (현재채력 + 힐량 > 최대체력)일때, 어떻게 처리할것인지 조건 추가
-
-                hp += _HealValue;
-
-                StartCoroutine("TimeWaiting");
+                if (player.Stat._hp + _HealValue > player.Stat.MaxHp)
+                    player.Stat._hp = player.Stat.MaxHp;
+                else
+                    player.Stat._hp += _HealValue;
             }
-        }
+            StartCoroutine("TimeWaiting");
 
-        // 플레이어 체력 적용
+        }
     }
 
-    // 회복 지연시간
     public IEnumerator TimeWaiting()
     {
         yield return new WaitForSeconds(interval);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.tag == "Player")
+        {
+            HealPlayer();
+            sphere.enabled = false;
+            box.gameObject.SetActive(false);
+            particle.gameObject.SetActive(true);
+        }
     }
 }

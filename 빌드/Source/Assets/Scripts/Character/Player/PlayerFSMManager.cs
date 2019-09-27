@@ -21,13 +21,14 @@ public enum PlayerState
 }
 public enum AttackType
 {
-    ATTACK1 = 0,
-    ATTACK2,
-    ATTACK3,
-    SKILL1,
-    SkILL2,
-    SKILL3,
-    SKILL4,
+    NONE = 0,
+    ATTACK1 = 1,
+    ATTACK2 = 1 << 2,
+    ATTACK3 = 1 << 3,
+    SKILL1 = 1 << 4,
+    SkILL2 = 1 << 5,
+    SKILL3 = 1 << 6,
+    SKILL4 = 1 << 7,
 }
 [RequireComponent(typeof(PlayerStat))]
 [ExecuteInEditMode]
@@ -89,7 +90,7 @@ public class PlayerFSMManager : FSMManager
     public Image Skill1UI, Skill2UI, Skill3UI;
     Vector3 target;
     [SerializeField]
-    float Skill1Timer1, Skill1Timer2;
+    float Skill1Timer1, Skill1CTime;
     [SerializeField]
     float Skill2CTime, Skill3CTime = 10f;
     [Header("스킬1번 날라가는 속도,")]
@@ -232,6 +233,8 @@ public class PlayerFSMManager : FSMManager
     float normalTimer;
     float gaugePerSecond;
 
+    public int ShieldCount;
+
     private void Start()
     {
 
@@ -305,7 +308,7 @@ public class PlayerFSMManager : FSMManager
         shake = GameObject.Find("CameraRig").GetComponent<Shake>();
         mainCamera = GameObject.Find("mainCam").GetComponent<Camera>();
         followCam = shake.GetComponent<FollowCam>();
-        Skill1Timer2 = 10f;
+        Skill1CTime = 10f;
     }
 
     public void SetState(PlayerState newState)
@@ -321,7 +324,7 @@ public class PlayerFSMManager : FSMManager
         _anim.SetInteger("CurrentState", (int)_currentState);
     }
 
-    // 움직이는지 체크하는 함수
+
     public bool OnMove()
     {
         return horizontal >= 0.01f || horizontal <= -0.01f ||
@@ -369,7 +372,12 @@ public class PlayerFSMManager : FSMManager
 
         if (isInputLock)
             return;
-
+        // Fade In Out 시 적용됨.
+        if (!GameManager.Instance.CharacterControl)
+        {
+            SetState(PlayerState.IDLE);
+            return;
+        }
 
         ChangeModel();
 
@@ -427,7 +435,6 @@ public class PlayerFSMManager : FSMManager
             try
             {
                 SpecialGauge_Image.fillAmount = (normalTimer * gaugePerSecond) / 100.0f;
-                Debug.Log(SpecialGauge_Image.fillAmount);
             }
             catch
             {
@@ -447,7 +454,7 @@ public class PlayerFSMManager : FSMManager
         if (_monster.Count <= 0)
         {
 
-            skillReturn(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
+            Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
             isShoot = false;
 
         }
@@ -542,7 +549,9 @@ public class PlayerFSMManager : FSMManager
                 }
                 isSpecial = true;
                 TimeLine.SetActive(true);
-                skillReturn(Skill1_Effects, Skill1_Special_Effects, isNormal);
+                Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
+                Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
+
             }
         }
 
@@ -715,6 +724,7 @@ public class PlayerFSMManager : FSMManager
                 for (int i = 0; i < 5; i++)
                 {
                     effects[i].SetActive(false);
+                    effects_special[i].SetActive(false);
                 }
             if (Skill1_Amount >= 2)
             {
@@ -730,23 +740,16 @@ public class PlayerFSMManager : FSMManager
             {
                 effects[2].SetActive(true);
                 effects_special[2].SetActive(false);
-            }
-            if (Skill1_Amount >= 5)
-            {
-                effects[3].SetActive(true);
                 effects_special[3].SetActive(false);
-            }
-            if (Skill1_Amount >= 6)
-            {
-                effects[4].SetActive(true);
                 effects_special[4].SetActive(false);
-            }
+            }           
         }
         else
         {
             if (Skill1_Amount <= 1)
                 for (int i = 0; i < 5; i++)
                 {
+                    effects[i].SetActive(false);
                     effects_special[i].SetActive(false);
                 }
             if (Skill1_Amount >= 2)
@@ -808,7 +811,7 @@ public class PlayerFSMManager : FSMManager
 
         }
     }
-    void skillReturn(GameObject[] effects, GameObject[] effects_special, bool isnormal)
+    void Skill1Return(GameObject[] effects, GameObject[] effects_special, bool isnormal)
     {
 
         for (int i = 0; i < 5; i++)
@@ -908,7 +911,7 @@ public class PlayerFSMManager : FSMManager
         if (isShoot)
         {
 
-            skillReturn(Skill1_Effects, Skill1_Special_Effects, isNormal);
+            Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
 
             // 날라가는 시간을 정해준 후에.
             Skill1Timer1 += Time.deltaTime;
@@ -923,7 +926,7 @@ public class PlayerFSMManager : FSMManager
                     Skill1_Shoots[i].transform.position = Skill1_Effects[i].transform.position;
                 }
 
-                skillReturn(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
+                Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1Timer1 = 0;
                 isShoot = false;
                 Skill1_Amount = 1;
@@ -1000,7 +1003,7 @@ public class PlayerFSMManager : FSMManager
     }
     public void Skill3()
     {
-        if (isSkill3)
+        if (isSkill3 || Skill3_End.activeSelf)
             return;
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
@@ -1018,17 +1021,18 @@ public class PlayerFSMManager : FSMManager
 
     public void SKill1UIReset()
     {
-        Skill1Timer2 -= Time.deltaTime;
-        Skill1UI.fillAmount = Skill1Timer2 / 10f;
-        if (Skill1Timer2 <= 0)
+        Skill1CTime -= Time.deltaTime;
+        Skill1UI.fillAmount = Skill1CTime / 10f;
+        if (Skill1CTime <= 0)
         {
-            Skill1Timer2 = 10f;
+            Skill1CTime = 10f;
             Skill1UI.fillAmount = 1f;
             Skill1UI.gameObject.SetActive(false);
             isSkill1CTime = false;
         }
     }
 
+    
 
     public void Skill2UIReset()
     {
@@ -1084,8 +1088,45 @@ public class PlayerFSMManager : FSMManager
     {
         Skill3_Capsule.enabled = false;
     }
+    public void SkillCoolHalfReset()
+    {
+        // 스킬 1번 쿨타임 절반 만들기
+        if (isSkill1CTime)
+            Skill1CTime /= 2f;
+        // 스킬 2번 쿨타임 절반 만들기
+        if (isSkill2)
+            Skill2CTime /= 2f;
+        // 스킬 3번 쿨타임 절반 만들기
+        if (Skill3_End.activeSelf)
+            Skill3CTime /= 2f;
+    }
+    public void SkillCoolReset()
+    {
+        // 스킬 1번 쿨타임 관련.
+        Skill1CTime = 10f;
+        Skill1UI.fillAmount = 1f;
+        Skill1UI.gameObject.SetActive(false);
+        isSkill1CTime = false;
+
+        // 스킬 2번 쿨타임 관련.
+        Skill2CTime = 10f;
+        Skill2UI.fillAmount = 1f;
+        Skill2UI.gameObject.SetActive(false);
+        Skill2_Start.SetActive(false);
+        isSkill2 = false;
+
+        // 스킬 3번 쿨타임 관련.
+        Skill3CTime = 10f;
+        Skill3UI.fillAmount = 1f;
+        Skill3UI.gameObject.SetActive(false);
+        Skill3_End.SetActive(false);
 
 
+        if (isNormal)
+                Skill1_Amount = 4;
+        else
+                Skill1_Amount = 6;
+    }
 
     public static PlayerFSMManager instance;
 }
