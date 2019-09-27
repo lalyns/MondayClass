@@ -7,7 +7,6 @@ public class MacHIT : MacFSMState
     bool knockBack = true;
     float knockBackDuration = 1.5f;
     float knockBackPower = 3.0f;
-
     float knockBackDelay = 0.3f;
 
     float _Count = 0;
@@ -27,12 +26,10 @@ public class MacHIT : MacFSMState
 
         Vector3 direction = (_manager.PlayerCapsule.transform.forward).normalized;
         direction.y = 0;
+
         knockBackTargetPos = direction + this.transform.position;
 
-        foreach (Material mat in _manager.Mats)
-        {
-            StartCoroutine(GameLib.Blink(mat));
-        }
+        StartCoroutine(GameLib.Blinking(_manager.materialList));
     }
 
     public override void EndState()
@@ -41,11 +38,6 @@ public class MacHIT : MacFSMState
 
         _Count = 0;
         hitEnd = false;
-
-        foreach (Material mat in _manager.Mats)
-        {
-            mat.SetFloat("_Hittrigger", 0);
-        }
 
         _manager.CurrentAttackType = AttackType.NONE;
     }
@@ -64,25 +56,6 @@ public class MacHIT : MacFSMState
     {
         base.FixedUpdate();
 
-        if(knockBack)
-            StartCoroutine(KnockBack(knockBackDuration, knockBackPower));
-    }
-
-    public IEnumerator KnockBack(float dur, float power)
-    {
-        Vector3 direction = _manager.PlayerCapsule.transform.forward.normalized;
-        direction.y = 0;
-
-        
-        for (int time = 0; time < dur; time++)
-        {
-
-            transform.position = knockBackTargetPos + direction * (power);
-
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        knockBack = false;
     }
 
     public void HitEnd()

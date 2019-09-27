@@ -22,6 +22,8 @@ public class PlayerATTACK2 : FSMState
 
     private void Update()
     {
+        _manager.isCantMove = _time <= _manager._attack2Time - 0.1f ? true : false;
+
         _time += Time.deltaTime;
 
         if (Input.GetMouseButtonDown(0) && !_manager.isAttackThree)
@@ -30,7 +32,7 @@ public class PlayerATTACK2 : FSMState
         }
         if (_manager.isAttackThree)
         {
-            if (_time >= _manager._attack2Time)
+            if (_time >= _manager._attack2Time - 0.05f)
             {
                 _manager.SetState(PlayerState.ATTACK3);
                 _time = 0;
