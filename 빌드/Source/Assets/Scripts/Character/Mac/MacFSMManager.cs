@@ -193,57 +193,26 @@ public class MacFSMManager : FSMManager
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Weapon")
+        if (other.transform.tag == "Weapon" && !PlayerFSMManager.instance.isSkill3)
         {
             if (Stat.Hp > 0)
-            {
-                //Debug.Log("Attacked");
-                //OnHit();
                 OnHitForMonster(PlayerFSMManager.instance.attackType);
-            }
 
             if (_CurrentState == MacState.ATTACK)
-            {
-                try
-                {
-                }
-                catch
-                {
-
-                }
+            {              
             }
         }
         if (other.transform.tag == "Ball")
         {
             if (PlayerFSMManager.instance.isNormal)
-                Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
+                EffectPoolManager._Instance._PlayerEffectPool[2].ItemSetActive(hitLocation, "Effect");
             else
-                Instantiate(hitEffect_Skill1_Special, hitLocation.transform.position, Quaternion.identity);
-
+                EffectPoolManager._Instance._PlayerEffectPool[3].ItemSetActive(hitLocation, "Effect");
 
             if (Stat.Hp > 0)
             {
-                //OnHit();
-                try
-                {
-                    OnHitForMonster(AttackType.SKILL1);
-                    other.transform.gameObject.SetActive(false);
-                }
-                catch
-                {
-
-                }
-
-            }
-            if (_CurrentState == MacState.ATTACK)
-            {
-                try
-                {
-                }
-                catch
-                {
-
-                }
+                OnHitForMonster(AttackType.SKILL1);
+                other.transform.gameObject.SetActive(false);
             }
         }
        
@@ -251,14 +220,28 @@ public class MacFSMManager : FSMManager
         {
             SetState(MacState.HIT);
         }
+        if (other.transform.tag == "Weapon" && PlayerFSMManager.instance.isSkill3)
+        {
+            StartCoroutine("Skill3Timer");
+        }
     }
     private void OnTriggerStay(Collider other)
     {
-        if(other.transform.tag == "Weapon" && PlayerFSMManager.instance.isSkill3)
+     
+    }
+
+    IEnumerator Skill3Timer()
+    {
+        while (PlayerFSMManager.instance.isSkill3)
         {
-            OnHitForMonster(PlayerFSMManager.instance.attackType);
+            OnHitForMonster(AttackType.SKILL3);
+            yield return new WaitForSeconds(0.1f);
         }
     }
+
+
+
+
     private void OnTriggerExit(Collider other)
     {
         if (other.transform.tag == "Skill2")

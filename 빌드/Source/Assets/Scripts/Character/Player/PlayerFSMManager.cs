@@ -358,6 +358,17 @@ public class PlayerFSMManager : FSMManager
         try
         {
             isNormal = pc_Icon.gameObject.activeSelf;
+
+            //if (isNormal)
+            //    for(int i=0; i<7; i++)
+            //    {
+            //        Stat.DMG[i] = Stat.DMG[i];
+            //    }
+            //else
+            //    for (int i = 0; i < 7; i++)
+            //    {
+            //        Stat.DMG[i] *= 2;
+            //    }
         }
         catch
         {

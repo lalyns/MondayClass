@@ -230,40 +230,46 @@ public class RedHatFSMManager : FSMManager
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Weapon")
+        if (other.transform.tag == "Weapon" && !PlayerFSMManager.instance.isSkill3)
         {
             if (Stat.Hp > 0)
-            {
                 OnHitForMonster(PlayerFSMManager.instance.attackType);
-            }
         }
 
         if (other.transform.tag == "Ball")
         {
-            if (PlayerFSMManager.instance.isNormal)
+            if (PlayerFSMManager.instance.isNormal)                
                 Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
             if (!PlayerFSMManager.instance.isNormal)
                 Instantiate(hitEffect_Skill1_Special, hitLocation.transform.position, Quaternion.identity);
-                       
+
+            other.transform.gameObject.SetActive(false);
+
             if (Stat.Hp > 0)
             {
                 //OnHit();
                 OnHitForMonster(AttackType.SKILL1);
-                other.transform.gameObject.SetActive(false);
             }
         }
         if (other.transform.tag == "Skill2")
         {
             SetState(RedHatState.HIT);
         }
-    }
-    private void OnTriggerStay(Collider other)
-    {
         if (other.transform.tag == "Weapon" && PlayerFSMManager.instance.isSkill3)
         {
-            OnHitForMonster(PlayerFSMManager.instance.attackType);
+            StartCoroutine("Skill3Timer");
         }
     }
+
+
+    //IEnumerator Skill3Timer()
+    //{
+    //    while (PlayerFSMManager.instance.isSkill3)
+    //    {
+    //        OnHitForMonster(AttackType.SKILL3);
+    //        yield return new WaitForSeconds(0.1f);
+    //    }
+    //}
     private void OnTriggerExit(Collider other)
     {
         if (other.transform.tag == "Skill2")
@@ -281,6 +287,7 @@ public class RedHatFSMManager : FSMManager
             }
         }
     }
+   
 
     public override void SetDeadState()
     {
