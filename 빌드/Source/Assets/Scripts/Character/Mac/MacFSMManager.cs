@@ -253,7 +253,6 @@ public class MacFSMManager : FSMManager
                 }
 
             }
-
             if (_CurrentState == MacState.ATTACK)
             {
                 try
@@ -266,21 +265,21 @@ public class MacFSMManager : FSMManager
             }
         }
        
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.transform.tag == "Ball")
+        if(other.transform.tag == "Skill2")
         {
-            //if (Stat.Hp > 0)
-            //{
-            //    OnHit();
-            //}
-
-            if (_CurrentState == MacState.ATTACK)
+            SetState(MacState.HIT);
+        }
+    }
+   
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.tag == "Skill2")
+        {
+            if (Stat.Hp > 0)
             {
                 try
                 {
-
+                    OnHitForMonster(AttackType.SkILL2);
                 }
                 catch
                 {
@@ -288,19 +287,7 @@ public class MacFSMManager : FSMManager
                 }
             }
         }
-
-        if (other.transform.tag == "Skill2")
-        {
-           
-            Stat.TakeDamage(Stat, 10f);
-
-            if (Stat.Hp > 0)
-            {
-                SetState(MacState.HIT);
-            }
-        }
     }
-
     public override void SetDeadState()
     {
         base.SetDeadState();
