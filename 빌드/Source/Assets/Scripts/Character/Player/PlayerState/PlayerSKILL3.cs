@@ -42,6 +42,8 @@ public class PlayerSKILL3 : FSMState
         _manager.Skill3_End.transform.position = _manager.Skill3_Start.transform.position;
         _manager.Skill3_End.transform.rotation = _manager.Skill3_Start.transform.rotation;
         _manager.Skill3_End.SetActive(true);
+
+        _manager.isSkill3CTime = true;
     }
 
     bool isAttack;
