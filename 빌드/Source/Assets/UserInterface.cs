@@ -71,10 +71,10 @@ public class UserInterface : MonoBehaviour
 
             HPChangeEffect(playerFSMManager.Stat, PlayerHpBar);
 
-            if (playerFSMManager.isSkill1CTime) SkillUISet(0, playerFSMManager.Skill1CTime);
-            //if (playerFSMManager.isSkill2CTime) SkillUISet(1, playerFSMManager.Skill1CTime);
-            //if (playerFSMManager.isSkill3CTime) SkillUISet(2, playerFSMManager.Skill1CTime);
-            //if (playerFSMManager.isSkill4CTime) SkillUISet(3, playerFSMManager.Skill1CTime);
+            if (playerFSMManager.isSkill1CTime) PlayerSkillUISet(0, playerFSMManager.Skill1CTime);
+            if (playerFSMManager.isSkill2CTime) PlayerSkillUISet(1, playerFSMManager.Skill2CTime);
+            if (playerFSMManager.isSkill3CTime) PlayerSkillUISet(2, playerFSMManager.Skill3CTime);
+            if (playerFSMManager.isSkill4CTime) PlayerSkillUISet(3, playerFSMManager.Skill4CTime);
         }
 
     }
@@ -90,11 +90,11 @@ public class UserInterface : MonoBehaviour
 
     public HPBar PlayerHpBar;
 
-    public Image[] Skills;
-    private void SkillUISet(int i, float value)
+    public Image[] SkillIcons;
+    private void PlayerSkillUISet(int i, float value)
     {
-        var gaugeValue = Mathf.Clamp01(value * 0.01f);
-        Skills[i].fillAmount = gaugeValue;
+        var gaugeValue = Mathf.Clamp01(value / playerFSMManager.Stat.skillCTime[i]);
+        SkillIcons[i].fillAmount = gaugeValue;
     }
 
     public Image Special;

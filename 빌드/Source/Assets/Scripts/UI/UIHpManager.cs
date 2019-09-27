@@ -12,17 +12,6 @@ public class UIHpManager : MonoBehaviour {
     [SerializeField]
     GameObject enemyHpObject;
 
-    public PlayerStat _playerStat;
-
-    private void Awake()
-    {
-        _playerStat = PlayerFSMManager.Instance.Stat;
-    }
-    private void Update()
-    {
-        this.transform.localPosition =
-            new Vector3(-321 + 321 * (_playerStat.Hp / _playerStat.MaxHp), -1, 0);
-    }
     public void ShowEnemyHpBar(bool isOn)
     {
         enemyHpObject.SetActive(isOn);

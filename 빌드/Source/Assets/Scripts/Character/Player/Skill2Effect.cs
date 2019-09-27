@@ -47,7 +47,7 @@ public class Skill2Effect : MonoBehaviour
         //{
         //    player.isSkill2 = false;
         //}
-        player.Skill2UIReset();
+        player.Skill2Reset();
 
     }
     private void OnTriggerStay(Collider other)
