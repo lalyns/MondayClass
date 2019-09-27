@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 미션의 종류
+/// </summary>
+public enum MissionType
+{
+    Annihilation = 0,
+    Defence = 1,
+    Survival = 2,
+    Boss = 3,
+    Last,
+}
+
 public class MissionManager : MonoBehaviour
 {
-    /// <summary>
-    /// 미션의 종류
-    /// </summary>
-    public enum MissionType
-    {
-        Annihilation = 0,
-        Defence = 1,
-        Survival = 2,
-        Boss = 3,
-        Last,
-    }
-
     private static MissionManager _Instance;
     public static MissionManager Instance {
         get {
@@ -90,6 +90,7 @@ public class MissionManager : MonoBehaviour
         Instance.MissionSelector.SetActive(false);
         GameManager.CursorMode(false);
         GameManager.Instance.IsPuase = false;
+        UserInterface.FullModeSetMP();
 
         // 페이드 Out
         GameManager.Instance.SetFadeInOut(false);

@@ -45,7 +45,7 @@ public class RedHatATTACK : RedHatFSMState
 
     public void AttackSupport()
     {
-        UserInterface.Instance.PlayerHpBar.HitBackFun();
+        UserInterface.Instance.PCUI.PlayerHpBar.HitBackFun();
     }
 
     protected override void FixedUpdate()

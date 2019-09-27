@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 2274891494096624078}
   - component: {fileID: 2274891494096624113}
   - component: {fileID: 3422128152788782814}
+  - component: {fileID: 1756816077}
   m_Layer: 0
   m_Name: Prefab_Manager
   m_TagString: GameController
@@ -258,10 +259,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _EditorCursorLock: 1
-  _ActiveAllUI: 0
-  _ActivePlayerUI: 0
-  _ActiveMonsterUI: 0
-  _ActiveSystemUI: 0
   TimeMagnificationMode: 0
   TimeMagnificationValue: 0
   CharacterControl: 1
@@ -293,6 +290,40 @@ MonoBehaviour:
   _MissionStatus: 0
   _DummyLocationEffect: {fileID: 3422128150734019716}
   _PlayerInstance: {fileID: 0}
+--- !u!114 &1756816077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2274891494096624079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9187707127ad4c04ea0b181d18d4f3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeAllUI: 1
+  activePlayerUI: 1
+  activeMonsterUI: 0
+  activeSystemUI: 0
+  activeMissionProgressUI: 0
+  activeMissionSelectionUI: 0
+  UICanvas: {fileID: 0}
+  SystemUICanvas: {fileID: 0}
+  PlayerUIfaceCanvas: {fileID: 0}
+  MissionProgressUICanvas: {fileID: 0}
+  MissionSelectionUICanvas: {fileID: 0}
+  PCIcon: {fileID: 0}
+  PCIconSprites:
+  - {fileID: 21300000, guid: c81d7c0afeb12774bb9c8dcaa890c2c8, type: 3}
+  - {fileID: 21300000, guid: cafeb2d804d98e84a9740c45319008e5, type: 3}
+  PlayerHpBar: {fileID: 0}
+  SkillIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Special: {fileID: 0}
 --- !u!1 &2274891494841528154
 GameObject:
   m_ObjectHideFlags: 0

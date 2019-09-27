@@ -38,18 +38,18 @@ public class TempMissionProgress : MonoBehaviour
 
     private void Update()
     {
-        switch(MissionManager.Instance.CurrentMissionType)
-        {
-            case MissionManager.MissionType.Annihilation:
-                SetMission1();
-                break;
-            case MissionManager.MissionType.Defence:
-                SetMission3();
-                break;
-            case MissionManager.MissionType.Survival:
-                SetMission2();
-                break;
-        }
+        //switch(MissionManager.Instance.CurrentMissionType)
+        //{
+        //    case MissionType.Annihilation:
+        //        SetMission1();
+        //        break;
+        //    case MissionType.Defence:
+        //        SetMission3();
+        //        break;
+        //    case MissionType.Survival:
+        //        SetMission2();
+        //        break;
+        //}
     }
 
     public static void SetMission1()

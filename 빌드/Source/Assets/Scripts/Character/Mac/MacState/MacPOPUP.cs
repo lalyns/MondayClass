@@ -36,7 +36,7 @@ public class MacPOPUP : MacFSMState
 
     private void TargetPrioritySet()
     {
-        if (MissionManager.Instance.CurrentMissionType == MissionManager.MissionType.Defence)
+        if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
         {
 
             Collider[] allTarget = Physics.OverlapSphere(this.transform.position, _manager._DetectingRange);

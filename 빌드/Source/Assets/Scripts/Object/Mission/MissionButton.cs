@@ -20,7 +20,7 @@ public class MissionButton : MonoBehaviour
     public Text _RewardText;
 
     public Mission _Mission;
-    public MissionManager.MissionType _MissionType;
+    public MissionType _MissionType;
 
     public void Awake()
     {

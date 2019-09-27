@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Timeline;
 using UnityEngine.SceneManagement;
@@ -91,7 +90,6 @@ public class PlayerFSMManager : FSMManager
     [SerializeField]
     private List<GameObject> _monster = new List<GameObject>();
     public float SpecialGauge = 0;
-    public Image Skill3UI;
     Vector3 target;
     [SerializeField]
     public float Skill1Timer1, Skill1CTime;
