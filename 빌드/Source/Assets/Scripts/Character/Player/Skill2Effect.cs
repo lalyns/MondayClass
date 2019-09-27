@@ -14,7 +14,7 @@ public class Skill2Effect : MonoBehaviour
     private void Awake()
     {
         Sphere = GetComponent<SphereCollider>();
-        player = PlayerFSMManager.instance;
+        player = PlayerFSMManager.Instance;
 
     }
     private void OnDisable()

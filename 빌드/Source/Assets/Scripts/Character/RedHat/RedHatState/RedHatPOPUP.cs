@@ -58,7 +58,7 @@ public class RedHatPOPUP : RedHatFSMState
                 if (target.tag == "Player")
                 {
                     _manager._PriorityTarget = PlayerFSMManager.
-                        instance.GetComponentInChildren<Animator>()
+                        Instance.GetComponentInChildren<Animator>()
                         .GetComponent<Collider>();
                     break;
                 }
@@ -72,7 +72,7 @@ public class RedHatPOPUP : RedHatFSMState
         else
         {
             _manager._PriorityTarget = PlayerFSMManager.
-                instance.GetComponentInChildren<Animator>()
+                Instance.GetComponentInChildren<Animator>()
                 .GetComponent<Collider>();
         }
     }

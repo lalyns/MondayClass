@@ -137,16 +137,16 @@ public class MacFSMManager : FSMManager
 
         if (CurrentState == MacState.DEAD) return;
 
-        if (PlayerFSMManager.instance.isNormal)
+        if (PlayerFSMManager.Instance.isNormal)
             EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(hitLocation, "Effect");
 
-        if (!PlayerFSMManager.instance.isNormal)
+        if (!PlayerFSMManager.Instance.isNormal)
             EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(hitLocation, "Effect");
 
         CurrentAttackType = attackType;
         int value = GameLib.TransformTypeToInt(attackType);
 
-        PlayerStat playerStat = PlayerFSMManager.instance.Stat;
+        PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
         Stat.TakeDamage(playerStat, playerStat.DMG[value]);
         SetKnockBack(playerStat, value);
 
@@ -168,7 +168,7 @@ public class MacFSMManager : FSMManager
             SetState(MacState.HIT);
             //플레이어 쳐다본 후
             transform.localEulerAngles = Vector3.zero;
-            transform.LookAt(PlayerFSMManager.instance.Anim.transform);
+            transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
             // 뒤로 밀림
             transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
             //플레이어피버게이지증가?
@@ -193,10 +193,10 @@ public class MacFSMManager : FSMManager
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Weapon" && !PlayerFSMManager.instance.isSkill3)
+        if (other.transform.tag == "Weapon" && !PlayerFSMManager.Instance.isSkill3)
         {
             if (Stat.Hp > 0)
-                OnHitForMonster(PlayerFSMManager.instance.attackType);
+                OnHitForMonster(PlayerFSMManager.Instance.attackType);
 
             if (_CurrentState == MacState.ATTACK)
             {              
@@ -204,7 +204,7 @@ public class MacFSMManager : FSMManager
         }
         if (other.transform.tag == "Ball")
         {
-            if (PlayerFSMManager.instance.isNormal)
+            if (PlayerFSMManager.Instance.isNormal)
                 EffectPoolManager._Instance._PlayerEffectPool[2].ItemSetActive(hitLocation, "Effect");
             else
                 EffectPoolManager._Instance._PlayerEffectPool[3].ItemSetActive(hitLocation, "Effect");
@@ -220,7 +220,7 @@ public class MacFSMManager : FSMManager
         {
             SetState(MacState.HIT);
         }
-        if (other.transform.tag == "Weapon" && PlayerFSMManager.instance.isSkill3)
+        if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
         {
             StartCoroutine("Skill3Timer");
         }
@@ -232,7 +232,7 @@ public class MacFSMManager : FSMManager
 
     IEnumerator Skill3Timer()
     {
-        while (PlayerFSMManager.instance.isSkill3)
+        while (PlayerFSMManager.Instance.isSkill3)
         {
             OnHitForMonster(AttackType.SKILL3);
             yield return new WaitForSeconds(0.1f);

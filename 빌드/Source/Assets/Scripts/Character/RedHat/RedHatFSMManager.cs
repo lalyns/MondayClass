@@ -142,15 +142,15 @@ public class RedHatFSMManager : FSMManager
 
         if (CurrentState == RedHatState.DEAD) return;
 
-        if (PlayerFSMManager.instance.isNormal)
+        if (PlayerFSMManager.Instance.isNormal)
             EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(hitLocation, "Effect");
 
-        if (!PlayerFSMManager.instance.isNormal)
+        if (!PlayerFSMManager.Instance.isNormal)
             EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(hitLocation, "Effect");
 
         CurrentAttackType = attackType;
         int value = TransformTypeToInt(attackType);
-        PlayerStat playerStat = PlayerFSMManager.instance.Stat;
+        PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
         Stat.TakeDamage(playerStat, playerStat.DMG[value]);
         SetKnockBack(playerStat, value);
@@ -176,7 +176,7 @@ public class RedHatFSMManager : FSMManager
             try
             {
                 transform.localEulerAngles = Vector3.zero;
-                transform.LookAt(PlayerFSMManager.instance.Anim.transform);
+                transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
                 //플레이어피버게이지증가?
             }
             catch
@@ -230,17 +230,17 @@ public class RedHatFSMManager : FSMManager
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Weapon" && !PlayerFSMManager.instance.isSkill3)
+        if (other.transform.tag == "Weapon" && !PlayerFSMManager.Instance.isSkill3)
         {
             if (Stat.Hp > 0)
-                OnHitForMonster(PlayerFSMManager.instance.attackType);
+                OnHitForMonster(PlayerFSMManager.Instance.attackType);
         }
 
         if (other.transform.tag == "Ball")
         {
-            if (PlayerFSMManager.instance.isNormal)                
+            if (PlayerFSMManager.Instance.isNormal)                
                 Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
-            if (!PlayerFSMManager.instance.isNormal)
+            if (!PlayerFSMManager.Instance.isNormal)
                 Instantiate(hitEffect_Skill1_Special, hitLocation.transform.position, Quaternion.identity);
 
             other.transform.gameObject.SetActive(false);
@@ -255,7 +255,7 @@ public class RedHatFSMManager : FSMManager
         {
             SetState(RedHatState.HIT);
         }
-        if (other.transform.tag == "Weapon" && PlayerFSMManager.instance.isSkill3)
+        if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
         {
             StartCoroutine("Skill3Timer");
         }

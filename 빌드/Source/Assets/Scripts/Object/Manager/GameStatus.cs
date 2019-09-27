@@ -31,7 +31,7 @@ public class GameStatus : MonoBehaviour
     bool dummySet = false;
     public void Awake()
     {
-        _PlayerInstance = PlayerFSMManager.instance;
+        _PlayerInstance = PlayerFSMManager.Instance;
     }
 
     public void Start()
@@ -142,7 +142,7 @@ public class GameStatus : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                PlayerFSMManager.instance.SpecialGauge = 100.0f;
+                PlayerFSMManager.Instance.SpecialGauge = 100.0f;
             }
         }
 

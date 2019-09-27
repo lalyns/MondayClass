@@ -16,12 +16,12 @@ public class UIHpManager : MonoBehaviour {
 
     private void Awake()
     {
-        _playerStat = PlayerFSMManager.instance.Stat;
+        _playerStat = PlayerFSMManager.Instance.Stat;
     }
     private void Update()
     {
         this.transform.localPosition =
-            new Vector3(-321 + 307 * (_playerStat.Hp / _playerStat.MaxHp), -1, 0);
+            new Vector3(-321 + 321 * (_playerStat.Hp / _playerStat.MaxHp), -1, 0);
     }
     public void ShowEnemyHpBar(bool isOn)
     {

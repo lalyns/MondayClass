@@ -7,10 +7,7 @@ using UnityEngine.UI;
 public class UserInterface : MonoBehaviour
 {
     private static UserInterface instance;
-    public static UserInterface Instance 
-    {
-        get => instance;
-    }
+    public static UserInterface Instance => instance;
 
     private void Awake()
     {
@@ -20,12 +17,12 @@ public class UserInterface : MonoBehaviour
         }
     }
 
-    private bool activeAllUI;
-    private bool activePlayerUI;
-    private bool activeMonsterUI;
-    private bool activeSystemUI;
-    private bool activeMissionProgressUI;
-    private bool activeMissionSelectionUI;
+    [SerializeField] private bool activeAllUI = true;
+    [SerializeField] private bool activePlayerUI = true;
+    [SerializeField] private bool activeMonsterUI = true;
+    [SerializeField] private bool activeSystemUI = true;
+    [SerializeField] private bool activeMissionProgressUI = true;
+    [SerializeField] private bool activeMissionSelectionUI = true;
 
     public GameObject UICanvas;
     public static void SetAllUserInterface(bool isActive)
@@ -62,7 +59,7 @@ public class UserInterface : MonoBehaviour
         Instance.MissionSelectionUICanvas.SetActive(isActive);
     }
 
-    private PlayerFSMManager playerFSMManager => PlayerFSMManager.instance;
+    private PlayerFSMManager playerFSMManager => PlayerFSMManager.Instance;
     private void Update()
     {
         if (!activeAllUI) { return; }
@@ -71,6 +68,8 @@ public class UserInterface : MonoBehaviour
         {
             PCIconImageSet(playerFSMManager.isNormal);
             PCSpecialGaugeSet(playerFSMManager.SpecialGauge);
+
+            HPChangeEffect(playerFSMManager.Stat, PlayerHpBar);
 
             if (playerFSMManager.isSkill1CTime) SkillUISet(0, playerFSMManager.Skill1CTime);
             //if (playerFSMManager.isSkill2CTime) SkillUISet(1, playerFSMManager.Skill1CTime);
@@ -89,7 +88,7 @@ public class UserInterface : MonoBehaviour
         PCIcon.sprite = isSpecial ? PCIconSprites[0] : PCIconSprites[1];
     }
 
-    public Image HpBar;
+    public HPBar PlayerHpBar;
 
     public Image[] Skills;
     private void SkillUISet(int i, float value)
@@ -104,14 +103,44 @@ public class UserInterface : MonoBehaviour
         var gaugeValue = Mathf.Clamp01(value * 0.01f);
         Special.fillAmount = gaugeValue;
     }
-    
-    
     #endregion
 
     #region System User Interface
     #endregion
 
     #region Monster User Interface
+    #endregion
+
+    #region User Interface Effect Support Functions
+
+    /// <summary>
+    /// HP Bar UI 변화에 효과를 주는 매소드
+    /// </summary>
+    /// <param name="stat"> 적용해야 하는 HP 정보 </param>
+    /// <param name="hpBar"> 대상 HPBar </param>
+    /// <param name="speed"> HP바가 줄어드는 속도 (기본:5) </param>
+    /// <param name="barSize"> HP Bar의 가로길이 (기본:350) </param>
+    private void HPChangeEffect(CharacterStat stat, HPBar hpBar, float speed = 5f, float barSize = 350f)
+    {
+        Transform currentTransform = hpBar.CurrentFillGround.transform;
+        Transform laterTransform = hpBar.LaterFillGround.transform;
+        Vector3 barLocation = new Vector3(-barSize + barSize * (stat.Hp / stat.MaxHp), 0, 0);
+
+        currentTransform.localPosition = barLocation;
+
+        if (hpBar.backHitMove)
+        {
+            laterTransform.localPosition = Vector3.Lerp(laterTransform.localPosition,
+                barLocation, speed * Time.deltaTime);
+
+            if (Vector3.Distance(currentTransform.localPosition, laterTransform.localPosition) <= 0.01f)
+            {
+                laterTransform.localPosition = currentTransform.localPosition;
+                hpBar.backHitMove = false;
+            }
+        }
+    }
+
     #endregion
 
 }

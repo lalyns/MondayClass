@@ -42,6 +42,10 @@ public class PlayerFSMManager : FSMManager
 
     public PlayerSound _Sound;
 
+    private static PlayerFSMManager instance;
+    public static PlayerFSMManager Instance => instance;
+
+
     private bool _onAttack = false;
     private bool _isinit = false;
     public PlayerState startState = PlayerState.IDLE;
@@ -671,10 +675,6 @@ public class PlayerFSMManager : FSMManager
         }
     }
 
-
-
-
-
     // 스킬 켜주고 꺼주고 하는 함수
     void Skill1Set(GameObject[] effects, GameObject[] effects_special, bool isnormal)
     {
@@ -1085,5 +1085,4 @@ public class PlayerFSMManager : FSMManager
         Skill3_End.SetActive(false);
     }
 
-    public static PlayerFSMManager instance;
 }
