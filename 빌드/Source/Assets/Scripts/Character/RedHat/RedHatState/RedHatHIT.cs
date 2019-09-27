@@ -26,23 +26,14 @@ public class RedHatHIT : RedHatFSMState
         direction.y = 0;
         knockBackTargetPos = direction + this.transform.position;
 
-        StartCoroutine(GameLib.Blink(_manager.WPMats));
-        foreach (Material mat in _manager.Mats)
-        {
-            StartCoroutine(GameLib.Blink(mat));
-        }
+        StartCoroutine(GameLib.Blinking(_manager.materialList));
     }
+
     public override void EndState()
     {
         base.EndState();
 
         hitEnd = false;
-
-        _manager.WPMats.SetFloat("_Hittrigger", 0);
-        foreach (Material mat in _manager.Mats)
-        {
-            mat.SetFloat("_Hittrigger", 0);
-        }
 
         _manager.CurrentAttackType = AttackType.NONE;
     }
@@ -63,24 +54,6 @@ public class RedHatHIT : RedHatFSMState
     {
         base.FixedUpdate();
 
-        if(knockBack)
-            StartCoroutine(KnockBack(knockBackDuration, knockBackPower));
-    }
-
-    public IEnumerator KnockBack(int dur, float power)
-    {
-        Vector3 direction = _manager.PlayerCapsule.transform.forward.normalized;
-        direction.y = 0;
-
-        for (int time = 0; time < dur; time++)
-        {
-
-            transform.position = knockBackTargetPos + direction * (power);
-
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        knockBack = false;
     }
 
     public void HitEnd()

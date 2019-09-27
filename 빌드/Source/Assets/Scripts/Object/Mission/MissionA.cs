@@ -10,11 +10,11 @@ public class MissionA : Mission
     int waveLevel = 0;
 
     public Transform[] Wave1Locations;
-    public ObjectManager.MonsterType[] Wave1MonsterType;
+    public MonsterType[] Wave1MonsterType;
     public Transform[] Wave2Locations;
-    public ObjectManager.MonsterType[] Wave2MonsterType;
+    public MonsterType[] Wave2MonsterType;
     public Transform[] Wave3Locations;
-    public ObjectManager.MonsterType[] Wave3MonsterType;
+    public MonsterType[] Wave3MonsterType;
 
     protected override void Update()
     {
@@ -71,10 +71,10 @@ public class MissionA : Mission
                 {
                     switch (Wave1MonsterType[i])
                     {
-                        case ObjectManager.MonsterType.Mac:
+                        case MonsterType.Mac:
                             MonsterPoolManager._Instance._Mac.ItemSetActive(location, "monster");
                             break;
-                        case ObjectManager.MonsterType.RedHat:
+                        case MonsterType.RedHat:
                             MonsterPoolManager._Instance._RedHat.ItemSetActive(location, "monster");
                             break;
                     }
@@ -88,10 +88,10 @@ public class MissionA : Mission
                 {
                     switch (Wave2MonsterType[i])
                     {
-                        case ObjectManager.MonsterType.Mac:
+                        case MonsterType.Mac:
                             MonsterPoolManager._Instance._Mac.ItemSetActive(location, "monster");
                             break;
-                        case ObjectManager.MonsterType.RedHat:
+                        case MonsterType.RedHat:
                             MonsterPoolManager._Instance._RedHat.ItemSetActive(location, "monster");
                             break;
                     }
@@ -105,10 +105,10 @@ public class MissionA : Mission
                 {
                     switch (Wave3MonsterType[i])
                     {
-                        case ObjectManager.MonsterType.Mac:
+                        case MonsterType.Mac:
                             MonsterPoolManager._Instance._Mac.ItemSetActive(location, "monster");
                             break;
-                        case ObjectManager.MonsterType.RedHat:
+                        case MonsterType.RedHat:
                             MonsterPoolManager._Instance._RedHat.ItemSetActive(location, "monster");
                             break;
                     }

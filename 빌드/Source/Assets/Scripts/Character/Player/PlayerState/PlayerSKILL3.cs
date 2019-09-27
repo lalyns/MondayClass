@@ -16,6 +16,9 @@ public class PlayerSKILL3 : FSMState
         isMin = false;
 
         _manager.attackType = AttackType.SkILL2;
+
+        _manager.Skill3_Capsule.enabled = false;
+
     }
 
     public override void EndState()
@@ -113,24 +116,10 @@ public class PlayerSKILL3 : FSMState
 
 
 
-        if (isAttack)
-            _manager.Skill3Attack();
-        else
-            _manager.Skill3Cancel();
-
-
-        if ((_time >= 1.2f && _time < 1.4f)
-            || (_time >= 1.7f && _time < 1.9f)
-            || (_time >= 2.2f && _time < 2.4f)
-            || (_time >= 2.7f && _time < 2.9f)
-            || (_time >= 3.2f && _time < 3.4f)
-            || (_time >= 3.7f && _time < 3.9f))
+       if(_time >= 1.2f)
         {
-            isAttack = true;
+            _manager.Skill3_Capsule.enabled = true;
         }
-
-        else
-            isAttack = false;
 
 
         if (_time >= 4.2f && !isLock)
@@ -144,6 +133,7 @@ public class PlayerSKILL3 : FSMState
         if (_time >= 4.8f)
         {
             _manager.SetState(PlayerState.IDLE);
+            _manager.Skill3_Capsule.enabled = false;
             return;
         }
 

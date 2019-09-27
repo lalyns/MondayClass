@@ -5,7 +5,7 @@ using UnityEngine;
 public class Skill2Effect : MonoBehaviour
 {
 
-    float _time;
+    public float _time;
     SphereCollider Sphere;
     PlayerFSMManager player;
     float _triggerTime = 0;
@@ -17,41 +17,31 @@ public class Skill2Effect : MonoBehaviour
         player = PlayerFSMManager.instance;
 
     }
-    void Start()
-    {
-        Sphere.enabled = true;
-    }
-
     private void OnDisable()
     {
+        Sphere.enabled = true;
         _time = 0;
     }
-    // Update is called once per frame
+
+    // Update is called once per framea
     void Update()
     {
+        _time += Time.deltaTime;
+
+
         if (_time <= 0.1f)
         {
             transform.position = player.Skill2_Parent.position;
         }
 
 
-        _time += Time.deltaTime;
 
         if (_time >= 3f)
         {
-            Debug.Log("시간 지남");
-            try
-            {
-
-            }
-            catch
-            {
-
-            }
-            //_time = 0;
             _triggerTime = 0;
-            //gameObject.SetActive(false);
             Sphere.enabled = false;
+           // gameObject.SetActive(false);
+
         }
         //if (_time >= 10f)
         //{

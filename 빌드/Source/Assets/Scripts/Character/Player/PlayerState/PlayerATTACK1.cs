@@ -26,13 +26,13 @@ public class PlayerATTACK1 : FSMState
 
         _manager.isCantMove = _time <= _manager._attack1Time-0.2f ? true : false;
         
-        if (Input.GetMouseButtonDown(0) && !_manager.isAttackTwo)
+        if (Input.GetMouseButtonDown(0) && !_manager.isAttackTwo && _time >= 0.15f)
         {
             _manager.isAttackTwo = true;
         }
         if (_manager.isAttackTwo)
         {
-            if (_time >= _manager._attack1Time)
+            if (_time >= _manager._attack1Time- 0.2f)
             {
                 _manager.SetState(PlayerState.ATTACK2);
                 _time = 0;

@@ -14,11 +14,8 @@ public class MacDEAD : MacFSMState
         Dead = false;
         time = 0;
 
-        foreach (Material mat in _manager.Mats)
-        {
-            mat.SetFloat("_DissolveEdgeMultiplier", 8);
-            _manager.CC.detectCollisions = false;
-        }
+        GameLib.DissoveActive(_manager.materialList, true);
+        StartCoroutine(GameLib.Dissolving(_manager.materialList));
 
         useGravity = false;
         _manager.CC.detectCollisions = false;
@@ -28,11 +25,7 @@ public class MacDEAD : MacFSMState
     {
         base.EndState();
 
-        foreach (Material mat in _manager.Mats)
-        {
-            mat.SetFloat("_DissolveEdgeMultiplier", 0);
-            mat.SetFloat("_DissolveIntensity", 0);
-        }
+        GameLib.DissoveActive(_manager.materialList, false);
 
         time = 0;
 
@@ -49,11 +42,6 @@ public class MacDEAD : MacFSMState
         base.Update();
 
         time += 0.45f * Time.deltaTime;
-
-        foreach (Material mat in _manager.Mats)
-        {
-            mat.SetFloat("_DissolveIntensity", time);
-        }
 
         if (time > 0.7 && !Dead)
         {
