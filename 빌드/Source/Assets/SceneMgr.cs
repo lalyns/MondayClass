@@ -31,7 +31,10 @@ public class SceneMgr : MonoBehaviour
     private void Start()
     {
         if (_SceneNumber == 3)
+        {
+            PlaySet.SetActive(false);
             BossDirector.Play();
+        }
 
     }
 
