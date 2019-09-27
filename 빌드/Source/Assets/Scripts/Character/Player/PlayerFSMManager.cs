@@ -30,8 +30,8 @@ public enum AttackType
     SKILL3 = 1 << 6,
     SKILL4 = 1 << 7,
 }
+
 [RequireComponent(typeof(PlayerStat))]
-[ExecuteInEditMode]
 public class PlayerFSMManager : FSMManager
 {
     //public AudioSource musicPlayer;
@@ -86,13 +86,12 @@ public class PlayerFSMManager : FSMManager
     [SerializeField]
     private List<GameObject> _monster = new List<GameObject>();
     public float SpecialGauge = 0;
-    public Image SpecialGauge_Image;
     public Image Skill1UI, Skill2UI, Skill3UI;
     Vector3 target;
     [SerializeField]
-    float Skill1Timer1, Skill1CTime;
+    public float Skill1Timer1, Skill1CTime;
     [SerializeField]
-    float Skill2CTime, Skill3CTime = 10f;
+    public float Skill2CTime, Skill3CTime = 10f;
     [Header("스킬1번 날라가는 속도,")]
     public float skill1Speed = 20f;
     [Header("스킬1번 날라가는 시간,")]
@@ -127,7 +126,6 @@ public class PlayerFSMManager : FSMManager
     [HideInInspector]
     public CapsuleCollider Skill3_Capsule;
     SphereCollider SKill2_Sphere;
-    public Image pc_Icon, sp_Icon;
     [Header("플레이어가 변신상태인지 아닌지 확인시켜줌.")]
     public bool isNormal = false;
 
@@ -215,8 +213,6 @@ public class PlayerFSMManager : FSMManager
         isMouseYLock = false;
         try
         {
-            pc_Icon.gameObject.SetActive(true);
-            sp_Icon.gameObject.SetActive(false);
             Skill3_Start.SetActive(false);
             Skill3_End.SetActive(false);
         }
@@ -340,41 +336,7 @@ public class PlayerFSMManager : FSMManager
 
     private void Update()
     {
-
-        if (GameManager.Instance._ActivePlayerUI)
-        {
-            // UI 참조 안하게.
-            Skill1UI = null;
-            Skill2UI = null;
-            Skill3UI = null;
-            SpecialGauge_Image = null;
-            pc_Icon = null;
-            sp_Icon = null;
-        }
-
-
-
-        //isNormal = Normal.activeSelf;
-        try
-        {
-            isNormal = pc_Icon.gameObject.activeSelf;
-
-            //if (isNormal)
-            //    for(int i=0; i<7; i++)
-            //    {
-            //        Stat.DMG[i] = Stat.DMG[i];
-            //    }
-            //else
-            //    for (int i = 0; i < 7; i++)
-            //    {
-            //        Stat.DMG[i] *= 2;
-            //    }
-        }
-        catch
-        {
-
-        }
-
+       
         // 공격처리는 죽음을 제외한 모든 상황에서 처리
         if (CurrentState != PlayerState.DEAD)
         {
@@ -413,12 +375,12 @@ public class PlayerFSMManager : FSMManager
 
         try
         {
-            if (SpecialGauge_Image.fillAmount <= 0)
-                SpecialGauge_Image.fillAmount = 0;
-            if (SpecialGauge_Image.fillAmount >= 1)
-            {
-                SpecialGauge_Image.fillAmount = 1;
-            }
+            //if (SpecialGauge_Image.fillAmount <= 0)
+            //    SpecialGauge_Image.fillAmount = 0;
+            //if (SpecialGauge_Image.fillAmount >= 1)
+            //{
+            //    SpecialGauge_Image.fillAmount = 1;
+            //}
         }
         catch
         {
@@ -432,28 +394,23 @@ public class PlayerFSMManager : FSMManager
         Skill3MouseLock();
         try
         {
-            if (isNormal)
-                SpecialGauge_Image.fillAmount = SpecialGauge / 100f;
+            //if (isNormal)
+            //    SpecialGauge_Image.fillAmount = SpecialGauge / 100f;
         }
         catch
         {
 
         }
+
         Skill3UIReset();
+
+
         if (!isNormal)
         {
             normalTimer -= Time.deltaTime;
+            SpecialGauge -= gaugePerSecond * Time.deltaTime;
 
-            try
-            {
-                SpecialGauge_Image.fillAmount = (normalTimer * gaugePerSecond) / 100.0f;
-            }
-            catch
-            {
-
-            }
-
-            if (normalTimer <= 0f)
+            if (SpecialGauge <= 0f)
             {
                 isNormal = true;
                 ChangeNormal();
@@ -529,13 +486,11 @@ public class PlayerFSMManager : FSMManager
                 time = ac.animationClips[i].length;
         return time;
     }
+
     void ChangeNormal()
     {
         try
         {
-            pc_Icon.gameObject.SetActive(true);
-            sp_Icon.gameObject.SetActive(false);
-
             Normal.SetActive(true);
             Special.SetActive(false);
         }
@@ -544,21 +499,14 @@ public class PlayerFSMManager : FSMManager
 
         }
     }
+
     public void ChangeModel()
     {
         if (isNormal && SpecialGauge >= 100)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                try
-                {
-                    pc_Icon.gameObject.SetActive(false);
-                    sp_Icon.gameObject.SetActive(true);
-                }
-                catch
-                {
-
-                }
+                isNormal = false;
                 isSpecial = true;
                 TimeLine.SetActive(true);
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
@@ -991,8 +939,8 @@ public class PlayerFSMManager : FSMManager
     }
     public void Skill2()
     {
-        if (isSkill2)
-            return;
+        if (isSkill2) return;
+
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             SetState(PlayerState.SKILL2);
