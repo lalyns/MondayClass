@@ -20,11 +20,8 @@ public class RedHatDEAD : RedHatFSMState
             _manager.dashEffect = null;
         }
 
-        _manager.WPMats.SetFloat("_DissolveEdgeMultiplier", 8);
-        foreach (Material mat in _manager.Mats)
-        {
-            mat.SetFloat("_DissolveEdgeMultiplier", 8);
-        }
+        GameLib.DissoveActive(_manager.materialList, true);
+        StartCoroutine(GameLib.Dissolving(_manager.materialList));
 
         useGravity = false;
         _manager.CC.detectCollisions = false;
@@ -34,15 +31,7 @@ public class RedHatDEAD : RedHatFSMState
     {
         base.EndState();
 
-        _manager.WPMats.SetFloat("_DissolveEdgeMultiplier", 0);
-        _manager.WPMats.SetFloat("_DissolveIntensity", 0);
-
-        foreach (Material mat in _manager.Mats)
-        {
-            mat.SetFloat("_DissolveEdgeMultiplier", 0);
-            mat.SetFloat("_DissolveIntensity", 0);
-        }
-
+        GameLib.DissoveActive(_manager.materialList, false);
         useGravity = true;
         _manager.CC.detectCollisions = true;
         
@@ -52,24 +41,11 @@ public class RedHatDEAD : RedHatFSMState
 
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     protected override void Update()
     {
         base.Update();
 
         time += 0.45f * Time.deltaTime;
-
-        _manager.WPMats.SetFloat("_DissolveIntensity", time);
-        foreach (Material mat in _manager.Mats)
-        {
-            mat.SetFloat("_DissolveIntensity", time);
-        }
 
         if(time > 0.7 && !Dead)
         {

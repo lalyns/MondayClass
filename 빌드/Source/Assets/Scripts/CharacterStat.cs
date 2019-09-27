@@ -12,6 +12,21 @@ public class CharacterStat : MonoBehaviour
     protected int _damage = 100;
     public int Damage { get { return _damage; } }
 
+    [SerializeField] protected int[] _dmg = new int[7];
+    public int[] DMG => _dmg;
+
+    [SerializeField] protected bool[] _KnockBackFlag = new bool[7];
+    public bool[] KnockBackFlag => _KnockBackFlag;
+
+    [SerializeField] protected int[] _KnockBackDuration = new int[7];
+    public int[] KnockBackDuration => _KnockBackDuration;
+
+    [SerializeField] protected float[] _KnockBackPower = new float[7];
+    public float[] KnockBackPower => _KnockBackPower;
+
+    [SerializeField] protected float[] _KnockBackDelay = new float[7];
+    public float[] KnockBackDelay => _KnockBackDelay;
+
 
     protected float _maxHp = 1000.0f;
     public float MaxHp { get { return _maxHp; } }
