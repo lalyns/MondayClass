@@ -138,9 +138,10 @@ public class MacFSMManager : FSMManager
         if (CurrentState == MacState.DEAD) return;
 
         if (PlayerFSMManager.instance.isNormal)
-            Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
-        else
-            Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
+            EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(hitLocation, "Effect");
+
+        if (!PlayerFSMManager.instance.isNormal)
+            EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(hitLocation, "Effect");
 
         CurrentAttackType = attackType;
         int value = GameLib.TransformTypeToInt(attackType);

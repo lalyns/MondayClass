@@ -14,6 +14,8 @@ public class EffectPoolManager : MonoBehaviour
 
     public ObjectPool _MissionBstarPool;
 
+    public ObjectPool[] _PlayerEffectPool;
+
     private void Awake()
     {
         if(_Instance == null)
