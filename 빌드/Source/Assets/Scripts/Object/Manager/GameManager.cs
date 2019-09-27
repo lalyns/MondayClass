@@ -21,11 +21,6 @@ public class GameManager : MonoBehaviour
 
     public bool _EditorCursorLock = true;
 
-    public bool _ActiveAllUI;
-    public bool _ActivePlayerUI;
-    public bool _ActiveMonsterUI;
-    public bool _ActiveSystemUI;
-
     public bool TimeMagnificationMode;
     [Range(0,5)] public float TimeMagnificationValue;
 

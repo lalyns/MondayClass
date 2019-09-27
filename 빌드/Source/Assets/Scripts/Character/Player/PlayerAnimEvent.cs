@@ -18,7 +18,7 @@ public class PlayerAnimEvent : MonoBehaviour
     }
     private void Update()
     {
-        isNormal = player.pc_Icon.gameObject.activeSelf;
+        isNormal = player.isNormal;
     }
     void hitCheck()
     {
