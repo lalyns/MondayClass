@@ -149,7 +149,16 @@ public class MacFSMManager : FSMManager
         Stat.TakeDamage(playerStat, playerStat.DMG[value]);
         SetKnockBack(playerStat, value);
 
-        StartCoroutine(Shake.instance.ShakeCamera(.1f, 0.2f, 0.1f));
+        if(attackType == AttackType.ATTACK1 || attackType == AttackType.ATTACK2)
+            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.05f, 0.1f));
+        if (attackType == AttackType.ATTACK3)
+            StartCoroutine(Shake.instance.ShakeCamera(0.2f, 0.2f, 0.1f));
+        if(attackType == AttackType.SKILL1)
+            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.1f, 0.1f));
+        if(attackType == AttackType.SkILL2)
+            StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
+        if (attackType == AttackType.SKILL3)
+            StartCoroutine(Shake.instance.ShakeCamera(0.01f, 0.01f, 0.01f));
 
         if (Stat.Hp > 0)
         {
@@ -242,7 +251,13 @@ public class MacFSMManager : FSMManager
             SetState(MacState.HIT);
         }
     }
-   
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.transform.tag == "Weapon" && PlayerFSMManager.instance.isSkill3)
+        {
+            OnHitForMonster(PlayerFSMManager.instance.attackType);
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
         if (other.transform.tag == "Skill2")

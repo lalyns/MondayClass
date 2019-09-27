@@ -124,7 +124,8 @@ public class PlayerFSMManager : FSMManager
     public GameObject Change_Effect;
     public float specialTimer = 0;
     CapsuleCollider Attack_Capsule;
-    CapsuleCollider Skill3_Capsule;
+    [HideInInspector]
+    public CapsuleCollider Skill3_Capsule;
     SphereCollider SKill2_Sphere;
     public Image pc_Icon, sp_Icon;
     [Header("플레이어가 변신상태인지 아닌지 확인시켜줌.")]

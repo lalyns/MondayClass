@@ -32,7 +32,7 @@ public class PlayerATTACK1 : FSMState
         }
         if (_manager.isAttackTwo)
         {
-            if (_time >= _manager._attack1Time)
+            if (_time >= _manager._attack1Time- 0.2f)
             {
                 _manager.SetState(PlayerState.ATTACK2);
                 _time = 0;
