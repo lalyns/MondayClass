@@ -197,7 +197,6 @@ public class GameManager : MonoBehaviour
         {
             i += speed;
             temp.a = i / 100f;
-            Debug.Log(temp.a + " : " + callWrite);
             FadeInOutPanel.color = temp;
 
             yield return new WaitForSeconds(0.15f);
@@ -209,13 +208,12 @@ public class GameManager : MonoBehaviour
     {
         float i = 100;
 
-        Color temp = FadeInOutPanel.color;
+        Color tempColor = FadeInOutPanel.color;
         for (i = 100; i >= 0; )
         {
             i -= speed;
-            temp.a = i / 100f;
-            Debug.Log(temp.a);
-            FadeInOutPanel.color = temp;
+            tempColor.a = i / 100f;
+            FadeInOutPanel.color = tempColor;
             
             yield return new WaitForSeconds(0.15f);
         }

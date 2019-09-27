@@ -103,7 +103,7 @@ public class PlayerFSMManager : FSMManager
 
     public bool isSkill3;
 
-    [HideInInspector]
+    //[HideInInspector]
     public float _attack1Time, _attack2Time, _attack3Time, _attackBack1, _attackBack2, _specialAnim, _skill2Time, _skill3Time;
 
     [Header("X축 마우스 감도")]
@@ -1107,25 +1107,22 @@ public class PlayerFSMManager : FSMManager
         Skill1UI.fillAmount = 1f;
         Skill1UI.gameObject.SetActive(false);
         isSkill1CTime = false;
-
+        isBall = true;
+        if (isNormal)
+            Skill1_Amount = 4;
+        else
+            Skill1_Amount = 6;        
         // 스킬 2번 쿨타임 관련.
         Skill2CTime = 10f;
         Skill2UI.fillAmount = 1f;
         Skill2UI.gameObject.SetActive(false);
         Skill2_Start.SetActive(false);
         isSkill2 = false;
-
         // 스킬 3번 쿨타임 관련.
         Skill3CTime = 10f;
         Skill3UI.fillAmount = 1f;
         Skill3UI.gameObject.SetActive(false);
         Skill3_End.SetActive(false);
-
-
-        if (isNormal)
-                Skill1_Amount = 4;
-        else
-                Skill1_Amount = 6;
     }
 
     public static PlayerFSMManager instance;

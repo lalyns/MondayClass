@@ -47,8 +47,10 @@ public class MacFSMManager : FSMManager
     public Animator Anim { get { return _Anim; } }
 
     public Transform _AttackTransform;
+
+    // Renderers
     public SkinnedMeshRenderer _MR;
-    public Material[] Mats;
+    public List<Material> materialList = new List<Material>();
 
     public Slider _HPSilder;
     public GameObject hitEffect;
@@ -79,8 +81,8 @@ public class MacFSMManager : FSMManager
         _Stat = GetComponent<MacStat>();
         _Anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<MonsterSound>();
-        Mats = _MR.materials;
 
+        materialList.AddRange(_MR.materials);
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
@@ -99,7 +101,7 @@ public class MacFSMManager : FSMManager
             state.enabled = false;
         }
 
-        monsterType = ObjectManager.MonsterType.Mac;
+        monsterType = MonsterType.Mac;
     }
 
     private void Start()
@@ -136,18 +138,19 @@ public class MacFSMManager : FSMManager
         if (CurrentState == MacState.DEAD) return;
 
         if (PlayerFSMManager.instance.isNormal)
-            Instantiate(hitEffect, hitLocation.transform.position, Quaternion.identity);
-        else
-            Instantiate(hitEffect_Special, hitLocation.transform.position, Quaternion.identity);
+            EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(hitLocation, "Effect");
+
+        if (!PlayerFSMManager.instance.isNormal)
+            EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(hitLocation, "Effect");
 
         CurrentAttackType = attackType;
-        int value = TransformTypeToInt(attackType);
+        int value = GameLib.TransformTypeToInt(attackType);
 
         PlayerStat playerStat = PlayerFSMManager.instance.Stat;
         Stat.TakeDamage(playerStat, playerStat.DMG[value]);
         SetKnockBack(playerStat, value);
 
-        StartCoroutine(Shake.instance.ShakeCamera(.2f, 0.03f, 0.1f));
+        StartCoroutine(Shake.instance.ShakeCamera(.1f, 0.2f, 0.1f));
 
         if (Stat.Hp > 0)
         {
@@ -177,36 +180,6 @@ public class MacFSMManager : FSMManager
         KnockBackDuration = stat.KnockBackDuration[attackType];
         KnockBackPower = stat.KnockBackPower[attackType];
         KnockBackDelay = stat.KnockBackDelay[attackType];
-    }
-
-    public int TransformTypeToInt(AttackType type)
-    {
-        switch (type)
-        {
-            case AttackType.ATTACK1:
-                return 0;
-
-            case AttackType.ATTACK2:
-                return 1;
-
-            case AttackType.ATTACK3:
-                return 2;
-
-            case AttackType.SKILL1:
-                return 3;
-
-            case AttackType.SkILL2:
-                return 4;
-
-            case AttackType.SKILL3:
-                return 5;
-
-            case AttackType.SKILL4:
-                return 6;
-
-            default:
-                return -1;
-        }
     }
 
     public void OnTriggerEnter(Collider other)
@@ -253,7 +226,6 @@ public class MacFSMManager : FSMManager
                 }
 
             }
-
             if (_CurrentState == MacState.ATTACK)
             {
                 try
@@ -266,21 +238,21 @@ public class MacFSMManager : FSMManager
             }
         }
        
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.transform.tag == "Ball")
+        if(other.transform.tag == "Skill2")
         {
-            //if (Stat.Hp > 0)
-            //{
-            //    OnHit();
-            //}
-
-            if (_CurrentState == MacState.ATTACK)
+            SetState(MacState.HIT);
+        }
+    }
+   
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.tag == "Skill2")
+        {
+            if (Stat.Hp > 0)
             {
                 try
                 {
-
+                    OnHitForMonster(AttackType.SkILL2);
                 }
                 catch
                 {
@@ -288,19 +260,7 @@ public class MacFSMManager : FSMManager
                 }
             }
         }
-
-        if (other.transform.tag == "Skill2")
-        {
-           
-            Stat.TakeDamage(Stat, 10f);
-
-            if (Stat.Hp > 0)
-            {
-                SetState(MacState.HIT);
-            }
-        }
     }
-
     public override void SetDeadState()
     {
         base.SetDeadState();

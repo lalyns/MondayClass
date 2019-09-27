@@ -84,6 +84,12 @@ public class ObjectPool : MonoBehaviour
                 item.GetComponent<RedHatFSMManager>().SetState(RedHatState.POPUP);
             }
         }
+
+        if(type == "Effect")
+        {
+            item.GetComponent<Effects>().EffectPlay();
+            item.GetComponent<Effects>().targetPool = this;
+        }
     }
 
     public void ItemSetActive(Transform respawnTrans, bool bulletType)

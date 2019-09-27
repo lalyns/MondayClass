@@ -18,18 +18,6 @@ public class PlayerTRANS : FSMState
 
     void Update()
     {
-        //_time += Time.deltaTime;
-
-        //if(_time >= 1.90f)
-        //{
-        //    _manager.WeaponTransformEffect.SetActive(false);
-        //    _manager.Normal.SetActive(false);
-        //    _manager.Special.SetActive(true);
-        //}
-        //if(_time >= _manager._specialAnim + 0.55f)
-        //{
-        //    _manager.Change_Effect.SetActive(false);
-        //    _manager.SetState(PlayerState.IDLE);
-        //}
+        
     }
 }

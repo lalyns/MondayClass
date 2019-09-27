@@ -329,18 +329,5 @@ public class ObjectManager : MonoBehaviour
     //    }
     //}
 
-    public enum MonsterType
-    {
-        RedHat = 0,
-        Mac = 1,
-        Tiber = 2,
-        Length
-    }
-
-    public enum ObjectType
-    {
-
-    }
-
 }
 
