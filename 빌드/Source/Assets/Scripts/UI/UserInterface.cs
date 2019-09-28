@@ -297,7 +297,6 @@ public class UserInterface : MonoBehaviour
         var text = sec >= 10 ? min + "'" + sec + "''" : min + "'0" + sec + "''";
         CurrentTimer.text = text;
         var timeValue = Mathf.Clamp01(value / missionMgr.CurrentMission._LimitTime);
-        Debug.Log(timeValue);
         CurrentTimeBack.fillAmount = timeValue;
     }
 
