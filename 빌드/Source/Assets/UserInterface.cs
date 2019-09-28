@@ -17,6 +17,9 @@ public class UserInterface : MonoBehaviour
         {
             instance = GetComponent<UserInterface>();
         }
+
+        if (instance.gameObject != this.gameObject)
+            Destroy(gameObject);
     }
 
     #region Instance Caching
@@ -106,6 +109,8 @@ public class UserInterface : MonoBehaviour
         public HPBar PlayerHpBar;
         public Image[] SkillIcons;
         public Image Special;
+        public ParticleSystem[] SpecialEffects;
+        public Image[] DashCount;
     }
 
     [Space(5)][Header("Player User Interface")]
@@ -126,6 +131,26 @@ public class UserInterface : MonoBehaviour
     {
         var gaugeValue = Mathf.Clamp01(value * 0.01f);
         PCUI.Special.fillAmount = gaugeValue;
+
+        OnSpecialEffect(value);
+    }
+
+    private void OnSpecialEffect(float value)
+    {
+        var effectActive = value >= 1.0;
+        for (int i = 0; i < PCUI.SpecialEffects.Length; i++)
+            PCUI.SpecialEffects[i].gameObject.SetActive(effectActive);
+    }
+
+    private void DashCountSet()
+    {
+        for (int i = 0; i < 3; i++) {
+            if (playerFSMMgr.isDashCTime[i])
+            {
+                var fillValue = Mathf.Clamp01(1f - (playerFSMMgr.DashCTime[i] / 3f));
+                PCUI.DashCount[i].fillAmount = fillValue;
+            }
+        }
     }
 
     private void PlayerUI()
@@ -135,6 +160,7 @@ public class UserInterface : MonoBehaviour
 
         HPChangeEffect(playerFSMMgr.Stat, PCUI.PlayerHpBar);
         PCSpecialGaugeSet(playerFSMMgr.SpecialGauge);
+        DashCountSet();
 
         if (playerFSMMgr.isSkill1CTime) PlayerSkillUISet(0, playerFSMMgr.Skill1CTime);
         if (playerFSMMgr.isSkill2CTime) PlayerSkillUISet(1, playerFSMMgr.Skill2CTime);

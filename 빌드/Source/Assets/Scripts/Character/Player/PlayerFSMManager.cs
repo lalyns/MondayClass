@@ -81,6 +81,10 @@ public class PlayerFSMManager : FSMManager
     public bool isCantMove;
     float vertical, horizontal;
     public float attackCount;
+    public int dashCount;
+    public int currentDashNumber = 2;
+    public bool[] isDashCTime = new bool[3];
+    public float[] DashCTime = new float[3];
     public GameObject[] Skill1Effeects;
     public bool isBall, isShoot;
     public bool isSkill1CTime = true, isSkill2CTime = true, isSkill3CTime = true, isSkill4CTime = true;
@@ -365,10 +369,13 @@ public class PlayerFSMManager : FSMManager
         Skill3();
 
         Attack();
-        Dash();
+        if(dashCount >= 0)
+            Dash();
 
+        DashReset();
         Skill3MouseLock();
         Skill3Reset();
+
 
 
         if (!isNormal)
@@ -547,7 +554,6 @@ public class PlayerFSMManager : FSMManager
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-
             isFlash = true;
             isFlashStart = true;
             FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
@@ -629,6 +635,18 @@ public class PlayerFSMManager : FSMManager
                 {
 
                 }
+
+                isDashCTime[currentDashNumber--] = true;
+
+                if (currentDashNumber < 0)
+                {
+                    currentDashNumber = 2;
+                }
+
+                dashCount--;
+
+                
+
                 isFlash = false;
                 isAttackOne = false;
                 flashTimer = 0;
@@ -636,6 +654,21 @@ public class PlayerFSMManager : FSMManager
             }
         }
     }
+
+    //private void OnGUI()
+    //{
+    //    var value = string.Format(
+    //                "[Dash1] isCT : {0} remain : {1} \n" +
+    //                "[Dash2] isCT : {2} remain : {3} \n" +
+    //                "[Dash3] isCT : {4} remain : {5} \n" +
+    //                "Current Dash : {6} Remain Dash : {7}\n",
+    //                isDashCTime[0], DashCTime[0],
+    //                isDashCTime[1], DashCTime[1],
+    //                isDashCTime[2], DashCTime[2],
+    //                currentDashNumber, dashCount);
+
+    //    if (GUI.RepeatButton(new Rect(Screen.width / 100f * 80f, Screen.height * 0.8f, 230, 85), value)) { }
+    //}
 
     // 스킬 켜주고 꺼주고 하는 함수
     void Skill1Set(GameObject[] effects, GameObject[] effects_special, bool isnormal)
@@ -932,6 +965,40 @@ public class PlayerFSMManager : FSMManager
             isSkill3 = true;
 
             return;
+        }
+    }
+
+    public void DashReset()
+    {
+        if(isDashCTime[0])
+        {
+            DashCTime[0] -= Time.deltaTime;
+            if(DashCTime[0] <= 0)
+            {
+                DashCTime[0] = 3f;
+                isDashCTime[0] = false;
+                dashCount++;
+            }
+        }
+        if (isDashCTime[1])
+        {
+            DashCTime[1] -= Time.deltaTime;
+            if (DashCTime[1] <= 0)
+            {
+                DashCTime[1] = 3f;
+                isDashCTime[1] = false;
+                dashCount++;
+            }
+        }
+        if (isDashCTime[2])
+        {
+            DashCTime[2] -= Time.deltaTime;
+            if (DashCTime[2] <= 0)
+            {
+                DashCTime[2] = 3f;
+                isDashCTime[2] = false;
+                dashCount++;
+            }
         }
     }
 

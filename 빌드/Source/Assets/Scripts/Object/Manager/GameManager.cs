@@ -145,12 +145,12 @@ public class GameManager : MonoBehaviour
             {
                 CharacterControl = true;
             }
-            ));
+            , 20));
         else
             StartCoroutine(UserInterface.FadeOut(() =>
             {
                 MissionManager.EnterMission();
             }
-            ));
+            , 20));
     }
 }
