@@ -42,7 +42,7 @@ public class GameStatus : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
     }
 
