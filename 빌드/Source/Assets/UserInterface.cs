@@ -17,6 +17,9 @@ public class UserInterface : MonoBehaviour
         {
             instance = GetComponent<UserInterface>();
         }
+
+        if (instance.gameObject != this.gameObject)
+            Destroy(gameObject);
     }
 
     #region Instance Caching

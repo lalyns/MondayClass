@@ -655,20 +655,20 @@ public class PlayerFSMManager : FSMManager
         }
     }
 
-    private void OnGUI()
-    {
-        var value = string.Format(
-                    "[Dash1] isCT : {0} remain : {1} \n" +
-                    "[Dash2] isCT : {2} remain : {3} \n" +
-                    "[Dash3] isCT : {4} remain : {5} \n" +
-                    "Current Dash : {6} Remain Dash : {7}\n",
-                    isDashCTime[0], DashCTime[0],
-                    isDashCTime[1], DashCTime[1],
-                    isDashCTime[2], DashCTime[2],
-                    currentDashNumber, dashCount);
+    //private void OnGUI()
+    //{
+    //    var value = string.Format(
+    //                "[Dash1] isCT : {0} remain : {1} \n" +
+    //                "[Dash2] isCT : {2} remain : {3} \n" +
+    //                "[Dash3] isCT : {4} remain : {5} \n" +
+    //                "Current Dash : {6} Remain Dash : {7}\n",
+    //                isDashCTime[0], DashCTime[0],
+    //                isDashCTime[1], DashCTime[1],
+    //                isDashCTime[2], DashCTime[2],
+    //                currentDashNumber, dashCount);
 
-        if (GUI.RepeatButton(new Rect(Screen.width / 100f * 80f, Screen.height * 0.8f, 230, 85), value)) { }
-    }
+    //    if (GUI.RepeatButton(new Rect(Screen.width / 100f * 80f, Screen.height * 0.8f, 230, 85), value)) { }
+    //}
 
     // 스킬 켜주고 꺼주고 하는 함수
     void Skill1Set(GameObject[] effects, GameObject[] effects_special, bool isnormal)
