@@ -55,6 +55,7 @@ public class RedHatFSMManager : FSMManager
 
     //public CharacterStat _lastAttack;
 
+    public HPBar _HPBar;
     public Slider _HPSilder;
     public GameObject hitEffect;
     public GameObject hitEffect_Special;
@@ -270,6 +271,7 @@ public class RedHatFSMManager : FSMManager
     //        yield return new WaitForSeconds(0.1f);
     //    }
     //}
+    
     private void OnTriggerExit(Collider other)
     {
         if (other.transform.tag == "Skill2")

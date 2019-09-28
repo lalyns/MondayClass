@@ -367,7 +367,7 @@ public class UserInterface : MonoBehaviour
     /// <param name="hpBar"> 대상 HPBar </param>
     /// <param name="speed"> HP바가 줄어드는 속도 (기본:5) </param>
     /// <param name="barSize"> HP Bar의 가로길이 (기본:350) </param>
-    private void HPChangeEffect(CharacterStat stat, HPBar hpBar, float speed = 5f, float barSize = 350f)
+    public void HPChangeEffect(CharacterStat stat, HPBar hpBar, float speed = 5f, float barSize = 350f)
     {
         Transform currentTransform = hpBar.CurrentFillGround.transform;
         Transform laterTransform = hpBar.LaterFillGround.transform;
