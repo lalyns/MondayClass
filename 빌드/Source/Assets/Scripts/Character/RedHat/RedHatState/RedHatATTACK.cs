@@ -45,6 +45,7 @@ public class RedHatATTACK : RedHatFSMState
 
     public void AttackSupport()
     {
+        Debug.Log("attackCall");
         UserInterface.Instance.PCUI.PlayerHpBar.HitBackFun();
     }
 

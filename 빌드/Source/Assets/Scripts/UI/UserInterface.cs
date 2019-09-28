@@ -367,25 +367,24 @@ public class UserInterface : MonoBehaviour
     /// <param name="hpBar"> 대상 HPBar </param>
     /// <param name="speed"> HP바가 줄어드는 속도 (기본:5) </param>
     /// <param name="barSize"> HP Bar의 가로길이 (기본:350) </param>
-    public void HPChangeEffect(CharacterStat stat, HPBar hpBar, float speed = 5f, float barSize = 350f)
+    public void HPChangeEffect(CharacterStat stat, HPBar hpBar, float speed = 5f)
     {
-        Transform currentTransform = hpBar.CurrentFillGround.transform;
-        Transform laterTransform = hpBar.LaterFillGround.transform;
-        Vector3 barLocation = new Vector3(-barSize + barSize * (stat.Hp / stat.MaxHp), 0, 0);
 
-        currentTransform.localPosition = barLocation;
+        var value1 = Mathf.Lerp(hpBar.currentValue, stat.Hp / stat.MaxHp, Time.deltaTime * speed);
+        hpBar.currentValue = value1;
 
         if (hpBar.backHitMove)
         {
-            laterTransform.localPosition = Vector3.Lerp(laterTransform.localPosition,
-                barLocation, speed * Time.deltaTime);
+            var value2 = Mathf.Lerp(hpBar.laterValue, hpBar.currentValue, speed * 2f * Time.deltaTime);
+            hpBar.laterValue = value2;
 
-            if (Vector3.Distance(currentTransform.localPosition, laterTransform.localPosition) <= 0.01f)
+            if(hpBar.currentValue >=  hpBar.laterValue - 0.01f)
             {
-                laterTransform.localPosition = currentTransform.localPosition;
                 hpBar.backHitMove = false;
+                hpBar.laterValue = hpBar.currentValue;
             }
         }
+
     }
 
     #endregion

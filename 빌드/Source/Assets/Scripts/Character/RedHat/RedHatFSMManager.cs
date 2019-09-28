@@ -155,6 +155,7 @@ public class RedHatFSMManager : FSMManager
 
         Stat.TakeDamage(playerStat, playerStat.DMG[value]);
         SetKnockBack(playerStat, value);
+        Invoke("AttackSupport", 0.5f);
 
         if (attackType == AttackType.ATTACK1 || attackType == AttackType.ATTACK2)
             StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.05f, 0.1f));
@@ -189,6 +190,11 @@ public class RedHatFSMManager : FSMManager
         {
             SetDeadState();
         }
+    }
+
+    public void AttackSupport()
+    {
+        _HPBar.HitBackFun();
     }
 
     public void SetKnockBack(PlayerStat stat, int attackType)
