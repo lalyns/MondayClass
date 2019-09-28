@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,8 +19,20 @@ public class UserInterface : MonoBehaviour
         }
     }
 
+    #region Instance Caching
+    private PlayerFSMManager playerFSMMgr;
+    private MissionManager missionMgr;
+    private GameStatus gameStatus;
+    private GameManager gameMgr;
+    #endregion
+
     private void Start()
     {
+        playerFSMMgr = PlayerFSMManager.Instance;
+        missionMgr = MissionManager.Instance;
+        gameStatus = GameStatus.Instance;
+        gameMgr = GameManager.Instance;
+
         CurrentTimer = fullModeUIs.Timer;
         CurrentGoal = fullModeUIs.Goal;
     }
@@ -68,7 +81,6 @@ public class UserInterface : MonoBehaviour
     }
     #endregion
 
-    private PlayerFSMManager playerFSMManager => PlayerFSMManager.Instance;
     private void Update()
     {
         if (!activeAllUI) { return; }
@@ -107,7 +119,7 @@ public class UserInterface : MonoBehaviour
 
     private void PlayerSkillUISet(int i, float value)
     {
-        var gaugeValue = Mathf.Clamp01(value / playerFSMManager.Stat.skillCTime[i]);
+        var gaugeValue = Mathf.Clamp01(value / playerFSMMgr.Stat.skillCTime[i]);
         PCUI.SkillIcons[i].fillAmount = gaugeValue;
     }
 
@@ -120,15 +132,15 @@ public class UserInterface : MonoBehaviour
     private void PlayerUI()
     {
         // 나중에 변신에 포함시킬것
-        PCIconImageSet(playerFSMManager.isNormal);
+        PCIconImageSet(playerFSMMgr.isNormal);
 
-        HPChangeEffect(playerFSMManager.Stat, PCUI.PlayerHpBar);
-        PCSpecialGaugeSet(playerFSMManager.SpecialGauge);
+        HPChangeEffect(playerFSMMgr.Stat, PCUI.PlayerHpBar);
+        PCSpecialGaugeSet(playerFSMMgr.SpecialGauge);
 
-        if (playerFSMManager.isSkill1CTime) PlayerSkillUISet(0, playerFSMManager.Skill1CTime);
-        if (playerFSMManager.isSkill2CTime) PlayerSkillUISet(1, playerFSMManager.Skill2CTime);
-        if (playerFSMManager.isSkill3CTime) PlayerSkillUISet(2, playerFSMManager.Skill3CTime);
-        if (playerFSMManager.isSkill4CTime) PlayerSkillUISet(3, playerFSMManager.Skill4CTime);
+        if (playerFSMMgr.isSkill1CTime) PlayerSkillUISet(0, playerFSMMgr.Skill1CTime);
+        if (playerFSMMgr.isSkill2CTime) PlayerSkillUISet(1, playerFSMMgr.Skill2CTime);
+        if (playerFSMMgr.isSkill3CTime) PlayerSkillUISet(2, playerFSMMgr.Skill3CTime);
+        if (playerFSMMgr.isSkill4CTime) PlayerSkillUISet(3, playerFSMMgr.Skill4CTime);
     }
     #endregion
 
@@ -155,41 +167,47 @@ public class UserInterface : MonoBehaviour
         CursorTransform.position = Camera.main.ScreenToWorldPoint(screenPoint);
     }
 
-    // FadeIn FadeOut
+    // Screen Effect : FadeIn FadeOut
     public Image FadeInOutImage;
     public float FadeInOutSpeed = 10.0f;
     
-    public static IEnumerator FadeIn(float speed)
+    public static IEnumerator FadeIn(System.Action callback, float speed = 10.0f, float delay = 0.15f)
     {
-        float i = 100;
-
         var alpha = Instance.FadeInOutImage.color;
-        for (i = 100; i >= 0;)
+        for (float i = 100; i >= 0;)
         {
             i -= speed;
-            alpha.a = i / 100f;
+            alpha.a = i * 0.01f;
             Instance.FadeInOutImage.color = alpha;
 
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(delay);
         }
+
+        yield return Instance.StartCoroutine(Instance.FadeInOutReturnValue(callback));
     }
 
-    public static IEnumerator FadeOut(float speed)
+    public static IEnumerator FadeOut(System.Action callback, float speed = 10.0f, float delay = 0.15f)
     {
-        float i = 0;
-
         var alpha = Instance.FadeInOutImage.color;
-        for (i = 0; i <= 100;)
+        for (float i = 0; i <= 100;)
         {
             i += speed;
-            alpha.a = i / 100f;
+            alpha.a = i * 0.01f;
             Instance.FadeInOutImage.color = alpha;
 
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(delay);
         }
+
+        yield return Instance.StartCoroutine(Instance.FadeInOutReturnValue(callback));
     }
 
-    // Screen Blur
+    IEnumerator FadeInOutReturnValue(System.Action callback)
+    {
+        yield return null;
+        callback();
+    }
+
+    // Screen Effect : Blur
 
     // 게임 설정
 
@@ -223,9 +241,12 @@ public class UserInterface : MonoBehaviour
     public FullModeMissionUIs fullModeUIs;
     public static void FullModeSetMP()
     {
-        Instance.fullModeUIs.MissionIcon.sprite = MissionManager.Instance.CurrentMission.Data.MissionIcon;
-        Instance.fullModeUIs.MissionText.text = MissionManager.Instance.CurrentMission.Data.MissionText;
-        Instance.fullModeUIs.GoalIcon.sprite = MissionManager.Instance.CurrentMission.Data.MissionIcon;
+        Instance.fullModeUIs.MissionIcon.sprite =
+            Instance.missionMgr.CurrentMission.Data.MissionIcon;
+        Instance.fullModeUIs.MissionText.text =
+            Instance.missionMgr.CurrentMission.Data.MissionText;
+        Instance.fullModeUIs.GoalIcon.sprite =
+            Instance.missionMgr.CurrentMission.Data.MissionIcon;
     }
 
     [System.Serializable]
@@ -256,14 +277,14 @@ public class UserInterface : MonoBehaviour
         switch (type)
         {
             case MissionType.Annihilation:
-                text = "남은 몬스터 " + GameStatus.Instance.ActivedMonsterList.Count + " 마리";
+                text = "남은 몬스터 " + gameStatus.ActivedMonsterList.Count + " 마리";
                 break;
             case MissionType.Defence:
                 MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
                 text = "남은 기둥 체력 " + mission.protectedTarget.hp +" / " + mission._ProtectedTargetHP;
                 break;
             case MissionType.Survival:
-                text = GameManager.Instance.curScore + " 개 / 5 개";
+                text = gameMgr.curScore + " 개 / 5 개";
                 break;
             case MissionType.Boss:
                 text = "리리스를 처치하시오";
@@ -279,14 +300,14 @@ public class UserInterface : MonoBehaviour
         switch (type)
         {
             case MissionType.Annihilation:
-                text = GameStatus.Instance.ActivedMonsterList.Count + " ";
+                text = gameStatus.ActivedMonsterList.Count + " ";
                 break;
             case MissionType.Defence:
                 MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
                 text = mission.protectedTarget.hp + " / " + mission._ProtectedTargetHP;
                 break;
             case MissionType.Survival:
-                text = GameManager.Instance.curScore + " / 5";
+                text = gameMgr.curScore + " / 5";
                 break;
             case MissionType.Boss:
                 text = "리리스를 처치하시오";
@@ -298,7 +319,7 @@ public class UserInterface : MonoBehaviour
 
     private void ProgressUI()
     {
-        SetTimer(GameStatus.Instance._LimitTime);
+        SetTimer(gameStatus._LimitTime);
         if (!MPSimpleMode)
             SetGoal(MissionManager.Instance.CurrentMissionType);
         else
