@@ -46,9 +46,8 @@ public class RedHatFSMState : MonoBehaviour
 
     public void HPUI()
     {
-        float HP = _manager.Stat.Hp;
-
-        _manager._HPSilder.value = HP / _manager.Stat.MaxHp;
+        Debug.Log("현재 체력 " + _manager.Stat.Hp);
+        UserInterface.Instance.HPChangeEffect(_manager.Stat, _manager._HPBar);
 
     }
 
