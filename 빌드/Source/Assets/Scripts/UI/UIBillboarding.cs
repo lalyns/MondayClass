@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Billboarding : MonoBehaviour
+public class UIBillboarding : MonoBehaviour
 {
     Transform cam;
 
