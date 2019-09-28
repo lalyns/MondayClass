@@ -104,6 +104,10 @@ public class MissionManager : MonoBehaviour
             transform.position =
             Instance.CurrentMission.Enter.transform.position;
 
+        GameStatus.Instance._PlayerInstance.
+            GetComponentInChildren<Animator>().
+            transform.LookAt(Instance.CurrentMission.Exit.transform);
+
         // 페이드 Out
         GameManager.Instance.SetFadeInOut(true);
     }

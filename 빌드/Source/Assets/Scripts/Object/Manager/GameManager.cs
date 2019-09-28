@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+
+
     private static GameManager _Instance;
     public static GameManager Instance {
         get {
@@ -32,9 +34,6 @@ public class GameManager : MonoBehaviour
 
     public int curScore = 0;
     public bool IsPuase;
-
-    public Image FadeInOutPanel;
-    public float fadeInOutSpeed = 10.0f;
 
     [System.Serializable]
     public class UIActive
@@ -139,46 +138,19 @@ public class GameManager : MonoBehaviour
         Instance.curScore += 1;
     }
 
-
     public void SetFadeInOut(bool value)
     {
         if (value)
-            StartCoroutine(FadeIn(fadeInOutSpeed));
+            StartCoroutine(UserInterface.FadeIn(() =>
+            {
+                CharacterControl = true;
+            }
+            ));
         else
-            StartCoroutine(FadeOut(fadeInOutSpeed));
-    }
-
-    public IEnumerator FadeOut(float speed)
-    {
-        float i = 0;
-
-        var alpha = FadeInOutPanel.color;
-        for(i=0; i<= 100; )
-        {
-            i += speed;
-            alpha.a = i / 100f;
-            FadeInOutPanel.color = alpha;
-
-            yield return new WaitForSeconds(0.15f);
-        }
-        MissionManager.EnterMission();
-    }
-
-    public IEnumerator FadeIn(float speed)
-    {
-        float i = 100;
-
-        var alpha = FadeInOutPanel.color;
-        for (i = 100; i >= 0; )
-        {
-            i -= speed;
-            alpha.a = i / 100f;
-            FadeInOutPanel.color = alpha;
-            
-            yield return new WaitForSeconds(0.15f);
-        }
-        //FadeInOutAnim.Play("FadeInOut");
-        CharacterControl = true;
-
+            StartCoroutine(UserInterface.FadeOut(() =>
+            {
+                MissionManager.EnterMission();
+            }
+            ));
     }
 }
