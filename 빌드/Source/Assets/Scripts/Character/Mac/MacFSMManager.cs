@@ -53,6 +53,7 @@ public class MacFSMManager : FSMManager
     public List<Material> materialList = new List<Material>();
 
     public Slider _HPSilder;
+    public HPBar _HPBar;
     public GameObject hitEffect;
     public GameObject hitEffect_Special;
     public GameObject hitEffect_Skill1;
