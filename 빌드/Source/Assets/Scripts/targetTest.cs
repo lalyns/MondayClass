@@ -1,22 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[ExecuteInEditMode]
 public class targetTest : MonoBehaviour
 {
-    Transform player;
+    public GameObject Controller;
+    public Slider _HpBar;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = new Vector3(this.transform.position.x,
-            player.position.y, this.transform.position.z);
-        this.transform.LookAt(Shake.instance.transform);
+        var screenPoint = Camera.main.WorldToScreenPoint(Controller.transform.position);
+        _HpBar.transform.localPosition = screenPoint;
     }
 }
