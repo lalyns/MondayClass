@@ -150,8 +150,9 @@ public class MacFSMManager : FSMManager
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
         Stat.TakeDamage(playerStat, playerStat.DMG[value]);
         SetKnockBack(playerStat, value);
+        Invoke("AttackSupport", 0.5f);
 
-        if(attackType == AttackType.ATTACK1 || attackType == AttackType.ATTACK2)
+        if (attackType == AttackType.ATTACK1 || attackType == AttackType.ATTACK2)
             StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.05f, 0.1f));
         if (attackType == AttackType.ATTACK3)
             StartCoroutine(Shake.instance.ShakeCamera(0.2f, 0.2f, 0.1f));
@@ -182,6 +183,11 @@ public class MacFSMManager : FSMManager
             SetDeadState();
         }
 
+    }
+
+    public void AttackSupport()
+    {
+        _HPBar.HitBackFun();
     }
 
     public void SetKnockBack(PlayerStat stat,int attackType)

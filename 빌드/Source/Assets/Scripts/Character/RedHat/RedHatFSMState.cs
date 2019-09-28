@@ -46,7 +46,6 @@ public class RedHatFSMState : MonoBehaviour
 
     public void HPUI()
     {
-        Debug.Log("현재 체력 " + _manager.Stat.Hp);
         UserInterface.Instance.HPChangeEffect(_manager.Stat, _manager._HPBar);
 
     }
