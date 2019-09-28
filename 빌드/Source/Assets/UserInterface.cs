@@ -33,8 +33,7 @@ public class UserInterface : MonoBehaviour
         gameStatus = GameStatus.Instance;
         gameMgr = GameManager.Instance;
 
-        CurrentTimer = fullModeUIs.Timer;
-        CurrentGoal = fullModeUIs.Goal;
+        SetMPMode(MPSimpleMode);
     }
 
     #region Canvas Control Function
@@ -223,8 +222,9 @@ public class UserInterface : MonoBehaviour
         Instance.MPSimpleMode = value;
         Instance.FullMode.SetActive(!value);
         Instance.SimpleMode.SetActive(value);
-        Instance.CurrentTimer = value ? Instance.simpleModeUIs.Timer : Instance.fullModeUIs.Timer;
-        instance.CurrentGoal = value ? Instance.simpleModeUIs.Goal : Instance.simpleModeUIs.Goal;
+        Instance.CurrentTimer = value ? Instance.simpleModeUIs.TimeText : Instance.fullModeUIs.TimeText;
+        Instance.CurrentGoal = value ? Instance.simpleModeUIs.Goal : Instance.fullModeUIs.Goal;
+        Instance.CurrentTimeBack = value ? Instance.simpleModeUIs.TimeBack : Instance.fullModeUIs.TimeBack;
     }
 
     [System.Serializable]
@@ -232,7 +232,8 @@ public class UserInterface : MonoBehaviour
     {
         public Image MissionIcon;
         public Text MissionText;
-        public Text Timer;
+        public Image TimeBack;
+        public Text TimeText;
         public Image GoalIcon;
         public Text Goal;
     }
@@ -252,8 +253,8 @@ public class UserInterface : MonoBehaviour
     [System.Serializable]
     public class SimpleModeMissionUIs
     {
-        public Image TimeIcon;
-        public Text Timer;
+        public Image TimeBack;
+        public Text TimeText;
         public Image GoalIcon;
         public Text Goal;
     }
@@ -261,6 +262,7 @@ public class UserInterface : MonoBehaviour
     public SimpleModeMissionUIs simpleModeUIs;
 
     private Text CurrentTimer;
+    private Image CurrentTimeBack;
     private void SetTimer(float value)
     {
         int min = (int)(value / 60f);
@@ -268,6 +270,9 @@ public class UserInterface : MonoBehaviour
 
         var text = sec >= 10 ? min + "'" + sec + "''" : min + "'0" + sec + "''";
         CurrentTimer.text = text;
+        var timeValue = Mathf.Clamp01(value / missionMgr.CurrentMission._LimitTime);
+        Debug.Log(timeValue);
+        CurrentTimeBack.fillAmount = timeValue;
     }
 
     private Text CurrentGoal;
