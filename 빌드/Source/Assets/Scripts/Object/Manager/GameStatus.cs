@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 public class GameStatus : MonoBehaviour
 {
@@ -181,7 +182,7 @@ public class GameStatus : MonoBehaviour
         dummySet = true;
         _EditorMode = true;
         _DummyLocationEffect.SetActive(true);
-        UserInterface.SetCursorMode(true);
+        UserInterface.SetPointerMode(true);
     }
 
     public void SummonEffect()
@@ -207,7 +208,7 @@ public class GameStatus : MonoBehaviour
             "monster");
         dummySet = false;
         _DummyLocationEffect.SetActive(false);
-        UserInterface.SetCursorMode(false);
+        UserInterface.SetPointerMode(false);
     }
 #endif
 

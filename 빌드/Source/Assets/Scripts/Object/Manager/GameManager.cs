@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using MC.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -138,19 +139,11 @@ public class GameManager : MonoBehaviour
         Instance.curScore += 1;
     }
 
-    public void SetFadeInOut(bool value)
+    public void SetFadeInOut(System.Action callback,  bool value)
     {
         if (value)
-            StartCoroutine(UserInterface.FadeIn(() =>
-            {
-                CharacterControl = true;
-            }
-            , 20));
+            StartCoroutine(UserInterface.FadeIn(callback, 20));
         else
-            StartCoroutine(UserInterface.FadeOut(() =>
-            {
-                MissionManager.EnterMission();
-            }
-            , 20));
+            StartCoroutine(UserInterface.FadeOut(callback, 20));
     }
 }

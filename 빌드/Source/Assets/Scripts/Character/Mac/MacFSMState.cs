@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 [RequireComponent(typeof(MacFSMManager))]
 public class MacFSMState : MonoBehaviour
