@@ -6,9 +6,13 @@ public class RirisAnimEvent : MonoBehaviour
 {
     public RirisFSMManager _manager;
 
+    public bool isWeapon;
+
     public void Start()
     {
-        _manager = GetComponentInParent<RirisFSMManager>();
+        if(!isWeapon)
+            _manager = GetComponentInParent<RirisFSMManager>();
+            
     }
 
     public void PatternAJumpEnd()
@@ -24,5 +28,12 @@ public class RirisAnimEvent : MonoBehaviour
 
         pattern.StompEnd = true;
         
+    }
+
+    public void PatterBDashEffectUp()
+    {
+        RirisPATTERNB pattern = _manager.CurrentStateComponent as RirisPATTERNB;
+
+        pattern.AttackReadyEnd();
     }
 }
