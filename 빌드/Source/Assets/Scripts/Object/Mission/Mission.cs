@@ -44,7 +44,7 @@ public class Mission : MonoBehaviour
     }
 
     public int _LimitTime = 180;
-    public MissionManager.MissionType MissionType;
+    public MissionType MissionType;
 
     protected bool MissionEnd = false;
 

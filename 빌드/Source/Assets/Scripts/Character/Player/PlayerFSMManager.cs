@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Timeline;
 using UnityEngine.SceneManagement;
@@ -30,8 +29,8 @@ public enum AttackType
     SKILL3 = 1 << 6,
     SKILL4 = 1 << 7,
 }
+
 [RequireComponent(typeof(PlayerStat))]
-[ExecuteInEditMode]
 public class PlayerFSMManager : FSMManager
 {
     //public AudioSource musicPlayer;
@@ -41,6 +40,10 @@ public class PlayerFSMManager : FSMManager
     //public AudioClip _skill1Sound;
 
     public PlayerSound _Sound;
+
+    private static PlayerFSMManager instance;
+    public static PlayerFSMManager Instance => instance;
+
 
     private bool _onAttack = false;
     private bool _isinit = false;
@@ -78,21 +81,24 @@ public class PlayerFSMManager : FSMManager
     public bool isCantMove;
     float vertical, horizontal;
     public float attackCount;
+    public int dashCount;
+    public int currentDashNumber = 2;
+    public bool[] isDashCTime = new bool[3];
+    public float[] DashCTime = new float[3];
     public GameObject[] Skill1Effeects;
-    public bool isBall, isShoot, isSkill1CTime;
+    public bool isBall, isShoot;
+    public bool isSkill1CTime = true, isSkill2CTime = true, isSkill3CTime = true, isSkill4CTime = true;
 
     public AttackType attackType;
 
     [SerializeField]
     private List<GameObject> _monster = new List<GameObject>();
     public float SpecialGauge = 0;
-    public Image SpecialGauge_Image;
-    public Image Skill1UI, Skill2UI, Skill3UI;
     Vector3 target;
     [SerializeField]
-    float Skill1Timer1, Skill1CTime;
+    public float Skill1Timer1, Skill1CTime;
     [SerializeField]
-    float Skill2CTime, Skill3CTime = 10f;
+    public float Skill2CTime, Skill3CTime = 10f, Skill4CTime = 10f;
     [Header("스킬1번 날라가는 속도,")]
     public float skill1Speed = 20f;
     [Header("스킬1번 날라가는 시간,")]
@@ -124,9 +130,9 @@ public class PlayerFSMManager : FSMManager
     public GameObject Change_Effect;
     public float specialTimer = 0;
     CapsuleCollider Attack_Capsule;
-    CapsuleCollider Skill3_Capsule;
+    [HideInInspector]
+    public CapsuleCollider Skill3_Capsule;
     SphereCollider SKill2_Sphere;
-    public Image pc_Icon, sp_Icon;
     [Header("플레이어가 변신상태인지 아닌지 확인시켜줌.")]
     public bool isNormal = false;
 
@@ -214,8 +220,6 @@ public class PlayerFSMManager : FSMManager
         isMouseYLock = false;
         try
         {
-            pc_Icon.gameObject.SetActive(true);
-            sp_Icon.gameObject.SetActive(false);
             Skill3_Start.SetActive(false);
             Skill3_End.SetActive(false);
         }
@@ -270,21 +274,9 @@ public class PlayerFSMManager : FSMManager
         //vignette.mask = Concent;
         //Concent.value = aaasdf;
 
-        try
-        {
-            Skill1UI.fillAmount = 1f;
-            Skill1UI.gameObject.SetActive(false);
-            Skill2UI.fillAmount = 1f;
-            Skill2UI.gameObject.SetActive(false);
-        }
-        catch
-        {
-
-        }
-
-        _attack1Time = AnimationLength("PC_Anim_Attack_001") / 1.3f;
-        _attack2Time = AnimationLength("PC_Anim_Attack_002") / 1.3f;
-        _attack3Time = AnimationLength("PC_Anim_Attack_003_2") / 1.3f;
+        _attack1Time = AnimationLength("PC_Anim_Attack_001") / 1.5f;
+        _attack2Time = AnimationLength("PC_Anim_Attack_002") / 1.8f;
+        _attack3Time = AnimationLength("PC_Anim_Attack_003_2") / 1.5f;
         _attackBack1 = AnimationLength("PC_Anim_Attack_Back_001") / 1.3f;
         _attackBack2 = AnimationLength("PC_Anim_Attack_Back_002") / 1.3f;
         _specialAnim = AnimationLength("PC_Anim_Transform_001");
@@ -339,28 +331,9 @@ public class PlayerFSMManager : FSMManager
 
     private void Update()
     {
-
-        if (GameManager.Instance._ActivePlayerUI)
+        if (Input.GetKeyDown(KeyCode.U))
         {
-            // UI 참조 안하게.
-            Skill1UI = null;
-            Skill2UI = null;
-            Skill3UI = null;
-            SpecialGauge_Image = null;
-            pc_Icon = null;
-            sp_Icon = null;
-        }
-
-
-
-        //isNormal = Normal.activeSelf;
-        try
-        {
-            isNormal = pc_Icon.gameObject.activeSelf;
-        }
-        catch
-        {
-
+            StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
         }
 
         // 공격처리는 죽음을 제외한 모든 상황에서 처리
@@ -399,49 +372,22 @@ public class PlayerFSMManager : FSMManager
         Skill2();
         Skill3();
 
-        try
-        {
-            if (SpecialGauge_Image.fillAmount <= 0)
-                SpecialGauge_Image.fillAmount = 0;
-            if (SpecialGauge_Image.fillAmount >= 1)
-            {
-                SpecialGauge_Image.fillAmount = 1;
-            }
-        }
-        catch
-        {
-
-        }
-
-
         Attack();
-        Dash();
+        if(dashCount >= 0)
+            Dash();
 
+        DashReset();
         Skill3MouseLock();
-        try
-        {
-            if (isNormal)
-                SpecialGauge_Image.fillAmount = SpecialGauge / 100f;
-        }
-        catch
-        {
+        Skill3Reset();
 
-        }
-        Skill3UIReset();
+
+
         if (!isNormal)
         {
             normalTimer -= Time.deltaTime;
+            SpecialGauge -= gaugePerSecond * Time.deltaTime;
 
-            try
-            {
-                SpecialGauge_Image.fillAmount = (normalTimer * gaugePerSecond) / 100.0f;
-            }
-            catch
-            {
-
-            }
-
-            if (normalTimer <= 0f)
+            if (SpecialGauge <= 0f)
             {
                 isNormal = true;
                 ChangeNormal();
@@ -517,13 +463,11 @@ public class PlayerFSMManager : FSMManager
                 time = ac.animationClips[i].length;
         return time;
     }
+
     void ChangeNormal()
     {
         try
         {
-            pc_Icon.gameObject.SetActive(true);
-            sp_Icon.gameObject.SetActive(false);
-
             Normal.SetActive(true);
             Special.SetActive(false);
         }
@@ -532,26 +476,19 @@ public class PlayerFSMManager : FSMManager
 
         }
     }
+
     public void ChangeModel()
     {
         if (isNormal && SpecialGauge >= 100)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                try
-                {
-                    pc_Icon.gameObject.SetActive(false);
-                    sp_Icon.gameObject.SetActive(true);
-                }
-                catch
-                {
-
-                }
+                isNormal = false;
                 isSpecial = true;
                 TimeLine.SetActive(true);
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
-
+                Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
             }
         }
 
@@ -621,6 +558,9 @@ public class PlayerFSMManager : FSMManager
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            isAttackOne = false;
+            isAttackTwo = false;
+            isAttackThree = false;
 
             isFlash = true;
             isFlashStart = true;
@@ -703,17 +643,40 @@ public class PlayerFSMManager : FSMManager
                 {
 
                 }
+
+                isDashCTime[currentDashNumber--] = true;
+
+                if (currentDashNumber < 0)
+                {
+                    currentDashNumber = 2;
+                }
+
+                dashCount--;
+
+                
+
                 isFlash = false;
-                isAttackOne = false;
+     
                 flashTimer = 0;
                 return;
             }
         }
     }
 
+    //private void OnGUI()
+    //{
+    //    var value = string.Format(
+    //                "[Dash1] isCT : {0} remain : {1} \n" +
+    //                "[Dash2] isCT : {2} remain : {3} \n" +
+    //                "[Dash3] isCT : {4} remain : {5} \n" +
+    //                "Current Dash : {6} Remain Dash : {7}\n",
+    //                isDashCTime[0], DashCTime[0],
+    //                isDashCTime[1], DashCTime[1],
+    //                isDashCTime[2], DashCTime[2],
+    //                currentDashNumber, dashCount);
 
-
-
+    //    if (GUI.RepeatButton(new Rect(Screen.width / 100f * 80f, Screen.height * 0.8f, 230, 85), value)) { }
+    //}
 
     // 스킬 켜주고 꺼주고 하는 함수
     void Skill1Set(GameObject[] effects, GameObject[] effects_special, bool isnormal)
@@ -891,8 +854,6 @@ public class PlayerFSMManager : FSMManager
                     randomShoot[i] = Random.Range((int)0, (int)_monster.Count);
                 }
 
-                Skill1UI.gameObject.SetActive(true);
-
                 // 스킬이 날라간다.
                 isShoot = true;
                 isSkill1CTime = true;
@@ -953,10 +914,7 @@ public class PlayerFSMManager : FSMManager
         }
 
         //스킬 쿨타임 도는 함수
-        if (isSkill1CTime)
-        {
-            SKill1UIReset();
-        }
+        SKill1Reset();
     }
 
     void Skill2Set()
@@ -979,13 +937,12 @@ public class PlayerFSMManager : FSMManager
     }
     public void Skill2()
     {
-        if (isSkill2)
-            return;
+        if (isSkill2) return;
+
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             SetState(PlayerState.SKILL2);
             isSkill2 = true;
-            Skill2UI.gameObject.SetActive(true);
             return;
         }
     }
@@ -1019,49 +976,81 @@ public class PlayerFSMManager : FSMManager
         }
     }
 
-    public void SKill1UIReset()
+    public void DashReset()
     {
-        Skill1CTime -= Time.deltaTime;
-        Skill1UI.fillAmount = Skill1CTime / 10f;
-        if (Skill1CTime <= 0)
+        if(isDashCTime[0])
         {
-            Skill1CTime = 10f;
-            Skill1UI.fillAmount = 1f;
-            Skill1UI.gameObject.SetActive(false);
-            isSkill1CTime = false;
+            DashCTime[0] -= Time.deltaTime;
+            if(DashCTime[0] <= 0)
+            {
+                DashCTime[0] = 3f;
+                isDashCTime[0] = false;
+                dashCount++;
+            }
+        }
+        if (isDashCTime[1])
+        {
+            DashCTime[1] -= Time.deltaTime;
+            if (DashCTime[1] <= 0)
+            {
+                DashCTime[1] = 3f;
+                isDashCTime[1] = false;
+                dashCount++;
+            }
+        }
+        if (isDashCTime[2])
+        {
+            DashCTime[2] -= Time.deltaTime;
+            if (DashCTime[2] <= 0)
+            {
+                DashCTime[2] = 3f;
+                isDashCTime[2] = false;
+                dashCount++;
+            }
+        }
+    }
+
+    public void SKill1Reset()
+    {
+        if (isSkill1CTime)
+        {
+            Skill1CTime -= Time.deltaTime;
+            if (Skill1CTime <= 0)
+            {
+                Skill1CTime = 10f;
+                isSkill1CTime = false;
+            }
         }
     }
 
     
 
-    public void Skill2UIReset()
+    public void Skill2Reset()
     {
-        Skill2CTime -= Time.deltaTime;
-        Skill2UI.fillAmount = Skill2CTime / 10f;
-        if (Skill2CTime <= 0)
+        if (isSkill2CTime)
         {
-            Skill2CTime = 10f;
-            Skill2UI.fillAmount = 1f;
-            Skill2UI.gameObject.SetActive(false);
-            Skill2_Start.SetActive(false);
-            isSkill2 = false;
+            Skill2CTime -= Time.deltaTime;
+            if (Skill2CTime <= 0)
+            {
+                Skill2CTime = 10f;
+                Skill2_Start.SetActive(false);
+                isSkill2 = false;
+                isSkill2CTime = false;
+            }
         }
     }
 
-    public void Skill3UIReset()
+    public void Skill3Reset()
     {
-        if (Skill3_End.activeSelf)
+        if (isSkill3CTime)
         {
-            Skill3UI.gameObject.SetActive(true);
             Skill3CTime -= Time.deltaTime;
-            Skill3UI.fillAmount = Skill3CTime / 10f;
 
             if (Skill3CTime <= 0)
             {
                 Skill3CTime = 10f;
-                Skill3UI.fillAmount = 1f;
-                Skill3UI.gameObject.SetActive(false);
                 Skill3_End.SetActive(false);
+                isSkill3CTime = false;
             }
 
         }
@@ -1094,19 +1083,19 @@ public class PlayerFSMManager : FSMManager
         if (isSkill1CTime)
             Skill1CTime /= 2f;
         // 스킬 2번 쿨타임 절반 만들기
-        if (isSkill2)
+        if (isSkill2CTime)
             Skill2CTime /= 2f;
         // 스킬 3번 쿨타임 절반 만들기
-        if (Skill3_End.activeSelf)
+        if (isSkill3CTime)
             Skill3CTime /= 2f;
     }
     public void SkillCoolReset()
     {
         // 스킬 1번 쿨타임 관련.
         Skill1CTime = 10f;
-        Skill1UI.fillAmount = 1f;
-        Skill1UI.gameObject.SetActive(false);
         isSkill1CTime = false;
+        isSkill2CTime = false;
+        isSkill3CTime = false;
         isBall = true;
         if (isNormal)
             Skill1_Amount = 4;
@@ -1114,16 +1103,11 @@ public class PlayerFSMManager : FSMManager
             Skill1_Amount = 6;        
         // 스킬 2번 쿨타임 관련.
         Skill2CTime = 10f;
-        Skill2UI.fillAmount = 1f;
-        Skill2UI.gameObject.SetActive(false);
         Skill2_Start.SetActive(false);
         isSkill2 = false;
         // 스킬 3번 쿨타임 관련.
         Skill3CTime = 10f;
-        Skill3UI.fillAmount = 1f;
-        Skill3UI.gameObject.SetActive(false);
         Skill3_End.SetActive(false);
     }
 
-    public static PlayerFSMManager instance;
 }

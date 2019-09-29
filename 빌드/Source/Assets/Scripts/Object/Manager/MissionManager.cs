@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 미션의 종류
+/// </summary>
+public enum MissionType
+{
+    Annihilation = 0,
+    Defence = 1,
+    Survival = 2,
+    Boss = 3,
+    Last,
+}
+
 public class MissionManager : MonoBehaviour
 {
-    /// <summary>
-    /// 미션의 종류
-    /// </summary>
-    public enum MissionType
-    {
-        Annihilation = 0,
-        Defence = 1,
-        Survival = 2,
-        Boss = 3,
-        Last,
-    }
-
     private static MissionManager _Instance;
     public static MissionManager Instance {
         get {
@@ -66,11 +66,10 @@ public class MissionManager : MonoBehaviour
     public MissionButton[] Choices;
 
     public GameObject MissionProgressUI;
-    public TempMissionProgress MissionProgress;
 
     public static void PopUpMission() {
         Instance.MissionSelector.SetActive(true);
-        GameManager.CursorMode(true);
+        UserInterface.SetCursorMode(true);
         Input.ResetInputAxes();
         GameManager.Instance.IsPuase = true;
         GameManager.Instance.CharacterControl = false;
@@ -88,8 +87,9 @@ public class MissionManager : MonoBehaviour
         
         Instance.CurrentMission = mission;
         Instance.MissionSelector.SetActive(false);
-        GameManager.CursorMode(false);
+        UserInterface.SetCursorMode(false);
         GameManager.Instance.IsPuase = false;
+        UserInterface.FullModeSetMP();
 
         // 페이드 Out
         GameManager.Instance.SetFadeInOut(false);
@@ -104,6 +104,10 @@ public class MissionManager : MonoBehaviour
             transform.position =
             Instance.CurrentMission.Enter.transform.position;
 
+        GameStatus.Instance._PlayerInstance.
+            GetComponentInChildren<Animator>().
+            transform.LookAt(Instance.CurrentMission.Exit.transform);
+
         // 페이드 Out
         GameManager.Instance.SetFadeInOut(true);
     }
@@ -111,6 +115,7 @@ public class MissionManager : MonoBehaviour
     public static void StartMission() {
         // 미션 시작지
         Instance.CurrentMission.OperateMission();
+        UserInterface.SetMissionProgressUserInterface(true);
     }
 
     public static void RewardMission() {

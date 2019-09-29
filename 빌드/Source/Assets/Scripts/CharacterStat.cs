@@ -71,8 +71,8 @@ public class CharacterStat : MonoBehaviour
         {
             var playerStat = from as PlayerStat;
             
-            if (PlayerFSMManager.instance.isNormal)
-                PlayerFSMManager.instance.SpecialGauge += playerStat.feverGaugeGetValue;
+            if (PlayerFSMManager.Instance.isNormal)
+                PlayerFSMManager.Instance.SpecialGauge += playerStat.feverGaugeGetValue;
         }
 
         //if (_hp <= 0)

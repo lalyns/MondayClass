@@ -14,7 +14,7 @@ public class Skill2Effect : MonoBehaviour
     private void Awake()
     {
         Sphere = GetComponent<SphereCollider>();
-        player = PlayerFSMManager.instance;
+        player = PlayerFSMManager.Instance;
 
     }
     private void OnDisable()
@@ -40,14 +40,14 @@ public class Skill2Effect : MonoBehaviour
         {
             _triggerTime = 0;
             Sphere.enabled = false;
-           // gameObject.SetActive(false);
-
+            // gameObject.SetActive(false);
+            //player.isSkill2CTime = true;
         }
         //if (_time >= 10f)
         //{
         //    player.isSkill2 = false;
         //}
-        player.Skill2UIReset();
+        player.Skill2Reset();
 
     }
     private void OnTriggerStay(Collider other)

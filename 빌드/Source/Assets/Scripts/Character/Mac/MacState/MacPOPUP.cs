@@ -36,7 +36,7 @@ public class MacPOPUP : MacFSMState
 
     private void TargetPrioritySet()
     {
-        if (MissionManager.Instance.CurrentMissionType == MissionManager.MissionType.Defence)
+        if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
         {
 
             Collider[] allTarget = Physics.OverlapSphere(this.transform.position, _manager._DetectingRange);
@@ -46,7 +46,7 @@ public class MacPOPUP : MacFSMState
                 if (target.tag == "Player")
                 {
                     _manager._PriorityTarget = PlayerFSMManager.
-                        instance.GetComponentInChildren<Animator>()
+                        Instance.GetComponentInChildren<Animator>()
                         .GetComponent<Collider>();
                 }
                 else
@@ -59,7 +59,7 @@ public class MacPOPUP : MacFSMState
         else
         {
             _manager._PriorityTarget = PlayerFSMManager.
-                instance.GetComponentInChildren<Animator>()
+                Instance.GetComponentInChildren<Animator>()
                 .GetComponent<Collider>();
         }
     }

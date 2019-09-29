@@ -16,7 +16,7 @@ public class Shield : MonoBehaviour
 
     private void Awake()
     {
-        player = PlayerFSMManager.instance;
+        player = PlayerFSMManager.Instance;
 
         sphere = GetComponent<SphereCollider>();
         box = GetComponentInChildren<BoxCollider>();

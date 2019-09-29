@@ -73,7 +73,7 @@ public class DungeonManager : MonoBehaviour
     /// 선택지가 선택된 후 던전을 생성하는 매소드
     /// </summary>
     /// <param name="missionData"> 정해진 미션 </param>
-    public static Dungeon CreateDungeon(MissionManager.MissionType missionType)
+    public static Dungeon CreateDungeon(MissionType missionType)
     {
         //Debug.Log("새로운 던전을 생성합니다.");
 
@@ -94,7 +94,7 @@ public class DungeonManager : MonoBehaviour
     /// 던전을 랜덤으로 정하는 매소드.
     /// </summary>
     /// <returns> 던전의 정보 </returns>
-    public Dungeon SetDungeon(MissionManager.MissionType missionType)
+    public Dungeon SetDungeon(MissionType missionType)
     {
         return _Dungeons[(int)missionType];
     }

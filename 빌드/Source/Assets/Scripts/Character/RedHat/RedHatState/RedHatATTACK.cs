@@ -38,7 +38,15 @@ public class RedHatATTACK : RedHatFSMState
             _manager.Stat.AttackRange,
             "Player", _manager.Stat);
 
+        Invoke("AttackSupport", 0.5f);
+
         //if (hitTarget != null) _manager._lastAttack = hitTarget;
+    }
+
+    public void AttackSupport()
+    {
+        Debug.Log("attackCall");
+        UserInterface.Instance.PCUI.PlayerHpBar.HitBackFun();
     }
 
     protected override void FixedUpdate()

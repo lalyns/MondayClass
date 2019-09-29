@@ -14,11 +14,11 @@ public class PlayerAnimEvent : MonoBehaviour
     private void Start()    
     {
         //input = InputHandler.instance;
-        player = PlayerFSMManager.instance;
+        player = PlayerFSMManager.Instance;
     }
     private void Update()
     {
-        isNormal = player.pc_Icon.gameObject.activeSelf;
+        isNormal = player.isNormal;
     }
     void hitCheck()
     {

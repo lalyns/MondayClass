@@ -15,7 +15,7 @@ public class Gauge : MonoBehaviour
     public float CoolTime = 10f;
     private void Awake()
     {
-        player = PlayerFSMManager.instance;
+        player = PlayerFSMManager.Instance;
 
         sphere = GetComponent<SphereCollider>();
         box = GetComponentInChildren<BoxCollider>();

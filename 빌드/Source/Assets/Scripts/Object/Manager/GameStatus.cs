@@ -31,7 +31,7 @@ public class GameStatus : MonoBehaviour
     bool dummySet = false;
     public void Awake()
     {
-        _PlayerInstance = PlayerFSMManager.instance;
+        _PlayerInstance = PlayerFSMManager.Instance;
     }
 
     public void Start()
@@ -42,7 +42,7 @@ public class GameStatus : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
     }
 
@@ -142,7 +142,7 @@ public class GameStatus : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                PlayerFSMManager.instance.SpecialGauge = 100.0f;
+                PlayerFSMManager.Instance.SpecialGauge = 100.0f;
             }
         }
 
@@ -181,7 +181,7 @@ public class GameStatus : MonoBehaviour
         dummySet = true;
         _EditorMode = true;
         _DummyLocationEffect.SetActive(true);
-        GameManager.CursorMode(true);
+        UserInterface.SetCursorMode(true);
     }
 
     public void SummonEffect()
@@ -207,7 +207,7 @@ public class GameStatus : MonoBehaviour
             "monster");
         dummySet = false;
         _DummyLocationEffect.SetActive(false);
-        GameManager.CursorMode(false);
+        UserInterface.SetCursorMode(false);
     }
 #endif
 

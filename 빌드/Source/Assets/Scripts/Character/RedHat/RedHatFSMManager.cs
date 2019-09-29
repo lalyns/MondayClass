@@ -55,6 +55,7 @@ public class RedHatFSMManager : FSMManager
 
     //public CharacterStat _lastAttack;
 
+    public HPBar _HPBar;
     public Slider _HPSilder;
     public GameObject hitEffect;
     public GameObject hitEffect_Special;
@@ -142,22 +143,33 @@ public class RedHatFSMManager : FSMManager
 
         if (CurrentState == RedHatState.DEAD) return;
 
-        if (PlayerFSMManager.instance.isNormal)
+        if (PlayerFSMManager.Instance.isNormal)
             EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(hitLocation, "Effect");
 
-        if (!PlayerFSMManager.instance.isNormal)
+        if (!PlayerFSMManager.Instance.isNormal)
             EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(hitLocation, "Effect");
 
         CurrentAttackType = attackType;
         int value = TransformTypeToInt(attackType);
-        PlayerStat playerStat = PlayerFSMManager.instance.Stat;
+        PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
         Stat.TakeDamage(playerStat, playerStat.DMG[value]);
         SetKnockBack(playerStat, value);
+        Invoke("AttackSupport", 0.5f);
 
-        StartCoroutine(Shake.instance.ShakeCamera(.1f, .2f, 0.1f));
+        if (attackType == AttackType.ATTACK1)
+            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.15f, 0.1f));
+        if (attackType == AttackType.ATTACK2)
+            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.18f, 0.1f));
+        if (attackType == AttackType.ATTACK3)
+            StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.3f, 0.1f));
+        if (attackType == AttackType.SKILL1)
+            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.1f, 0.1f));
+        if (attackType == AttackType.SkILL2)
+            StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
+        //if (attackType == AttackType.SKILL3)
+        //    StartCoroutine(Shake.instance.ShakeCamera(0.01f, 0.01f, 0.01f));
 
-        //hit스크립트로넘겨줌
         if (Stat.Hp > 0)
         {
             if (CurrentState == RedHatState.DASH || CurrentState == RedHatState.HIT) return;
@@ -168,7 +180,7 @@ public class RedHatFSMManager : FSMManager
             try
             {
                 transform.localEulerAngles = Vector3.zero;
-                transform.LookAt(PlayerFSMManager.instance.Anim.transform);
+                transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
                 //플레이어피버게이지증가?
             }
             catch
@@ -180,6 +192,11 @@ public class RedHatFSMManager : FSMManager
         {
             SetDeadState();
         }
+    }
+
+    public void AttackSupport()
+    {
+        _HPBar.HitBackFun();
     }
 
     public void SetKnockBack(PlayerStat stat, int attackType)
@@ -222,33 +239,47 @@ public class RedHatFSMManager : FSMManager
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Weapon")
+        if (other.transform.tag == "Weapon" && !PlayerFSMManager.Instance.isSkill3)
         {
             if (Stat.Hp > 0)
-            {
-                OnHitForMonster(PlayerFSMManager.instance.attackType);
-            }
+                OnHitForMonster(PlayerFSMManager.Instance.attackType);
         }
 
         if (other.transform.tag == "Ball")
         {
-            if (PlayerFSMManager.instance.isNormal)
+            if (PlayerFSMManager.Instance.isNormal)                
                 Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
-            if (!PlayerFSMManager.instance.isNormal)
+            if (!PlayerFSMManager.Instance.isNormal)
                 Instantiate(hitEffect_Skill1_Special, hitLocation.transform.position, Quaternion.identity);
-                       
+
+            other.transform.gameObject.SetActive(false);
+
             if (Stat.Hp > 0)
             {
                 //OnHit();
                 OnHitForMonster(AttackType.SKILL1);
-                other.transform.gameObject.SetActive(false);
             }
         }
         if (other.transform.tag == "Skill2")
         {
             SetState(RedHatState.HIT);
         }
+        if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
+        {
+            StartCoroutine("Skill3Timer");
+        }
     }
+
+
+    //IEnumerator Skill3Timer()
+    //{
+    //    while (PlayerFSMManager.instance.isSkill3)
+    //    {
+    //        OnHitForMonster(AttackType.SKILL3);
+    //        yield return new WaitForSeconds(0.1f);
+    //    }
+    //}
+    
     private void OnTriggerExit(Collider other)
     {
         if (other.transform.tag == "Skill2")
@@ -266,6 +297,7 @@ public class RedHatFSMManager : FSMManager
             }
         }
     }
+   
 
     public override void SetDeadState()
     {

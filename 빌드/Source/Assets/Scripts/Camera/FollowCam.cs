@@ -29,7 +29,7 @@ public class FollowCam : MonoBehaviour
     PlayerFSMManager player;
     void Start()
     {
-        player = PlayerFSMManager.instance;
+        player = PlayerFSMManager.Instance;
 
         originHeight = height;
         //target = GameObject.Find("Target").GetComponent<Transform>();
