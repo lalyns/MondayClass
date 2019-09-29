@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using MC.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -62,11 +63,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (_EditorCursorLock)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+        UserInterface.SetPointerMode(false);
 
         UserInterface.SetAllUserInterface(uIActive.all);
         UserInterface.SetPlayerUserInterface(uIActive.player);
@@ -80,8 +77,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!IsPuase) Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
-        else Time.timeScale = 0;
+        GameSpeed(IsPuase);
 
         // 키입력 매니저로 이동할것
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -89,8 +85,20 @@ public class GameManager : MonoBehaviour
             _SimpleMode = !_SimpleMode;
             UserInterface.SetMPMode(_SimpleMode);
         }
+    }
 
-        
+    void GameSpeed(bool isPause)
+    {
+        if (!isPause)
+        {
+            Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
+            UserInterface.Instance.MousePointerSpeed(1 / TimeMagnificationValue);
+        }
+        else
+        {
+            Time.timeScale = 0.01f;
+            UserInterface.Instance.MousePointerSpeed(100f);
+        }
     }
 
     #region OnGUI 도구
@@ -138,19 +146,11 @@ public class GameManager : MonoBehaviour
         Instance.curScore += 1;
     }
 
-    public void SetFadeInOut(bool value)
+    public void SetFadeInOut(System.Action callback,  bool value)
     {
         if (value)
-            StartCoroutine(UserInterface.FadeIn(() =>
-            {
-                CharacterControl = true;
-            }
-            , 20));
+            StartCoroutine(UserInterface.FadeIn(callback, 20));
         else
-            StartCoroutine(UserInterface.FadeOut(() =>
-            {
-                MissionManager.EnterMission();
-            }
-            , 20));
+            StartCoroutine(UserInterface.FadeOut(callback, 20));
     }
 }

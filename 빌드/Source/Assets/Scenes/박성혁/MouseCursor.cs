@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using MC.UI;
 
 public class MouseCursor : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class MouseCursor : MonoBehaviour
         //transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
 
         if(istitle)
-            UserInterface.SetCursorMode(cursorMode);
+            UserInterface.SetPointerMode(cursorMode);
 
         if (Input.GetKeyDown(KeyCode.K))
         {

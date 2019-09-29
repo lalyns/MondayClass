@@ -86,7 +86,7 @@ public class PlayerAnimEvent : MonoBehaviour
     {
         try
         {
-            player._Sound.PlayFootStepSFX();
+            //player._Sound.PlayFootStepSFX();
         }
         catch
         {
