@@ -41,42 +41,74 @@ namespace MC.UI
         }
 
         #region Canvas Control Function
-        [SerializeField] private bool activeAllUI = true;
-        [SerializeField] private bool activePlayerUI = true;
-        [SerializeField] private bool activeMonsterUI = true;
-        [SerializeField] private bool activeSystemUI = true;
-        [SerializeField] private bool activeMissionProgressUI = true;
-        [SerializeField] private bool activeMissionSelectionUI = true;
+        private bool activeAllUI = true; 
+        private bool activePlayerUI = true;
+        private bool activeMonsterUI = true;
+        private bool activeSystemUI = true;
+        private bool activeMissionProgressUI = true;
+        private bool activeMissionSelectionUI = true;
 
-        public GameObject UICanvas;
+        private GameObject _UICanvas;
+        public GameObject UICanvas {
+            get {
+                if (_UICanvas == null) _UICanvas = CanvasInfo.Instance.UICanvas;
+                return _UICanvas;
+            }
+        }
         public static void SetAllUserInterface(bool isActive)
         {
             Instance.activeAllUI = isActive;
             Instance.UICanvas.SetActive(isActive);
         }
 
-        public GameObject SystemUICanvas;
+        private GameObject _SystemUICanvas;
+        public GameObject SystemUICanvas {
+            get {
+                if (_SystemUICanvas == null) _SystemUICanvas = CanvasInfo.Instance.SystemUICanvas;
+                return _SystemUICanvas;
+            }
+        }
         public static void SetSystemInterface(bool isActive)
         {
             Instance.activeSystemUI = isActive;
             Instance.SystemUICanvas.SetActive(isActive);
         }
 
-        public GameObject PlayerUICanvas;
+        private GameObject _PlayerUICanvas;
+        public GameObject PlayerUICanvas {
+            get {
+                if (_PlayerUICanvas == null) _PlayerUICanvas = CanvasInfo.Instance.PlayerUICanvas;
+                return _PlayerUICanvas;
+            }
+        }
         public static void SetPlayerUserInterface(bool isActive)
         {
             Instance.activePlayerUI = isActive;
             Instance.PlayerUICanvas.SetActive(isActive);
         }
 
-        public GameObject MissionProgressUICanvas;
+        private GameObject _MissionProgressUICanvas;
+        public GameObject MissionProgressUICanvas {
+            get {
+                if (_MissionProgressUICanvas == null)
+                    _MissionProgressUICanvas = CanvasInfo.Instance.MissionProgressUICanvas;
+                return _MissionProgressUICanvas;
+            }
+        }
         public static void SetMissionProgressUserInterface(bool isActive)
         {
             Instance.activeMissionProgressUI = isActive;
             Instance.MissionProgressUICanvas.SetActive(isActive);
         }
 
-        public GameObject MissionSelectionUICanvas;
+        private GameObject _MissionSelectionUICanvas;
+        public GameObject MissionSelectionUICanvas {
+            get {
+                if (_MissionSelectionUICanvas == null)
+                    _MissionSelectionUICanvas = CanvasInfo.Instance.MissionSelectionUICanvas;
+                return _MissionSelectionUICanvas;
+            }
+        }
         public static void SetMissionSelectionUI(bool isActive)
         {
             Instance.activeMissionSelectionUI = isActive;
@@ -188,6 +220,11 @@ namespace MC.UI
             }
         }
 
+        public void MousePointerSpeed(float value)
+        {
+            MousePointer.animator.SetFloat("Speed", value);
+        }
+
         public static void SetPointerMode(bool mode)
         {
             Instance.pointerMode = mode;
@@ -213,7 +250,6 @@ namespace MC.UI
             }
         }
 
-        public Image FadeInOutImage;
         public float FadeInOutSpeed = 10.0f;
 
         public static IEnumerator FadeIn(System.Action callback, float speed = 10.0f, float delay = 0.15f)

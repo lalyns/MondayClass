@@ -31,15 +31,6 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private Mission[] _Missions;
     public Mission[] Missions {
         get {
-            //if (_Missions == null)
-            //{
-            //    GameObject[] maps = GameObject.FindGameObjectsWithTag("Mission");
-            //    _Missions = new Mission[maps.Length];
-
-            //    int i = 0;
-            //    foreach(GameObject map in maps)
-            //        _Missions[i++] = map.GetComponent<Mission>();
-            //}
             return _Missions;
         }
     }
@@ -47,6 +38,8 @@ public class MissionManager : MonoBehaviour
     public Mission CurrentMission;
     public MissionType CurrentMissionType => CurrentMission.Data.MissionType;
 
+
+    private bool isFirst = true;
     // For Editor Using
 
     public void Awake()
@@ -140,6 +133,7 @@ public class MissionManager : MonoBehaviour
     }
 
     public static void ExitMission() {
+        if (Instance.isFirst) { Instance.isFirst = false; return; }
         Instance.CurrentMission.RestMission();
     }
 

@@ -213,8 +213,8 @@ public class PlayerFSMManager : FSMManager
             state.enabled = false;
         }
 
-        _Sound.PlayAttackSFX();
-        _Sound.PlayFootStepSFX();
+        //_Sound.PlayAttackSFX();
+        //_Sound.PlayFootStepSFX();
 
         instance = this;
         isSkill2 = false;
@@ -623,7 +623,7 @@ public class PlayerFSMManager : FSMManager
                 FlashEffect2.SetActive(true);
                 try
                 {
-                    _Sound.PlayDashSFX();
+                    //_Sound.PlayDashSFX();
                 }
                 catch
                 {
@@ -903,7 +903,7 @@ public class PlayerFSMManager : FSMManager
                 isBall = false;
                 try
                 {
-                    _Sound.PlaySkill1SFX();
+                    //_Sound.PlaySkill1SFX();
                 }
                 catch
                 {

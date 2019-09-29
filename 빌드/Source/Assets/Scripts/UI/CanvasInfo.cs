@@ -85,6 +85,7 @@ namespace MC.UI {
     {
         public Transform transform;
         public Image pointer;
+        public Animator animator;
     }
 
     [System.Serializable]
