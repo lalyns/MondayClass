@@ -430,7 +430,8 @@ public class PlayerFSMManager : FSMManager
 
         Skill2Set();
 
-        _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
+        if(GameManager.Instance.CharacterControl)
+            _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
 
     }
 

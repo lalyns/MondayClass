@@ -43,7 +43,7 @@ public class GameStatus : MonoBehaviour
         }
         else
         {
-            //Destroy(this.gameObject);
+
         }
     }
 
@@ -212,4 +212,8 @@ public class GameStatus : MonoBehaviour
     }
 #endif
 
+    public void SetValue()
+    {
+        _PlayerInstance = PlayerFSMManager.Instance;
+    }
 }

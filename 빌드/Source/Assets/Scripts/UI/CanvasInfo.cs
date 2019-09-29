@@ -10,6 +10,10 @@ namespace MC.UI {
     [System.Serializable]
     public class PlayerUI
     {
+        public GameObject gameObject;
+
+        public Canvas canvas;
+
         public Image PCIcon;
         public HPBar PlayerHpBar;
         public PlayerSpecialUI Special;
@@ -55,11 +59,30 @@ namespace MC.UI {
     }
     #endregion
 
+    #region Mission Selector User Interface
+    [System.Serializable]
+    public class MissionSelectorUI
+    {
+        public GameObject gameObject;
+        public MissionButton[] buttons;
+    }
+
+    #endregion
+
     #region Mission Progress User Interface Class(2)
+    [System.Serializable]
+    public class MissionProgressUI
+    {
+        public GameObject gameObject;
+
+        public ProgressFullUI full;
+        public ProgressSimpleUI simple;
+    }
+
     [System.Serializable]
     public class ProgressFullUI
     {
-        public GameObject FullMode;
+        public GameObject gameObject;
         public Image MissionIcon;
         public Text MissionText;
         public Image TimeBack;
@@ -71,7 +94,7 @@ namespace MC.UI {
     [System.Serializable]
     public class ProgressSimpleUI
     {
-        public GameObject SimpleMode;
+        public GameObject gameObject;
         public Image TimeBack;
         public Text TimeText;
         public Image GoalIcon;
@@ -80,6 +103,12 @@ namespace MC.UI {
     #endregion
 
     #region System User Interface Class(4)
+    [System.Serializable]
+    public class SystemUI
+    {
+        public GameObject gameObject;
+    }
+
     [System.Serializable]
     public class MousePointer
     {
@@ -109,24 +138,37 @@ namespace MC.UI {
     }
     #endregion
 
+    #region Title User Interface Class
+    [System.Serializable]
+    public class TitleSceneUI
+    {
+        public GameObject gameObject;
+
+        public Button start;
+        public Button howToPlay;
+        public Button config;
+        public Button exit;
+    }
+
+    #endregion
+
+
 
     public class CanvasInfo : MonoBehaviour
     {
-        private static CanvasInfo _Instance;
+        private static CanvasInfo instance;
         public static CanvasInfo Instance {
             get {
-                if (_Instance == null) { _Instance = GameObject.Find("Canvases").GetComponent<CanvasInfo>(); }
-                return _Instance;
+                if (instance == null) { instance = GameObject.Find("Canvases").GetComponent<CanvasInfo>(); }
+                return instance;
             }
         }
 
         public GameObject UICanvas;
         public GameObject SystemUICanvas;
-        public GameObject PlayerUICanvas;
-        public GameObject MissionProgressUICanvas;
         public GameObject MissionSelectionUICanvas;
 
-        public GameObject[] Layers;
+        public Canvas[] Layers;
         public GameObject EventSystem;
 
         [Space(5)]
@@ -134,24 +176,52 @@ namespace MC.UI {
         public PlayerUI playerUI;
         public PlayerInterfaceResources playerUIResources;
 
-        //[Space(5)]
-        //[Header("Mission Selector Interface")]
+        [Space(5)]
+        [Header("Mission Selector Interface")]
+        public MissionSelectorUI selector;
 
         [Space(5)]
         [Header("Mission Progress Interface")]
-        public ProgressFullUI progressFullUI;
-        public ProgressSimpleUI progressSimpleUI;
+        public MissionProgressUI progress;
 
         [Space(5)]
         [Header("System Interface")]
+        public SystemUI systemUI;
         public MousePointer mousePointer;
         public ScreenEffect screenEffect;
 
+        [Space(5)]
+        [Header("Title Interface")]
+        public TitleSceneUI title;
+
+        
+
         private void Awake()
         {
+            if (instance == null)
+            {
+                instance = GetComponent<CanvasInfo>();
+            }
+
+            if (instance.gameObject != this.gameObject)
+                Destroy(gameObject);
+
+            SetRenderCam();
+
             screenEffect.blur.image.material.SetColor("_Color", Color.white);
             screenEffect.blur.image.material.SetFloat("_Size", 0);
+
+            DontDestroyOnLoad(this.gameObject);
         }
 
+        public void SetRenderCam()
+        {
+            Camera uiCam = GameObject.FindGameObjectWithTag("UICam").GetComponent<Camera>();
+
+            for(int i=0; i<Layers.Length; i++)
+            {
+                Layers[i].worldCamera = uiCam;
+            }
+        }
     }
 }

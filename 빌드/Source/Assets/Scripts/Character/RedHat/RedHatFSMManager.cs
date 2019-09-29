@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using MC.UI;
 
 public enum RedHatState
 {

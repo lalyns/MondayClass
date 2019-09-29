@@ -33,13 +33,17 @@ public class MissionManager : MonoBehaviour
         get {
             return _Missions;
         }
+        set
+        {
+            _Missions = value;
+        }
     }
 
     public Mission CurrentMission;
     public MissionType CurrentMissionType => CurrentMission.Data.MissionType;
 
-
     private bool isFirst = true;
+    private bool isChange = false;
     // For Editor Using
 
     public void Awake()
@@ -62,11 +66,23 @@ public class MissionManager : MonoBehaviour
     public GameObject MissionProgressUI;
 
     public static void PopUpMission() {
+        if (Instance.isChange) return;
 
         UserInterface.BlurSet(true);
 
         Instance.MissionSelector.SetActive(true);
         UserInterface.SetPointerMode(true);
+        UserInterface.Instance.MousePointerSpeed(100f);
+
+        Instance.ChangeMission();
+
+        GameManager.Instance.CharacterControl = false;
+        GameManager.Instance.IsPuase = true;
+    }
+
+    public void ChangeMission()
+    {
+        if (isChange) return;
 
         //랜덤 미션 출력하기
         foreach (MissionButton choice in Instance.Choices)
@@ -74,15 +90,8 @@ public class MissionManager : MonoBehaviour
             var type = UnityEngine.Random.Range(0, 999) % ((int)(MissionType.Last) - 1);
             choice.ChangeMission(Instance.Missions[type]);
         }
-        GameManager.Instance.CharacterControl = false;
 
-        Instance.Invoke("Puase", 0.1f);
-    }
-
-    public void Puase()
-    {
-        GameManager.Instance.IsPuase = true;
-
+        isChange = false;
     }
 
     public static void SelectMission(Mission mission) {
@@ -94,7 +103,7 @@ public class MissionManager : MonoBehaviour
         UserInterface.FullModeSetMP();
 
         // 페이드 Out
-        GameManager.Instance.SetFadeInOut(()=> {
+        GameManager.SetFadeInOut(()=> {
 
             MissionManager.EnterMission();
             UserInterface.BlurSet(false);
@@ -115,9 +124,11 @@ public class MissionManager : MonoBehaviour
             transform.LookAt(Instance.CurrentMission.Exit.transform);
 
         // 페이드 Out
-        GameManager.Instance.SetFadeInOut(() =>
+        GameManager.SetFadeInOut(() =>
         {
             GameManager.Instance.CharacterControl = true;
+
+            Instance.isChange = false;
         },
         true);
     }
@@ -133,8 +144,21 @@ public class MissionManager : MonoBehaviour
     }
 
     public static void ExitMission() {
+        Input.ResetInputAxes();
+        PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
+
         if (Instance.isFirst) { Instance.isFirst = false; return; }
         Instance.CurrentMission.RestMission();
+    }
+
+    public void SetValue()
+    {
+        MissionSelector = UserInterface.Instance.MissionSelectionUICanvas;
+        MissionProgressUI = UserInterface.Instance.MissionProgressUICanvas;
+
+        var Maps = GameObject.FindObjectsOfType<Mission>();
+        Missions = Maps;
+        Choices = UserInterface.Instance.SelectorUI.buttons;
     }
 
 

@@ -10,7 +10,7 @@ public class MissionData : ScriptableObject
     public MissionType MissionType;
 
     // 미션 이름
-    public Sprite MissionName;
+    public Sprite missionTypeSprite;
     public Sprite MissionIcon;
     public string MissionGoal;
 

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 namespace MC.UI
 {
-
     public class UserInterface : MonoBehaviour
     {
         private static UserInterface instance;
@@ -19,8 +18,6 @@ namespace MC.UI
                 instance = GetComponent<UserInterface>();
             }
 
-            if (instance.gameObject != this.gameObject)
-                Destroy(gameObject);
         }
 
         #region Instance Caching
@@ -32,12 +29,7 @@ namespace MC.UI
 
         private void Start()
         {
-            playerFSMMgr = PlayerFSMManager.Instance;
-            missionMgr = MissionManager.Instance;
-            gameStatus = GameStatus.Instance;
-            gameMgr = GameManager.Instance;
-
-            SetMPMode(MPSimpleMode);
+            SetValue();
         }
 
         #region Canvas Control Function
@@ -47,11 +39,13 @@ namespace MC.UI
         private bool activeSystemUI = true;
         private bool activeMissionProgressUI = true;
         private bool activeMissionSelectionUI = true;
+        private bool activeTitleUI = true;
 
         private GameObject _UICanvas;
         public GameObject UICanvas {
             get {
-                if (_UICanvas == null) _UICanvas = CanvasInfo.Instance.UICanvas;
+                if (_UICanvas == null)
+                    _UICanvas = CanvasInfo.Instance.UICanvas;
                 return _UICanvas;
             }
         }
@@ -64,7 +58,8 @@ namespace MC.UI
         private GameObject _SystemUICanvas;
         public GameObject SystemUICanvas {
             get {
-                if (_SystemUICanvas == null) _SystemUICanvas = CanvasInfo.Instance.SystemUICanvas;
+                if (_SystemUICanvas == null)
+                    _SystemUICanvas = CanvasInfo.Instance.SystemUICanvas;
                 return _SystemUICanvas;
             }
         }
@@ -77,7 +72,8 @@ namespace MC.UI
         private GameObject _PlayerUICanvas;
         public GameObject PlayerUICanvas {
             get {
-                if (_PlayerUICanvas == null) _PlayerUICanvas = CanvasInfo.Instance.PlayerUICanvas;
+                if (_PlayerUICanvas == null)
+                    _PlayerUICanvas = CanvasInfo.Instance.playerUI.gameObject;
                 return _PlayerUICanvas;
             }
         }
@@ -91,7 +87,7 @@ namespace MC.UI
         public GameObject MissionProgressUICanvas {
             get {
                 if (_MissionProgressUICanvas == null)
-                    _MissionProgressUICanvas = CanvasInfo.Instance.MissionProgressUICanvas;
+                    _MissionProgressUICanvas = CanvasInfo.Instance.progress.gameObject;
                 return _MissionProgressUICanvas;
             }
         }
@@ -114,6 +110,21 @@ namespace MC.UI
             Instance.activeMissionSelectionUI = isActive;
             Instance.MissionSelectionUICanvas.SetActive(isActive);
         }
+
+        private GameObject _TitleUI;
+        public GameObject TitleUI {
+            get {
+                if (_TitleUI == null)
+                    _TitleUI = CanvasInfo.Instance.title.gameObject;
+                return _TitleUI;
+            }
+        }
+        public static void SetTitleUI(bool isActive)
+        {
+            Instance.activeTitleUI = isActive;
+            Instance.TitleUI.SetActive(isActive);
+        }
+
         #endregion
 
         private void Update()
@@ -230,15 +241,16 @@ namespace MC.UI
             Instance.pointerMode = mode;
 
             Cursor.lockState = mode ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = false;
+            Cursor.visible = true;
             Instance.MousePointer.pointer.enabled = mode;
         }
 
         private void PointerLocation()
         {
             var screenPoint = Input.mousePosition;
-            screenPoint.z = 10.0f;
+            screenPoint.z = 8.0f;
             MousePointer.transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
+            //Debug.Log(string.Format("Screen : {0}, Pointer : {1}", screenPoint, MousePointer.transform.position));
         }
 
         // Screen Effect : FadeIn FadeOut
@@ -258,7 +270,9 @@ namespace MC.UI
             for (float i = 100; i >= 0;)
             {
                 i -= speed;
-                alpha.a = i * 0.01f;
+                var value = Mathf.Clamp01(i * 0.01f);
+                Debug.Log("Fade In Progress : " + value);
+                alpha.a = value;
                 Instance.ScreenEffect.fading.image.color = alpha;
 
                 yield return new WaitForSeconds(delay);
@@ -273,7 +287,9 @@ namespace MC.UI
             for (float i = 0; i <= 100;)
             {
                 i += speed;
-                alpha.a = i * 0.01f;
+                var value = Mathf.Clamp01(i * 0.01f);
+                Debug.Log("Fade Out Progress : " + value);
+                alpha.a = value;
                 Instance.ScreenEffect.fading.image.color = alpha;
 
                 yield return new WaitForSeconds(delay);
@@ -299,15 +315,28 @@ namespace MC.UI
         }
         // 게임 설정
         #endregion
-        
+
+        #region Mission Selector User Interface
+        private MissionSelectorUI selectorUI;
+        public MissionSelectorUI SelectorUI {
+            get
+            {
+                if (selectorUI == null)
+                    selectorUI = CanvasInfo.Instance.selector;
+                return selectorUI;
+            }
+        }
+
+        #endregion
+
         #region MissionProgress User Interface
         // 간략모드 활성화 여부
         private bool MPSimpleMode = false;
         public static void SetMPMode(bool value)
         {
             Instance.MPSimpleMode = value;
-            Instance.FullMode.FullMode.SetActive(!value);
-            Instance.SimpleMode.SimpleMode.SetActive(value);
+            Instance.FullMode.gameObject.SetActive(!value);
+            Instance.SimpleMode.gameObject.SetActive(value);
             Instance.CurrentTimer = value ? Instance.SimpleMode.TimeText : Instance.FullMode.TimeText;
             Instance.CurrentGoal = value ? Instance.SimpleMode.GoalText : Instance.FullMode.GoalText;
             Instance.CurrentTimeBack = value ? Instance.SimpleMode.TimeBack : Instance.FullMode.TimeBack;
@@ -316,7 +345,9 @@ namespace MC.UI
         private ProgressFullUI _FullMode;
         public ProgressFullUI FullMode {
             get {
-                if (_FullMode == null) _FullMode = CanvasInfo.Instance.progressFullUI;
+                if (_FullMode == null)
+                    _FullMode = CanvasInfo.Instance.progress.full;
+
                 return _FullMode;
             }
         }
@@ -333,7 +364,10 @@ namespace MC.UI
 
         private ProgressSimpleUI _SimpleMode;
         public ProgressSimpleUI SimpleMode {
-            get { if(_SimpleMode ==null) _SimpleMode = CanvasInfo.Instance.progressSimpleUI;
+            get {
+                if (_SimpleMode ==null)
+                    _SimpleMode = CanvasInfo.Instance.progress.simple;
+
                 return _SimpleMode;
             }
         }
@@ -409,6 +443,10 @@ namespace MC.UI
 
         #endregion
 
+        #region Title User Interface
+
+        #endregion
+
         #region User Interface Effect Support Functions
 
         /// <summary>
@@ -439,5 +477,16 @@ namespace MC.UI
 
         #endregion
 
+        #region Null Support
+        public void SetValue()
+        {
+            playerFSMMgr = PlayerFSMManager.Instance;
+            missionMgr = MissionManager.Instance;
+            gameStatus = GameStatus.Instance;
+            gameMgr = GameManager.Instance;
+
+            SetMPMode(MPSimpleMode);
+        }
+        #endregion
     }
 }
