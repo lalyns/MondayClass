@@ -152,16 +152,18 @@ public class MacFSMManager : FSMManager
         SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
 
-        if (attackType == AttackType.ATTACK1 || attackType == AttackType.ATTACK2)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.05f, 0.1f));
+        if (attackType == AttackType.ATTACK1)
+            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.15f, 0.1f));
+        if (attackType == AttackType.ATTACK2)
+            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.18f, 0.1f));
         if (attackType == AttackType.ATTACK3)
-            StartCoroutine(Shake.instance.ShakeCamera(0.2f, 0.2f, 0.1f));
+            StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.3f, 0.1f));
         if(attackType == AttackType.SKILL1)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.1f, 0.1f));
+            StartCoroutine(Shake.instance.ShakeCamera(0.2f, 0.1f, 0.1f));
         if(attackType == AttackType.SkILL2)
             StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
-        if (attackType == AttackType.SKILL3)
-            StartCoroutine(Shake.instance.ShakeCamera(0.01f, 0.01f, 0.01f));
+        //if (attackType == AttackType.SKILL3)
+        //StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.08f, 0.01f));
 
         if (Stat.Hp > 0)
         {

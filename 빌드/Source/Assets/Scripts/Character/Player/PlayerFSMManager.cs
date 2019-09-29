@@ -274,9 +274,9 @@ public class PlayerFSMManager : FSMManager
         //vignette.mask = Concent;
         //Concent.value = aaasdf;
 
-        _attack1Time = AnimationLength("PC_Anim_Attack_001") / 1.3f;
-        _attack2Time = AnimationLength("PC_Anim_Attack_002") / 1.3f;
-        _attack3Time = AnimationLength("PC_Anim_Attack_003_2") / 1.3f;
+        _attack1Time = AnimationLength("PC_Anim_Attack_001") / 1.5f;
+        _attack2Time = AnimationLength("PC_Anim_Attack_002") / 1.8f;
+        _attack3Time = AnimationLength("PC_Anim_Attack_003_2") / 1.5f;
         _attackBack1 = AnimationLength("PC_Anim_Attack_Back_001") / 1.3f;
         _attackBack2 = AnimationLength("PC_Anim_Attack_Back_002") / 1.3f;
         _specialAnim = AnimationLength("PC_Anim_Transform_001");
@@ -331,7 +331,11 @@ public class PlayerFSMManager : FSMManager
 
     private void Update()
     {
-       
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
+        }
+
         // 공격처리는 죽음을 제외한 모든 상황에서 처리
         if (CurrentState != PlayerState.DEAD)
         {
@@ -554,6 +558,10 @@ public class PlayerFSMManager : FSMManager
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            isAttackOne = false;
+            isAttackTwo = false;
+            isAttackThree = false;
+
             isFlash = true;
             isFlashStart = true;
             FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
@@ -648,7 +656,7 @@ public class PlayerFSMManager : FSMManager
                 
 
                 isFlash = false;
-                isAttackOne = false;
+     
                 flashTimer = 0;
                 return;
             }

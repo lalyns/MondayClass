@@ -14,6 +14,8 @@ public class PlayerATTACKBACK1 : FSMState
     public override void EndState()
     {
         base.EndState();
+        _manager.isAttackOne = false;
+        _time = 0;
     }
 
     void Update()
@@ -25,9 +27,6 @@ public class PlayerATTACKBACK1 : FSMState
             if (_time >= _manager._attackBack1)
             {
                 _manager.SetState(PlayerState.IDLE);
-                _manager.isAttackOne = false;
-
-                _time = 0;
                 return;
             }
         }
@@ -35,9 +34,6 @@ public class PlayerATTACKBACK1 : FSMState
         if (_manager.OnMove())//_manager._h != 0 || _manager._v != 0)
         {
             _manager.SetState(PlayerState.RUN);
-            _manager.isAttackOne = false;
-
-            _time = 0;
             return;
         }
     }
