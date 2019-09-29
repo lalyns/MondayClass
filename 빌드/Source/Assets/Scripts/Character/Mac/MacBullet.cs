@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 public class MacBullet : MonoBehaviour
 {
@@ -179,7 +180,7 @@ public class MacBullet : MonoBehaviour
     public void AttackSupport()
     {
         Debug.Log("attackCall");
-        UserInterface.Instance.PCUI.PlayerHpBar.HitBackFun();
+        UserInterface.Instance.IPlayer.PlayerHpBar.HitBackFun();
     }
 }
     
