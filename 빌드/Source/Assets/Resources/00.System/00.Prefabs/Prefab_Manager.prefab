@@ -52,12 +52,8 @@ MonoBehaviour:
   TimeMagnificationValue: 0
   CharacterControl: 1
   ControlManual: 0
-  _cursurImage: {fileID: 0}
   curScore: 0
   IsPuase: 0
-  FadeInOutPanel: {fileID: 0}
-  fadeInOutSpeed: 10
-  FadeInOutAnim: {fileID: 0}
   uIActive:
     all: 1
     player: 1
@@ -97,10 +93,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeAllUI: 1
-  activePlayerUI: 1
+  activePlayerUI: 0
   activeMonsterUI: 0
   activeSystemUI: 0
-  activeMissionProgressUI: 1
+  activeMissionProgressUI: 0
   activeMissionSelectionUI: 0
   UICanvas: {fileID: 0}
   SystemUICanvas: {fileID: 0}
@@ -119,17 +115,27 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     Special: {fileID: 0}
+    SpecialEffects:
+    - {fileID: 0}
+    DashCount:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  CursorTransform: {fileID: 0}
+  FadeInOutImage: {fileID: 0}
+  FadeInOutSpeed: 10
   FullMode: {fileID: 0}
   fullModeUIs:
     MissionIcon: {fileID: 0}
     MissionText: {fileID: 0}
-    Timer: {fileID: 0}
+    TimeBack: {fileID: 0}
+    TimeText: {fileID: 0}
     GoalIcon: {fileID: 0}
     Goal: {fileID: 0}
   SimpleMode: {fileID: 0}
   simpleModeUIs:
-    TimeIcon: {fileID: 0}
-    Timer: {fileID: 0}
+    TimeBack: {fileID: 0}
+    TimeText: {fileID: 0}
     GoalIcon: {fileID: 0}
     Goal: {fileID: 0}
 --- !u!1 &2274891494841528154

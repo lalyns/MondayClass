@@ -45,32 +45,10 @@ public class RirisPATTERNB : RirisFSMState
     {
         base.Update();
 
-        //if(!_IsTele)
-        //{
-        //    _manager.TelePortToPos(_MapCenter.position);
-        //    _IsTele = false;
-        //}
-
         _Time1 += Time.deltaTime;
 
-        //if(_Time1 < _AttackReadyTime)
-        //{
-        //    if (!_IsAttackReady)
-        //    {
-        //        PatternBReadyEffect.transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
-        //        PatternBAttackEffect.transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
-        //        PatternBReadyEffect.SetActive(true);
-        //    }
-        //}
-
-        //else
-        //{
-        //    _Time2 += Time.deltaTime;
-        //    _IsAttackReady = true;
-
-        //    PatternBReadyEffect.SetActive(false);
-        //    PatternBAttackEffect.SetActive(true);
-        //}
+        if (_IsAttackReady)
+             PatternBAttackEffect.transform.position = _manager._WeaponCenter.transform.position;
 
         if (_Time1 > _AttackEndTime)
         {
@@ -89,5 +67,11 @@ public class RirisPATTERNB : RirisFSMState
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+    }
+
+    public void AttackReadyEnd()
+    {
+        _IsAttackReady = true;
+        PatternBAttackEffect.SetActive(true);
     }
 }

@@ -45,11 +45,16 @@ public static class GameLib
         if (PlayerFSMManager.Instance.ShieldCount > 0)
         {
             PlayerFSMManager.Instance.ShieldCount--;
-            //PlayerFSMManager.instance.isShield = false;
             return null;
         }
         else
         {
+            if (PlayerFSMManager.Instance.isIDLE)
+            {
+
+                
+            }
+
             CharacterStat lastHit = null;
             foreach (var hitObject in hitObjects)
             {

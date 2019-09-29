@@ -8,11 +8,13 @@ public class PlayerIDLE : FSMState
     public override void BeginState()
     {
         base.BeginState();
+        _manager.isIDLE = true;
     }
 
     public override void EndState()
     {
         base.EndState();
+        _manager.isIDLE = false;
     }
 
     private void Update()
