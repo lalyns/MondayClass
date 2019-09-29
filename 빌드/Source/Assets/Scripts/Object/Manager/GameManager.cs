@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (!IsPuase) Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
-        else Time.timeScale = 0;
+        else Time.timeScale = 0.01f;
 
         // 키입력 매니저로 이동할것
         if (Input.GetKeyDown(KeyCode.Tab))

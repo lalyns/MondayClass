@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace MC.UI {
 
+    // 변수 명 통일 및 정리 필요
     #region Player User Interface Class(6)
     [System.Serializable]
     public class PlayerUI
@@ -130,7 +131,7 @@ namespace MC.UI {
         [Space(5)]
         [Header ("Player User Interface")]
         public PlayerUI playerUI;
-        public PlayerInterfaceResources playerResources;
+        public PlayerInterfaceResources playerUIResources;
 
         //[Space(5)]
         //[Header("Mission Selector Interface")]

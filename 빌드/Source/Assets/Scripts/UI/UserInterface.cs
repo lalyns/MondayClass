@@ -112,8 +112,8 @@ namespace MC.UI
         private void PCIconImageSet(bool isSpecial)
         {
             IPlayer.PCIcon.sprite = isSpecial ? 
-                CanvasInfo.Instance.playerResources.PCIconSprites[0] : 
-                CanvasInfo.Instance.playerResources.PCIconSprites[1];
+                CanvasInfo.Instance.playerUIResources.PCIconSprites[0] : 
+                CanvasInfo.Instance.playerUIResources.PCIconSprites[1];
         }
 
         private void PlayerSkillUISet(int i, float value)
