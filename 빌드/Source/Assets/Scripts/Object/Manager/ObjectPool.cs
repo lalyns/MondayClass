@@ -148,6 +148,7 @@ public class ObjectPool : MonoBehaviour
                 GameLib.DirectionToCharacter(start, target);
 
             item.GetComponent<MacBullet>()._Move = true;
+            item.GetComponent<MacBullet>().mac = respawnTrans.GetComponentInParent<MacFSMManager>();
         }
         catch
         {
