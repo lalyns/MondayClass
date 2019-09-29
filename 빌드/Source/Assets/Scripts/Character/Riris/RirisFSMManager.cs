@@ -56,6 +56,7 @@ public class RirisFSMManager : FSMManager
 
     public Transform _Weapon;
     public Animator _WeaponAnimator;
+    public Transform _WeaponCenter;
 
     [Range(0, 1)] public float[] _PhaseThreshold = new float[3];
     public int _Phase = 0;

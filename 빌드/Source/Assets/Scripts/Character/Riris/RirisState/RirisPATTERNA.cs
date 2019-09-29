@@ -5,6 +5,7 @@ using UnityEngine;
 public class RirisPATTERNA : RirisFSMState
 {
     public GameObject _PatternAReadyEffect;
+    public GameObject _PatternAAttackEffect;
 
     public bool SetJumpState = false;
 
@@ -26,6 +27,7 @@ public class RirisPATTERNA : RirisFSMState
         _manager._Weapon.gameObject.SetActive(true);
         _manager._Weapon.transform.position = this.transform.position;
         _manager._Weapon.transform.rotation = this.transform.rotation;
+
     }
 
     public override void EndState()
@@ -35,6 +37,7 @@ public class RirisPATTERNA : RirisFSMState
         _manager._Weapon.gameObject.SetActive(false);
         _manager.Anim.SetBool("Stomp", false);
         _manager._WeaponAnimator.SetBool("Stomp", false);
+        _PatternAAttackEffect.SetActive(false);
         SetJumpState = false;
         StompEnd = false;
 
@@ -75,6 +78,7 @@ public class RirisPATTERNA : RirisFSMState
         transform.position = targetPos;
         _manager._Weapon.position = targetPos;
 
+        _PatternAAttackEffect.SetActive(true);
         _manager.Anim.SetBool("Stomp", true);
         _manager._WeaponAnimator.SetBool("Stomp", true);
     }
