@@ -180,7 +180,7 @@ public class PlayerFSMManager : FSMManager
     Bloom bloom;
 
     public PostProcessProfile profile1;
-
+    public bool isIDLE;
     protected override void Awake()
     {
         base.Awake();
@@ -304,7 +304,12 @@ public class PlayerFSMManager : FSMManager
         mainCamera = GameObject.Find("mainCam").GetComponent<Camera>();
         followCam = shake.GetComponent<FollowCam>();
         Skill1CTime = 10f;
+
+
+
+
     }
+
 
     public void SetState(PlayerState newState)
     {
@@ -647,6 +652,7 @@ public class PlayerFSMManager : FSMManager
 
                 }
 
+
                 isDashCTime[currentDashNumber--] = true;
 
                 if (currentDashNumber < 0)
@@ -662,6 +668,40 @@ public class PlayerFSMManager : FSMManager
      
                 flashTimer = 0;
                 return;
+            }
+        }
+    }
+
+    public void DashReset()
+    {
+        if (isDashCTime[0])
+        {
+            DashCTime[0] -= Time.deltaTime;
+            if (DashCTime[0] <= 0)
+            {
+                DashCTime[0] = 3f;
+                isDashCTime[0] = false;
+                dashCount++;
+            }
+        }
+        if (isDashCTime[1])
+        {
+            DashCTime[1] -= Time.deltaTime;
+            if (DashCTime[1] <= 0)
+            {
+                DashCTime[1] = 3f;
+                isDashCTime[1] = false;
+                dashCount++;
+            }
+        }
+        if (isDashCTime[2])
+        {
+            DashCTime[2] -= Time.deltaTime;
+            if (DashCTime[2] <= 0)
+            {
+                DashCTime[2] = 3f;
+                isDashCTime[2] = false;
+                dashCount++;
             }
         }
     }
@@ -976,40 +1016,6 @@ public class PlayerFSMManager : FSMManager
             isSkill3 = true;
 
             return;
-        }
-    }
-
-    public void DashReset()
-    {
-        if(isDashCTime[0])
-        {
-            DashCTime[0] -= Time.deltaTime;
-            if(DashCTime[0] <= 0)
-            {
-                DashCTime[0] = 3f;
-                isDashCTime[0] = false;
-                dashCount++;
-            }
-        }
-        if (isDashCTime[1])
-        {
-            DashCTime[1] -= Time.deltaTime;
-            if (DashCTime[1] <= 0)
-            {
-                DashCTime[1] = 3f;
-                isDashCTime[1] = false;
-                dashCount++;
-            }
-        }
-        if (isDashCTime[2])
-        {
-            DashCTime[2] -= Time.deltaTime;
-            if (DashCTime[2] <= 0)
-            {
-                DashCTime[2] = 3f;
-                isDashCTime[2] = false;
-                dashCount++;
-            }
         }
     }
 
