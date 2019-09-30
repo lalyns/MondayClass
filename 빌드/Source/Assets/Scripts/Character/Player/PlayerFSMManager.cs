@@ -6,6 +6,7 @@ using UnityEngine.Timeline;
 using UnityEngine.SceneManagement;
 
 using MC.UI;
+using MC.Sound;
 
 public enum PlayerState
 {

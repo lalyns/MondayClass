@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 using MC.UI;
+using MC.Sound;
 using MC.SceneDirector;
 
 public class GameManager : MonoBehaviour
@@ -47,7 +49,12 @@ public class GameManager : MonoBehaviour
     }
     public UIActive uIActive;
 
-
+    [System.Serializable]
+    public class GameConfig
+    {
+        public SoundActive soundActive;
+    }
+    
     private void Awake()
     {
         if(instance == null)
