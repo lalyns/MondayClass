@@ -330,6 +330,7 @@ public class PlayerFSMManager : FSMManager
 
     private void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.U))
         {
             StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
@@ -418,6 +419,11 @@ public class PlayerFSMManager : FSMManager
 
         if(GameManager.Instance.CharacterControl && !isSpecial)
             _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
+
+    }
+
+    private void LateUpdate()
+    {
 
     }
 

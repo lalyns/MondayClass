@@ -13,6 +13,10 @@ namespace MC.SceneDirector
             CinemaManager.Instance.SceneStart();
         }
 
+        public void SceneEnd()
+        {
+            CinemaManager.CinemaEnd();
+        }
 
     }
 }
