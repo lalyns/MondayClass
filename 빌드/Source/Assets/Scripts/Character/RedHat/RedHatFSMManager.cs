@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using MC.UI;
 
 public enum RedHatState
 {
@@ -279,7 +280,7 @@ public class RedHatFSMManager : FSMManager
     //        yield return new WaitForSeconds(0.1f);
     //    }
     //}
-    
+
     private void OnTriggerExit(Collider other)
     {
         if (other.transform.tag == "Skill2")

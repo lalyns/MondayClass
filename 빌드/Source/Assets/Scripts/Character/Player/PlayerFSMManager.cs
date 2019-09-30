@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Timeline;
 using UnityEngine.SceneManagement;
+
+using MC.UI;
+
 public enum PlayerState
 {
     IDLE = 0,
@@ -177,7 +180,7 @@ public class PlayerFSMManager : FSMManager
     Bloom bloom;
 
     public PostProcessProfile profile1;
-
+    public bool isIDLE;
     protected override void Awake()
     {
         base.Awake();
@@ -210,8 +213,8 @@ public class PlayerFSMManager : FSMManager
             state.enabled = false;
         }
 
-        _Sound.PlayAttackSFX();
-        _Sound.PlayFootStepSFX();
+        //_Sound.PlayAttackSFX();
+        //_Sound.PlayFootStepSFX();
 
         instance = this;
         isSkill2 = false;
@@ -301,7 +304,12 @@ public class PlayerFSMManager : FSMManager
         mainCamera = GameObject.Find("mainCam").GetComponent<Camera>();
         followCam = shake.GetComponent<FollowCam>();
         Skill1CTime = 10f;
+
+
+
+
     }
+
 
     public void SetState(PlayerState newState)
     {
@@ -422,7 +430,8 @@ public class PlayerFSMManager : FSMManager
 
         Skill2Set();
 
-        _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
+        if(GameManager.Instance.CharacterControl)
+            _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
 
     }
 
@@ -615,7 +624,7 @@ public class PlayerFSMManager : FSMManager
                 FlashEffect2.SetActive(true);
                 try
                 {
-                    _Sound.PlayDashSFX();
+                    //_Sound.PlayDashSFX();
                 }
                 catch
                 {
@@ -644,6 +653,7 @@ public class PlayerFSMManager : FSMManager
 
                 }
 
+
                 isDashCTime[currentDashNumber--] = true;
 
                 if (currentDashNumber < 0)
@@ -659,6 +669,40 @@ public class PlayerFSMManager : FSMManager
      
                 flashTimer = 0;
                 return;
+            }
+        }
+    }
+
+    public void DashReset()
+    {
+        if (isDashCTime[0])
+        {
+            DashCTime[0] -= Time.deltaTime;
+            if (DashCTime[0] <= 0)
+            {
+                DashCTime[0] = 3f;
+                isDashCTime[0] = false;
+                dashCount++;
+            }
+        }
+        if (isDashCTime[1])
+        {
+            DashCTime[1] -= Time.deltaTime;
+            if (DashCTime[1] <= 0)
+            {
+                DashCTime[1] = 3f;
+                isDashCTime[1] = false;
+                dashCount++;
+            }
+        }
+        if (isDashCTime[2])
+        {
+            DashCTime[2] -= Time.deltaTime;
+            if (DashCTime[2] <= 0)
+            {
+                DashCTime[2] = 3f;
+                isDashCTime[2] = false;
+                dashCount++;
             }
         }
     }
@@ -860,7 +904,7 @@ public class PlayerFSMManager : FSMManager
                 isBall = false;
                 try
                 {
-                    _Sound.PlaySkill1SFX();
+                    //_Sound.PlaySkill1SFX();
                 }
                 catch
                 {
@@ -976,40 +1020,6 @@ public class PlayerFSMManager : FSMManager
         }
     }
 
-    public void DashReset()
-    {
-        if(isDashCTime[0])
-        {
-            DashCTime[0] -= Time.deltaTime;
-            if(DashCTime[0] <= 0)
-            {
-                DashCTime[0] = 3f;
-                isDashCTime[0] = false;
-                dashCount++;
-            }
-        }
-        if (isDashCTime[1])
-        {
-            DashCTime[1] -= Time.deltaTime;
-            if (DashCTime[1] <= 0)
-            {
-                DashCTime[1] = 3f;
-                isDashCTime[1] = false;
-                dashCount++;
-            }
-        }
-        if (isDashCTime[2])
-        {
-            DashCTime[2] -= Time.deltaTime;
-            if (DashCTime[2] <= 0)
-            {
-                DashCTime[2] = 3f;
-                isDashCTime[2] = false;
-                dashCount++;
-            }
-        }
-    }
-
     public void SKill1Reset()
     {
         if (isSkill1CTime)
@@ -1017,6 +1027,7 @@ public class PlayerFSMManager : FSMManager
             Skill1CTime -= Time.deltaTime;
             if (Skill1CTime <= 0)
             {
+                UIPlayer.SkillSetUp(0);
                 Skill1CTime = 10f;
                 isSkill1CTime = false;
             }
@@ -1032,6 +1043,7 @@ public class PlayerFSMManager : FSMManager
             Skill2CTime -= Time.deltaTime;
             if (Skill2CTime <= 0)
             {
+                UIPlayer.SkillSetUp(1);
                 Skill2CTime = 10f;
                 Skill2_Start.SetActive(false);
                 isSkill2 = false;
@@ -1048,6 +1060,7 @@ public class PlayerFSMManager : FSMManager
 
             if (Skill3CTime <= 0)
             {
+                UIPlayer.SkillSetUp(2);
                 Skill3CTime = 10f;
                 Skill3_End.SetActive(false);
                 isSkill3CTime = false;

@@ -512,8 +512,10 @@ class AkSoundEnginePINVOKE {
   public static extern int CSharp_RenderAudio__SWIG_0(bool jarg1);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_RenderAudio__SWIG_1")]
   public static extern int CSharp_RenderAudio__SWIG_1();
-  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_RegisterPluginDLL")]
-  public static extern int CSharp_RegisterPluginDLL([global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPStr)]string jarg1);
+  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_RegisterPluginDLL__SWIG_0")]
+  public static extern int CSharp_RegisterPluginDLL__SWIG_0([global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPStr)]string jarg1, [global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPStr)]string jarg2);
+  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_RegisterPluginDLL__SWIG_1")]
+  public static extern int CSharp_RegisterPluginDLL__SWIG_1([global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPStr)]string jarg1);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_GetIDFromString__SWIG_0")]
   public static extern uint CSharp_GetIDFromString__SWIG_0([global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPWStr)]string jarg1);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_PostEvent__SWIG_0")]

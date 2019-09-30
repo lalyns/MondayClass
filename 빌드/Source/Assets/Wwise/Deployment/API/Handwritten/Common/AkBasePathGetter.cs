@@ -37,7 +37,7 @@ public partial class AkBasePathGetter
 #elif UNITY_STANDALONE_LINUX
 		platformSubDir = "Linux";
 #elif UNITY_XBOXONE
-		platformSubDir = "XBoxOne";
+		platformSubDir = "XboxOne";
 #elif UNITY_IOS || UNITY_TVOS
 		platformSubDir = "iOS";
 #elif UNITY_ANDROID

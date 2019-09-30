@@ -289,7 +289,12 @@ public abstract class WwiseGroupValueObjectReference : WwiseObjectReference
 #if UNITY_EDITOR
 	public void SetupGroupObjectReference(string name, System.Guid guid)
 	{
-		GroupObjectReference = FindOrCreateWwiseObject(GroupWwiseObjectType, name, guid);
+		var objectReference = FindOrCreateWwiseObject(GroupWwiseObjectType, name, guid);
+		if (objectReference != GroupObjectReference)
+		{
+			GroupObjectReference = objectReference;
+			UnityEditor.EditorUtility.SetDirty(this);
+		}
 	}
 
 	#region WwiseMigration

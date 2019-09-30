@@ -13,38 +13,24 @@ namespace AK
 {
     namespace EVENTS
     {
-        static const AkUniqueID CREATURE_ATKHIT = 4048463816U;
-        static const AkUniqueID PLAYER_ATK3HIT = 280182955U;
-        static const AkUniqueID PLAYER_DASH = 2394582229U;
-        static const AkUniqueID PLAYER_FOOTSTEP = 2453392179U;
+        static const AkUniqueID BATTLEGROUND = 1835313730U;
+        static const AkUniqueID BOSSROOM = 3329270527U;
+        static const AkUniqueID LOBBY = 290285391U;
+        static const AkUniqueID OBJECT_PORTAL_SOUND_ACTIVATIONL = 2682899652U;
+        static const AkUniqueID OBJECT_PORTAL_SOUND_CREATE = 1186601540U;
+        static const AkUniqueID OBJECT_PORTAL_SOUND_ENTER = 418004602U;
+        static const AkUniqueID OBJECT_PORTAL_SOUND_EXIT = 3390316968U;
+        static const AkUniqueID PLAYER_ACTION_ATTACKSOUND_SWING = 2601194728U;
+        static const AkUniqueID PLAYER_ACTION_HITSOUND_SWING = 2047720253U;
+        static const AkUniqueID PLAYER_ACTION_SOUND_FOOTSTEP = 3053424408U;
+        static const AkUniqueID PLAYER_SKILL_SOUND_TELEPORT = 391096726U;
+        static const AkUniqueID PLAYER_SKILL_VOICE_TELEPORT = 388773759U;
     } // namespace EVENTS
-
-    namespace GAME_PARAMETERS
-    {
-        static const AkUniqueID DENSITY_FA_SSGRAIN = 2715217995U;
-        static const AkUniqueID IMMERSION_FA_SSGRAIN = 2481728872U;
-        static const AkUniqueID INSTRUMENT_FA_SSGRAIN = 2317409760U;
-        static const AkUniqueID PLAYBACK_RATE = 1524500807U;
-        static const AkUniqueID PROXIMITY_FA_SSGRAIN = 1791284502U;
-        static const AkUniqueID RPM = 796049864U;
-        static const AkUniqueID RPM_FA_SSGRAIN = 1656280998U;
-        static const AkUniqueID SIMULATION_FA_SSGRAIN = 2428833394U;
-        static const AkUniqueID SS_AIR_FEAR = 1351367891U;
-        static const AkUniqueID SS_AIR_FREEFALL = 3002758120U;
-        static const AkUniqueID SS_AIR_FURY = 1029930033U;
-        static const AkUniqueID SS_AIR_MONTH = 2648548617U;
-        static const AkUniqueID SS_AIR_PRESENCE = 3847924954U;
-        static const AkUniqueID SS_AIR_RPM = 822163944U;
-        static const AkUniqueID SS_AIR_SIZE = 3074696722U;
-        static const AkUniqueID SS_AIR_STORM = 3715662592U;
-        static const AkUniqueID SS_AIR_TIMEOFDAY = 3203397129U;
-        static const AkUniqueID SS_AIR_TURBULENCE = 4160247818U;
-    } // namespace GAME_PARAMETERS
 
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
-        static const AkUniqueID SOUND = 623086306U;
+        static const AkUniqueID MONDAYCLASS = 2245607887U;
     } // namespace BANKS
 
     namespace BUSSES
@@ -54,7 +40,6 @@ namespace AK
 
     namespace AUDIO_DEVICES
     {
-        static const AkUniqueID DEFAULT_MOTION_DEVICE = 4230635974U;
         static const AkUniqueID NO_OUTPUT = 2317455096U;
         static const AkUniqueID SYSTEM = 3859886410U;
     } // namespace AUDIO_DEVICES

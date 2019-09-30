@@ -512,8 +512,10 @@ class AkSoundEnginePINVOKE {
   public static extern int CSharp_RenderAudio__SWIG_0(bool jarg1);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_RenderAudio__SWIG_1")]
   public static extern int CSharp_RenderAudio__SWIG_1();
-  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_RegisterPluginDLL")]
-  public static extern int CSharp_RegisterPluginDLL([global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPWStr)]string jarg1);
+  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_RegisterPluginDLL__SWIG_0")]
+  public static extern int CSharp_RegisterPluginDLL__SWIG_0([global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPWStr)]string jarg1, [global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPWStr)]string jarg2);
+  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_RegisterPluginDLL__SWIG_1")]
+  public static extern int CSharp_RegisterPluginDLL__SWIG_1([global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPWStr)]string jarg1);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_GetIDFromString__SWIG_0")]
   public static extern uint CSharp_GetIDFromString__SWIG_0([global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPWStr)]string jarg1);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_PostEvent__SWIG_0")]
@@ -1918,6 +1920,16 @@ class AkSoundEnginePINVOKE {
   public static extern global::System.IntPtr CSharp_new_AkPlatformInitSettings();
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_delete_AkPlatformInitSettings")]
   public static extern void CSharp_delete_AkPlatformInitSettings(global::System.IntPtr jarg1);
+  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_GetDeviceIDFromName")]
+  public static extern uint CSharp_GetDeviceIDFromName([global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPWStr)]string jarg1);
+  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_GetWindowsDeviceName__SWIG_0")]
+  public static extern global::System.IntPtr CSharp_GetWindowsDeviceName__SWIG_0(int jarg1, out uint jarg2, int jarg3);
+  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_GetWindowsDeviceName__SWIG_1")]
+  public static extern global::System.IntPtr CSharp_GetWindowsDeviceName__SWIG_1(int jarg1, out uint jarg2);
+  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_GetWindowsDeviceCount__SWIG_0")]
+  public static extern uint CSharp_GetWindowsDeviceCount__SWIG_0(int jarg1);
+  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_GetWindowsDeviceCount__SWIG_1")]
+  public static extern uint CSharp_GetWindowsDeviceCount__SWIG_1();
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_AkStreamMgrSettings_uMemorySize_set")]
   public static extern void CSharp_AkStreamMgrSettings_uMemorySize_set(global::System.IntPtr jarg1, uint jarg2);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_AkStreamMgrSettings_uMemorySize_get")]
@@ -2180,10 +2192,6 @@ class AkSoundEnginePINVOKE {
   public static extern uint CSharp_GetMajorMinorVersion();
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_GetSubminorBuildVersion")]
   public static extern uint CSharp_GetSubminorBuildVersion();
-  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_GetDeviceIDFromName")]
-  public static extern uint CSharp_GetDeviceIDFromName([global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPWStr)]string jarg1);
-  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_GetWindowsDeviceName")]
-  public static extern global::System.IntPtr CSharp_GetWindowsDeviceName(int jarg1, out uint jarg2);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_QueryIndirectPaths")]
   public static extern int CSharp_QueryIndirectPaths(ulong jarg1, global::System.IntPtr jarg2, global::System.IntPtr jarg3, uint jarg4);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_QueryDiffractionPaths")]
