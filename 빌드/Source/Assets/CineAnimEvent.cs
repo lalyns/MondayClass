@@ -11,7 +11,7 @@ namespace MC.SceneDirector
     {
         public void SceneStart()
         {
-            CinemaManager.Instance.SceneStart();
+            TempDirector.Instance.SceneStart();
         }
 
         public void SceneEnd()

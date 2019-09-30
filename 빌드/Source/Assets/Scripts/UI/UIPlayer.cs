@@ -15,6 +15,7 @@ namespace MC.UI
         public PlayerDashUI[] dash;
         public PlayerBuffUI[] Buff;
 
+        public RectTransform root;
         public PlayerUIResource resource;
 
         private static UIPlayer Instance;
