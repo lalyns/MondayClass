@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
+using MC.SceneDirector;
 
 /// <summary>
 /// 미션의 종류
@@ -126,8 +127,8 @@ public class MissionManager : MonoBehaviour
         // 페이드 Out
         GameManager.SetFadeInOut(() =>
         {
+            CinemaManager.CinemaStart(CinemaManager.Instance.enterDirector);
             GameManager.Instance.CharacterControl = true;
-
             Instance.isChange = false;
         },
         true);
