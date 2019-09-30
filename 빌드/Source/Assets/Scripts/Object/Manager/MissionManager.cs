@@ -105,10 +105,11 @@ public class MissionManager : MonoBehaviour
         UserInterface.FullModeSetMP();
 
         // 페이드 Out
-        GameManager.SetFadeInOut(()=> {
+        GameManager.SetFadeInOut( ()=> {
 
             MissionManager.EnterMission();
             UserInterface.BlurSet(false);
+            // RigidBody Gravity => false
         }, false);
         //EnterMission();
     }
