@@ -11,9 +11,9 @@ namespace MC.SceneDirector
         private static MCSceneManager _Instance;
         public static MCSceneManager Instance {
             get {
-                if (_Instance)
-                    _Instance = GameObject.FindGameObjectWithTag("Manager").
-                        GetComponentInChildren<MCSceneManager>();
+                if (_Instance == null)
+                    _Instance = GameObject.FindGameObjectWithTag("GameController").
+                        GetComponent<MCSceneManager>();
                 return _Instance;
             }
         }
@@ -35,24 +35,26 @@ namespace MC.SceneDirector
         {
             GameManager.SetFadeInOut(() =>
             {
-                StartCoroutine(LoadScene());
+                StartCoroutine(LoadScene(1));
                 UserInterface.SetTitleUI(false);
                 
             }, false
             );
         }
 
-        IEnumerator LoadScene()
+        public IEnumerator LoadScene(int i)
         {
             yield return null;
 
             if (!isLoad)
             {
-                ++currentSceneNumber;
+                //++currentSceneNumber;
+                currentSceneNumber = i;
                 isLoad = true;
             }
 
-            AsyncOperation async = SceneManager.LoadSceneAsync(currentSceneNumber);
+            Debug.Log( "Scene Number : " + currentSceneNumber);
+            AsyncOperation async = SceneManager.LoadSceneAsync(i);
             while (!async.isDone)
             {
                 yield return null;

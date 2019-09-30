@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
+using MC.SceneDirector;
 
 public class GameStatus : MonoBehaviour
 {
@@ -27,7 +28,6 @@ public class GameStatus : MonoBehaviour
     public GameObject _DummyLocationEffect;
 
     public PlayerFSMManager _PlayerInstance;
-
 
     bool dummySet = false;
     public void Awake()
@@ -144,6 +144,13 @@ public class GameStatus : MonoBehaviour
             {
                 PlayerFSMManager.Instance.SpecialGauge = 100.0f;
             }
+
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+
+                UserInterface.SetPlayerUserInterface(false);
+                StartCoroutine(MCSceneManager.Instance.LoadScene(2));
+            }
         }
 
         if (dummySet)
@@ -173,7 +180,6 @@ public class GameStatus : MonoBehaviour
 
     }
 
-#if UNITY_EDITOR
     public void SummonReady()
     {
         //Debug.Log("지정소환준비");
@@ -208,7 +214,6 @@ public class GameStatus : MonoBehaviour
         _DummyLocationEffect.SetActive(false);
         UserInterface.SetPointerMode(false);
     }
-#endif
 
     public void SetValue()
     {

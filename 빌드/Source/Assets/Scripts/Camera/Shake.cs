@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using MC.UI;
+
 public class Shake : MonoBehaviour
 {
 
@@ -24,6 +26,7 @@ public class Shake : MonoBehaviour
         originPos = shakeCamera.localPosition;
         originRot = shakeCamera.localRotation;
 
+        shakeUI = UserInterface.Instance.UIPlayer.root;
         originUIPos = shakeUI.localPosition;
         originUIRot = shakeUI.localRotation;
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 
 using MC.UI;
 using MC.Sound;
@@ -190,6 +191,8 @@ public class GameManager : MonoBehaviour
                 Instance.Scene1Setting();
                 break;
             case 2:
+                Debug.Log("Boss");
+                Instance.BossSceneSetting();
                 break;
         }
     }
@@ -206,5 +209,11 @@ public class GameManager : MonoBehaviour
 
         MissionManager.Instance.SetValue();
         GameStatus.Instance.SetValue();
+    }
+
+    private void BossSceneSetting()
+    {
+        CinemaManager.Instance.BossDirector = GameObject.FindGameObjectWithTag("Director").GetComponent<PlayableDirector>();
+        CinemaManager.Instance.BossDirector.Play();
     }
 }
