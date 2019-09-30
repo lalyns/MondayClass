@@ -21,6 +21,7 @@ public enum PlayerState
     SKILL3,
     TRANS,
     TRANS2,
+    HIT,
     DEAD,
     
 }
@@ -178,6 +179,13 @@ public class PlayerFSMManager : FSMManager
     public bool isIDLE;
 
     public Rigidbody rigid;
+
+    public SkinnedMeshRenderer[] _MR;
+    public List<Material> materialList = new List<Material>();
+
+
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -227,6 +235,9 @@ public class PlayerFSMManager : FSMManager
             _states.Add(s, state);
             state.enabled = false;
         }
+
+        for(int x = 0; x<_MR.Length; x++)
+            materialList.AddRange(_MR[x].materials);
 
 
     }
