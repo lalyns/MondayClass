@@ -52,8 +52,8 @@ public static class GameLib
     public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat)
     {
 
-        PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList));
-
+        var color = new Color(1, 0.3725f, 0.3725f);
+        PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList, color));
 
         if (PlayerFSMManager.Instance.ShieldCount > 0)
         {
@@ -86,7 +86,8 @@ public static class GameLib
     public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat, MonsterType type)
     {
 
-        PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList));
+        var color = new Color(1, 0.3725f, 0.3725f);
+        PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList, color));
 
         if (PlayerFSMManager.Instance.ShieldCount > 0)
         {
@@ -130,8 +131,8 @@ public static class GameLib
     // 여러 오브젝트들에 대해 간단한 정보로 피해를 입히는 함수.
     public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat, int damage)
     {
-        PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList));
-
+        var color = new Color(1, 0.3725f, 0.3725f);
+        PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList, color));
 
         if (PlayerFSMManager.Instance.ShieldCount > 0)
         {
@@ -231,7 +232,7 @@ public static class GameLib
         }
     }
 
-    public static IEnumerator Dissolving(List<Material> mats, float value = 0.45f)
+    public static IEnumerator Dissolving(List<Material> mats, float value = 0.45f, float range = 0.2f)
     {
         float time = 0;
 
@@ -239,13 +240,14 @@ public static class GameLib
         {
             time += value * Time.deltaTime;
             mats[i].SetFloat("_DissolveIntensity", time);
+            mats[i].SetFloat("_DissolveEdgeRange", range);
 
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
     }
 
-    public static IEnumerator Blinking(List<Material> mats, int duration = 6, float timer = 0.15f)
+    public static IEnumerator Blinking(List<Material> mats, Color color, int duration = 6, float timer = 0.15f)
     {
         int i = 0;
         bool blink = false;
@@ -256,8 +258,7 @@ public static class GameLib
 
             for (int j = 0; j < mats.Count; j++)
             {
-                mats[j].SetFloat("_Hittrigger", value);
-                mats[j].SetColor("_HitColor", new Color(1, 0.3725f, 0.3725f));
+                mats[j].SetFloat("_Hittrigger", value);                
             }
 
             blink = !blink;
@@ -269,6 +270,8 @@ public static class GameLib
             mats[j].SetFloat("_Hittrigger", 0);
         }
     }
+
+  
 
 
     public static IEnumerator KnockBack(Transform trans, AttackType attackType, Vector3 direction
