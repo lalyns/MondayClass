@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{C7BECC6D-C513-4489-9E53-4909E266772F}" SchemaVersion="94">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{C7BECC6D-C513-4489-9E53-4909E266772F}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="Player" ID="{96091A6F-CEF6-4718-9251-8531F9C1AB69}" ShortID="325241895">
+					<ChildrenList>
+						<Folder Name="Skill" ID="{E50CD81A-A3EF-4FE6-830D-72DCAEEF21E9}" ShortID="991312972">
+							<ChildrenList>
+								<Folder Name="Teleport" ID="{8B5FA193-C2B4-45FC-81EB-B5F666EC75EB}" ShortID="436713610">
+									<ChildrenList>
+										<Event Name="Player_Skill_Sound_Teleport" ID="{58C28D77-D4E0-4C6F-8BDF-986CBDFEECCC}">
+											<ChildrenList>
+												<Action Name="" ID="{76914C76-349B-4B50-950C-54F63D23D273}" ShortID="506265760">
+													<ReferenceList>
+														<Reference Name="Target">
+															<ObjectRef Name="Sound" ID="{9B0A743E-4EDE-4617-8823-F0E84F18D8C5}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+														</Reference>
+													</ReferenceList>
+												</Action>
+											</ChildrenList>
+										</Event>
+										<Event Name="Player_Skill_Voice_Teleport" ID="{6EB1C5F2-02AD-4F8D-8212-00B2078A6078}"/>
+									</ChildrenList>
+								</Folder>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Action" ID="{3D105029-9515-4B70-BABF-233459F0651C}" ShortID="378328711">
+							<ChildrenList>
+								<Folder Name="Foot Step" ID="{48FA11B3-941F-4E79-997E-3DFD2CD9EC29}" ShortID="440787080">
+									<ChildrenList>
+										<Event Name="Player_Action_Sound_Footstep" ID="{6DF805F3-C15B-496A-83B3-ACD2FE667A98}">
+											<ChildrenList>
+												<Action Name="" ID="{074361BA-F5F7-4434-B0AE-7AABA3CC25DC}" ShortID="772050961">
+													<ReferenceList>
+														<Reference Name="Target">
+															<ObjectRef Name="Sound" ID="{0D991A10-A78B-4CAC-AF0B-298FC6125752}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+														</Reference>
+													</ReferenceList>
+												</Action>
+											</ChildrenList>
+										</Event>
+									</ChildrenList>
+								</Folder>
+								<Folder Name="Swing" ID="{A195AB23-9841-4DCE-B88A-F0229F38DECE}" ShortID="748930058">
+									<ChildrenList>
+										<Event Name="Player_Action_AttackSound_Swing" ID="{57681211-656B-4264-BEC8-68F8FB9CBC18}">
+											<ChildrenList>
+												<Action Name="" ID="{43C9F81B-26B7-4640-A117-DD40633349ED}" ShortID="921536000">
+													<ReferenceList>
+														<Reference Name="Target">
+															<ObjectRef Name="AttackSound" ID="{EB894A04-0438-4856-AFCB-729DD5E05B03}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+														</Reference>
+													</ReferenceList>
+												</Action>
+											</ChildrenList>
+										</Event>
+										<Event Name="Player_Action_HitSound_Swing" ID="{95FE10BA-61DC-49CF-BE81-C9C1D09F4A46}">
+											<ChildrenList>
+												<Action Name="" ID="{2FE701AA-E945-4BF1-87D4-925FBCCC7B9A}" ShortID="267616206">
+													<ReferenceList>
+														<Reference Name="Target">
+															<ObjectRef Name="HitSound" ID="{3DBB98A1-3BE1-4E26-B5D4-E664BAFB9F3F}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+														</Reference>
+													</ReferenceList>
+												</Action>
+											</ChildrenList>
+										</Event>
+									</ChildrenList>
+								</Folder>
+							</ChildrenList>
+						</Folder>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Object" ID="{F1DB9F11-DF2B-4B38-A480-027AC7BD3BD7}" ShortID="846271204">
+					<ChildrenList>
+						<Folder Name="Portal" ID="{738C8C8A-CEE9-4012-9ABF-08FE749076A9}" ShortID="103926036">
+							<ChildrenList>
+								<Event Name="Object_Portal_Sound_Activationl" ID="{3EA8032A-74F3-4895-B500-384F9E1C9F31}">
+									<ChildrenList>
+										<Action Name="" ID="{CD344D67-9FB7-4D11-A809-0CAC66AB6596}" ShortID="185004331">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Activationl" ID="{D31A846C-0AA3-4902-917C-83CD6C257C90}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Object_Portal_Sound_Enter" ID="{E9B013CD-5835-4598-8F68-9FC3A57C8DC9}"/>
+								<Event Name="Object_Portal_Sound_Exit" ID="{A5A2E932-9815-4A27-819F-4C33603A7A58}">
+									<ChildrenList>
+										<Action Name="" ID="{43A5446C-17C5-421F-9BE0-808972F4C11C}" ShortID="225752359">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Exit" ID="{F2695639-87D8-4723-B9C3-B21B9E4EDDC1}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Object_Portal_Sound_Create" ID="{BF490BA3-3C7A-497C-BA29-F29DB230EDE2}">
+									<ChildrenList>
+										<Action Name="" ID="{9723F995-0614-44DB-BA37-7B22C12DE52E}" ShortID="42029752">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Create" ID="{AB042970-B611-411D-B164-B1DB1991A6E8}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Ambient" ID="{AC0D9BE5-FFFD-4278-8099-138FEFB449FF}" ShortID="342442759">
+					<ChildrenList>
+						<Event Name="Battleground" ID="{3176D365-4559-4902-877D-F23D54625EC2}">
+							<ChildrenList>
+								<Action Name="" ID="{1D42025B-F53E-451B-B327-6D3598FB2C56}" ShortID="423664436">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Battleground" ID="{47D42ABE-6F62-4335-BE0C-9BE5E6C7B415}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Bossroom" ID="{926783C7-B6F4-45D3-9D25-E8C55F6CBCC6}"/>
+						<Event Name="Lobby" ID="{05A38DF1-89EF-4223-A3EA-0FE2DBD9E680}"/>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
