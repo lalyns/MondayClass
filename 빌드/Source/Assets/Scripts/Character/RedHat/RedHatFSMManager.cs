@@ -79,7 +79,11 @@ public class RedHatFSMManager : FSMManager
     public float KnockBackPower;
     public float KnockBackDelay;
 
+    //public CapsuleCollider Weapon_Collider;
+
+
     public AttackType CurrentAttackType = AttackType.NONE;
+
 
     protected override void Awake()
     {
@@ -92,7 +96,7 @@ public class RedHatFSMManager : FSMManager
 
         materialList.AddRange(_MR.materials);
         materialList.AddRange(_WPMR.materials);
-
+       // Weapon_Collider = gameObject.GetComponentInChildren<CapsuleCollider>();
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
         RedHatState[] stateValues = (RedHatState[])System.Enum.GetValues(typeof(RedHatState));
@@ -296,8 +300,17 @@ public class RedHatFSMManager : FSMManager
             }
         }
     }
-   
 
+    //public void AttackCheck()
+    //{
+    //    Weapon_Collider.gameObject.SetActive(true);
+    //}
+
+    //public void AttackCancel()
+    //{
+    //    Weapon_Collider.gameObject.SetActive(false);
+    //}
+    
     public override void SetDeadState()
     {
         base.SetDeadState();

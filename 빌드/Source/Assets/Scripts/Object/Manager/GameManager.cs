@@ -91,6 +91,8 @@ public class GameManager : MonoBehaviour
 
             MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
                 MCSoundManager.Instance.objectSound.ambient.stageAmbient);
+            MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
+                MCSoundManager.Instance.objectSound.bgm.stageBGM);
         }
 
         UserInterface.SetAllUserInterface(uIActive.all);

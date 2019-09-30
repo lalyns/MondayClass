@@ -110,6 +110,7 @@ public class MissionManager : MonoBehaviour
             MissionManager.EnterMission();
             UserInterface.BlurSet(false);
             // RigidBody Gravity => false
+            PlayerFSMManager.Instance.rigid.useGravity = false;
         }, false);
         //EnterMission();
     }

@@ -6,7 +6,11 @@ public class EffectPoolManager : MonoBehaviour
 {
     public static EffectPoolManager _Instance;
 
-    public ObjectPool _RedHatEffectPool;
+    public ObjectPool _RedHatSkillRange;
+    public ObjectPool _RedHatSkillEffect1;
+    public ObjectPool _RedHatSkillEffect2;
+    public ObjectPool _RedHatAttackEffect;
+
 
     public ObjectPool _MacBulletPool;
     public ObjectPool _MacSkillPool;

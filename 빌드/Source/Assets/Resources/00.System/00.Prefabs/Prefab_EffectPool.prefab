@@ -46,6 +46,98 @@ MonoBehaviour:
   _InitializeItemSize: 5
   _PoolingItem: {fileID: 7242914150444159907, guid: cb28f3c5b4876ed40b71f110a5e1cda4,
     type: 3}
+--- !u!1 &435808805285052225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7157483987383462490}
+  - component: {fileID: 6705845048947619037}
+  m_Layer: 0
+  m_Name: RedHatAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7157483987383462490
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435808805285052225}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4025264216991788106}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6705845048947619037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435808805285052225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd8162163a9aa347908c632b0c9d02f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _InitializeItemSize: 5
+  _PoolingItem: {fileID: 4901897263854960993, guid: 7961a7c93c49a204ea3e786f23fc23b3,
+    type: 3}
+--- !u!1 &1623375007972458269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3414608768333274908}
+  - component: {fileID: 8560531860176014988}
+  m_Layer: 0
+  m_Name: RedHatSkillAttack2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3414608768333274908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623375007972458269}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4025264216991788106}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8560531860176014988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623375007972458269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd8162163a9aa347908c632b0c9d02f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _InitializeItemSize: 5
+  _PoolingItem: {fileID: 5324848270008942523, guid: a3386604cf8ddc344b3281ff3fb122e2,
+    type: 3}
 --- !u!1 &1660828985497221780
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +278,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dd05d1112ad3a4abe0007d455e3a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _RedHatEffectPool: {fileID: 964336107526079671}
+  _RedHatSkillRange: {fileID: 964336107526079671}
+  _RedHatSkillEffect1: {fileID: 9031303730892951016}
+  _RedHatSkillEffect2: {fileID: 8560531860176014988}
+  _RedHatAttackEffect: {fileID: 6705845048947619037}
   _MacBulletPool: {fileID: 1660828985877369083}
   _MacSkillPool: {fileID: 2884919648646353529}
   _BossBulletPool: {fileID: 1660828985497221787}
@@ -285,7 +380,7 @@ GameObject:
   - component: {fileID: 2792837204453924901}
   - component: {fileID: 964336107526079671}
   m_Layer: 0
-  m_Name: RedHatSkill
+  m_Name: RedHatSkillRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -303,7 +398,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4025264216991788106}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &964336107526079671
 MonoBehaviour:
@@ -317,8 +412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd8162163a9aa347908c632b0c9d02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _InitializeItemSize: 4
-  _PoolingItem: {fileID: 2227547733759646238, guid: 1c389fe4ed126784181243482545beda,
+  _InitializeItemSize: 5
+  _PoolingItem: {fileID: 2335204225339586375, guid: 16137092088f48942bfce6fea31d7abc,
     type: 3}
 --- !u!1 &4261473912158292538
 GameObject:
@@ -347,10 +442,59 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 7157483987383462490}
   - {fileID: 2792837204453924901}
+  - {fileID: 7726473113681678522}
+  - {fileID: 3414608768333274908}
   m_Father: {fileID: 1660828986152774808}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4444899799468130884
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7726473113681678522}
+  - component: {fileID: 9031303730892951016}
+  m_Layer: 0
+  m_Name: RedHatSkillAttack1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7726473113681678522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4444899799468130884}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4025264216991788106}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9031303730892951016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4444899799468130884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd8162163a9aa347908c632b0c9d02f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _InitializeItemSize: 5
+  _PoolingItem: {fileID: 6861086900318557325, guid: 8a3eb67616a03cd4fb41a76bdf66b35f,
+    type: 3}
 --- !u!1 &4556876250268544135
 GameObject:
   m_ObjectHideFlags: 0

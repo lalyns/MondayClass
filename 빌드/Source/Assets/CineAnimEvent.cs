@@ -27,7 +27,7 @@ namespace MC.SceneDirector
                 GameManager.Instance.CharacterControl = true;
                 MissionManager.Instance.isChange = false;
 
-                // RigidBody 활성화
+                PlayerFSMManager.Instance.rigid.useGravity = true;
             }, 
             true);
         }
