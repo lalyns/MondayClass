@@ -1,21 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
+
+/// <summary>
+/// 미션의 종류
+/// </summary>
+public enum MissionType
+{
+    Annihilation = 0,
+    Defence = 1,
+    Survival = 2,
+    Boss = 3,
+    Last,
+}
 
 public class MissionManager : MonoBehaviour
 {
-    /// <summary>
-    /// 미션의 종류
-    /// </summary>
-    public enum MissionType
-    {
-        Annihilation = 0,
-        Defence = 1,
-        Survival = 2,
-        Boss = 3,
-        Last,
-    }
-
     private static MissionManager _Instance;
     public static MissionManager Instance {
         get {
@@ -30,22 +31,19 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private Mission[] _Missions;
     public Mission[] Missions {
         get {
-            //if (_Missions == null)
-            //{
-            //    GameObject[] maps = GameObject.FindGameObjectsWithTag("Mission");
-            //    _Missions = new Mission[maps.Length];
-
-            //    int i = 0;
-            //    foreach(GameObject map in maps)
-            //        _Missions[i++] = map.GetComponent<Mission>();
-            //}
             return _Missions;
+        }
+        set
+        {
+            _Missions = value;
         }
     }
 
     public Mission CurrentMission;
     public MissionType CurrentMissionType => CurrentMission.Data.MissionType;
 
+    private bool isFirst = true;
+    private bool isChange = false;
     // For Editor Using
 
     public void Awake()
@@ -66,32 +64,51 @@ public class MissionManager : MonoBehaviour
     public MissionButton[] Choices;
 
     public GameObject MissionProgressUI;
-    public TempMissionProgress MissionProgress;
 
     public static void PopUpMission() {
-        Instance.MissionSelector.SetActive(true);
-        GameManager.CursorMode(true);
-        GameManager.Instance.IsPuase = true;
-        GameManager.Instance.CharacterControl = false;
+        if (Instance.isChange) return;
 
-        // 랜덤 미션 출력하기
-        foreach(MissionButton choice in Instance.Choices)
+        UserInterface.BlurSet(true);
+
+        Instance.MissionSelector.SetActive(true);
+        UserInterface.SetPointerMode(true);
+        UserInterface.Instance.MousePointerSpeed(100f);
+
+        Instance.ChangeMission();
+
+        GameManager.Instance.CharacterControl = false;
+        GameManager.Instance.IsPuase = true;
+    }
+
+    public void ChangeMission()
+    {
+        if (isChange) return;
+
+        //랜덤 미션 출력하기
+        foreach (MissionButton choice in Instance.Choices)
         {
             var type = UnityEngine.Random.Range(0, 999) % ((int)(MissionType.Last) - 1);
             choice.ChangeMission(Instance.Missions[type]);
         }
 
+        isChange = false;
     }
 
     public static void SelectMission(Mission mission) {
         
         Instance.CurrentMission = mission;
         Instance.MissionSelector.SetActive(false);
-        GameManager.CursorMode(false);
+        UserInterface.SetPointerMode(false);
         GameManager.Instance.IsPuase = false;
+        UserInterface.FullModeSetMP();
 
         // 페이드 Out
-        EnterMission();
+        GameManager.SetFadeInOut(()=> {
+
+            MissionManager.EnterMission();
+            UserInterface.BlurSet(false);
+        }, false);
+        //EnterMission();
     }
 
     public static void EnterMission() {
@@ -101,14 +118,25 @@ public class MissionManager : MonoBehaviour
             GetComponentInChildren<Animator>().
             transform.position =
             Instance.CurrentMission.Enter.transform.position;
-        
-        // 페이드 IN
 
+        GameStatus.Instance._PlayerInstance.
+            GetComponentInChildren<Animator>().
+            transform.LookAt(Instance.CurrentMission.Exit.transform);
+
+        // 페이드 Out
+        GameManager.SetFadeInOut(() =>
+        {
+            GameManager.Instance.CharacterControl = true;
+
+            Instance.isChange = false;
+        },
+        true);
     }
 
     public static void StartMission() {
         // 미션 시작지
         Instance.CurrentMission.OperateMission();
+        UserInterface.SetMissionProgressUserInterface(true);
     }
 
     public static void RewardMission() {
@@ -116,7 +144,21 @@ public class MissionManager : MonoBehaviour
     }
 
     public static void ExitMission() {
+        Input.ResetInputAxes();
+        PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
+
+        if (Instance.isFirst) { Instance.isFirst = false; return; }
         Instance.CurrentMission.RestMission();
+    }
+
+    public void SetValue()
+    {
+        MissionSelector = UserInterface.Instance.MissionSelectionUICanvas;
+        MissionProgressUI = UserInterface.Instance.MissionProgressUICanvas;
+
+        var Maps = GameObject.FindObjectsOfType<Mission>();
+        Missions = Maps;
+        Choices = UserInterface.Instance.SelectorUI.buttons;
     }
 
 

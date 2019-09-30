@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 public class GameStatus : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class GameStatus : MonoBehaviour
     bool dummySet = false;
     public void Awake()
     {
-        _PlayerInstance = PlayerFSMManager.instance;
+        _PlayerInstance = PlayerFSMManager.Instance;
     }
 
     public void Start()
@@ -42,7 +43,7 @@ public class GameStatus : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+
         }
     }
 
@@ -102,14 +103,14 @@ public class GameStatus : MonoBehaviour
 
         foreach(GameObject mob in active)
         {
-            ObjectManager.MonsterType type = mob.GetComponent<FSMManager>().monsterType;
+            MonsterType type = mob.GetComponent<FSMManager>().monsterType;
 
             switch (type)
             {
-                case ObjectManager.MonsterType.RedHat:
+                case MonsterType.RedHat:
                     MonsterPoolManager._Instance._RedHat.ItemReturnPool(mob);
                     break;
-                case ObjectManager.MonsterType.Mac:
+                case MonsterType.Mac:
                     MonsterPoolManager._Instance._Mac.ItemReturnPool(mob);
                     break;
             }
@@ -142,7 +143,7 @@ public class GameStatus : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                PlayerFSMManager.instance.SpecialGauge = 100.0f;
+                PlayerFSMManager.Instance.SpecialGauge = 100.0f;
             }
         }
 
@@ -181,7 +182,7 @@ public class GameStatus : MonoBehaviour
         dummySet = true;
         _EditorMode = true;
         _DummyLocationEffect.SetActive(true);
-        GameManager.CursorMode(true);
+        UserInterface.SetPointerMode(true);
     }
 
     public void SummonEffect()
@@ -207,8 +208,12 @@ public class GameStatus : MonoBehaviour
             "monster");
         dummySet = false;
         _DummyLocationEffect.SetActive(false);
-        GameManager.CursorMode(false);
+        UserInterface.SetPointerMode(false);
     }
 #endif
 
+    public void SetValue()
+    {
+        _PlayerInstance = PlayerFSMManager.Instance;
+    }
 }

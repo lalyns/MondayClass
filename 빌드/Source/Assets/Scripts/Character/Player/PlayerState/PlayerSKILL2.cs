@@ -28,6 +28,8 @@ public class PlayerSKILL2 : FSMState
         _manager.isAttackOne = false;
         _manager.isAttackTwo = false;
         _manager.isAttackThree = false;
+
+        _manager.isSkill2CTime = true;
     }
 
     void Update()

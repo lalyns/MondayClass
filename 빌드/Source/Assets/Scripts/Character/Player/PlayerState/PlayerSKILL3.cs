@@ -16,6 +16,9 @@ public class PlayerSKILL3 : FSMState
         isMin = false;
 
         _manager.attackType = AttackType.SkILL2;
+
+        _manager.Skill3_Capsule.enabled = false;
+
     }
 
     public override void EndState()
@@ -34,6 +37,13 @@ public class PlayerSKILL3 : FSMState
         //isLock = false;
         _viewTimer = 0f;
         _opacityTimer = 0f;
+
+
+        _manager.Skill3_End.transform.position = _manager.Skill3_Start.transform.position;
+        _manager.Skill3_End.transform.rotation = _manager.Skill3_Start.transform.rotation;
+        _manager.Skill3_End.SetActive(true);
+
+        _manager.isSkill3CTime = true;
     }
 
     bool isAttack;
@@ -44,7 +54,7 @@ public class PlayerSKILL3 : FSMState
     public bool isMax, isMin;
     private void Update()
     {
-
+        StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.08f, 0.01f));
         //1.7초동안 못움직임.
         _manager.isCantMove = _time <= 4.7f ? true : false;
 
@@ -108,52 +118,24 @@ public class PlayerSKILL3 : FSMState
 
 
 
-        if (isAttack)
-            _manager.Skill3Attack();
-        else
-            _manager.Skill3Cancel();
-
-
-        if ((_time >= 1.2f && _time < 1.4f)
-            || (_time >= 1.7f && _time < 1.9f)
-            || (_time >= 2.2f && _time < 2.4f)
-            || (_time >= 2.7f && _time < 2.9f)
-            || (_time >= 3.2f && _time < 3.4f)
-            || (_time >= 3.7f && _time < 3.9f))
+       if(_time >= 1.2f)
         {
-            isAttack = true;
+            _manager.Skill3_Capsule.enabled = true;
         }
 
-        else
-            isAttack = false;
 
-        if (_time >= 1.7f)// && !isLock)
-        {
-            if (_manager.isFlash)
-            {
-                _manager.Skill3_End.transform.position = _manager.Skill3_Start.transform.position;
-                _manager.Skill3_End.transform.rotation = _manager.Skill3_Start.transform.rotation;
-                _manager.Skill3_End.SetActive(true);
-            }//isLock = true;
-            //if (_manager.OnMove())
-            //{
-            //    _manager.SetState(PlayerState.RUN);
-            //}
-        }
         if (_time >= 4.2f && !isLock)
         {
             _manager.Skill3_End.transform.position = _manager.Skill3_Start.transform.position;
             _manager.Skill3_End.transform.rotation = _manager.Skill3_Start.transform.rotation;
             _manager.Skill3_End.SetActive(true);
             isLock = true;
-            //if (_manager.OnMove())
-            //{
-            //    _manager.SetState(PlayerState.RUN);
-            //}
         }
+
         if (_time >= 4.8f)
         {
             _manager.SetState(PlayerState.IDLE);
+            _manager.Skill3_Capsule.enabled = false;
             return;
         }
 

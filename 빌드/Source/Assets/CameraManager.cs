@@ -62,6 +62,8 @@ public class CameraManager : MonoBehaviour
     public bool isKey;
     public void Tick(float d)
     {
+        if (!GameManager.Instance.CharacterControl) return;
+
         float h = Input.GetAxis("Mouse X");
         float v = Input.GetAxis("Mouse Y");
 

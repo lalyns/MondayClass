@@ -7,15 +7,16 @@ using UnityEditor;
 public class MissionData : ScriptableObject
 {
     // 미션 종류
-    public MissionManager.MissionType MissionType;
+    public MissionType MissionType;
 
     // 미션 이름
-    public Sprite MissionName;
+    public Sprite missionTypeSprite;
     public Sprite MissionIcon;
     public string MissionGoal;
 
-
-    // 미션 아이콘
+    // 미션 진행상황 UI 표기 변수
+    public string MissionText;
+    public Sprite GoalIcon;
     //public string MissionSubject;
     //public string MissionText;
 

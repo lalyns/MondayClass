@@ -84,6 +84,12 @@ public class ObjectPool : MonoBehaviour
                 item.GetComponent<RedHatFSMManager>().SetState(RedHatState.POPUP);
             }
         }
+
+        if(type == "Effect")
+        {
+            item.GetComponent<Effects>().EffectPlay();
+            item.GetComponent<Effects>().targetPool = this;
+        }
     }
 
     public void ItemSetActive(Transform respawnTrans, bool bulletType)
@@ -142,6 +148,7 @@ public class ObjectPool : MonoBehaviour
                 GameLib.DirectionToCharacter(start, target);
 
             item.GetComponent<MacBullet>()._Move = true;
+            item.GetComponent<MacBullet>().mac = respawnTrans.GetComponentInParent<MacFSMManager>();
         }
         catch
         {

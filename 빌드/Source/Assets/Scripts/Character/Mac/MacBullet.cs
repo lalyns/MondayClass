@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 public class MacBullet : MonoBehaviour
 {
@@ -17,18 +18,21 @@ public class MacBullet : MonoBehaviour
     [HideInInspector] public Vector3 dir;
     public float speed = 3f;
 
+    public MacFSMManager mac;
+
     // 상수 목록
-     public float _CreativeTime;
-     public float _DestroyTime;
-     public float _DestroyDelay;
+    public float _CreativeTime;
+    public float _DestroyTime;
+    public float _DestroyDelay;
 
     // 초기화 목록
-     public float _PlayTime = 0.0f;
-     public float _DestroyPlayTime = 0.0f;
+    public float _PlayTime = 0.0f;
+    public float _DestroyPlayTime = 0.0f;
 
-     public bool _Move = false;
-     public bool _SetPlay = false;
-     public bool _Destroy = false;
+    public bool _Move = false;
+    public bool _SetPlay = false;
+    public bool _Destroy = false;
+    private bool _Dameged = false;
 
     private void Start()
     {
@@ -58,7 +62,7 @@ public class MacBullet : MonoBehaviour
 
         _PlayTime += Time.deltaTime;
 
-        if(_PlayTime < _CreativeTime)
+        if (_PlayTime < _CreativeTime)
         {
             if (!_SetPlay)
             {
@@ -67,16 +71,16 @@ public class MacBullet : MonoBehaviour
             }
         }
 
-        if(_PlayTime > _CreativeTime && _PlayTime < _CreativeTime + _DestroyTime)
+        if (_PlayTime > _CreativeTime && _PlayTime < _CreativeTime + _DestroyTime)
         {
             _CreateEffect.SetActive(false);
             _MoveEffect.SetActive(true);
 
-            if(!_Destroy)
+            if (!_Destroy)
                 this.transform.position += dir * speed * Time.deltaTime;
         }
-
-        if(_PlayTime > _CreativeTime + _DestroyTime && !_Destroy)
+       
+        if (_PlayTime > _CreativeTime + _DestroyTime && !_Destroy)
         {
             _MoveEffect.SetActive(false);
             _DestroyEffect.SetActive(true);
@@ -85,7 +89,8 @@ public class MacBullet : MonoBehaviour
             _Destroy = true;
         }
 
-        if (_Destroy) _DestroyPlayTime += Time.deltaTime;
+        if (_Destroy)
+            _DestroyPlayTime += Time.deltaTime;
 
         if (_DestroyPlayTime > _DestroyDelay)
         {
@@ -130,10 +135,52 @@ public class MacBullet : MonoBehaviour
         _MoveEffect.SetActive(false);
         _DestroyEffect.SetActive(false);
 
+        mac = null;
+        _Dameged = false;
     }
 
     public void LookAtTarget(Transform target)
     {
         this.transform.LookAt(target);
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (_Dameged) return;
+
+        if (other.transform.tag == "Player")
+        {
+            if (_Type == MacBulletType.Normal)
+            {
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", mac.Stat);
+                Invoke("AttackSupport", 0.5f);
+                _Dameged = true;
+
+                if (!_Destroy)
+                {
+                    _MoveEffect.SetActive(false);
+                    _DestroyEffect.SetActive(true);
+
+                    PlayEffect(_DestroyEffectParticles);
+                    _Destroy = true;
+                }
+
+            }
+            if (_Type == MacBulletType.Skill)
+            {
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", mac.Stat, 50);
+                Invoke("AttackSupport", 0.5f);
+                _Dameged = true;
+            }
+            
+
+        }
+    }
+    public void AttackSupport()
+    {
+        Debug.Log("attackCall");
+        UserInterface.Instance.IPlayer.PlayerHpBar.HitBackFun();
+    }
 }
+    

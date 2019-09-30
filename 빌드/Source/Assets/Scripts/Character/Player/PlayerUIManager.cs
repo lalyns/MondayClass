@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerUIManager : MonoBehaviour {
+
     [SerializeField]
     UIHpManager _uiManager;
     PlayerFSMManager _manager;

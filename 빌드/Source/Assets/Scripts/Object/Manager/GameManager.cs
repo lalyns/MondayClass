@@ -1,30 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using MC.UI;
+using MC.SceneDirector;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager _Instance;
+    private static GameManager instance;
     public static GameManager Instance {
         get {
-            if(_Instance == null)
+            if(instance == null)
             {
-                _Instance = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+                instance = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
             }
-            return _Instance;
+            return instance;
         }
         set {
-            _Instance = value;
+            instance = value;
         }
     }
 
     public bool _EditorCursorLock = true;
-
-    public bool _ActiveAllUI;
-    public bool _ActivePlayerUI;
-    public bool _ActiveMonsterUI;
-    public bool _ActiveSystemUI;
 
     public bool TimeMagnificationMode;
     [Range(0,5)] public float TimeMagnificationValue;
@@ -34,33 +31,59 @@ public class GameManager : MonoBehaviour
     public bool ControlManual;
 
     bool _SimpleMode = false;
-    public GameObject _MissionSimple;
-    public GameObject _MissionFull;
-    public Image _cursurImage;
 
     public int curScore = 0;
     public bool IsPuase;
 
+    [System.Serializable]
+    public class UIActive
+    {
+        public bool all = true;
+        public bool player = true;
+        public bool monster = true;
+        public bool system = true;
+        public bool progress = false;
+        public bool selector = true;
+    }
+    public UIActive uIActive;
+
+
     private void Awake()
     {
-        if(_Instance == null)
+        if(instance == null)
         {
-            _Instance = GetComponent<GameManager>();
+            instance = GetComponent<GameManager>();
         }
-        else
-        {
+
+        if (instance.gameObject != this.gameObject)
             Destroy(gameObject);
-        }
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Start()
     {
-        if (_EditorCursorLock)
+        if(MCSceneManager.currentSceneNumber == 0)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            uIActive.player = false;
+            uIActive.progress = false;
+            uIActive.selector = false;
+            UserInterface.SetPointerMode(true);
+            UserInterface.SetTitleUI(true);
         }
 
+        if (MCSceneManager.currentSceneNumber == 1 ||
+            MCSceneManager.currentSceneNumber == 2)
+        {
+            UserInterface.SetPointerMode(false);
+            UserInterface.SetTitleUI(false);
+        }
+
+        UserInterface.SetAllUserInterface(uIActive.all);
+        UserInterface.SetPlayerUserInterface(uIActive.player);
+        UserInterface.SetSystemInterface(uIActive.system);
+        UserInterface.SetMissionProgressUserInterface(uIActive.progress);
+        UserInterface.SetMissionSelectionUI(uIActive.selector);
     }
 
 
@@ -68,25 +91,28 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!IsPuase) Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
-        else Time.timeScale = 0;
+        GameSpeed(IsPuase);
 
+        // 키입력 매니저로 이동할것
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (!_SimpleMode)
-            {
-                _MissionSimple.SetActive(true);
-                _MissionFull.SetActive(false);
-                _SimpleMode = !_SimpleMode;
-            }
-            else
-            {
-                _MissionSimple.SetActive(false);
-                _MissionFull.SetActive(true);
-                _SimpleMode = !_SimpleMode;
-            }
+            _SimpleMode = !_SimpleMode;
+            UserInterface.SetMPMode(_SimpleMode);
         }
+    }
 
+    void GameSpeed(bool isPause)
+    {
+        if (!isPause)
+        {
+            Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
+            UserInterface.Instance.MousePointerSpeed(1 / TimeMagnificationValue);
+        }
+        else
+        {
+            Time.timeScale = 0.01f;
+            UserInterface.Instance.MousePointerSpeed(100f);
+        }
     }
 
     #region OnGUI 도구
@@ -129,49 +155,46 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    /// <summary>
-    /// 마우스 커서가 보이게 하는 매소드
-    /// </summary>
-    /// <param name="isLock"></param>
-    public static void CursorMode(bool isLock)
-    {
-        if (Instance._EditorCursorLock)
-        {
-            if (isLock)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = false;
-                try
-                {
-                    Instance._cursurImage.enabled = true;
-                }
-                catch
-                {
-
-                }
-
-
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                try
-                {
-                    Instance._cursurImage.enabled = false;
-                }
-                catch
-                {
-
-                }
-            }
-        }
-    }
-
     public static void TempScoreAdd()
     {
         Instance.curScore += 1;
     }
 
-    
+    public static void SetFadeInOut(System.Action callback,  bool value)
+    {
+        if (value)
+            Instance.StartCoroutine(UserInterface.FadeIn(callback, 20));
+        else
+            Instance.StartCoroutine(UserInterface.FadeOut(callback, 20));
+    }
+
+    public static void SetSceneSetting()
+    {
+        var num = MCSceneManager.currentSceneNumber;
+        switch (num)
+        {
+            case 0:
+                break;
+            case 1:
+                Debug.Log("aa");
+                Instance.Scene1Setting();
+                break;
+            case 2:
+                break;
+        }
+    }
+
+    private void Scene1Setting()
+    {
+        CanvasInfo.Instance.SetRenderCam();
+
+        UserInterface.Instance.SetValue();
+        UserInterface.SetPointerMode(false);
+        UserInterface.SetTitleUI(false);
+        UserInterface.SetAllUserInterface(true);
+        UserInterface.SetPlayerUserInterface(true);
+
+        MissionManager.Instance.SetValue();
+        GameStatus.Instance.SetValue();
+    }
 }

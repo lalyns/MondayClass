@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 [RequireComponent(typeof(RedHatFSMManager))]
 public class RedHatFSMState : MonoBehaviour
@@ -46,9 +47,7 @@ public class RedHatFSMState : MonoBehaviour
 
     public void HPUI()
     {
-        float HP = _manager.Stat.Hp;
-
-        _manager._HPSilder.value = HP / _manager.Stat.MaxHp;
+        UserInterface.Instance.HPChangeEffect(_manager.Stat, _manager._HPBar);
 
     }
 

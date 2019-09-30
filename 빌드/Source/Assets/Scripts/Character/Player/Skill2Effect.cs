@@ -5,60 +5,49 @@ using UnityEngine;
 public class Skill2Effect : MonoBehaviour
 {
 
-    float _time;
+    public float _time;
     SphereCollider Sphere;
     PlayerFSMManager player;
     float _triggerTime = 0;
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        //Sphere.enabled = false;
         Sphere = GetComponent<SphereCollider>();
-        player = PlayerFSMManager.instance;
-        
-        
-    }
-    private void OnEnable()
-    {
-        Sphere.enabled = true;
+        player = PlayerFSMManager.Instance;
+
     }
     private void OnDisable()
     {
+        Sphere.enabled = true;
         _time = 0;
     }
-    // Update is called once per frame
+
+    // Update is called once per framea
     void Update()
     {
+        _time += Time.deltaTime;
+
+
         if (_time <= 0.1f)
         {
             transform.position = player.Skill2_Parent.position;
         }
 
 
-        _time += Time.deltaTime;
 
         if (_time >= 3f)
         {
-            Debug.Log("시간 지남");
-            try
-            {
-
-            }
-            catch
-            {
-
-            }
-            //_time = 0;
             _triggerTime = 0;
-            //gameObject.SetActive(false);
             Sphere.enabled = false;
+            // gameObject.SetActive(false);
+            //player.isSkill2CTime = true;
         }
         //if (_time >= 10f)
         //{
         //    player.isSkill2 = false;
         //}
-        player.Skill2UIReset();
+        player.Skill2Reset();
 
     }
     private void OnTriggerStay(Collider other)

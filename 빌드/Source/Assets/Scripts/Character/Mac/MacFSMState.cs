@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 [RequireComponent(typeof(MacFSMManager))]
 public class MacFSMState : MonoBehaviour
@@ -70,9 +71,7 @@ public class MacFSMState : MonoBehaviour
 
     public void HPUI()
     {
-        float HP = _manager.Stat.Hp;
-
-        _manager._HPSilder.value = HP / _manager.Stat.MaxHp;
+        UserInterface.Instance.HPChangeEffect(_manager.Stat, _manager._HPBar);
 
     }
 

@@ -48,7 +48,7 @@ public class RedHatPOPUP : RedHatFSMState
 
     private void TargetPrioritySet()
     {
-        if (MissionManager.Instance.CurrentMissionType == MissionManager.MissionType.Defence)
+        if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
         {
 
             Collider[] allTarget = Physics.OverlapSphere(this.transform.position, _manager._DetectingRange);
@@ -58,7 +58,7 @@ public class RedHatPOPUP : RedHatFSMState
                 if (target.tag == "Player")
                 {
                     _manager._PriorityTarget = PlayerFSMManager.
-                        instance.GetComponentInChildren<Animator>()
+                        Instance.GetComponentInChildren<Animator>()
                         .GetComponent<Collider>();
                     break;
                 }
@@ -72,7 +72,7 @@ public class RedHatPOPUP : RedHatFSMState
         else
         {
             _manager._PriorityTarget = PlayerFSMManager.
-                instance.GetComponentInChildren<Animator>()
+                Instance.GetComponentInChildren<Animator>()
                 .GetComponent<Collider>();
         }
     }

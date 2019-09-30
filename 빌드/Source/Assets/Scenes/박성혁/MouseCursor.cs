@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using MC.UI;
 
 public class MouseCursor : MonoBehaviour
 {
@@ -14,12 +15,12 @@ public class MouseCursor : MonoBehaviour
 
     private void Update()
     {
-        var screenPoint = Input.mousePosition;
-        screenPoint.z = 10.0f; //distance of the plane from the camera
-        transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
+        //var screenPoint = Input.mousePosition;
+        //screenPoint.z = 10.0f; //distance of the plane from the camera
+        //transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
 
         if(istitle)
-            GameManager.CursorMode(cursorMode);
+            UserInterface.SetPointerMode(cursorMode);
 
         if (Input.GetKeyDown(KeyCode.K))
         {

@@ -22,7 +22,7 @@ public class FSMManager : MonoBehaviour
     //[HideInInspector]
     //public CharacterStat _lastAttack;
 
-    [HideInInspector] public ObjectManager.MonsterType monsterType;
+    [HideInInspector] public MonsterType monsterType;
 
     protected virtual void Awake()
     {

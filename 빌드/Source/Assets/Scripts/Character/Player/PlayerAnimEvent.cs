@@ -14,11 +14,11 @@ public class PlayerAnimEvent : MonoBehaviour
     private void Start()    
     {
         //input = InputHandler.instance;
-        player = PlayerFSMManager.instance;
+        player = PlayerFSMManager.Instance;
     }
     private void Update()
     {
-        isNormal = player.pc_Icon.gameObject.activeSelf;
+        isNormal = player.isNormal;
     }
     void hitCheck()
     {
@@ -86,7 +86,7 @@ public class PlayerAnimEvent : MonoBehaviour
     {
         try
         {
-            player._Sound.PlayFootStepSFX();
+            //player._Sound.PlayFootStepSFX();
         }
         catch
         {

@@ -2,6 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MonsterType
+{
+    RedHat = 0,
+    Mac = 1,
+    Tiber = 2,
+    Length
+}
+
+public enum ObjectType
+{
+
+}
+
 public static class GameLib
 {
     // 단순하게 적을 찾고, 적에게 피해를 입히는 함수
@@ -29,13 +42,19 @@ public static class GameLib
     // 여러 오브젝트들에 대해 간단한 정보로 피해를 입히는 함수.
     public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat)
     {
-        if (PlayerFSMManager.instance.isShield)
+        if (PlayerFSMManager.Instance.ShieldCount > 0)
         {
-            PlayerFSMManager.instance.isShield = false;
+            PlayerFSMManager.Instance.ShieldCount--;
             return null;
         }
         else
         {
+            if (PlayerFSMManager.Instance.isIDLE)
+            {
+
+                
+            }
+
             CharacterStat lastHit = null;
             foreach (var hitObject in hitObjects)
             {
@@ -130,20 +149,95 @@ public static class GameLib
         return time;
     }
 
-    public static IEnumerator Blink(Material mat, int duration = 6, float timer = 0.15f)
+    public static void DissoveActive(List<Material> mats, bool active)
+    {
+        float value = active ? 8 : 0;
+
+        for(int i=0; i< mats.Count; i++)
+        {
+            mats[i].SetFloat("_DissolveEdgeMultiplier", value);
+            mats[i].SetFloat("_DissolveIntensity", 0);
+        }
+    }
+
+    public static IEnumerator Dissolving(List<Material> mats, float value = 0.45f)
+    {
+        float time = 0;
+
+        for(int i=0; i<mats.Count; i++)
+        {
+            time += value * Time.deltaTime;
+            mats[i].SetFloat("_DissolveIntensity", time);
+
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+    }
+
+    public static IEnumerator Blinking(List<Material> mats, int duration = 6, float timer = 0.15f)
     {
         int i = 0;
         bool blink = false;
 
-        while(i++ < duration)
+        while (i++ < duration)
         {
             float value = blink ? 0.0f : 1.0f;
 
-            mat.SetFloat("_Hittrigger", value);
+            for (int j = 0; j < mats.Count; j++)
+            {
+                mats[j].SetFloat("_Hittrigger", value);
+            }
+
             blink = !blink;
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(Time.deltaTime);
         }
 
-        mat.SetFloat("_Hittrigger", 0.0f);
+        for (int j = 0; j < mats.Count; j++)
+        {
+            mats[j].SetFloat("_Hittrigger", 0);
+        }
     }
+
+    public static IEnumerator KnockBack(Transform trans, AttackType attackType, Vector3 direction
+        )
+    {
+        for (int time = 0; time < 4; time++)
+        {
+            //trans.position += direction * (power);
+
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+    }
+
+    public static int TransformTypeToInt(AttackType type)
+    {
+        switch (type)
+        {
+            case AttackType.ATTACK1:
+                return 0;
+
+            case AttackType.ATTACK2:
+                return 1;
+
+            case AttackType.ATTACK3:
+                return 2;
+
+            case AttackType.SKILL1:
+                return 3;
+
+            case AttackType.SkILL2:
+                return 4;
+
+            case AttackType.SKILL3:
+                return 5;
+
+            case AttackType.SKILL4:
+                return 6;
+
+            default:
+                return -1;
+        }
+    }
+
+
 }
