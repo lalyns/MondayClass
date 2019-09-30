@@ -50,6 +50,10 @@ namespace MC.SceneDirector
 
         public static void CinemaStart(PlayableDirector cinema)
         {
+            PlayerFSMManager.Instance.transform.position = PlayerFSMManager.Instance.Anim.transform.position;
+
+            PlayerFSMManager.Instance.transform.LookAt(MissionManager.Instance.CurrentMission.Exit.transform);
+
             cinema.gameObject.SetActive(true);
             Instance.currentDirector = cinema;
             cinema.Play();
