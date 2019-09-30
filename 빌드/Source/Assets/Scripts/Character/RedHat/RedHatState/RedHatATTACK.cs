@@ -47,7 +47,7 @@ public class RedHatATTACK : RedHatFSMState
     public void AttackSupport()
     {
         Debug.Log("attackCall");
-        UserInterface.Instance.IPlayer.PlayerHpBar.HitBackFun();
+        UserInterface.Instance.UIPlayer.hpBar.HitBackFun();
     }
 
     protected override void FixedUpdate()

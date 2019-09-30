@@ -180,7 +180,7 @@ public class MacBullet : MonoBehaviour
     public void AttackSupport()
     {
         Debug.Log("attackCall");
-        UserInterface.Instance.IPlayer.PlayerHpBar.HitBackFun();
+        UserInterface.Instance.UIPlayer.hpBar.HitBackFun();
     }
 }
     

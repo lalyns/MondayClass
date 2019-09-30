@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CineAnimEvent : MonoBehaviour
+
+namespace MC.SceneDirector
 {
-    public void SceneStart()
+
+    public class CineAnimEvent : MonoBehaviour
     {
-        SceneMgr.Instance.SceneStart();
+        public void SceneStart()
+        {
+            CinemaManager.Instance.SceneStart();
+        }
+
+
     }
-
-
 }
