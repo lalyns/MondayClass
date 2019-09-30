@@ -44,7 +44,7 @@ public class MissionManager : MonoBehaviour
     public MissionType CurrentMissionType => CurrentMission.Data.MissionType;
 
     private bool isFirst = true;
-    private bool isChange = false;
+    [HideInInspector] public bool isChange = false;
     // For Editor Using
 
     public void Awake()
@@ -125,14 +125,8 @@ public class MissionManager : MonoBehaviour
             GetComponentInChildren<Animator>().
             transform.LookAt(Instance.CurrentMission.Exit.transform);
 
-        // 페이드 IN
-        GameManager.SetFadeInOut(() =>
-        {
-            CinemaManager.CinemaStart(Instance.CurrentMission.enterDirector);
-            GameManager.Instance.CharacterControl = true;
-            Instance.isChange = false;
-        },
-        true);
+
+        CinemaManager.CinemaStart(Instance.CurrentMission.enterDirector);
     }
 
     public static void StartMission() {
