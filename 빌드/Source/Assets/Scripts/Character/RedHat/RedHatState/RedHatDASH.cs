@@ -22,7 +22,7 @@ public class RedHatDASH : RedHatFSMState
         _manager.CC.detectCollisions = false;
         try
         {
-            _manager.dashEffect = EffectPoolManager._Instance._RedHatEffectPool.ItemSetActive(this.transform);
+            _manager.dashEffect = EffectPoolManager._Instance._RedHatSkillRange.ItemSetActive(this.transform);
             _manager.dashEffect.GetComponent<tempLook>().TargetSet(_manager._PriorityTarget);
         }
         catch

@@ -57,7 +57,7 @@ public class ObjectPool : MonoBehaviour
     }
 
 
-    public void ItemSetActive(Transform respawnTrans, string type)
+    public Transform ItemSetActive(Transform respawnTrans, string type)
     {
         if (_InActiveItemPool.Count == 0)
         {
@@ -90,6 +90,8 @@ public class ObjectPool : MonoBehaviour
             item.GetComponent<Effects>().EffectPlay();
             item.GetComponent<Effects>().targetPool = this;
         }
+
+        return item.transform;
     }
 
     public void ItemSetActive(Transform respawnTrans, bool bulletType)

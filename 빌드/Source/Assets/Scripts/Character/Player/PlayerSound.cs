@@ -34,7 +34,7 @@ namespace MC.Sound
 
             public void PlayPlayerSFX(GameObject go, AK.Wwise.Event sfx)
             {
-                Debug.Log("Play Player SFX");
+                //Debug.Log("Play Player SFX");
                 if (GameManager.Instance.config.soundActive.sfx ||
                     GameManager.Instance.config.soundActive.all)
                     sfx.Post(go);
@@ -49,7 +49,7 @@ namespace MC.Sound
 
             public void PlayPlayerVoice(GameObject go, AK.Wwise.Event voice)
             {
-                Debug.Log("Play Player Voice");
+                //Debug.Log("Play Player Voice");
                 if (GameManager.Instance.config.soundActive.voice ||
                     GameManager.Instance.config.soundActive.all)
                     voice.Post(go);

@@ -60,7 +60,7 @@ namespace MC.SceneDirector
 
         public static void CinemaEnd()
         {
-            Debug.Log("Directing End : " + Instance.currentDirector.transform.name);
+            //Debug.Log("Directing End : " + Instance.currentDirector.transform.name);
             Instance.currentDirector.gameObject.SetActive(false);
         }
     }
