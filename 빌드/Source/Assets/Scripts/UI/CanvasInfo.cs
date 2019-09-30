@@ -7,55 +7,7 @@ namespace MC.UI {
 
     // 변수 명 통일 및 정리 필요
     #region Player User Interface Class(6)
-    [System.Serializable]
-    public class PlayerUI
-    {
-        public GameObject gameObject;
-        public Canvas canvas;
 
-        public Image PCIcon;
-        public HPBar PlayerHpBar;
-        public PlayerSpecialUI Special;
-        public PlayerSkillUI[] Skill;
-        public PlayerDashUI[] Dash;
-        public PlayerBuffUI[] Buff;
-    }
-
-    [System.Serializable]
-    public class PlayerInterfaceResources
-    {
-        public Sprite[] PCIconSprites;
-    }
-
-    [System.Serializable]
-    public class PlayerSkillUI
-    {
-        public Image SkillActive;
-        public Image SkillCoolTime;
-        public ParticleSystem[] SkillEffects;
-    }
-
-    [System.Serializable]
-    public class PlayerSpecialUI
-    {
-        public Image SpecialActive;
-        public Image SpecialCoolTime;
-        public ParticleSystem[] SpecialEffects;
-    }
-
-    [System.Serializable]
-    public class PlayerDashUI
-    {
-        public Image DashActive;
-        public Image DashCoolTime;
-    }
-
-    [System.Serializable]
-    public class PlayerBuffUI
-    {
-        public Image BuffBackground;
-        public Image Buff;
-    }
     #endregion
 
     #region Mission Selector User Interface
@@ -171,27 +123,13 @@ namespace MC.UI {
         public Canvas[] Layers;
         public GameObject EventSystem;
 
-        [Space(5)]
-        [Header ("Player User Interface")]
-        public PlayerUI playerUI;
-        public PlayerInterfaceResources playerUIResources;
-
-        [Space(5)]
-        [Header("Mission Selector Interface")]
+        [Space(5)][Header("HUDs")]
+        public UIPlayer player;
         public MissionSelectorUI selector;
-
-        [Space(5)]
-        [Header("Mission Progress Interface")]
         public MissionProgressUI progress;
-
-        [Space(5)]
-        [Header("System Interface")]
         public SystemUI systemUI;
         public MousePointer mousePointer;
         public ScreenEffect screenEffect;
-
-        [Space(5)]
-        [Header("Title Interface")]
         public TitleUI title;
 
         

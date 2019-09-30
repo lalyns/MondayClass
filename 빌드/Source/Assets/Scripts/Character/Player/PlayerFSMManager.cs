@@ -1027,7 +1027,7 @@ public class PlayerFSMManager : FSMManager
             Skill1CTime -= Time.deltaTime;
             if (Skill1CTime <= 0)
             {
-                UserInterface.PlayerSkillEffect(0);
+                UIPlayer.SkillSetUp(0);
                 Skill1CTime = 10f;
                 isSkill1CTime = false;
             }
@@ -1043,7 +1043,7 @@ public class PlayerFSMManager : FSMManager
             Skill2CTime -= Time.deltaTime;
             if (Skill2CTime <= 0)
             {
-                UserInterface.PlayerSkillEffect(1);
+                UIPlayer.SkillSetUp(1);
                 Skill2CTime = 10f;
                 Skill2_Start.SetActive(false);
                 isSkill2 = false;
@@ -1060,7 +1060,7 @@ public class PlayerFSMManager : FSMManager
 
             if (Skill3CTime <= 0)
             {
-                UserInterface.PlayerSkillEffect(2);
+                UIPlayer.SkillSetUp(2);
                 Skill3CTime = 10f;
                 Skill3_End.SetActive(false);
                 isSkill3CTime = false;

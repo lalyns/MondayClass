@@ -72,7 +72,7 @@ namespace MC.UI
         public GameObject PlayerUICanvas {
             get {
                 if (_PlayerUICanvas == null)
-                    _PlayerUICanvas = CanvasInfo.Instance.playerUI.gameObject;
+                    _PlayerUICanvas = CanvasInfo.Instance.player.gameObject;
                 return _PlayerUICanvas;
             }
         }
@@ -142,78 +142,28 @@ namespace MC.UI
         }
 
         #region Player User Interface
-        private PlayerUI _IPlayer;
-        public PlayerUI IPlayer 
+        private UIPlayer uiPlayer;
+        public UIPlayer UIPlayer 
         {
             get {
-                if (_IPlayer == null) _IPlayer = CanvasInfo.Instance.playerUI;
-                return _IPlayer;
-            }
-        }
-
-        private void PCIconImageSet(bool isSpecial)
-        {
-            IPlayer.PCIcon.sprite = isSpecial ? 
-                CanvasInfo.Instance.playerUIResources.PCIconSprites[0] : 
-                CanvasInfo.Instance.playerUIResources.PCIconSprites[1];
-        }
-
-        private void PlayerSkillUISet(int i, float value)
-        {
-            var gaugeValue = Mathf.Clamp01(value / playerFSMMgr.Stat.skillCTime[i]);
-            IPlayer.Skill[i].SkillCoolTime.fillAmount = gaugeValue;
-        }
-
-        public static void PlayerSkillEffect(int i)
-        {
-            var length = Instance.IPlayer.Skill[i].SkillEffects.Length;
-            for(int j=0; j<length; j++)
-            {
-                Instance.IPlayer.Skill[i].SkillEffects[j].gameObject.SetActive(true);
-                Instance.IPlayer.Skill[i].SkillEffects[j].Play();
-            }
-        }
-
-        private void PCSpecialGaugeSet(float value)
-        {
-            var gaugeValue = Mathf.Clamp01(value * 0.01f);
-            IPlayer.Special.SpecialCoolTime.fillAmount = gaugeValue;
-
-            OnSpecialEffect(value);
-        }
-
-        private void OnSpecialEffect(float value)
-        {
-            var effectActive = value >= 1.0;
-            for (int i = 0; i < IPlayer.Special.SpecialEffects.Length; i++)
-                IPlayer.Special.SpecialEffects[i].gameObject.SetActive(effectActive);
-        }
-
-        private void DashCountSet()
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                if (playerFSMMgr.isDashCTime[i])
-                {
-                    var fillValue = Mathf.Clamp01(1f - (playerFSMMgr.DashCTime[i] / 3f));
-                    IPlayer.Dash[i].DashCoolTime.fillAmount = fillValue;
-                }
+                if (uiPlayer == null) uiPlayer = CanvasInfo.Instance.player;
+                return uiPlayer;
             }
         }
 
         private void PlayerUI()
         {
             // 나중에 변신에 포함시킬것
-            PCIconImageSet(playerFSMMgr.isNormal);
+            UIPlayer.ProfileImage(playerFSMMgr.isNormal);
 
-            HPChangeEffect(playerFSMMgr.Stat, IPlayer.PlayerHpBar);
-            PCSpecialGaugeSet(playerFSMMgr.SpecialGauge);
-            DashCountSet();
+            HPChangeEffect(playerFSMMgr.Stat, UIPlayer.hpBar);
+            UIPlayer.SpecialGauge(playerFSMMgr.SpecialGauge);
+            UIPlayer.DashSetActive();
 
-            if (playerFSMMgr.isSkill1CTime) PlayerSkillUISet(0, playerFSMMgr.Skill1CTime);
-            if (playerFSMMgr.isSkill2CTime) PlayerSkillUISet(1, playerFSMMgr.Skill2CTime);
-            if (playerFSMMgr.isSkill3CTime) PlayerSkillUISet(2, playerFSMMgr.Skill3CTime);
-            if (playerFSMMgr.isSkill4CTime) PlayerSkillUISet(3, playerFSMMgr.Skill4CTime);
+            if (playerFSMMgr.isSkill1CTime) UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime);
+            if (playerFSMMgr.isSkill2CTime) UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime);
+            if (playerFSMMgr.isSkill3CTime) UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime);
+            if (playerFSMMgr.isSkill4CTime) UIPlayer.SkillSetActive(3, playerFSMMgr.Skill4CTime);
         }
         #endregion
 
@@ -270,7 +220,6 @@ namespace MC.UI
             {
                 i -= speed;
                 var value = Mathf.Clamp01(i * 0.01f);
-                Debug.Log("Fade In Progress : " + value);
                 alpha.a = value;
                 Instance.ScreenEffect.fading.image.color = alpha;
 
@@ -287,7 +236,6 @@ namespace MC.UI
             {
                 i += speed;
                 var value = Mathf.Clamp01(i * 0.01f);
-                Debug.Log("Fade Out Progress : " + value);
                 alpha.a = value;
                 Instance.ScreenEffect.fading.image.color = alpha;
 
@@ -328,7 +276,7 @@ namespace MC.UI
 
         #endregion
 
-        #region MissionProgress User Interface
+        #region Mission Progress User Interface
         // 간략모드 활성화 여부
         private bool MPSimpleMode = false;
         public static void SetMPMode(bool value)

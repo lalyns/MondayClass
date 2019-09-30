@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 75959646}
   - component: {fileID: 75959645}
   m_Layer: 5
-  m_Name: Dash3
+  m_Name: Dash3_Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4921,7 +4921,7 @@ GameObject:
   - component: {fileID: 279446067}
   - component: {fileID: 279446066}
   m_Layer: 5
-  m_Name: Dash1
+  m_Name: Dash1_Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9789,7 +9789,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 607237842}
   serializedVersion: 6
-  lengthInSec: 10
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -14439,7 +14439,7 @@ ParticleSystemRenderer:
   m_Flip: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 1
   m_EnableGPUInstancing: 1
-  m_ApplyActiveColorSpace: 1
+  m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_VertexStreams: 000304
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
@@ -14459,7 +14459,7 @@ GameObject:
   - component: {fileID: 785602976}
   - component: {fileID: 785602975}
   m_Layer: 5
-  m_Name: Buff1
+  m_Name: Buff1_Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24129,7 +24129,7 @@ GameObject:
   - component: {fileID: 1258672750}
   - component: {fileID: 1258672749}
   m_Layer: 5
-  m_Name: Dash2
+  m_Name: Dash2_Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24203,7 +24203,7 @@ GameObject:
   - component: {fileID: 1269423076}
   - component: {fileID: 1269423075}
   m_Layer: 5
-  m_Name: Skill2_CoolTime
+  m_Name: Skill2_InActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24277,7 +24277,7 @@ GameObject:
   - component: {fileID: 1368409628}
   - component: {fileID: 1368409627}
   m_Layer: 5
-  m_Name: Skill3_CoolTime
+  m_Name: Skill3_InActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24351,7 +24351,7 @@ GameObject:
   - component: {fileID: 1481386319}
   - component: {fileID: 1481386318}
   m_Layer: 5
-  m_Name: Buff2
+  m_Name: Buff2_Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29298,7 +29298,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889184956}
   serializedVersion: 6
-  lengthInSec: 10
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -30123,7 +30123,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 1
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -33948,7 +33948,7 @@ ParticleSystemRenderer:
   m_Flip: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 1
-  m_ApplyActiveColorSpace: 1
+  m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_VertexStreams: 00010304
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
@@ -34206,7 +34206,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -34697,7 +34697,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 19
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -34903,7 +34903,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -35006,8 +35006,66 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 0
-    m_Bursts: []
+    m_BurstCount: 1
+    m_Bursts:
+    - serializedVersion: 2
+      time: 0
+      countCurve:
+        serializedVersion: 2
+        minMaxState: 0
+        scalar: 1
+        minScalar: 30
+        maxCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+      cycleCount: 1
+      repeatInterval: 0.01
+      probability: 1
   SizeModule:
     enabled: 0
     curve:
@@ -38728,7 +38786,7 @@ ParticleSystemRenderer:
   m_Flip: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 1
-  m_ApplyActiveColorSpace: 1
+  m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_VertexStreams: 00010304
   m_Mesh: {fileID: 0}
@@ -38774,7 +38832,7 @@ SpriteMask:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 364fdca5c702fb9478a0c841bf9e0db5, type: 3}
-  m_MaskAlphaCutoff: 0.2
+  m_MaskAlphaCutoff: 0.38
   m_FrontSortingLayerID: 0
   m_BackSortingLayerID: 0
   m_FrontSortingLayer: 0
@@ -38814,7 +38872,7 @@ RectTransform:
   - {fileID: 1368409626}
   - {fileID: 184854915}
   m_Father: {fileID: 7886577803407689384}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.57, y: 0.08}
   m_AnchorMax: {x: 0.57, y: 0.08}
@@ -38871,7 +38929,7 @@ GameObject:
   - component: {fileID: 7664250900618919609}
   - component: {fileID: 7339652207407748372}
   m_Layer: 5
-  m_Name: Buff2_BG
+  m_Name: Buff2_InActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38946,7 +39004,7 @@ GameObject:
   - component: {fileID: 479443530349619783}
   - component: {fileID: 3066345555609460687}
   m_Layer: 5
-  m_Name: Dash1_BG
+  m_Name: Dash1_InActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39021,7 +39079,7 @@ GameObject:
   - component: {fileID: 642063691397248847}
   - component: {fileID: 7487463278573173648}
   m_Layer: 5
-  m_Name: Buff5_BG
+  m_Name: Buff5_InActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39115,7 +39173,7 @@ RectTransform:
   - {fileID: 7911012521464185754}
   - {fileID: 1115587904}
   m_Father: {fileID: 7886577803407689384}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.62, y: 0.08}
   m_AnchorMax: {x: 0.62, y: 0.08}
@@ -39134,7 +39192,7 @@ GameObject:
   - component: {fileID: 8690661888200455922}
   - component: {fileID: 7665322163614129909}
   m_Layer: 5
-  m_Name: Buff4_BG
+  m_Name: Buff4_InActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39305,7 +39363,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.48}
   m_AnchorMax: {x: 0.5, y: 0.48}
-  m_AnchoredPosition: {x: -0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 350, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &873809760615708647
@@ -39357,7 +39415,7 @@ GameObject:
   - component: {fileID: 7600909965599037921}
   - component: {fileID: 8211305622402723002}
   m_Layer: 5
-  m_Name: Dash3_BG
+  m_Name: Dash3_InActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39507,7 +39565,7 @@ GameObject:
   - component: {fileID: 4253398193549457439}
   - component: {fileID: 5169340435692792754}
   m_Layer: 5
-  m_Name: Dash2_BG
+  m_Name: Dash2_InActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39601,7 +39659,7 @@ RectTransform:
   - {fileID: 7886577804664780142}
   - {fileID: 538266488}
   m_Father: {fileID: 7886577803407689384}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.38, y: 0.08}
   m_AnchorMax: {x: 0.38, y: 0.08}
@@ -39676,7 +39734,7 @@ RectTransform:
   - {fileID: 3159691729027217945}
   - {fileID: 7886577804509131559}
   m_Father: {fileID: 7886577803407689384}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.09}
   m_AnchorMax: {x: 0.5, y: 0.09}
@@ -39881,7 +39939,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: -0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 350, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7886577802775120847
@@ -40004,6 +40062,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7886577803270363344}
+  - component: {fileID: 2519935009486691149}
   m_Layer: 5
   m_Name: Prefab_UI_PCHUD
   m_TagString: Untagged
@@ -40032,6 +40091,64 @@ RectTransform:
   m_AnchoredPosition: {x: 5.91, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2519935009486691149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7886577803270363351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d62543f5d9bd1c40b00aa2e9aa1741e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 7886577802692440651}
+  hpBar: {fileID: 1923038549283945496}
+  special:
+    active: {fileID: 3159691729027217944}
+    inActive: {fileID: 7886577804509131552}
+    effects:
+    - {fileID: 883773271}
+  skill:
+  - active: {fileID: 7886577804679269679}
+    inActive: {fileID: 7886577804664780143}
+    effects:
+    - {fileID: 538266490}
+  - active: {fileID: 7886577804575727656}
+    inActive: {fileID: 1269423075}
+    effects:
+    - {fileID: 1542372573}
+  - active: {fileID: 7886577803954798164}
+    inActive: {fileID: 1368409627}
+    effects:
+    - {fileID: 184854917}
+  - active: {fileID: 7886577802996799167}
+    inActive: {fileID: 3105718200655850069}
+    effects:
+    - {fileID: 1115587906}
+  dash:
+  - active: {fileID: 279446066}
+    inActive: {fileID: 3066345555609460687}
+  - active: {fileID: 1258672749}
+    inActive: {fileID: 5169340435692792754}
+  - active: {fileID: 75959645}
+    inActive: {fileID: 8211305622402723002}
+  Buff:
+  - inActive: {fileID: 5606734448660269051}
+    active: {fileID: 785602975}
+  - inActive: {fileID: 7339652207407748372}
+    active: {fileID: 1481386318}
+  - inActive: {fileID: 2128021440214891881}
+    active: {fileID: 917909610}
+  - inActive: {fileID: 7665322163614129909}
+    active: {fileID: 176394612}
+  - inActive: {fileID: 7487463278573173648}
+    active: {fileID: 1953586239}
+  resource:
+    profiles:
+    - {fileID: 21300000, guid: c81d7c0afeb12774bb9c8dcaa890c2c8, type: 3}
+    - {fileID: 21300000, guid: cafeb2d804d98e84a9740c45319008e5, type: 3}
 --- !u!1 &7886577803407689391
 GameObject:
   m_ObjectHideFlags: 0
@@ -40059,11 +40176,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 5456600404389914745}
   - {fileID: 1952038846368421499}
   - {fileID: 1883940135965541870}
   - {fileID: 694730693832411817}
   - {fileID: 3571522543880921332}
-  - {fileID: 5456600404389914745}
   - {fileID: 2385091096650553199}
   m_Father: {fileID: 7886577803270363344}
   m_RootOrder: 1
@@ -40456,7 +40573,7 @@ GameObject:
   - component: {fileID: 7886577804664780136}
   - component: {fileID: 7886577804664780143}
   m_Layer: 5
-  m_Name: Skill1_CoolTime
+  m_Name: Skill1_InActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40623,7 +40740,7 @@ RectTransform:
   - {fileID: 1269423074}
   - {fileID: 1542372571}
   m_Father: {fileID: 7886577803407689384}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.43, y: 0.08}
   m_AnchorMax: {x: 0.43, y: 0.08}
@@ -40642,7 +40759,7 @@ GameObject:
   - component: {fileID: 2899845916118556599}
   - component: {fileID: 2128021440214891881}
   m_Layer: 5
-  m_Name: Buff3_BG
+  m_Name: Buff3_InActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40717,7 +40834,7 @@ GameObject:
   - component: {fileID: 5538169799543469337}
   - component: {fileID: 5606734448660269051}
   m_Layer: 5
-  m_Name: Buff1_BG
+  m_Name: Buff1_InActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40792,7 +40909,7 @@ GameObject:
   - component: {fileID: 718557711801670352}
   - component: {fileID: 3105718200655850069}
   m_Layer: 5
-  m_Name: Skill4_Cooltime
+  m_Name: Skill4_InActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
