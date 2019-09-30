@@ -86,7 +86,7 @@ namespace MC.UI
         public GameObject MissionProgressUICanvas {
             get {
                 if (_MissionProgressUICanvas == null)
-                    _MissionProgressUICanvas = CanvasInfo.Instance.progress.gameObject;
+                    _MissionProgressUICanvas = CanvasInfo.Instance.mission.progress.gameObject;
                 return _MissionProgressUICanvas;
             }
         }
@@ -100,7 +100,7 @@ namespace MC.UI
         public GameObject MissionSelectionUICanvas {
             get {
                 if (_MissionSelectionUICanvas == null)
-                    _MissionSelectionUICanvas = CanvasInfo.Instance.selector.gameObject;
+                    _MissionSelectionUICanvas = CanvasInfo.Instance.mission.selector.gameObject;
                 return _MissionSelectionUICanvas;
             }
         }
@@ -269,7 +269,7 @@ namespace MC.UI
             get
             {
                 if (selectorUI == null)
-                    selectorUI = CanvasInfo.Instance.selector;
+                    selectorUI = CanvasInfo.Instance.mission.selector;
                 return selectorUI;
             }
         }
@@ -284,16 +284,17 @@ namespace MC.UI
             Instance.MPSimpleMode = value;
             Instance.FullMode.gameObject.SetActive(!value);
             Instance.SimpleMode.gameObject.SetActive(value);
-            Instance.CurrentTimer = value ? Instance.SimpleMode.TimeText : Instance.FullMode.TimeText;
-            Instance.CurrentGoal = value ? Instance.SimpleMode.GoalText : Instance.FullMode.GoalText;
-            Instance.CurrentTimeBack = value ? Instance.SimpleMode.TimeBack : Instance.FullMode.TimeBack;
+            Instance.CurrentTimer = value ? Instance.SimpleMode.timeText : Instance.FullMode.timeText;
+            Instance.CurrentGoal = value ? Instance.SimpleMode.goalText : Instance.FullMode.goalText;
+            Instance.CurrentTimeBack = value ? Instance.SimpleMode.timeImage : Instance.FullMode.timeImage;
+            Instance.CurrentEffect = value ? Instance.SimpleMode.goalEffect : Instance.FullMode.goalEffect;
         }
 
         private ProgressFullUI _FullMode;
         public ProgressFullUI FullMode {
             get {
                 if (_FullMode == null)
-                    _FullMode = CanvasInfo.Instance.progress.full;
+                    _FullMode = CanvasInfo.Instance.mission.progress.full;
 
                 return _FullMode;
             }
@@ -301,11 +302,11 @@ namespace MC.UI
 
         public static void FullModeSetMP()
         {
-            Instance.FullMode.MissionIcon.sprite =
+            Instance.FullMode.missionType.sprite =
                 Instance.missionMgr.CurrentMission.Data.MissionIcon;
-            Instance.FullMode.MissionText.text =
+            Instance.FullMode.missionText.text =
                 Instance.missionMgr.CurrentMission.Data.MissionText;
-            Instance.FullMode.GoalIcon.sprite =
+            Instance.FullMode.goalType.sprite =
                 Instance.missionMgr.CurrentMission.Data.MissionIcon;
         }
 
@@ -313,7 +314,7 @@ namespace MC.UI
         public ProgressSimpleUI SimpleMode {
             get {
                 if (_SimpleMode ==null)
-                    _SimpleMode = CanvasInfo.Instance.progress.simple;
+                    _SimpleMode = CanvasInfo.Instance.mission.progress.simple;
 
                 return _SimpleMode;
             }
@@ -333,6 +334,12 @@ namespace MC.UI
         }
 
         private Text CurrentGoal;
+        private ParticleSystem CurrentEffect;
+        public void GoalEffectPlay()
+        {
+            CurrentEffect.Play();
+        }
+
         private void SetGoal(MissionType type)
         {
             var text = "";

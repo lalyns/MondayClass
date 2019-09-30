@@ -44,7 +44,7 @@ public class MissionManager : MonoBehaviour
     public MissionType CurrentMissionType => CurrentMission.Data.MissionType;
 
     private bool isFirst = true;
-    private bool isChange = false;
+    public bool isChange = false;
     // For Editor Using
 
     public void Awake()
@@ -71,6 +71,7 @@ public class MissionManager : MonoBehaviour
 
         UserInterface.BlurSet(true);
 
+
         Instance.MissionSelector.SetActive(true);
         UserInterface.SetPointerMode(true);
         UserInterface.Instance.MousePointerSpeed(100f);
@@ -92,23 +93,40 @@ public class MissionManager : MonoBehaviour
             choice.ChangeMission(Instance.Missions[type]);
         }
 
-        isChange = false;
+        if (GameStatus.Instance.StageLevel >= 3)
+        {
+            Instance.Choices[0].ChangeMission(Instance.Missions[3]);
+        }
+
+        isChange = true;
     }
 
     public static void SelectMission(Mission mission) {
         
         Instance.CurrentMission = mission;
         Instance.MissionSelector.SetActive(false);
-        UserInterface.SetPointerMode(false);
-        GameManager.Instance.IsPuase = false;
-        UserInterface.FullModeSetMP();
 
-        // 페이드 Out
-        GameManager.SetFadeInOut(()=> {
+        if (Instance.CurrentMissionType == MissionType.Boss)
+        {
+            UserInterface.SetPlayerUserInterface(false);
+            Instance.StartCoroutine(MCSceneManager.Instance.LoadScene(2));
+        }
+        else
+        {
+            UserInterface.SetPointerMode(false);
+            GameManager.Instance.IsPuase = false;
+            UserInterface.FullModeSetMP();
 
-            MissionManager.EnterMission();
-            UserInterface.BlurSet(false);
-        }, false);
+            // 페이드 Out
+            GameManager.SetFadeInOut(() =>
+            {
+
+                MissionManager.EnterMission();
+                UserInterface.BlurSet(false);
+                // RigidBody Gravity => false
+                PlayerFSMManager.Instance.rigid.useGravity = false;
+            }, false);
+        }
         //EnterMission();
     }
 
@@ -124,14 +142,9 @@ public class MissionManager : MonoBehaviour
             GetComponentInChildren<Animator>().
             transform.LookAt(Instance.CurrentMission.Exit.transform);
 
-        // 페이드 Out
-        GameManager.SetFadeInOut(() =>
-        {
-            CinemaManager.CinemaStart(CinemaManager.Instance.enterDirector);
-            GameManager.Instance.CharacterControl = true;
-            Instance.isChange = false;
-        },
-        true);
+
+        CinemaManager.CinemaStart(Instance.CurrentMission.enterDirector);
+        Instance.isChange = true;
     }
 
     public static void StartMission() {
@@ -146,6 +159,9 @@ public class MissionManager : MonoBehaviour
 
     public static void ExitMission() {
         Input.ResetInputAxes();
+
+        PlayerFSMManager.Instance._v = 0; //SetState(PlayerState.IDLE);
+        PlayerFSMManager.Instance._h = 0;
         PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
 
         if (Instance.isFirst) { Instance.isFirst = false; return; }

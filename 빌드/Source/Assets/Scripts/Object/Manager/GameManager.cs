@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 
 using MC.UI;
 using MC.Sound;
@@ -89,8 +90,6 @@ public class GameManager : MonoBehaviour
             UserInterface.SetPointerMode(false);
             UserInterface.SetTitleUI(false);
 
-            MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
-                MCSoundManager.Instance.objectSound.ambient.stageAmbient);
         }
 
         UserInterface.SetAllUserInterface(uIActive.all);
@@ -99,8 +98,6 @@ public class GameManager : MonoBehaviour
         UserInterface.SetMissionProgressUserInterface(uIActive.progress);
         UserInterface.SetMissionSelectionUI(uIActive.selector);
     }
-
-
 
     // Update is called once per frame
     void Update()
@@ -194,6 +191,8 @@ public class GameManager : MonoBehaviour
                 Instance.Scene1Setting();
                 break;
             case 2:
+                Debug.Log("Boss");
+                Instance.BossSceneSetting();
                 break;
         }
     }
@@ -210,5 +209,11 @@ public class GameManager : MonoBehaviour
 
         MissionManager.Instance.SetValue();
         GameStatus.Instance.SetValue();
+    }
+
+    private void BossSceneSetting()
+    {
+        CinemaManager.Instance.BossDirector = GameObject.FindGameObjectWithTag("Director").GetComponent<PlayableDirector>();
+        CinemaManager.Instance.BossDirector.Play();
     }
 }

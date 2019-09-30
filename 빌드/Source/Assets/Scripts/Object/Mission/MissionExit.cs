@@ -26,6 +26,7 @@ public class MissionExit : MonoBehaviour
         {
             MissionManager.ExitMission();
             MissionManager.PopUpMission();
+            PlayerFSMManager.Instance.rigid.useGravity = false;
         }
     }
 }

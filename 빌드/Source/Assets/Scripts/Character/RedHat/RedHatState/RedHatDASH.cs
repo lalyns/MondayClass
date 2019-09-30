@@ -22,12 +22,12 @@ public class RedHatDASH : RedHatFSMState
         _manager.CC.detectCollisions = false;
         try
         {
-            _manager.dashEffect = EffectPoolManager._Instance._RedHatEffectPool.ItemSetActive(this.transform);
+            _manager.dashEffect = EffectPoolManager._Instance._RedHatSkillRange.ItemSetActive(this.transform);
             _manager.dashEffect.GetComponent<tempLook>().TargetSet(_manager._PriorityTarget);
         }
         catch
         {
-
+            Debug.Log("대쉬 이펙트 버그");
         }
         // 대쉬 시간 조정
 

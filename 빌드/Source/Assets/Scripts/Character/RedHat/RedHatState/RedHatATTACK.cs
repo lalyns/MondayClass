@@ -24,7 +24,7 @@ public class RedHatATTACK : RedHatFSMState
 
         if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) < _manager.Stat.statData._AttackRange)
         {
-            
+
         }
         else
         {
@@ -37,7 +37,7 @@ public class RedHatATTACK : RedHatFSMState
     {
         var hitTarget = GameLib.SimpleDamageProcess(transform,
             _manager.Stat.AttackRange,
-            "Player", _manager.Stat);
+            "Player", _manager.Stat, MonsterType.RedHat);
 
         Invoke("AttackSupport", 0.5f);
 

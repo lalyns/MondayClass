@@ -17,10 +17,13 @@ public enum PlayerState
     ATTACK3,
     ATTACKBACK1,
     ATTACKBACK2,
-    TRANS,
     SKILL2,
     SKILL3,
+    TRANS,
+    TRANS2,
+    HIT,
     DEAD,
+    
 }
 public enum AttackType
 {
@@ -29,7 +32,7 @@ public enum AttackType
     ATTACK2 = 1 << 2,
     ATTACK3 = 1 << 3,
     SKILL1 = 1 << 4,
-    SkILL2 = 1 << 5,
+    SKILL2 = 1 << 5,
     SKILL3 = 1 << 6,
     SKILL4 = 1 << 7,
 }
@@ -37,17 +40,9 @@ public enum AttackType
 [RequireComponent(typeof(PlayerStat))]
 public class PlayerFSMManager : FSMManager
 {
-    //public AudioSource musicPlayer;
-    //public AudioClip _dashSound;
-    //public AudioClip _attackSound;
-    //public AudioClip _runSound;
-    //public AudioClip _skill1Sound;
-
     public PlayerSound _Sound;
-
-    private static PlayerFSMManager instance;
+    public static PlayerFSMManager instance;
     public static PlayerFSMManager Instance => instance;
-
 
     private bool _onAttack = false;
     private bool _isinit = false;
@@ -119,6 +114,7 @@ public class PlayerFSMManager : FSMManager
     [Header("X축 마우스 감도")]
     public float mouseSpeed = 80f;
 
+
     float r_x = 0;
     [HideInInspector]
     public float _v, _h;
@@ -180,8 +176,16 @@ public class PlayerFSMManager : FSMManager
     public bool isMouseYLock;
     Bloom bloom;
 
-    public PostProcessProfile profile1;
     public bool isIDLE;
+
+    public Rigidbody rigid;
+
+    public SkinnedMeshRenderer[] _MR;
+    public List<Material> materialList = new List<Material>();
+
+
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -191,28 +195,16 @@ public class PlayerFSMManager : FSMManager
         _stat = GetComponent<PlayerStat>();
         _anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<PlayerSound>();
-
+        rigid = GetComponent<Rigidbody>();
+        
         CMvcam2 = GameObject.Find("CMvcam2").GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
-        GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile = profile1;
         vignette = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Vignette>();
         bloom = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Bloom>();
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
         SKill2_Sphere = Skill2_Start.GetComponent<SphereCollider>();
-        PlayerState[] stateValues = (PlayerState[])System.Enum.GetValues(typeof(PlayerState));
-        foreach (PlayerState s in stateValues)
-        {
-            System.Type FSMType = System.Type.GetType("Player" + s.ToString());
-            FSMState state = (FSMState)GetComponent(FSMType);
-            if (null == state)
-            {
-                state = (FSMState)gameObject.AddComponent(FSMType);
-            }
 
-            _states.Add(s, state);
-            state.enabled = false;
-        }
 
         instance = this;
         isSkill2 = false;
@@ -229,7 +221,25 @@ public class PlayerFSMManager : FSMManager
 
         }
         randomShoot = new int[5];
-        // musicPlayer = GetComponent<AudioSource>();
+
+        PlayerState[] stateValues = (PlayerState[])System.Enum.GetValues(typeof(PlayerState));
+        foreach (PlayerState s in stateValues)
+        {
+            System.Type FSMType = System.Type.GetType("Player" + s.ToString());
+            FSMState state = (FSMState)GetComponent(FSMType);
+            if (null == state)
+            {
+                state = (FSMState)gameObject.AddComponent(FSMType);
+            }
+
+            _states.Add(s, state);
+            state.enabled = false;
+        }
+
+        for(int x = 0; x<_MR.Length; x++)
+            materialList.AddRange(_MR[x].materials);
+
+
     }
     VignetteModeParameter parameter;
     //public Texture2D aaasdf;
@@ -271,9 +281,6 @@ public class PlayerFSMManager : FSMManager
         normalTimer = Stat.transDuration;
         gaugePerSecond = 100.0f / normalTimer;
 
-
-        //vignette.mask = Concent;
-        //Concent.value = aaasdf;
 
         _attack1Time = AnimationLength("PC_Anim_Attack_001") / 1.5f;
         _attack2Time = AnimationLength("PC_Anim_Attack_002") / 1.8f;
@@ -337,6 +344,7 @@ public class PlayerFSMManager : FSMManager
 
     private void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.U))
         {
             StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
@@ -419,17 +427,17 @@ public class PlayerFSMManager : FSMManager
     {
         if (isShake)
             //StartCoroutine(shake.ShakeCamera(.2f, 0.02f, 0.0f));
-
-        if (isSpecial)
-            return;
+            Skill2Set();
 
         r_x = Input.GetAxis("Mouse X");
 
-
-        Skill2Set();
-
-        if(GameManager.Instance.CharacterControl)
+        if(GameManager.Instance.CharacterControl && !isSpecial)
             _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
+
+    }
+
+    private void LateUpdate()
+    {
 
     }
 
@@ -483,7 +491,7 @@ public class PlayerFSMManager : FSMManager
 
         }
     }
-
+    bool isTrans1, isTrans2;
     public void ChangeModel()
     {
         if (isNormal && SpecialGauge >= 100)
@@ -498,27 +506,30 @@ public class PlayerFSMManager : FSMManager
                 Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
             }
         }
-
+ 
         if (isSpecial)
-        {
+        {//11.6초후변신끝
             WeaponTransformEffect.SetActive(true);
             specialTimer += Time.deltaTime;
-            if (specialTimer >= 0.75f)
+            if (specialTimer >= 0.6833f && !isTrans1)
             {
+                isTrans1 = true;
                 SetState(PlayerState.TRANS);
             }
-            if (specialTimer >= 1.90f + 0.75f)
+            if (specialTimer >= 2.26f)
             {
                 WeaponTransformEffect.SetActive(false);
-                Normal.SetActive(false);
                 Special.SetActive(true);
             }
-            if (specialTimer >= _specialAnim + 1.3f)
+            if (specialTimer >= 2.7f)
+            {
+                Normal.SetActive(false);
+            }
+            if (specialTimer >= 5.82f - 0.8f)
             {
                 Change_Effect.SetActive(false);
-                SetState(PlayerState.IDLE);
             }
-            if (specialTimer >= _specialAnim + 2f)
+            if (specialTimer >= 5.82f)
             {
                 specialTimer = 0;
                 TimeLine.SetActive(false);
