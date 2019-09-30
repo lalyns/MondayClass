@@ -6,52 +6,6 @@ using UnityEngine.UI;
 namespace MC.UI {
 
     // 변수 명 통일 및 정리 필요
-    #region Player User Interface Class(6)
-
-    #endregion
-
-    #region Mission Selector User Interface
-    [System.Serializable]
-    public class MissionSelectorUI
-    {
-        public GameObject gameObject;
-        public MissionButton[] buttons;
-    }
-
-    #endregion
-
-    #region Mission Progress User Interface Class(2)
-    [System.Serializable]
-    public class MissionProgressUI
-    {
-        public GameObject gameObject;
-
-        public ProgressFullUI full;
-        public ProgressSimpleUI simple;
-    }
-
-    [System.Serializable]
-    public class ProgressFullUI
-    {
-        public GameObject gameObject;
-        public Image MissionIcon;
-        public Text MissionText;
-        public Image TimeBack;
-        public Text TimeText;
-        public Image GoalIcon;
-        public Text GoalText;
-    }
-
-    [System.Serializable]
-    public class ProgressSimpleUI
-    {
-        public GameObject gameObject;
-        public Image TimeBack;
-        public Text TimeText;
-        public Image GoalIcon;
-        public Text GoalText;
-    }
-    #endregion
 
     #region System User Interface Class(4)
     [System.Serializable]
@@ -125,8 +79,7 @@ namespace MC.UI {
 
         [Space(5)][Header("HUDs")]
         public UIPlayer player;
-        public MissionSelectorUI selector;
-        public MissionProgressUI progress;
+        public UIMission mission;
         public SystemUI systemUI;
         public MousePointer mousePointer;
         public ScreenEffect screenEffect;

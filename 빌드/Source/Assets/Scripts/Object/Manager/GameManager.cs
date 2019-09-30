@@ -88,11 +88,7 @@ public class GameManager : MonoBehaviour
         {
             UserInterface.SetPointerMode(false);
             UserInterface.SetTitleUI(false);
-            Debug.Log("찎혀야함");
-            MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
-                MCSoundManager.Instance.objectSound.ambient.stageAmbient);
-            MCSoundManager.Instance.objectSound.bgm.PlayBGM(this.gameObject,
-                MCSoundManager.Instance.objectSound.bgm.stageBGM);
+
         }
 
         UserInterface.SetAllUserInterface(uIActive.all);
@@ -101,8 +97,6 @@ public class GameManager : MonoBehaviour
         UserInterface.SetMissionProgressUserInterface(uIActive.progress);
         UserInterface.SetMissionSelectionUI(uIActive.selector);
     }
-
-
 
     // Update is called once per frame
     void Update()
@@ -209,12 +203,6 @@ public class GameManager : MonoBehaviour
         UserInterface.SetTitleUI(false);
         UserInterface.SetAllUserInterface(true);
         UserInterface.SetPlayerUserInterface(true);
-
-        Debug.Log("찎혀야함");
-        MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
-            MCSoundManager.Instance.objectSound.ambient.stageAmbient);
-        MCSoundManager.Instance.objectSound.bgm.PlayBGM(this.gameObject,
-            MCSoundManager.Instance.objectSound.bgm.stageBGM);
 
         MissionManager.Instance.SetValue();
         GameStatus.Instance.SetValue();

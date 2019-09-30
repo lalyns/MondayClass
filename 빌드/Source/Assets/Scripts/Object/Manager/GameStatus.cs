@@ -123,7 +123,6 @@ public class GameStatus : MonoBehaviour
     {
 
         // 유니티 에디터에서 작동하는 에디터 기능
-#if UNITY_EDITOR
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             if (Input.GetKeyDown(KeyCode.G))
@@ -156,7 +155,6 @@ public class GameStatus : MonoBehaviour
                 SummonMonster();
             }
         }
-#endif
 
 #if UNITY_STANDALONE
 

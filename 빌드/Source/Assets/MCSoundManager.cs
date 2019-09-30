@@ -15,6 +15,17 @@ public class MCSoundManager : MonoBehaviour
             Instance = GetComponent<MCSoundManager>();
     }
 
+    public void Start()
+    {
+        SetSound();
+    }
 
+    public static void SetSound()
+    {
+        Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
+            Instance.objectSound.ambient.stageAmbient);
+        Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
+            Instance.objectSound.bgm.stageBGM);
+    }
 
 }

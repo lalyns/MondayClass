@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 public class MacDEAD : MacFSMState
 {
@@ -35,6 +36,9 @@ public class MacDEAD : MacFSMState
         _manager.CC.detectCollisions = true;
 
         MonsterPoolManager._Instance._Mac.ItemReturnPool(gameObject, "monster");
+
+        if (MissionManager.Instance.CurrentMissionType == MissionType.Annihilation)
+            UserInterface.Instance.GoalEffectPlay();
     }
 
     protected override void Update()
