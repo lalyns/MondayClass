@@ -14,6 +14,9 @@ namespace MC.SceneDirector
 
         public int _SceneNumber;
 
+        public PlayableDirector enterDirector;
+        public Transform enterCam;
+        public Vector3 enterVector3;
         public PlayableDirector BossDirector;
         public GameObject CineSet;
         public GameObject PlaySet;
@@ -28,6 +31,7 @@ namespace MC.SceneDirector
             {
                 Destroy(this.gameObject);
             }
+            enterVector3 = enterCam.position;
         }
 
         private void Start()
@@ -47,8 +51,14 @@ namespace MC.SceneDirector
         }
 
 
-        public void CinemaStart(PlayableDirector cinema)
+        public static void CinemaStart(PlayableDirector cinema)
         {
+            Instance.transform.position = PlayerFSMManager.Instance.Anim.transform.position;
+            Instance.transform.LookAt(MissionManager.Instance.CurrentMission.Exit.transform);
+            Instance.enterCam.localPosition = Instance.enterVector3;
+            PlayerFSMManager.Instance.transform.position = PlayerFSMManager.Instance.Anim.transform.position;
+            PlayerFSMManager.Instance.transform.LookAt(MissionManager.Instance.CurrentMission.Exit.transform);
+            cinema.gameObject.SetActive(true);
             cinema.Play();
         }
     }

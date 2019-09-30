@@ -29,7 +29,6 @@ namespace MC.SceneDirector
             if (SceneManager.GetActiveScene().name == "BuildScene") { currentSceneNumber = 1; }
             if (SceneManager.GetActiveScene().name == "Boss_Room_Cinemachine_Intro") { currentSceneNumber = 2; }
 
-            //Debug.Log(currentSceneNumber);
         }
 
         public void NextScene()
