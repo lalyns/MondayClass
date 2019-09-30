@@ -17,7 +17,6 @@ namespace MC.UI
             {
                 instance = GetComponent<UserInterface>();
             }
-
         }
 
         #region Instance Caching
@@ -101,7 +100,7 @@ namespace MC.UI
         public GameObject MissionSelectionUICanvas {
             get {
                 if (_MissionSelectionUICanvas == null)
-                    _MissionSelectionUICanvas = CanvasInfo.Instance.MissionSelectionUICanvas;
+                    _MissionSelectionUICanvas = CanvasInfo.Instance.selector.gameObject;
                 return _MissionSelectionUICanvas;
             }
         }
