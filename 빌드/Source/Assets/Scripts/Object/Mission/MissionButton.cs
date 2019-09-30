@@ -8,26 +8,30 @@ namespace MC.UI {
     public class MissionButton : MonoBehaviour
     {
         // 선택지의 번호(위쪽부터 1,2,3 변경되면 안됨)
-        public int _ChoiceNum;
+        public int choiceNum;
 
         // 변경하면 안되는 정보들
-        public Button _Button;
+        [HideInInspector] public Button button;
 
         // 외부에서 변경되어야하는 정보들
-        public Image missioType;
+        [HideInInspector] public Image missioType;
+        [HideInInspector] public Image rewardType;
+        [HideInInspector] public Text rewardText;
 
-        public Image rewardIcon;
-        public Text rewardText;
-
-        public Mission _Mission;
-        public MissionType _MissionType;
+        [HideInInspector] public Mission mission;
+        [HideInInspector] public MissionType missionType;
 
         public void Awake()
         {
-            _Button = GetComponent<Button>();
+            SetValue();
+        }
+
+        public void SetValue()
+        {
+            button = GetComponent<Button>();
 
             missioType = transform.GetComponent<Image>();
-            rewardIcon = transform.GetChild(0).GetComponent<Image>();
+            rewardType = transform.GetChild(0).GetComponent<Image>();
             rewardText = transform.GetChild(1).GetComponent<Text>();
         }
 
@@ -35,7 +39,7 @@ namespace MC.UI {
         {
             missioType.sprite = mission.Data.missionTypeSprite;
 
-            _Mission = mission;
+            this.mission = mission;
         }
 
         public void ChangeReward(RewardData rewardData)
@@ -43,13 +47,13 @@ namespace MC.UI {
             var rewardSprite = rewardData.RewardIcon;
             var rewardText = rewardData.RewardText;
 
-            rewardIcon.sprite = rewardSprite;
+            rewardType.sprite = rewardSprite;
             this.rewardText.text = rewardText;
         }
 
         public void SetMissionOnClick()
         {
-            MissionManager.SelectMission(_Mission);
+            MissionManager.SelectMission(mission);
         }
     }
 }

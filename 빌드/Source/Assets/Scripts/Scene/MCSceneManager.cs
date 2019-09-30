@@ -34,7 +34,6 @@ namespace MC.SceneDirector
 
         public void NextScene()
         {
-            Debug.Log("Next");
             GameManager.SetFadeInOut(() =>
             {
                 StartCoroutine(LoadScene());

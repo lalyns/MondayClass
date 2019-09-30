@@ -11,7 +11,6 @@ namespace MC.UI {
     public class PlayerUI
     {
         public GameObject gameObject;
-
         public Canvas canvas;
 
         public Image PCIcon;
@@ -140,7 +139,7 @@ namespace MC.UI {
 
     #region Title User Interface Class
     [System.Serializable]
-    public class TitleSceneUI
+    public class TitleUI
     {
         public GameObject gameObject;
 
@@ -159,14 +158,15 @@ namespace MC.UI {
         private static CanvasInfo instance;
         public static CanvasInfo Instance {
             get {
-                if (instance == null) { instance = GameObject.Find("Canvases").GetComponent<CanvasInfo>(); }
+                if (instance == null) {
+                    instance = GameObject.Find("Canvases").GetComponent<CanvasInfo>();
+                }
                 return instance;
             }
         }
 
         public GameObject UICanvas;
         public GameObject SystemUICanvas;
-        public GameObject MissionSelectionUICanvas;
 
         public Canvas[] Layers;
         public GameObject EventSystem;
@@ -192,11 +192,21 @@ namespace MC.UI {
 
         [Space(5)]
         [Header("Title Interface")]
-        public TitleSceneUI title;
+        public TitleUI title;
 
         
 
         private void Awake()
+        {
+            SetSingleton();
+            SetRenderCam();
+
+            screenEffect.blur.image.material.SetColor("_Color", Color.white);
+            screenEffect.blur.image.material.SetFloat("_Size", 0);
+
+        }
+
+        public void SetSingleton()
         {
             if (instance == null)
             {
@@ -205,11 +215,6 @@ namespace MC.UI {
 
             if (instance.gameObject != this.gameObject)
                 Destroy(gameObject);
-
-            SetRenderCam();
-
-            screenEffect.blur.image.material.SetColor("_Color", Color.white);
-            screenEffect.blur.image.material.SetFloat("_Size", 0);
 
             DontDestroyOnLoad(this.gameObject);
         }
