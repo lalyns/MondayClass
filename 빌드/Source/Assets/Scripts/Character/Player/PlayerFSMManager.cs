@@ -184,8 +184,6 @@ public class PlayerFSMManager : FSMManager
     public List<Material> materialList = new List<Material>();
 
 
-
-
     protected override void Awake()
     {
         base.Awake();
@@ -344,21 +342,26 @@ public class PlayerFSMManager : FSMManager
 
     private void Update()
     {
+        
 
         if (Input.GetKeyDown(KeyCode.U))
         {
             StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
         }
 
-        // 공격처리는 죽음을 제외한 모든 상황에서 처리
-        if (CurrentState != PlayerState.DEAD)
-        {
-            _onAttack = Input.GetAxis("Fire1") >= 0.01f ? true : false;
-            //_anim.SetBool("OnAttack", _onAttack);
-        }
-
         if (isInputLock)
             return;
+
+
+        if (Stat.Hp <= 0)
+        {
+            _h = 0;
+            _v = 0;
+            SetDeadState();
+            isInputLock = true;
+        }
+
+
         // Fade In Out 시 적용됨.
         if (!GameManager.Instance.CharacterControl)
         {
@@ -438,7 +441,7 @@ public class PlayerFSMManager : FSMManager
 
     private void LateUpdate()
     {
-
+       
     }
 
     public override void NotifyTargetKilled()
