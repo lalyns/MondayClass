@@ -27,7 +27,7 @@ public class RedHatDASH : RedHatFSMState
         }
         catch
         {
-
+            Debug.Log("대쉬 이펙트 버그");
         }
         // 대쉬 시간 조정
 
