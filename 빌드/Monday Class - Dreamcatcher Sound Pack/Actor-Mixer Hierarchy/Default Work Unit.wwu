@@ -506,6 +506,32 @@
 								<ActiveSource Name="AwakeMaster" ID="{87BF85AB-77DF-4717-B5B6-DEFC743669BA}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
+						<Sound Name="EZ" ID="{4FC82EB9-BDBF-431D-BAAF-7B8A9E898C54}" ShortID="34471614">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-3</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="EZ" ID="{E992FD83-187E-433A-82EB-921CC43BE8F8}" ShortID="680196528">
+									<Language>SFX</Language>
+									<AudioFile>EZ.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="EZ" ID="{E992FD83-187E-433A-82EB-921CC43BE8F8}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Ambient" ID="{166442E9-392E-45C9-AA46-49E3E217C34D}" ShortID="772333755">
