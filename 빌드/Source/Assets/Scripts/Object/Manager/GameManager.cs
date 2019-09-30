@@ -1,23 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using MC.UI;
+using MC.SceneDirector;
 
 public class GameManager : MonoBehaviour
 {
-
-
-    private static GameManager _Instance;
+    private static GameManager instance;
     public static GameManager Instance {
         get {
-            if(_Instance == null)
+            if(instance == null)
             {
-                _Instance = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+                instance = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
             }
-            return _Instance;
+            return instance;
         }
         set {
-            _Instance = value;
+            instance = value;
         }
     }
 
@@ -50,22 +50,33 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(_Instance == null)
+        if(instance == null)
         {
-            _Instance = GetComponent<GameManager>();
+            instance = GetComponent<GameManager>();
         }
-        else
-        {
-            //Destroy(gameObject);
-        }
+
+        if (instance.gameObject != this.gameObject)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Start()
     {
-        if (_EditorCursorLock)
+        if(MCSceneManager.currentSceneNumber == 0)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            uIActive.player = false;
+            uIActive.progress = false;
+            uIActive.selector = false;
+            UserInterface.SetPointerMode(true);
+            UserInterface.SetTitleUI(true);
+        }
+
+        if (MCSceneManager.currentSceneNumber == 1 ||
+            MCSceneManager.currentSceneNumber == 2)
+        {
+            UserInterface.SetPointerMode(false);
+            UserInterface.SetTitleUI(false);
         }
 
         UserInterface.SetAllUserInterface(uIActive.all);
@@ -80,8 +91,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!IsPuase) Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
-        else Time.timeScale = 0;
+        GameSpeed(IsPuase);
 
         // 키입력 매니저로 이동할것
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -89,8 +99,20 @@ public class GameManager : MonoBehaviour
             _SimpleMode = !_SimpleMode;
             UserInterface.SetMPMode(_SimpleMode);
         }
+    }
 
-        
+    void GameSpeed(bool isPause)
+    {
+        if (!isPause)
+        {
+            Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
+            UserInterface.Instance.MousePointerSpeed(1 / TimeMagnificationValue);
+        }
+        else
+        {
+            Time.timeScale = 0.01f;
+            UserInterface.Instance.MousePointerSpeed(100f);
+        }
     }
 
     #region OnGUI 도구
@@ -138,19 +160,41 @@ public class GameManager : MonoBehaviour
         Instance.curScore += 1;
     }
 
-    public void SetFadeInOut(bool value)
+    public static void SetFadeInOut(System.Action callback,  bool value)
     {
         if (value)
-            StartCoroutine(UserInterface.FadeIn(() =>
-            {
-                CharacterControl = true;
-            }
-            , 20));
+            Instance.StartCoroutine(UserInterface.FadeIn(callback, 20));
         else
-            StartCoroutine(UserInterface.FadeOut(() =>
-            {
-                MissionManager.EnterMission();
-            }
-            , 20));
+            Instance.StartCoroutine(UserInterface.FadeOut(callback, 20));
+    }
+
+    public static void SetSceneSetting()
+    {
+        var num = MCSceneManager.currentSceneNumber;
+        switch (num)
+        {
+            case 0:
+                break;
+            case 1:
+                Debug.Log("aa");
+                Instance.Scene1Setting();
+                break;
+            case 2:
+                break;
+        }
+    }
+
+    private void Scene1Setting()
+    {
+        CanvasInfo.Instance.SetRenderCam();
+
+        UserInterface.Instance.SetValue();
+        UserInterface.SetPointerMode(false);
+        UserInterface.SetTitleUI(false);
+        UserInterface.SetAllUserInterface(true);
+        UserInterface.SetPlayerUserInterface(true);
+
+        MissionManager.Instance.SetValue();
+        GameStatus.Instance.SetValue();
     }
 }

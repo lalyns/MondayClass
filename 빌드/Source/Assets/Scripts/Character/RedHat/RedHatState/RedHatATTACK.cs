@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 public class RedHatATTACK : RedHatFSMState
 {
@@ -46,7 +47,7 @@ public class RedHatATTACK : RedHatFSMState
     public void AttackSupport()
     {
         Debug.Log("attackCall");
-        UserInterface.Instance.PCUI.PlayerHpBar.HitBackFun();
+        UserInterface.Instance.IPlayer.PlayerHpBar.HitBackFun();
     }
 
     protected override void FixedUpdate()

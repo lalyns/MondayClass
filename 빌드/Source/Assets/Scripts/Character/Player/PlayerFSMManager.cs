@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Timeline;
 using UnityEngine.SceneManagement;
+
+using MC.UI;
+
 public enum PlayerState
 {
     IDLE = 0,
@@ -210,8 +213,8 @@ public class PlayerFSMManager : FSMManager
             state.enabled = false;
         }
 
-        _Sound.PlayAttackSFX();
-        _Sound.PlayFootStepSFX();
+        //_Sound.PlayAttackSFX();
+        //_Sound.PlayFootStepSFX();
 
         instance = this;
         isSkill2 = false;
@@ -427,7 +430,8 @@ public class PlayerFSMManager : FSMManager
 
         Skill2Set();
 
-        _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
+        if(GameManager.Instance.CharacterControl)
+            _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
 
     }
 
@@ -620,7 +624,7 @@ public class PlayerFSMManager : FSMManager
                 FlashEffect2.SetActive(true);
                 try
                 {
-                    _Sound.PlayDashSFX();
+                    //_Sound.PlayDashSFX();
                 }
                 catch
                 {
@@ -900,7 +904,7 @@ public class PlayerFSMManager : FSMManager
                 isBall = false;
                 try
                 {
-                    _Sound.PlaySkill1SFX();
+                    //_Sound.PlaySkill1SFX();
                 }
                 catch
                 {
@@ -1023,6 +1027,7 @@ public class PlayerFSMManager : FSMManager
             Skill1CTime -= Time.deltaTime;
             if (Skill1CTime <= 0)
             {
+                UserInterface.PlayerSkillEffect(0);
                 Skill1CTime = 10f;
                 isSkill1CTime = false;
             }
@@ -1038,6 +1043,7 @@ public class PlayerFSMManager : FSMManager
             Skill2CTime -= Time.deltaTime;
             if (Skill2CTime <= 0)
             {
+                UserInterface.PlayerSkillEffect(1);
                 Skill2CTime = 10f;
                 Skill2_Start.SetActive(false);
                 isSkill2 = false;
@@ -1054,6 +1060,7 @@ public class PlayerFSMManager : FSMManager
 
             if (Skill3CTime <= 0)
             {
+                UserInterface.PlayerSkillEffect(2);
                 Skill3CTime = 10f;
                 Skill3_End.SetActive(false);
                 isSkill3CTime = false;
