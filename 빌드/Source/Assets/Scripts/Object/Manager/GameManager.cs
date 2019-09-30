@@ -89,10 +89,6 @@ public class GameManager : MonoBehaviour
             UserInterface.SetPointerMode(false);
             UserInterface.SetTitleUI(false);
 
-            MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
-                MCSoundManager.Instance.objectSound.ambient.stageAmbient);
-            MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
-                MCSoundManager.Instance.objectSound.bgm.stageBGM);
         }
 
         UserInterface.SetAllUserInterface(uIActive.all);
@@ -101,8 +97,6 @@ public class GameManager : MonoBehaviour
         UserInterface.SetMissionProgressUserInterface(uIActive.progress);
         UserInterface.SetMissionSelectionUI(uIActive.selector);
     }
-
-
 
     // Update is called once per frame
     void Update()

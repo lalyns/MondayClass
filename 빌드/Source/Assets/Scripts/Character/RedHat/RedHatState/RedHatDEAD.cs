@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 public class RedHatDEAD : RedHatFSMState
 {
@@ -38,7 +39,8 @@ public class RedHatDEAD : RedHatFSMState
         MonsterPoolManager._Instance._RedHat.ItemReturnPool(gameObject, "monster");
         time = 0;
         Dead = false;
-
+        if(MissionManager.Instance.CurrentMissionType == MissionType.Annihilation)
+            UserInterface.Instance.GoalEffectPlay();
     }
 
     protected override void Update()
