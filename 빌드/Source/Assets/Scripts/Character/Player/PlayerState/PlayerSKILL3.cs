@@ -15,7 +15,7 @@ public class PlayerSKILL3 : FSMState
         isMax = false;
         isMin = false;
 
-        _manager.attackType = AttackType.SkILL2;
+        _manager.attackType = AttackType.SKILL3;
 
         _manager.Skill3_Capsule.enabled = false;
 

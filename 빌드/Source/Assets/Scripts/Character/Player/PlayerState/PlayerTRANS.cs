@@ -9,15 +9,24 @@ public class PlayerTRANS : FSMState
     public override void BeginState()
     {
         base.BeginState();
+        _manager.isCantMove = true;
     }
 
     public override void EndState()
     {
         base.EndState();
+        _time = 0;
     }
 
     void Update()
     {
-        
+        _time += Time.deltaTime;
+
+        if (_time >= 3.33f)
+        {
+            _manager.SetState(PlayerState.TRANS2);
+            return;
+        }
+    
     }
 }

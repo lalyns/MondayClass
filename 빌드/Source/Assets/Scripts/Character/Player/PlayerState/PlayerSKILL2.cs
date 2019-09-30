@@ -17,7 +17,7 @@ public class PlayerSKILL2 : FSMState
         base.BeginState();
         isBox = false;
 
-        _manager.attackType = AttackType.SkILL2;
+        _manager.attackType = AttackType.SKILL2;
 
     }
 

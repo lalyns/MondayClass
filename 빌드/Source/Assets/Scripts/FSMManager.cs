@@ -82,4 +82,17 @@ public class FSMManager : MonoBehaviour
     {
 
     }
+
+
+    public virtual IEnumerator Skill3Timer()
+    {
+        while (PlayerFSMManager.Instance.isSkill3)
+        {
+            OnHitForMonster(AttackType.SKILL3);
+            Debug.Log("맞는중");
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+
 }

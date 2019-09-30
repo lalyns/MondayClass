@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MC.UI;
 using MC.Sound;
+using System.Collections;
 
 public enum RedHatState
 {
@@ -167,7 +168,7 @@ public class RedHatFSMManager : FSMManager
             StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.3f, 0.1f));
         if (attackType == AttackType.SKILL1)
             StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.1f, 0.1f));
-        if (attackType == AttackType.SkILL2)
+        if (attackType == AttackType.SKILL2)
             StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
         //if (attackType == AttackType.SKILL3)
         //    StartCoroutine(Shake.instance.ShakeCamera(0.01f, 0.01f, 0.01f));
@@ -225,7 +226,7 @@ public class RedHatFSMManager : FSMManager
             case AttackType.SKILL1:
                 return 3;
 
-            case AttackType.SkILL2:
+            case AttackType.SKILL2:
                 return 4;
 
             case AttackType.SKILL3:
@@ -272,15 +273,11 @@ public class RedHatFSMManager : FSMManager
         }
     }
 
+    public override IEnumerator Skill3Timer()
+    {
+        return base.Skill3Timer();
+    }
 
-    //IEnumerator Skill3Timer()
-    //{
-    //    while (PlayerFSMManager.instance.isSkill3)
-    //    {
-    //        OnHitForMonster(AttackType.SKILL3);
-    //        yield return new WaitForSeconds(0.1f);
-    //    }
-    //}
 
     private void OnTriggerExit(Collider other)
     {
@@ -290,7 +287,7 @@ public class RedHatFSMManager : FSMManager
             {
                 try
                 {
-                    OnHitForMonster(AttackType.SkILL2);
+                    OnHitForMonster(AttackType.SKILL2);
                 }
                 catch
                 {
