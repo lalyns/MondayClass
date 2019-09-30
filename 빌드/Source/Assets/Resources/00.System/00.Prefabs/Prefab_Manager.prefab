@@ -70,7 +70,7 @@ MonoBehaviour:
       all: 1
       sfx: 1
       voice: 0
-      bgm: 0
+      bgm: 1
       ambient: 0
   WidthRatio: 0
   HeightRatio: 0
@@ -181,6 +181,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   CurrentMission: {fileID: 0}
+  isChange: 0
   MissionSelector: {fileID: 0}
   Choices:
   - {fileID: 0}
@@ -229,6 +230,8 @@ GameObject:
   - component: {fileID: 1873516466553228360}
   - component: {fileID: 4404165858136726260}
   - component: {fileID: 795881696063601727}
+  - component: {fileID: 806827995}
+  - component: {fileID: 806827996}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -308,7 +311,8 @@ MonoBehaviour:
     stageBGM:
       idInternal: 0
       valueGuidInternal: 
-      WwiseObjectReference: {fileID: 0}
+      WwiseObjectReference: {fileID: 11400000, guid: 309b53d8f066e954186b5c99f36b11e5,
+        type: 2}
     bossBGM:
       idInternal: 0
       valueGuidInternal: 
@@ -347,6 +351,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectSound: {fileID: 4404165858136726260}
+--- !u!114 &806827995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6207164593670287837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff7ca594049282348a3223f1abe8a0a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 17ec7c292842eee4fa0cb02d57045498,
+      type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
+--- !u!114 &806827996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6207164593670287837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff7ca594049282348a3223f1abe8a0a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 545a601e9e2098045822fd839ec30a78,
+      type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
 --- !u!1001 &3422128150733920802
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -51,6 +51,10 @@ public static class GameLib
     // 여러 오브젝트들에 대해 간단한 정보로 피해를 입히는 함수.
     public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat)
     {
+
+        PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList));
+
+
         if (PlayerFSMManager.Instance.ShieldCount > 0)
         {
             PlayerFSMManager.Instance.ShieldCount--;
@@ -60,8 +64,7 @@ public static class GameLib
         {
             if (PlayerFSMManager.Instance.isIDLE)
             {
-
-                
+                PlayerFSMManager.Instance.SetState(PlayerState.HIT);
             }
 
             CharacterStat lastHit = null;
@@ -82,6 +85,9 @@ public static class GameLib
 
     public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat, MonsterType type)
     {
+
+        PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList));
+
         if (PlayerFSMManager.Instance.ShieldCount > 0)
         {
             PlayerFSMManager.Instance.ShieldCount--;
@@ -91,8 +97,7 @@ public static class GameLib
         {
             if (PlayerFSMManager.Instance.isIDLE)
             {
-
-
+                PlayerFSMManager.Instance.SetState(PlayerState.HIT);
             }
 
             CharacterStat lastHit = null;
@@ -121,23 +126,38 @@ public static class GameLib
             return lastHit;
         }
     }
-
+    
     // 여러 오브젝트들에 대해 간단한 정보로 피해를 입히는 함수.
     public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat, int damage)
     {
-        CharacterStat lastHit = null;
-        foreach (var hitObject in hitObjects)
-        {
-            if (hitObject.collider.gameObject.tag == targetTag)
-            {
-                CharacterStat targetStat =
-                    hitObject.collider.GetComponentInParent<CharacterStat>();
+        PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList));
 
-                CharacterStat.ProcessDamage(ownerStat, targetStat, damage);
-                lastHit = targetStat;
-            }
+
+        if (PlayerFSMManager.Instance.ShieldCount > 0)
+        {
+            PlayerFSMManager.Instance.ShieldCount--;
+            return null;
         }
-        return lastHit;
+        else
+        {
+            if (PlayerFSMManager.Instance.isIDLE)
+            {
+                PlayerFSMManager.Instance.SetState(PlayerState.HIT);
+            }
+            CharacterStat lastHit = null;
+            foreach (var hitObject in hitObjects)
+            {
+                if (hitObject.collider.gameObject.tag == targetTag)
+                {
+                    CharacterStat targetStat =
+                        hitObject.collider.GetComponentInParent<CharacterStat>();
+
+                    CharacterStat.ProcessDamage(ownerStat, targetStat, damage);
+                    lastHit = targetStat;
+                }
+            }
+            return lastHit;
+        }
     }
 
     public static void CKMove(this CharacterController cc,
@@ -237,6 +257,7 @@ public static class GameLib
             for (int j = 0; j < mats.Count; j++)
             {
                 mats[j].SetFloat("_Hittrigger", value);
+                mats[j].SetColor("_HitColor", new Color(1, 0.3725f, 0.3725f));
             }
 
             blink = !blink;
@@ -248,6 +269,7 @@ public static class GameLib
             mats[j].SetFloat("_Hittrigger", 0);
         }
     }
+
 
     public static IEnumerator KnockBack(Transform trans, AttackType attackType, Vector3 direction
         )
