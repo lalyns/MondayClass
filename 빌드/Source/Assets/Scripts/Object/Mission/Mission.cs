@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.SceneDirector;
+using UnityEngine.Playables;
 
 public class Mission : MonoBehaviour
 {
@@ -47,6 +49,8 @@ public class Mission : MonoBehaviour
     public MissionType MissionType;
 
     protected bool MissionEnd = false;
+
+    public PlayableDirector enterDirector;
 
     protected virtual void Awake()
     {
@@ -102,8 +106,11 @@ public class Mission : MonoBehaviour
         Exit.Colliders.enabled = true;
     }
 
-    public GameObject _MissionSelector;
-
+    public virtual void EnterDirector()
+    {
+        CinemaManager.CinemaStart(enterDirector);
+    }
+    
     #region 폐기
     //public int _CurrentMissionLevel;
     //public bool _IsMissionStart;
