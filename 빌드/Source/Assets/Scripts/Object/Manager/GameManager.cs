@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 using MC.UI;
+using MC.Sound;
 using MC.SceneDirector;
 
 public class GameManager : MonoBehaviour
@@ -47,6 +49,12 @@ public class GameManager : MonoBehaviour
     }
     public UIActive uIActive;
 
+    [System.Serializable]
+    public class GameConfig
+    {
+        public SoundActive soundActive;
+    }
+    public GameConfig config;
 
     private void Awake()
     {
@@ -70,6 +78,9 @@ public class GameManager : MonoBehaviour
             uIActive.selector = false;
             UserInterface.SetPointerMode(true);
             UserInterface.SetTitleUI(true);
+
+            MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
+                MCSoundManager.Instance.objectSound.ambient.lobbyAmbient);
         }
 
         if (MCSceneManager.currentSceneNumber == 1 ||
@@ -77,6 +88,9 @@ public class GameManager : MonoBehaviour
         {
             UserInterface.SetPointerMode(false);
             UserInterface.SetTitleUI(false);
+
+            MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
+                MCSoundManager.Instance.objectSound.ambient.stageAmbient);
         }
 
         UserInterface.SetAllUserInterface(uIActive.all);

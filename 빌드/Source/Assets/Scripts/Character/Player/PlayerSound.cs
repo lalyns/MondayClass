@@ -2,19 +2,62 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSound : MonoBehaviour
+namespace MC.Sound
 {
-    //public AK.Wwise.Event _FootStep = new AK.Wwise.Event();
-    //public void PlayFootStepSFX() {
-    //    //_FootStep.Post(gameObject);
-    //}
 
-    //public AK.Wwise.Event _Dash = new AK.Wwise.Event();
-    //public void PlayDashSFX() { _Dash.Post(gameObject); }
+    [System.Serializable]
+    public class SoundActive
+    {
+        public bool all = false;
+        public bool sfx = false;
+        public bool voice = false;
+        public bool bgm = false;
+        public bool ambient = false;
+    }
 
-    //public AK.Wwise.Event _Skill1 = new AK.Wwise.Event();
-    //public void PlaySkill1SFX() { _Skill1.Post(gameObject); }
+    public class PlayerSound : MonoBehaviour
+    {
+        [System.Serializable]
+        public class PlayerSFXList
+        {
+            #region ActionList
+            public AK.Wwise.Event footstepSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event attackSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event hitSFX = new AK.Wwise.Event();
 
-    //public AK.Wwise.Event _Attack = new AK.Wwise.Event();
-    //public void PlayAttackSFX() { _Attack.Post(gameObject); }
+            #endregion
+
+            #region SkillList
+            public AK.Wwise.Event teleportSFX = new AK.Wwise.Event();
+
+            #endregion
+
+            public void PlayPlayerSFX(GameObject go, AK.Wwise.Event sfx)
+            {
+                Debug.Log("Play Player SFX");
+                if (GameManager.Instance.config.soundActive.sfx ||
+                    GameManager.Instance.config.soundActive.all)
+                    sfx.Post(go);
+            }
+        }
+
+        [System.Serializable]
+        public class PlayerVoiceList
+        {
+            public AK.Wwise.Event teleportVoice = new AK.Wwise.Event();
+
+
+            public void PlayPlayerVoice(GameObject go, AK.Wwise.Event voice)
+            {
+                Debug.Log("Play Player Voice");
+                if (GameManager.Instance.config.soundActive.voice ||
+                    GameManager.Instance.config.soundActive.all)
+                    voice.Post(go);
+            }
+        }
+
+        public PlayerSFXList sfx;
+        public PlayerVoiceList voice;
+
+    }
 }
