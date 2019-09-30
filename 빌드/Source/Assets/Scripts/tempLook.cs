@@ -54,7 +54,7 @@ public class tempLook : MonoBehaviour
     public void EffectEnd()
     {
         _Time = 0;
-        EffectPoolManager._Instance._RedHatEffectPool.ItemReturnPool(this.gameObject);
+        EffectPoolManager._Instance._RedHatSkillRange.ItemReturnPool(this.gameObject);
         targetSet = false;
     }
 }
