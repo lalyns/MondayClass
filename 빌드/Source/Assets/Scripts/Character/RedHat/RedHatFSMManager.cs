@@ -179,7 +179,7 @@ public class RedHatFSMManager : FSMManager
 
         if (Stat.Hp > 0)
         {
-            if (CurrentState == RedHatState.DASH || CurrentState == RedHatState.HIT) return;
+            if (CurrentState == RedHatState.HIT) return;
 
             SetState(RedHatState.HIT);
 

@@ -133,13 +133,12 @@ public class MissionManager : MonoBehaviour
     public static void EnterMission() {
         // 캐릭터 위치변경
         Instance.CurrentMission.gameObject.SetActive(true);
-        GameStatus.Instance._PlayerInstance.
-            GetComponentInChildren<Animator>().
+
+        PlayerFSMManager.Instance.Anim.
             transform.position =
             Instance.CurrentMission.Enter.transform.position;
 
-        GameStatus.Instance._PlayerInstance.
-            GetComponentInChildren<Animator>().
+        PlayerFSMManager.Instance.Anim.
             transform.LookAt(Instance.CurrentMission.Exit.transform);
 
 
@@ -149,6 +148,9 @@ public class MissionManager : MonoBehaviour
 
     public static void StartMission() {
         // 미션 시작지
+
+        PlayerFSMManager.Instance.rigid.useGravity = true;
+
         Instance.CurrentMission.OperateMission();
         UserInterface.SetMissionProgressUserInterface(true);
     }

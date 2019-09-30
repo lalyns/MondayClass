@@ -27,7 +27,6 @@ namespace MC.SceneDirector
                 GameManager.Instance.CharacterControl = true;
                 MissionManager.Instance.isChange = false;
 
-                PlayerFSMManager.Instance.rigid.useGravity = true;
             }, 
             true);
         }
