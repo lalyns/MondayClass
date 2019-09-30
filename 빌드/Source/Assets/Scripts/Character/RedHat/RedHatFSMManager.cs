@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MC.UI;
 using MC.Sound;
+using System.Collections;
 
 public enum RedHatState
 {
@@ -272,15 +273,11 @@ public class RedHatFSMManager : FSMManager
         }
     }
 
+    public override IEnumerator Skill3Timer()
+    {
+        return base.Skill3Timer();
+    }
 
-    //IEnumerator Skill3Timer()
-    //{
-    //    while (PlayerFSMManager.instance.isSkill3)
-    //    {
-    //        OnHitForMonster(AttackType.SKILL3);
-    //        yield return new WaitForSeconds(0.1f);
-    //    }
-    //}
 
     private void OnTriggerExit(Collider other)
     {

@@ -162,7 +162,7 @@ public class MacFSMManager : FSMManager
             StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.3f, 0.1f));
         if(attackType == AttackType.SKILL1)
             StartCoroutine(Shake.instance.ShakeCamera(0.2f, 0.1f, 0.1f));
-        if(attackType == AttackType.SkILL2)
+        if(attackType == AttackType.SKILL2)
             StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
         //if (attackType == AttackType.SKILL3)
         //StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.08f, 0.01f));
@@ -236,20 +236,16 @@ public class MacFSMManager : FSMManager
             StartCoroutine("Skill3Timer");
         }
     }
+
+    public override IEnumerator Skill3Timer()
+    {
+        return base.Skill3Timer();
+    }
+
     private void OnTriggerStay(Collider other)
     {
      
     }
-
-    IEnumerator Skill3Timer()
-    {
-        while (PlayerFSMManager.Instance.isSkill3)
-        {
-            OnHitForMonster(AttackType.SKILL3);
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
-
 
 
 
@@ -261,7 +257,7 @@ public class MacFSMManager : FSMManager
             {
                 try
                 {
-                    OnHitForMonster(AttackType.SkILL2);
+                    OnHitForMonster(AttackType.SKILL2);
                 }
                 catch
                 {

@@ -14,6 +14,7 @@ namespace AK
     namespace EVENTS
     {
         static const AkUniqueID BATTLEGROUND = 1835313730U;
+        static const AkUniqueID BGM = 412724365U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_ACTIVATIONL = 2682899652U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_CREATE = 1186601540U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_EXIT = 3390316968U;
@@ -27,6 +28,7 @@ namespace AK
     {
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID AMBIENT = 77978275U;
+        static const AkUniqueID BGM = 412724365U;
         static const AkUniqueID MONDAYCLASS = 2245607887U;
     } // namespace BANKS
 
