@@ -25,28 +25,20 @@ namespace MC.Sound
             public AK.Wwise.Event attackSFX = new AK.Wwise.Event();
             public AK.Wwise.Event hitSFX = new AK.Wwise.Event();
 
-            public void PlayFootstep(GameObject gameObject)
-            {
-                footstepSFX.Post(gameObject);
-            }
-            public void PlayAttack(GameObject gameObject)
-            {
-                attackSFX.Post(gameObject);
-            }
-            public void PlayHit(GameObject gameObject)
-            {
-                hitSFX.Post(gameObject);
-            }
             #endregion
 
             #region SkillList
             public AK.Wwise.Event teleportSFX = new AK.Wwise.Event();
 
-            public void PlayTeleport(GameObject gameObject)
-            {
-                teleportSFX.Post(gameObject);
-            }
             #endregion
+
+            public void PlayPlayerSFX(GameObject go, AK.Wwise.Event sfx)
+            {
+                Debug.Log("Play Player SFX");
+                if (GameManager.Instance.config.soundActive.sfx ||
+                    GameManager.Instance.config.soundActive.all)
+                    sfx.Post(go);
+            }
         }
 
         [System.Serializable]
@@ -54,16 +46,18 @@ namespace MC.Sound
         {
             public AK.Wwise.Event teleportVoice = new AK.Wwise.Event();
 
-            public void PlayTeleportVoice(GameObject gameObject)
+
+            public void PlayPlayerVoice(GameObject go, AK.Wwise.Event voice)
             {
-                teleportVoice.Post(gameObject);
+                Debug.Log("Play Player Voice");
+                if (GameManager.Instance.config.soundActive.voice ||
+                    GameManager.Instance.config.soundActive.all)
+                    voice.Post(go);
             }
         }
 
-        public PlayerSFXList sfxList;
-        public PlayerVoiceList voiceList;
-
-
+        public PlayerSFXList sfx;
+        public PlayerVoiceList voice;
 
     }
 }

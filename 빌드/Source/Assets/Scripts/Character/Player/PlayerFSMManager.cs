@@ -214,9 +214,6 @@ public class PlayerFSMManager : FSMManager
             state.enabled = false;
         }
 
-        //_Sound.PlayAttackSFX();
-        //_Sound.PlayFootStepSFX();
-
         instance = this;
         isSkill2 = false;
         isInputLock = false;
@@ -625,7 +622,8 @@ public class PlayerFSMManager : FSMManager
                 FlashEffect2.SetActive(true);
                 try
                 {
-                    //_Sound.PlayDashSFX();
+                    _Sound.sfx.PlayPlayerSFX(this.gameObject ,_Sound.sfx.teleportSFX);
+                    _Sound.voice.PlayPlayerVoice(this.gameObject ,_Sound.voice.teleportVoice);
                 }
                 catch
                 {

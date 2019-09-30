@@ -3,6 +3,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using MC.UI;
+using MC.Sound;
 
 public enum RedHatState
 {
