@@ -176,6 +176,8 @@ public class PlayerFSMManager : FSMManager
     Bloom bloom;
 
     public bool isIDLE;
+
+    public Rigidbody rigid;
     protected override void Awake()
     {
         base.Awake();
@@ -185,7 +187,8 @@ public class PlayerFSMManager : FSMManager
         _stat = GetComponent<PlayerStat>();
         _anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<PlayerSound>();
-
+        rigid = GetComponent<Rigidbody>();
+        
         CMvcam2 = GameObject.Find("CMvcam2").GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
         vignette = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Vignette>();
