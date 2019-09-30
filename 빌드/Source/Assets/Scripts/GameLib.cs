@@ -225,7 +225,7 @@ public static class GameLib
             case AttackType.SKILL1:
                 return 3;
 
-            case AttackType.SkILL2:
+            case AttackType.SKILL2:
                 return 4;
 
             case AttackType.SKILL3:

@@ -26,10 +26,10 @@ public class FollowCam : MonoBehaviour
     //플레이어 투사할 레이캐스트의 높이 옵셋
     public float castOffset = 1.0f;
 
-    PlayerFSMManager player;
+    public PlayerFSMManager player;
     void Start()
     {
-        player = PlayerFSMManager.Instance;
+        player = PlayerFSMManager.instance;
 
         originHeight = height;
         //target = GameObject.Find("Target").GetComponent<Transform>();
