@@ -204,6 +204,7 @@ public class GameManager : MonoBehaviour
         UserInterface.SetAllUserInterface(true);
         UserInterface.SetPlayerUserInterface(true);
 
+
         Invoke("SoundPlay", 5f);
 
         MissionManager.Instance.SetValue();
