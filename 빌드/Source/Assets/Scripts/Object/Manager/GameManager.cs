@@ -207,7 +207,6 @@ public class GameManager : MonoBehaviour
         UserInterface.SetAllUserInterface(true);
         UserInterface.SetPlayerUserInterface(true);
 
-        MCSoundManager.SetSound();
 
         MissionManager.Instance.SetValue();
         GameStatus.Instance.SetValue();
