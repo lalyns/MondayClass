@@ -207,9 +207,19 @@ public class GameManager : MonoBehaviour
         UserInterface.SetAllUserInterface(true);
         UserInterface.SetPlayerUserInterface(true);
 
+<<<<<<< HEAD
+=======
+        Invoke("SoundPlay", 5f);
+>>>>>>> b8bac9f6b5d1ca776ada11fa24994691a298c627
 
         MissionManager.Instance.SetValue();
         GameStatus.Instance.SetValue();
+    }
+
+    public void SoundPlay()
+    {
+        MCSoundManager.LoadBank();
+        MCSoundManager.SetSound();
     }
 
     private void BossSceneSetting()
