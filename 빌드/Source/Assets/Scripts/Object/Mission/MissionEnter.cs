@@ -15,7 +15,7 @@ public class MissionEnter : MonoBehaviour
         }
     }
 
-    public void OnTriggerExit(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if(other.transform.tag == "Player")
         {

@@ -40,7 +40,16 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    public Mission CurrentMission;
+    private Mission currentMission;
+    public Mission CurrentMission {
+        get {
+            if (currentMission == null) currentMission = GameObject.FindObjectOfType<Mission>();
+            return currentMission;
+        }
+        set {
+            currentMission = value;
+        }
+    }
     public MissionType CurrentMissionType => CurrentMission.Data.MissionType;
 
     private bool isFirst = true;

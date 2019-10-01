@@ -44,17 +44,6 @@ namespace MC.UI {
     #endregion
 
     #region Title User Interface Class
-    [System.Serializable]
-    public class TitleUI
-    {
-        public GameObject gameObject;
-
-        public Button start;
-        public Button howToPlay;
-        public Button config;
-        public Button exit;
-    }
-
     #endregion
 
 
@@ -83,7 +72,7 @@ namespace MC.UI {
         public SystemUI systemUI;
         public MousePointer mousePointer;
         public ScreenEffect screenEffect;
-        public TitleUI title;
+        public UITitle title;
 
         
 

@@ -6,6 +6,18 @@ using UnityEngine.Playables;
 
 public class Mission : MonoBehaviour
 {
+
+    public bool SpawnMode;
+
+    protected MapGrid grid;
+    public MapGrid Grid {
+        get {
+            if (grid == null)
+                grid = GetComponent<MapGrid>();
+            return grid;
+        }
+    }
+
     protected MissionEnter _Enter;
     public MissionEnter Enter {
         get {

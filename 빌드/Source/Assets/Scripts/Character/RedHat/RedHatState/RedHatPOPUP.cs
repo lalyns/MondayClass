@@ -25,8 +25,10 @@ public class RedHatPOPUP : RedHatFSMState
 
     public override void EndState()
     {
-        _curTime = 0.0f;
         base.EndState();
+
+        _curTime = 0.0f;
+        _manager.isDead = false;
     }
 
     protected override void Update()

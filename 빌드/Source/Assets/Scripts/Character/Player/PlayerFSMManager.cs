@@ -73,6 +73,7 @@ public class PlayerFSMManager : FSMManager
     private PlayerStat _stat;
     public PlayerStat Stat { get { return _stat; } }
 
+    
     private Animator _anim;
     public Animator Anim { get { return _anim; } }
 
@@ -187,6 +188,8 @@ public class PlayerFSMManager : FSMManager
     protected override void Awake()
     {
         base.Awake();
+
+        
         SetGizmoColor(Color.red);
 
         _cc = GetComponentInChildren<CapsuleCollider>();
@@ -248,6 +251,7 @@ public class PlayerFSMManager : FSMManager
 
     public int ShieldCount;
 
+    //public float clip1, clip2;
     private void Start()
     {
 
@@ -279,6 +283,7 @@ public class PlayerFSMManager : FSMManager
         normalTimer = Stat.transDuration;
         gaugePerSecond = 100.0f / normalTimer;
 
+        //clip1 = AnimationClipChange("PC_Anim_Attack_003_2");
 
         _attack1Time = AnimationLength("PC_Anim_Attack_001") / 1.5f;
         _attack2Time = AnimationLength("PC_Anim_Attack_002") / 1.8f;
@@ -397,7 +402,12 @@ public class PlayerFSMManager : FSMManager
         Skill3MouseLock();
         Skill3Reset();
 
-
+        if (isNormal)
+        {
+            _anim.SetFloat("Normal", 0);
+        }
+        else
+            _anim.SetFloat("Normal", 1f);
 
         if (!isNormal)
         {
@@ -481,6 +491,22 @@ public class PlayerFSMManager : FSMManager
                 time = ac.animationClips[i].length;
         return time;
     }
+
+    //// 애니메이션 클립을 교체하는 함수
+    //public float AnimationClipChange(string name)
+    //{
+    //    float[] time;
+    //    time = new float[2];
+    //    RuntimeAnimatorController ac = _anim.runtimeAnimatorController;
+
+    //    for (int i = 0; i < ac.animationClips.Length; i++)
+    //    {
+    //        Debug.Log("찍힌다 로그");
+    //        if (ac.animationClips[i].name == name)
+    //            time[i] = ac.animationClips[i].length;
+    //    }
+    //    return time[0];
+    //}
 
     void ChangeNormal()
     {

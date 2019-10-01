@@ -11,9 +11,9 @@ public enum RedHatState
     POPUP = 0,
     CHASE,
     ATTACK,
-    DEAD,
     DASH,
     HIT,
+    DEAD,
 }
 
 
@@ -80,7 +80,7 @@ public class RedHatFSMManager : FSMManager
     public float KnockBackDelay;
 
     //public CapsuleCollider Weapon_Collider;
-
+    public bool isDead = false;
 
     public AttackType CurrentAttackType = AttackType.NONE;
 
@@ -315,8 +315,11 @@ public class RedHatFSMManager : FSMManager
     {
         base.SetDeadState();
 
-        Debug.Log("Dead");
-        SetState(RedHatState.DEAD);
+        if (!isDead)
+        {
+            SetState(RedHatState.DEAD);
+            isDead = true;
+        }
     }
 
 }

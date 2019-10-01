@@ -78,7 +78,6 @@ public class GameManager : MonoBehaviour
             uIActive.progress = false;
             uIActive.selector = false;
             UserInterface.SetPointerMode(true);
-            UserInterface.SetTitleUI(true);
 
             MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
                 MCSoundManager.Instance.objectSound.ambient.lobbyAmbient);
@@ -88,7 +87,6 @@ public class GameManager : MonoBehaviour
             MCSceneManager.currentSceneNumber == 2)
         {
             UserInterface.SetPointerMode(false);
-            UserInterface.SetTitleUI(false);
 
         }
 
@@ -203,14 +201,11 @@ public class GameManager : MonoBehaviour
 
         UserInterface.Instance.SetValue();
         UserInterface.SetPointerMode(false);
-        UserInterface.SetTitleUI(false);
         UserInterface.SetAllUserInterface(true);
         UserInterface.SetPlayerUserInterface(true);
 
-<<<<<<< HEAD
-=======
+
         Invoke("SoundPlay", 5f);
->>>>>>> b8bac9f6b5d1ca776ada11fa24994691a298c627
 
         MissionManager.Instance.SetValue();
         GameStatus.Instance.SetValue();
