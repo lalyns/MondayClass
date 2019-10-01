@@ -109,21 +109,6 @@ namespace MC.UI
             Instance.activeMissionSelectionUI = isActive;
             Instance.MissionSelectionUICanvas.SetActive(isActive);
         }
-
-        private GameObject _TitleUI;
-        public GameObject TitleUI {
-            get {
-                if (_TitleUI == null)
-                    _TitleUI = CanvasInfo.Instance.title.gameObject;
-                return _TitleUI;
-            }
-        }
-        public static void SetTitleUI(bool isActive)
-        {
-            Instance.activeTitleUI = isActive;
-            Instance.TitleUI.SetActive(isActive);
-        }
-
         #endregion
 
         private void Update()
@@ -191,7 +176,7 @@ namespace MC.UI
 
             Cursor.lockState = mode ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = true;
-            Instance.MousePointer.pointer.enabled = mode;
+            Instance.MousePointer.transform.gameObject.SetActive(mode);
         }
 
         private void PointerLocation()
@@ -337,7 +322,7 @@ namespace MC.UI
         private ParticleSystem CurrentEffect;
         public void GoalEffectPlay()
         {
-            CurrentEffect.Play();
+            //CurrentEffect.Play();
         }
 
         private void SetGoal(MissionType type)

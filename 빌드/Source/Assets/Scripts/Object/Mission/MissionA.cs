@@ -30,26 +30,46 @@ public class MissionA : Mission
 
         if (MissionEnd) return;
 
-        if (spawning)
-        {
-            bool monsterCheck = GameStatus.Instance.ActivedMonsterList.Count == 0;
+        //if (spawning)
+        //{
+        //    bool monsterCheck = GameStatus.Instance.ActivedMonsterList.Count == 0;
 
-            if(monsterCheck)
-            {
-                spawning = false;
-            }
-        }
-
+        //    if(monsterCheck)
+        //    {
+        //        spawning = false;
+        //    }
+        //}
 
         if (MissionOperate)
         {
             if (!spawning)
             {
-                Spawn();
+                if (SpawnMode)
+                {
+                    Spawn();
+                }
+                else
+                {
+                    NewSpawn();
+                }
                 spawning = true;
             }
         }
 
+    }
+
+    public void MonsterCheck()
+    {
+        Debug.Log("Check Call");
+        if (spawning)
+        {
+            bool monsterCheck = GameStatus.Instance.ActivedMonsterList.Count == 0;
+
+            if (monsterCheck)
+            {
+                spawning = false;
+            }
+        }
     }
 
     public override void RestMission()
@@ -123,5 +143,53 @@ public class MissionA : Mission
         }
 
         waveLevel++;
+    }
+
+    void NewSpawn()
+    {
+        switch (waveLevel)
+        {
+            case 0:
+                StartCoroutine(SetSommonLocation(Wave1MonsterType));
+                break;
+            case 1:
+                StartCoroutine(SetSommonLocation(Wave2MonsterType));
+                break;
+            case 2:
+                StartCoroutine(SetSommonLocation(Wave3MonsterType));
+                break;
+            case 3:
+                ClearMission();
+                break;
+        }
+
+        waveLevel++;
+    }
+
+    public IEnumerator SetSommonLocation(MonsterType[] monsterTypes)
+    {
+
+        int i = 0;
+        GameObject a = null;
+        foreach (MonsterType monsterType in monsterTypes)
+        {
+            var position = Grid._MapPosition.Count;
+            var rand = UnityEngine.Random.Range(0, position);
+
+            switch (monsterType)
+            {
+                case MonsterType.Mac:
+                    a = MonsterPoolManager._Instance._Mac.ItemSetActive(Grid._MapPosition[rand], monsterType);
+                    break;
+                case MonsterType.RedHat:
+                    a = MonsterPoolManager._Instance._RedHat.ItemSetActive(Grid._MapPosition[rand], monsterType);
+                    break;
+                case MonsterType.Tiber:
+                    break;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        }
+        
     }
 }

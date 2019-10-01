@@ -8,6 +8,13 @@ namespace MC.SceneDirector
 {
     public class MCSceneManager : MonoBehaviour
     {
+        public const int TITLE      = 0;
+        public const int TUTORIAL   = 1;
+        public const int STAGE1     = 2;
+        public const int STAGE2     = 3;
+        public const int STAGE3     = 4;
+        public const int BOSS       = 5;
+
         private static MCSceneManager _Instance;
         public static MCSceneManager Instance {
             get {
@@ -25,18 +32,19 @@ namespace MC.SceneDirector
 
         private void Awake()
         {
-            if (SceneManager.GetActiveScene().name == "Title") { currentSceneNumber = 0; }
-            if (SceneManager.GetActiveScene().name == "BuildScene") { currentSceneNumber = 1; }
-            if (SceneManager.GetActiveScene().name == "Boss_Room_Cinemachine_Intro") { currentSceneNumber = 2; }
-
+            if (SceneManager.GetActiveScene().name == "00.Title") { currentSceneNumber = 0; }
+            if (SceneManager.GetActiveScene().name == "01-0.Tutorial") { currentSceneNumber = 1; }
+            if (SceneManager.GetActiveScene().name == "01-1.Stage1") { currentSceneNumber = 2; }
+            if (SceneManager.GetActiveScene().name == "02.Stage2") { currentSceneNumber = 3; }
+            if (SceneManager.GetActiveScene().name == "03.Stage3") { currentSceneNumber = 4; }
+            if (SceneManager.GetActiveScene().name == "04.Boss") { currentSceneNumber = 5; }
         }
 
-        public void NextScene()
+        public void NextScene(int i)
         {
             GameManager.SetFadeInOut(() =>
             {
-                StartCoroutine(LoadScene(1));
-                UserInterface.SetTitleUI(false);
+                StartCoroutine(LoadScene(i));
                 
             }, false
             );
@@ -48,12 +56,12 @@ namespace MC.SceneDirector
 
             if (!isLoad)
             {
-                //++currentSceneNumber;
                 currentSceneNumber = i;
                 isLoad = true;
             }
 
             Debug.Log( "Scene Number : " + currentSceneNumber);
+
             AsyncOperation async = SceneManager.LoadSceneAsync(i);
             while (!async.isDone)
             {

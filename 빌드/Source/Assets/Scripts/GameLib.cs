@@ -106,8 +106,6 @@ public static class GameLib
             {
                 if (hitObject.collider.gameObject.tag == targetTag)
                 {
-                    Debug.Log(hitObject.transform.name);
-
                     CharacterStat targetStat =
                         hitObject.collider.GetComponentInParent<CharacterStat>();
 
@@ -225,11 +223,11 @@ public static class GameLib
     {
         float value = active ? 8 : 0;
 
-        for(int i=0; i< mats.Count; i++)
-        {
-            mats[i].SetFloat("_DissolveEdgeMultiplier", value);
-            mats[i].SetFloat("_DissolveIntensity", 0);
-        }
+        //for(int i=0; i< mats.Count; i++)
+        //{
+        //    mats[i].SetFloat("_DissolveEdgeMultiplier", value);
+        //    mats[i].SetFloat("_DissolveIntensity", 0);
+        //}
     }
 
     public static IEnumerator Dissolving(List<Material> mats, float value = 0.45f, float range = 0.2f)

@@ -36,7 +36,6 @@ public class MCSoundManager : MonoBehaviour
 
     public static void SetSound()
     {
-        Debug.Log("SoundStart");
 
         Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
             Instance.objectSound.ambient.stageAmbient);

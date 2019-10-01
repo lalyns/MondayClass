@@ -69,6 +69,8 @@ public class MacFSMManager : FSMManager
     public Collider _PriorityTarget;
     public float _DetectingRange;
 
+    public bool isDead = false;
+
     public bool KnockBackFlag;
     public float KnockBackDuration;
     public float KnockBackPower;
@@ -270,6 +272,10 @@ public class MacFSMManager : FSMManager
     {
         base.SetDeadState();
 
-        SetState(MacState.DEAD);
+        if (!isDead)
+        {
+            SetState(MacState.DEAD);
+            isDead = true;
+        }
     }
 }

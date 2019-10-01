@@ -19,6 +19,7 @@ public class MacPOPUP : MacFSMState
     public override void EndState()
     {
         base.EndState();
+        _manager.isDead = false;
     }
 
     private void EffectPlay()
