@@ -2,126 +2,74 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class MissionA : Mission
+namespace MC.Mission
 {
-    public bool spawning = false;
 
-    int waveLevel = 0;
-
-    public Transform[] Wave1Locations;
-    public MonsterType[] Wave1MonsterType;
-    public Transform[] Wave2Locations;
-    public MonsterType[] Wave2MonsterType;
-    public Transform[] Wave3Locations;
-    public MonsterType[] Wave3MonsterType;
-
-    protected override void Update()
+    public class MissionA : MissionBase
     {
-        if (Input.GetKey(KeyCode.LeftAlt))
+        public bool spawning = false;
+
+        public int currentWave = 0;
+        public int totalWave = 3; 
+
+        public MonsterWave[] waves;
+
+        protected override void Start()
         {
-            if (Input.GetKeyDown(KeyCode.Z))
+            base.Start();
+
+            totalWave = waves.Length;
+        }
+
+        protected override void Update()
+        {
+            if (missionEnd) return;
+
+            if (MissionOperate)
+            {
+                if (!spawning)
+                {
+                    Spawn();
+                    spawning = true;
+                }
+            }
+
+        }
+
+        public void MonsterCheck()
+        {
+            Debug.Log("Check Call");
+            if (spawning)
+            {
+                bool monsterCheck = GameStatus.Instance.ActivedMonsterList.Count == 0;
+
+                if (monsterCheck)
+                {
+                    spawning = false;
+                }
+
+                if (GameStatus.Instance.usingKeward)
+                    GameStatus.Instance.usingKeward = false;
+            }
+        }
+
+        public override void RestMission()
+        {
+            base.RestMission();
+
+            currentWave = 0;
+        }
+
+        void Spawn()
+        {
+            if (currentWave >= 3)
             {
                 ClearMission();
-                MissionEnd = true;
+                return;
             }
 
+            StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
+            currentWave++;
         }
-
-        if (MissionEnd) return;
-
-        if (spawning)
-        {
-            bool monsterCheck = GameStatus.Instance.ActivedMonsterList.Count == 0;
-
-            if(monsterCheck)
-            {
-                spawning = false;
-            }
-        }
-
-
-        if (MissionOperate)
-        {
-            if (!spawning)
-            {
-                Spawn();
-                spawning = true;
-            }
-        }
-
-    }
-
-    public override void RestMission()
-    {
-        base.RestMission();
-
-        waveLevel = 0;
-    }
-
-    void Spawn()
-    {
-        int i = 0;
-
-        switch (waveLevel)
-        {
-            case 0:
-
-                foreach (Transform location in Wave1Locations)
-                {
-                    switch (Wave1MonsterType[i])
-                    {
-                        case MonsterType.Mac:
-                            MonsterPoolManager._Instance._Mac.ItemSetActive(location, "monster");
-                            break;
-                        case MonsterType.RedHat:
-                            MonsterPoolManager._Instance._RedHat.ItemSetActive(location, "monster");
-                            break;
-                    }
-                    i++;
-                }
-
-                break;
-            case 1:
-
-                foreach (Transform location in Wave2Locations)
-                {
-                    switch (Wave2MonsterType[i])
-                    {
-                        case MonsterType.Mac:
-                            MonsterPoolManager._Instance._Mac.ItemSetActive(location, "monster");
-                            break;
-                        case MonsterType.RedHat:
-                            MonsterPoolManager._Instance._RedHat.ItemSetActive(location, "monster");
-                            break;
-                    }
-                    i++;
-                }
-
-                break;
-            case 2:
-
-                foreach (Transform location in Wave3Locations)
-                {
-                    switch (Wave3MonsterType[i])
-                    {
-                        case MonsterType.Mac:
-                            MonsterPoolManager._Instance._Mac.ItemSetActive(location, "monster");
-                            break;
-                        case MonsterType.RedHat:
-                            MonsterPoolManager._Instance._RedHat.ItemSetActive(location, "monster");
-                            break;
-                    }
-                    i++;
-                }
-
-                break;
-            case 3:
-                ClearMission();
-
-                break;
-        }
-
-        waveLevel++;
     }
 }

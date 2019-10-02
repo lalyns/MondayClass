@@ -45,7 +45,9 @@ namespace MC.SceneDirector
 
         public static void CinemaStart(PlayableDirector cinema)
         {
-            PlayerFSMManager.Instance.transform.position = PlayerFSMManager.Instance.Anim.transform.position;
+            PlayerFSMManager.Instance.transform.position = MissionManager.Instance.CurrentMission.Enter.transform.position;
+            PlayerFSMManager.Instance.Anim.transform.localPosition = Vector3.zero;
+            PlayerFSMManager.Instance.rigid.useGravity = true;
             PlayerFSMManager.Instance.transform.LookAt(MissionManager.Instance.CurrentMission.Exit.transform);
 
             cinema.gameObject.SetActive(true);

@@ -42,7 +42,15 @@ public class PlayerFSMManager : FSMManager
 {
     public PlayerSound _Sound;
     public static PlayerFSMManager instance;
-    public static PlayerFSMManager Instance => instance;
+    public static PlayerFSMManager Instance {
+        get {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<PlayerFSMManager>();
+            }
+            return instance;
+        }
+    }
 
     private bool _onAttack = false;
     private bool _isinit = false;
@@ -73,6 +81,7 @@ public class PlayerFSMManager : FSMManager
     private PlayerStat _stat;
     public PlayerStat Stat { get { return _stat; } }
 
+    
     private Animator _anim;
     public Animator Anim { get { return _anim; } }
 
@@ -184,11 +193,11 @@ public class PlayerFSMManager : FSMManager
     public List<Material> materialList = new List<Material>();
 
 
-
-
     protected override void Awake()
     {
         base.Awake();
+
+        
         SetGizmoColor(Color.red);
 
         _cc = GetComponentInChildren<CapsuleCollider>();
@@ -250,6 +259,7 @@ public class PlayerFSMManager : FSMManager
 
     public int ShieldCount;
 
+    //public float clip1, clip2;
     private void Start()
     {
 
@@ -281,6 +291,7 @@ public class PlayerFSMManager : FSMManager
         normalTimer = Stat.transDuration;
         gaugePerSecond = 100.0f / normalTimer;
 
+        //clip1 = AnimationClipChange("PC_Anim_Attack_003_2");
 
         _attack1Time = AnimationLength("PC_Anim_Attack_001") / 1.5f;
         _attack2Time = AnimationLength("PC_Anim_Attack_002") / 1.8f;
@@ -344,21 +355,26 @@ public class PlayerFSMManager : FSMManager
 
     private void Update()
     {
+        
 
         if (Input.GetKeyDown(KeyCode.U))
         {
             StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
         }
 
-        // 공격처리는 죽음을 제외한 모든 상황에서 처리
-        if (CurrentState != PlayerState.DEAD)
-        {
-            _onAttack = Input.GetAxis("Fire1") >= 0.01f ? true : false;
-            //_anim.SetBool("OnAttack", _onAttack);
-        }
-
         if (isInputLock)
             return;
+
+
+        if (Stat.Hp <= 0)
+        {
+            _h = 0;
+            _v = 0;
+            SetDeadState();
+            isInputLock = true;
+        }
+
+
         // Fade In Out 시 적용됨.
         if (!GameManager.Instance.CharacterControl)
         {
@@ -394,7 +410,12 @@ public class PlayerFSMManager : FSMManager
         Skill3MouseLock();
         Skill3Reset();
 
-
+        if (isNormal)
+        {
+            _anim.SetFloat("Normal", 0);
+        }
+        else
+            _anim.SetFloat("Normal", 1f);
 
         if (!isNormal)
         {
@@ -425,9 +446,7 @@ public class PlayerFSMManager : FSMManager
 
     private void FixedUpdate()
     {
-        if (isShake)
-            //StartCoroutine(shake.ShakeCamera(.2f, 0.02f, 0.0f));
-            Skill2Set();
+        Skill2Set();
 
         r_x = Input.GetAxis("Mouse X");
 
@@ -438,7 +457,7 @@ public class PlayerFSMManager : FSMManager
 
     private void LateUpdate()
     {
-
+       
     }
 
     public override void NotifyTargetKilled()
@@ -478,6 +497,22 @@ public class PlayerFSMManager : FSMManager
                 time = ac.animationClips[i].length;
         return time;
     }
+
+    //// 애니메이션 클립을 교체하는 함수
+    //public float AnimationClipChange(string name)
+    //{
+    //    float[] time;
+    //    time = new float[2];
+    //    RuntimeAnimatorController ac = _anim.runtimeAnimatorController;
+
+    //    for (int i = 0; i < ac.animationClips.Length; i++)
+    //    {
+    //        Debug.Log("찍힌다 로그");
+    //        if (ac.animationClips[i].name == name)
+    //            time[i] = ac.animationClips[i].length;
+    //    }
+    //    return time[0];
+    //}
 
     void ChangeNormal()
     {
@@ -560,7 +595,7 @@ public class PlayerFSMManager : FSMManager
 
     void Attack()
     {
-        if (Input.GetMouseButtonDown(0) && !isAttackOne)
+        if (Input.GetMouseButtonDown(0) && !isAttackOne && !Skill2_Test.activeSelf)
         {
             isAttackOne = true;
             SetState(PlayerState.ATTACK1);
@@ -973,8 +1008,8 @@ public class PlayerFSMManager : FSMManager
 
     void Skill2Set()
     {
-        //if (isSkill2)
-        //    return;
+        if (isSkill2)
+            return;
         try
         {
             skill2_Distance = 14f / followCam.height;
@@ -989,15 +1024,23 @@ public class PlayerFSMManager : FSMManager
 
         Skill2_Parent.localPosition = new Vector3(0, 0.18f, skill2_Distance);
     }
+    public GameObject Skill2_Test;
     public void Skill2()
     {
         if (isSkill2) return;
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SetState(PlayerState.SKILL2);
-            isSkill2 = true;
-            return;
+            Skill2_Test.SetActive(true);
+        }
+        if (Skill2_Test.activeSelf)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                SetState(PlayerState.SKILL2);
+                isSkill2 = true;
+                return;
+            }
         }
     }
 

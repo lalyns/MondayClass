@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 2274891494096624113}
   - component: {fileID: 3422128152788782814}
   - component: {fileID: 1756816077}
-  - component: {fileID: 233546735}
-  - component: {fileID: 1943403288898368297}
+  - component: {fileID: 5283286801710436719}
   m_Layer: 0
   m_Name: Prefab_Manager
   m_TagString: GameController
@@ -36,6 +35,7 @@ Transform:
   - {fileID: 2274891494841528157}
   - {fileID: 2152068016348216801}
   - {fileID: 7782009899968724664}
+  - {fileID: 5163106612235487447}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -53,8 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _EditorCursorLock: 1
   TimeMagnificationMode: 0
-  TimeMagnificationValue: 0.98
-  CharacterControl: 1
+  TimeMagnificationValue: 1
+  CharacterControl: 0
   ControlManual: 0
   curScore: 0
   IsPuase: 0
@@ -69,9 +69,9 @@ MonoBehaviour:
     soundActive:
       all: 1
       sfx: 1
-      voice: 0
+      voice: 1
       bgm: 1
-      ambient: 0
+      ambient: 1
   WidthRatio: 0
   HeightRatio: 0
   OnInspectating: 0
@@ -89,6 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _LimitTime: 180
   _MissionStatus: 0
+  usingKeward: 0
   _DummyLocationEffect: {fileID: 3422128150734019716}
   _PlayerInstance: {fileID: 0}
 --- !u!114 &1756816077
@@ -104,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeInOutSpeed: 10
---- !u!114 &233546735
+--- !u!114 &5283286801710436719
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,23 +117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2834ee53e883afd47a7faa4d7dc3ceb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1943403288898368297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2274891494096624079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcf2bd66ee36aba42b76ee8be28b2672, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _SceneNumber: 0
-  BossDirector: {fileID: 0}
-  CineSet: {fileID: 0}
-  PlaySet: {fileID: 0}
-  currentDirector: {fileID: 0}
 --- !u!1 &2274891494841528154
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,11 +160,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d534d8b6787cd2847b39f87dfa26a062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resources:
+    types:
+    - {fileID: 21300000, guid: c4c51304cc79b9e4182e0691dedce8ed, type: 3}
+    - {fileID: 21300000, guid: 1457197fbc638ce4e82d67ce8a626f50, type: 3}
+    - {fileID: 21300000, guid: d6d23c2dbbfe5e248a6837ec1e705bf8, type: 3}
+    - {fileID: 21300000, guid: 07f4d1944dd20c9439e468578cf9fb64, type: 3}
   _Missions:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  CurrentMission: {fileID: 0}
   isChange: 0
   MissionSelector: {fileID: 0}
   Choices:
@@ -188,6 +177,49 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   MissionProgressUI: {fileID: 0}
+--- !u!1 &3718117072691014516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5163106612235487447}
+  - component: {fileID: 4583442552017285051}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5163106612235487447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3718117072691014516}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2274891494096624078}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4583442552017285051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3718117072691014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2834ee53e883afd47a7faa4d7dc3ceb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3950110929078011350
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,6 +229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7782009899968724664}
+  - component: {fileID: 6090142602037764497}
   m_Layer: 0
   m_Name: CinemaManager
   m_TagString: Untagged
@@ -218,6 +251,23 @@ Transform:
   m_Father: {fileID: 2274891494096624078}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6090142602037764497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3950110929078011350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcf2bd66ee36aba42b76ee8be28b2672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _SceneNumber: 0
+  BossDirector: {fileID: 0}
+  CineSet: {fileID: 0}
+  PlaySet: {fileID: 0}
+  currentDirector: {fileID: 0}
 --- !u!1 &6207164593670287837
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +348,8 @@ MonoBehaviour:
     stageAmbient:
       idInternal: 0
       valueGuidInternal: 
-      WwiseObjectReference: {fileID: 0}
+      WwiseObjectReference: {fileID: 11400000, guid: ca47061832f3a884e8fd6616ba8d3145,
+        type: 2}
     bossAmbient:
       idInternal: 0
       valueGuidInternal: 
@@ -351,6 +402,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectSound: {fileID: 4404165858136726260}
+  Sound: {fileID: 1873516466553228360}
+  Bgm: {fileID: 806827995}
+  Ambient: {fileID: 806827996}
 --- !u!114 &806827995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,6 +514,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 19800006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -479,10 +537,6 @@ PrefabInstance:
     - target: {fileID: 100004, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
-      propertyPath: looping
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19800002, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
       propertyPath: InitialModule.startSizeY.minMaxState

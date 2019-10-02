@@ -11,9 +11,9 @@ public enum RedHatState
     POPUP = 0,
     CHASE,
     ATTACK,
-    DEAD,
     DASH,
     HIT,
+    DEAD,
 }
 
 
@@ -80,7 +80,7 @@ public class RedHatFSMManager : FSMManager
     public float KnockBackDelay;
 
     //public CapsuleCollider Weapon_Collider;
-
+    public bool isDead = false;
 
     public AttackType CurrentAttackType = AttackType.NONE;
 
@@ -179,7 +179,7 @@ public class RedHatFSMManager : FSMManager
 
         if (Stat.Hp > 0)
         {
-            if (CurrentState == RedHatState.DASH || CurrentState == RedHatState.HIT) return;
+            if (CurrentState == RedHatState.HIT) return;
 
             SetState(RedHatState.HIT);
 
@@ -267,13 +267,16 @@ public class RedHatFSMManager : FSMManager
                 OnHitForMonster(AttackType.SKILL1);
             }
         }
-        if (other.transform.tag == "Skill2")
+        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
         {
+            StartCoroutine("Skill2Timer");
+
             SetState(RedHatState.HIT);
         }
         if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
         {
             StartCoroutine("Skill3Timer");
+            SetState(RedHatState.HIT);
         }
     }
 
@@ -281,7 +284,10 @@ public class RedHatFSMManager : FSMManager
     {
         return base.Skill3Timer();
     }
-
+    public override IEnumerator Skill2Timer()
+    {
+        return base.Skill2Timer();
+    }
 
     private void OnTriggerExit(Collider other)
     {
@@ -315,8 +321,11 @@ public class RedHatFSMManager : FSMManager
     {
         base.SetDeadState();
 
-        Debug.Log("Dead");
-        SetState(RedHatState.DEAD);
+        if (!isDead)
+        {
+            SetState(RedHatState.DEAD);
+            isDead = true;
+        }
     }
 
 }

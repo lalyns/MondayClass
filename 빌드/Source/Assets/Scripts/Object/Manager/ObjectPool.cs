@@ -94,6 +94,77 @@ public class ObjectPool : MonoBehaviour
         return item.transform;
     }
 
+    public GameObject ItemSetActive(Vector3 spawnPos, MonsterType type)
+    {
+        if (_InActiveItemPool.Count == 0)
+        {
+            CreateItem();
+        }
+
+        var item = _InActiveItemPool.First.Value;
+        _InActiveItemPool.RemoveFirst();
+
+        item.transform.position = spawnPos;
+        item.SetActive(true);
+
+        _ActiveItem.AddLast(item);
+        GameStatus.Instance.AddActivedMonsterList(item);
+
+        switch (type)
+        {
+            case MonsterType.Mac:
+                item.GetComponent<MacFSMManager>().SetState(MacState.POPUP);
+                break;
+            case MonsterType.RedHat:
+                item.GetComponent<RedHatFSMManager>().SetState(RedHatState.POPUP);
+                break;
+            case MonsterType.Tiber:
+                break;
+
+        }
+
+        return item;
+    }
+
+
+    public GameObject ItemSetActive(Vector3 spawnPos, string type)
+    {
+        if (_InActiveItemPool.Count == 0)
+        {
+            CreateItem();
+        }
+
+        var item = _InActiveItemPool.First.Value;
+        _InActiveItemPool.RemoveFirst();
+
+        item.transform.position = spawnPos;
+        item.SetActive(true);
+
+        _ActiveItem.AddLast(item);
+
+        if (type == "monster")
+        {
+            GameStatus.Instance.AddActivedMonsterList(item);
+            try
+            {
+                item.GetComponent<MacFSMManager>().SetState(MacState.POPUP);
+            }
+            catch
+            {
+                item.GetComponent<RedHatFSMManager>().SetState(RedHatState.POPUP);
+            }
+        }
+
+        if (type == "Effect")
+        {
+            item.GetComponent<Effects>().EffectPlay();
+            item.GetComponent<Effects>().targetPool = this;
+        }
+
+        return item;
+    }
+
+
     public void ItemSetActive(Transform respawnTrans, bool bulletType)
     {
         if (_InActiveItemPool.Count == 0)
@@ -121,7 +192,7 @@ public class ObjectPool : MonoBehaviour
         var item = _InActiveItemPool.First.Value;
         _InActiveItemPool.RemoveFirst();
 
-        item.transform.localPosition = respawnPos;
+        item.transform.position = respawnPos;
         item.SetActive(true);
 
         _ActiveItem.AddLast(item);
@@ -183,7 +254,7 @@ public class ObjectPool : MonoBehaviour
 
     }
 
-    public void ItemReturnPool(GameObject go, string type)
+    public void ItemReturnPool(GameObject go, MonsterType type)
     {
         if (_ActiveItem.Count == 0)
         {
@@ -192,15 +263,11 @@ public class ObjectPool : MonoBehaviour
 
         _ActiveItem.Remove(go);
 
+        GameStatus.Instance.RemoveActivedMonsterList(go);
+
         go.transform.localPosition = this.transform.position;
         go.SetActive(false);
 
         _InActiveItemPool.AddLast(go);
-
-        if (type == "monster")
-        {
-            GameStatus.Instance.RemoveActivedMonsterList(go);
-        }
-        
     }
 }

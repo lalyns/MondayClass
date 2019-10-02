@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Mission;
 
 public class MacPOPUP : MacFSMState
 {
@@ -19,6 +20,7 @@ public class MacPOPUP : MacFSMState
     public override void EndState()
     {
         base.EndState();
+        _manager.isDead = false;
     }
 
     private void EffectPlay()

@@ -28,7 +28,7 @@ public class RedHatHIT : RedHatFSMState
 
         GetComponentInChildren<RedHatAnimEvent>()._WeaponCapsule.gameObject.SetActive(false);
 
-        StartCoroutine(GameLib.Blinking(_manager.materialList));
+        StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
     }
 
     public override void EndState()

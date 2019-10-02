@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
+using MC.Mission;
 
 public class RedHatDEAD : RedHatFSMState
 {
-    bool Dead = false;
-    float time = 0;
 
     public override void BeginState()
     {
         base.BeginState();
-
-        time = 0;
-        Dead = false;
 
         if (_manager.dashEffect != null)
         {
@@ -36,28 +32,20 @@ public class RedHatDEAD : RedHatFSMState
         useGravity = true;
         _manager.CC.detectCollisions = true;
         
-        MonsterPoolManager._Instance._RedHat.ItemReturnPool(gameObject, "monster");
-        time = 0;
-        Dead = false;
-        if(MissionManager.Instance.CurrentMissionType == MissionType.Annihilation)
+        if (MissionManager.Instance.CurrentMissionType == MissionType.Annihilation)
+        {
             UserInterface.Instance.GoalEffectPlay();
+            MissionA a = MissionManager.Instance.CurrentMission as MissionA;
+            a.Invoke("MonsterCheck", 5f);
+        }
+
+        MonsterPoolManager._Instance._RedHat.ItemReturnPool(gameObject, MonsterType.RedHat);
+
     }
 
     protected override void Update()
     {
         base.Update();
-
-        time += 0.45f * Time.deltaTime;
-
-        if(time > 0.7 && !Dead)
-        {
-            Dead = true;
-        }
-
-        if (Dead) {
-            EndState();
-            Dead = false;
-        }
     }
 
     protected override void FixedUpdate()
@@ -67,6 +55,7 @@ public class RedHatDEAD : RedHatFSMState
 
     public void DeadHelper()
     {
-        Dead = true;
+        Debug.Log("Dead Call");
+        _manager.SetState(RedHatState.POPUP);
     }
 }

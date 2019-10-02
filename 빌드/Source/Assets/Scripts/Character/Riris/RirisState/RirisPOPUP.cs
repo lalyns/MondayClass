@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using MC.Mission;
+
 public class RirisPOPUP : RirisFSMState
 {
     float _PopUpTime = 2.0f;

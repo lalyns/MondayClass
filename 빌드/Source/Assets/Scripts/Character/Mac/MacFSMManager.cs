@@ -69,6 +69,8 @@ public class MacFSMManager : FSMManager
     public Collider _PriorityTarget;
     public float _DetectingRange;
 
+    public bool isDead = false;
+
     public bool KnockBackFlag;
     public float KnockBackDuration;
     public float KnockBackPower;
@@ -226,9 +228,11 @@ public class MacFSMManager : FSMManager
                 other.transform.gameObject.SetActive(false);
             }
         }
-       
-        if(other.transform.tag == "Skill2")
+
+        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
         {
+            StartCoroutine("Skill2Timer");
+
             SetState(MacState.HIT);
         }
         if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
@@ -240,6 +244,10 @@ public class MacFSMManager : FSMManager
     public override IEnumerator Skill3Timer()
     {
         return base.Skill3Timer();
+    }
+    public override IEnumerator Skill2Timer()
+    {
+        return base.Skill2Timer();
     }
 
     private void OnTriggerStay(Collider other)
@@ -270,6 +278,10 @@ public class MacFSMManager : FSMManager
     {
         base.SetDeadState();
 
-        SetState(MacState.DEAD);
+        if (!isDead)
+        {
+            SetState(MacState.DEAD);
+            isDead = true;
+        }
     }
 }

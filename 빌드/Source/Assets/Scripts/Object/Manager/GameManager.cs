@@ -78,7 +78,6 @@ public class GameManager : MonoBehaviour
             uIActive.progress = false;
             uIActive.selector = false;
             UserInterface.SetPointerMode(true);
-            UserInterface.SetTitleUI(true);
 
             MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
                 MCSoundManager.Instance.objectSound.ambient.lobbyAmbient);
@@ -88,7 +87,6 @@ public class GameManager : MonoBehaviour
             MCSceneManager.currentSceneNumber == 2)
         {
             UserInterface.SetPointerMode(false);
-            UserInterface.SetTitleUI(false);
 
         }
 
@@ -117,7 +115,14 @@ public class GameManager : MonoBehaviour
         if (!isPause)
         {
             Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
-            UserInterface.Instance.MousePointerSpeed(1 / TimeMagnificationValue);
+            try
+            {
+                UserInterface.Instance.MousePointerSpeed(1 / TimeMagnificationValue);
+            }
+            catch
+            {
+
+            }
         }
         else
         {
@@ -182,33 +187,61 @@ public class GameManager : MonoBehaviour
     public static void SetSceneSetting()
     {
         var num = MCSceneManager.currentSceneNumber;
+
+        MCSoundManager.LoadBank();
+        CanvasInfo.Instance.SetRenderCam();
+
         switch (num)
         {
             case 0:
                 break;
             case 1:
                 Debug.Log("aa");
-                Instance.Scene1Setting();
                 break;
             case 2:
-                Debug.Log("Boss");
-                Instance.BossSceneSetting();
+                Debug.Log("Stage1");
+                Instance.StageSet();
+                break;
+            case 3:
+                Debug.Log("Stage2");
+                Instance.StageSet();
+                break;
+            case 4:
+                Debug.Log("Stage3");
+                Instance.StageSet();
                 break;
         }
     }
 
-    private void Scene1Setting()
+    private void StageSet()
     {
-        CanvasInfo.Instance.SetRenderCam();
+        UserInterface.SetPointerMode(false);
 
         UserInterface.Instance.SetValue();
-        UserInterface.SetPointerMode(false);
-        UserInterface.SetTitleUI(false);
         UserInterface.SetAllUserInterface(true);
         UserInterface.SetPlayerUserInterface(true);
 
+        CharacterControl = true;
+    }
+
+    private void Scene1Setting()
+    {
+
+        UserInterface.Instance.SetValue();
+        UserInterface.SetPointerMode(false);
+        UserInterface.SetAllUserInterface(true);
+        UserInterface.SetPlayerUserInterface(true);
+
+
+        Invoke("SoundPlay", 5f);
+
         MissionManager.Instance.SetValue();
         GameStatus.Instance.SetValue();
+    }
+
+    public void SoundPlay()
+    {
+        MCSoundManager.SetSound();
     }
 
     private void BossSceneSetting()

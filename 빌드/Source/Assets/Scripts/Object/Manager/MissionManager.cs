@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
 using MC.SceneDirector;
+using MC.Mission;
 
 /// <summary>
 /// 미션의 종류
@@ -10,14 +11,22 @@ using MC.SceneDirector;
 public enum MissionType
 {
     Annihilation = 0,
-    Defence = 1,
-    Survival = 2,
+    Survival = 1,
+    Defence = 2,
     Boss = 3,
     Last,
 }
 
+[System.Serializable]
+public class MissionResources
+{
+    public Sprite[] types;
+}
+
 public class MissionManager : MonoBehaviour
 {
+    public MissionResources resources;
+
     private static MissionManager _Instance;
     public static MissionManager Instance {
         get {
@@ -29,8 +38,8 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private Mission[] _Missions;
-    public Mission[] Missions {
+    [SerializeField] private MissionBase[] _Missions;
+    public MissionBase[] Missions {
         get {
             return _Missions;
         }
@@ -40,7 +49,16 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    public Mission CurrentMission;
+    private MissionBase currentMission;
+    public MissionBase CurrentMission {
+        get {
+            if (currentMission == null) currentMission = GameObject.FindObjectOfType<MissionBase>();
+            return currentMission;
+        }
+        set {
+            currentMission = value;
+        }
+    }
     public MissionType CurrentMissionType => CurrentMission.Data.MissionType;
 
     private bool isFirst = true;
@@ -72,7 +90,7 @@ public class MissionManager : MonoBehaviour
         UserInterface.BlurSet(true);
 
 
-        Instance.MissionSelector.SetActive(true);
+        UserInterface.SetMissionSelectionUI(true);
         UserInterface.SetPointerMode(true);
         UserInterface.Instance.MousePointerSpeed(100f);
 
@@ -87,68 +105,86 @@ public class MissionManager : MonoBehaviour
         if (isChange) return;
 
         //랜덤 미션 출력하기
-        foreach (MissionButton choice in Instance.Choices)
+        foreach (MissionButton choice in UserInterface.Instance.SelectorUI.buttons)
         {
             var type = UnityEngine.Random.Range(0, 999) % ((int)(MissionType.Last) - 1);
-            choice.ChangeMission(Instance.Missions[type]);
+            choice.ChangeMission(type);
         }
 
         if (GameStatus.Instance.StageLevel >= 3)
         {
-            Instance.Choices[0].ChangeMission(Instance.Missions[3]);
+            UserInterface.Instance.SelectorUI.buttons[0].ChangeMission(3);
         }
 
         isChange = true;
     }
 
-    public static void SelectMission(Mission mission) {
-        
-        Instance.CurrentMission = mission;
-        Instance.MissionSelector.SetActive(false);
+    public static void SelectMission(MissionType type) {
 
-        if (Instance.CurrentMissionType == MissionType.Boss)
+        UserInterface.SetMissionSelectionUI(false);
+        UserInterface.SetPointerMode(false);
+        GameManager.Instance.IsPuase = false;
+        Instance.isChange = false;
+        //UserInterface.FullModeSetMP();
+
+        if (type == MissionType.Boss)
         {
-            UserInterface.SetPlayerUserInterface(false);
-            Instance.StartCoroutine(MCSceneManager.Instance.LoadScene(2));
+            MCSceneManager.Instance.NextScene(5);
         }
         else
         {
-            UserInterface.SetPointerMode(false);
-            GameManager.Instance.IsPuase = false;
-            UserInterface.FullModeSetMP();
-
-            // 페이드 Out
-            GameManager.SetFadeInOut(() =>
+            switch (type)
             {
+                case MissionType.Annihilation:
+                    MCSceneManager.Instance.NextScene(2);
+                    break;
+                case MissionType.Defence:
+                    MCSceneManager.Instance.NextScene(4);
+                    break;
+                case MissionType.Survival:
+                    MCSceneManager.Instance.NextScene(3);
+                    break;
+            }
 
-                MissionManager.EnterMission();
-                UserInterface.BlurSet(false);
-                // RigidBody Gravity => false
-                PlayerFSMManager.Instance.rigid.useGravity = false;
-            }, false);
+
+            //UserInterface.SetPointerMode(false);
+            //GameManager.Instance.IsPuase = false;
+            //UserInterface.FullModeSetMP();
+
+            //// 페이드 Out
+            //GameManager.SetFadeInOut(() =>
+            //{
+
+            //    //MissionManager.EnterMission();
+            //    UserInterface.BlurSet(false);
+            //    // RigidBody Gravity => false
+            //    PlayerFSMManager.Instance.rigid.useGravity = false;
+            //}, false);
         }
         //EnterMission();
+
     }
 
     public static void EnterMission() {
         // 캐릭터 위치변경
         Instance.CurrentMission.gameObject.SetActive(true);
-        GameStatus.Instance._PlayerInstance.
-            GetComponentInChildren<Animator>().
+
+        PlayerFSMManager.Instance.Anim.
             transform.position =
             Instance.CurrentMission.Enter.transform.position;
 
-        GameStatus.Instance._PlayerInstance.
-            GetComponentInChildren<Animator>().
+        PlayerFSMManager.Instance.Anim.
             transform.LookAt(Instance.CurrentMission.Exit.transform);
 
 
         CinemaManager.CinemaStart(Instance.CurrentMission.enterDirector);
-        Instance.isChange = true;
     }
 
     public static void StartMission() {
         // 미션 시작지
+
+        PlayerFSMManager.Instance.rigid.useGravity = true;
+
         Instance.CurrentMission.OperateMission();
         UserInterface.SetMissionProgressUserInterface(true);
     }
@@ -173,7 +209,7 @@ public class MissionManager : MonoBehaviour
         MissionSelector = UserInterface.Instance.MissionSelectionUICanvas;
         MissionProgressUI = UserInterface.Instance.MissionProgressUICanvas;
 
-        var Maps = GameObject.FindObjectsOfType<Mission>();
+        var Maps = GameObject.FindObjectsOfType<MissionBase>();
         Missions = Maps;
         Choices = UserInterface.Instance.SelectorUI.buttons;
     }

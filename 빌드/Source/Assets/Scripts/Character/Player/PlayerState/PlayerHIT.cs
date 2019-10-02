@@ -8,12 +8,14 @@ public class PlayerHIT : FSMState
     public override void BeginState()
     {
         base.BeginState();
-        StartCoroutine(GameLib.Blinking(_manager.materialList));
+        var color = new Color(1, 0.3725f, 0.3725f);
+
     }
 
     public override void EndState()
     {
         base.EndState();
+
         _time = 0;
     }
 
