@@ -47,7 +47,14 @@ public class RedHatFSMState : MonoBehaviour
 
     public void HPUI()
     {
-        UserInterface.Instance.HPChangeEffect(_manager.Stat, _manager._HPBar);
+        try
+        {
+            UserInterface.Instance.HPChangeEffect(_manager.Stat, _manager._HPBar);
+        }
+        catch
+        {
+
+        }
 
     }
 
