@@ -446,9 +446,7 @@ public class PlayerFSMManager : FSMManager
 
     private void FixedUpdate()
     {
-        if (isShake)
-            //StartCoroutine(shake.ShakeCamera(.2f, 0.02f, 0.0f));
-            Skill2Set();
+        Skill2Set();
 
         r_x = Input.GetAxis("Mouse X");
 
@@ -597,7 +595,7 @@ public class PlayerFSMManager : FSMManager
 
     void Attack()
     {
-        if (Input.GetMouseButtonDown(0) && !isAttackOne)
+        if (Input.GetMouseButtonDown(0) && !isAttackOne && !Skill2_Test.activeSelf)
         {
             isAttackOne = true;
             SetState(PlayerState.ATTACK1);
@@ -1010,8 +1008,8 @@ public class PlayerFSMManager : FSMManager
 
     void Skill2Set()
     {
-        //if (isSkill2)
-        //    return;
+        if (isSkill2)
+            return;
         try
         {
             skill2_Distance = 14f / followCam.height;
@@ -1026,15 +1024,23 @@ public class PlayerFSMManager : FSMManager
 
         Skill2_Parent.localPosition = new Vector3(0, 0.18f, skill2_Distance);
     }
+    public GameObject Skill2_Test;
     public void Skill2()
     {
         if (isSkill2) return;
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SetState(PlayerState.SKILL2);
-            isSkill2 = true;
-            return;
+            Skill2_Test.SetActive(true);
+        }
+        if (Skill2_Test.activeSelf)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                SetState(PlayerState.SKILL2);
+                isSkill2 = true;
+                return;
+            }
         }
     }
 
