@@ -402,7 +402,12 @@ public class PlayerFSMManager : FSMManager
         Skill3MouseLock();
         Skill3Reset();
 
-
+        if (isNormal)
+        {
+            _anim.SetFloat("Normal", 0);
+        }
+        else
+            _anim.SetFloat("Normal", 1f);
 
         if (!isNormal)
         {
