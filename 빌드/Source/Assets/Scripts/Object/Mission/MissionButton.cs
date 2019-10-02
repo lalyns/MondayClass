@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using MC.Mission;
+
 namespace MC.UI {
 
     public class MissionButton : MonoBehaviour
@@ -18,7 +20,7 @@ namespace MC.UI {
         [HideInInspector] public Image rewardType;
         [HideInInspector] public Text rewardText;
 
-        [HideInInspector] public Mission mission;
+        [HideInInspector] public MissionBase mission;
         [HideInInspector] public MissionType missionType;
 
         public void Awake()
@@ -35,11 +37,11 @@ namespace MC.UI {
             rewardText = transform.GetChild(1).GetComponent<Text>();
         }
 
-        public void ChangeMission(Mission mission)
+        public void ChangeMission(int type)
         {
-            missioType.sprite = mission.Data.missionTypeSprite;
-
-            this.mission = mission;
+            missioType.sprite = MissionManager.Instance.resources.types[type];
+            missionType = (MissionType)type;
+            
         }
 
         public void ChangeReward(RewardData rewardData)
@@ -53,7 +55,7 @@ namespace MC.UI {
 
         public void SetMissionOnClick()
         {
-            MissionManager.SelectMission(mission);
+            MissionManager.SelectMission(missionType);
         }
     }
 }

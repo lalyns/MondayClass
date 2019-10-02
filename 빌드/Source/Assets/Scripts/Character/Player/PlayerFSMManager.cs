@@ -42,7 +42,15 @@ public class PlayerFSMManager : FSMManager
 {
     public PlayerSound _Sound;
     public static PlayerFSMManager instance;
-    public static PlayerFSMManager Instance => instance;
+    public static PlayerFSMManager Instance {
+        get {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<PlayerFSMManager>();
+            }
+            return instance;
+        }
+    }
 
     private bool _onAttack = false;
     private bool _isinit = false;

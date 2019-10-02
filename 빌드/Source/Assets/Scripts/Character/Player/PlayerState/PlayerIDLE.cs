@@ -7,8 +7,6 @@ public class PlayerIDLE : FSMState
     float _time = 0;
     public override void BeginState()
     {
-        MCSoundManager.SetSound();
-
         base.BeginState();
         _manager.isIDLE = true;
     }
