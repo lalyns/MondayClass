@@ -115,7 +115,14 @@ public class GameManager : MonoBehaviour
         if (!isPause)
         {
             Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
-            UserInterface.Instance.MousePointerSpeed(1 / TimeMagnificationValue);
+            try
+            {
+                UserInterface.Instance.MousePointerSpeed(1 / TimeMagnificationValue);
+            }
+            catch
+            {
+
+            }
         }
         else
         {
