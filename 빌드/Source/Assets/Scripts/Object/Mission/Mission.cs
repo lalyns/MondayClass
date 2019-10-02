@@ -122,7 +122,34 @@ public class Mission : MonoBehaviour
     {
         CinemaManager.CinemaStart(enterDirector);
     }
-    
+
+    public IEnumerator SetSommonLocation(MonsterType[] monsterTypes)
+    {
+
+        int i = 0;
+        GameObject a = null;
+        foreach (MonsterType monsterType in monsterTypes)
+        {
+            var position = Grid._MapPosition.Count;
+            var rand = UnityEngine.Random.Range(0, position);
+
+            switch (monsterType)
+            {
+                case MonsterType.Mac:
+                    a = MonsterPoolManager._Instance._Mac.ItemSetActive(Grid._MapPosition[rand], monsterType);
+                    break;
+                case MonsterType.RedHat:
+                    a = MonsterPoolManager._Instance._RedHat.ItemSetActive(Grid._MapPosition[rand], monsterType);
+                    break;
+                case MonsterType.Tiber:
+                    break;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+    }
+
     #region 폐기
     //public int _CurrentMissionLevel;
     //public bool _IsMissionStart;
