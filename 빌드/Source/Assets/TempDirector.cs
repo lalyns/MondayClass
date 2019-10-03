@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using MC.UI;
+using MC.SceneDirector;
 
 public class TempDirector : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class TempDirector : MonoBehaviour
 
     void Start()
     {
-        if (PlayMode) SceneStart();
+        if (!GameManager.Instance.CineMode) SceneStart();
         else CineStart();
     }
 
