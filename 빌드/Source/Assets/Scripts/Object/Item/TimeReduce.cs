@@ -39,6 +39,8 @@ public class TimeReduce : MonoBehaviour
                 _time = 0;
                 box.gameObject.SetActive(true);
                 sphere.enabled = true;
+
+                particle.gameObject.SetActive(false);
             }
         }
 

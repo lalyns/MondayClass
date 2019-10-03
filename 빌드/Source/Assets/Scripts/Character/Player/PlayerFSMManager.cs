@@ -41,8 +41,15 @@ public enum AttackType
 public class PlayerFSMManager : FSMManager
 {
     public PlayerSound _Sound;
-    public static PlayerFSMManager instance;
-    public static PlayerFSMManager Instance => instance;
+    private static PlayerFSMManager instance;
+    public static PlayerFSMManager Instance {
+        get {
+            if (instance == null)
+                instance = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<PlayerFSMManager>();
+            return instance;
+        }
+    }
+
 
     private bool _onAttack = false;
     private bool _isinit = false;
@@ -124,6 +131,11 @@ public class PlayerFSMManager : FSMManager
 
     public float flashTimer = 0;
     public bool isSpecial, isFlash;
+    public bool isInvincibility = false;
+    public void SetInvincibility(bool value)
+    {
+        isInvincibility = value;
+    }
     public GameObject Normal;
     public GameObject Special;
     public GameObject WeaponTransformEffect;
@@ -529,6 +541,7 @@ public class PlayerFSMManager : FSMManager
             {
                 isNormal = false;
                 isSpecial = true;
+                SetInvincibility(true);
                 TimeLine.SetActive(true);
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
@@ -564,9 +577,17 @@ public class PlayerFSMManager : FSMManager
                 TimeLine.SetActive(false);
                 isSpecial = false;
                 isAttackOne = false;
+                StartCoroutine(SetOff());
                 return;
             }
         }
+    }
+
+    IEnumerator SetOff()
+    {
+        yield return new WaitForSeconds(2f);
+
+        SetInvincibility(false);
     }
 
     public void GetInput()
@@ -711,30 +732,48 @@ public class PlayerFSMManager : FSMManager
             }
         }
     }
+    public int maxDash = 3;
+    public float dashCoolTime = 3f;
+    public float currentDashCollTime = 0f;
+    public int remainingDash = 0;
 
     public void DashReset()
     {
-        if (isDashCTime[0])
+        if(remainingDash < maxDash)
+        {
+            currentDashCollTime += Time.deltaTime;
+            if(currentDashCollTime >= dashCoolTime)
+            {
+                remainingDash++;
+                currentDashCollTime = 0;
+            }
+        }
+
+        // 첫번째 차는중
+        if (isDashCTime[0] && !isDashCTime[1] && dashCount == 0)
         {
             DashCTime[0] -= Time.deltaTime;
             if (DashCTime[0] <= 0)
             {
                 DashCTime[0] = 3f;
-                isDashCTime[0] = false;
+                //isDashCTime[0] = false;
+                isDashCTime[1] = true;
                 dashCount++;
             }
         }
-        if (isDashCTime[1])
+        // 두번째 차는중
+        if (isDashCTime[1] && !isDashCTime[2] && dashCount == 1)
         {
             DashCTime[1] -= Time.deltaTime;
             if (DashCTime[1] <= 0)
             {
                 DashCTime[1] = 3f;
-                isDashCTime[1] = false;
+                isDashCTime[2] = true;
                 dashCount++;
             }
         }
-        if (isDashCTime[2])
+        // 세번째 차는중
+        if (isDashCTime[2] && dashCount == 2)
         {
             DashCTime[2] -= Time.deltaTime;
             if (DashCTime[2] <= 0)
@@ -1018,15 +1057,26 @@ public class PlayerFSMManager : FSMManager
 
         Skill2_Parent.localPosition = new Vector3(0, 0.18f, skill2_Distance);
     }
+
+    public GameObject Skill2_Test;
+
     public void Skill2()
     {
         if (isSkill2) return;
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SetState(PlayerState.SKILL2);
-            isSkill2 = true;
-            return;
+            Skill2_Test.SetActive(true);
+        }
+
+        if (Skill2_Test.activeSelf)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                SetState(PlayerState.SKILL2);
+                isSkill2 = true;
+                return;
+            }
         }
     }
 
