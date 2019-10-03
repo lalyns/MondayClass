@@ -25,6 +25,9 @@ public class RirisPATTERNB : RirisFSMState
         //transform.LookAt(PlayerFSMManager.instance.transform);
         //_manager._Weapon.transform.LookAt(PlayerFSMManager.instance.transform);
         _manager._Weapon.gameObject.SetActive(true);
+
+        transform.position = _MapCenter.position;
+        _manager._Weapon.position = _MapCenter.position;
     }
 
     public override void EndState()
