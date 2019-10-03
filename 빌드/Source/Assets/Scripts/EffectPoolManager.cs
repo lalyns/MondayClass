@@ -26,6 +26,10 @@ public class EffectPoolManager : MonoBehaviour
         {
             _Instance = this.GetComponent<EffectPoolManager>();
         }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
 

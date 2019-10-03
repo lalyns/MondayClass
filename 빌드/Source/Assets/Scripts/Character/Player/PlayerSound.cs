@@ -34,7 +34,7 @@ namespace MC.Sound
 
             public void PlayPlayerSFX(GameObject go, AK.Wwise.Event sfx)
             {
-                //Debug.Log("Play Player SFX : " + sfx.Name + MCSoundManager.SoundCall++);
+                //Debug.Log("Play Player SFX");
                 if (GameManager.Instance.config.soundActive.sfx ||
                     GameManager.Instance.config.soundActive.all)
                     sfx.Post(go);

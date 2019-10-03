@@ -192,7 +192,7 @@ public class ObjectPool : MonoBehaviour
         var item = _InActiveItemPool.First.Value;
         _InActiveItemPool.RemoveFirst();
 
-        item.transform.position = respawnPos;
+        item.transform.localPosition = respawnPos;
         item.SetActive(true);
 
         _ActiveItem.AddLast(item);

@@ -13,13 +13,9 @@ namespace MC.Mission
 
         float starDropTime = 0;
         public float starDropCool = 5f;
-        public GameObject star;
-        public Transform[] dropLocation;
 
         float spawnTime = 0;
         public float spawnCool = 3f;
-        public Vector2[] mobSet;
-        public Transform[] spawnLocation;
 
         int NumberOfMaxMonster = 20;
 

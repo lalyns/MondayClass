@@ -1698,11 +1698,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 350ee1efc43a86b4e9a7dab5e398b33e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnMode: 0
   _Data: {fileID: 11400000, guid: b3fe8239a5ae35346b49d7264c963d0c, type: 2}
   _MissionOperate: 0
   _LimitTime: 2
   MissionType: 1
-  missionEnd: 0
   enterDirector: {fileID: 0}
   protectedTarget: {fileID: 552379988}
   _ProtectedTargetHP: 200
@@ -5006,6 +5006,62 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 342518912}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &344307380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 344307383}
+  - component: {fileID: 344307382}
+  - component: {fileID: 344307381}
+  m_Layer: 0
+  m_Name: WwiseGlobal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &344307381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344307380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37426b46793fdf94a8ade2fc2f0280bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &344307382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344307380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed9d03040b17b44893b4c03b72e0985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &344307383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344307380}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &349743923
 GameObject:
   m_ObjectHideFlags: 0
@@ -8778,7 +8834,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh32074
+  m_Name: pb_Mesh670330
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -12490,7 +12546,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &856665556
 PrefabInstance:
@@ -65785,16 +65841,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7482ed9f1ba73444ea5533aebe107361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnMode: 0
   _Data: {fileID: 11400000, guid: dafe74e5729c99b46b5dc0ad7c24830e, type: 2}
   _MissionOperate: 0
   _LimitTime: 180
   MissionType: 0
-  missionEnd: 0
   enterDirector: {fileID: 0}
   spawning: 0
-  currentWave: 0
-  totalWave: 3
-  waves: []
+  Wave1Locations:
+  - {fileID: 349743924}
+  - {fileID: 742310037}
+  - {fileID: 990997263}
+  - {fileID: 1579923905}
+  - {fileID: 620571077}
+  - {fileID: 1239142287}
+  - {fileID: 719621869}
+  Wave1MonsterType: 01000000010000000000000000000000010000000000000000000000
+  Wave2Locations:
+  - {fileID: 966578955}
+  - {fileID: 676688722}
+  - {fileID: 573858064}
+  - {fileID: 1448303312}
+  - {fileID: 649814378}
+  - {fileID: 983743786}
+  - {fileID: 1508663786}
+  - {fileID: 1667836684}
+  - {fileID: 251504180}
+  Wave2MonsterType: 010000000000000001000000010000000100000000000000000000000000000000000000
+  Wave3Locations:
+  - {fileID: 2021542429}
+  - {fileID: 1811225351}
+  - {fileID: 671521237}
+  - {fileID: 368758059}
+  - {fileID: 1166527527}
+  - {fileID: 1264718685}
+  - {fileID: 1695801379}
+  - {fileID: 1673890112}
+  - {fileID: 937331857}
+  - {fileID: 1951905884}
+  - {fileID: 1053554384}
+  - {fileID: 928634033}
+  - {fileID: 1096393089}
+  Wave3MonsterType: 00000000010000000100000001000000010000000100000001000000010000000000000000000000000000000000000000000000
 --- !u!1001 &5156211893072433570
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68899,7 +68987,7 @@ PrefabInstance:
     - target: {fileID: 5432222726860463539, guid: b9c3e744a5e40e04e9b91d9372569807,
         type: 3}
       propertyPath: m_RootOrder
-      value: 23
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 5432222726860463539, guid: b9c3e744a5e40e04e9b91d9372569807,
         type: 3}
@@ -83177,14 +83265,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa4a30193db97544a6f5fd0eada7272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnMode: 0
   _Data: {fileID: 11400000, guid: 6efd9cbc302c73843bb130b3f605d795, type: 2}
   _MissionOperate: 0
   _LimitTime: 180
   MissionType: 2
-  missionEnd: 0
   enterDirector: {fileID: 0}
   goalScore: 5
-  starHeight: 10
   starDropCool: 5
   star: {fileID: 7242914150444159907, guid: cb28f3c5b4876ed40b71f110a5e1cda4, type: 3}
   dropLocation:
@@ -83242,9 +83329,6 @@ MonoBehaviour:
   - {fileID: 3858484559820468188}
   - {fileID: 3858484559784282101}
   - {fileID: 3858484561003554956}
-  waves: []
-  currentWave: 0
-  totalWave: 3
   oldSpawnList: []
   activeStar: []
 --- !u!1001 &8394932562430733616

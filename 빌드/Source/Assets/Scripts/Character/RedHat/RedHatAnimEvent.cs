@@ -38,8 +38,8 @@ public class RedHatAnimEvent : MonoBehaviour
 
     void HitCheck()
     {
-        //if (null != _attackCp)
-            //_attackCp.AttackCheck();
+        if (null != _attackCp)
+            _attackCp.AttackCheck();
     }
 
     public void HitEnd()
