@@ -141,7 +141,8 @@ public class RirisFSMManager : FSMManager
 
     public void OnHitForBoss(AttackType attackType)
     {
-        Debug.Log(string.Format("Current Attack : {0}, Current HP: {1} ", attackType.ToString(), Stat.Hp));
+        Debug.Log(string.Format("Current Attack : {0}, Current HP: {1}, Current Phase: {2} ",
+            attackType.ToString(), Stat.Hp, _Phase));
 
         if (CurrentState == RirisState.DEAD) return;
 

@@ -30,6 +30,14 @@ public class RirisAnimEvent : MonoBehaviour
         
     }
 
+    public void PatternAEnd()
+    {
+        RirisPATTERNA pattern = _manager.CurrentStateComponent as RirisPATTERNA;
+
+        pattern.PatternEnd = true;
+
+    }
+
     public void PatterBDashEffectUp()
     {
         RirisPATTERNB pattern = _manager.CurrentStateComponent as RirisPATTERNB;

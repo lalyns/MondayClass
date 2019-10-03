@@ -15,6 +15,7 @@ public class RirisPATTERNA : RirisFSMState
     float stompCount = 0;
 
     public bool StompEnd = false;
+    public bool PatternEnd = false;
 
     Transform playerTransform;
     Vector3 targetPos;
@@ -40,6 +41,7 @@ public class RirisPATTERNA : RirisFSMState
         _PatternAAttackEffect.SetActive(false);
         SetJumpState = false;
         StompEnd = false;
+        PatternEnd = false;
 
     }
 
@@ -65,7 +67,7 @@ public class RirisPATTERNA : RirisFSMState
             stompCount = 0;
         }
 
-        if(StompEnd)
+        if(PatternEnd)
         {
             _manager.SetState(RirisState.PATTERNEND);
         }
