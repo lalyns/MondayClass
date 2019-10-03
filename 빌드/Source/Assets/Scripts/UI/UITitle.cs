@@ -23,7 +23,7 @@ namespace MC.UI
 
         public void StartButton()
         {
-            MCSceneManager.Instance.NextScene(MCSceneManager.STAGE1);
+            MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL);
         }
 
     }

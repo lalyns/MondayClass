@@ -18,7 +18,6 @@ public class TempDirector : MonoBehaviour
     void Start()
     {
 
-        PlaySet.SetActive(false);
     }
 
     public void SceneStart()

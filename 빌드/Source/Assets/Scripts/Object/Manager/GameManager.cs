@@ -72,22 +72,19 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if(MCSceneManager.currentSceneNumber == 0)
+        if(MCSceneManager.currentSceneNumber == MCSceneManager.TITLE)
         {
-            uIActive.player = false;
-            uIActive.progress = false;
-            uIActive.selector = false;
             UserInterface.SetPointerMode(true);
 
             MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
                 MCSoundManager.Instance.objectSound.ambient.lobbyAmbient);
         }
 
-        if (MCSceneManager.currentSceneNumber == 1 ||
-            MCSceneManager.currentSceneNumber == 2)
+        if (MCSceneManager.currentSceneNumber == MCSceneManager.ANNIHILATION ||
+            MCSceneManager.currentSceneNumber == MCSceneManager.SURVIVAL     ||
+            MCSceneManager.currentSceneNumber == MCSceneManager.DEFENCE)
         {
             UserInterface.SetPointerMode(false);
-
         }
 
         UserInterface.SetAllUserInterface(uIActive.all);
@@ -199,6 +196,9 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Boss");
                 Instance.BossSceneSetting();
                 break;
+            case 5:
+                Instance.BossSet();
+                break;
         }
     }
 
@@ -206,22 +206,17 @@ public class GameManager : MonoBehaviour
     {
         CanvasInfo.Instance.SetRenderCam();
 
-        UserInterface.Instance.SetValue();
-        UserInterface.SetPointerMode(false);
-        UserInterface.SetAllUserInterface(true);
-        UserInterface.SetPlayerUserInterface(true);
-
-
-        Invoke("SoundPlay", 5f);
-
-        MissionManager.Instance.SetValue();
-        GameStatus.Instance.SetValue();
     }
 
     public void SoundPlay()
     {
         MCSoundManager.LoadBank();
         MCSoundManager.SetSound();
+    }
+
+    private void BossSet()
+    {
+        TempDirector.Instance.PlaySet.SetActive(false);
     }
 
     private void BossSceneSetting()
