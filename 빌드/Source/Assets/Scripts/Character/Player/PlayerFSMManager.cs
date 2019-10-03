@@ -131,6 +131,11 @@ public class PlayerFSMManager : FSMManager
 
     public float flashTimer = 0;
     public bool isSpecial, isFlash;
+    public bool isInvincibility = false;
+    public void SetInvincibility(bool value)
+    {
+        isInvincibility = value;
+    }
     public GameObject Normal;
     public GameObject Special;
     public GameObject WeaponTransformEffect;
@@ -536,6 +541,7 @@ public class PlayerFSMManager : FSMManager
             {
                 isNormal = false;
                 isSpecial = true;
+                SetInvincibility(true);
                 TimeLine.SetActive(true);
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
@@ -571,9 +577,17 @@ public class PlayerFSMManager : FSMManager
                 TimeLine.SetActive(false);
                 isSpecial = false;
                 isAttackOne = false;
+                StartCoroutine(SetOff());
                 return;
             }
         }
+    }
+
+    IEnumerator SetOff()
+    {
+        yield return new WaitForSeconds(2f);
+
+        SetInvincibility(false);
     }
 
     public void GetInput()

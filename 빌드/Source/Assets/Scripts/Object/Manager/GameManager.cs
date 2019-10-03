@@ -87,6 +87,12 @@ public class GameManager : MonoBehaviour
             UserInterface.SetPointerMode(false);
         }
 
+        if(MCSceneManager.currentSceneNumber == MCSceneManager.BOSS)
+        {
+            TempDirector.Instance.SceneStart();
+            UserInterface.SetPointerMode(false);
+        }
+
         UserInterface.SetAllUserInterface(uIActive.all);
         UserInterface.SetPlayerUserInterface(uIActive.player);
         UserInterface.SetSystemInterface(uIActive.system);
