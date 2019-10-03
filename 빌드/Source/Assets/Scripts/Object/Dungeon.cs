@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using MC.Mission;
-
 public class Dungeon : MonoBehaviour
 {
     public bool _IsLobby;
@@ -11,7 +9,7 @@ public class Dungeon : MonoBehaviour
     public Collider _ExitPosition;
     public Transform _RespawnParent;
     public MissionEnter _Trigger;
-    public MissionBase _Mission;
+    public Mission _Mission;
 
     [System.NonSerialized] public Transform[] _RespawnPositions;
 
@@ -20,7 +18,7 @@ public class Dungeon : MonoBehaviour
     private void Awake()
     {
         if(!_IsLobby)
-            _Mission = GetComponent<MissionBase>();
+            _Mission = GetComponent<Mission>();
 
         Transform[] temp = _RespawnParent.GetComponentsInChildren<Transform>();
         var tempLength = temp.Length - 1;

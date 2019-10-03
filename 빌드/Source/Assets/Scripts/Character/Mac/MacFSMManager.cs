@@ -228,11 +228,9 @@ public class MacFSMManager : FSMManager
                 other.transform.gameObject.SetActive(false);
             }
         }
-
-        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
+       
+        if(other.transform.tag == "Skill2")
         {
-            StartCoroutine("Skill2Timer");
-
             SetState(MacState.HIT);
         }
         if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
@@ -244,10 +242,6 @@ public class MacFSMManager : FSMManager
     public override IEnumerator Skill3Timer()
     {
         return base.Skill3Timer();
-    }
-    public override IEnumerator Skill2Timer()
-    {
-        return base.Skill2Timer();
     }
 
     private void OnTriggerStay(Collider other)

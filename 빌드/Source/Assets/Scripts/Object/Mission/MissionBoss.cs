@@ -2,24 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MC.Mission
+public class MissionBoss : Mission
 {
+    public static MissionBoss _Instance;
 
-    public class MissionBoss : MissionBase
+    protected override void Start()
     {
-        public static MissionBoss _Instance;
-
-        protected override void Start()
+        if (_Instance == null)
         {
-            if (_Instance == null)
-            {
-                _Instance = GetComponent<MissionBoss>();
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            _Instance = GetComponent<MissionBoss>();
         }
-
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+
 }

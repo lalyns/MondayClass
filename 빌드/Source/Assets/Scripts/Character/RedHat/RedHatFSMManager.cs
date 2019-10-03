@@ -267,16 +267,13 @@ public class RedHatFSMManager : FSMManager
                 OnHitForMonster(AttackType.SKILL1);
             }
         }
-        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
+        if (other.transform.tag == "Skill2")
         {
-            StartCoroutine("Skill2Timer");
-
             SetState(RedHatState.HIT);
         }
         if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
         {
             StartCoroutine("Skill3Timer");
-            SetState(RedHatState.HIT);
         }
     }
 
@@ -284,10 +281,7 @@ public class RedHatFSMManager : FSMManager
     {
         return base.Skill3Timer();
     }
-    public override IEnumerator Skill2Timer()
-    {
-        return base.Skill2Timer();
-    }
+
 
     private void OnTriggerExit(Collider other)
     {

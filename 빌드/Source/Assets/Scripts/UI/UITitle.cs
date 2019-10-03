@@ -26,28 +26,5 @@ namespace MC.UI
             MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL);
         }
 
-        public void HowtoplayButton()
-        {
-
-        }
-
-        public void ConfigButton()
-        {
-
-        }
-
-        public void ExitButton()
-        {
-#if UNITY_EDITOR
-
-            UnityEditor.EditorApplication.isPlaying = false;
-
-#elif UNITY_STANDALONE
-
-            Application.Quit();
-
-#endif
-        }
-
     }
 }
