@@ -32,12 +32,24 @@ namespace MC.SceneDirector
 
         private void Awake()
         {
-            if (SceneManager.GetActiveScene().name == "00.Title") { currentSceneNumber = 0; }
-            if (SceneManager.GetActiveScene().name == "01-0.Tutorial") { currentSceneNumber = 1; }
-            if (SceneManager.GetActiveScene().name == "01-1.Stage1") { currentSceneNumber = 2; }
-            if (SceneManager.GetActiveScene().name == "02.Stage2") { currentSceneNumber = 3; }
-            if (SceneManager.GetActiveScene().name == "03.Stage3") { currentSceneNumber = 4; }
-            if (SceneManager.GetActiveScene().name == "04.Boss") { currentSceneNumber = 5; }
+            if (SceneManager.GetActiveScene().name == "00.Title") {
+                currentSceneNumber = 0;
+            }
+            if (SceneManager.GetActiveScene().name == "01-0.Tutorial") {
+                currentSceneNumber = 1;
+            }
+            if (SceneManager.GetActiveScene().name == "01-1.Stage1") {
+                currentSceneNumber = 2;
+            }
+            if (SceneManager.GetActiveScene().name == "02.Stage2") {
+                currentSceneNumber = 3;
+            }
+            if (SceneManager.GetActiveScene().name == "03.Stage3") {
+                currentSceneNumber = 4;
+            }
+            if (SceneManager.GetActiveScene().name == "04.Boss") {
+                currentSceneNumber = 5;
+            }
         }
 
         public void NextScene(int i)
@@ -60,14 +72,11 @@ namespace MC.SceneDirector
                 isLoad = true;
             }
 
-            Debug.Log( "Scene Number : " + currentSceneNumber);
-
             AsyncOperation async = SceneManager.LoadSceneAsync(i);
             while (!async.isDone)
             {
                 yield return null;
 
-                Debug.Log(async.progress);
             }
 
             if (async.isDone)

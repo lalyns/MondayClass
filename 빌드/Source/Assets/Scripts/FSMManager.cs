@@ -82,14 +82,21 @@ public class FSMManager : MonoBehaviour
     {
 
     }
-
+    public virtual IEnumerator Skill2Timer()
+    {
+        float attackTime = 0.0f;
+        while (attackTime<0.3f) {
+            stats.TakeDamage(PlayerFSMManager.Instance.stats, 30);
+            attackTime += Time.deltaTime;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
 
     public virtual IEnumerator Skill3Timer()
     {
         while (PlayerFSMManager.Instance.isSkill3)
         {
             OnHitForMonster(AttackType.SKILL3);
-            Debug.Log("맞는중");
             yield return new WaitForSeconds(0.1f);
         }
     }

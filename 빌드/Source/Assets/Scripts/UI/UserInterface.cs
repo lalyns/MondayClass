@@ -3,6 +3,7 @@
 using UnityEngine;
 
 using UnityEngine.UI;
+using MC.Mission;
 
 namespace MC.UI
 {
@@ -131,7 +132,10 @@ namespace MC.UI
         public UIPlayer UIPlayer 
         {
             get {
-                if (uiPlayer == null) uiPlayer = CanvasInfo.Instance.player;
+                if (uiPlayer == null) {
+                    uiPlayer = CanvasInfo.Instance.player;
+                    Debug.Log(uiPlayer.name);
+                }
                 return uiPlayer;
             }
         }
@@ -382,7 +386,13 @@ namespace MC.UI
 
         #endregion
 
-        #region Title User Interface
+        #region Dialog User Interface
+        public UIDialog Dialog => CanvasInfo.Instance.dialog;
+        public static void DialogSetActive(bool value)
+        {
+            Instance.Dialog.gameObject.SetActive(value);
+        }
+
 
         #endregion
 
