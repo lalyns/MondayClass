@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
+using MC.Mission;
 
 public class RedHatDEAD : RedHatFSMState
 {
