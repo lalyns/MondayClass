@@ -277,11 +277,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2152068016348216801}
-  - component: {fileID: 1873516466553228360}
   - component: {fileID: 4404165858136726260}
   - component: {fileID: 795881696063601727}
+  - component: {fileID: 1873516466553228360}
   - component: {fileID: 806827995}
   - component: {fileID: 806827996}
+  - component: {fileID: 6689161813165725479}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -303,31 +304,6 @@ Transform:
   m_Father: {fileID: 2274891494096624078}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1873516466553228360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6207164593670287837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff7ca594049282348a3223f1abe8a0a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: f7e1664c
-  useOtherObject: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: dc1d2370971b2664fbd158d45c3e3c7b,
-      type: 2}
-  decodeBank: 0
-  loadAsynchronous: 0
-  saveDecodedBank: 0
-  unloadTriggerList: 958ca0ea
-  bankNameInternal: 
-  valueGuidInternal: 
 --- !u!114 &4404165858136726260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,8 +338,7 @@ MonoBehaviour:
     stageBGM:
       idInternal: 0
       valueGuidInternal: 
-      WwiseObjectReference: {fileID: 11400000, guid: 309b53d8f066e954186b5c99f36b11e5,
-        type: 2}
+      WwiseObjectReference: {fileID: 0}
     bossBGM:
       idInternal: 0
       valueGuidInternal: 
@@ -405,6 +380,32 @@ MonoBehaviour:
   Sound: {fileID: 1873516466553228360}
   Bgm: {fileID: 806827995}
   Ambient: {fileID: 806827996}
+  Voice: {fileID: 6689161813165725479}
+--- !u!114 &1873516466553228360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6207164593670287837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff7ca594049282348a3223f1abe8a0a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 8769e3bd7ce86a245acab90b9db13dbb,
+      type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
 --- !u!114 &806827995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,6 +449,31 @@ MonoBehaviour:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 545a601e9e2098045822fd839ec30a78,
+      type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
+--- !u!114 &6689161813165725479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6207164593670287837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff7ca594049282348a3223f1abe8a0a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 37bd1039c3cda3b4f919973c1245695c,
       type: 2}
   decodeBank: 0
   loadAsynchronous: 0

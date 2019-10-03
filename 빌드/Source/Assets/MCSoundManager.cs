@@ -15,7 +15,7 @@ public class MCSoundManager : MonoBehaviour
     public AkBank Sound;
     public AkBank Bgm;
     public AkBank Ambient;
-
+    public AkBank Voice;
 
     private void Awake()
     {

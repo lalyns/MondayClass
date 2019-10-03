@@ -5,34 +5,34 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class MapGrid : MonoBehaviour
 {
-    public Transform _Center;
-    public GameObject _Actor;
-    public List<Vector3> _MapPosition = new List<Vector3>();
+    public Transform center;
+    public Transform actor;
+    public List<Vector3> mapPositions = new List<Vector3>();
 
-    public float _GridSize;
+    public float gridSize;
 
     public int loopCount = 0;
-    public bool _IsGridGizmos = true;
+    public bool isDrawGizmos = true;
 
 
     private void Start()
     {
-        _Actor.transform.position = _Center.transform.position;
-        _MapPosition.Clear();
-        SetCoord();
+        actor.position = center.transform.position;
+        mapPositions.Clear();
+        SetCoord(gridSize);
     }
 
-    void SetCoord()
+    void SetCoord(float gridSize = 0.5f)
     {
-        for(int x = -22; x <= 22; x++)
+        for(float x = -22; x <= 22; x += gridSize)
         {
-            for(int y = -22; y <= 22; y++)
+            for(float y = -22; y <= 22; y += gridSize)
             {
                 Vector3 correct = new Vector3(x, 0, y);
 
                 Ray ray = new Ray();
-                ray.origin = _Actor.transform.position + correct;
-                ray.direction = -_Actor.transform.up;
+                ray.origin = actor.position + correct;
+                ray.direction = -actor.up;
 
                 bool isGround = Physics.Raycast(ray, 0.1f, (1 << 17), QueryTriggerInteraction.Ignore);
 
@@ -40,7 +40,7 @@ public class MapGrid : MonoBehaviour
 
                 if (isGround)
                 {
-                    _MapPosition.Add(ray.origin);
+                    mapPositions.Add(ray.origin);
                 }
 
 
@@ -52,11 +52,11 @@ public class MapGrid : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (!_IsGridGizmos) return;
+        if (!isDrawGizmos) return;
 
         Gizmos.color = Color.blue;
 
-        foreach(Vector3 pos in _MapPosition)
+        foreach(Vector3 pos in mapPositions)
         {
             Gizmos.DrawWireSphere(pos, 0.1f);
         }

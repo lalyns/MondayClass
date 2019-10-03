@@ -92,9 +92,9 @@ namespace MC.Mission
 
         void DropStar()
         {
-            var randPos = UnityEngine.Random.Range(0, Grid._MapPosition.Count);
+            var randPos = UnityEngine.Random.Range(0, Grid.mapPositions.Count);
 
-            GameObject star = EffectPoolManager._Instance._MissionBstarPool.ItemSetActive(Grid._MapPosition[randPos] + Vector3.up * starHeight);
+            GameObject star = EffectPoolManager._Instance._MissionBstarPool.ItemSetActive(Grid.mapPositions[randPos] + Vector3.up * starHeight);
 
             activeStar.Add(star);
         }

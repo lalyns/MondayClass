@@ -138,16 +138,16 @@ namespace MC.Mission
             GameObject a = null;
             foreach (MonsterType monsterType in monsterTypes)
             {
-                var position = Grid._MapPosition.Count;
+                var position = Grid.mapPositions.Count;
                 var rand = UnityEngine.Random.Range(0, position);
 
                 switch (monsterType)
                 {
                     case MonsterType.Mac:
-                        a = MonsterPoolManager._Instance._Mac.ItemSetActive(Grid._MapPosition[rand], monsterType);
+                        a = MonsterPoolManager._Instance._Mac.ItemSetActive(Grid.mapPositions[rand], monsterType);
                         break;
                     case MonsterType.RedHat:
-                        a = MonsterPoolManager._Instance._RedHat.ItemSetActive(Grid._MapPosition[rand], monsterType);
+                        a = MonsterPoolManager._Instance._RedHat.ItemSetActive(Grid.mapPositions[rand], monsterType);
                         break;
                     case MonsterType.Tiber:
                         break;
