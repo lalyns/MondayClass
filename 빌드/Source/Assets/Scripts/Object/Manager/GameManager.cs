@@ -184,17 +184,27 @@ public class GameManager : MonoBehaviour
     public static void SetSceneSetting()
     {
         var num = MCSceneManager.currentSceneNumber;
+
+        CanvasInfo.Instance.SetRenderCam();
+
         switch (num)
         {
             case 0:
                 break;
             case 1:
                 Debug.Log("aa");
-                Instance.Scene1Setting();
                 break;
             case 2:
-                Debug.Log("Boss");
-                Instance.BossSceneSetting();
+                Debug.Log("Stage1");
+                Instance.StageSet();
+                break;
+            case 3:
+                Debug.Log("Stage2");
+                Instance.StageSet();
+                break;
+            case 4:
+                Debug.Log("Stage3");
+                Instance.StageSet();
                 break;
             case 5:
                 Instance.BossSet();
@@ -202,21 +212,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void StageSet()
+    {
+        UserInterface.SetPointerMode(false);
+
+        UserInterface.Instance.SetValue();
+        UserInterface.SetAllUserInterface(true);
+        UserInterface.SetPlayerUserInterface(true);
+
+        CharacterControl = true;
+    }
+
     private void Scene1Setting()
     {
-        CanvasInfo.Instance.SetRenderCam();
 
     }
 
-    public void SoundPlay()
+    public void SetBank()
     {
-        MCSoundManager.LoadBank();
         MCSoundManager.SetSound();
     }
 
     private void BossSet()
     {
-        TempDirector.Instance.PlaySet.SetActive(false);
+        TempDirector.Instance.CineStart();
     }
 
     private void BossSceneSetting()
