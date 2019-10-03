@@ -121,7 +121,7 @@ public static class GameLib
                         {
                             Transform transform =
                                 EffectPoolManager._Instance._RedHatAttackEffect.
-                                ItemSetActive(PlayerFSMManager.instance.Anim.transform, "Effect");
+                                ItemSetActive(PlayerFSMManager.Instance.Anim.transform, "Effect");
 
                             transform.rotation = ownerStat.transform.rotation;
                         }

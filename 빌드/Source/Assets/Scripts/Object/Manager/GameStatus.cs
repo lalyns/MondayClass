@@ -47,7 +47,7 @@ public class GameStatus : MonoBehaviour
 
     public void Awake()
     {
-        _PlayerInstance = PlayerFSMManager.Instance;
+        //_PlayerInstance = PlayerFSMManager.Instance;
     }
 
     public void Start()

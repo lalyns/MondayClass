@@ -41,8 +41,15 @@ public enum AttackType
 public class PlayerFSMManager : FSMManager
 {
     public PlayerSound _Sound;
-    public static PlayerFSMManager instance;
-    public static PlayerFSMManager Instance => instance;
+    private static PlayerFSMManager instance;
+    public static PlayerFSMManager Instance {
+        get {
+            if (instance == null)
+                instance = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<PlayerFSMManager>();
+            return instance;
+        }
+    }
+
 
     private bool _onAttack = false;
     private bool _isinit = false;
