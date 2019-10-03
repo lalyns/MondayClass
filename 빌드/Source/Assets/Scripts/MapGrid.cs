@@ -14,15 +14,26 @@ public class MapGrid : MonoBehaviour
     public int loopCount = 0;
     public bool isDrawGizmos = true;
 
+    private void Awake()
+    {
+        if(center == null)
+            center = this.transform;
+        if(actor == null)
+            actor = transform.GetChild(0);
+
+        if (gridSize <= 0)
+            gridSize = 0.5f;
+    }
 
     private void Start()
     {
         actor.position = center.transform.position;
         mapPositions.Clear();
+
         SetCoord(gridSize);
     }
 
-    void SetCoord(float gridSize = 0.5f)
+    void SetCoord(float gridSize)
     {
         for(float x = -22; x <= 22; x += gridSize)
         {
