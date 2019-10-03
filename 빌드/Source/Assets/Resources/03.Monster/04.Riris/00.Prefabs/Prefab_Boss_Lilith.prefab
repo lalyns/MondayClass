@@ -2016,6 +2016,7 @@ MonoBehaviour:
   targetSetDelay: 1.2
   stompDelay: 1.5
   StompEnd: 0
+  PatternEnd: 0
 --- !u!114 &7112653474660143937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2152,10 +2153,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2047077ec452fc49894d4d21c952f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Delay: 5
-  _Pattern: 010000000200000001000000
-  _PrevPhase: 0
-  _Turn: 0
+  delay: 5
+  ririsPhases:
+  - patterns: 01000000020000000200000001000000
+  - patterns: 010000000300000002000000030000000100000003000000
+  - patterns: 03000000010000000300000002000000
 --- !u!1 &7112653474965765310
 GameObject:
   m_ObjectHideFlags: 0
