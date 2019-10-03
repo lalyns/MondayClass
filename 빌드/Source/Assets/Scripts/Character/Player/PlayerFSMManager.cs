@@ -1036,15 +1036,26 @@ public class PlayerFSMManager : FSMManager
 
         Skill2_Parent.localPosition = new Vector3(0, 0.18f, skill2_Distance);
     }
+
+    public GameObject Skill2_Test;
+
     public void Skill2()
     {
         if (isSkill2) return;
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SetState(PlayerState.SKILL2);
-            isSkill2 = true;
-            return;
+            Skill2_Test.SetActive(true);
+        }
+
+        if (Skill2_Test.activeSelf)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                SetState(PlayerState.SKILL2);
+                isSkill2 = true;
+                return;
+            }
         }
     }
 

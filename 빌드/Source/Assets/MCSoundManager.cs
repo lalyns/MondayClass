@@ -9,11 +9,13 @@ public class MCSoundManager : MonoBehaviour
 {
     public static MCSoundManager Instance;
 
+    public static int SoundCall = 0;
+
     public ObjectSound objectSound;
     public AkBank Sound;
     public AkBank Bgm;
     public AkBank Ambient;
-
+    public AkBank Voice;
 
     private void Awake()
     {
@@ -23,8 +25,7 @@ public class MCSoundManager : MonoBehaviour
 
     public void Start()
     {
-        if(MCSceneManager.currentSceneNumber != 0)
-            SetSound();
+
     }
 
     public static void LoadBank()
@@ -36,7 +37,6 @@ public class MCSoundManager : MonoBehaviour
 
     public static void SetSound()
     {
-
         Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
             Instance.objectSound.ambient.stageAmbient);
         Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
