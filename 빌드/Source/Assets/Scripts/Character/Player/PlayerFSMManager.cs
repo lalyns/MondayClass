@@ -240,6 +240,7 @@ public class PlayerFSMManager : FSMManager
         for(int x = 0; x<_MR.Length; x++)
             materialList.AddRange(_MR[x].materials);
 
+        remainingDash = 3;
 
     }
     VignetteModeParameter parameter;
@@ -394,11 +395,12 @@ public class PlayerFSMManager : FSMManager
         Skill2();
         Skill3();
 
-        Attack();
-        if(dashCount >= 0)
+        if(!isSkill2End)
+            Attack();
+        if(remainingDash>0)
             Dash();
 
-        DashReset();
+        //DashReset();
         Skill3MouseLock();
         Skill3Reset();
 
@@ -438,9 +440,7 @@ public class PlayerFSMManager : FSMManager
 
     private void FixedUpdate()
     {
-        if (isShake)
-            //StartCoroutine(shake.ShakeCamera(.2f, 0.02f, 0.0f));
-            Skill2Set();
+        Skill2Set();
 
         r_x = Input.GetAxis("Mouse X");
 
@@ -537,7 +537,7 @@ public class PlayerFSMManager : FSMManager
         }
  
         if (isSpecial)
-        {//11.6초후변신끝
+        {
             WeaponTransformEffect.SetActive(true);
             specialTimer += Time.deltaTime;
             if (specialTimer >= 0.6833f && !isTrans1)
@@ -691,16 +691,9 @@ public class PlayerFSMManager : FSMManager
                 {
 
                 }
+                UIPlayer.Instance.DashStart();
 
-
-                isDashCTime[currentDashNumber--] = true;
-
-                if (currentDashNumber < 0)
-                {
-                    currentDashNumber = 2;
-                }
-
-                dashCount--;
+                
 
                 
 
@@ -713,72 +706,10 @@ public class PlayerFSMManager : FSMManager
     }
     public int maxDash = 3;
     public float dashCoolTime = 3f;
-    public float currentDashCollTime = 0f;
+    public float currentDashCoolTime = 0f;
     public int remainingDash = 0;
 
-    public void DashReset()
-    {
-        if(remainingDash < maxDash)
-        {
-            currentDashCollTime += Time.deltaTime;
-            if(currentDashCollTime >= dashCoolTime)
-            {
-                remainingDash++;
-                currentDashCollTime = 0;
-            }
-        }
-
-        // 첫번째 차는중
-        if (isDashCTime[0] && !isDashCTime[1] && dashCount == 0)
-        {
-            DashCTime[0] -= Time.deltaTime;
-            if (DashCTime[0] <= 0)
-            {
-                DashCTime[0] = 3f;
-                //isDashCTime[0] = false;
-                isDashCTime[1] = true;
-                dashCount++;
-            }
-        }
-        // 두번째 차는중
-        if (isDashCTime[1] && !isDashCTime[2] && dashCount == 1)
-        {
-            DashCTime[1] -= Time.deltaTime;
-            if (DashCTime[1] <= 0)
-            {
-                DashCTime[1] = 3f;
-                isDashCTime[2] = true;
-                dashCount++;
-            }
-        }
-        // 세번째 차는중
-        if (isDashCTime[2] && dashCount == 2)
-        {
-            DashCTime[2] -= Time.deltaTime;
-            if (DashCTime[2] <= 0)
-            {
-                DashCTime[2] = 3f;
-                isDashCTime[2] = false;
-                dashCount++;
-            }
-        }
-    }
-
-    //private void OnGUI()
-    //{
-    //    var value = string.Format(
-    //                "[Dash1] isCT : {0} remain : {1} \n" +
-    //                "[Dash2] isCT : {2} remain : {3} \n" +
-    //                "[Dash3] isCT : {4} remain : {5} \n" +
-    //                "Current Dash : {6} Remain Dash : {7}\n",
-    //                isDashCTime[0], DashCTime[0],
-    //                isDashCTime[1], DashCTime[1],
-    //                isDashCTime[2], DashCTime[2],
-    //                currentDashNumber, dashCount);
-
-    //    if (GUI.RepeatButton(new Rect(Screen.width / 100f * 80f, Screen.height * 0.8f, 230, 85), value)) { }
-    //}
-
+    
     // 스킬 켜주고 꺼주고 하는 함수
     void Skill1Set(GameObject[] effects, GameObject[] effects_special, bool isnormal)
     {
@@ -1038,7 +969,7 @@ public class PlayerFSMManager : FSMManager
     }
 
     public GameObject Skill2_Test;
-
+    public bool isSkill2End;
     public void Skill2()
     {
         if (isSkill2) return;
@@ -1046,6 +977,7 @@ public class PlayerFSMManager : FSMManager
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             Skill2_Test.SetActive(true);
+            isSkill2End = true;
         }
 
         if (Skill2_Test.activeSelf)

@@ -11,6 +11,7 @@ public class PlayerDEAD : FSMState
     {
         base.BeginState();
         //GetComponent<Collider>().enabled = false;
+        
 
     }
 

@@ -18,7 +18,9 @@ namespace MC.UI
         public RectTransform root;
         public PlayerUIResource resource;
 
-        private static UIPlayer Instance;
+        private static UIPlayer instance;
+        public static UIPlayer Instance { get { return instance; } }
+
         private PlayerFSMManager playerFSM;
         
 
@@ -29,7 +31,7 @@ namespace MC.UI
 
         public void SetValue()
         {
-            Instance = this;
+            instance = this;
             playerFSM = PlayerFSMManager.Instance;
         }
 
@@ -68,13 +70,36 @@ namespace MC.UI
 
         public void DashSetActive()
         {
-            for (int i = 0; i < 3; i++)
+            if(playerFSM.remainingDash < playerFSM.maxDash)
             {
-                if (playerFSM.isDashCTime[i])
+                playerFSM.currentDashCoolTime += Time.deltaTime;
+                if(playerFSM.currentDashCoolTime >= playerFSM.dashCoolTime)
                 {
-                    var fillValue = Mathf.Clamp01(1f - (playerFSM.DashCTime[i] / 3f));
-                    dash[i].inActive.fillAmount = fillValue;
+                    playerFSM.remainingDash++;
+                    playerFSM.currentDashCoolTime = 0;
                 }
+                for (int i = 0; i < 3; i++)
+                    if (playerFSM.remainingDash == i)
+                        dash[i].active.fillAmount = playerFSM.currentDashCoolTime / 3f;
+                    //    var fillValue = Mathf.Clamp01(1f - (playerFSM.DashCTime[i] / 3f));
+                    //    dash[i].inActive.fillAmount = fillValue;
+            }            
+        }
+        public void DashStart()
+        {
+            if(playerFSM.remainingDash == 1)
+            {
+                dash[1].active.fillAmount = 0;
+                playerFSM.remainingDash--;
+            }
+            if (playerFSM.remainingDash == 2)
+            {
+                dash[2].active.fillAmount = 0;
+                playerFSM.remainingDash--;
+            }
+            if (playerFSM.remainingDash == 3)
+            {
+                playerFSM.remainingDash--;
             }
         }
 
