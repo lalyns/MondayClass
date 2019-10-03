@@ -49,7 +49,7 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    private MissionBase currentMission;
+    [SerializeField] private MissionBase currentMission;
     public MissionBase CurrentMission {
         get {
             if (currentMission == null) currentMission = GameObject.FindObjectOfType<MissionBase>();
@@ -113,7 +113,7 @@ public class MissionManager : MonoBehaviour
 
         if (GameStatus.Instance.StageLevel >= 3)
         {
-            UserInterface.Instance.SelectorUI.buttons[0].ChangeMission(3);
+            UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
         }
 
         isChange = true;
@@ -129,20 +129,20 @@ public class MissionManager : MonoBehaviour
 
         if (type == MissionType.Boss)
         {
-            MCSceneManager.Instance.NextScene(5);
+            MCSceneManager.Instance.NextScene(MCSceneManager.BOSS);
         }
         else
         {
             switch (type)
             {
                 case MissionType.Annihilation:
-                    MCSceneManager.Instance.NextScene(2);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
                     break;
                 case MissionType.Defence:
-                    MCSceneManager.Instance.NextScene(4);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE);
                     break;
                 case MissionType.Survival:
-                    MCSceneManager.Instance.NextScene(3);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL);
                     break;
             }
 
@@ -177,7 +177,6 @@ public class MissionManager : MonoBehaviour
             transform.LookAt(Instance.CurrentMission.Exit.transform);
 
 
-        CinemaManager.CinemaStart(Instance.CurrentMission.enterDirector);
     }
 
     public static void StartMission() {

@@ -25,7 +25,7 @@ public class RedHatWeapon : MonoBehaviour
         {
             if (other.transform.tag == "Player")
             {
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", redHat.Stat, 10);
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", redHat.Stat, MonsterType.RedHat);
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
                 Debug.Log("데미지 10");

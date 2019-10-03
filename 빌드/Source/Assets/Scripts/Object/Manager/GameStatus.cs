@@ -11,7 +11,7 @@ public enum CurrentGameState
     Tutorial,
     Start,
     Dialog,
-    Mission,
+    VideoProduct,
 }
 
 public class GameStatus : MonoBehaviour
@@ -191,7 +191,7 @@ public class GameStatus : MonoBehaviour
             {
 
                 UserInterface.SetPlayerUserInterface(false);
-                StartCoroutine(MCSceneManager.Instance.LoadScene(2));
+                MCSceneManager.Instance.NextScene(MCSceneManager.BOSS);
             }
 
             if (Input.GetKeyDown(KeyCode.P))
