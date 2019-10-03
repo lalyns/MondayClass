@@ -143,25 +143,16 @@ namespace MC.UI
 
         private void PlayerUI()
         {
-            // 나중에 변신에 포함시킬것
-            try
-            {
-                UIPlayer.ProfileImage(playerFSMMgr.isNormal);
-                HPChangeEffect(playerFSMMgr.Stat, UIPlayer.hpBar);
-                UIPlayer.SpecialGauge(playerFSMMgr.SpecialGauge);
-                UIPlayer.DashSetActive();
+            UIPlayer.ProfileImage(playerFSMMgr.isNormal);
 
-                if (playerFSMMgr.isSkill1CTime) UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime);
-                if (playerFSMMgr.isSkill2CTime) UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime);
-                if (playerFSMMgr.isSkill3CTime) UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime);
-                if (playerFSMMgr.isSkill4CTime) UIPlayer.SkillSetActive(3, playerFSMMgr.Skill4CTime);
-            }
-            catch
-            {
+            HPChangeEffect(playerFSMMgr.Stat, UIPlayer.hpBar);
+            UIPlayer.SpecialGauge(playerFSMMgr.SpecialGauge);
+            UIPlayer.DashSetActive();
 
-            }
-
-           
+            if (playerFSMMgr.isSkill1CTime) UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime);
+            if (playerFSMMgr.isSkill2CTime) UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime);
+            if (playerFSMMgr.isSkill3CTime) UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime);
+            if (playerFSMMgr.isSkill4CTime) UIPlayer.SkillSetActive(3, playerFSMMgr.Skill4CTime);
         }
         #endregion
 
