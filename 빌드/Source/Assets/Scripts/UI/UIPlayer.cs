@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using MC.SceneDirector;
 namespace MC.UI
 {
     [System.Serializable]
@@ -25,7 +25,8 @@ namespace MC.UI
 
         private void Awake()
         {
-            SetValue();
+            if (MCSceneManager.currentSceneNumber != MCSceneManager.TITLE)
+                SetValue();
         }
 
         public void SetValue()
