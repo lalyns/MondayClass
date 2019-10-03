@@ -17,21 +17,21 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 5be5390225c3b24e835e6e687da8857c
     GuidInternal: 
-    m_lastTime: -8586317803804230688
+    m_lastTime: -8586315147163297202
     List: []
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: e94215cccc25514eb9e63428931f7cce
     GuidInternal: 
-    m_lastTime: -8586317803816128879
+    m_lastTime: -8586315147195965429
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2680d0541d40064fad20fcbe678a2153
     GuidInternal: 
-    m_lastTime: -8586317525832755537
+    m_lastTime: -8586315147163357041
     List:
     - name: Ambient
       guid: d248807503f71c4f9e1f03cc1db7fc2b
@@ -51,21 +51,30 @@ MonoBehaviour:
       - ElementName: Bgm
         ObjectType: 7
       Path: Default Work Unit\Bgm
-    - name: MondayClass
-      guid: da45e6541683914ea21e9fea00e0e076
-      id: 2245607887
+    - name: Sound
+      guid: fc8ec2116ab31149bc45984fea7d1021
+      id: 623086306
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: MondayClass
+      - ElementName: Sound
         ObjectType: 7
-      Path: Default Work Unit\MondayClass
+      Path: Default Work Unit\Sound
+    - name: Voice
+      guid: efb148af68056749ad47f09d7e65d165
+      id: 3170124113
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Voice
+        ObjectType: 7
+      Path: Default Work Unit\Voice
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 6dccbec713c589449e534909e266772f
     GuidInternal: 
-    m_lastTime: -8586317287687063888
+    m_lastTime: -8586315147209763297
     List:
     - name: Battleground
       guid: 65d3763159450249877df23d54625ec2
@@ -81,20 +90,6 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Bgm
-      guid: 7fbf5e1dab50514fabf9bb4cf92904d3
-      id: 412724365
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Test
-        ObjectType: 4
-      - ElementName: Bgm
-        ObjectType: 3
-      Path: Default Work Unit\Test\Bgm
-      maxAttenuation: 0
-      maxDuration: 184
-      minDuration: 184
     - name: Bossroom
       guid: c7836792f4b6d3459d25e8c55f6cbcc6
       id: 3329270527
@@ -133,9 +128,11 @@ MonoBehaviour:
         ObjectType: 4
       - ElementName: Portal
         ObjectType: 4
+      - ElementName: Sound
+        ObjectType: 4
       - ElementName: Object_Portal_Sound_Activationl
         ObjectType: 3
-      Path: Default Work Unit\Object\Portal\Object_Portal_Sound_Activationl
+      Path: Default Work Unit\Object\Portal\Sound\Object_Portal_Sound_Activationl
       maxAttenuation: 0
       maxDuration: 2.480771
       minDuration: 2.480771
@@ -149,9 +146,11 @@ MonoBehaviour:
         ObjectType: 4
       - ElementName: Portal
         ObjectType: 4
+      - ElementName: Sound
+        ObjectType: 4
       - ElementName: Object_Portal_Sound_Create
         ObjectType: 3
-      Path: Default Work Unit\Object\Portal\Object_Portal_Sound_Create
+      Path: Default Work Unit\Object\Portal\Sound\Object_Portal_Sound_Create
       maxAttenuation: 0
       maxDuration: 2.740386
       minDuration: 2.740386
@@ -165,12 +164,14 @@ MonoBehaviour:
         ObjectType: 4
       - ElementName: Portal
         ObjectType: 4
+      - ElementName: Sound
+        ObjectType: 4
       - ElementName: Object_Portal_Sound_Enter
         ObjectType: 3
-      Path: Default Work Unit\Object\Portal\Object_Portal_Sound_Enter
+      Path: Default Work Unit\Object\Portal\Sound\Object_Portal_Sound_Enter
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0
+      minDuration: 0
     - name: Object_Portal_Sound_Exit
       guid: 32e9a2a51598274a819f4c33603a7a58
       id: 3390316968
@@ -181,9 +182,11 @@ MonoBehaviour:
         ObjectType: 4
       - ElementName: Portal
         ObjectType: 4
+      - ElementName: Sound
+        ObjectType: 4
       - ElementName: Object_Portal_Sound_Exit
         ObjectType: 3
-      Path: Default Work Unit\Object\Portal\Object_Portal_Sound_Exit
+      Path: Default Work Unit\Object\Portal\Sound\Object_Portal_Sound_Exit
       maxAttenuation: 0
       maxDuration: 2.769229
       minDuration: 2.769229
@@ -199,12 +202,60 @@ MonoBehaviour:
         ObjectType: 4
       - ElementName: Swing
         ObjectType: 4
+      - ElementName: Sound
+        ObjectType: 4
+      - ElementName: Cast Sound
+        ObjectType: 4
       - ElementName: Player_Action_AttackSound_Swing
         ObjectType: 3
-      Path: Default Work Unit\Player\Action\Swing\Player_Action_AttackSound_Swing
+      Path: Default Work Unit\Player\Action\Swing\Sound\Cast Sound\Player_Action_AttackSound_Swing
       maxAttenuation: 0
       maxDuration: 0.461542
       minDuration: 0.345766
+    - name: Player_Action_Damage_Voice
+      guid: 1756278d78906b4fb8a58eb91d7a9a44
+      id: 447796342
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Action
+        ObjectType: 4
+      - ElementName: Damage
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Cast Sound
+        ObjectType: 4
+      - ElementName: Player_Action_Damage_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Action\Damage\Voice\Cast Sound\Player_Action_Damage_Voice
+      maxAttenuation: 0
+      maxDuration: 0.461542
+      minDuration: 0.461542
+    - name: Player_Action_Die_Voice
+      guid: d7a76acb4b70134fbe70d8e9e29714e6
+      id: 4038288023
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Action
+        ObjectType: 4
+      - ElementName: Die
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Cast Voice
+        ObjectType: 4
+      - ElementName: Player_Action_Die_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Action\Die\Voice\Cast Voice\Player_Action_Die_Voice
+      maxAttenuation: 0
+      maxDuration: 1.846145
+      minDuration: 1.846145
     - name: Player_Action_HitSound_Swing
       guid: ba10fe95dc61cf49be81c9c1d09f4a46
       id: 2047720253
@@ -217,9 +268,13 @@ MonoBehaviour:
         ObjectType: 4
       - ElementName: Swing
         ObjectType: 4
+      - ElementName: Sound
+        ObjectType: 4
+      - ElementName: Hit Sound
+        ObjectType: 4
       - ElementName: Player_Action_HitSound_Swing
         ObjectType: 3
-      Path: Default Work Unit\Player\Action\Swing\Player_Action_HitSound_Swing
+      Path: Default Work Unit\Player\Action\Swing\Sound\Hit Sound\Player_Action_HitSound_Swing
       maxAttenuation: 0
       maxDuration: 0.518063
       minDuration: 0.435638
@@ -235,12 +290,244 @@ MonoBehaviour:
         ObjectType: 4
       - ElementName: Foot Step
         ObjectType: 4
+      - ElementName: Sound
+        ObjectType: 4
+      - ElementName: Cast Sound
+        ObjectType: 4
       - ElementName: Player_Action_Sound_Footstep
         ObjectType: 3
-      Path: Default Work Unit\Player\Action\Foot Step\Player_Action_Sound_Footstep
+      Path: Default Work Unit\Player\Action\Foot Step\Sound\Cast Sound\Player_Action_Sound_Footstep
       maxAttenuation: 0
       maxDuration: 0.461542
       minDuration: 0.259032
+    - name: Player_Action_Swing_Hard_Voice
+      guid: 57ab84189d586b48ae9264adea897c18
+      id: 3895961451
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Action
+        ObjectType: 4
+      - ElementName: Swing
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Player_Action_Swing_Hard_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Action\Swing\Voice\Player_Action_Swing_Hard_Voice
+      maxAttenuation: 0
+      maxDuration: 0.456735
+      minDuration: 0.456735
+    - name: Player_Action_Swing_Normal_Voice
+      guid: a9d420e4a58ce74f96482cb72dc057d8
+      id: 2873463837
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Action
+        ObjectType: 4
+      - ElementName: Swing
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Player_Action_Swing_Normal_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Action\Swing\Voice\Player_Action_Swing_Normal_Voice
+      maxAttenuation: 0
+      maxDuration: 0.456735
+      minDuration: 0.456735
+    - name: Player_Action_Swing_Transform_Voice
+      guid: 31833b34c7076b4a97f8e22125f8e45c
+      id: 226778022
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Action
+        ObjectType: 4
+      - ElementName: Swing
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Player_Action_Swing_Transform_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Action\Swing\Voice\Player_Action_Swing_Transform_Voice
+      maxAttenuation: 0
+      maxDuration: 0.456735
+      minDuration: 0.456735
+    - name: Player_Emote_Rage_Voice
+      guid: 98402fcdc83f1c49b4c58039b52ceaff
+      id: 3515964306
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Emote
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Cast Voice
+        ObjectType: 4
+      - ElementName: Player_Emote_Rage_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Emote\Voice\Cast Voice\Player_Emote_Rage_Voice
+      maxAttenuation: 0
+      maxDuration: 1.846145
+      minDuration: 1.846145
+    - name: Player_Emote_Sad_Voice
+      guid: ff223812bdf4f6439288cbfb05022684
+      id: 4170229925
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Emote
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Cast Voice
+        ObjectType: 4
+      - ElementName: Player_Emote_Sad_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Emote\Voice\Cast Voice\Player_Emote_Sad_Voice
+      maxAttenuation: 0
+      maxDuration: 0.923084
+      minDuration: 0.923084
+    - name: Player_Emote_Smile_Voice
+      guid: 075d98965521ef48a273b74438bb1172
+      id: 2926638781
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Emote
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Cast Voice
+        ObjectType: 4
+      - ElementName: Player_Emote_Smile_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Emote\Voice\Cast Voice\Player_Emote_Smile_Voice
+      maxAttenuation: 0
+      maxDuration: 1.846145
+      minDuration: 1.846145
+    - name: Player_Emote_Surprised_Voice
+      guid: f3cad2cd99fb1b4eaf21b0b2c65ab8b2
+      id: 1382127474
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Emote
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Cast Voice
+        ObjectType: 4
+      - ElementName: Player_Emote_Surprised_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Emote\Voice\Cast Voice\Player_Emote_Surprised_Voice
+      maxAttenuation: 0
+      maxDuration: 1.846145
+      minDuration: 1.846145
+    - name: Player_Skill_Skill_01_Cast_Voice
+      guid: 2bd0531dac8d754787fff83f08c04635
+      id: 2493544557
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Skill
+        ObjectType: 4
+      - ElementName: Skill_01
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Cast Voice
+        ObjectType: 4
+      - ElementName: Player_Skill_Skill_01_Cast_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Skill\Skill_01\Voice\Cast Voice\Player_Skill_Skill_01_Cast_Voice
+      maxAttenuation: 0
+      maxDuration: 0.923084
+      minDuration: 0.923084
+    - name: Player_Skill_Skill_02_Cast_Voice
+      guid: 3438954138759c4c8e35041950cf747b
+      id: 3740647356
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Skill
+        ObjectType: 4
+      - ElementName: Skill_02
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Cast Voice
+        ObjectType: 4
+      - ElementName: Player_Skill_Skill_02_Cast_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Skill\Skill_02\Voice\Cast Voice\Player_Skill_Skill_02_Cast_Voice
+      maxAttenuation: 0
+      maxDuration: 0.923084
+      minDuration: 0.923084
+    - name: Player_Skill_Skill_03_Cast_Voice
+      guid: 34a73f4659eed849b6341f3c80496875
+      id: 1156145295
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Skill
+        ObjectType: 4
+      - ElementName: Skill_03
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Cast Voice
+        ObjectType: 4
+      - ElementName: Player_Skill_Skill_03_Cast_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Skill\Skill_03\Voice\Cast Voice\Player_Skill_Skill_03_Cast_Voice
+      maxAttenuation: 0
+      maxDuration: 0.923084
+      minDuration: 0.923084
+    - name: Player_Skill_Skill_03_Finish_Voice
+      guid: 695f200a653db049a81064e9004b5e4e
+      id: 1837102559
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Skill
+        ObjectType: 4
+      - ElementName: Skill_03
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Finish Voice
+        ObjectType: 4
+      - ElementName: Player_Skill_Skill_03_Finish_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Skill\Skill_03\Voice\Finish Voice\Player_Skill_Skill_03_Finish_Voice
+      maxAttenuation: 0
+      maxDuration: 0.923084
+      minDuration: 0.923084
     - name: Player_Skill_Sound_Teleport
       guid: 778dc258e0d46f4c8bdf986cbdfeeccc
       id: 391096726
@@ -253,15 +540,63 @@ MonoBehaviour:
         ObjectType: 4
       - ElementName: Teleport
         ObjectType: 4
+      - ElementName: Sound
+        ObjectType: 4
+      - ElementName: Cast Sound
+        ObjectType: 4
       - ElementName: Player_Skill_Sound_Teleport
         ObjectType: 3
-      Path: Default Work Unit\Player\Skill\Teleport\Player_Skill_Sound_Teleport
+      Path: Default Work Unit\Player\Skill\Teleport\Sound\Cast Sound\Player_Skill_Sound_Teleport
       maxAttenuation: 0
       maxDuration: 1.153855
       minDuration: 1.153855
-    - name: Player_Skill_Voice_Teleport
-      guid: f2c5b16ead028d4f821200b2078a6078
-      id: 388773759
+    - name: Player_Skill_Special_Cast_Voice
+      guid: dfe87c55587c5343897ae98d304e88e1
+      id: 3343185485
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Skill
+        ObjectType: 4
+      - ElementName: Special
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Cast Voice
+        ObjectType: 4
+      - ElementName: Player_Skill_Special_Cast_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Skill\Special\Voice\Cast Voice\Player_Skill_Special_Cast_Voice
+      maxAttenuation: 0
+      maxDuration: 1.846145
+      minDuration: 1.846145
+    - name: Player_Skill_Special_Finish_Voice
+      guid: def3829b8096f24fa6d9327157a89918
+      id: 870263609
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Skill
+        ObjectType: 4
+      - ElementName: Special
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Finish Voice
+        ObjectType: 4
+      - ElementName: Player_Skill_Special_Finish_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Skill\Special\Voice\Finish Voice\Player_Skill_Special_Finish_Voice
+      maxAttenuation: 0
+      maxDuration: 1.846145
+      minDuration: 1.846145
+    - name: Player_Skill_Teleport_Cast_Voice
+      guid: 17d972162416f24787465e1688912730
+      id: 2415540199
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
@@ -271,44 +606,95 @@ MonoBehaviour:
         ObjectType: 4
       - ElementName: Teleport
         ObjectType: 4
-      - ElementName: Player_Skill_Voice_Teleport
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Cast Voice
+        ObjectType: 4
+      - ElementName: Player_Skill_Teleport_Cast_Voice
         ObjectType: 3
-      Path: Default Work Unit\Player\Skill\Teleport\Player_Skill_Voice_Teleport
+      Path: Default Work Unit\Player\Skill\Teleport\Voice\Cast Voice\Player_Skill_Teleport_Cast_Voice
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 1.384626
+      minDuration: 0.923084
+    - name: Player_Skill_Transform_Cast_Voice
+      guid: 21c13d7c9b8ed3468c813057b6ee2011
+      id: 1718332482
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Skill
+        ObjectType: 4
+      - ElementName: Transform
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Cast Voice
+        ObjectType: 4
+      - ElementName: Player_Skill_Transform_Cast_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Skill\Transform\Voice\Cast Voice\Player_Skill_Transform_Cast_Voice
+      maxAttenuation: 0
+      maxDuration: 1.384626
+      minDuration: 1.384626
+    - name: Player_Skill_Transform_Finish_Voice
+      guid: 971403e3bee15b4696a4bf3eff13b031
+      id: 652819194
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Player
+        ObjectType: 4
+      - ElementName: Skill
+        ObjectType: 4
+      - ElementName: Transform
+        ObjectType: 4
+      - ElementName: Voice
+        ObjectType: 4
+      - ElementName: Finish Voice
+        ObjectType: 4
+      - ElementName: Player_Skill_Transform_Finish_Voice
+        ObjectType: 3
+      Path: Default Work Unit\Player\Skill\Transform\Voice\Finish Voice\Player_Skill_Transform_Finish_Voice
+      maxAttenuation: 0
+      maxDuration: 1.384626
+      minDuration: 1.384626
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: e175583feb4e9545bf0bcde8fffc3f35
     GuidInternal: 
-    m_lastTime: -8586317803816148824
+    m_lastTime: -8586315147209753336
     List: []
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 46bcdd2cdc0dce45a07950334f739fbe
     GuidInternal: 
-    m_lastTime: -8586317803804260612
+    m_lastTime: -8586315147163327123
     List: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 3e05519fbfbe4e4f81ae60a6a43b9f2b
     GuidInternal: 
-    m_lastTime: -8586317803804250639
+    m_lastTime: -8586315147163317150
     List: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 17b81135ae253644b0bf0b71ffdab1d9
     GuidInternal: 
-    m_lastTime: -8586317803804250639
+    m_lastTime: -8586315147163307178
     List: []
   ExpandedItems:
   - /Monday Class - Dreamcatcher Sound Pack
   - /Monday Class - Dreamcatcher Sound Pack/Events
   - /Monday Class - Dreamcatcher Sound Pack/Events/Default Work Unit
   - /Monday Class - Dreamcatcher Sound Pack/Events/Default Work Unit/Ambient
+  - /Monday Class - Dreamcatcher Sound Pack/Events/Default Work Unit/Object
+  - /Monday Class - Dreamcatcher Sound Pack/Events/Default Work Unit/Object/Portal
+  - /Monday Class - Dreamcatcher Sound Pack/Events/Default Work Unit/Object/Portal/Sound
   autoPopulateEnabled: 0
   CurrentPluginConfig: 
