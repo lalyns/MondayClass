@@ -8,12 +8,12 @@ namespace MC.SceneDirector
 {
     public class MCSceneManager : MonoBehaviour
     {
-        public const int TITLE      = 0;
-        public const int TUTORIAL   = 1;
-        public const int STAGE1     = 2;
-        public const int STAGE2     = 3;
-        public const int STAGE3     = 4;
-        public const int BOSS       = 5;
+        public const int TITLE          = 0;
+        public const int TUTORIAL       = 1;
+        public const int ANNIHILATION   = 2;
+        public const int SURVIVAL       = 3;
+        public const int DEFENCE        = 4;
+        public const int BOSS           = 5;
 
         private static MCSceneManager _Instance;
         public static MCSceneManager Instance {
@@ -33,22 +33,22 @@ namespace MC.SceneDirector
         private void Awake()
         {
             if (SceneManager.GetActiveScene().name == "00.Title") {
-                currentSceneNumber = 0;
+                currentSceneNumber = TITLE;
             }
             if (SceneManager.GetActiveScene().name == "01-0.Tutorial") {
-                currentSceneNumber = 1;
+                currentSceneNumber = TUTORIAL;
             }
             if (SceneManager.GetActiveScene().name == "01-1.Stage1") {
-                currentSceneNumber = 2;
+                currentSceneNumber = ANNIHILATION;
             }
             if (SceneManager.GetActiveScene().name == "02.Stage2") {
-                currentSceneNumber = 3;
+                currentSceneNumber = SURVIVAL;
             }
             if (SceneManager.GetActiveScene().name == "03.Stage3") {
-                currentSceneNumber = 4;
+                currentSceneNumber = DEFENCE;
             }
             if (SceneManager.GetActiveScene().name == "04.Boss") {
-                currentSceneNumber = 5;
+                currentSceneNumber = BOSS;
             }
         }
 
@@ -81,9 +81,10 @@ namespace MC.SceneDirector
 
             if (async.isDone)
             {
+                GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>
                 {
-                    GameManager.SetSceneSetting();
+                    MCSoundManager.LoadBank();
                     isLoad = false;
                 }, true
             );

@@ -72,22 +72,25 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if(MCSceneManager.currentSceneNumber == 0)
+        if(MCSceneManager.currentSceneNumber == MCSceneManager.TITLE)
         {
-            uIActive.player = false;
-            uIActive.progress = false;
-            uIActive.selector = false;
             UserInterface.SetPointerMode(true);
 
             MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
                 MCSoundManager.Instance.objectSound.ambient.lobbyAmbient);
         }
 
-        if (MCSceneManager.currentSceneNumber == 1 ||
-            MCSceneManager.currentSceneNumber == 2)
+        if (MCSceneManager.currentSceneNumber == MCSceneManager.ANNIHILATION ||
+            MCSceneManager.currentSceneNumber == MCSceneManager.SURVIVAL     ||
+            MCSceneManager.currentSceneNumber == MCSceneManager.DEFENCE)
         {
             UserInterface.SetPointerMode(false);
+        }
 
+        if(MCSceneManager.currentSceneNumber == MCSceneManager.BOSS)
+        {
+            TempDirector.Instance.SceneStart();
+            UserInterface.SetPointerMode(false);
         }
 
         UserInterface.SetAllUserInterface(uIActive.all);
@@ -188,7 +191,6 @@ public class GameManager : MonoBehaviour
     {
         var num = MCSceneManager.currentSceneNumber;
 
-        MCSoundManager.LoadBank();
         CanvasInfo.Instance.SetRenderCam();
 
         switch (num)
@@ -210,6 +212,9 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Stage3");
                 Instance.StageSet();
                 break;
+            case 5:
+                Instance.BossSet();
+                break;
         }
     }
 
@@ -227,21 +232,16 @@ public class GameManager : MonoBehaviour
     private void Scene1Setting()
     {
 
-        UserInterface.Instance.SetValue();
-        UserInterface.SetPointerMode(false);
-        UserInterface.SetAllUserInterface(true);
-        UserInterface.SetPlayerUserInterface(true);
-
-
-        Invoke("SoundPlay", 5f);
-
-        MissionManager.Instance.SetValue();
-        GameStatus.Instance.SetValue();
     }
 
-    public void SoundPlay()
+    public void SetBank()
     {
         MCSoundManager.SetSound();
+    }
+
+    private void BossSet()
+    {
+        TempDirector.Instance.CineStart();
     }
 
     private void BossSceneSetting()

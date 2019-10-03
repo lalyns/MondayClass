@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using MC.UI;
 
 public enum RirisState
 {
@@ -10,6 +10,7 @@ public enum RirisState
     PATTERNB,
     PATTERNC,
     PATTERNEND,
+    DEAD,
 }
 
 
@@ -58,6 +59,10 @@ public class RirisFSMManager : FSMManager
     public Animator _WeaponAnimator;
     public Transform _WeaponCenter;
 
+    public HPBar hpBar;
+
+    public AttackType CurrentAttackType = AttackType.NONE;
+
     [Range(0, 1)] public float[] _PhaseThreshold = new float[3];
     public int _Phase = 0;
 
@@ -93,6 +98,11 @@ public class RirisFSMManager : FSMManager
         _isInit = true;
     }
 
+    private void Update()
+    {
+        HPUI();
+    }
+
     public void SetState(RirisState newState)
     {
         if (_isInit)
@@ -117,12 +127,85 @@ public class RirisFSMManager : FSMManager
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "Weapon")
+        if(other.transform.tag == "Weapon" || other.transform.tag == "Skill2")
         {
-
+            if (Stat.Hp > 0)
+                OnHitForBoss(PlayerFSMManager.Instance.attackType);
         }
     }
 
+    public void HPUI()
+    {
+        UserInterface.Instance.HPChangeEffect(Stat, hpBar);
+    }
+
+    public void OnHitForBoss(AttackType attackType)
+    {
+        Debug.Log(string.Format("Current Attack : {0}, Current HP: {1}, Current Phase: {2} ",
+            attackType.ToString(), Stat.Hp, _Phase));
+
+        if (CurrentState == RirisState.DEAD) return;
+
+        if (PlayerFSMManager.Instance.isNormal)
+            EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(this.transform, "Effect");
+
+        if (!PlayerFSMManager.Instance.isNormal)
+            EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(this.transform, "Effect");
+
+
+        CurrentAttackType = attackType;
+        int value = TransformTypeToInt(attackType);
+        PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
+
+        Stat.TakeDamage(playerStat, playerStat.DMG[value]);
+        Invoke("AttackSupport", 0.5f);
+
+        if (attackType == AttackType.ATTACK1)
+            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.15f, 0.1f));
+        if (attackType == AttackType.ATTACK2)
+            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.18f, 0.1f));
+        if (attackType == AttackType.ATTACK3)
+            StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.3f, 0.1f));
+        if (attackType == AttackType.SKILL1)
+            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.1f, 0.1f));
+        if (attackType == AttackType.SKILL2)
+            StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
+    }
+
+    public void AttackSupport()
+    {
+        hpBar.HitBackFun();
+    }
+
+    public int TransformTypeToInt(AttackType type)
+    {
+        switch (type)
+        {
+            case AttackType.ATTACK1:
+                return 0;
+
+            case AttackType.ATTACK2:
+                return 1;
+
+            case AttackType.ATTACK3:
+                return 2;
+
+            case AttackType.SKILL1:
+                return 3;
+
+            case AttackType.SKILL2:
+                return 4;
+
+            case AttackType.SKILL3:
+                return 5;
+
+            case AttackType.SKILL4:
+                return 6;
+
+            default:
+                return -1;
+        }
+    }
     public override void SetDeadState()
     {
         base.SetDeadState();

@@ -39,6 +39,7 @@ namespace MC.UI {
 
         public void ChangeMission(int type)
         {
+            Debug.Log(string.Format("미션 종류 : {0}", type));
             missioType.sprite = MissionManager.Instance.resources.types[type];
             missionType = (MissionType)type;
             

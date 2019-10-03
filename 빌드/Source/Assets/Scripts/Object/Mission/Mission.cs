@@ -67,8 +67,6 @@ namespace MC.Mission
 
         public bool missionEnd = false;
 
-        public PlayableDirector enterDirector;
-
         protected virtual void Awake()
         {
             Enter = GetComponentInChildren<MissionEnter>();
@@ -130,7 +128,6 @@ namespace MC.Mission
 
         public virtual void EnterDirector()
         {
-            CinemaManager.CinemaStart(enterDirector);
         }
 
         public IEnumerator SetSommonLocation(MonsterType[] monsterTypes)

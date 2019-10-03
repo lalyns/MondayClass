@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 namespace MC.UI
 {
-    [System.Serializable] [ExecuteInEditMode]
+    [System.Serializable]
+    [ExecuteInEditMode]
     public class UIPlayer : MonoBehaviour
     {
         public Image profile;
@@ -20,7 +21,7 @@ namespace MC.UI
 
         private static UIPlayer Instance;
         private PlayerFSMManager playerFSM;
-        
+
 
         private void Awake()
         {
@@ -68,16 +69,38 @@ namespace MC.UI
 
         public void DashSetActive()
         {
-            for (int i = 0; i < 3; i++)
+            if (playerFSM.remainingDash < playerFSM.maxDash)
             {
-                if (playerFSM.isDashCTime[i])
+                playerFSM.currentDashCoolTime += Time.deltaTime;
+                if (playerFSM.currentDashCoolTime >= playerFSM.dashCoolTime)
                 {
-                    var fillValue = Mathf.Clamp01(1f - (playerFSM.DashCTime[i] / 3f));
-                    dash[i].inActive.fillAmount = fillValue;
+                    playerFSM.remainingDash++;
+                    playerFSM.currentDashCoolTime = 0;
                 }
+                for (int i = 0; i < 3; i++)
+                    if (playerFSM.remainingDash == i)
+                        dash[i].active.fillAmount = playerFSM.currentDashCoolTime / 3f;
+                //    var fillValue = Mathf.Clamp01(1f - (playerFSM.DashCTime[i] / 3f));
+                //    dash[i].inActive.fillAmount = fillValue;
             }
         }
-
+        public void DashStart()
+        {
+            if (playerFSM.remainingDash == 1)
+            {
+                dash[1].active.fillAmount = 0;
+                playerFSM.remainingDash--;
+            }
+            if (playerFSM.remainingDash == 2)
+            {
+                dash[2].active.fillAmount = 0;
+                playerFSM.remainingDash--;
+            }
+            if (playerFSM.remainingDash == 3)
+            {
+                playerFSM.remainingDash--;
+            }
+        }
     }
 
     [System.Serializable]
