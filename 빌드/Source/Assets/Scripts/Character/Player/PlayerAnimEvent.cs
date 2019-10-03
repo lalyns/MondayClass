@@ -14,7 +14,7 @@ public class PlayerAnimEvent : MonoBehaviour
     private void Start()    
     {
         //input = InputHandler.instance;
-        player = PlayerFSMManager.instance;
+        player = PlayerFSMManager.Instance;
     }
     private void Update()
     {
