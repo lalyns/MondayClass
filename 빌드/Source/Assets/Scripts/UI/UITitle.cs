@@ -35,7 +35,5 @@ namespace MC.UI
             Application.Quit();
 #endif
         }
-
-
     }
 }

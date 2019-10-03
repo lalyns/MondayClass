@@ -8,6 +8,8 @@ public class TempDirector : MonoBehaviour
 {
     public static TempDirector Instance;
 
+    public bool PlayMode = false;
+
     public GameObject CineSet;
     public GameObject PlaySet;
 
@@ -21,7 +23,8 @@ public class TempDirector : MonoBehaviour
 
     void Start()
     {
-
+        if (PlayMode) SceneStart();
+        else CineStart();
     }
 
     public void CineStart()

@@ -9,6 +9,7 @@ public enum RirisState
     PATTERNA,
     PATTERNB,
     PATTERNC,
+    PATTERND,
     PATTERNEND,
     DEAD,
 }
@@ -54,6 +55,7 @@ public class RirisFSMManager : FSMManager
     public static float WeaponPatternALength;
 
     public Transform BulletCenter;
+    public Transform Pevis;
 
     public Transform _Weapon;
     public Animator _WeaponAnimator;
@@ -101,10 +103,22 @@ public class RirisFSMManager : FSMManager
     private void Update()
     {
         HPUI();
+
+        if(Input.GetKey(KeyCode.LeftAlt))
+        {
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                Stat.TakeDamage(PlayerFSMManager.Instance.Stat, 22000);
+                Invoke("AttackSupport", 0.5f);
+            }
+
+        }
     }
 
     public void SetState(RirisState newState)
     {
+        Debug.Log("New State : " + newState.ToString());
+
         if (_isInit)
         {
             _States[_CurrentState].enabled = false;

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9093ed2a4ad2ffb4fb22ce6be3d600e2
+guid: f9a0b71278fdec145b1c3346a042d67a
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -90,26 +90,32 @@ ModelImporter:
     100168: Hair_R001
     100170: Hair_R002
     100172: Object002
-    100174: Object002 1
-    100176: //RootNode
-    100178: Riris_Boss_Body
-    100180: Riris_Boss_Doll
-    100182: Riris_Boss_Foot
-    100184: Riris_Boss_Head
-    100186: Riris_Hair
-    100188: Riris_skin
-    100190: Skirt_Back001
-    100192: Skirt_Back002
-    100194: Skirt_Back003
-    100196: Skirt_Back004
-    100198: Skirt_L001
-    100200: Skirt_L002
-    100202: Skirt_L003
-    100204: Skirt_L004
-    100206: Skirt_R001
-    100208: Skirt_R002
-    100210: Skirt_R003
-    100212: Skirt_R004
+    100174: //RootNode
+    100176: Riris_Boss_Body
+    100178: Riris_Boss_Doll
+    100180: Riris_Boss_Foot
+    100182: Riris_Boss_Head
+    100184: RiRis_eye_L_bone01
+    100186: RiRis_eye_L_bone02
+    100188: RiRis_eye_R_bone01
+    100190: RiRis_eye_R_bone02
+    100192: Riris_Hair
+    100194: RiRis_Mouse_ALL_bone
+    100196: RiRis_Mouse_L_bone
+    100198: RiRis_Mouse_R_bone
+    100200: Riris_skin
+    100202: Skirt_Back001
+    100204: Skirt_Back002
+    100206: Skirt_Back003
+    100208: Skirt_Back004
+    100210: Skirt_L001
+    100212: Skirt_L002
+    100214: Skirt_L003
+    100216: Skirt_L004
+    100218: Skirt_R001
+    100220: Skirt_R002
+    100222: Skirt_R003
+    100224: Skirt_R004
     400000: Bip001
     400002: Bip001 Footsteps
     400004: Bip001 Head
@@ -197,26 +203,32 @@ ModelImporter:
     400168: Hair_R001
     400170: Hair_R002
     400172: Object002
-    400174: Object002 1
-    400176: //RootNode
-    400178: Riris_Boss_Body
-    400180: Riris_Boss_Doll
-    400182: Riris_Boss_Foot
-    400184: Riris_Boss_Head
-    400186: Riris_Hair
-    400188: Riris_skin
-    400190: Skirt_Back001
-    400192: Skirt_Back002
-    400194: Skirt_Back003
-    400196: Skirt_Back004
-    400198: Skirt_L001
-    400200: Skirt_L002
-    400202: Skirt_L003
-    400204: Skirt_L004
-    400206: Skirt_R001
-    400208: Skirt_R002
-    400210: Skirt_R003
-    400212: Skirt_R004
+    400174: //RootNode
+    400176: Riris_Boss_Body
+    400178: Riris_Boss_Doll
+    400180: Riris_Boss_Foot
+    400182: Riris_Boss_Head
+    400184: RiRis_eye_L_bone01
+    400186: RiRis_eye_L_bone02
+    400188: RiRis_eye_R_bone01
+    400190: RiRis_eye_R_bone02
+    400192: Riris_Hair
+    400194: RiRis_Mouse_ALL_bone
+    400196: RiRis_Mouse_L_bone
+    400198: RiRis_Mouse_R_bone
+    400200: Riris_skin
+    400202: Skirt_Back001
+    400204: Skirt_Back002
+    400206: Skirt_Back003
+    400208: Skirt_Back004
+    400210: Skirt_L001
+    400212: Skirt_L002
+    400214: Skirt_L003
+    400216: Skirt_L004
+    400218: Skirt_R001
+    400220: Skirt_R002
+    400222: Skirt_R003
+    400224: Skirt_R004
     2100000: 09 - Default
     2100002: 07 - Default
     2100004: 'Material #34'
@@ -233,7 +245,7 @@ ModelImporter:
     4300006: Riris_Boss_Head
     4300008: Riris_Boss_Foot
     4300010: Riris_Boss_Doll
-    7400000: Boss_Skill_001
+    7400000: RIRIS_Skill_003
     9500000: //RootNode
     13700000: Riris_Boss_Body
     13700002: Riris_Boss_Doll
@@ -270,10 +282,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Boss_Skill_001
-      takeName: Boss_Skill_001
-      firstFrame: 46
-      lastFrame: 120
+      name: RIRIS_Skill_003
+      takeName: RIRIS_Skill_003
+      firstFrame: 18
+      lastFrame: 105
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -292,7 +304,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.3289049
+        functionName: AddBulletPattern
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 3184d6986afc1094e9afe924f9c604db,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -344,7 +364,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: Bip001
+    rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

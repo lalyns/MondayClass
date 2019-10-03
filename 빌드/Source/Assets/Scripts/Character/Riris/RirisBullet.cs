@@ -75,11 +75,13 @@ public class RirisBullet : MonoBehaviour
     {
         if (directionType)
         {
-            direction = (this.transform.position - RirisFSMManager.BulletCenter.position).normalized;
+            direction = (this.transform.position - RirisFSMManager.Pevis.position).normalized;
+            transform.LookAt(transform.position + direction);
         }
         else
         {
             direction = GameLib.DirectionToCharacter(collider, RirisFSMManager.PlayerCapsule);
+            transform.LookAt(transform.position + direction);
         }
     }
 

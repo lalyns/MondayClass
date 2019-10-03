@@ -14,7 +14,10 @@ public class EffectPoolManager : MonoBehaviour
 
     public ObjectPool _MacBulletPool;
     public ObjectPool _MacSkillPool;
+
+
     public ObjectPool _BossBulletPool;
+    public ObjectPool _BossTornaedoPool;
 
     public ObjectPool _MissionBstarPool;
 

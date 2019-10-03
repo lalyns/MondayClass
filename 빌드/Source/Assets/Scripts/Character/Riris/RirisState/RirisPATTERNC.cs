@@ -5,19 +5,20 @@ using UnityEngine;
 // 불릿패턴
 public class RirisPATTERNC : RirisFSMState
 {
-    float _CurrentTime = 0;
-
-    int pattern = 0;
-
     bool type = false;
 
     public ObjectPool bulletPool;
+
+    public Transform bulletPos;
+    public Quaternion init;
+
     public Transform[] positionA;
     public Transform[] positionB;
 
-    private void Start()
+    public override void Start()
     {
         bulletPool = EffectPoolManager._Instance._BossBulletPool;
+        init = bulletPos.rotation;
     }
 
     void BulletPatternA()
@@ -33,44 +34,49 @@ public class RirisPATTERNC : RirisFSMState
         transform.LookAt(_manager.PlayerCapsule.transform);
         foreach (Transform t in positionB)
         {
-            bulletPool.ItemSetActive(t, false);
+            bulletPool.ItemSetActive(t, true);
         }
     }
 
     public override void BeginState()
     {
         base.BeginState();
+
+        useGravity = false;
+
+        transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
+    }
+
+    public override void EndState()
+    {
+        base.EndState();
+
+        useGravity = true;
     }
 
     protected override void Update()
     {
-        _CurrentTime += Time.deltaTime;
 
-        if(_CurrentTime > 5.0f)
-        {
-            _CurrentTime = 0;
-
-            if (!type)
-            {
-                BulletPatternA();
-                type = !type;
-            }
-            else
-            {
-                StartCoroutine("PatternB");
-                type = !type;
-            }
-        }
     }
 
-    IEnumerator PatternB()
+    public IEnumerator FireBullet()
     {
+        bulletPos.position = _manager.Pevis.transform.position;
+
         for (int i = 0; i < 4; i++)
         {
             BulletPatternB();
-            yield return new WaitForSeconds(0.6f);
+
+            var random = Random.Range(0, 999) % 2 == 0 ? -1f : 1f;
+            bulletPos.Rotate(0, random * 25f, 0);
+
+            yield return new WaitForSeconds(0.8f);
         }
 
+        yield return new WaitForSeconds(1f);
+
+        bulletPos.rotation = init;
         _manager.SetState(RirisState.PATTERNEND);
     }
+
 }

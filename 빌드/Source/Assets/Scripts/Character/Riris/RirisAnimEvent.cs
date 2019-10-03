@@ -22,20 +22,33 @@ public class RirisAnimEvent : MonoBehaviour
         pattern.SetJumpState = true;
     }
 
-    public void PatternAStompEnd()
-    {
-        RirisPATTERNA pattern = _manager.CurrentStateComponent as RirisPATTERNA;
-
-        pattern.StompEnd = true;
-        
-    }
-
     public void PatternAEnd()
     {
+        Debug.Log("End Call");
+
         RirisPATTERNA pattern = _manager.CurrentStateComponent as RirisPATTERNA;
 
         pattern.PatternEnd = true;
 
+    }
+
+    public void AddBulletPattern()
+    {
+        if(_manager.CurrentState == RirisState.PATTERNA)
+        {
+            RirisPATTERNA pattern = _manager.CurrentStateComponent as RirisPATTERNA;
+            pattern.StartCoroutine(pattern.AddBullet());
+        }
+        else if (_manager.CurrentState == RirisState.PATTERNB)
+        {
+            RirisPATTERNB pattern = _manager.CurrentStateComponent as RirisPATTERNB;
+            pattern.StartCoroutine(pattern.AddBullet());
+        }
+        else if (_manager.CurrentState == RirisState.PATTERNC)
+        {
+            RirisPATTERNC pattern = _manager.CurrentStateComponent as RirisPATTERNC;
+            pattern.StartCoroutine(pattern.FireBullet());
+        }
     }
 
     public void PatterBDashEffectUp()
@@ -43,5 +56,12 @@ public class RirisAnimEvent : MonoBehaviour
         RirisPATTERNB pattern = _manager.CurrentStateComponent as RirisPATTERNB;
 
         pattern.AttackReadyEnd();
+    }
+
+    public void PatterBEnd()
+    {
+        RirisPATTERNB pattern = _manager.CurrentStateComponent as RirisPATTERNB;
+
+        pattern.isEnd = true;
     }
 }

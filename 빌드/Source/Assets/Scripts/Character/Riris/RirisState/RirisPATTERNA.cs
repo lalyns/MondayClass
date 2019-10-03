@@ -14,11 +14,14 @@ public class RirisPATTERNA : RirisFSMState
 
     float stompCount = 0;
 
-    public bool StompEnd = false;
     public bool PatternEnd = false;
 
     Transform playerTransform;
     Vector3 targetPos;
+
+    public ObjectPool bulletPool;
+    public Transform bulletPos;
+    public Transform[] positionB;
 
     public override void BeginState()
     {
@@ -28,6 +31,17 @@ public class RirisPATTERNA : RirisFSMState
         _manager._Weapon.gameObject.SetActive(true);
         _manager._Weapon.transform.position = this.transform.position;
         _manager._Weapon.transform.rotation = this.transform.rotation;
+
+        SetJumpState = false;
+        PatternEnd = false;
+        useGravity = false;
+
+        stompCount = 0;
+
+        if (_manager._Phase >= 1)
+        {
+            _manager.Anim.Play("PatternC");
+        }
 
     }
 
@@ -40,8 +54,10 @@ public class RirisPATTERNA : RirisFSMState
         _manager._WeaponAnimator.SetBool("Stomp", false);
         _PatternAAttackEffect.SetActive(false);
         SetJumpState = false;
-        StompEnd = false;
         PatternEnd = false;
+        useGravity = true;
+
+        stompCount = 0;
 
     }
 
@@ -71,13 +87,41 @@ public class RirisPATTERNA : RirisFSMState
         {
             _manager.SetState(RirisState.PATTERNEND);
         }
+
+    }
+
+    public override void Start()
+    {
+        bulletPool = EffectPoolManager._Instance._BossBulletPool;
+    }
+
+    void BulletPattern()
+    {
+        transform.LookAt(_manager.PlayerCapsule.transform);
+        foreach (Transform t in positionB)
+        {
+            bulletPool.ItemSetActive(t, false);
+        }
+    }
+
+    public IEnumerator AddBullet()
+    {
+        bulletPos.position = _manager.Pevis.transform.position;
+
+        for (int i = 0; i < 4; i++)
+        {
+            BulletPattern();
+            yield return new WaitForSeconds(0.6f);
+        }
     }
 
     public void Stomp()
     {
         _PatternAReadyEffect.SetActive(false);
 
-        transform.position = targetPos;
+        if(_manager._Phase < 1)
+            transform.position = targetPos;
+
         _manager._Weapon.position = targetPos;
 
         _PatternAAttackEffect.SetActive(true);
