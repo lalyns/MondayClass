@@ -185,7 +185,6 @@ public class GameManager : MonoBehaviour
     {
         var num = MCSceneManager.currentSceneNumber;
 
-        MCSoundManager.LoadBank();
         CanvasInfo.Instance.SetRenderCam();
 
         switch (num)
@@ -229,14 +228,14 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void SoundPlay()
+    public void SetBank()
     {
         MCSoundManager.SetSound();
     }
 
     private void BossSet()
     {
-        TempDirector.Instance.PlaySet.SetActive(false);
+        TempDirector.Instance.CineStart();
     }
 
     private void BossSceneSetting()

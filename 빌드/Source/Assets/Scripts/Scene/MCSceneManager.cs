@@ -81,9 +81,10 @@ namespace MC.SceneDirector
 
             if (async.isDone)
             {
+                GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>
                 {
-                    GameManager.SetSceneSetting();
+                    MCSoundManager.LoadBank();
                     isLoad = false;
                 }, true
             );
