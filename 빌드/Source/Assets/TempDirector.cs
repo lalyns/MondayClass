@@ -40,4 +40,9 @@ public class TempDirector : MonoBehaviour
 
         UserInterface.SetPlayerUserInterface(true);
     }
+
+    public void OnStartBoss()
+    {
+
+    }
 }
