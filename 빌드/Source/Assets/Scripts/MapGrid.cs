@@ -10,9 +10,13 @@ public class MapGrid : MonoBehaviour
     public List<Vector3> mapPositions = new List<Vector3>();
 
     public float gridSize;
+    public float actorHeight = 1f;
+    public float mapSize = 22;
 
     public int loopCount = 0;
     public bool isDrawGizmos = true;
+
+    public bool draw = false;
 
     private void Awake()
     {
@@ -33,13 +37,23 @@ public class MapGrid : MonoBehaviour
         SetCoord(gridSize);
     }
 
+    public void Update()
+    {
+        if (draw)
+        {
+            SetCoord(gridSize);
+            draw = false;
+        }
+    }
+
     void SetCoord(float gridSize)
     {
-        for(float x = -22; x <= 22; x += gridSize)
+        mapPositions.Clear();
+        for (float x = -mapSize; x <= mapSize; x += gridSize)
         {
-            for(float y = -22; y <= 22; y += gridSize)
+            for(float y = -mapSize; y <= mapSize; y += gridSize)
             {
-                Vector3 correct = new Vector3(x, 0, y);
+                Vector3 correct = new Vector3(x, actorHeight, y);
 
                 Ray ray = new Ray();
                 ray.origin = actor.position + correct;
