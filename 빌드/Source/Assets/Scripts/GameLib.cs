@@ -51,7 +51,7 @@ public static class GameLib
     // 여러 오브젝트들에 대해 간단한 정보로 피해를 입히는 함수.
     public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat)
     {
-        if (!PlayerFSMManager.Instance.isSpecial)
+        if (!PlayerFSMManager.Instance.isInvincibility)
         {
             var color = new Color(1, 0.3725f, 0.3725f);
             PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList, color));
@@ -89,7 +89,7 @@ public static class GameLib
 
     public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat, MonsterType type)
     {
-        if (!PlayerFSMManager.Instance.isSpecial)
+        if (!PlayerFSMManager.Instance.isInvincibility)
         {
             var color = new Color(1, 0.3725f, 0.3725f);
             PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList, color));
