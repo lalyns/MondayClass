@@ -717,30 +717,48 @@ public class PlayerFSMManager : FSMManager
             }
         }
     }
+    public int maxDash = 3;
+    public float dashCoolTime = 3f;
+    public float currentDashCollTime = 0f;
+    public int remainingDash = 0;
 
     public void DashReset()
     {
-        if (isDashCTime[0])
+        if(remainingDash < maxDash)
+        {
+            currentDashCollTime += Time.deltaTime;
+            if(currentDashCollTime >= dashCoolTime)
+            {
+                remainingDash++;
+                currentDashCollTime = 0;
+            }
+        }
+
+        // 첫번째 차는중
+        if (isDashCTime[0] && !isDashCTime[1] && dashCount == 0)
         {
             DashCTime[0] -= Time.deltaTime;
             if (DashCTime[0] <= 0)
             {
                 DashCTime[0] = 3f;
-                isDashCTime[0] = false;
+                //isDashCTime[0] = false;
+                isDashCTime[1] = true;
                 dashCount++;
             }
         }
-        if (isDashCTime[1])
+        // 두번째 차는중
+        if (isDashCTime[1] && !isDashCTime[2] && dashCount == 1)
         {
             DashCTime[1] -= Time.deltaTime;
             if (DashCTime[1] <= 0)
             {
                 DashCTime[1] = 3f;
-                isDashCTime[1] = false;
+                isDashCTime[2] = true;
                 dashCount++;
             }
         }
-        if (isDashCTime[2])
+        // 세번째 차는중
+        if (isDashCTime[2] && dashCount == 2)
         {
             DashCTime[2] -= Time.deltaTime;
             if (DashCTime[2] <= 0)
