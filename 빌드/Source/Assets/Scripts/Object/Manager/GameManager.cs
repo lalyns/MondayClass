@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
     public int curScore = 0;
     public bool IsPuase;
 
+    public bool CineMode;
+
     [System.Serializable]
     public class UIActive
     {
@@ -241,7 +243,8 @@ public class GameManager : MonoBehaviour
 
     private void BossSet()
     {
-        TempDirector.Instance.CineStart();
+        TempDirector.Instance.PlayMode = true;
+        TempDirector.Instance.SceneStart();
     }
 
     private void BossSceneSetting()

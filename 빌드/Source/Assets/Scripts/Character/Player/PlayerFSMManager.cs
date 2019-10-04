@@ -1139,4 +1139,9 @@ public class PlayerFSMManager : FSMManager
         Skill3_End.SetActive(false);
     }
 
+    public static Vector3 GetLookTargetPos(Transform transform)
+    {
+        return new Vector3(Instance.Anim.transform.position.x,
+            transform.position.y, Instance.Anim.transform.position.z);
+    }
 }
