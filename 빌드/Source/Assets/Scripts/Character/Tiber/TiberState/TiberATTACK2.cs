@@ -8,14 +8,19 @@ public class TiberATTACK2 : TiberFSMState
 
     public override void BeginState()
     {
-        base.BeginState();
+        base.BeginState();        
+        
         this.transform.position = _manager.Attack1Effect.transform.position;
+        _manager.Attack2Effect.SetActive(true);
+        _manager.Attack2Effect.transform.position = this.transform.position;
+        
+
     }
 
     public override void EndState()
     {
         base.EndState();
-
+        _manager.Attack2Effect.SetActive(false);
         _time = 0;
     }
     protected override void Update()
@@ -45,5 +50,10 @@ public class TiberATTACK2 : TiberFSMState
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+    }
+
+    public void AttackCheck()
+    {
+
     }
 }

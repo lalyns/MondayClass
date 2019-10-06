@@ -11,7 +11,7 @@ public enum TiberState
     CHASE,
     ATTACK1,
     ATTACK2,
-    //ATTACK3,
+    ATTACK3,
     HIT,
     DEAD,    
 }
@@ -78,8 +78,9 @@ public class TiberFSMManager : FSMManager
 
     public AttackType CurrentAttackType = AttackType.NONE;
 
-    public GameObject Attack1Effect;
-    public bool isAttack1;
+    public GameObject Attack1Effect, Attack2Effect, Attack3Effect;
+    public bool isAttack1, isAttack2;
+
     protected override void Awake()
     {
         base.Awake();
@@ -110,6 +111,8 @@ public class TiberFSMManager : FSMManager
 
         monsterType = MonsterType.Tiber;
         Attack1Effect.SetActive(false);
+        Attack2Effect.SetActive(false);
+        Attack3Effect.SetActive(false);
     }
 
     private void Start()
