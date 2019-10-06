@@ -29,5 +29,10 @@ public class PlayerHIT : FSMState
             _manager.SetState(PlayerState.IDLE);
             return;
         }
+        if (_manager.OnMove())
+        {
+            _manager.SetState(PlayerState.RUN);
+            return;
+        }
     }
 }
