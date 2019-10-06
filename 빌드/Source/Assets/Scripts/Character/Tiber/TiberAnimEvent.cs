@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class TiberAnimEvent : MonoBehaviour
 {
-    public TiberATTACK1 _attackCp;
+    public TiberATTACK1 _attackCp1;
+    public TiberATTACK2 _attackCp2;
     public TiberHIT _hitCp;
     public TiberDEAD _deadCp;
 
     private void Awake()
     {
-        _attackCp = GetComponentInParent<TiberATTACK1>();
+        _attackCp1 = GetComponentInParent<TiberATTACK1>();
+        _attackCp2 = GetComponentInParent<TiberATTACK2>();
     }
 
-  //  public CapsuleCollider _WeaponCapsule;
+    public CapsuleCollider _WeaponCapsule;
     // Start is called before the first frame update
     void Start()
     {
-        //_WeaponCapsule.enabled = true;
+        _WeaponCapsule.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -28,18 +30,20 @@ public class TiberAnimEvent : MonoBehaviour
 
     void OnWeaponTrigger()
     {
-        //_WeaponCapsule.gameObject.SetActive(true);
+        _WeaponCapsule.gameObject.SetActive(true);
     }
 
     void DisableWeaponTrigger()
     {
-        //_WeaponCapsule.gameObject.SetActive(false);
+        _WeaponCapsule.gameObject.SetActive(false);
     }
 
-    void HitCheck()
+
+
+    void HitCheck1()
     {
-        //if (null != _attackCp)
-            //_attackCp.AttackCheck();
+        //if (null != _attackCp2)
+        //_attackCp2.AttackCheck();
     }
 
     public void HitEnd()

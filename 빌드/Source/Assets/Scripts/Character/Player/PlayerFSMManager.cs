@@ -120,7 +120,7 @@ public class PlayerFSMManager : FSMManager
 
 
     float r_x = 0;
-    [HideInInspector]
+    // [HideInInspector]
     public float _v, _h;
 
     bool isInputLock;

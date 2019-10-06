@@ -39,20 +39,10 @@ namespace MC.SceneDirector
 
         public void SceneStart()
         {
-            CineSet.SetActive(false);
-            PlaySet.SetActive(true);
         }
 
         public static void CinemaStart(PlayableDirector cinema)
         {
-            PlayerFSMManager.Instance.transform.position = MissionManager.Instance.CurrentMission.Enter.transform.position;
-            PlayerFSMManager.Instance.Anim.transform.localPosition = Vector3.zero;
-            PlayerFSMManager.Instance.rigid.useGravity = true;
-            PlayerFSMManager.Instance.transform.LookAt(MissionManager.Instance.CurrentMission.Exit.transform);
-
-            cinema.gameObject.SetActive(true);
-            Instance.currentDirector = cinema;
-            cinema.Play();
         }
 
         public static void CinemaEnd()

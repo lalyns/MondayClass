@@ -27,10 +27,17 @@ public class TiberCHASE : TiberFSMState
         _time += Time.deltaTime;
         if (_time >= 2f)
         {
-           // if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) < _manager.Stat._AttackRange)
-           // {
+            if (!_manager.isAttack1)
+            {
+                _manager.isAttack1 = true;
                 _manager.SetState(TiberState.ATTACK1);
-            //}
+                return;
+            }
+            if (_manager.isAttack1)
+            {
+                _manager.isAttack1 = false;
+                _manager.SetState(TiberState.ATTACK3);
+            } 
         }
         else
         {
