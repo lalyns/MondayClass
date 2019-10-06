@@ -56,7 +56,7 @@ public class TiberATTACK3 : TiberFSMState
                 moveDir += correctDir;
             }
 
-            _manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
+            _manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * 1.3f * Time.deltaTime);
         }
     }
     public void AttackSupport()
