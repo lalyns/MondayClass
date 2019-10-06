@@ -16,7 +16,6 @@ public class PlayerTRANS2 : FSMState
     public override void EndState()
     {
         base.EndState();
-        _manager.isCantMove = false;
         _time = 0;
     }
 

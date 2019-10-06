@@ -18,7 +18,6 @@ public class FSMManager : MonoBehaviour
     protected StatData _statData;
     public CharacterStat stats;
     public StatData MyStatData { get { return _statData; } }
-
     //[HideInInspector]
     //public CharacterStat _lastAttack;
 
@@ -100,6 +99,9 @@ public class FSMManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
     }
+    public virtual void ForHit()
+    {
 
+    }
 
 }
