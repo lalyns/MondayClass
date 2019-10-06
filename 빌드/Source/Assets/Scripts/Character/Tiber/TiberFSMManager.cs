@@ -84,7 +84,6 @@ public class TiberFSMManager : FSMManager
     protected override void Awake()
     {
         base.Awake();
-
         _CC = GetComponent<CharacterController>();
         _Stat = GetComponent<TiberStat>();
         _Anim = GetComponentInChildren<Animator>();
@@ -132,6 +131,17 @@ public class TiberFSMManager : FSMManager
         _States[_CurrentState].BeginState();
         _States[_CurrentState].enabled = true;
         _Anim.SetInteger("CurrentState", (int)_CurrentState);
+    }
+    //[HideInInspector]
+    public bool isChange;
+    private void Update()
+    {
+        if ((PlayerFSMManager.Instance.isSpecial || PlayerFSMManager.Instance.isSkill4) && !isChange)
+        {
+            SetState(TiberState.HIT);
+            isChange = true;
+            return;
+        }
     }
 
     public override void OnHitForMonster(AttackType attackType)
