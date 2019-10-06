@@ -14,11 +14,21 @@ public class EffectPoolManager : MonoBehaviour
 
     public ObjectPool _MacBulletPool;
     public ObjectPool _MacSkillPool;
+
+
     public ObjectPool _BossBulletPool;
+    public ObjectPool _BossTornaedoPool;
+
+    public ObjectPool _TiberSkillRange;
+    public ObjectPool _TiberSkillEffect1;
+    public ObjectPool _TiberSkillEffect2;
+    public ObjectPool _TiberAttackEffect;
+
 
     public ObjectPool _MissionBstarPool;
 
     public ObjectPool[] _PlayerEffectPool;
+
 
     private void Awake()
     {

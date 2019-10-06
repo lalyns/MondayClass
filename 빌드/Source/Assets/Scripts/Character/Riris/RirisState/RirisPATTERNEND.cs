@@ -2,30 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class RirisPhase
+{
+    public RirisState[] patterns;
+}
+
 public class RirisPATTERNEND : RirisFSMState
 {
-    float _Time1 = 0;
-    public float _Delay = 5f;
+    private float delayCount = 0;
+    public float delay = 5f;
 
-    bool pattern = false;
+    public RirisPhase[] ririsPhases = new RirisPhase[3];
 
-    public RirisState[] _Pattern;
-    public int _PrevPhase = 0;
-    [HideInInspector] public int _Turn = 0;
+    private int prevPhase = 0;
+    private int turn = 0;
+
+    private bool isDead = false;
 
     public override void BeginState()
     {
         base.BeginState();
+
+        PhaseCheck();
     }
 
     public override void EndState()
     {
-        _Time1 = 0;
-        _Turn++;
+        delayCount = 0;
+        turn++;
 
-        if (_Turn >= _Pattern.Length)
+        if (turn >= ririsPhases[_manager._Phase].patterns.Length)
         {
-            _Turn = 0;
+            turn = 0;
         }
 
         base.EndState();
@@ -35,17 +44,15 @@ public class RirisPATTERNEND : RirisFSMState
     {
         base.Update();
 
-        PhaseCheck();
 
-        _Time1 += Time.deltaTime;
+        delayCount += Time.deltaTime;
 
-        if (_Time1 > _Delay)
+        if (!isDead && delayCount > delay)
         {
-
-            RirisState nextState = _Pattern[_Turn];
+            RirisState nextState = ririsPhases[_manager._Phase].patterns[turn];
             _manager.SetState(nextState);
 
-            _Time1 = 0;
+            delayCount = 0;
         }
     }
 
@@ -57,8 +64,9 @@ public class RirisPATTERNEND : RirisFSMState
     public void PhaseCheck()
     {
         float hpRatio = _manager.Stat.Hp / _manager.Stat.MaxHp;
+        Debug.Log("HP 비율 : " + hpRatio);
 
-        _PrevPhase = _manager._Phase;
+        prevPhase = _manager._Phase;
 
         if (hpRatio >= _manager._PhaseThreshold[0])
         {
@@ -74,12 +82,12 @@ public class RirisPATTERNEND : RirisFSMState
         }
         else
         {
-            _manager._Phase = 3;
+            _manager.SetState(RirisState.DEAD);
         }
 
-        if(_PrevPhase != _manager._Phase)
+        if(prevPhase != _manager._Phase)
         {
-            _Turn = 0;
+            turn = 0;
         }
     }
 }
