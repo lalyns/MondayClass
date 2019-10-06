@@ -25,7 +25,7 @@ public class TiberATTACK1 : TiberFSMState
 
         _time += Time.deltaTime;
 
-        if (_time < 1f)
+        if (_time < 0.5f)
         {
             _manager.Attack1Effect.transform.position = new Vector3(_manager.PlayerCapsule.transform.position.x, _manager.PlayerCapsule.transform.position.y + 0.3f, _manager.PlayerCapsule.transform.position.z);
 

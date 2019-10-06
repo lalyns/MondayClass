@@ -37,7 +37,7 @@ public class PlayerSKILL3 : FSMState
         //isLock = false;
         _viewTimer = 0f;
         _opacityTimer = 0f;
-
+        _manager.isSkill3Dash = false;
 
         _manager.Skill3_End.transform.position = _manager.Skill3_Start.transform.position;
         _manager.Skill3_End.transform.rotation = _manager.Skill3_Start.transform.rotation;
@@ -61,7 +61,10 @@ public class PlayerSKILL3 : FSMState
         _time += Time.deltaTime;
 
 
-
+        if(_time >= 1.3f)
+        {
+            _manager.isSkill3Dash = false;
+        }
         if (!isMax)
         {
             _opacityTimer += Time.deltaTime;

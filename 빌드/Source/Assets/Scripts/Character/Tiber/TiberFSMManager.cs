@@ -11,7 +11,7 @@ public enum TiberState
     CHASE,
     ATTACK1,
     ATTACK2,
-    //ATTACK3,
+    ATTACK3,
     HIT,
     DEAD,    
 }
@@ -78,12 +78,12 @@ public class TiberFSMManager : FSMManager
 
     public AttackType CurrentAttackType = AttackType.NONE;
 
-    public GameObject Attack1Effect;
-    public bool isAttack1;
+    public GameObject Attack1Effect, Attack2Effect, Attack3Effect;
+    public bool isAttack1, isAttack2;
+
     protected override void Awake()
     {
         base.Awake();
-
         _CC = GetComponent<CharacterController>();
         _Stat = GetComponent<TiberStat>();
         _Anim = GetComponentInChildren<Animator>();
@@ -110,6 +110,8 @@ public class TiberFSMManager : FSMManager
 
         monsterType = MonsterType.Tiber;
         Attack1Effect.SetActive(false);
+        Attack2Effect.SetActive(false);
+        Attack3Effect.SetActive(false);
     }
 
     private void Start()
@@ -129,6 +131,17 @@ public class TiberFSMManager : FSMManager
         _States[_CurrentState].BeginState();
         _States[_CurrentState].enabled = true;
         _Anim.SetInteger("CurrentState", (int)_CurrentState);
+    }
+    //[HideInInspector]
+    public bool isChange;
+    private void Update()
+    {
+        if ((PlayerFSMManager.Instance.isSpecial || PlayerFSMManager.Instance.isSkill4) && !isChange)
+        {
+            SetState(TiberState.HIT);
+            isChange = true;
+            return;
+        }
     }
 
     public override void OnHitForMonster(AttackType attackType)

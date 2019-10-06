@@ -21,9 +21,9 @@ public enum PlayerState
     SKILL3,
     TRANS,
     TRANS2,
+    SKILL4,
     HIT,
-    DEAD,
-    
+    DEAD,    
 }
 public enum AttackType
 {
@@ -110,7 +110,7 @@ public class PlayerFSMManager : FSMManager
 
     public bool isAttackOne, isAttackTwo, isAttackThree, isSkill2;
 
-    public bool isSkill3;
+    public bool isSkill3, isSkill4;
 
     //[HideInInspector]
     public float _attack1Time, _attack2Time, _attack3Time, _attackBack1, _attackBack2, _specialAnim, _skill2Time, _skill3Time;
@@ -120,7 +120,7 @@ public class PlayerFSMManager : FSMManager
 
 
     float r_x = 0;
-    [HideInInspector]
+    // [HideInInspector]
     public float _v, _h;
 
     bool isInputLock;
@@ -132,6 +132,7 @@ public class PlayerFSMManager : FSMManager
     {
         isInvincibility = value;
     }
+    public bool isSkill3Dash = false;
     public GameObject Normal;
     public GameObject Special;
     public GameObject WeaponTransformEffect;
@@ -355,7 +356,6 @@ public class PlayerFSMManager : FSMManager
 
     private void Update()
     {
-        
 
         if (Input.GetKeyDown(KeyCode.U))
         {
@@ -401,9 +401,10 @@ public class PlayerFSMManager : FSMManager
 
         Skill2();
         Skill3();
-        if (!isSkill2End)
+        Skill4();
+        if (!isSkill2End && !isSkill3)
             Attack();
-        if (remainingDash > 0)
+        if (remainingDash > 0 && !isSkill3Dash)
             Dash();
 
         Skill3MouseLock();
@@ -497,22 +498,6 @@ public class PlayerFSMManager : FSMManager
         return time;
     }
 
-    //// 애니메이션 클립을 교체하는 함수
-    //public float AnimationClipChange(string name)
-    //{
-    //    float[] time;
-    //    time = new float[2];
-    //    RuntimeAnimatorController ac = _anim.runtimeAnimatorController;
-
-    //    for (int i = 0; i < ac.animationClips.Length; i++)
-    //    {
-    //        Debug.Log("찍힌다 로그");
-    //        if (ac.animationClips[i].name == name)
-    //            time[i] = ac.animationClips[i].length;
-    //    }
-    //    return time[0];
-    //}
-
     void ChangeNormal()
     {
         try
@@ -532,6 +517,7 @@ public class PlayerFSMManager : FSMManager
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
+              
                 isNormal = false;
                 isSpecial = true;
                 SetInvincibility(true);
@@ -539,6 +525,7 @@ public class PlayerFSMManager : FSMManager
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
+             
             }
         }
  
@@ -563,6 +550,7 @@ public class PlayerFSMManager : FSMManager
             if (specialTimer >= 5.82f - 0.8f)
             {
                 Change_Effect.SetActive(false);
+                SetState(PlayerState.IDLE);
             }
             if (specialTimer >= 5.82f)
             {
@@ -570,8 +558,7 @@ public class PlayerFSMManager : FSMManager
                 TimeLine.SetActive(false);
                 isSpecial = false;
                 isAttackOne = false;
-                _v = 0;
-                _h = 0;
+                
                 StartCoroutine(SetOff());
                 return;
             }
@@ -584,7 +571,6 @@ public class PlayerFSMManager : FSMManager
 
         SetInvincibility(false);
     }
-
     public void GetInput()
     {
         if (isCantMove)
@@ -1031,11 +1017,22 @@ public class PlayerFSMManager : FSMManager
 
             SetState(PlayerState.SKILL3);
             isSkill3 = true;
-
+            isSkill3Dash = true;
             return;
         }
     }
 
+    public void Skill4()
+    {
+        if (isSkill4 || isNormal)
+            return;
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SetState(PlayerState.SKILL4);
+            isSkill4 = true;
+            return;
+        }
+    }
     public void SKill1Reset()
     {
         if (isSkill1CTime)
