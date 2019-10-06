@@ -1,43 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class TiberCHASE : TiberFSMState
+using MC.UI;
+public class TiberATTACK3 : TiberFSMState
 {
+    public float _time;
     bool _IsSpread = false;
-
-    float _time;
-
     public override void BeginState()
     {
-
         base.BeginState();
+
+        _manager.Attack3Effect.SetActive(true);
     }
 
     public override void EndState()
     {
-        _IsSpread = false;
-        _time = 0;
         base.EndState();
-    }
 
+        _manager.Attack3Effect.SetActive(false);
+        _time = 0;
+    }
     protected override void Update()
     {
         base.Update();
+
         _time += Time.deltaTime;
-        if (_time >= 2f)
+
+        if (_time >= 7.2f)
         {
-            if (!_manager.isAttack1)
-            {
-                _manager.isAttack1 = true;
-                _manager.SetState(TiberState.ATTACK1);
-                return;
-            }
-            if (_manager.isAttack1)
-            {
-                _manager.isAttack1 = false;
-                _manager.SetState(TiberState.ATTACK3);
-            } 
+            _manager.SetState(TiberState.CHASE);
+            _time = 0;
+            return;
         }
         else
         {
@@ -45,7 +38,7 @@ public class TiberCHASE : TiberFSMState
 
             _manager.CC.transform.LookAt(playerTrans);
 
-            
+
             Vector3 moveDir = (playerTrans
                 - _manager.CC.transform.position).normalized;
 
@@ -66,8 +59,10 @@ public class TiberCHASE : TiberFSMState
             _manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
         }
     }
-
-
+    public void AttackSupport()
+    {
+        UserInterface.Instance.UIPlayer.hpBar.HitBackFun();
+    }
     private Vector3 DecideSpreadDirection()
     {
         Vector3 correctDir;
@@ -82,5 +77,10 @@ public class TiberCHASE : TiberFSMState
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+    }
+
+    public void AttackCheck()
+    {
+
     }
 }
