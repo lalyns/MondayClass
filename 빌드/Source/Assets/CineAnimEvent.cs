@@ -16,7 +16,7 @@ namespace MC.SceneDirector
 
         public void SceneEnd()
         {
-            CinemaManager.CinemaEnd();
+            //TempDirector.Instance.CinemaEnd();
         }
 
         public void EnterMissionNotify()

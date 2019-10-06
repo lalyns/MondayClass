@@ -45,6 +45,11 @@ public class TempDirector : MonoBehaviour
         UserInterface.SetPlayerUserInterface(true);
     }
 
+    public void CineEnd()
+    {
+
+    }
+
     public void OnStartBoss()
     {
 
