@@ -595,12 +595,13 @@ public class PlayerFSMManager : FSMManager
         }
 
     }
-
+    bool isDashSound;
 
     public void Dash()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            Debug.Log("몇번찍히나볼까");
             _Sound.sfx.PlayPlayerSFX(this.gameObject, _Sound.sfx.teleportSFX);
 
             isAttackOne = false;
@@ -670,7 +671,15 @@ public class PlayerFSMManager : FSMManager
                     Normal.SetActive(true);
                 if (!isNormal)
                     Special.SetActive(true);
+               
 
+            }
+            if(flashTimer>=0.33f && !isDashSound)
+            {
+                isDashSound = true;
+
+                var voice = _Sound.voice;
+                voice.PlayPlayerVoice(this.gameObject, voice.teleportVoice);
             }
             if (flashTimer >= 0.5f)
             {
@@ -688,9 +697,8 @@ public class PlayerFSMManager : FSMManager
                 
 
                 isFlash = false;
-
-                var voice = _Sound.voice;
-                voice.PlayPlayerVoice(this.gameObject, voice.teleportVoice);
+                isDashSound = false;
+                
 
                 flashTimer = 0;
                 return;
