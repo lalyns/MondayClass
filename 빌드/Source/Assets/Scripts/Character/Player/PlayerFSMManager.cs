@@ -518,7 +518,12 @@ public class PlayerFSMManager : FSMManager
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
-             
+
+                if (Skill2_Test.activeSelf)
+                {
+                    Skill2_Test.SetActive(false);
+                    isSkill2End = false;
+                }
             }
         }
  
@@ -615,7 +620,11 @@ public class PlayerFSMManager : FSMManager
                 Skill3_End.transform.rotation = Skill3_Start.transform.rotation;
                 Skill3_End.SetActive(true);
             }
-            
+            if (Skill2_Test.activeSelf)
+            {
+                Skill2_Test.SetActive(false);
+                isSkill2End = false;
+            }
             _Sound.sfx.PlayPlayerSFX(this.gameObject, _Sound.sfx.teleportSFX);
         }
 
@@ -967,8 +976,8 @@ public class PlayerFSMManager : FSMManager
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Skill2_Test.SetActive(true);
-            isSkill2End = true;
+            Skill2_Test.SetActive(true);            
+            isSkill2End = true;            
         }
 
         if (Skill2_Test.activeSelf)
