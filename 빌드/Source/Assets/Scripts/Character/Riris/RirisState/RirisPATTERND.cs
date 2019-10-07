@@ -51,7 +51,7 @@ public class RirisPATTERND : RirisFSMState
                     // 대충 이펙트를 꺼내는 행위
                     var ob = EffectPoolManager._Instance._BossTornaedoPool.ItemSetActive(a);
                     // 대충 꺼낸 이펙트 애니메이션을 실행하는 행위
-                    ob.GetComponent<Animator>().Play("Toenaedo");
+                    ob.GetComponentInChildren<Animator>().Play("Toenaedo");
                 }
                 set1Play = true;
             }
@@ -65,7 +65,7 @@ public class RirisPATTERND : RirisFSMState
                         // 대충 이펙트를 꺼내는 행위
                         var ob = EffectPoolManager._Instance._BossTornaedoPool.ItemSetActive(a);
                         // 대충 꺼낸 이펙트 애니메이션을 실행하는 행위
-                        ob.GetComponent<Animator>().Play("Toenaedo");
+                        ob.GetComponentInChildren<Animator>().Play("Toenaedo");
                     }
                     set2Play = true;
                 }
@@ -79,7 +79,7 @@ public class RirisPATTERND : RirisFSMState
                             // 대충 이펙트를 꺼내는 행위
                             var ob = EffectPoolManager._Instance._BossTornaedoPool.ItemSetActive(a);
                             // 대충 꺼낸 이펙트 애니메이션을 실행하는 행위
-                            ob.GetComponent<Animator>().Play("Toenaedo");
+                            ob.GetComponentInChildren<Animator>().Play("Toenaedo");
                         }
                         set3Play = true;
                     }

@@ -162,8 +162,10 @@ namespace MC.UI
         [Header("System User Interface")]
         private bool pointerMode = false;
         private MousePointer _MousePointer;
-        public MousePointer MousePointer {
-            get {
+        public MousePointer MousePointer
+        {
+            get
+            {
                 if (_MousePointer == null) _MousePointer = CanvasInfo.Instance.mousePointer;
                 return _MousePointer;
             }

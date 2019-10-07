@@ -45,7 +45,6 @@ public class MacPOPUP : MacFSMState
             {
                 if (target.tag == "Player")
                 {
-                    Debug.Log("Detecting Player!");
                     _manager._PriorityTarget = PlayerFSMManager.
                         Instance.Anim
                         .GetComponent<Collider>();
@@ -53,7 +52,6 @@ public class MacPOPUP : MacFSMState
                 }
                 else
                 {
-                    Debug.Log("Detecting Pillar!");
                     MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
                     _manager._PriorityTarget = mission.protectedTarget.Collider;
                 }
