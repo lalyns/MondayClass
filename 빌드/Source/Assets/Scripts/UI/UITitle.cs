@@ -16,15 +16,18 @@ namespace MC.UI
         public Button howToPlay;
         public Button config;
         public Button exit;
+
     }
 
     public class UITitle : MonoBehaviour
     {
         public Title title;
 
+        public GameObject cutScene;
+
         public void StartButton()
         {
-            MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
+            cutScene.SetActive(true);
         }
 
         public void ExitButton()
