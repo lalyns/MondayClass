@@ -53,6 +53,8 @@ public static class GameLib
     {
         if (!PlayerFSMManager.Instance.isInvincibility)
         {
+
+            PlayerFSMManager.Instance.StartCoroutine(Shake.instance.ShakeUI(0.2f, 4f, 3f));
             var color = new Color(1, 0.3725f, 0.3725f);
             PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList, color));
 
@@ -91,6 +93,7 @@ public static class GameLib
     {
         if (!PlayerFSMManager.Instance.isInvincibility)
         {
+            PlayerFSMManager.Instance.StartCoroutine(Shake.instance.ShakeUI(0.2f, 4f, 3f));
             var color = new Color(1, 0.3725f, 0.3725f);
             PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList, color));
 
@@ -139,6 +142,7 @@ public static class GameLib
     {
         if (!PlayerFSMManager.Instance.isInvincibility)
         {
+            PlayerFSMManager.Instance.StartCoroutine(Shake.instance.ShakeUI(0.2f, 4f, 3f));
             var color = new Color(1, 0.3725f, 0.3725f);
             PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList, color));
 
