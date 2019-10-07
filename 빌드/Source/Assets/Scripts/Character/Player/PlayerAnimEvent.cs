@@ -97,7 +97,7 @@ public class PlayerAnimEvent : MonoBehaviour
     void Skill3Finish()
     {
         var voice = player._Sound.voice;
-        voice.PlayPlayerVoice(this.gameObject, voice.skill3CastVoice);
+        voice.PlayPlayerVoice(this.gameObject, voice.skill3FinishVoice);
     }
 
     void SpecialCast()

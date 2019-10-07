@@ -63,7 +63,6 @@ namespace MC.Sound
 
             public void PlayPlayerVoice(GameObject go, AK.Wwise.Event voice)
             {
-                //Debug.Log("Play Player Voice");
                 if (GameManager.Instance.config.soundActive.voice ||
                     GameManager.Instance.config.soundActive.all)
                     try

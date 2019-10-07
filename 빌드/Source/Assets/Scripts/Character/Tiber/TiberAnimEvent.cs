@@ -38,7 +38,10 @@ public class TiberAnimEvent : MonoBehaviour
         _WeaponCapsule.gameObject.SetActive(false);
     }
 
-
+    void Attack2End()
+    {
+        _attackCp2.isEnd = true;
+    }
 
     void HitCheck1()
     {
