@@ -619,6 +619,8 @@ public class PlayerFSMManager : FSMManager
                 Skill3_End.transform.rotation = Skill3_Start.transform.rotation;
                 Skill3_End.SetActive(true);
             }
+            UserInterface.Instance.UIPlayer.DashStart();
+
         }
 
         if (isFlash)
@@ -690,11 +692,7 @@ public class PlayerFSMManager : FSMManager
                 catch
                 {
 
-                }
-
-
-                UserInterface.Instance.UIPlayer.DashStart();
-                
+                }               
 
                 isFlash = false;
                 isDashSound = false;
