@@ -194,16 +194,16 @@ public class RedHatFSMManager : FSMManager
             SetState(RedHatState.HIT);
 
             //플레이어 쳐다본 후
-            try
-            {
-                transform.localEulerAngles = Vector3.zero;
-                transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
-                //플레이어피버게이지증가?
-            }
-            catch
-            {
+            //try
+            //{
+            //    transform.localEulerAngles = Vector3.zero;
+            //    transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
+            //    //플레이어피버게이지증가?
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
         else
         {

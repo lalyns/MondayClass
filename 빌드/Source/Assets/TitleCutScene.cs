@@ -11,11 +11,17 @@ public class TitleCutScene : MonoBehaviour
 
     public int currentCutSceneNumber = 0;
 
+    bool nextScene = true;
+
     public void CutScene()
     {
         if(currentCutSceneNumber == cutSceneSprite.Length)
         {
-            MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
+            if (nextScene)
+            {
+                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
+                nextScene = false;
+            }
         }
         else
         {

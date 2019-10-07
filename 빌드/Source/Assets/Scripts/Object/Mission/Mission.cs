@@ -121,7 +121,6 @@ namespace MC.Mission
             if (!GameStatus.Instance.usingKeward)
             {
                 GameStatus.Instance.RemoveAllActiveMonster();
-                
             }
 
             Exit._PortalEffect.SetActive(true);
@@ -152,6 +151,7 @@ namespace MC.Mission
                         a = MonsterPoolManager._Instance._RedHat.ItemSetActive(Grid.mapPositions[rand], monsterType);
                         break;
                     case MonsterType.Tiber:
+                        a = MonsterPoolManager._Instance._Tiber.ItemSetActive(Grid.mapPositions[rand], monsterType);
                         break;
                 }
 

@@ -13,14 +13,21 @@ public class UIBillboarding : MonoBehaviour
         }
     }
 
+    public float Offset = 100f;
+
     // Start is called before the first frame update
     void Start()
     {
     }
 
     // Update is called once per frame
-    void Update()
+    private void LateUpdate()
     {
+        //var forwardVec = Cam.transform.forward;
+        //forwardVec.Normalize();
+
+        //this.transform.position = Cam.transform.position + (forwardVec * (Cam.GetComponent<Camera>().nearClipPlane + this.Offset));
+
         transform.LookAt(transform.position + Cam.rotation * Vector3.forward, Cam.rotation * Vector3.up);
     }
 }
