@@ -503,7 +503,7 @@ public class PlayerFSMManager : FSMManager
 
         }
     }
-    bool isTrans1, isTrans2;
+    bool isTrans1;
     public void ChangeModel()
     {
         if (isNormal && SpecialGauge >= 100)
@@ -551,7 +551,7 @@ public class PlayerFSMManager : FSMManager
                 TimeLine.SetActive(false);
                 isSpecial = false;
                 isAttackOne = false;
-                
+                isTrans1 = false;
                 StartCoroutine(SetOff());
                 return;
             }
