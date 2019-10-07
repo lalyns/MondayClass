@@ -17,14 +17,50 @@ public class RirisPATTERNB : RirisFSMState
     float _Time2 = 0;
     float _AttackEndTime = 5f;
 
+    public bool isEnd = false;
 
+    public ObjectPool bulletPool;
+    public Transform bulletPos;
+    public Transform[] positionB;
+
+    void BulletPattern()
+    {
+        transform.LookAt(_manager.PlayerCapsule.transform);
+        foreach (Transform t in positionB)
+        {
+            bulletPool.ItemSetActive(t, false);
+        }
+    }
+
+    public IEnumerator AddBullet()
+    {
+        bulletPos.position = _manager.Pevis.transform.position;
+        for (int i = 0; i < 4; i++)
+        {
+            BulletPattern();
+            yield return new WaitForSeconds(0.6f);
+        }
+    }
 
     public override void BeginState()
     {
         base.BeginState();
-        //transform.LookAt(PlayerFSMManager.instance.transform);
-        //_manager._Weapon.transform.LookAt(PlayerFSMManager.instance.transform);
+
         _manager._Weapon.gameObject.SetActive(true);
+
+        transform.position = _MapCenter.position;
+        _manager._Weapon.position = _MapCenter.position;
+
+        transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
+        _manager._Weapon.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager._Weapon.transform));
+
+        useGravity = false;
+
+        if (_manager._Phase >= 1)
+        {
+            _manager.Anim.Play("PatternC");
+        }
+
     }
 
     public override void EndState()
@@ -35,10 +71,12 @@ public class RirisPATTERNB : RirisFSMState
         _IsTele = false;
         _Time1 = 0;
         _Time2 = 0;
+        isEnd = false;
         PatternBReadyEffect.SetActive(false);
         PatternBAttackEffect.SetActive(false);
 
         _manager._Weapon.gameObject.SetActive(false);
+        useGravity = true;
     }
 
     protected override void Update()
@@ -50,11 +88,11 @@ public class RirisPATTERNB : RirisFSMState
         if (_IsAttackReady)
              PatternBAttackEffect.transform.position = _manager._WeaponCenter.transform.position;
 
-        if (_Time1 > _AttackEndTime)
+        if (isEnd)
         {
             _manager.SetState(RirisState.PATTERNEND);
+            isEnd = false;
         }
-
     }
 
     public void AttackCheck()
@@ -62,6 +100,11 @@ public class RirisPATTERNB : RirisFSMState
         var hitTarget = GameLib.SimpleDamageProcess(transform,
             _manager.Stat.AttackRange,
             "Player", _manager.Stat);
+    }
+
+    public override void Start()
+    {
+        bulletPool = EffectPoolManager._Instance._BossBulletPool;
     }
 
     protected override void FixedUpdate()

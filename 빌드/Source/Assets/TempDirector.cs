@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using MC.UI;
+using MC.SceneDirector;
 
 public class TempDirector : MonoBehaviour
 {
     public static TempDirector Instance;
+
+    public bool PlayMode = false;
 
     public GameObject CineSet;
     public GameObject PlaySet;
@@ -21,7 +24,8 @@ public class TempDirector : MonoBehaviour
 
     void Start()
     {
-
+        if (!GameManager.Instance.CineMode) SceneStart();
+        else CineStart();
     }
 
     public void CineStart()
@@ -39,5 +43,15 @@ public class TempDirector : MonoBehaviour
 
 
         UserInterface.SetPlayerUserInterface(true);
+    }
+
+    public void CineEnd()
+    {
+
+    }
+
+    public void OnStartBoss()
+    {
+
     }
 }

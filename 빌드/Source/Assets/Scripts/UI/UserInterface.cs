@@ -3,7 +3,9 @@
 using UnityEngine;
 
 using UnityEngine.UI;
+
 using MC.Mission;
+using MC.SceneDirector;
 
 namespace MC.UI
 {
@@ -141,7 +143,6 @@ namespace MC.UI
 
         private void PlayerUI()
         {
-            // 나중에 변신에 포함시킬것
             UIPlayer.ProfileImage(playerFSMMgr.isNormal);
 
             HPChangeEffect(playerFSMMgr.Stat, UIPlayer.hpBar);
@@ -429,10 +430,16 @@ namespace MC.UI
         #region Null Support
         public void SetValue()
         {
-            playerFSMMgr = PlayerFSMManager.Instance;
+            if (MCSceneManager.currentSceneNumber != MCSceneManager.TITLE)
+            {
+                playerFSMMgr = PlayerFSMManager.Instance;
+                UIPlayer.SetValue();
+            }
+
             missionMgr = MissionManager.Instance;
             gameStatus = GameStatus.Instance;
             gameMgr = GameManager.Instance;
+
 
             SetMPMode(MPSimpleMode);
         }

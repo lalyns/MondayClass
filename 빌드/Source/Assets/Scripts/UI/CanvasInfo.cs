@@ -72,9 +72,8 @@ namespace MC.UI {
         public SystemUI systemUI;
         public MousePointer mousePointer;
         public ScreenEffect screenEffect;
-        public UITitle title;
 
-        
+        public UIDialog dialog;
 
         private void Awake()
         {

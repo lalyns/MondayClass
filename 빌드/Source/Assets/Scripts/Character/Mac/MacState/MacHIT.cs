@@ -40,15 +40,19 @@ public class MacHIT : MacFSMState
         hitEnd = false;
 
         _manager.CurrentAttackType = AttackType.NONE;
+        _manager.isChange = false;
     }
 
     protected override void Update()
     {
         base.Update();
 
-        if (hitEnd)
-        {
+        if (hitEnd && !PlayerFSMManager.Instance.isSpecial && !PlayerFSMManager.Instance.isSkill4)
             _manager.SetState(MacState.CHASE);
+        if (PlayerFSMManager.Instance.isSkill4)
+        {
+            PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
+            _manager.Stat.TakeDamage(playerStat, 1);
         }
     }
 

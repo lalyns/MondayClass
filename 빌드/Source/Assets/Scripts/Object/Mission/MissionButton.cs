@@ -56,7 +56,10 @@ namespace MC.UI {
 
         public void SetMissionOnClick()
         {
+            Debug.Log("Click");
+
             MissionManager.SelectMission(missionType);
+
         }
     }
 }

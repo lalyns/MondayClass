@@ -20,13 +20,13 @@ GameObject:
   - component: {fileID: 2020198653491668466}
   - component: {fileID: 6869048589650024599}
   - component: {fileID: 6457547679530731513}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Prefab_RedHat
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8003058935294293786
 Transform:
   m_ObjectHideFlags: 0
@@ -87,6 +87,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a8937bfddeb04a4aad7a0a1ffdd580c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _time: 0
+  _WeaponCapsule: {fileID: 264412598946801585}
 --- !u!114 &3097953323126903820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,7 +154,7 @@ MonoBehaviour:
   _Player: 0
   sightAspect: 3
   _statData: {fileID: 11400000, guid: 08f6433d6080f394088735ab728afc81, type: 2}
-  stats: {fileID: 0}
+  stats: {fileID: 2020198653491668466}
   monsterType: 0
   startState: 0
   _AttackTransform: {fileID: 0}
@@ -178,6 +180,7 @@ MonoBehaviour:
   KnockBackDuration: 0
   KnockBackPower: 0
   KnockBackDelay: 0
+  isDead: 0
   CurrentAttackType: 0
 --- !u!114 &2020198653491668466
 MonoBehaviour:
@@ -306,7 +309,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.13
-  m_Height: 1
+  m_Height: 1.42
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.31}
 --- !u!114 &3657624029317256539
@@ -1532,11 +1535,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Respawn_Effect
-      objectReference: {fileID: 0}
-    - target: {fileID: 7997791748008708603, guid: 2c919a0b9d8831842afeb2561a7ddde5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7997791748008708602, guid: 2c919a0b9d8831842afeb2561a7ddde5,
         type: 3}

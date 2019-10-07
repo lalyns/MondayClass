@@ -7,7 +7,7 @@ namespace MC.Sound
     public class ObjectSound : MonoBehaviour
     {
         [System.Serializable]
-        public class AmbientSoundList
+        public class AmbientList
         {
             #region AmbientList
             public AK.Wwise.Event lobbyAmbient = new AK.Wwise.Event();
@@ -15,24 +15,38 @@ namespace MC.Sound
             public AK.Wwise.Event bossAmbient = new AK.Wwise.Event();
 
             #endregion
-
             public void PlayAmbient(GameObject go, AK.Wwise.Event amb)
             {
                 if (GameManager.Instance.config.soundActive.ambient ||
                     GameManager.Instance.config.soundActive.all)
-                    amb.Post(go);
+                    try
+                    {
+                        amb.Post(go);
+                    }
+                    catch
+                    {
+                        MCSoundManager.LoadBank();
+                    }
 
             }
             public void StopAmbient(GameObject go, AK.Wwise.Event amb)
             {
-                if (GameManager.Instance.config.soundActive.ambient ||
-                    GameManager.Instance.config.soundActive.all)
-                    amb.Stop(go);
+                    if (GameManager.Instance.config.soundActive.ambient ||
+                        GameManager.Instance.config.soundActive.all)
+                        try
+                        {
+                            amb.Stop(go);
+                        }
+                        catch
+                        {
+                            MCSoundManager.LoadBank();
+                        }
             }
+        
         }
 
         [System.Serializable]
-        public class BGMSoundList
+        public class BGMList
         {
             #region BGMList
             public AK.Wwise.Event lobbyBGM = new AK.Wwise.Event();
@@ -45,13 +59,27 @@ namespace MC.Sound
             {
                 if (GameManager.Instance.config.soundActive.bgm ||
                     GameManager.Instance.config.soundActive.all)
-                    bgm.Post(go);
+                    try
+                    {
+                        bgm.Post(go);
+                    }
+                    catch
+                    {
+                        MCSoundManager.LoadBank();
+                    }
             }
             public void StopBGM(GameObject go, AK.Wwise.Event bgm)
             {
                 if (GameManager.Instance.config.soundActive.bgm ||
                     GameManager.Instance.config.soundActive.all)
-                    bgm.Stop(go);
+                    try
+                    {
+                        bgm.Stop(go);
+                    }
+                    catch
+                    {
+                        MCSoundManager.LoadBank();
+                    }
             }
         }
 
@@ -66,16 +94,23 @@ namespace MC.Sound
 
             #endregion
 
-            public void PlayBGM(GameObject go, AK.Wwise.Event bgm)
+            public void PlaySound(GameObject go, AK.Wwise.Event bgm)
             {
                 if (GameManager.Instance.config.soundActive.sfx ||
                     GameManager.Instance.config.soundActive.all)
-                    bgm.Post(go);
+                    try
+                    {
+                        bgm.Post(go);
+                    }
+                    catch
+                    {
+                        MCSoundManager.LoadBank();
+                    }
             }
         }
 
-        public AmbientSoundList ambient;
-        public BGMSoundList bgm;
+        public AmbientList ambient;
+        public BGMList bgm;
         public ObjectSoundList objectSFX;
     }
 }

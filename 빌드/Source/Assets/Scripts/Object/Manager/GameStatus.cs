@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
+using MC.Sound;
 using MC.Mission;
 using MC.SceneDirector;
 
@@ -47,7 +48,7 @@ public class GameStatus : MonoBehaviour
 
     public void Awake()
     {
-        _PlayerInstance = PlayerFSMManager.Instance;
+        //_PlayerInstance = PlayerFSMManager.Instance;
     }
 
     public void Start()

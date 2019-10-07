@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
     public int curScore = 0;
     public bool IsPuase;
 
+    public bool CineMode;
+
     [System.Serializable]
     public class UIActive
     {
@@ -84,6 +86,12 @@ public class GameManager : MonoBehaviour
             MCSceneManager.currentSceneNumber == MCSceneManager.SURVIVAL     ||
             MCSceneManager.currentSceneNumber == MCSceneManager.DEFENCE)
         {
+            UserInterface.SetPointerMode(false);
+        }
+
+        if(MCSceneManager.currentSceneNumber == MCSceneManager.BOSS)
+        {
+            TempDirector.Instance.SceneStart();
             UserInterface.SetPointerMode(false);
         }
 
@@ -235,6 +243,7 @@ public class GameManager : MonoBehaviour
 
     private void BossSet()
     {
+        TempDirector.Instance.PlayMode = false;
         TempDirector.Instance.CineStart();
     }
 
