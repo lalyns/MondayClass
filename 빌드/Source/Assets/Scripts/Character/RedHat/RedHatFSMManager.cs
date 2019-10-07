@@ -135,7 +135,17 @@ public class RedHatFSMManager : FSMManager
         _States[_CurrentState].enabled = true;
         _Anim.SetInteger("CurrentState", (int)_CurrentState);
     }
-
+    //[HideInInspector]
+    public bool isChange;
+    private void Update()
+    {
+        if ((PlayerFSMManager.Instance.isSpecial || PlayerFSMManager.Instance.isSkill4) && !isChange)
+        {
+            SetState(RedHatState.HIT);
+            isChange = true;
+            return;
+        }
+    }
     public override void OnHitForMonster(AttackType attackType)
     {
         base.OnHitForMonster(attackType);

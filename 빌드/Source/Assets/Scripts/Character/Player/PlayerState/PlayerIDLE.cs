@@ -7,10 +7,9 @@ public class PlayerIDLE : FSMState
     float _time = 0;
     public override void BeginState()
     {
-        MCSoundManager.SetSound();
-
         base.BeginState();
         _manager.isIDLE = true;
+        _manager.isCantMove = false;
     }
 
     public override void EndState()
@@ -21,7 +20,7 @@ public class PlayerIDLE : FSMState
 
     private void Update()
     {
-        if (_manager.OnMove())
+        if (_manager.OnMove() && !_manager.isSpecial)
         {
             _manager.SetState(PlayerState.RUN);
             return;

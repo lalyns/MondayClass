@@ -124,12 +124,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e90720fce51739408815d499ec37bc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Center: {fileID: 2590806263654600089}
-  _Actor: {fileID: 2590806263239550433}
-  _MapPosition: []
-  _GridSize: 0
+  center: {fileID: 0}
+  actor: {fileID: 0}
+  mapPositions: []
+  gridSize: 0
   loopCount: 25
-  _IsGridGizmos: 0
+  isDrawGizmos: 1
 --- !u!114 &145245133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   _MissionOperate: 1
   _LimitTime: 180
   MissionType: 3
-  _MissionSelector: {fileID: 0}
+  missionEnd: 0
 --- !u!54 &1775950372
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -625,13 +625,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2031877484, guid: 5c0a95de10c3c814785b9b7321b55840, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.23
+    - target: {fileID: 7112653474660143932, guid: 5c0a95de10c3c814785b9b7321b55840,
+        type: 3}
+      propertyPath: _Weapon
+      value: 
+      objectReference: {fileID: 1638977765900203473}
+    - target: {fileID: 7112653474660143932, guid: 5c0a95de10c3c814785b9b7321b55840,
+        type: 3}
+      propertyPath: _WeaponAnimator
+      value: 
+      objectReference: {fileID: 1638977766494256855}
+    - target: {fileID: 7112653474660143932, guid: 5c0a95de10c3c814785b9b7321b55840,
+        type: 3}
+      propertyPath: _WeaponCenter
+      value: 
+      objectReference: {fileID: 1638977766486561079}
+    - target: {fileID: 7112653474660143936, guid: 5c0a95de10c3c814785b9b7321b55840,
+        type: 3}
+      propertyPath: targetSetDelay
+      value: 1.2
       objectReference: {fileID: 0}
-    - target: {fileID: 418021095, guid: 5c0a95de10c3c814785b9b7321b55840, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.23
+    - target: {fileID: 7112653474660143937, guid: 5c0a95de10c3c814785b9b7321b55840,
+        type: 3}
+      propertyPath: _MapCenter
+      value: 
+      objectReference: {fileID: 2590806263654600089}
+    - target: {fileID: 7112653474660143943, guid: 5c0a95de10c3c814785b9b7321b55840,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: 572319316, guid: 5c0a95de10c3c814785b9b7321b55840, type: 3}
       propertyPath: _Pattern.Array.size
@@ -649,35 +671,13 @@ PrefabInstance:
       propertyPath: _Pattern.Array.data[2]
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 7112653474660143932, guid: 5c0a95de10c3c814785b9b7321b55840,
-        type: 3}
-      propertyPath: _Weapon
-      value: 
-      objectReference: {fileID: 1638977765900203473}
-    - target: {fileID: 7112653474660143932, guid: 5c0a95de10c3c814785b9b7321b55840,
-        type: 3}
-      propertyPath: _WeaponAnimator
-      value: 
-      objectReference: {fileID: 1638977766494256855}
-    - target: {fileID: 7112653474660143932, guid: 5c0a95de10c3c814785b9b7321b55840,
-        type: 3}
-      propertyPath: _WeaponCenter
-      value: 
-      objectReference: {fileID: 1638977766486561079}
-    - target: {fileID: 7112653474660143937, guid: 5c0a95de10c3c814785b9b7321b55840,
-        type: 3}
-      propertyPath: _MapCenter
-      value: 
-      objectReference: {fileID: 2590806263654600089}
-    - target: {fileID: 7112653474660143936, guid: 5c0a95de10c3c814785b9b7321b55840,
-        type: 3}
-      propertyPath: targetSetDelay
-      value: 1.2
+    - target: {fileID: 418021095, guid: 5c0a95de10c3c814785b9b7321b55840, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.23
       objectReference: {fileID: 0}
-    - target: {fileID: 7112653474660143943, guid: 5c0a95de10c3c814785b9b7321b55840,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 1.35
+    - target: {fileID: 2031877484, guid: 5c0a95de10c3c814785b9b7321b55840, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.23
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c0a95de10c3c814785b9b7321b55840, type: 3}

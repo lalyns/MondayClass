@@ -2,146 +2,99 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MissionB : Mission
+namespace MC.Mission
 {
-    public int goalScore = 5;
 
-    float starDropTime = 0;
-    public float starDropCool = 5f;
-    public GameObject star;
-    public Transform[] dropLocation;
-
-    float spawnTime = 0;
-    public float spawnCool = 3f;
-    public Vector2[] mobSet;
-    public Transform[] spawnLocation;
-
-    int NumberOfMaxMonster = 20;
-
-    public List<Transform> oldSpawnList = new List<Transform>();
-    public List<GameObject> activeStar = new List<GameObject>();
-
-    // Start is called before the first frame update
-    protected override void Start()
+    public class MissionB : MissionBase
     {
-        
-    }
+        public int goalScore = 5;
 
-    // Update is called once per frame
-    protected override void Update()
-    {
-        if (Input.GetKey(KeyCode.LeftAlt))
+        public float starHeight = 10f;
+
+        float starDropTime = 0;
+        public float starDropCool = 5f;
+
+        float spawnTime = 0;
+        public float spawnCool = 3f;
+
+        int NumberOfMaxMonster = 20;
+
+        public MonsterWave[] waves;
+
+        public int currentWave = 0;
+        public int totalWave = 3;
+
+        public List<Transform> oldSpawnList = new List<Transform>();
+        public List<GameObject> activeStar = new List<GameObject>();
+
+        // Start is called before the first frame update
+        protected override void Start()
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            totalWave = waves.Length;
+        }
+
+        // Update is called once per frame
+        protected override void Update()
+        {
+            if (missionEnd) return;
+
+            if (GameStatus.Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
+
+            if (MissionOperate)
+            {
+                starDropTime += Time.deltaTime;
+                spawnTime += Time.deltaTime;
+
+                if (starDropTime > starDropCool)
+                {
+                    DropStar();
+                    starDropTime = 0;
+                }
+
+                if (spawnTime > spawnCool)
+                {
+                    Spawn();
+                    spawnTime = 0;
+                }
+            }
+
+            if (GameManager.Instance.curScore >= goalScore)
             {
                 ClearMission();
-                MissionEnd = true;
+                missionEnd = true;
             }
-
         }
 
-        if (MissionEnd) return;
-
-        if (GameStatus.Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
-
-        if (MissionOperate)
+        public void Spawn()
         {
-            starDropTime += Time.deltaTime;
-            spawnTime += Time.deltaTime;
+            if (currentWave >= totalWave) currentWave = 0;
 
-            if (starDropTime > starDropCool)
-            {
-                DropStar();
-                starDropTime = 0;
-            }
-
-            if(spawnTime > spawnCool)
-            {
-                Spawn();
-                spawnTime = 0;
-            }
+            StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
         }
 
-        if (GameManager.Instance.curScore >= goalScore)
+        public override void RestMission()
         {
-            ClearMission();
-            MissionEnd = true;
+            base.RestMission();
+
+            spawnTime = 0;
         }
-    }
 
-    void Spawn()
-    {
-        int randSet = UnityEngine.Random.Range(0, mobSet.Length - 1);
-
-        int loopCount = 0;
-        oldSpawnList.Clear();
-
-        for (int i=0; i < mobSet[randSet].x; loopCount++)
+        public override void ClearMission()
         {
-            if(loopCount > 1000)
-            {
-                break;
-            }
+            base.ClearMission();
 
-            int randPos = UnityEngine.Random.Range(0, spawnLocation.Length);
+            foreach (GameObject star in activeStar)
+                EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(star);
 
-            if (oldSpawnList.Contains(spawnLocation[randPos]))
-            {
-                continue;
-            }
-            else
-            {
-                oldSpawnList.Add(spawnLocation[randPos]);
-
-                MonsterPoolManager._Instance._RedHat.ItemSetActive(spawnLocation[randPos], "monster");
-
-                i++;
-            }
         }
 
-        for (int i = 0; i < mobSet[randSet].y; loopCount++)
+        void DropStar()
         {
-            if (loopCount > 1000)
-            {
-                break;
-            }
+            var randPos = UnityEngine.Random.Range(0, Grid.mapPositions.Count);
 
-            int randPos = UnityEngine.Random.Range(0, spawnLocation.Length);
+            GameObject star = EffectPoolManager._Instance._MissionBstarPool.ItemSetActive(Grid.mapPositions[randPos] + Vector3.up * starHeight);
 
-            if (oldSpawnList.Contains(spawnLocation[randPos]))
-            {
-                continue;
-            }
-            else
-            {
-                oldSpawnList.Add(spawnLocation[randPos]);
-
-                MonsterPoolManager._Instance._Mac.ItemSetActive(spawnLocation[randPos], "monster");
-
-                i++;
-            }
+            activeStar.Add(star);
         }
-    }
-
-    public override void RestMission()
-    {
-        base.RestMission();
-    }
-
-    public override void ClearMission()
-    {
-        base.ClearMission();
-
-        foreach (GameObject star in activeStar)
-            EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(star);
-
-    }
-
-    void DropStar()
-    {
-        int randPos = UnityEngine.Random.Range(0, dropLocation.Length - 1);
-
-        GameObject star = EffectPoolManager._Instance._MissionBstarPool.ItemSetActive(dropLocation[randPos].position);
-        activeStar.Add(star);
     }
 }

@@ -14,7 +14,7 @@ public class PlayerAnimEvent : MonoBehaviour
     private void Start()    
     {
         //input = InputHandler.instance;
-        player = PlayerFSMManager.instance;
+        player = PlayerFSMManager.Instance;
     }
     private void Update()
     {
@@ -92,6 +92,26 @@ public class PlayerAnimEvent : MonoBehaviour
         {
 
         }
+    }
+
+    void Skill3Finish()
+    {
+        var voice = player._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.skill3FinishVoice);
+    }
+
+    void SpecialCast()
+    {
+
+        var voice = player._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.specialCastVoice);
+    }
+
+    void SpecialEnd()
+    {
+
+        var voice = player._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.specialFinishVoice);
     }
 
     public void StopParticle()

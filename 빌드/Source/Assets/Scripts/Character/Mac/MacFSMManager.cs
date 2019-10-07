@@ -127,7 +127,17 @@ public class MacFSMManager : FSMManager
         _States[_CurrentState].enabled = true;
         _Anim.SetInteger("CurrentState", (int)_CurrentState);
     }
-
+    [HideInInspector]
+    public bool isChange;
+    private void Update()
+    {
+        if ((PlayerFSMManager.Instance.isSpecial || PlayerFSMManager.Instance.isSkill4) && !isChange)
+        {
+            SetState(MacState.HIT);
+            isChange = true;
+            return;
+        }
+    }
     public override void OnHitForMonster(AttackType attackType)
     {
         base.OnHitForMonster(attackType);
@@ -228,9 +238,11 @@ public class MacFSMManager : FSMManager
                 other.transform.gameObject.SetActive(false);
             }
         }
-       
-        if(other.transform.tag == "Skill2")
+
+        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
         {
+            StartCoroutine("Skill2Timer");
+
             SetState(MacState.HIT);
         }
         if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
@@ -242,6 +254,10 @@ public class MacFSMManager : FSMManager
     public override IEnumerator Skill3Timer()
     {
         return base.Skill3Timer();
+    }
+    public override IEnumerator Skill2Timer()
+    {
+        return base.Skill2Timer();
     }
 
     private void OnTriggerStay(Collider other)

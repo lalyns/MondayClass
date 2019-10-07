@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd8162163a9aa347908c632b0c9d02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _InitializeItemSize: 40
+  _InitializeItemSize: 200
   _PoolingItem: {fileID: 9078196641585124226, guid: 19624861593a0e049abd479e8c9e86ef,
     type: 3}
 --- !u!1 &1660828985877369076
@@ -285,6 +285,7 @@ MonoBehaviour:
   _MacBulletPool: {fileID: 1660828985877369083}
   _MacSkillPool: {fileID: 2884919648646353529}
   _BossBulletPool: {fileID: 1660828985497221787}
+  _BossTornaedoPool: {fileID: 1348322938}
   _MissionBstarPool: {fileID: 8204880867308991941}
   _PlayerEffectPool:
   - {fileID: 3391490553775697985}
@@ -575,6 +576,52 @@ Transform:
   m_Father: {fileID: 1660828986152774808}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5785757719819457381
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1335128029882124880}
+  - component: {fileID: 1348322938}
+  m_Layer: 0
+  m_Name: RirisTornaedo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1335128029882124880
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5785757719819457381}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6564025568010223670}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1348322938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5785757719819457381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd8162163a9aa347908c632b0c9d02f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _InitializeItemSize: 20
+  _PoolingItem: {fileID: 1609645626046941522, guid: 29fb51fae8d3dfc41954356ee03c95f3,
+    type: 3}
 --- !u!1 &6235654229991387172
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +650,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1660828985497221786}
+  - {fileID: 1335128029882124880}
   m_Father: {fileID: 1660828986152774808}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

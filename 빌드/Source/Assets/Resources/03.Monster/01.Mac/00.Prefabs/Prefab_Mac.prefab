@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 1765374230791495563}
   - component: {fileID: 6174156086311316546}
   - component: {fileID: 5834709262980405726}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Prefab_Mac
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  _hp: 1000
+  _hp: 200
   lastHitBy: {fileID: 0}
   statData: {fileID: 11400000, guid: c4e880e7851cfe4489aa5466459f6054, type: 2}
   monsterData: {fileID: 11400000, guid: c4e880e7851cfe4489aa5466459f6054, type: 2}
@@ -289,11 +289,13 @@ MonoBehaviour:
   _Sound: {fileID: 0}
   _PriorityTarget: {fileID: 0}
   _DetectingRange: 20
+  isDead: 0
   KnockBackFlag: 0
   KnockBackDuration: 0
   KnockBackPower: 0
   KnockBackDelay: 0
   CurrentAttackType: 0
+  isChange: 0
 --- !u!114 &5136133771846456272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,11 +404,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb390ad0b14a7c4799107ca484b8830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Hit:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: f6a0e25a7cb21b243b4deb0e500b8c8f,
-      type: 2}
+  monsterSFX:
+    attackSFX:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
 --- !u!114 &5834709262980405726
 MonoBehaviour:
   m_ObjectHideFlags: 0

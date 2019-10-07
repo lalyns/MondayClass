@@ -4,6 +4,9 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
+using MC.Mission;
+using MC.SceneDirector;
+
 namespace MC.UI
 {
     public class UserInterface : MonoBehaviour
@@ -131,14 +134,15 @@ namespace MC.UI
         public UIPlayer UIPlayer 
         {
             get {
-                if (uiPlayer == null) uiPlayer = CanvasInfo.Instance.player;
+                if (uiPlayer == null) {
+                    uiPlayer = CanvasInfo.Instance.player;
+                }
                 return uiPlayer;
             }
         }
 
         private void PlayerUI()
         {
-            // 나중에 변신에 포함시킬것
             UIPlayer.ProfileImage(playerFSMMgr.isNormal);
 
             HPChangeEffect(playerFSMMgr.Stat, UIPlayer.hpBar);
@@ -327,18 +331,19 @@ namespace MC.UI
 
         private void SetGoal(MissionType type)
         {
+            
             var text = "";
             switch (type)
             {
                 case MissionType.Annihilation:
                     text = "남은 몬스터 " + gameStatus.ActivedMonsterList.Count + " 마리";
                     break;
+                case MissionType.Survival:
+                    text = gameMgr.curScore + " 개 / 5 개";
+                    break;
                 case MissionType.Defence:
                     MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
                     text = "남은 기둥 체력 " + mission.protectedTarget.hp + " / " + mission._ProtectedTargetHP;
-                    break;
-                case MissionType.Survival:
-                    text = gameMgr.curScore + " 개 / 5 개";
                     break;
                 case MissionType.Boss:
                     text = "리리스를 처치하시오";
@@ -356,12 +361,12 @@ namespace MC.UI
                 case MissionType.Annihilation:
                     text = gameStatus.ActivedMonsterList.Count + " ";
                     break;
+                case MissionType.Survival:
+                    text = gameMgr.curScore + " / 5";
+                    break;
                 case MissionType.Defence:
                     MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
                     text = mission.protectedTarget.hp + " / " + mission._ProtectedTargetHP;
-                    break;
-                case MissionType.Survival:
-                    text = gameMgr.curScore + " / 5";
                     break;
                 case MissionType.Boss:
                     text = "리리스를 처치하시오";
@@ -382,7 +387,13 @@ namespace MC.UI
 
         #endregion
 
-        #region Title User Interface
+        #region Dialog User Interface
+        public UIDialog Dialog => CanvasInfo.Instance.dialog;
+        public static void DialogSetActive(bool value)
+        {
+            Instance.Dialog.gameObject.SetActive(value);
+        }
+
 
         #endregion
 
@@ -419,10 +430,16 @@ namespace MC.UI
         #region Null Support
         public void SetValue()
         {
-            playerFSMMgr = PlayerFSMManager.Instance;
+            if (MCSceneManager.currentSceneNumber != MCSceneManager.TITLE)
+            {
+                playerFSMMgr = PlayerFSMManager.Instance;
+                UIPlayer.SetValue();
+            }
+
             missionMgr = MissionManager.Instance;
             gameStatus = GameStatus.Instance;
             gameMgr = GameManager.Instance;
+
 
             SetMPMode(MPSimpleMode);
         }

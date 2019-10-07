@@ -13,6 +13,8 @@ public class PlayerATTACK3 : FSMState
         _manager._Sound.sfx.PlayPlayerSFX(this.gameObject, _manager._Sound.sfx.attackSFX);
         _manager.attackType = AttackType.ATTACK3;
 
+        var voice = _manager._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.swingHardVoice);
 
 
     }

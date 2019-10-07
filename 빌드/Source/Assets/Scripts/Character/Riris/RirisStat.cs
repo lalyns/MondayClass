@@ -15,4 +15,10 @@ public class RirisStat : CharacterStat
     public float _BulletSpeed = 10f;
     public float _BulletLifeTime;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        _maxHp = statData._MaxHp;
+        _hp = _maxHp;
+    }
 }
