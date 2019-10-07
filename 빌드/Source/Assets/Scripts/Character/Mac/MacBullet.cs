@@ -34,6 +34,7 @@ public class MacBullet : MonoBehaviour
     public bool _Destroy = false;
     private bool _Dameged = false;
 
+
     private void Start()
     {
         switch (_Type)

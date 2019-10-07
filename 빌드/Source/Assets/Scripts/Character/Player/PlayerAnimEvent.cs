@@ -11,10 +11,12 @@ public class PlayerAnimEvent : MonoBehaviour
     public TrailRenderer Special_trail;
     public ParticleSystem particle;
     bool isNormal;
+    PlayerSKILL2 skill2;
     private void Start()    
     {
         //input = InputHandler.instance;
         player = PlayerFSMManager.Instance;
+        skill2 = player.GetComponent<PlayerSKILL2>();
     }
     private void Update()
     {
@@ -121,5 +123,10 @@ public class PlayerAnimEvent : MonoBehaviour
 
         //particle.Stop();
         //particle.Clear();
+    }
+
+    void Skill2End()
+    {
+        skill2.isEnd = true;
     }
 }

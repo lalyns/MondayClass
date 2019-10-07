@@ -41,7 +41,7 @@ public class FollowCam : MonoBehaviour
     {
         //구체 형태의 충돌체로 충돌 여부를 검사
 
-        if (Physics.CheckSphere(transform.position, colliderRadius))
+        if (Physics.CheckSphere(transform.position, 0))
         {
             //보간함수를 사용하여 카메라의 높이를 부드럽게 상승시킴.
             height = Mathf.Lerp(height, heightAboveWall, Time.deltaTime * overDamping);
@@ -95,9 +95,9 @@ public class FollowCam : MonoBehaviour
         
         if (player.isMouseYLock)
         {
-            distance = 3.25f;
-            originHeight = 2.67f;
-            targetOffset = 0.94f;
+            distance = 5f;
+            originHeight = 2.97f;
+            targetOffset = 0.7f;
             return;
         }
 
@@ -132,7 +132,7 @@ public class FollowCam : MonoBehaviour
         if (originHeight >= maxHeight)
         {
             originHeight = maxHeight;
-            isMin = true;
+            //isMin = true;
         }
         if (isMax)
         {
