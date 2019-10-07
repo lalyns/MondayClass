@@ -178,6 +178,11 @@ MonoBehaviour:
   _MacBulletPool: {fileID: 2101220376}
   _MacSkillPool: {fileID: 541281210}
   _BossBulletPool: {fileID: 0}
+  _BossTornaedoPool: {fileID: 0}
+  _TiberSkillRange: {fileID: 0}
+  _TiberSkillEffect1: {fileID: 0}
+  _TiberSkillEffect2: {fileID: 0}
+  _TiberAttackEffect: {fileID: 0}
   _MissionBstarPool: {fileID: 1200047436}
   _PlayerEffectPool:
   - {fileID: 2112320983}
@@ -2531,7 +2536,7 @@ Transform:
   m_LocalPosition: {x: 100, y: 0, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1470521419}
+  - {fileID: 1200903594}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2604,52 +2609,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &533672243
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 533672244}
-  - component: {fileID: 533672245}
-  m_Layer: 0
-  m_Name: Mac
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &533672244
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 533672243}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1470521419}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &533672245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 533672243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcd8162163a9aa347908c632b0c9d02f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _InitializeItemSize: 5
-  _PoolingItem: {fileID: 3694473066860267770, guid: ba0ff665735685740b16fde1d87eb316,
-    type: 3}
 --- !u!1 &541281208
 GameObject:
   m_ObjectHideFlags: 0
@@ -8567,6 +8526,81 @@ MonoBehaviour:
   _InitializeItemSize: 5
   _PoolingItem: {fileID: 7242914150444159907, guid: cb28f3c5b4876ed40b71f110a5e1cda4,
     type: 3}
+--- !u!1001 &1200903593
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 525444347}
+    m_Modifications:
+    - target: {fileID: 407372539585099827, guid: 27323d0048f271a41b92a8ec8b9695e7,
+        type: 3}
+      propertyPath: m_Name
+      value: MonsterPool
+      objectReference: {fileID: 0}
+    - target: {fileID: 407372539585099826, guid: 27323d0048f271a41b92a8ec8b9695e7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407372539585099826, guid: 27323d0048f271a41b92a8ec8b9695e7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407372539585099826, guid: 27323d0048f271a41b92a8ec8b9695e7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407372539585099826, guid: 27323d0048f271a41b92a8ec8b9695e7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407372539585099826, guid: 27323d0048f271a41b92a8ec8b9695e7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407372539585099826, guid: 27323d0048f271a41b92a8ec8b9695e7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407372539585099826, guid: 27323d0048f271a41b92a8ec8b9695e7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 407372539585099826, guid: 27323d0048f271a41b92a8ec8b9695e7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 407372539585099826, guid: 27323d0048f271a41b92a8ec8b9695e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407372539585099826, guid: 27323d0048f271a41b92a8ec8b9695e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407372539585099826, guid: 27323d0048f271a41b92a8ec8b9695e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 27323d0048f271a41b92a8ec8b9695e7, type: 3}
+--- !u!4 &1200903594 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 407372539585099826, guid: 27323d0048f271a41b92a8ec8b9695e7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1200903593}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1212766899
 GameObject:
   m_ObjectHideFlags: 0
@@ -9206,53 +9240,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2de8be93bf7eb346b99d36fcb392e29, type: 3}
---- !u!1 &1470521418
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1470521419}
-  - component: {fileID: 1470521420}
-  m_Layer: 0
-  m_Name: MonsterPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1470521419
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1470521418}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 533672244}
-  - {fileID: 1612541851}
-  m_Father: {fileID: 525444347}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1470521420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1470521418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4364dd10007b6f4c852fb5ec327cff9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Mac: {fileID: 533672245}
-  _RedHat: {fileID: 1612541852}
 --- !u!1001 &1479207553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9499,52 +9486,6 @@ Transform:
   m_Father: {fileID: 1650415743}
   m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1612541850
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1612541851}
-  - component: {fileID: 1612541852}
-  m_Layer: 0
-  m_Name: RedHat
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1612541851
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612541850}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1470521419}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1612541852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612541850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcd8162163a9aa347908c632b0c9d02f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _InitializeItemSize: 5
-  _PoolingItem: {fileID: 528566134424893965, guid: 197b858b79860fc4a89c78fb27b7d1cc,
-    type: 3}
 --- !u!1 &1615016911
 GameObject:
   m_ObjectHideFlags: 0

@@ -114,7 +114,6 @@ namespace MC.Mission
             Exit.Colliders.enabled = false;
         }
 
-        ObjectSound.ObjectSoundList sound = MCSoundManager.Instance.objectSound.objectSFX;
         public virtual void ClearMission()
         {
             GameStatus.Instance._MissionStatus = false;
@@ -127,6 +126,8 @@ namespace MC.Mission
 
             Exit._PortalEffect.SetActive(true);
             Exit.Colliders.enabled = true;
+
+            var sound = MCSoundManager.Instance.objectSound.objectSFX;
             sound.PlaySound(Exit.gameObject, sound.portalCreate);
         }
 
