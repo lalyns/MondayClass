@@ -38,6 +38,7 @@ public class TiberHIT : TiberFSMState
         hitEnd = false;
 
         _manager.CurrentAttackType = AttackType.NONE;
+        _manager.isChange = false;
     }
 
     protected override void Update()
@@ -48,8 +49,13 @@ public class TiberHIT : TiberFSMState
         {
         }
 
-        if (hitEnd)
+        if (hitEnd && !PlayerFSMManager.Instance.isSpecial && !PlayerFSMManager.Instance.isSkill4)
             _manager.SetState(TiberState.CHASE);
+        if (PlayerFSMManager.Instance.isSkill4)
+        {
+            PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
+            _manager.Stat.TakeDamage(playerStat, 1);
+        }
     }
 
     protected override void FixedUpdate()
