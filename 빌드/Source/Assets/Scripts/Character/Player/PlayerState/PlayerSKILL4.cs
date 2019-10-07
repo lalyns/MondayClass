@@ -12,7 +12,7 @@ public class PlayerSKILL4 : FSMState
 
         _manager.attackType = AttackType.SKILL4;
 
-
+        
     }
 
     public override void EndState()
