@@ -138,6 +138,7 @@ public class MacFSMManager : FSMManager
             return;
         }
     }
+
     public override void OnHitForMonster(AttackType attackType)
     {
         base.OnHitForMonster(attackType);
@@ -185,10 +186,10 @@ public class MacFSMManager : FSMManager
 
             SetState(MacState.HIT);
             //플레이어 쳐다본 후
-            transform.localEulerAngles = Vector3.zero;
-            transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
+            //transform.localEulerAngles = Vector3.zero;
+            //transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
             // 뒤로 밀림
-            transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
+            //transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
             //플레이어피버게이지증가?
             //PlayerFSMManager.instance.FeverGauge++;
         }

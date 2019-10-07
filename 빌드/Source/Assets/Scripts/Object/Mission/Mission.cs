@@ -151,6 +151,7 @@ namespace MC.Mission
                         a = MonsterPoolManager._Instance._RedHat.ItemSetActive(Grid.mapPositions[rand], monsterType);
                         break;
                     case MonsterType.Tiber:
+                        a = MonsterPoolManager._Instance._Tiber.ItemSetActive(Grid.mapPositions[rand], monsterType);
                         break;
                 }
 
