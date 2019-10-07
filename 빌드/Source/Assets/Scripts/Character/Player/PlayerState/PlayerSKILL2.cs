@@ -12,6 +12,7 @@ public class PlayerSKILL2 : FSMState
 
     float _time;
     bool isBox, isStartDamage;
+    public bool isEnd;
     public override void BeginState()
     {
         base.BeginState();
@@ -33,6 +34,8 @@ public class PlayerSKILL2 : FSMState
 
         _manager.isSkill2CTime = true;
         _manager.isSkill2End = false;
+        isEnd = false;
+        _time = 0;
     }
 
     void Update()
@@ -49,9 +52,8 @@ public class PlayerSKILL2 : FSMState
             isBox = true;
         }
      
-        if (_time >= 1f && !isStartDamage)
+        if (isEnd && !isStartDamage)
         {
-            _time = 0;
             isStartDamage = true;
             if (_manager.OnMove())
                 _manager.SetState(PlayerState.RUN); 

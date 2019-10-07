@@ -35,7 +35,7 @@ public class PlayerSKILL3 : FSMState
         _manager.isAttackTwo = false;
         _manager.isAttackThree = false;
         _manager.vignette.opacity.value = 0;
-        _manager.CMvcam2.m_Lens.FieldOfView = 60f;
+        //_manager.CMvcam2.m_Lens.FieldOfView = 60f;
         //isLock = false;
         _viewTimer = 0f;
         _opacityTimer = 0f;
@@ -56,17 +56,20 @@ public class PlayerSKILL3 : FSMState
     public bool isMax, isMin;
     private void Update()
     {
-        StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.08f, 0.01f));
+        //StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.03f, 0.1f));
         //1.7초동안 못움직임.
         _manager.isCantMove = _time <= 4.7f ? true : false;
 
         _time += Time.deltaTime;
 
 
-        if(_time >= 1.3f)
+        if (_time >= 1.3f)
         {
             _manager.isSkill3Dash = false;
         }
+
+
+
         if (!isMax)
         {
             _opacityTimer += Time.deltaTime;
@@ -75,37 +78,8 @@ public class PlayerSKILL3 : FSMState
         {
             _opacityTimer -= Time.deltaTime;
         }
-        if (!isMin)
-        {
-            _viewTimer += Time.deltaTime;
-            _manager.CMvcam2.m_Lens.FieldOfView = 60 + (_viewTimer * 8.3f);
-        }
-        if (isMin)
-        {
-            _viewTimer -= Time.deltaTime;
-            _manager.CMvcam2.m_Lens.FieldOfView = 60 + (_viewTimer * 50f);
-        }
 
-        
         _manager.vignette.opacity.value = _opacityTimer / 15000f;
-
-        if (_manager.CMvcam2.m_Lens.FieldOfView >= 70f && !isMin)
-        {
-            _manager.CMvcam2.m_Lens.FieldOfView = 70f;
-        }
-        if(_manager.CMvcam2.m_Lens.FieldOfView <= 60f && isMin)
-        {
-            _manager.CMvcam2.m_Lens.FieldOfView = 60f;
-        }
-        if (_viewTimer >= 4.6f && !isMin)
-        {
-            _viewTimer = 0.2f;
-            isMin = true;
-        }
-
-
-        
-                     
 
         if (_manager.vignette.opacity.value >= 0.00008f)
         {
@@ -116,6 +90,29 @@ public class PlayerSKILL3 : FSMState
             isMax = false;
         }
 
+        //if (!isMin)
+        //{
+        //    _viewTimer += Time.deltaTime;
+        //    _manager.CMvcam2.m_Lens.FieldOfView = 60 + (_viewTimer * 8.3f);
+        //}
+        //if (isMin)
+        //{
+        //    _viewTimer -= Time.deltaTime;
+        //    _manager.CMvcam2.m_Lens.FieldOfView = 60 + (_viewTimer * 50f);
+        //}
+        //if (_manager.CMvcam2.m_Lens.FieldOfView >= 70f && !isMin)
+        //{
+        //    _manager.CMvcam2.m_Lens.FieldOfView = 70f;
+        //}
+        //if (_manager.CMvcam2.m_Lens.FieldOfView <= 60f && isMin)
+        //{
+        //    _manager.CMvcam2.m_Lens.FieldOfView = 60f;
+        //}
+        //if (_viewTimer >= 4.6f && !isMin)
+        //{
+        //    _viewTimer = 0.2f;
+        //    isMin = true;
+        //}
 
 
 
@@ -123,7 +120,13 @@ public class PlayerSKILL3 : FSMState
 
 
 
-       if(_time >= 1.2f)
+
+
+
+
+
+
+        if (_time >= 1.2f)
         {
             _manager.Skill3_Capsule.enabled = true;
         }

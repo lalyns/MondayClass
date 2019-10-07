@@ -34,6 +34,7 @@ public class MacBullet : MonoBehaviour
     public bool _Destroy = false;
     private bool _Dameged = false;
 
+
     private void Start()
     {
         switch (_Type)
@@ -175,6 +176,21 @@ public class MacBullet : MonoBehaviour
             }
             
 
+        }
+
+        if(other.transform.tag == "DreamPillar")
+        {
+            other.GetComponent<MC.Mission.ProtectedTarget>().hp -= 10;
+            _Dameged = true;
+
+            if (!_Destroy)
+            {
+                _MoveEffect.SetActive(false);
+                _DestroyEffect.SetActive(true);
+
+                PlayEffect(_DestroyEffectParticles);
+                _Destroy = true;
+            }
         }
     }
     public void AttackSupport()

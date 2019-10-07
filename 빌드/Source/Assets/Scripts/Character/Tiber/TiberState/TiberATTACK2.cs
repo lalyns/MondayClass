@@ -5,6 +5,7 @@ using MC.UI;
 public class TiberATTACK2 : TiberFSMState
 {
     public float _time;
+    public bool isEnd = false;
 
     public override void BeginState()
     {
@@ -22,6 +23,7 @@ public class TiberATTACK2 : TiberFSMState
         base.EndState();
         _manager.Attack2Effect.SetActive(false);
         _time = 0;
+        isEnd = false;
     }
     protected override void Update()
     {
@@ -29,7 +31,7 @@ public class TiberATTACK2 : TiberFSMState
 
         _time += Time.deltaTime;
 
-        if (_time >= 1f)
+        if (isEnd)
         {
             _manager.SetState(TiberState.CHASE);
             _time = 0;

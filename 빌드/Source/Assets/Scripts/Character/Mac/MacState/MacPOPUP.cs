@@ -13,7 +13,6 @@ public class MacPOPUP : MacFSMState
         _manager.Stat.SetHp(_manager.Stat.MaxHp);
 
         EffectPlay();
-
         TargetPrioritySet();
     }
 
@@ -29,7 +28,6 @@ public class MacPOPUP : MacFSMState
         _manager._PopupEffect.GetComponentInChildren<ParticleSystem>().Play();
         _manager._PopupEffect.GetComponent<Animator>().Play("Ani");
     }
-
 
     protected override void FixedUpdate()
     {
@@ -47,12 +45,15 @@ public class MacPOPUP : MacFSMState
             {
                 if (target.tag == "Player")
                 {
+                    Debug.Log("Detecting Player!");
                     _manager._PriorityTarget = PlayerFSMManager.
-                        Instance.GetComponentInChildren<Animator>()
+                        Instance.Anim
                         .GetComponent<Collider>();
+                    break;
                 }
                 else
                 {
+                    Debug.Log("Detecting Pillar!");
                     MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
                     _manager._PriorityTarget = mission.protectedTarget.Collider;
                 }
