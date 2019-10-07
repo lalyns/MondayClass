@@ -19,6 +19,8 @@ public class PlayerSKILL2 : FSMState
         isStartDamage = false;
         _manager.attackType = AttackType.SKILL2;
 
+        var voice = _manager._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.skill2Voice);
     }
 
     public override void EndState()

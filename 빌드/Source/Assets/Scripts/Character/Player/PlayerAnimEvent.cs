@@ -94,6 +94,26 @@ public class PlayerAnimEvent : MonoBehaviour
         }
     }
 
+    void Skill3Finish()
+    {
+        var voice = player._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.skill3CastVoice);
+    }
+
+    void SpecialCast()
+    {
+
+        var voice = player._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.specialCastVoice);
+    }
+
+    void SpecialEnd()
+    {
+
+        var voice = player._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.specialFinishVoice);
+    }
+
     public void StopParticle()
     {
         

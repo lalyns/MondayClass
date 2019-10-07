@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MC.SceneDirector;
 using UnityEngine.Playables;
+using MC.Sound;
 
 namespace MC.Mission
 {
@@ -67,6 +68,7 @@ namespace MC.Mission
 
         public bool missionEnd = false;
 
+
         protected virtual void Awake()
         {
             Enter = GetComponentInChildren<MissionEnter>();
@@ -112,6 +114,7 @@ namespace MC.Mission
             Exit.Colliders.enabled = false;
         }
 
+        ObjectSound.ObjectSoundList sound = MCSoundManager.Instance.objectSound.objectSFX;
         public virtual void ClearMission()
         {
             GameStatus.Instance._MissionStatus = false;
@@ -124,6 +127,7 @@ namespace MC.Mission
 
             Exit._PortalEffect.SetActive(true);
             Exit.Colliders.enabled = true;
+            sound.PlaySound(Exit.gameObject, sound.portalCreate);
         }
 
         public virtual void EnterDirector()

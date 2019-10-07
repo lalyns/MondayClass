@@ -12,6 +12,8 @@ public class PlayerDEAD : FSMState
         base.BeginState();
         //GetComponent<Collider>().enabled = false;
 
+        var voice = _manager._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.dieVoice);
     }
 
     public override void EndState()

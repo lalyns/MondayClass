@@ -19,6 +19,8 @@ public class PlayerSKILL3 : FSMState
 
         _manager.Skill3_Capsule.enabled = false;
 
+        var voice = _manager._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.skill3CastVoice);
     }
 
     public override void EndState()
