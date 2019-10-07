@@ -21,10 +21,12 @@ public class ProtectedTarget : MonoBehaviour
             hp = _Defence._ProtectedTargetHP;
         }
 
-        private void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter(Collider other)
         {
+            Debug.Log("HP 감소!");
             if (other.transform.tag == "MonsterWeapon")
             {
+                Debug.Log("HP 감소!");
                 hp -= 10;
             }
         }

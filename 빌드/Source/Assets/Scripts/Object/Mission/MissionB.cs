@@ -8,6 +8,7 @@ namespace MC.Mission
     public class MissionB : MissionBase
     {
         public int goalScore = 5;
+        public int currentScore = 0;
 
         public float starHeight = 10f;
 
@@ -58,7 +59,7 @@ namespace MC.Mission
                 }
             }
 
-            if (GameManager.Instance.curScore >= goalScore)
+            if (currentScore >= goalScore)
             {
                 ClearMission();
                 missionEnd = true;
@@ -77,6 +78,7 @@ namespace MC.Mission
             base.RestMission();
 
             spawnTime = 0;
+            currentScore = 0;
         }
 
         public override void ClearMission()
@@ -92,7 +94,10 @@ namespace MC.Mission
         {
             var randPos = UnityEngine.Random.Range(0, Grid.mapPositions.Count);
 
-            GameObject star = EffectPoolManager._Instance._MissionBstarPool.ItemSetActive(Grid.mapPositions[randPos] + Vector3.up * starHeight);
+            GameObject star = EffectPoolManager._Instance._MissionBstarPool.ItemSetActive(
+                Grid.mapPositions[randPos] + Vector3.up * starHeight);
+
+            star.GetComponent<DropStar>().stop = false;
 
             activeStar.Add(star);
         }

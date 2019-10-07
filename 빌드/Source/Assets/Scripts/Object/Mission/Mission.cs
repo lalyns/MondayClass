@@ -121,7 +121,6 @@ namespace MC.Mission
             if (!GameStatus.Instance.usingKeward)
             {
                 GameStatus.Instance.RemoveAllActiveMonster();
-                
             }
 
             Exit._PortalEffect.SetActive(true);

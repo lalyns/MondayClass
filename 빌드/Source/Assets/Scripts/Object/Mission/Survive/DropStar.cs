@@ -9,7 +9,7 @@ namespace MC.Mission
     {
         public float _MoveSpeed = 10f;
 
-        bool stop;
+        public bool stop;
 
         public GameObject _StarMesh;
         public GameObject _FloorEffect;
@@ -37,7 +37,6 @@ namespace MC.Mission
         {
             if (other.transform.tag == "Player")
             {
-                GameManager.TempScoreAdd();
                 stop = true;
 
                 _StarMesh.SetActive(false);
@@ -46,11 +45,12 @@ namespace MC.Mission
                 _GetEffect.SetActive(true);
 
                 MissionB mission = MissionManager.Instance.CurrentMission as MissionB;
+                mission.currentScore++;
 
                 if (mission.activeStar.Contains(this.gameObject))
                     mission.activeStar.Remove(this.gameObject);
 
-                EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(this.gameObject);
+                Invoke("ReturnStar", 2f);
             }
             else if (other.transform.tag == "Stage")
             {
@@ -65,5 +65,10 @@ namespace MC.Mission
             }
         }
 
+
+        void ReturnStar()
+        {
+            EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(this.gameObject);
+        }
     }
 }

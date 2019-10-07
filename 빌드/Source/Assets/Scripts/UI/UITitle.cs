@@ -24,10 +24,32 @@ namespace MC.UI
         public Title title;
 
         public GameObject cutScene;
+        public GameObject howToPlay;
+        public GameObject config;
 
         public void StartButton()
         {
             cutScene.SetActive(true);
+        }
+
+        public void HowToPlayButton()
+        {
+            howToPlay.SetActive(true);
+        }
+
+        public void HowToPlayExit()
+        {
+            howToPlay.SetActive(false);
+        }
+
+        public void ConfigButton()
+        {
+            config.SetActive(true);
+        }
+
+        public void ConfigExit()
+        {
+            config.SetActive(false);
         }
 
         public void ExitButton()

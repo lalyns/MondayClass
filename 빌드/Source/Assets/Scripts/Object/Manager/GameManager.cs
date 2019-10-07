@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
 
     bool _SimpleMode = false;
 
-    public int curScore = 0;
     public bool IsPuase;
 
     public bool CineMode;
@@ -175,11 +174,6 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-
-    public static void TempScoreAdd()
-    {
-        Instance.curScore += 1;
-    }
 
     public static void SetFadeInOut(System.Action callback,  bool value)
     {
