@@ -23,6 +23,7 @@ public enum PlayerState
     TRANS2,
     SKILL4,
     HIT,
+    HIT2,
     DEAD,    
 }
 public enum AttackType
@@ -192,6 +193,7 @@ public class PlayerFSMManager : FSMManager
     public SkinnedMeshRenderer[] _MR;
     public List<Material> materialList = new List<Material>();
 
+    public List<Transform> Seats = new List<Transform>();
 
     protected override void Awake()
     {
@@ -503,7 +505,7 @@ public class PlayerFSMManager : FSMManager
 
         }
     }
-    bool isTrans1, isTrans2;
+    bool isTrans1;
     public void ChangeModel()
     {
         if (isNormal && SpecialGauge >= 100)
@@ -518,7 +520,12 @@ public class PlayerFSMManager : FSMManager
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
-             
+
+                if (Skill2_Test.activeSelf)
+                {
+                    Skill2_Test.SetActive(false);
+                    isSkill2End = false;
+                }
             }
         }
  
@@ -551,7 +558,7 @@ public class PlayerFSMManager : FSMManager
                 TimeLine.SetActive(false);
                 isSpecial = false;
                 isAttackOne = false;
-                
+                isTrans1 = false;
                 StartCoroutine(SetOff());
                 return;
             }
@@ -615,7 +622,11 @@ public class PlayerFSMManager : FSMManager
                 Skill3_End.transform.rotation = Skill3_Start.transform.rotation;
                 Skill3_End.SetActive(true);
             }
-            
+            if (Skill2_Test.activeSelf)
+            {
+                Skill2_Test.SetActive(false);
+                isSkill2End = false;
+            }
             _Sound.sfx.PlayPlayerSFX(this.gameObject, _Sound.sfx.teleportSFX);
         }
 
@@ -967,8 +978,8 @@ public class PlayerFSMManager : FSMManager
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Skill2_Test.SetActive(true);
-            isSkill2End = true;
+            Skill2_Test.SetActive(true);            
+            isSkill2End = true;            
         }
 
         if (Skill2_Test.activeSelf)
@@ -1019,6 +1030,12 @@ public class PlayerFSMManager : FSMManager
         {
             SetState(PlayerState.SKILL4);
             isSkill4 = true;
+
+            _monster = GameStatus.Instance.ActivedMonsterList;
+            for(int i=0; i<_monster.Count; i++)
+            {
+                _monster[i].transform.position = Seats[i].transform.position;
+            }
             return;
         }
     }

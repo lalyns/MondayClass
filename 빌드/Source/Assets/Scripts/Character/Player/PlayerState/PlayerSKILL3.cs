@@ -19,8 +19,13 @@ public class PlayerSKILL3 : FSMState
 
         _manager.Skill3_Capsule.enabled = false;
 
+        _manager.Skill2_Test.SetActive(false);
+        _manager.isSkill2End = false;
+
         var voice = _manager._Sound.voice;
         voice.PlayPlayerVoice(this.gameObject, voice.skill3CastVoice);
+
+        _manager.mouseSpeed = 10f;
     }
 
     public override void EndState()
@@ -46,6 +51,8 @@ public class PlayerSKILL3 : FSMState
         _manager.Skill3_End.SetActive(true);
 
         _manager.isSkill3CTime = true;
+
+        _manager.mouseSpeed = 80f;
     }
 
     bool isAttack;

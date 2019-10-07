@@ -39,6 +39,7 @@ public class RedHatWeapon : MonoBehaviour
                 var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", redHat.Stat, 30);
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
+                PlayerFSMManager.Instance.SetState(PlayerState.HIT2);
             }
         }
 
