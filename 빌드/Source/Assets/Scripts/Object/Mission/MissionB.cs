@@ -59,7 +59,7 @@ namespace MC.Mission
                 }
             }
 
-            if (currentScore >= goalScore)
+            if (currentScore == goalScore)
             {
                 ClearMission();
                 missionEnd = true;

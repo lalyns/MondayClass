@@ -118,6 +118,8 @@ public class MissionManager : MonoBehaviour
 
     public static void SelectMission(MissionType type) {
 
+        UserInterface.BlurSet(false);
+
         UserInterface.SetMissionSelectionUI(false);
         UserInterface.SetPointerMode(false);
         GameManager.Instance.IsPuase = false;
