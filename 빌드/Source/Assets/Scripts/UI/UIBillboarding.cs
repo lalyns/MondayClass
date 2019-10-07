@@ -13,7 +13,7 @@ public class UIBillboarding : MonoBehaviour
         }
     }
 
-    public float Offset = 0.01f;
+    public float Offset = 100f;
 
     // Start is called before the first frame update
     void Start()
