@@ -601,6 +601,8 @@ public class PlayerFSMManager : FSMManager
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            _Sound.sfx.PlayPlayerSFX(this.gameObject, _Sound.sfx.teleportSFX);
+
             isAttackOne = false;
             isAttackTwo = false;
             isAttackThree = false;
@@ -624,6 +626,7 @@ public class PlayerFSMManager : FSMManager
                 Normal.SetActive(false);
             if (!isNormal)
                 Special.SetActive(false);
+
             try
             {
                 FlashEffect1.SetActive(true);
@@ -656,15 +659,7 @@ public class PlayerFSMManager : FSMManager
             if (flashTimer >= 0.2f && flashTimer <= 0.23f)
             {
                 FlashEffect2.SetActive(true);
-                try
-                {
-                    _Sound.sfx.PlayPlayerSFX(this.gameObject ,_Sound.sfx.teleportSFX);
-                    _Sound.voice.PlayPlayerVoice(this.gameObject ,_Sound.voice.teleportVoice);
-                }
-                catch
-                {
 
-                }
                 isCantMove = false;
 
 
@@ -693,7 +688,10 @@ public class PlayerFSMManager : FSMManager
                 
 
                 isFlash = false;
-     
+
+                var voice = _Sound.voice;
+                voice.PlayPlayerVoice(this.gameObject, voice.teleportVoice);
+
                 flashTimer = 0;
                 return;
             }
@@ -875,7 +873,10 @@ public class PlayerFSMManager : FSMManager
                 // 떠있는 구체 -> 날라가는 구체로 Active를 수정 후.
                 Skill1Shoots.gameObject.SetActive(true);
                 Skill1Set(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
-                
+
+                var voice = _Sound.voice;
+                voice.PlayPlayerVoice(this.gameObject, voice.skill1Voice);
+
                 // 몬스터 수의 값을 랜덤함수 5개를 돌려서 배치 시킨 후.
                 for (int i = 0; i < 5; i++)
                 {
