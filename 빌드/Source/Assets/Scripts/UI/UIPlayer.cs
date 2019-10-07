@@ -68,30 +68,54 @@ namespace MC.UI
                 Instance.skill[num].effects[j].Play();
             }
         }
-
+        public bool isEnd = false;
         public void DashSetActive()
         {
+
             if (playerFSM.remainingDash < playerFSM.maxDash)
             {
-                playerFSM.currentDashCoolTime += Time.deltaTime;
-                if (playerFSM.currentDashCoolTime >= playerFSM.dashCoolTime)
+                if (!isEnd)
                 {
-                    playerFSM.remainingDash++;
-                    playerFSM.currentDashCoolTime = 0;
+                    playerFSM.currentDashCoolTime += Time.deltaTime;
+                    if (playerFSM.currentDashCoolTime >= playerFSM.dashCoolTime)
+                    {
+                        playerFSM.remainingDash++;
+                        playerFSM.currentDashCoolTime = 0;
+                    }
+                    for (int i = 0; i < 3; i++)
+                        if (playerFSM.remainingDash == i)
+                            dash[i].active.fillAmount = playerFSM.currentDashCoolTime / 3f;
                 }
-                for (int i = 0; i < 3; i++)
-                    if (playerFSM.remainingDash == i)
-                        dash[i].active.fillAmount = playerFSM.currentDashCoolTime / 3f;
-                //    var fillValue = Mathf.Clamp01(1f - (playerFSM.DashCTime[i] / 3f));
-                //    dash[i].inActive.fillAmount = fillValue;
+                if (isEnd)
+                {
+
+                    playerFSM.currentDashCoolTime += Time.deltaTime;
+
+                    for (int i = 0; i < 3; i++)
+                        dash[i].active.fillAmount = playerFSM.currentDashCoolTime / 8f;
+
+                    if (playerFSM.currentDashCoolTime >= 8.3f)
+                    {
+                        playerFSM.remainingDash = 3;
+                        playerFSM.currentDashCoolTime = 0;
+                        isEnd = false;
+                        dash[0].active.fillAmount = 1;
+                        dash[1].active.fillAmount = 1;
+                        dash[2].active.fillAmount = 1;
+                    }
+                    
+                }
             }
         }
         public void DashStart()
         {
             if (playerFSM.remainingDash == 1)
             {
+                dash[0].active.fillAmount = 0;
                 dash[1].active.fillAmount = 0;
                 playerFSM.remainingDash--;
+                isEnd = true;
+                playerFSM.currentDashCoolTime = 0;
             }
             if (playerFSM.remainingDash == 2)
             {
