@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using MC.UI;
+using MC.Sound;
 
 namespace MC.SceneDirector
 {

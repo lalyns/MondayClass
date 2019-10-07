@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Sound;
 
 public class MissionExit : MonoBehaviour
 {
@@ -24,6 +25,9 @@ public class MissionExit : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
+            var sound = MCSoundManager.Instance.objectSound.objectSFX;
+
+            sound.PlaySound(this.gameObject, sound.portalEnter);
             MissionManager.ExitMission();
             MissionManager.PopUpMission();
             PlayerFSMManager.Instance.rigid.useGravity = false;

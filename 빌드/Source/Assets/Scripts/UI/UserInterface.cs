@@ -430,12 +430,16 @@ namespace MC.UI
         #region Null Support
         public void SetValue()
         {
-            if(MCSceneManager.currentSceneNumber != MCSceneManager.TITLE)
+            if (MCSceneManager.currentSceneNumber != MCSceneManager.TITLE)
+            {
                 playerFSMMgr = PlayerFSMManager.Instance;
+                UIPlayer.SetValue();
+            }
 
             missionMgr = MissionManager.Instance;
             gameStatus = GameStatus.Instance;
             gameMgr = GameManager.Instance;
+
 
             SetMPMode(MPSimpleMode);
         }

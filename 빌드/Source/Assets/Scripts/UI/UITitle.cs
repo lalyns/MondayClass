@@ -24,7 +24,7 @@ namespace MC.UI
 
         public void StartButton()
         {
-            MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL);
+            MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
         }
 
         public void ExitButton()

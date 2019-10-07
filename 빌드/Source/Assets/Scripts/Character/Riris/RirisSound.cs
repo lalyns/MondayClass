@@ -11,18 +11,14 @@ namespace MC.Sound
         public class RirisSFXList
         {
             #region ActionList
-            public AK.Wwise.Event footstepSFX = new AK.Wwise.Event();
-            public AK.Wwise.Event attackSFX = new AK.Wwise.Event();
-            public AK.Wwise.Event hitSFX = new AK.Wwise.Event();
 
             #endregion
 
             #region SkillList
-            public AK.Wwise.Event teleportSFX = new AK.Wwise.Event();
 
             #endregion
 
-            public void PlayPlayerSFX(GameObject go, AK.Wwise.Event sfx)
+            public void PlayRirisSFX(GameObject go, AK.Wwise.Event sfx)
             {
                 if (GameManager.Instance.config.soundActive.sfx ||
                     GameManager.Instance.config.soundActive.all)
@@ -33,10 +29,9 @@ namespace MC.Sound
         [System.Serializable]
         public class RirisVoiceList
         {
-            public AK.Wwise.Event teleportVoice = new AK.Wwise.Event();
 
 
-            public void PlayPlayerVoice(GameObject go, AK.Wwise.Event voice)
+            public void PlayRirisVoice(GameObject go, AK.Wwise.Event voice)
             {
                 if (GameManager.Instance.config.soundActive.voice ||
                     GameManager.Instance.config.soundActive.all)
