@@ -6,18 +6,18 @@ using AK.Wwise;
 
 namespace MC.Sound
 {
+    [System.Serializable]
+    public class SoundActive
+    {
+        public bool all = false;
+        public bool sfx = false;
+        public bool voice = false;
+        public bool bgm = false;
+        public bool ambient = false;
+    }
+
     public class MCSoundManager : MonoBehaviour
     {
-        [System.Serializable]
-        public class SoundActive
-        {
-            public bool all = false;
-            public bool sfx = false;
-            public bool voice = false;
-            public bool bgm = false;
-            public bool ambient = false;
-        }
-
         public static MCSoundManager Instance;
 
         public static int SoundCall = 0;

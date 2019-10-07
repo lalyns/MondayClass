@@ -10,6 +10,7 @@ public class PlayerHIT : FSMState
         base.BeginState();
         var color = new Color(1, 0.3725f, 0.3725f);
 
+        
     }
 
     public override void EndState()

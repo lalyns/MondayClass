@@ -347,13 +347,7 @@ public class PlayerFSMManager : FSMManager
         return horizontal >= 0.01f || horizontal <= -0.01f ||
             vertical >= 0.01f || vertical <= -0.01f;
     }
-
-
-    private void SetUI()
-    {
-
-    }
-
+    
     private void Update()
     {
 
