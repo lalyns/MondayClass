@@ -75,6 +75,8 @@ namespace MC.Mission
         public override void RestMission()
         {
             base.RestMission();
+
+            spawnTime = 0;
         }
 
         public override void ClearMission()

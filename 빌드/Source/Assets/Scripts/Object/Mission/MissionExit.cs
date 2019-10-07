@@ -7,8 +7,6 @@ public class MissionExit : MonoBehaviour
 {
     public GameObject _PortalEffect;
 
-    ObjectSound.ObjectSoundList sound = MCSoundManager.Instance.objectSound.objectSFX;
-
     private Collider _Colliders;
     public Collider Colliders {
         get {
@@ -27,6 +25,8 @@ public class MissionExit : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
+            var sound = MCSoundManager.Instance.objectSound.objectSFX;
+
             sound.PlaySound(this.gameObject, sound.portalEnter);
             MissionManager.ExitMission();
             MissionManager.PopUpMission();
