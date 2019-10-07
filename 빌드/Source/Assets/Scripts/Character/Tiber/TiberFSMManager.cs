@@ -107,6 +107,7 @@ public class TiberFSMManager : FSMManager
             _States.Add(s, state);
             state.enabled = false;
         }
+        CC.detectCollisions = true;
 
         monsterType = MonsterType.Tiber;
         Attack1Effect.SetActive(false);

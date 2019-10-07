@@ -187,6 +187,7 @@ public class GameManager : MonoBehaviour
     {
         var num = MCSceneManager.currentSceneNumber;
 
+        MissionButton.isPush = false;
         CanvasInfo.Instance.SetRenderCam();
 
         switch (num)

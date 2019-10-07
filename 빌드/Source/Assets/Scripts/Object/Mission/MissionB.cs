@@ -59,7 +59,7 @@ namespace MC.Mission
                 }
             }
 
-            if (currentScore >= goalScore)
+            if (currentScore == goalScore)
             {
                 ClearMission();
                 missionEnd = true;
@@ -88,6 +88,7 @@ namespace MC.Mission
             foreach (GameObject star in activeStar)
                 EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(star);
 
+            StopAllCoroutines();
         }
 
         void DropStar()

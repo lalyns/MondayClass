@@ -23,6 +23,8 @@ namespace MC.UI {
         [HideInInspector] public MissionBase mission;
         [HideInInspector] public MissionType missionType;
 
+        public static bool isPush = false;
+
         public void Awake()
         {
             SetValue();
@@ -57,8 +59,10 @@ namespace MC.UI {
         public void SetMissionOnClick()
         {
             Debug.Log("Click");
-
-            MissionManager.SelectMission(missionType);
+            if (!isPush) {
+                MissionManager.SelectMission(missionType);
+                isPush = true;
+            }
 
         }
     }
