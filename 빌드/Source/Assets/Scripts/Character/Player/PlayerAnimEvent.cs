@@ -12,11 +12,13 @@ public class PlayerAnimEvent : MonoBehaviour
     public ParticleSystem particle;
     bool isNormal;
     PlayerSKILL2 skill2;
+    PlayerHIT2 hit2;
     private void Start()    
     {
         //input = InputHandler.instance;
         player = PlayerFSMManager.Instance;
         skill2 = player.GetComponent<PlayerSKILL2>();
+        hit2 = player.GetComponent<PlayerHIT2>();
     }
     private void Update()
     {
@@ -128,5 +130,9 @@ public class PlayerAnimEvent : MonoBehaviour
     void Skill2End()
     {
         skill2.isEnd = true;
+    }
+    void Hit2End()
+    {
+        hit2.isEnd = true;
     }
 }
