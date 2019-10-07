@@ -1035,6 +1035,7 @@ public class PlayerFSMManager : FSMManager
             for(int i=0; i<_monster.Count; i++)
             {
                 _monster[i].transform.position = Seats[i].transform.position;
+                _monster[i].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
             }
             return;
         }
