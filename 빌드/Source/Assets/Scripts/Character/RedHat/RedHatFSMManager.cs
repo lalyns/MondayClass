@@ -194,16 +194,16 @@ public class RedHatFSMManager : FSMManager
             SetState(RedHatState.HIT);
 
             //플레이어 쳐다본 후
-            try
-            {
-                transform.localEulerAngles = Vector3.zero;
-                transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
-                //플레이어피버게이지증가?
-            }
-            catch
-            {
+            //try
+            //{
+            //    transform.localEulerAngles = Vector3.zero;
+            //    transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
+            //    //플레이어피버게이지증가?
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
         else
         {
@@ -277,8 +277,10 @@ public class RedHatFSMManager : FSMManager
                 OnHitForMonster(AttackType.SKILL1);
             }
         }
-        if (other.transform.tag == "Skill2")
+        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
         {
+            StartCoroutine("Skill2Timer");
+
             SetState(RedHatState.HIT);
         }
         if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
@@ -291,7 +293,10 @@ public class RedHatFSMManager : FSMManager
     {
         return base.Skill3Timer();
     }
-
+    public override IEnumerator Skill2Timer()
+    {
+        return base.Skill2Timer();
+    }
 
     private void OnTriggerExit(Collider other)
     {

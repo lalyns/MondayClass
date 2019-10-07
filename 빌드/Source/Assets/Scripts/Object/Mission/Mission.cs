@@ -118,7 +118,7 @@ namespace MC.Mission
         {
             GameStatus.Instance._MissionStatus = false;
 
-            if (!GameStatus.Instance.usingKeward)
+            if (!GameStatus.Instance.usingKeward && MissionManager.Instance.CurrentMissionType != MissionType.Annihilation)
             {
                 GameStatus.Instance.RemoveAllActiveMonster();
             }
@@ -151,6 +151,7 @@ namespace MC.Mission
                         a = MonsterPoolManager._Instance._RedHat.ItemSetActive(Grid.mapPositions[rand], monsterType);
                         break;
                     case MonsterType.Tiber:
+                        a = MonsterPoolManager._Instance._Tiber.ItemSetActive(Grid.mapPositions[rand], monsterType);
                         break;
                 }
 
