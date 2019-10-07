@@ -94,7 +94,7 @@ namespace MC.UI
                     for (int i = 0; i < 3; i++)
                         dash[i].active.fillAmount = playerFSM.currentDashCoolTime / 8f;
 
-                    if (playerFSM.currentDashCoolTime >= 8.3f)
+                    if (playerFSM.currentDashCoolTime >= 8f)
                     {
                         playerFSM.remainingDash = 3;
                         playerFSM.currentDashCoolTime = 0;
