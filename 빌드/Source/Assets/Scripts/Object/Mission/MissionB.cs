@@ -88,6 +88,7 @@ namespace MC.Mission
             foreach (GameObject star in activeStar)
                 EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(star);
 
+            StopAllCoroutines();
         }
 
         void DropStar()

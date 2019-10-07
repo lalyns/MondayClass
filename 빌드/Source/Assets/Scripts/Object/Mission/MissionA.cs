@@ -67,6 +67,12 @@ namespace MC.Mission
             currentWave = 0;
         }
 
+        public override void ClearMission() {
+            base.ClearMission();
+
+            StopAllCoroutines();
+        }
+
         void Spawn()
         {
             StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));

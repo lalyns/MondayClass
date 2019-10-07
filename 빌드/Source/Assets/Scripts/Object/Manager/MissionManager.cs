@@ -88,16 +88,13 @@ public class MissionManager : MonoBehaviour
         if (Instance.isChange) return;
 
         UserInterface.BlurSet(true);
-
-
+        
         UserInterface.SetMissionSelectionUI(true);
         UserInterface.SetPointerMode(true);
-        UserInterface.Instance.MousePointerSpeed(100f);
 
         Instance.ChangeMission();
 
         GameManager.Instance.CharacterControl = false;
-        GameManager.Instance.IsPuase = true;
     }
 
     public void ChangeMission()
