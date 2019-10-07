@@ -23,6 +23,7 @@ public enum PlayerState
     TRANS2,
     SKILL4,
     HIT,
+    HIT2,
     DEAD,    
 }
 public enum AttackType
