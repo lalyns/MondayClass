@@ -6,6 +6,8 @@ public class TiberCHASE : TiberFSMState
 {
     bool _IsSpread = false;
 
+    float _time;
+
     public override void BeginState()
     {
 
@@ -15,22 +17,36 @@ public class TiberCHASE : TiberFSMState
     public override void EndState()
     {
         _IsSpread = false;
-
+        _time = 0;
         base.EndState();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) < _manager.Stat._AttackRange)
+        base.Update();
+        _time += Time.deltaTime;
+        if (_time >= 2f)
         {
-            _manager.SetState(TiberState.ATTACK);
+            if (!_manager.isAttack1)
+            {
+                _manager.isAttack1 = true;
+                _manager.SetState(TiberState.ATTACK1);
+                return;
+            }
+            if (_manager.isAttack1)
+            {
+                _manager.isAttack1 = false;
+                _manager.SetState(TiberState.ATTACK3);
+            } 
         }
-
         else
         {
-            _manager.CC.transform.LookAt(_manager.PlayerCapsule.transform);
+            Vector3 playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
 
-            Vector3 moveDir = (_manager.PlayerCapsule.transform.position
+            _manager.CC.transform.LookAt(playerTrans);
+
+            
+            Vector3 moveDir = (playerTrans
                 - _manager.CC.transform.position).normalized;
 
             moveDir.y = 0;
@@ -48,14 +64,9 @@ public class TiberCHASE : TiberFSMState
             }
 
             _manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
-
         }
     }
 
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
 
     private Vector3 DecideSpreadDirection()
     {
@@ -67,4 +78,9 @@ public class TiberCHASE : TiberFSMState
         return correctDir;
     }
 
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
 }

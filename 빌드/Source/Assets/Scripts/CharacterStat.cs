@@ -75,21 +75,6 @@ public class CharacterStat : MonoBehaviour
                 PlayerFSMManager.Instance.SpecialGauge += playerStat.feverGaugeGetValue;
         }
 
-        //if (_hp <= 0)
-        //{
-        //    if (lastHitBy == null)
-        //        lastHitBy = from;
-
-        //    try
-        //    {
-        //        GetComponent<FSMManager>().SetDeadState();
-        //        from.GetComponent<FSMManager>().NotifyTargetKilled();
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
     }
 
     private static float CalcDamage(CharacterStat from, CharacterStat to)

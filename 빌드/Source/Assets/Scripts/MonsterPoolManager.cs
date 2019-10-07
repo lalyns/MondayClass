@@ -8,7 +8,7 @@ public class MonsterPoolManager : MonoBehaviour
 
     public ObjectPool _Mac;
     public ObjectPool _RedHat;
-
+    public ObjectPool _Tiber;
     // Start is called before the first frame update
     void Start()
     {

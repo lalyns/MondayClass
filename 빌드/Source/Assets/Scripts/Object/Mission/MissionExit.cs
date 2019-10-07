@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Sound;
 
 public class MissionExit : MonoBehaviour
 {
     public GameObject _PortalEffect;
+
+    ObjectSound.ObjectSoundList sound = MCSoundManager.Instance.objectSound.objectSFX;
 
     private Collider _Colliders;
     public Collider Colliders {
@@ -24,6 +27,7 @@ public class MissionExit : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
+            sound.PlaySound(this.gameObject, sound.portalEnter);
             MissionManager.ExitMission();
             MissionManager.PopUpMission();
             PlayerFSMManager.Instance.rigid.useGravity = false;

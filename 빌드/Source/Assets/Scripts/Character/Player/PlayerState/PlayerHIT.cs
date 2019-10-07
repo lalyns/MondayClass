@@ -10,6 +10,9 @@ public class PlayerHIT : FSMState
         base.BeginState();
         var color = new Color(1, 0.3725f, 0.3725f);
 
+        var voice = _manager._Sound.voice;
+
+        voice.PlayPlayerVoice(this.gameObject, voice.damagedVoice);
     }
 
     public override void EndState()
@@ -27,6 +30,11 @@ public class PlayerHIT : FSMState
         if (_time >= 0.83f)
         {
             _manager.SetState(PlayerState.IDLE);
+            return;
+        }
+        if (_manager.OnMove())
+        {
+            _manager.SetState(PlayerState.RUN);
             return;
         }
     }

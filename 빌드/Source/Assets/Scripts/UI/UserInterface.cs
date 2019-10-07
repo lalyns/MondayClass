@@ -143,7 +143,6 @@ namespace MC.UI
 
         private void PlayerUI()
         {
-            // 나중에 변신에 포함시킬것
             UIPlayer.ProfileImage(playerFSMMgr.isNormal);
 
             HPChangeEffect(playerFSMMgr.Stat, UIPlayer.hpBar);
@@ -437,6 +436,8 @@ namespace MC.UI
             missionMgr = MissionManager.Instance;
             gameStatus = GameStatus.Instance;
             gameMgr = GameManager.Instance;
+
+            UIPlayer.SetValue();
 
             SetMPMode(MPSimpleMode);
         }
