@@ -27,12 +27,19 @@ namespace MC.Mission
 
             if (MissionOperate)
             {
-                if (!spawning)
+                if (!spawning && currentWave != totalWave)
                 {
                     Spawn();
                     spawning = true;
                 }
             }
+
+            if (currentWave == totalWave && GameStatus.Instance.ActivedMonsterList.Count == 0 && !missionEnd) {
+                missionEnd = true;
+                ClearMission();
+
+            }
+
 
         }
 
@@ -62,14 +69,9 @@ namespace MC.Mission
 
         void Spawn()
         {
-            if (currentWave >= 3)
-            {
-                ClearMission();
-                return;
-            }
-
             StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
             currentWave++;
+            Debug.Log(currentWave);
         }
     }
 }
