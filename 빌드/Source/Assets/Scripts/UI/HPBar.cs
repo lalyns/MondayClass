@@ -19,6 +19,7 @@ namespace MC.UI
 
         public float sizeX;
         public float sizeY;
+        Vector2 size;
 
         public void Update()
         {
@@ -29,7 +30,7 @@ namespace MC.UI
 
         private void ReSize()
         {
-            Vector2 size = new Vector2(sizeX, sizeY);
+            size = new Vector2(sizeX, sizeY);
             BackGround.rectTransform.sizeDelta = size;
             CurrentFillGround.rectTransform.sizeDelta = size;
             LaterFillGround.rectTransform.sizeDelta = size;
@@ -37,7 +38,7 @@ namespace MC.UI
 
         private void CurrentValue()
         {
-            Vector3 deltaPos = new Vector3(CurrentFillGround.rectTransform.sizeDelta.x, 0, 0)
+            Vector3 deltaPos = new Vector3(CurrentFillGround.rectTransform.sizeDelta.x * 0.9f, 0, 0)
                 * (1 - currentValue) * (-1);
 
             CurrentFillGround.transform.localPosition = deltaPos;
@@ -45,7 +46,7 @@ namespace MC.UI
 
         private void LaterValue()
         {
-            Vector3 deltaPos = new Vector3(LaterFillGround.rectTransform.sizeDelta.x, 0, 0)
+            Vector3 deltaPos = new Vector3(LaterFillGround.rectTransform.sizeDelta.x * 0.9f, 0, 0)
                 * (1 - laterValue) * (-1);
 
             LaterFillGround.transform.localPosition = deltaPos;

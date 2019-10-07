@@ -437,6 +437,8 @@ namespace MC.UI
             gameStatus = GameStatus.Instance;
             gameMgr = GameManager.Instance;
 
+            UIPlayer.SetValue();
+
             SetMPMode(MPSimpleMode);
         }
         #endregion

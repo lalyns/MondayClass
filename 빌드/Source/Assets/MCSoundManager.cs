@@ -1,46 +1,54 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MC.Sound;
 using MC.SceneDirector;
 using AK.Wwise;
 
-public class MCSoundManager : MonoBehaviour
+namespace MC.Sound
 {
-    public static MCSoundManager Instance;
-
-    public static int SoundCall = 0;
-
-    public ObjectSound objectSound;
-    public AkBank Sound;
-    public AkBank Bgm;
-    public AkBank Ambient;
-    public AkBank Voice;
-
-    private void Awake()
+    public class MCSoundManager : MonoBehaviour
     {
-        if (Instance == null)
-            Instance = GetComponent<MCSoundManager>();
+        [System.Serializable]
+        public class SoundActive
+        {
+            public bool all = false;
+            public bool sfx = false;
+            public bool voice = false;
+            public bool bgm = false;
+            public bool ambient = false;
+        }
+
+        public static MCSoundManager Instance;
+
+        public static int SoundCall = 0;
+
+        public ObjectSound objectSound;
+        [SerializeField] private AkBank sound;
+        [SerializeField] private AkBank bgm;
+        [SerializeField] private AkBank ambient;
+        [SerializeField] private AkBank voice;
+
+        private void Awake()
+        {
+            if (Instance == null)
+                Instance = GetComponent<MCSoundManager>();
+        }
+        
+        public static void LoadBank()
+        {
+            Instance.sound.HandleEvent(Instance.gameObject);
+            Instance.bgm.HandleEvent(Instance.gameObject);
+            Instance.ambient.HandleEvent(Instance.gameObject);
+            Instance.voice.HandleEvent(Instance.gameObject);
+        }
+
+        public static void SetSound()
+        {
+            Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
+                Instance.objectSound.ambient.stageAmbient);
+            Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
+                Instance.objectSound.bgm.stageBGM);
+        }
+
     }
-
-    public void Start()
-    {
-
-    }
-
-    public static void LoadBank()
-    {
-        Instance.Sound.HandleEvent(Instance.gameObject);
-        Instance.Bgm.HandleEvent(Instance.gameObject);
-        Instance.Ambient.HandleEvent(Instance.gameObject);
-    }
-
-    public static void SetSound()
-    {
-        Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
-            Instance.objectSound.ambient.stageAmbient);
-        Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
-            Instance.objectSound.bgm.stageBGM);
-    }
-
 }
