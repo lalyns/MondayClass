@@ -11,6 +11,16 @@ public class PlayerATTACK2 : FSMState
         base.BeginState();
         _manager._Sound.sfx.PlayPlayerSFX(this.gameObject, _manager._Sound.sfx.attackSFX);
         _manager.attackType = AttackType.ATTACK2;
+
+        var voice = _manager._Sound.voice;
+        if (_manager.isNormal)
+        {
+            voice.PlayPlayerVoice(this.gameObject, voice.swingNormalVoice);
+        }
+        else
+        {
+            voice.PlayPlayerVoice(this.gameObject, voice.swingSpeicialVoice);
+        }
     }
 
     public override void EndState()
