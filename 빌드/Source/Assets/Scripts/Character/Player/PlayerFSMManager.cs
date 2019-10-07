@@ -192,6 +192,7 @@ public class PlayerFSMManager : FSMManager
     public SkinnedMeshRenderer[] _MR;
     public List<Material> materialList = new List<Material>();
 
+    public List<Transform> Seats = new List<Transform>();
 
     protected override void Awake()
     {
@@ -1028,6 +1029,12 @@ public class PlayerFSMManager : FSMManager
         {
             SetState(PlayerState.SKILL4);
             isSkill4 = true;
+
+            _monster = GameStatus.Instance.ActivedMonsterList;
+            for(int i=0; i<_monster.Count; i++)
+            {
+                _monster[i].transform.position = Seats[i].transform.position;
+            }
             return;
         }
     }
