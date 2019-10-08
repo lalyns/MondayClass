@@ -163,8 +163,8 @@ public class MacFSMManager : FSMManager
         int value = GameLib.TransformTypeToInt(attackType);
 
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
-        Stat.TakeDamage(playerStat, playerStat.DMG[value]);
-        SetKnockBack(playerStat, value);
+        Stat.TakeDamage(playerStat, playerStat.Str * playerStat.dmgCoefficient[value]);
+        //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
 
         if (attackType == AttackType.ATTACK1)
@@ -207,13 +207,13 @@ public class MacFSMManager : FSMManager
         _HPBar.HitBackFun();
     }
 
-    public void SetKnockBack(PlayerStat stat,int attackType)
-    {
-        KnockBackFlag = stat.KnockBackFlag[attackType];
-        KnockBackDuration = stat.KnockBackDuration[attackType];
-        KnockBackPower = stat.KnockBackPower[attackType];
-        KnockBackDelay = stat.KnockBackDelay[attackType];
-    }
+    //public void SetKnockBack(PlayerStat stat,int attackType)
+    //{
+    //    KnockBackFlag = stat.KnockBackFlag[attackType];
+    //    KnockBackDuration = stat.KnockBackDuration[attackType];
+    //    KnockBackPower = stat.KnockBackPower[attackType];
+    //    KnockBackDelay = stat.KnockBackDelay[attackType];
+    //}
 
     public void OnTriggerEnter(Collider other)
     {
