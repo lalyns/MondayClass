@@ -5,19 +5,22 @@ using UnityEngine;
 public class PlayerStat : CharacterStat
 {
     public float[] skillCTime = new float[4];
+
+    public float[] dmgCoefficient = new float[7];
+
     public float feverGaugeGetValue;
     public float transDuration;
 
     protected override void Awake()
     {
         base.Awake();
-        _maxHp = statData._MaxHp;
-        _hp = _maxHp;
-        _attackRange = statData._AttackRange;
-        _damage = statData._Damage;
-        skillCTime[0] = 10f;
-        skillCTime[1] = 10f;
-        skillCTime[2] = 10f;
-        skillCTime[3] = 10f;
+
+        SetStatValue();
+    }
+
+    public void SetStatValue()
+    {
+        SetHp(_maxHp);
+
     }
 }
