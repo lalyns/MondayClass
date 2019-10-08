@@ -181,7 +181,7 @@ namespace MC.UI
             Instance.pointerMode = mode;
 
             Cursor.lockState = mode ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = true;
+            Cursor.visible = mode;
             Instance.MousePointer.transform.gameObject.SetActive(mode);
         }
 
