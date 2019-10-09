@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 public class RirisBullet : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class RirisBullet : MonoBehaviour
     public bool Moving = true;
 
     public bool directionType = false;
+    public bool dameged = false;
 
     private void Start()
     {
@@ -96,6 +98,7 @@ public class RirisBullet : MonoBehaviour
         IsFire = false;
         isPlay = false;
         Moving = false;
+        dameged = false;
         bulletPool.ItemReturnPool(this.gameObject);
     }
 
@@ -117,11 +120,32 @@ public class RirisBullet : MonoBehaviour
             Debug.Log("Tagging : " + other.gameObject.name.ToString());
             StartCoroutine(EffectPlayAndReturn(effect2));
         }
+
         if (other.transform.tag == "Wall")
         {
             Debug.Log("Tagging : " + other.gameObject.name.ToString());
             StartCoroutine(EffectPlayAndReturn(effect1));
         }
+
+        if (other.transform.tag == "Player")
+        {
+            float damage = RirisFSMManager.Stat.damageCoefiiecient[0] * 0.01f *
+                    (RirisFSMManager.Stat.Str + RirisFSMManager.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
+                    - PlayerFSMManager.Instance.Stat.Defense;
+
+            var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", RirisFSMManager.Stat, damage);
+            Invoke("AttackSupport", 0.5f);
+            dameged = true;
+
+            Debug.Log("Tagging : " + other.gameObject.name.ToString());
+            StartCoroutine(EffectPlayAndReturn(effect1));
+        }
+    }
+
+    public void AttackSupport()
+    {
+        Debug.Log("attackCall");
+        UserInterface.Instance.UIPlayer.hpBar.HitBackFun();
     }
 
     IEnumerator EffectPlayAndReturn(GameObject effect)
