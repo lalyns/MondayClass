@@ -8,17 +8,17 @@ public class RirisStat : CharacterStat
 
     public float _AttackRange = 2f;
 
-    public Material _NormalMat;
-    public Material _DashMat;
-
     public float _BulletDamage;
     public float _BulletSpeed = 10f;
     public float _BulletLifeTime;
 
-    protected override void Awake()
-    {
+    public float[] damageCoefiiecient;
+
+    public float addStrPerRound;
+    public float addDefPerRound;
+
+    protected override void Awake() {
         base.Awake();
-        _maxHp = statData._MaxHp;
-        _hp = _maxHp;
+        SetHp(_maxHp);
     }
 }

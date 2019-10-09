@@ -196,32 +196,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  _dmg: 00000000000000000000000000000000000000000000000000000000
-  _KnockBackFlag: 00000000000000
-  _KnockBackDuration: 00000000000000000000000000000000000000000000000000000000
-  _KnockBackPower:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  _KnockBackDelay:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  _hp: 1000
+  _str: 10
+  defense: 10
+  _maxHp: 250
+  _hp: 250
   lastHitBy: {fileID: 0}
   statData: {fileID: 11400000, guid: 08f6433d6080f394088735ab728afc81, type: 2}
   monsterData: {fileID: 11400000, guid: 08f6433d6080f394088735ab728afc81, type: 2}
-  _AttackRange: 1
-  _NormalMat: {fileID: 0}
-  _DashMat: {fileID: 0}
+  damageCoefiiecient:
+  - 100
+  - 200
+  addStrPerRound: 2
+  addDefPerRound: 2
 --- !u!114 &6869048589650024599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,6 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb1db771669c4a47903ca09fa465dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Offset: 100
 --- !u!1 &9214819789536474447
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,6 +529,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HPBar
       objectReference: {fileID: 0}
+    - target: {fileID: 8471184614439043481, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 165912331838315117, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
         type: 3}
       propertyPath: sizeX
@@ -551,6 +543,11 @@ PrefabInstance:
         type: 3}
       propertyPath: sizeY
       value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 7258404281000891769, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8471184614439043480, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
         type: 3}
@@ -667,6 +664,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0.125
       objectReference: {fileID: 0}
+    - target: {fileID: 3150058677980445613, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8471184614189411769, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -676,6 +678,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471184614189411769, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935, type: 3}
