@@ -32,7 +32,6 @@ public class FollowCam : MonoBehaviour
         player = PlayerFSMManager.Instance;
 
         originHeight = height;
-        //target = GameObject.Find("Target").GetComponent<Transform>();
         target = GameObject.Find("PC_Rig").GetComponent<Transform>();
     }
 
@@ -85,22 +84,30 @@ public class FollowCam : MonoBehaviour
     public float maxDistance = 3f;
     public bool isMax, isMin;
     float tFollowH = 12.3f;
-
+    bool islock = false;
     private void FixedUpdate()
     {
-        //if (InputHandler.instance.isSpecial)
-        //    return;
        
         r_y = Input.GetAxis("Mouse Y");
         
         if (player.isMouseYLock)
         {
-            distance = 5f;
-            originHeight = 2.97f;
+            maxDistance = 7;
+            maxHeight = 4f;
+            originHeight = 4f;
+            height = 4f;
+            distance = 7f;
             targetOffset = 0.7f;
+            islock = false;
             return;
         }
-
+        if (!player.isMouseYLock && !islock)
+        {            
+            maxDistance = 5f;
+            distance = 5f;
+            maxHeight = 3f;
+            islock = true;
+        }
         // 마우스 위치와 높이값
         if (!isMax && !isMin)
         {
