@@ -9,6 +9,8 @@ public class CharacterStat : MonoBehaviour
     [SerializeField] protected float _str = 10.0f;
     public float Str { get { return _str; } }
 
+    [SerializeField] protected float _int = 10.0f;
+    public float Int { get { return _int; } }
     //[SerializeField] protected bool[] _KnockBackFlag = new bool[7];
     //public bool[] KnockBackFlag => _KnockBackFlag;
 
@@ -82,9 +84,8 @@ public class CharacterStat : MonoBehaviour
         to.TakeDamage(from, finalDamage);
     }
 
-    public static void ProcessDamage(CharacterStat from, CharacterStat to, int damage)
+    public static void ProcessDamage(CharacterStat from, CharacterStat to, float damage)
     {
-        float finalDamage = damage;
-        to.TakeDamage(from, finalDamage);
+        to.TakeDamage(from, damage);
     }
 }

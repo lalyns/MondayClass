@@ -6,5 +6,13 @@ public class TiberStat : CharacterStat
 {
     public MonsterData monsterData;
 
-    public float _AttackRange = 3f;
+    public float[] damageCoefiiecient;
+
+    public float addStrPerRound;
+    public float addDefPerRound;
+
+    protected override void Awake() {
+        base.Awake();
+        SetHp(_maxHp);
+    }
 }
