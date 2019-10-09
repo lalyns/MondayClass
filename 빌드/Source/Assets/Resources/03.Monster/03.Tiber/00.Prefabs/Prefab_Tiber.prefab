@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 549078361}
-  - component: {fileID: 549078362}
   - component: {fileID: 549078363}
+  - component: {fileID: 1006607528669446534}
   m_Layer: 0
   m_Name: TiberWeapon
   m_TagString: Untagged
@@ -32,20 +32,6 @@ Transform:
   m_Father: {fileID: 4151217680777985774}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &549078362
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 549078360}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 2.25
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &549078363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +46,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Dameged: 1
   Tiber: {fileID: 0}
+--- !u!135 &1006607528669446534
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549078360}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.77
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4151217681117401599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,7 +75,7 @@ MonoBehaviour:
   _attackCp2: {fileID: 0}
   _hitCp: {fileID: 4151217681213245696}
   _deadCp: {fileID: 4151217681213245697}
-  _WeaponCapsule: {fileID: 549078362}
+  _WeaponCapsule: {fileID: 1006607528669446534}
 --- !u!1 &4151217681191293060
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +142,7 @@ Transform:
   m_GameObject: {fileID: 4151217681213245721}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.58, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4151217681852077529}
   - {fileID: 4151217681752296426}
@@ -172,7 +171,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.09, z: 0}
+  m_Center: {x: 0, y: 1.05, z: 0}
 --- !u!114 &4151217681213245699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,30 +242,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  _dmg: 00000000000000000000000000000000000000000000000000000000
-  _KnockBackFlag: 00000000000000
-  _KnockBackDuration: 00000000000000000000000000000000000000000000000000000000
-  _KnockBackPower:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  _KnockBackDelay:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  _str: 10
+  _int: 10
+  defense: 10
+  _maxHp: 1000
   _hp: 1000
   lastHitBy: {fileID: 0}
   statData: {fileID: 11400000, guid: 5e8eb905037ee48469b20fbcaa84ffb1, type: 2}
   monsterData: {fileID: 11400000, guid: 5e8eb905037ee48469b20fbcaa84ffb1, type: 2}
-  _AttackRange: 3
+  damageCoefiiecient: []
+  addStrPerRound: 0
+  addDefPerRound: 0
 --- !u!114 &4151217681213245700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -968,6 +954,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8969665379695499853, guid: fc1389c68c873b642948400443c21246,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203191354963168027, guid: fc1389c68c873b642948400443c21246,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1389c68c873b642948400443c21246, type: 3}
 --- !u!1 &3313688957065635191 stripped
@@ -1129,6 +1125,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8573685479637795601, guid: e28760c66989ac149911b27d0d3a6e8a,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8573685480005552024, guid: e28760c66989ac149911b27d0d3a6e8a,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.5190582
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539389554223327844, guid: e28760c66989ac149911b27d0d3a6e8a,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 2.646669
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539389555326286274, guid: e28760c66989ac149911b27d0d3a6e8a,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 2.1161041
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539389556030167233, guid: e28760c66989ac149911b27d0d3a6e8a,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.541851
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539389556003421191, guid: e28760c66989ac149911b27d0d3a6e8a,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e28760c66989ac149911b27d0d3a6e8a, type: 3}

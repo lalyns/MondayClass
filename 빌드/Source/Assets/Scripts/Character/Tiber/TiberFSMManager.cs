@@ -169,7 +169,8 @@ public class TiberFSMManager : FSMManager
         int value = TransformTypeToInt(attackType);
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
-        Stat.TakeDamage(playerStat, (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - Stat.Defense);
+        float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - Stat.Defense;
+        CharacterStat.ProcessDamage(playerStat, Stat, damage);
         //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
 
