@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class MacStat : CharacterStat
 {
-    public MonsterData monsterData;
+    public float[] damageCoefiiecient;
 
-    public GameObject _AttackEffect;
-    public GameObject _SkillEffect;
-
-    public Material _NormalMat;
-    public Material _BeforeAttackMat;
-    public Material _AttackMat;
-
-    public float _AttackRange = 10f;
+    public float addStrPerRound;
+    public float addDefPerRound;
 }

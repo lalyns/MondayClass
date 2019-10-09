@@ -8,12 +8,14 @@ public class RirisStat : CharacterStat
 
     public float _AttackRange = 2f;
 
-    public Material _NormalMat;
-    public Material _DashMat;
-
     public float _BulletDamage;
     public float _BulletSpeed = 10f;
     public float _BulletLifeTime;
+
+    public float[] damageCoefiiecient;
+
+    public float addStrPerRound;
+    public float addDefPerRound;
 
     protected override void Awake()
     {
