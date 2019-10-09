@@ -8,6 +8,7 @@ namespace MC.Mission
     public class DropStar : MonoBehaviour
     {
         public float _MoveSpeed = 10f;
+        public float _TurnSpeed = 60f;
 
         public bool stop;
 
@@ -20,6 +21,7 @@ namespace MC.Mission
             if (stop) return;
 
             this.transform.position += Vector3.down * _MoveSpeed * Time.deltaTime;
+            _StarMesh.transform.Rotate(0, _TurnSpeed * Time.deltaTime, 0);
 
             Ray ray = new Ray();
             ray.origin = this.transform.position;
