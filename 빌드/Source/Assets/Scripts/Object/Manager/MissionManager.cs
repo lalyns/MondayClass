@@ -188,6 +188,8 @@ public class MissionManager : MonoBehaviour
     }
 
     public static void RewardMission() {
+        // 여기서 보상에 관한 것을 처리함.
+        
 
     }
 

@@ -15,7 +15,7 @@ public class TiberAnimEvent : MonoBehaviour
         _attackCp2 = GetComponentInParent<TiberATTACK2>();
     }
 
-    public CapsuleCollider _WeaponCapsule;
+    public SphereCollider _WeaponCapsule;
     // Start is called before the first frame update
     void Start()
     {
