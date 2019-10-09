@@ -42,8 +42,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.25
-  m_Height: 1
+  m_Radius: 1.84
+  m_Height: 0
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &549078363
@@ -143,7 +143,7 @@ Transform:
   m_GameObject: {fileID: 4151217681213245721}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.58, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4151217681852077529}
   - {fileID: 4151217681752296426}
@@ -172,7 +172,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.09, z: 0}
+  m_Center: {x: 0, y: 1.05, z: 0}
 --- !u!114 &4151217681213245699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,25 +243,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  _dmg: 00000000000000000000000000000000000000000000000000000000
-  _KnockBackFlag: 00000000000000
-  _KnockBackDuration: 00000000000000000000000000000000000000000000000000000000
-  _KnockBackPower:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  _KnockBackDelay:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  _str: 10
+  _int: 10
+  defense: 10
+  _maxHp: 1000
   _hp: 1000
   lastHitBy: {fileID: 0}
   statData: {fileID: 11400000, guid: 5e8eb905037ee48469b20fbcaa84ffb1, type: 2}
