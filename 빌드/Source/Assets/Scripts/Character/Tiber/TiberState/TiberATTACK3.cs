@@ -26,13 +26,13 @@ public class TiberATTACK3 : TiberFSMState
 
         _time += Time.deltaTime;
 
-        if (_time >= 7.2f)
+        if (_time >= 7.1f)
         {
             _manager.SetState(TiberState.CHASE);
             _time = 0;
             return;
         }
-        else
+        if( _time < 6 && _time >= 1)
         {
             Vector3 playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
 
