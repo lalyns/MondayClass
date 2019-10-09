@@ -97,9 +97,11 @@ public class RirisPATTERNB : RirisFSMState
 
     public void AttackCheck()
     {
-        var hitTarget = GameLib.SimpleDamageProcess(transform,
-            _manager.Stat.AttackRange,
-            "Player", _manager.Stat);
+        float damage = _manager.Stat.damageCoefiiecient[0] * 0.01f *
+               (_manager.Stat.Str + _manager.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
+               - PlayerFSMManager.Instance.Stat.Defense;
+
+        var hitTarget = GameLib.SimpleDamageProcess(transform, _manager.Stat.AttackRange, "Player", _manager.Stat, damage);
     }
 
     public override void Start()

@@ -84,9 +84,8 @@ public class CharacterStat : MonoBehaviour
         to.TakeDamage(from, finalDamage);
     }
 
-    public static void ProcessDamage(CharacterStat from, CharacterStat to, int damage)
+    public static void ProcessDamage(CharacterStat from, CharacterStat to, float damage)
     {
-        float finalDamage = damage;
-        to.TakeDamage(from, finalDamage);
+        to.TakeDamage(from, damage);
     }
 }
