@@ -17,10 +17,8 @@ public class RirisStat : CharacterStat
     public float addStrPerRound;
     public float addDefPerRound;
 
-    protected override void Awake()
-    {
+    protected override void Awake() {
         base.Awake();
-        _maxHp = statData._MaxHp;
-        _hp = _maxHp;
+        SetHp(_maxHp);
     }
 }

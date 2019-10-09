@@ -10,4 +10,9 @@ public class RedHatStat : CharacterStat
 
     public float addStrPerRound;
     public float addDefPerRound;
+
+    protected override void Awake() {
+        base.Awake();
+        SetHp(_maxHp);
+    }
 }
