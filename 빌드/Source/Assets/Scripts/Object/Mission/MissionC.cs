@@ -23,6 +23,8 @@ namespace MC.Mission
 
         public List<Transform> oldSpawnList = new List<Transform>();
 
+        bool isClear = false;
+
         public override void OperateMission()
         {
             base.OperateMission();
@@ -49,10 +51,10 @@ namespace MC.Mission
                 }
             }
 
-            if (!missionEnd && GameStatus.Instance._LimitTime <= 0 && protectedTarget.hp >= 0)
+            if (!isClear && GameStatus.Instance._LimitTime <= 0 && protectedTarget.hp >= 0)
             {
                 ClearMission();
-                missionEnd = true;
+                isClear = true;
             }
         }
 
@@ -61,6 +63,12 @@ namespace MC.Mission
             base.RestMission();
 
             spawnTime = 0;
+        }
+
+        public override void ClearMission() {
+            base.ClearMission();
+
+            StopAllCoroutines();
         }
 
         void Spawn()

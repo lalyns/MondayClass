@@ -289,8 +289,7 @@ public static class GameLib
   
 
 
-    public static IEnumerator KnockBack(Transform trans, AttackType attackType, Vector3 direction
-        )
+    public static IEnumerator KnockBack(Transform trans, AttackType attackType, Vector3 direction)
     {
         for (int time = 0; time < 4; time++)
         {

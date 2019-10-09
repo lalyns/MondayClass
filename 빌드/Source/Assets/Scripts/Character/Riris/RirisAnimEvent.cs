@@ -64,4 +64,9 @@ public class RirisAnimEvent : MonoBehaviour
 
         pattern.isEnd = true;
     }
+
+    public void SetOff()
+    {
+        EffectPoolManager._Instance._BossTornaedoPool.ItemReturnPool(this.gameObject);
+    }
 }

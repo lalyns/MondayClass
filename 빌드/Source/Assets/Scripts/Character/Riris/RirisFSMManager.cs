@@ -217,7 +217,7 @@ public class RirisFSMManager : FSMManager
         int value = TransformTypeToInt(attackType);
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
-        Stat.TakeDamage(playerStat, playerStat.DMG[value]);
+        Stat.TakeDamage(playerStat, playerStat.Str * playerStat.dmgCoefficient[value]);
         Invoke("AttackSupport", 0.5f);
 
         if (attackType == AttackType.ATTACK1)
