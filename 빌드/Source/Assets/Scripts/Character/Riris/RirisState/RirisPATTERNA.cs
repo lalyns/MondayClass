@@ -125,6 +125,13 @@ public class RirisPATTERNA : RirisFSMState
         _manager._Weapon.position = targetPos;
 
         _PatternAAttackEffect.SetActive(true);
+
+        ParticleSystem[] particleSystems = _PatternAAttackEffect.GetComponentsInChildren<ParticleSystem>();
+        foreach(ParticleSystem p in particleSystems)
+        {
+            p.Play();
+        }
+
         _manager.Anim.SetBool("Stomp", true);
         _manager._WeaponAnimator.SetBool("Stomp", true);
     }
