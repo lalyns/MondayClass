@@ -27,7 +27,11 @@ public class TiberWeapon : MonoBehaviour
         {
             if (other.transform.tag == "Player")
             {
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", Tiber.Stat, 50);
+                float damage = Tiber.Stat.damageCoefiiecient[0] * 0.01f *
+                (Tiber.Stat.Str + Tiber.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
+                - PlayerFSMManager.Instance.Stat.Defense;
+
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", Tiber.Stat, damage);
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
                 PlayerFSMManager.Instance.SetState(PlayerState.HIT2);
@@ -37,7 +41,11 @@ public class TiberWeapon : MonoBehaviour
         {
             if (other.transform.tag == "Player")
             {
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", Tiber.Stat, 10);
+                float damage = Tiber.Stat.damageCoefiiecient[1] * 0.01f *
+                (Tiber.Stat.Str + Tiber.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
+                - PlayerFSMManager.Instance.Stat.Defense;
+
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", Tiber.Stat, damage);
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
             }
