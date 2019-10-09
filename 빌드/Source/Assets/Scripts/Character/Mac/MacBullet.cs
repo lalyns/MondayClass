@@ -34,6 +34,7 @@ public class MacBullet : MonoBehaviour
     public bool _Destroy = false;
     private bool _Dameged = false;
 
+
     private void Start()
     {
         switch (_Type)
@@ -153,7 +154,11 @@ public class MacBullet : MonoBehaviour
         {
             if (_Type == MacBulletType.Normal)
             {
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", mac.Stat);
+                float damage = mac.Stat.damageCoefiiecient[0] * 0.01f *
+                    (mac.Stat.Str + mac.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
+                    - PlayerFSMManager.Instance.Stat.Defense;
+
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", mac.Stat, damage);
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
 
@@ -165,16 +170,34 @@ public class MacBullet : MonoBehaviour
                     PlayEffect(_DestroyEffectParticles);
                     _Destroy = true;
                 }
-
             }
             if (_Type == MacBulletType.Skill)
             {
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", mac.Stat, 50);
+                float damage = mac.Stat.damageCoefiiecient[1] * 0.01f *
+                    (mac.Stat.Str + mac.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
+                    - PlayerFSMManager.Instance.Stat.Defense;
+
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", mac.Stat, damage);
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
             }
             
 
+        }
+
+        if(other.transform.tag == "DreamPillar")
+        {
+            other.GetComponent<MC.Mission.ProtectedTarget>().hp -= 10;
+            _Dameged = true;
+
+            if (!_Destroy)
+            {
+                _MoveEffect.SetActive(false);
+                _DestroyEffect.SetActive(true);
+
+                PlayEffect(_DestroyEffectParticles);
+                _Destroy = true;
+            }
         }
     }
     public void AttackSupport()

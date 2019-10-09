@@ -222,37 +222,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  _dmg: 00000000000000000000000000000000000000000000000000000000
-  _KnockBackFlag: 00000000000000
-  _KnockBackDuration: 00000000000000000000000000000000000000000000000000000000
-  _KnockBackPower:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  _KnockBackDelay:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  _hp: 1000
+  _str: 10
+  defense: 10
+  _maxHp: 100
+  _hp: 100
   lastHitBy: {fileID: 0}
   statData: {fileID: 11400000, guid: c4e880e7851cfe4489aa5466459f6054, type: 2}
-  monsterData: {fileID: 11400000, guid: c4e880e7851cfe4489aa5466459f6054, type: 2}
-  _AttackEffect: {fileID: 683224376945695534, guid: e027aa9ebec9fd644822981650b75f78,
-    type: 3}
-  _SkillEffect: {fileID: 7006337594256449411, guid: 8731b8c10324a2041bce1c73f0217d7c,
-    type: 3}
-  _NormalMat: {fileID: 2100000, guid: 261635bee463482459449e0fce9945cb, type: 2}
-  _BeforeAttackMat: {fileID: 2100000, guid: c4f8273097c833b46ae547f00e3560e4, type: 2}
-  _AttackMat: {fileID: 2100000, guid: b731476c0cac4c5449ec50dc9affcb4c, type: 2}
-  _AttackRange: 15
+  damageCoefiiecient:
+  - 200
+  - 300
+  addStrPerRound: 2
+  addDefPerRound: 2
 --- !u!114 &416607293978030156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,13 +268,14 @@ MonoBehaviour:
   _PopupEffect: {fileID: 2210604033793549204}
   _Sound: {fileID: 0}
   _PriorityTarget: {fileID: 0}
-  _DetectingRange: 20
+  _DetectingRange: 30
   isDead: 0
   KnockBackFlag: 0
   KnockBackDuration: 0
   KnockBackPower: 0
   KnockBackDelay: 0
   CurrentAttackType: 0
+  isChange: 0
 --- !u!114 &5136133771846456272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,24 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterSFX:
-    footstepSFX:
-      idInternal: 0
-      valueGuidInternal: 
-      WwiseObjectReference: {fileID: 0}
     attackSFX:
-      idInternal: 0
-      valueGuidInternal: 
-      WwiseObjectReference: {fileID: 0}
-    hitSFX:
-      idInternal: 0
-      valueGuidInternal: 
-      WwiseObjectReference: {fileID: 0}
-    teleportSFX:
-      idInternal: 0
-      valueGuidInternal: 
-      WwiseObjectReference: {fileID: 0}
-  monsterVoice:
-    teleportVoice:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
@@ -627,13 +591,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6721372124432317031}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 10
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
@@ -671,6 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb1db771669c4a47903ca09fa465dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Offset: 0.01
 --- !u!1 &6789912510425879491
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,6 +938,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HPBar
       objectReference: {fileID: 0}
+    - target: {fileID: 8471184614439043481, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 165912331838315117, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
         type: 3}
       propertyPath: sizeX
@@ -982,6 +952,11 @@ PrefabInstance:
         type: 3}
       propertyPath: sizeY
       value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 7258404281000891769, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8471184614439043480, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
         type: 3}
@@ -1103,6 +1078,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0.125
       objectReference: {fileID: 0}
+    - target: {fileID: 3150058677980445613, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8471184614189411769, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
         type: 3}
       propertyPath: m_LocalScale.z
@@ -1117,6 +1097,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471184614189411769, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935, type: 3}

@@ -108,6 +108,7 @@ public class ObjectPool : MonoBehaviour
         item.SetActive(true);
 
         _ActiveItem.AddLast(item);
+
         GameStatus.Instance.AddActivedMonsterList(item);
 
         switch (type)
@@ -119,6 +120,7 @@ public class ObjectPool : MonoBehaviour
                 item.GetComponent<RedHatFSMManager>().SetState(RedHatState.POPUP);
                 break;
             case MonsterType.Tiber:
+                item.GetComponent<TiberFSMManager>().SetState(TiberState.POPUP);
                 break;
 
         }

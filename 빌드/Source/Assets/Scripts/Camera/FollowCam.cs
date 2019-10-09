@@ -32,7 +32,6 @@ public class FollowCam : MonoBehaviour
         player = PlayerFSMManager.Instance;
 
         originHeight = height;
-        //target = GameObject.Find("Target").GetComponent<Transform>();
         target = GameObject.Find("PC_Rig").GetComponent<Transform>();
     }
 
@@ -41,7 +40,7 @@ public class FollowCam : MonoBehaviour
     {
         //구체 형태의 충돌체로 충돌 여부를 검사
 
-        if (Physics.CheckSphere(transform.position, colliderRadius))
+        if (Physics.CheckSphere(transform.position, 0))
         {
             //보간함수를 사용하여 카메라의 높이를 부드럽게 상승시킴.
             height = Mathf.Lerp(height, heightAboveWall, Time.deltaTime * overDamping);
@@ -85,22 +84,30 @@ public class FollowCam : MonoBehaviour
     public float maxDistance = 3f;
     public bool isMax, isMin;
     float tFollowH = 12.3f;
-
+    bool islock = false;
     private void FixedUpdate()
     {
-        //if (InputHandler.instance.isSpecial)
-        //    return;
        
         r_y = Input.GetAxis("Mouse Y");
         
         if (player.isMouseYLock)
         {
-            distance = 3.25f;
-            originHeight = 2.67f;
-            targetOffset = 0.94f;
+            maxDistance = 7;
+            maxHeight = 4f;
+            originHeight = 4f;
+            height = 4f;
+            distance = 7f;
+            targetOffset = 0.7f;
+            islock = false;
             return;
         }
-
+        if (!player.isMouseYLock && !islock)
+        {            
+            maxDistance = 5f;
+            distance = 5f;
+            maxHeight = 3f;
+            islock = true;
+        }
         // 마우스 위치와 높이값
         if (!isMax && !isMin)
         {
@@ -132,7 +139,7 @@ public class FollowCam : MonoBehaviour
         if (originHeight >= maxHeight)
         {
             originHeight = maxHeight;
-            isMin = true;
+            //isMin = true;
         }
         if (isMax)
         {

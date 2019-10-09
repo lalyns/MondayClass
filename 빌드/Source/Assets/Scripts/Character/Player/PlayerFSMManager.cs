@@ -23,6 +23,7 @@ public enum PlayerState
     TRANS2,
     SKILL4,
     HIT,
+    HIT2,
     DEAD,    
 }
 public enum AttackType
@@ -173,7 +174,6 @@ public class PlayerFSMManager : FSMManager
     public GameObject Skill2_Start;
     public GameObject FlashEffect1, FlashEffect2;
     public Vector3 FlashPosition;
-    bool isFlashStart = false;
     [Header("스킬2번 현재 거리, 최소거리, 최대거리")]
     public float skill2_Distance;
     public float skill2_minDis;
@@ -193,6 +193,7 @@ public class PlayerFSMManager : FSMManager
     public SkinnedMeshRenderer[] _MR;
     public List<Material> materialList = new List<Material>();
 
+    public List<Transform> Seats = new List<Transform>();
 
     protected override void Awake()
     {
@@ -380,8 +381,9 @@ public class PlayerFSMManager : FSMManager
 
         if (isSpecial)
             return;
-
-
+        if (remainingDash > 0 && !isSkill3Dash)
+            Dash();
+       
         GetInput();
         try
         {
@@ -398,8 +400,7 @@ public class PlayerFSMManager : FSMManager
         Skill4();
         if (!isSkill2End && !isSkill3)
             Attack();
-        if (remainingDash > 0 && !isSkill3Dash)
-            Dash();
+     
 
         Skill3MouseLock();
         Skill3Reset();
@@ -504,7 +505,7 @@ public class PlayerFSMManager : FSMManager
 
         }
     }
-    bool isTrans1, isTrans2;
+    bool isTrans1;
     public void ChangeModel()
     {
         if (isNormal && SpecialGauge >= 100)
@@ -519,7 +520,12 @@ public class PlayerFSMManager : FSMManager
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
-             
+
+                if (Skill2_Test.activeSelf)
+                {
+                    Skill2_Test.SetActive(false);
+                    isSkill2End = false;
+                }
             }
         }
  
@@ -552,7 +558,7 @@ public class PlayerFSMManager : FSMManager
                 TimeLine.SetActive(false);
                 isSpecial = false;
                 isAttackOne = false;
-                
+                isTrans1 = false;
                 StartCoroutine(SetOff());
                 return;
             }
@@ -601,15 +607,12 @@ public class PlayerFSMManager : FSMManager
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("몇번찍히나볼까");
-            _Sound.sfx.PlayPlayerSFX(this.gameObject, _Sound.sfx.teleportSFX);
-
             isAttackOne = false;
             isAttackTwo = false;
             isAttackThree = false;
 
             isFlash = true;
-            isFlashStart = true;
+
             FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
             FlashEffect2.SetActive(false);
             SetState(PlayerState.RUN);
@@ -619,6 +622,12 @@ public class PlayerFSMManager : FSMManager
                 Skill3_End.transform.rotation = Skill3_Start.transform.rotation;
                 Skill3_End.SetActive(true);
             }
+            if (Skill2_Test.activeSelf)
+            {
+                Skill2_Test.SetActive(false);
+                isSkill2End = false;
+            }
+            _Sound.sfx.PlayPlayerSFX(this.gameObject, _Sound.sfx.teleportSFX);
         }
 
         if (isFlash)
@@ -638,7 +647,6 @@ public class PlayerFSMManager : FSMManager
             {
 
             }
-            //isCantMove = true;
             flashTimer += Time.deltaTime;
             if (_h >= 0.01f && flashTimer <= 0.2f)
             {
@@ -656,14 +664,9 @@ public class PlayerFSMManager : FSMManager
             {
                 _anim.transform.Translate(Vector3.forward * -20f * Time.deltaTime);
             }
-
             if (flashTimer >= 0.2f && flashTimer <= 0.23f)
             {
                 FlashEffect2.SetActive(true);
-
-                isCantMove = false;
-
-
             }
             if (flashTimer >= 0.3f)
             {
@@ -671,13 +674,10 @@ public class PlayerFSMManager : FSMManager
                     Normal.SetActive(true);
                 if (!isNormal)
                     Special.SetActive(true);
-               
-
             }
             if(flashTimer>=0.33f && !isDashSound)
             {
                 isDashSound = true;
-
                 var voice = _Sound.voice;
                 voice.PlayPlayerVoice(this.gameObject, voice.teleportVoice);
             }
@@ -690,15 +690,12 @@ public class PlayerFSMManager : FSMManager
                 catch
                 {
 
-                }
-
-
-                UserInterface.Instance.UIPlayer.DashStart();
-                
+                }               
 
                 isFlash = false;
                 isDashSound = false;
-                
+                UserInterface.Instance.UIPlayer.DashStart();
+
 
                 flashTimer = 0;
                 return;
@@ -960,7 +957,7 @@ public class PlayerFSMManager : FSMManager
         //    return;
         try
         {
-            skill2_Distance = 14f / followCam.height;
+            skill2_Distance = (50f / followCam.height) - 13f;
         }
         catch
         {
@@ -981,8 +978,8 @@ public class PlayerFSMManager : FSMManager
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Skill2_Test.SetActive(true);
-            isSkill2End = true;
+            Skill2_Test.SetActive(true);            
+            isSkill2End = true;            
         }
 
         if (Skill2_Test.activeSelf)
@@ -1024,7 +1021,10 @@ public class PlayerFSMManager : FSMManager
             return;
         }
     }
+    void DamgeUp10(float a)
+    {
 
+    }
     public void Skill4()
     {
         if (isSkill4 || isNormal)
@@ -1033,6 +1033,13 @@ public class PlayerFSMManager : FSMManager
         {
             SetState(PlayerState.SKILL4);
             isSkill4 = true;
+
+            _monster = GameStatus.Instance.ActivedMonsterList;
+            for(int i=0; i<_monster.Count; i++)
+            {
+                _monster[i].transform.position = Seats[i].transform.position;
+                _monster[i].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
+            }
             return;
         }
     }

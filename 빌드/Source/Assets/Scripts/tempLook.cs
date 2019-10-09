@@ -10,6 +10,7 @@ public class tempLook : MonoBehaviour
     public float _Time = 0;
     public float _DashReadyTime = 0.9f;
     public float _DashTime = 2.5f;
+    [Range(0.01f, 1.00f)] public float rotateSpeed = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -33,12 +34,16 @@ public class tempLook : MonoBehaviour
         _Time += Time.deltaTime;
         if (_Time < _DashReadyTime)
         {
+            Vector3 dir = (target.position - transform.position).normalized;
+            dir.y = 0;
 
-            transform.LookAt(target);
-            Vector3 rotation = transform.eulerAngles;
-            rotation.x = 0;
+            // Quaternion rotation = Quaternion.Slerp(transform.rotation, )
+            // transform.eulerAngles = rotation;
+            Vector3 look = Quaternion.Lerp(transform.rotation,
+                Quaternion.LookRotation(dir), rotateSpeed).eulerAngles;
+            look.z = 0;
 
-            transform.eulerAngles = rotation;
+            transform.eulerAngles = look;
         }
 
         if (_Time > _DashReadyTime && _Time < _DashReadyTime + _DashTime)

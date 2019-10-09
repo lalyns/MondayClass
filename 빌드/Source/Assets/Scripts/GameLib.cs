@@ -17,24 +17,17 @@ public enum ObjectType
 
 public static class GameLib
 {
-    // 단순하게 적을 찾고, 적에게 피해를 입히는 함수
-    public static CharacterStat SimpleDamageProcess(Transform transform, float Range, string targetTag, CharacterStat ownerStat)
+    public static CharacterStat SimpleDamageProcess(Transform transform, float Range,
+        string targetTag, CharacterStat ownerStat, MonsterType type, float damage)
     {
         return AttackProcess(
             AttackTargetsByRange(transform, Range),
-            targetTag, ownerStat);
-    }
-
-    public static CharacterStat SimpleDamageProcess(Transform transform, float Range, string targetTag, CharacterStat ownerStat
-        , MonsterType type)
-    {
-        return AttackProcess(
-            AttackTargetsByRange(transform, Range),
-            targetTag, ownerStat, type);
+            targetTag, ownerStat, type, damage);
     }
 
     // 단순하게 적을 찾고, 적에게 피해를 입히는 함수
-    public static CharacterStat SimpleDamageProcess(Transform transform, float Range, string targetTag, CharacterStat ownerStat, int damage)
+    public static CharacterStat SimpleDamageProcess(Transform transform, float Range,
+        string targetTag, CharacterStat ownerStat, float damage)
     {
         return AttackProcess(
             AttackTargetsByRange(transform, Range),
@@ -48,48 +41,10 @@ public static class GameLib
         return Physics.BoxCastAll(transform.position, transform.lossyScale / 2,
             Range * transform.forward);
     }
+
     // 여러 오브젝트들에 대해 간단한 정보로 피해를 입히는 함수.
-    public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat)
-    {
-        if (!PlayerFSMManager.Instance.isInvincibility)
-        {
-
-            PlayerFSMManager.Instance.StartCoroutine(Shake.instance.ShakeUI(0.2f, 4f, 3f));
-            var color = new Color(1, 0.3725f, 0.3725f);
-            PlayerFSMManager.Instance.StartCoroutine(Blinking(PlayerFSMManager.Instance.materialList, color));
-
-            if (PlayerFSMManager.Instance.ShieldCount > 0)
-            {
-                PlayerFSMManager.Instance.ShieldCount--;
-                return null;
-            }
-            else
-            {
-                if (PlayerFSMManager.Instance.isIDLE)
-                {
-                    PlayerFSMManager.Instance.SetState(PlayerState.HIT);
-                }
-
-                CharacterStat lastHit = null;
-                foreach (var hitObject in hitObjects)
-                {
-                    if (hitObject.collider.gameObject.tag == targetTag)
-                    {
-                        CharacterStat targetStat =
-                            hitObject.collider.GetComponentInParent<CharacterStat>();
-
-                        CharacterStat.ProcessDamage(ownerStat, targetStat);
-                        lastHit = targetStat;
-                    }
-                }
-                return lastHit;
-            }
-        }
-        else
-            return null;
-    }
-
-    public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat, MonsterType type)
+    public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat,
+        MonsterType type, float damage)
     {
         if (!PlayerFSMManager.Instance.isInvincibility)
         {
@@ -117,7 +72,7 @@ public static class GameLib
                         CharacterStat targetStat =
                             hitObject.collider.GetComponentInParent<CharacterStat>();
 
-                        CharacterStat.ProcessDamage(ownerStat, targetStat);
+                        CharacterStat.ProcessDamage(ownerStat, targetStat, damage);
                         lastHit = targetStat;
 
                         if (type == MonsterType.RedHat)
@@ -138,7 +93,8 @@ public static class GameLib
     }
     
     // 여러 오브젝트들에 대해 간단한 정보로 피해를 입히는 함수.
-    public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag, CharacterStat ownerStat, int damage)
+    public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag,
+        CharacterStat ownerStat, float damage)
     {
         if (!PlayerFSMManager.Instance.isInvincibility)
         {
@@ -174,33 +130,6 @@ public static class GameLib
         }
         else
             return null;
-    }
-
-    public static void CKMove(this CharacterController cc,
-        Vector3 targetPosition,
-        CharacterStat stat)
-    {
-        Transform t = cc.transform;
-
-        Vector3 deltaMove = Vector3.zero;
-        Vector3 moveDir = targetPosition - t.position;
-        moveDir.y = 0.0f;
-        if (moveDir != Vector3.zero)
-        {
-            t.rotation = Quaternion.RotateTowards(
-                t.rotation,
-                Quaternion.LookRotation(moveDir),
-                stat.TurnSpeed * Time.deltaTime);
-        }
-
-        Vector3 nextMove = Vector3.MoveTowards(
-            t.position,
-            targetPosition,
-            stat.MoveSpeed * Time.deltaTime);
-
-        deltaMove = nextMove - t.position;
-        deltaMove += Physics.gravity * Time.deltaTime;
-        cc.Move(deltaMove);
     }
 
     public static bool DetectCharacter(Camera sight, CapsuleCollider cc)
@@ -289,8 +218,7 @@ public static class GameLib
   
 
 
-    public static IEnumerator KnockBack(Transform trans, AttackType attackType, Vector3 direction
-        )
+    public static IEnumerator KnockBack(Transform trans, AttackType attackType, Vector3 direction)
     {
         for (int time = 0; time < 4; time++)
         {

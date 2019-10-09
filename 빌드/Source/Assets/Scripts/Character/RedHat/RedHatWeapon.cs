@@ -25,20 +25,26 @@ public class RedHatWeapon : MonoBehaviour
         {
             if (other.transform.tag == "Player")
             {
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", redHat.Stat, MonsterType.RedHat);
+                float damage = redHat.Stat.damageCoefiiecient[0] * 0.01f *
+                (redHat.Stat.Str + redHat.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
+                - PlayerFSMManager.Instance.Stat.Defense;
+
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", redHat.Stat, MonsterType.RedHat, damage);
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
-                Debug.Log("데미지 10");
             }
         }
         else
         {
             if (other.transform.tag == "Player")
             {
-                Debug.Log("데미지 30");
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", redHat.Stat, 30);
+                float damage = redHat.Stat.damageCoefiiecient[1] * 0.01f *
+                (redHat.Stat.Str + redHat.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
+                - PlayerFSMManager.Instance.Stat.Defense;
+
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", redHat.Stat, damage);
                 Invoke("AttackSupport", 0.5f);
-                _Dameged = true;
+                _Dameged = true;                
             }
         }
 

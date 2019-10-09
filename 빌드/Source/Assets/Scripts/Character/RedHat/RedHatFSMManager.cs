@@ -170,8 +170,10 @@ public class RedHatFSMManager : FSMManager
         int value = TransformTypeToInt(attackType);
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
-        Stat.TakeDamage(playerStat, playerStat.DMG[value]);
-        SetKnockBack(playerStat, value);
+        float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) -Stat.Defense;
+        CharacterStat.ProcessDamage(playerStat, Stat, damage);
+
+        //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
 
         if (attackType == AttackType.ATTACK1)
@@ -194,16 +196,16 @@ public class RedHatFSMManager : FSMManager
             SetState(RedHatState.HIT);
 
             //플레이어 쳐다본 후
-            try
-            {
-                transform.localEulerAngles = Vector3.zero;
-                transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
-                //플레이어피버게이지증가?
-            }
-            catch
-            {
+            //try
+            //{
+            //    transform.localEulerAngles = Vector3.zero;
+            //    transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
+            //    //플레이어피버게이지증가?
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
         else
         {
@@ -216,13 +218,13 @@ public class RedHatFSMManager : FSMManager
         _HPBar.HitBackFun();
     }
 
-    public void SetKnockBack(PlayerStat stat, int attackType)
-    {
-        KnockBackFlag = stat.KnockBackFlag[attackType];
-        KnockBackDuration = stat.KnockBackDuration[attackType];
-        KnockBackPower = stat.KnockBackPower[attackType];
-        KnockBackDelay = stat.KnockBackDelay[attackType];
-    }
+    //public void SetKnockBack(PlayerStat stat, int attackType)
+    //{
+    //    KnockBackFlag = stat.KnockBackFlag[attackType];
+    //    KnockBackDuration = stat.KnockBackDuration[attackType];
+    //    KnockBackPower = stat.KnockBackPower[attackType];
+    //    KnockBackDelay = stat.KnockBackDelay[attackType];
+    //}
 
     public int TransformTypeToInt(AttackType type)
     {
@@ -277,8 +279,10 @@ public class RedHatFSMManager : FSMManager
                 OnHitForMonster(AttackType.SKILL1);
             }
         }
-        if (other.transform.tag == "Skill2")
+        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
         {
+            StartCoroutine("Skill2Timer");
+
             SetState(RedHatState.HIT);
         }
         if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
@@ -291,7 +295,10 @@ public class RedHatFSMManager : FSMManager
     {
         return base.Skill3Timer();
     }
-
+    public override IEnumerator Skill2Timer()
+    {
+        return base.Skill2Timer();
+    }
 
     private void OnTriggerExit(Collider other)
     {

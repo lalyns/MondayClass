@@ -8,6 +8,18 @@ public class RedHatAnimEvent : MonoBehaviour
     public RedHatHIT _hitCp;
     public RedHatDEAD _deadCp;
 
+    RedHatFSMManager _Manager;
+    RedHatFSMManager FSMManager {
+        get {
+            if (_Manager == null)
+            {
+                _Manager = this.GetComponentInParent<RedHatFSMManager>();
+            }
+
+            return _Manager;
+        }
+    }
+
     private void Awake()
     {
         _attackCp = GetComponentInParent<RedHatATTACK>();
@@ -34,6 +46,11 @@ public class RedHatAnimEvent : MonoBehaviour
     void DisableWeaponTrigger()
     {
         _WeaponCapsule.gameObject.SetActive(false);
+    }
+
+    public void PopupOver()
+    {
+        FSMManager.SetState(RedHatState.CHASE);
     }
 
     void HitCheck()

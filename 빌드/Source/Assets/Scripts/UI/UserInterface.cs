@@ -162,8 +162,10 @@ namespace MC.UI
         [Header("System User Interface")]
         private bool pointerMode = false;
         private MousePointer _MousePointer;
-        public MousePointer MousePointer {
-            get {
+        public MousePointer MousePointer
+        {
+            get
+            {
                 if (_MousePointer == null) _MousePointer = CanvasInfo.Instance.mousePointer;
                 return _MousePointer;
             }
@@ -179,7 +181,7 @@ namespace MC.UI
             Instance.pointerMode = mode;
 
             Cursor.lockState = mode ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = true;
+            Cursor.visible = mode;
             Instance.MousePointer.transform.gameObject.SetActive(mode);
         }
 
@@ -331,7 +333,6 @@ namespace MC.UI
 
         private void SetGoal(MissionType type)
         {
-            
             var text = "";
             switch (type)
             {
@@ -339,11 +340,12 @@ namespace MC.UI
                     text = "남은 몬스터 " + gameStatus.ActivedMonsterList.Count + " 마리";
                     break;
                 case MissionType.Survival:
-                    text = gameMgr.curScore + " 개 / 5 개";
+                    MissionB missionB = MissionManager.Instance.CurrentMission as MissionB;
+                    text = missionB.currentScore + " 개 / 5 개";
                     break;
                 case MissionType.Defence:
-                    MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
-                    text = "남은 기둥 체력 " + mission.protectedTarget.hp + " / " + mission._ProtectedTargetHP;
+                    MissionC missionC = MissionManager.Instance.CurrentMission as MissionC;
+                    text = "남은 기둥 체력 " + missionC.protectedTarget.hp + " / " + missionC._ProtectedTargetHP;
                     break;
                 case MissionType.Boss:
                     text = "리리스를 처치하시오";
@@ -362,11 +364,12 @@ namespace MC.UI
                     text = gameStatus.ActivedMonsterList.Count + " ";
                     break;
                 case MissionType.Survival:
-                    text = gameMgr.curScore + " / 5";
+                    MissionB missionB = MissionManager.Instance.CurrentMission as MissionB;
+                    text = missionB.currentScore + " / 5";
                     break;
                 case MissionType.Defence:
-                    MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
-                    text = mission.protectedTarget.hp + " / " + mission._ProtectedTargetHP;
+                    MissionC missionC = MissionManager.Instance.CurrentMission as MissionC;
+                    text = missionC.protectedTarget.hp + " / " + missionC._ProtectedTargetHP;
                     break;
                 case MissionType.Boss:
                     text = "리리스를 처치하시오";

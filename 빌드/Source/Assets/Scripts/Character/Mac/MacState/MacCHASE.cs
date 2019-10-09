@@ -19,9 +19,9 @@ public class MacCHASE : MacFSMState
         base.EndState();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) < _manager.Stat._AttackRange)
+        if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) < _manager.Stat.AttackRange)
         {
             _manager.SetState(MacState.ATTACK);
         }
