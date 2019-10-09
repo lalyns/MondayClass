@@ -1021,7 +1021,10 @@ public class PlayerFSMManager : FSMManager
             return;
         }
     }
+    void DamgeUp10(float a)
+    {
 
+    }
     public void Skill4()
     {
         if (isSkill4 || isNormal)
