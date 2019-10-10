@@ -238,8 +238,16 @@ public class GameManager : MonoBehaviour
 
     private void BossSet()
     {
-        TempDirector.Instance.PlayMode = false;
-        TempDirector.Instance.CineStart();
+        if (GameManager.Instance.CineMode)
+        {
+            TempDirector.Instance.PlayMode = false;
+            TempDirector.Instance.CineStart();
+        }
+        else
+        {
+            TempDirector.Instance.PlayMode = true;
+            TempDirector.Instance.SceneStart();
+        }
     }
 
     private void BossSceneSetting()

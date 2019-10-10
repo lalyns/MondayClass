@@ -134,6 +134,7 @@ public class PlayerFSMManager : FSMManager
         isInvincibility = value;
     }
     public bool isSkill3Dash = false;
+    public bool isSkill2Dash = false;
     public GameObject Normal;
     public GameObject Special;
     public GameObject WeaponTransformEffect;
@@ -143,7 +144,6 @@ public class PlayerFSMManager : FSMManager
     CapsuleCollider Attack_Capsule;
     [HideInInspector]
     public CapsuleCollider Skill3_Capsule;
-    SphereCollider SKill2_Sphere;
     [Header("플레이어가 변신상태인지 아닌지 확인시켜줌.")]
     public bool isNormal = false;
 
@@ -171,7 +171,7 @@ public class PlayerFSMManager : FSMManager
     public GameObject Skill3_Start;
     public GameObject Skill3_End;
 
-    public GameObject Skill2_Start;
+    public GameObject Skill2_Normal, Skill2_Special;
     public GameObject FlashEffect1, FlashEffect2;
     public Vector3 FlashPosition;
     [Header("스킬2번 현재 거리, 최소거리, 최대거리")]
@@ -214,7 +214,6 @@ public class PlayerFSMManager : FSMManager
         bloom = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Bloom>();
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
-        SKill2_Sphere = Skill2_Start.GetComponent<SphereCollider>();
 
         Skill1Shoots.gameObject.SetActive(false);
         instance = this;
@@ -325,7 +324,6 @@ public class PlayerFSMManager : FSMManager
 
 
 
-
     }
 
 
@@ -381,7 +379,7 @@ public class PlayerFSMManager : FSMManager
 
         if (isSpecial)
             return;
-        if (remainingDash > 0 && !isSkill3Dash)
+        if (remainingDash > 0 && !isSkill3Dash && !isSkill2Dash)
             Dash();
        
         GetInput();
@@ -408,10 +406,12 @@ public class PlayerFSMManager : FSMManager
         if (isNormal)
         {
             _anim.SetFloat("Normal", 0);
+            Skill2_Special.SetActive(false);
         }
-        else
+        else { 
             _anim.SetFloat("Normal", 1f);
-
+            Skill2_Normal.SetActive(false);
+        }
         if (!isNormal)
         {
             normalTimer -= Time.deltaTime;
@@ -957,7 +957,7 @@ public class PlayerFSMManager : FSMManager
         //    return;
         try
         {
-            skill2_Distance = (50f / followCam.height) - 13f;
+            skill2_Distance = (30 / followCam.height)  -8f;       //followCam.height;//(50f / followCam.height) - 13f;
         }
         catch
         {
@@ -967,7 +967,9 @@ public class PlayerFSMManager : FSMManager
         if (skill2_Distance >= skill2_maxDis)
             skill2_Distance = skill2_maxDis;
 
-        Skill2_Parent.localPosition = new Vector3(0, 0.18f, skill2_Distance);
+        if (skill2_Distance <= skill2_minDis)
+            skill2_Distance = skill2_minDis;
+        Skill2_Parent.localPosition = new Vector3(0, 0.35f, skill2_Distance);
     }
 
     public GameObject Skill2_Test;
@@ -988,6 +990,7 @@ public class PlayerFSMManager : FSMManager
             {
                 SetState(PlayerState.SKILL2);
                 isSkill2 = true;
+                isSkill2Dash = true;
                 return;
             }
         }
@@ -1068,7 +1071,10 @@ public class PlayerFSMManager : FSMManager
             {
                 UIPlayer.SkillSetUp(1);
                 Skill2CTime = 10f;
-                Skill2_Start.SetActive(false);
+                if(isNormal)
+                    Skill2_Normal.SetActive(false);
+                else
+                    Skill2_Special.SetActive(false);
                 isSkill2 = false;
                 isSkill2CTime = false;
             }
@@ -1139,7 +1145,10 @@ public class PlayerFSMManager : FSMManager
             Skill1_Amount = 6;        
         // 스킬 2번 쿨타임 관련.
         Skill2CTime = 10f;
-        Skill2_Start.SetActive(false);
+        if (isNormal)
+            Skill2_Normal.SetActive(false);
+        else
+            Skill2_Special.SetActive(false);
         isSkill2 = false;
         // 스킬 3번 쿨타임 관련.
         Skill3CTime = 10f;
