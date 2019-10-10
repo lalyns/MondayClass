@@ -6,9 +6,13 @@ public class RedHatStat : CharacterStat
 {
     public MonsterData monsterData;
 
-    public float _AttackRange = 2f;
+    public float[] damageCoefiiecient;
 
-    public Material _NormalMat;
-    public Material _DashMat;
+    public float addStrPerRound;
+    public float addDefPerRound;
 
+    protected override void Awake() {
+        base.Awake();
+        SetHp(_maxHp);
+    }
 }
