@@ -146,177 +146,178 @@ public class RedHatFSMManager : FSMManager
             return;
         }
     }
-    public override void OnHitForMonster(AttackType attackType)
-    {
-        base.OnHitForMonster(attackType);
 
-        if((attackType == AttackType.ATTACK1 
-            || attackType == AttackType.ATTACK2 
-            || attackType == AttackType.ATTACK3) 
-            && ((int)CurrentAttackType & (int)attackType) != 0)
-        {
-            return;
-        }
-
-        if (CurrentState == RedHatState.DEAD) return;
-
-        if (PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(hitLocation, "Effect");
-
-        if (!PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(hitLocation, "Effect");
-
-        CurrentAttackType = attackType;
-        int value = TransformTypeToInt(attackType);
-        PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
-
-        float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) -Stat.Defense;
-        CharacterStat.ProcessDamage(playerStat, Stat, damage);
-
-        //SetKnockBack(playerStat, value);
-        Invoke("AttackSupport", 0.5f);
-
-        if (attackType == AttackType.ATTACK1)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.15f, 0.1f));
-        if (attackType == AttackType.ATTACK2)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.18f, 0.1f));
-        if (attackType == AttackType.ATTACK3)
-            StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.3f, 0.1f));
-        if (attackType == AttackType.SKILL1)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.1f, 0.1f));
-        if (attackType == AttackType.SKILL2)
-            StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
-        //if (attackType == AttackType.SKILL3)
-        //    StartCoroutine(Shake.instance.ShakeCamera(0.01f, 0.01f, 0.01f));
-        
-        if (Stat.Hp > 0)
-        {
-            if (CurrentState == RedHatState.HIT) return;
-
-            SetState(RedHatState.HIT);
-
-            //플레이어 쳐다본 후
-            //try
-            //{
-            //    transform.localEulerAngles = Vector3.zero;
-            //    transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
-            //    //플레이어피버게이지증가?
-            //}
-            //catch
-            //{
-
-            //}
-        }
-        else
-        {
-            SetDeadState();
-        }
-    }
-
-    public void AttackSupport()
-    {
-        _HPBar.HitBackFun();
-    }
-
-    //public void SetKnockBack(PlayerStat stat, int attackType)
+    //public override void OnHitForMonster(AttackType attackType)
     //{
-    //    KnockBackFlag = stat.KnockBackFlag[attackType];
-    //    KnockBackDuration = stat.KnockBackDuration[attackType];
-    //    KnockBackPower = stat.KnockBackPower[attackType];
-    //    KnockBackDelay = stat.KnockBackDelay[attackType];
+    //    base.OnHitForMonster(attackType);
+
+    //    if((attackType == AttackType.ATTACK1 
+    //        || attackType == AttackType.ATTACK2 
+    //        || attackType == AttackType.ATTACK3) 
+    //        && ((int)CurrentAttackType & (int)attackType) != 0)
+    //    {
+    //        return;
+    //    }
+
+    //    if (CurrentState == RedHatState.DEAD) return;
+
+    //    if (PlayerFSMManager.Instance.isNormal)
+    //        EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(hitLocation, "Effect");
+
+    //    if (!PlayerFSMManager.Instance.isNormal)
+    //        EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(hitLocation, "Effect");
+
+    //    CurrentAttackType = attackType;
+    //    int value = GameLib.TransformTypeToInt(attackType);
+    //    PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
+
+    //    float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) -Stat.Defense;
+    //    CharacterStat.ProcessDamage(playerStat, Stat, damage);
+
+    //    //SetKnockBack(playerStat, value);
+    //    Invoke("AttackSupport", 0.5f);
+
+    //    if (attackType == AttackType.ATTACK1)
+    //        StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.15f, 0.1f));
+    //    if (attackType == AttackType.ATTACK2)
+    //        StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.18f, 0.1f));
+    //    if (attackType == AttackType.ATTACK3)
+    //        StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.3f, 0.1f));
+    //    if (attackType == AttackType.SKILL1)
+    //        StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.1f, 0.1f));
+    //    if (attackType == AttackType.SKILL2)
+    //        StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
+    //    //if (attackType == AttackType.SKILL3)
+    //    //    StartCoroutine(Shake.instance.ShakeCamera(0.01f, 0.01f, 0.01f));
+        
+    //    if (Stat.Hp > 0)
+    //    {
+    //        if (CurrentState == RedHatState.HIT) return;
+
+    //        SetState(RedHatState.HIT);
+
+    //        //플레이어 쳐다본 후
+    //        //try
+    //        //{
+    //        //    transform.localEulerAngles = Vector3.zero;
+    //        //    transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
+    //        //    //플레이어피버게이지증가?
+    //        //}
+    //        //catch
+    //        //{
+
+    //        //}
+    //    }
+    //    else
+    //    {
+    //        SetDeadState();
+    //    }
     //}
 
-    public int TransformTypeToInt(AttackType type)
-    {
-        switch (type)
-        {
-            case AttackType.ATTACK1:
-                return 0;
+    //public void AttackSupport()
+    //{
+    //    _HPBar.HitBackFun();
+    //}
 
-            case AttackType.ATTACK2:
-                return 1;
+    ////public void SetKnockBack(PlayerStat stat, int attackType)
+    ////{
+    ////    KnockBackFlag = stat.KnockBackFlag[attackType];
+    ////    KnockBackDuration = stat.KnockBackDuration[attackType];
+    ////    KnockBackPower = stat.KnockBackPower[attackType];
+    ////    KnockBackDelay = stat.KnockBackDelay[attackType];
+    ////}
 
-            case AttackType.ATTACK3:
-                return 2;
+    //public int TransformTypeToInt(AttackType type)
+    //{
+    //    switch (type)
+    //    {
+    //        case AttackType.ATTACK1:
+    //            return 0;
 
-            case AttackType.SKILL1:
-                return 3;
+    //        case AttackType.ATTACK2:
+    //            return 1;
 
-            case AttackType.SKILL2:
-                return 4;
+    //        case AttackType.ATTACK3:
+    //            return 2;
 
-            case AttackType.SKILL3:
-                return 5;
+    //        case AttackType.SKILL1:
+    //            return 3;
 
-            case AttackType.SKILL4:
-                return 6;
+    //        case AttackType.SKILL2:
+    //            return 4;
 
-            default:
-                return -1;
-        }
-    }
+    //        case AttackType.SKILL3:
+    //            return 5;
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.tag == "Weapon" && !PlayerFSMManager.Instance.isSkill3)
-        {
-            if (Stat.Hp > 0)
-                OnHitForMonster(PlayerFSMManager.Instance.attackType);
-        }
+    //        case AttackType.SKILL4:
+    //            return 6;
 
-        if (other.transform.tag == "Ball")
-        {
-            if (PlayerFSMManager.Instance.isNormal)                
-                Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
-            if (!PlayerFSMManager.Instance.isNormal)
-                Instantiate(hitEffect_Skill1_Special, hitLocation.transform.position, Quaternion.identity);
+    //        default:
+    //            return -1;
+    //    }
+    //}
 
-            other.transform.gameObject.SetActive(false);
+    //public void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.transform.tag == "Weapon" && !PlayerFSMManager.Instance.isSkill3)
+    //    {
+    //        if (Stat.Hp > 0)
+    //            OnHitForMonster(PlayerFSMManager.Instance.attackType);
+    //    }
 
-            if (Stat.Hp > 0)
-            {
-                //OnHit();
-                OnHitForMonster(AttackType.SKILL1);
-            }
-        }
-        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
-        {
-            StartCoroutine("Skill2Timer");
+    //    if (other.transform.tag == "Ball")
+    //    {
+    //        if (PlayerFSMManager.Instance.isNormal)                
+    //            Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
+    //        if (!PlayerFSMManager.Instance.isNormal)
+    //            Instantiate(hitEffect_Skill1_Special, hitLocation.transform.position, Quaternion.identity);
 
-            SetState(RedHatState.HIT);
-        }
-        if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
-        {
-            StartCoroutine("Skill3Timer");
-        }
-    }
+    //        other.transform.gameObject.SetActive(false);
 
-    public override IEnumerator Skill3Timer()
-    {
-        return base.Skill3Timer();
-    }
-    public override IEnumerator Skill2Timer()
-    {
-        return base.Skill2Timer();
-    }
+    //        if (Stat.Hp > 0)
+    //        {
+    //            //OnHit();
+    //            OnHitForMonster(AttackType.SKILL1);
+    //        }
+    //    }
+    //    if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
+    //    {
+    //        StartCoroutine("Skill2Timer");
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.transform.tag == "Skill2")
-        {
-            if (Stat.Hp > 0)
-            {
-                try
-                {
-                    OnHitForMonster(AttackType.SKILL2);
-                }
-                catch
-                {
+    //        SetState(RedHatState.HIT);
+    //    }
+    //    if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
+    //    {
+    //        StartCoroutine("Skill3Timer");
+    //    }
+    //}
 
-                }
-            }
-        }
-    }
+    //public override IEnumerator Skill3Timer()
+    //{
+    //    return base.Skill3Timer();
+    //}
+    //public override IEnumerator Skill2Timer()
+    //{
+    //    return base.Skill2Timer();
+    //}
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.transform.tag == "Skill2")
+    //    {
+    //        if (Stat.Hp > 0)
+    //        {
+    //            try
+    //            {
+    //                OnHitForMonster(AttackType.SKILL2);
+    //            }
+    //            catch
+    //            {
+
+    //            }
+    //        }
+    //    }
+    //}
 
     //public void AttackCheck()
     //{

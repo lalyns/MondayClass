@@ -5,8 +5,8 @@ using UnityEngine;
 public class RedHatDASH : RedHatFSMState
 {
     float _DashTime = 1f;
-    float _DashReadyTime = 0.9f;
-    float _DashAfterDelay = 1.5f;
+    float _DashReadyTime = 0.5f;
+    float _DashAfterDelay = 1.1f;
     float _Time = 0.0f;
 
     bool _IsDrawDashRoute = false;
@@ -22,6 +22,12 @@ public class RedHatDASH : RedHatFSMState
         _manager.CC.detectCollisions = false;
         try
         {
+            transform.LookAt(_manager._PriorityTarget.transform);
+
+            dashEndPos = this.transform.position;
+            dashEndPos += transform.forward * _manager.Stat.statData._DashRange;
+            dashEndPos.y = this.transform.position.y;
+            
             _manager.dashEffect = EffectPoolManager._Instance._RedHatSkillRange.ItemSetActive(this.transform);
             _manager.dashEffect.GetComponent<tempLook>().TargetSet(_manager._PriorityTarget);
         }
@@ -56,11 +62,6 @@ public class RedHatDASH : RedHatFSMState
         {
             //if (!_IsDrawDashRoute)
             {
-                transform.LookAt(_manager._PriorityTarget.transform);
-
-                dashEndPos = this.transform.position;
-                dashEndPos += transform.forward * _manager.Stat.statData._DashRange;
-                dashEndPos.y = this.transform.position.y;
 
             }
         }
