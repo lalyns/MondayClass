@@ -5765,9 +5765,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 0
   _str: 10
+  _int: 10
   defense: 10
   _maxHp: 1000
   _hp: 10000
+  _moveSpeed: 3
+  _turnSpeed: 540
+  _attackRange: 1
   lastHitBy: {fileID: 0}
   statData: {fileID: 11400000, guid: d9febd8abf401ad4d9bee12c60095743, type: 2}
   monsterData: {fileID: 11400000, guid: d9febd8abf401ad4d9bee12c60095743, type: 2}
@@ -5793,7 +5797,7 @@ MonoBehaviour:
   _PatternAReadyEffect: {fileID: 7112653474965765310}
   _PatternAAttackEffect: {fileID: 8764448097886888123}
   SetJumpState: 0
-  targetSetDelay: 1.3
+  targetSetDelay: 1.2
   stompDelay: 1.5
   PatternEnd: 0
   bulletPool: {fileID: 0}
@@ -6148,7 +6152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7112653474965765309
 Transform:
   m_ObjectHideFlags: 0
@@ -6210,7 +6214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7112653475296903871
 Transform:
   m_ObjectHideFlags: 0
@@ -6241,7 +6245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7112653475308597920
 Transform:
   m_ObjectHideFlags: 0
@@ -7322,7 +7326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4025307308402251790
 Transform:
   m_ObjectHideFlags: 0
@@ -7555,15 +7559,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4025307308402251790}
     m_Modifications:
-    - target: {fileID: 8498239818957701015, guid: e215c958e17c8a647809b1c18eac2711,
-        type: 3}
-      propertyPath: m_Name
-      value: Boss_Effect_Pattern2_Real
-      objectReference: {fileID: 0}
     - target: {fileID: 8498239818957701014, guid: e215c958e17c8a647809b1c18eac2711,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.12
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 8498239818957701014, guid: e215c958e17c8a647809b1c18eac2711,
         type: 3}
@@ -7573,7 +7572,7 @@ PrefabInstance:
     - target: {fileID: 8498239818957701014, guid: e215c958e17c8a647809b1c18eac2711,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.17
+      value: -1.18
       objectReference: {fileID: 0}
     - target: {fileID: 8498239818957701014, guid: e215c958e17c8a647809b1c18eac2711,
         type: 3}
@@ -7614,6 +7613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8498239818957701015, guid: e215c958e17c8a647809b1c18eac2711,
+        type: 3}
+      propertyPath: m_Name
+      value: Boss_Effect_Pattern2_Real
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e215c958e17c8a647809b1c18eac2711, type: 3}
@@ -7782,6 +7786,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b2b74735da6301e4aa729d5f76359fad, type: 2}
+    - target: {fileID: 13700008, guid: 19e0e2ef6dc676549be7f64ef85b7a5f, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300004, guid: 85275c4ebc3609347a5c08d7411d7ab8, type: 3}
     - target: {fileID: 13700006, guid: 19e0e2ef6dc676549be7f64ef85b7a5f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -8865,11 +8873,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7112653474965765309}
     m_Modifications:
-    - target: {fileID: 3030991189761323020, guid: 6d40d835c2deb7142bca4680b17fec13,
-        type: 3}
-      propertyPath: m_Name
-      value: Boss_Effect_Floor_001
-      objectReference: {fileID: 0}
     - target: {fileID: 7585888160604254161, guid: 6d40d835c2deb7142bca4680b17fec13,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8925,6 +8928,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3030991189761323020, guid: 6d40d835c2deb7142bca4680b17fec13,
+        type: 3}
+      propertyPath: m_Name
+      value: Boss_Effect_Floor_001
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d40d835c2deb7142bca4680b17fec13, type: 3}
 --- !u!4 &4827241492099158408 stripped
@@ -8940,11 +8948,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7112653475308597920}
     m_Modifications:
-    - target: {fileID: 9085948909250431707, guid: c49046cd32f7fd04992ef57e1bc8d6c7,
-        type: 3}
-      propertyPath: m_Name
-      value: Boss_Effect_Pattern1_001
-      objectReference: {fileID: 0}
     - target: {fileID: 9085948909250431701, guid: c49046cd32f7fd04992ef57e1bc8d6c7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8999,6 +9002,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9085948909250431707, guid: c49046cd32f7fd04992ef57e1bc8d6c7,
+        type: 3}
+      propertyPath: m_Name
+      value: Boss_Effect_Pattern1_001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c49046cd32f7fd04992ef57e1bc8d6c7, type: 3}

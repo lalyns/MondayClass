@@ -35,13 +35,13 @@ public class CharacterStat : MonoBehaviour
         _hp = hp;
     }
 
-    protected float _moveSpeed = 3.0f;
+    [SerializeField] protected float _moveSpeed = 3.0f;
     public float MoveSpeed { get { return _moveSpeed; } }
 
-    protected float _turnSpeed = 540.0f;
+    [SerializeField] protected float _turnSpeed = 540.0f;
     public float TurnSpeed { get { return _turnSpeed; } }
 
-    protected float _attackRange = 1.0f;
+    [SerializeField] protected float _attackRange = 1.0f;
     public float AttackRange { get { return _attackRange; } }
           
        

@@ -134,6 +134,7 @@ public class PlayerFSMManager : FSMManager
         isInvincibility = value;
     }
     public bool isSkill3Dash = false;
+    public bool isSkill2Dash = false;
     public GameObject Normal;
     public GameObject Special;
     public GameObject WeaponTransformEffect;
@@ -378,7 +379,7 @@ public class PlayerFSMManager : FSMManager
 
         if (isSpecial)
             return;
-        if (remainingDash > 0 && !isSkill3Dash)
+        if (remainingDash > 0 && !isSkill3Dash && !isSkill2Dash)
             Dash();
        
         GetInput();
@@ -989,6 +990,7 @@ public class PlayerFSMManager : FSMManager
             {
                 SetState(PlayerState.SKILL2);
                 isSkill2 = true;
+                isSkill2Dash = true;
                 return;
             }
         }

@@ -33,6 +33,9 @@ namespace MC.SceneDirector
 
         private void Awake()
         {
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            Screen.SetResolution(1920, 1080, true);
+
             if (SceneManager.GetActiveScene().name == "00.Title") {
                 currentSceneNumber = TITLE;
             }
@@ -58,6 +61,7 @@ namespace MC.SceneDirector
             GameManager.SetFadeInOut(() =>
             {
                 StartCoroutine(LoadScene(i));
+                GameStatus.currentGameState = CurrentGameState.Loading;
                 
             }, false
             );
@@ -85,6 +89,7 @@ namespace MC.SceneDirector
                 GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>
                 {
+                    GameStatus.currentGameState = CurrentGameState.Start;
                     MCSoundManager.LoadBank();
                     isLoad = false;
                 }, true

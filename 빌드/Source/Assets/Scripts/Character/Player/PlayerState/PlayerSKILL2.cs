@@ -53,14 +53,12 @@ public class PlayerSKILL2 : FSMState
             if (_manager.isNormal)
             {
                 _manager.Skill2_Normal.SetActive(true);
-                Debug.Log("스킬2찍혀야함.");
             }
             else
             {
                 _manager.Skill2_Special.SetActive(true);
-                Debug.Log("스킬2찍혀야함.");
             }
-
+            _manager.isSkill2Dash = false;
             isBox = true;
         }
      
