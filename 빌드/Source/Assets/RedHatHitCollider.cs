@@ -81,6 +81,7 @@ public class RedHatHitCollider : MonoBehaviour
 
         if (other.transform.tag == "Ball")
         {
+            Debug.Log("찍히냐?");
             if (PlayerFSMManager.Instance.isNormal)
                 Instantiate(redhat.hitEffect_Skill1, redhat.hitLocation.transform.position, Quaternion.identity);
             if (!PlayerFSMManager.Instance.isNormal)
