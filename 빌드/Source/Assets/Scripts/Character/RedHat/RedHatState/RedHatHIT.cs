@@ -56,6 +56,8 @@ public class RedHatHIT : RedHatFSMState
             PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
             _manager.Stat.TakeDamage(playerStat, 1);
         }
+        if (_manager.Stat.Hp <= 0)
+            _manager.SetDeadState();
     }
 
     protected override void FixedUpdate()

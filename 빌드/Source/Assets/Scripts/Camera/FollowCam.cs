@@ -11,7 +11,10 @@ public class FollowCam : MonoBehaviour
     [Header("거리, 현재위치, 마우스위치(기본1)")]
     public float distance = 5.0f;
     public float height = 3.0f;
-    
+
+    public bool isWall = false;
+    public float nearDistance = 1.0f;
+    public float originDistance = 5f;
     public float targetOffset = 1.0f;
 
     [Header("벽 충돌 세팅, originHeight = 높이")]
@@ -32,6 +35,8 @@ public class FollowCam : MonoBehaviour
         player = PlayerFSMManager.Instance;
 
         originHeight = height;
+        originDistance = distance;
+
         target = GameObject.Find("PC_Rig").GetComponent<Transform>();
     }
 
@@ -43,12 +48,16 @@ public class FollowCam : MonoBehaviour
         if (Physics.CheckSphere(transform.position, 0))
         {
             //보간함수를 사용하여 카메라의 높이를 부드럽게 상승시킴.
-            height = Mathf.Lerp(height, heightAboveWall, Time.deltaTime * overDamping);
+            //height = Mathf.Lerp(height, heightAboveWall, Time.deltaTime * overDamping);
+            isWall = true;
+            distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping);
         }
         else
         {
             //보간함수를 이용하여 카메라의 높이를 부드럽게 하강시킨다.
             height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping);
+            distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping);
+            isWall = false;
         }
         //플레이어가 장애물에 가려졌는지를 판단할 레이캐스트의 높낮이를 설정
         Vector3 castTarget = target.position + (target.up * castOffset);
@@ -63,12 +72,16 @@ public class FollowCam : MonoBehaviour
             //플레이어가 레이캐스트에 맞지 않았을 경우
             if (!hit.collider.CompareTag("Player"))
             {
+                isWall = true;
                 //보간함수 사용 카메라 상승
-                height = Mathf.Lerp(height, heightAboveObstacle, Time.deltaTime * overDamping / 3.5f);
+                //height = Mathf.Lerp(height, heightAboveObstacle, Time.deltaTime * overDamping / 3.5f);
+                distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping / 3.5f);
             }
             else
             {
                 height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping);
+                distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping / 3.5f);
+                isWall = false;
             }
         }
 
@@ -85,6 +98,7 @@ public class FollowCam : MonoBehaviour
     public bool isMax, isMin;
     float tFollowH = 12.3f;
     bool islock = false;
+    
     private void FixedUpdate()
     {
        
@@ -101,7 +115,7 @@ public class FollowCam : MonoBehaviour
             islock = false;
             return;
         }
-        if (!player.isMouseYLock && !islock)
+        if (!player.isMouseYLock && !islock && !isWall)
         {            
             maxDistance = 5f;
             distance = 5f;
@@ -150,9 +164,19 @@ public class FollowCam : MonoBehaviour
                 isMax = false;
             }
         }
-        if (distance <= minDistance)
+        if (!isWall)
         {
-            distance = minDistance;
+            if (distance <= minDistance)
+            {
+                distance = minDistance;
+            }
+        }
+        if (isWall)
+        {
+            if (distance <= nearDistance)
+            {
+                distance = nearDistance;
+            }
         }
         if (isMin)
         {
