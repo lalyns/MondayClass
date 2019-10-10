@@ -20,6 +20,9 @@ public class tempLook : MonoBehaviour
     public void TargetSet(Collider targetCol)
     {
         target = targetCol.transform;
+        Vector3 pos = target.position;
+        pos.y = 0.1f;
+        transform.LookAt(pos);
         targetSet = true;
     }
 
@@ -34,16 +37,16 @@ public class tempLook : MonoBehaviour
         _Time += Time.deltaTime;
         if (_Time < _DashReadyTime)
         {
-            Vector3 dir = (target.position - transform.position).normalized;
-            dir.y = 0;
+            //Vector3 dir = (target.position - transform.position).normalized;
+            //dir.y = 0;
 
-            // Quaternion rotation = Quaternion.Slerp(transform.rotation, )
-            // transform.eulerAngles = rotation;
-            Vector3 look = Quaternion.Lerp(transform.rotation,
-                Quaternion.LookRotation(dir), rotateSpeed).eulerAngles;
-            look.z = 0;
+            //// Quaternion rotation = Quaternion.Slerp(transform.rotation, )
+            //// transform.eulerAngles = rotation;
+            //Vector3 look = Quaternion.Lerp(transform.rotation,
+            //    Quaternion.LookRotation(dir), rotateSpeed).eulerAngles;
+            //look.z = 0;
 
-            transform.eulerAngles = look;
+            //transform.eulerAngles = look;
         }
 
         if (_Time > _DashReadyTime && _Time < _DashReadyTime + _DashTime)

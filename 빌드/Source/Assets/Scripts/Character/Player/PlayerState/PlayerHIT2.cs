@@ -25,10 +25,19 @@ public class PlayerHIT2 : FSMState
     // Update is called once per frame
     void Update()
     {
+        _manager.isCantMove = _time <= 1.3f ? true : false;
         if (isEnd)
         {
-            _manager.SetState(PlayerState.IDLE);            
-            return;
+            if (!_manager.OnMove())
+            {
+                _manager.SetState(PlayerState.IDLE);
+                return;
+            }
+            if (_manager.OnMove())
+            {
+                _manager.SetState(PlayerState.RUN);
+                return;
+            }
         }
         //if (_manager.OnMove())
         //{
