@@ -188,7 +188,7 @@ public class RedHatFSMManager : FSMManager
             StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
         //if (attackType == AttackType.SKILL3)
         //    StartCoroutine(Shake.instance.ShakeCamera(0.01f, 0.01f, 0.01f));
-
+        
         if (Stat.Hp > 0)
         {
             if (CurrentState == RedHatState.HIT) return;

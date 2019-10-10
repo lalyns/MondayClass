@@ -957,7 +957,7 @@ public class PlayerFSMManager : FSMManager
         //    return;
         try
         {
-            skill2_Distance = (50f / followCam.height) - 13f;
+            skill2_Distance = (30 / followCam.height)  -8f;       //followCam.height;//(50f / followCam.height) - 13f;
         }
         catch
         {
@@ -967,6 +967,8 @@ public class PlayerFSMManager : FSMManager
         if (skill2_Distance >= skill2_maxDis)
             skill2_Distance = skill2_maxDis;
 
+        if (skill2_Distance <= skill2_minDis)
+            skill2_Distance = skill2_minDis;
         Skill2_Parent.localPosition = new Vector3(0, 0.18f, skill2_Distance);
     }
 
