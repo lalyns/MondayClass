@@ -39,7 +39,8 @@ public class MacFSMState : MonoBehaviour
     {
         if (sub) return;
 
-        HPUI();
+        if (GameManager.Instance.uIActive.monster)
+            HPUI();
 
         if(useGravity)
             Gravity();

@@ -49,15 +49,19 @@ public class RirisPATTERNA : RirisFSMState
     {
         base.EndState();
 
-        _manager._Weapon.gameObject.SetActive(false);
         _manager.Anim.SetBool("Stomp", false);
         _manager._WeaponAnimator.SetBool("Stomp", false);
         _PatternAAttackEffect.SetActive(false);
         SetJumpState = false;
         PatternEnd = false;
         useGravity = true;
-
         stompCount = 0;
+        Invoke("WeaponSetFalse", 0.5f);
+    }
+
+    public void WeaponSetFalse()
+    {
+        _manager._Weapon.gameObject.SetActive(false);
 
     }
 
@@ -125,16 +129,25 @@ public class RirisPATTERNA : RirisFSMState
         _manager._Weapon.position = targetPos;
 
         _PatternAAttackEffect.SetActive(true);
+
+        ParticleSystem[] particleSystems = _PatternAAttackEffect.GetComponentsInChildren<ParticleSystem>();
+        foreach(ParticleSystem p in particleSystems)
+        {
+            p.Play();
+        }
+
         _manager.Anim.SetBool("Stomp", true);
         _manager._WeaponAnimator.SetBool("Stomp", true);
     }
 
     public void AttackCheck()
     {
-        var hitTarget = GameLib.SimpleDamageProcess(transform,
-            _manager.Stat.AttackRange,
-            "Player", _manager.Stat);
 
+        float damage = _manager.Stat.damageCoefiiecient[0] * 0.01f *
+            (_manager.Stat.Str + _manager.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
+            - PlayerFSMManager.Instance.Stat.Defense;
+
+        var hitTarget = GameLib.SimpleDamageProcess(transform, _manager.Stat.AttackRange, "Player", _manager.Stat, damage);
     }
 
     protected override void FixedUpdate()

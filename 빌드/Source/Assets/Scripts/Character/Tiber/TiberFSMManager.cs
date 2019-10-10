@@ -91,6 +91,9 @@ public class TiberFSMManager : FSMManager
 
         //materialList.AddRange(_MR.materials);
 
+        if (!GameManager.Instance.uIActive.monster)
+            _HPBar.gameObject.SetActive(false);
+
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
         TiberState[] stateValues = (TiberState[])System.Enum.GetValues(typeof(TiberState));
@@ -107,6 +110,7 @@ public class TiberFSMManager : FSMManager
             _States.Add(s, state);
             state.enabled = false;
         }
+        CC.detectCollisions = true;
 
         monsterType = MonsterType.Tiber;
         Attack1Effect.SetActive(false);
@@ -168,8 +172,9 @@ public class TiberFSMManager : FSMManager
         int value = TransformTypeToInt(attackType);
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
-        Stat.TakeDamage(playerStat, playerStat.DMG[value]);
-        SetKnockBack(playerStat, value);
+        float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - Stat.Defense;
+        CharacterStat.ProcessDamage(playerStat, Stat, damage);
+        //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
 
         if (attackType == AttackType.ATTACK1)
@@ -214,13 +219,13 @@ public class TiberFSMManager : FSMManager
         _HPBar.HitBackFun();
     }
 
-    public void SetKnockBack(PlayerStat stat, int attackType)
-    {
-        KnockBackFlag = stat.KnockBackFlag[attackType];
-        KnockBackDuration = stat.KnockBackDuration[attackType];
-        KnockBackPower = stat.KnockBackPower[attackType];
-        KnockBackDelay = stat.KnockBackDelay[attackType];
-    }
+    //public void SetKnockBack(PlayerStat stat, int attackType)
+    //{
+    //    KnockBackFlag = stat.KnockBackFlag[attackType];
+    //    KnockBackDuration = stat.KnockBackDuration[attackType];
+    //    KnockBackPower = stat.KnockBackPower[attackType];
+    //    KnockBackDelay = stat.KnockBackDelay[attackType];
+    //}
 
     public int TransformTypeToInt(AttackType type)
     {
@@ -275,8 +280,10 @@ public class TiberFSMManager : FSMManager
                 OnHitForMonster(AttackType.SKILL1);
             }
         }
-        if (other.transform.tag == "Skill2")
+        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
         {
+            StartCoroutine("Skill2Timer");
+
             SetState(TiberState.HIT);
         }
         if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
@@ -285,11 +292,15 @@ public class TiberFSMManager : FSMManager
         }
     }
 
+
     public override IEnumerator Skill3Timer()
     {
         return base.Skill3Timer();
     }
-
+    public override IEnumerator Skill2Timer()
+    {
+        return base.Skill2Timer();
+    }
     private void OnTriggerExit(Collider other)
     {
         if (other.transform.tag == "Skill2")

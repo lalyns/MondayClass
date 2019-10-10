@@ -68,6 +68,8 @@ public class RirisFSMManager : FSMManager
     [Range(0, 1)] public float[] _PhaseThreshold = new float[3];
     public int _Phase = 0;
 
+    public Transform hitTransform;
+
     protected override void Awake()
     {
         base.Awake();
@@ -138,13 +140,57 @@ public class RirisFSMManager : FSMManager
         this.transform.position = pos;
     }
 
-
     public void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "Weapon" || other.transform.tag == "Skill2")
+        if (other.transform.tag == "Weapon" && !PlayerFSMManager.Instance.isSkill3)
         {
             if (Stat.Hp > 0)
                 OnHitForBoss(PlayerFSMManager.Instance.attackType);
+
+        }
+        if (other.transform.tag == "Ball")
+        {
+            if (PlayerFSMManager.Instance.isNormal)
+                EffectPoolManager._Instance._PlayerEffectPool[2].ItemSetActive(hitTransform, "Effect");
+            else
+                EffectPoolManager._Instance._PlayerEffectPool[3].ItemSetActive(hitTransform, "Effect");
+
+            if (Stat.Hp > 0)
+            {
+                OnHitForBoss(AttackType.SKILL1);
+                other.transform.gameObject.SetActive(false);
+            }
+        }
+
+        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
+        {
+            StartCoroutine("Skill2Timer");
+
+        }
+        if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
+        {
+            StartCoroutine("Skill3Timer");
+        }
+    }
+
+    public override IEnumerator Skill3Timer()
+    {
+        return base.Skill3Timer();
+    }
+
+    public override IEnumerator Skill2Timer()
+    {
+        return base.Skill2Timer();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.tag == "Skill2")
+        {
+            if (Stat.Hp > 0)
+            {
+                OnHitForBoss(AttackType.SKILL2);
+            }
         }
     }
 
@@ -161,17 +207,18 @@ public class RirisFSMManager : FSMManager
         if (CurrentState == RirisState.DEAD) return;
 
         if (PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(this.transform, "Effect");
+            EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(hitTransform, "Effect");
 
         if (!PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(this.transform, "Effect");
+            EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(hitTransform, "Effect");
 
 
         CurrentAttackType = attackType;
         int value = TransformTypeToInt(attackType);
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
-        Stat.TakeDamage(playerStat, playerStat.DMG[value]);
+        float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - Stat.Defense;
+        CharacterStat.ProcessDamage(playerStat, Stat, damage);
         Invoke("AttackSupport", 0.5f);
 
         if (attackType == AttackType.ATTACK1)

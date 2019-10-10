@@ -8,8 +8,9 @@ namespace MC.Mission
     public class DropStar : MonoBehaviour
     {
         public float _MoveSpeed = 10f;
+        public float _TurnSpeed = 60f;
 
-        bool stop;
+        public bool stop;
 
         public GameObject _StarMesh;
         public GameObject _FloorEffect;
@@ -20,6 +21,7 @@ namespace MC.Mission
             if (stop) return;
 
             this.transform.position += Vector3.down * _MoveSpeed * Time.deltaTime;
+            _StarMesh.transform.Rotate(0, _TurnSpeed * Time.deltaTime, 0);
 
             Ray ray = new Ray();
             ray.origin = this.transform.position;
@@ -37,7 +39,6 @@ namespace MC.Mission
         {
             if (other.transform.tag == "Player")
             {
-                GameManager.TempScoreAdd();
                 stop = true;
 
                 _StarMesh.SetActive(false);
@@ -46,11 +47,12 @@ namespace MC.Mission
                 _GetEffect.SetActive(true);
 
                 MissionB mission = MissionManager.Instance.CurrentMission as MissionB;
+                mission.currentScore++;
 
                 if (mission.activeStar.Contains(this.gameObject))
                     mission.activeStar.Remove(this.gameObject);
 
-                EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(this.gameObject);
+                Invoke("ReturnStar", 2f);
             }
             else if (other.transform.tag == "Stage")
             {
@@ -65,5 +67,10 @@ namespace MC.Mission
             }
         }
 
+
+        void ReturnStar()
+        {
+            EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(this.gameObject);
+        }
     }
 }

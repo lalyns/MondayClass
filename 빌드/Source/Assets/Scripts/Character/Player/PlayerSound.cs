@@ -44,23 +44,25 @@ namespace MC.Sound
             public AK.Wwise.Event swingHardVoice = new AK.Wwise.Event();
             public AK.Wwise.Event swingNormalVoice = new AK.Wwise.Event();
             public AK.Wwise.Event swingSpeicialVoice = new AK.Wwise.Event();
+
             public AK.Wwise.Event emoteRageVoice = new AK.Wwise.Event();
             public AK.Wwise.Event emoteSadVoice = new AK.Wwise.Event();
             public AK.Wwise.Event emoteSmileVoice = new AK.Wwise.Event();
             public AK.Wwise.Event emoteSurprisedVoice = new AK.Wwise.Event();
+
             public AK.Wwise.Event skill1Voice = new AK.Wwise.Event();
             public AK.Wwise.Event skill2Voice = new AK.Wwise.Event();
             public AK.Wwise.Event skill3CastVoice = new AK.Wwise.Event();
             public AK.Wwise.Event skill3FinishVoice = new AK.Wwise.Event();
             public AK.Wwise.Event skill4CastVoice = new AK.Wwise.Event();
             public AK.Wwise.Event skill4FinishVoice = new AK.Wwise.Event();
+
             public AK.Wwise.Event teleportVoice = new AK.Wwise.Event();
             public AK.Wwise.Event specialCastVoice = new AK.Wwise.Event();
             public AK.Wwise.Event specialFinishVoice = new AK.Wwise.Event();
 
             public void PlayPlayerVoice(GameObject go, AK.Wwise.Event voice)
             {
-                //Debug.Log("Play Player Voice");
                 if (GameManager.Instance.config.soundActive.voice ||
                     GameManager.Instance.config.soundActive.all)
                     try

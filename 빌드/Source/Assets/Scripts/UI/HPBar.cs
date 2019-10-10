@@ -39,7 +39,7 @@ namespace MC.UI
         private void CurrentValue()
         {
             Vector3 deltaPos = new Vector3(CurrentFillGround.rectTransform.sizeDelta.x * 0.9f, 0, 0)
-                * (1 - currentValue) * (-1);
+                * (-1 + currentValue);
 
             CurrentFillGround.transform.localPosition = deltaPos;
         }
@@ -47,7 +47,7 @@ namespace MC.UI
         private void LaterValue()
         {
             Vector3 deltaPos = new Vector3(LaterFillGround.rectTransform.sizeDelta.x * 0.9f, 0, 0)
-                * (1 - laterValue) * (-1);
+                * (-1 + laterValue);
 
             LaterFillGround.transform.localPosition = deltaPos;
         }

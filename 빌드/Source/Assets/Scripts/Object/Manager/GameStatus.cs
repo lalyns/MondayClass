@@ -129,6 +129,9 @@ public class GameStatus : MonoBehaviour
                 case MonsterType.Mac:
                     MonsterPoolManager._Instance._Mac.ItemReturnPool(mob);
                     break;
+                case MonsterType.Tiber:
+                    MonsterPoolManager._Instance._Tiber.ItemReturnPool(mob);
+                    break;
             }
         }
 

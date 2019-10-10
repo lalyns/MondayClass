@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class MacStat : CharacterStat
 {
-    public MonsterData monsterData;
+    public float[] damageCoefiiecient;
 
-    public GameObject _AttackEffect;
-    public GameObject _SkillEffect;
+    public float addStrPerRound;
+    public float addDefPerRound;
 
-    public Material _NormalMat;
-    public Material _BeforeAttackMat;
-    public Material _AttackMat;
-
-    public float _AttackRange = 10f;
+    protected override void Awake() {
+        base.Awake();
+        SetHp(_maxHp);
+    }
 }

@@ -87,6 +87,9 @@ public class MacFSMManager : FSMManager
         _Anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<MonsterSound>();
 
+        if (!GameManager.Instance.uIActive.monster)
+            _HPBar.gameObject.SetActive(false);
+
         materialList.AddRange(_MR.materials);
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
@@ -138,6 +141,7 @@ public class MacFSMManager : FSMManager
             return;
         }
     }
+
     public override void OnHitForMonster(AttackType attackType)
     {
         base.OnHitForMonster(attackType);
@@ -162,8 +166,11 @@ public class MacFSMManager : FSMManager
         int value = GameLib.TransformTypeToInt(attackType);
 
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
-        Stat.TakeDamage(playerStat, playerStat.DMG[value]);
-        SetKnockBack(playerStat, value);
+
+        float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - Stat.Defense;
+        CharacterStat.ProcessDamage(playerStat, Stat, damage);
+
+        //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
 
         if (attackType == AttackType.ATTACK1)
@@ -185,10 +192,10 @@ public class MacFSMManager : FSMManager
 
             SetState(MacState.HIT);
             //플레이어 쳐다본 후
-            transform.localEulerAngles = Vector3.zero;
-            transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
+            //transform.localEulerAngles = Vector3.zero;
+            //transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
             // 뒤로 밀림
-            transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
+            //transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
             //플레이어피버게이지증가?
             //PlayerFSMManager.instance.FeverGauge++;
         }
@@ -206,13 +213,13 @@ public class MacFSMManager : FSMManager
         _HPBar.HitBackFun();
     }
 
-    public void SetKnockBack(PlayerStat stat,int attackType)
-    {
-        KnockBackFlag = stat.KnockBackFlag[attackType];
-        KnockBackDuration = stat.KnockBackDuration[attackType];
-        KnockBackPower = stat.KnockBackPower[attackType];
-        KnockBackDelay = stat.KnockBackDelay[attackType];
-    }
+    //public void SetKnockBack(PlayerStat stat,int attackType)
+    //{
+    //    KnockBackFlag = stat.KnockBackFlag[attackType];
+    //    KnockBackDuration = stat.KnockBackDuration[attackType];
+    //    KnockBackPower = stat.KnockBackPower[attackType];
+    //    KnockBackDelay = stat.KnockBackDelay[attackType];
+    //}
 
     public void OnTriggerEnter(Collider other)
     {

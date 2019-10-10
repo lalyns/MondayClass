@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MC.SceneDirector;
 using UnityEngine.Playables;
+using MC.Sound;
 
 namespace MC.Mission
 {
@@ -67,6 +68,7 @@ namespace MC.Mission
 
         public bool missionEnd = false;
 
+
         protected virtual void Awake()
         {
             Enter = GetComponentInChildren<MissionEnter>();
@@ -116,14 +118,16 @@ namespace MC.Mission
         {
             GameStatus.Instance._MissionStatus = false;
 
-            if (!GameStatus.Instance.usingKeward)
+            if (!GameStatus.Instance.usingKeward && MissionManager.Instance.CurrentMissionType != MissionType.Annihilation)
             {
                 GameStatus.Instance.RemoveAllActiveMonster();
-                
             }
 
             Exit._PortalEffect.SetActive(true);
             Exit.Colliders.enabled = true;
+
+            var sound = MCSoundManager.Instance.objectSound.objectSFX;
+            sound.PlaySound(Exit.gameObject, sound.portalCreate);
         }
 
         public virtual void EnterDirector()
@@ -147,6 +151,7 @@ namespace MC.Mission
                         a = MonsterPoolManager._Instance._RedHat.ItemSetActive(Grid.mapPositions[rand], monsterType);
                         break;
                     case MonsterType.Tiber:
+                        a = MonsterPoolManager._Instance._Tiber.ItemSetActive(Grid.mapPositions[rand], monsterType);
                         break;
                 }
 

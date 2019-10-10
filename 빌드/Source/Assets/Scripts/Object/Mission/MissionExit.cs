@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Sound;
 
 public class MissionExit : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class MissionExit : MonoBehaviour
             return _Colliders;
         }
     }
+
+    bool isEnd = false;
     /// <summary>
     /// 플레이어가 던전 출구에 도착했을때 호출함
     /// </summary>
@@ -24,9 +27,15 @@ public class MissionExit : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
-            MissionManager.ExitMission();
-            MissionManager.PopUpMission();
-            PlayerFSMManager.Instance.rigid.useGravity = false;
+            if (!isEnd) {
+                var sound = MCSoundManager.Instance.objectSound.objectSFX;
+
+                sound.PlaySound(this.gameObject, sound.portalEnter);
+                MissionManager.ExitMission();
+                MissionManager.PopUpMission();
+                PlayerFSMManager.Instance.rigid.useGravity = false;
+                isEnd = false;
+            }
         }
     }
 }

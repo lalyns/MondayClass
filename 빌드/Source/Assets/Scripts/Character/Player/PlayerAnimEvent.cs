@@ -11,10 +11,14 @@ public class PlayerAnimEvent : MonoBehaviour
     public TrailRenderer Special_trail;
     public ParticleSystem particle;
     bool isNormal;
+    PlayerSKILL2 skill2;
+    PlayerHIT2 hit2;
     private void Start()    
     {
         //input = InputHandler.instance;
         player = PlayerFSMManager.Instance;
+        skill2 = player.GetComponent<PlayerSKILL2>();
+        hit2 = player.GetComponent<PlayerHIT2>();
     }
     private void Update()
     {
@@ -94,6 +98,26 @@ public class PlayerAnimEvent : MonoBehaviour
         }
     }
 
+    void Skill3Finish()
+    {
+        var voice = player._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.skill3FinishVoice);
+    }
+
+    void SpecialCast()
+    {
+
+        var voice = player._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.specialCastVoice);
+    }
+
+    void SpecialEnd()
+    {
+
+        var voice = player._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.specialFinishVoice);
+    }
+
     public void StopParticle()
     {
         
@@ -101,5 +125,14 @@ public class PlayerAnimEvent : MonoBehaviour
 
         //particle.Stop();
         //particle.Clear();
+    }
+
+    void Skill2End()
+    {
+        skill2.isEnd = true;
+    }
+    void Hit2End()
+    {
+        hit2.isEnd = true;
     }
 }

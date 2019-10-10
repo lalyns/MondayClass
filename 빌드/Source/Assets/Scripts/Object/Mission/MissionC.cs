@@ -13,12 +13,17 @@ namespace MC.Mission
 
         float spawnTime = 0;
         public float spawnCool = 3f;
-        public Vector2[] mobSet;
-        public Transform[] spawnLocation;
 
         int NumberOfMaxMonster = 20;
 
+        public MonsterWave[] waves;
+
+        public int currentWave = 0;
+        public int totalWave = 3;
+
         public List<Transform> oldSpawnList = new List<Transform>();
+
+        bool isClear = false;
 
         public override void OperateMission()
         {
@@ -30,16 +35,6 @@ namespace MC.Mission
         // Update is called once per frame
         protected override void Update()
         {
-            if (Input.GetKey(KeyCode.LeftAlt))
-            {
-                if (Input.GetKeyDown(KeyCode.V))
-                {
-                    ClearMission();
-                    missionEnd = true;
-                }
-
-            }
-
             if (missionEnd) return;
 
             if (GameStatus.Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
@@ -56,10 +51,10 @@ namespace MC.Mission
                 }
             }
 
-            if (!missionEnd && GameStatus.Instance._LimitTime <= 0 && protectedTarget.hp >= 0)
+            if (!isClear && GameStatus.Instance._LimitTime <= 0 && protectedTarget.hp >= 0)
             {
                 ClearMission();
-                missionEnd = true;
+                isClear = true;
             }
         }
 
@@ -70,58 +65,18 @@ namespace MC.Mission
             spawnTime = 0;
         }
 
+        public override void ClearMission() {
+            base.ClearMission();
+
+            StopAllCoroutines();
+        }
+
         void Spawn()
         {
-            int randSet = UnityEngine.Random.Range(0, mobSet.Length - 1);
+            if (currentWave >= totalWave) currentWave = 0;
 
-            int loopCount = 0;
-            oldSpawnList.Clear();
-
-            for (int i = 0; i < mobSet[randSet].x; loopCount++)
-            {
-                if (loopCount > 1000)
-                {
-                    break;
-                }
-
-                int randPos = UnityEngine.Random.Range(0, spawnLocation.Length);
-
-                if (oldSpawnList.Contains(spawnLocation[randPos]))
-                {
-                    continue;
-                }
-                else
-                {
-                    oldSpawnList.Add(spawnLocation[randPos]);
-
-                    MonsterPoolManager._Instance._RedHat.ItemSetActive(spawnLocation[randPos], "monster");
-
-                    i++;
-                }
-            }
-
-            for (int i = 0; i < mobSet[randSet].y; loopCount++)
-            {
-                if (loopCount > 1000)
-                {
-                    break;
-                }
-
-                int randPos = UnityEngine.Random.Range(0, spawnLocation.Length);
-
-                if (oldSpawnList.Contains(spawnLocation[randPos]))
-                {
-                    continue;
-                }
-                else
-                {
-                    oldSpawnList.Add(spawnLocation[randPos]);
-
-                    MonsterPoolManager._Instance._Mac.ItemSetActive(spawnLocation[randPos], "monster");
-
-                    i++;
-                }
-            }
+            StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
+            currentWave++;
         }
 
     }

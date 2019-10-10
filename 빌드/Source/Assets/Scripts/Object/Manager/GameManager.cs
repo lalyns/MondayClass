@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
 
     bool _SimpleMode = false;
 
-    public int curScore = 0;
     public bool IsPuase;
 
     public bool CineMode;
@@ -176,11 +175,6 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public static void TempScoreAdd()
-    {
-        Instance.curScore += 1;
-    }
-
     public static void SetFadeInOut(System.Action callback,  bool value)
     {
         if (value)
@@ -193,6 +187,7 @@ public class GameManager : MonoBehaviour
     {
         var num = MCSceneManager.currentSceneNumber;
 
+        MissionButton.isPush = false;
         CanvasInfo.Instance.SetRenderCam();
 
         switch (num)
@@ -243,8 +238,16 @@ public class GameManager : MonoBehaviour
 
     private void BossSet()
     {
-        TempDirector.Instance.PlayMode = true;
-        TempDirector.Instance.SceneStart();
+        if (GameManager.Instance.CineMode)
+        {
+            TempDirector.Instance.PlayMode = false;
+            TempDirector.Instance.CineStart();
+        }
+        else
+        {
+            TempDirector.Instance.PlayMode = true;
+            TempDirector.Instance.SceneStart();
+        }
     }
 
     private void BossSceneSetting()

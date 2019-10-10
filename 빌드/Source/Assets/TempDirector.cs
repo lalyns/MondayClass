@@ -41,7 +41,7 @@ public class TempDirector : MonoBehaviour
         CineSet.SetActive(false);
         PlaySet.SetActive(true);
 
-
+        GameManager.Instance.CharacterControl = true;
         UserInterface.SetPlayerUserInterface(true);
     }
 

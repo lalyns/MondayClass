@@ -12,12 +12,17 @@ public class PlayerSKILL2 : FSMState
 
     float _time;
     bool isBox, isStartDamage;
+    public bool isEnd;
     public override void BeginState()
     {
         base.BeginState();
         isBox = false;
         isStartDamage = false;
         _manager.attackType = AttackType.SKILL2;
+
+        var voice = _manager._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.skill2Voice);
+
 
     }
 
@@ -31,6 +36,8 @@ public class PlayerSKILL2 : FSMState
 
         _manager.isSkill2CTime = true;
         _manager.isSkill2End = false;
+        isEnd = false;
+        _time = 0;
     }
 
     void Update()
@@ -41,15 +48,22 @@ public class PlayerSKILL2 : FSMState
 
         if (_time >= 0.1f && !isBox)
         {
-            //Instantiate(_manager.Skill2_Start, _manager.Skill2_Parent.transform.position, _manager.Skill2_Start.transform.rotation);
             _manager.Skill2_Test.SetActive(false);
-            _manager.Skill2_Start.SetActive(true);
+
+            if (_manager.isNormal)
+            {
+                _manager.Skill2_Normal.SetActive(true);
+            }
+            else
+            {
+                _manager.Skill2_Special.SetActive(true);
+            }
+            _manager.isSkill2Dash = false;
             isBox = true;
         }
      
-        if (_time >= 1f && !isStartDamage)
+        if (isEnd && !isStartDamage)
         {
-            _time = 0;
             isStartDamage = true;
             if (_manager.OnMove())
                 _manager.SetState(PlayerState.RUN); 
