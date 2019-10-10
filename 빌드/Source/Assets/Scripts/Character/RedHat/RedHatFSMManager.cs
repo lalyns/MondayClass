@@ -170,7 +170,9 @@ public class RedHatFSMManager : FSMManager
         int value = TransformTypeToInt(attackType);
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
-        Stat.TakeDamage(playerStat, (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - Stat.Defense);
+        float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) -Stat.Defense;
+        CharacterStat.ProcessDamage(playerStat, Stat, damage);
+
         //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
 
@@ -186,7 +188,7 @@ public class RedHatFSMManager : FSMManager
             StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
         //if (attackType == AttackType.SKILL3)
         //    StartCoroutine(Shake.instance.ShakeCamera(0.01f, 0.01f, 0.01f));
-
+        
         if (Stat.Hp > 0)
         {
             if (CurrentState == RedHatState.HIT) return;
