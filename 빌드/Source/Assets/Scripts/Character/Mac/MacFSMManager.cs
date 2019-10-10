@@ -87,6 +87,9 @@ public class MacFSMManager : FSMManager
         _Anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<MonsterSound>();
 
+        if (!GameManager.Instance.uIActive.monster)
+            _HPBar.gameObject.SetActive(false);
+
         materialList.AddRange(_MR.materials);
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();

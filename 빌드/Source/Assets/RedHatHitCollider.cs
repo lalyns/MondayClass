@@ -61,6 +61,7 @@ public class RedHatHitCollider : MonoBehaviour
         }
         else
         {
+            StopAllCoroutines();
             redhat.SetDeadState();
         }
     }

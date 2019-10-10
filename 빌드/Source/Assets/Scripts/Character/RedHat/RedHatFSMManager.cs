@@ -96,6 +96,9 @@ public class RedHatFSMManager : FSMManager
         _Anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<MonsterSound>();
 
+        if (!GameManager.Instance.uIActive.monster)
+            _HPBar.gameObject.SetActive(false);
+
         materialList.AddRange(_MR.materials);
         materialList.AddRange(_WPMR.materials);
        // Weapon_Collider = gameObject.GetComponentInChildren<CapsuleCollider>();
@@ -148,6 +151,11 @@ public class RedHatFSMManager : FSMManager
             SetState(RedHatState.HIT);
             isChange = true;
             return;
+        }
+
+        if (Stat.Hp <= 0)
+        {
+            SetDeadState();
         }
     }
 
