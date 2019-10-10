@@ -48,7 +48,7 @@ public class RedHatDASH : RedHatFSMState
         //_manager.dashEffect = null;
 
         _manager.CC.detectCollisions = true;
-
+        _manager.isNotChangeState = false;
         base.EndState();
     }
 
@@ -68,7 +68,7 @@ public class RedHatDASH : RedHatFSMState
 
         else if(_Time < _DashReadyTime + _DashTime)
         {
-            
+            _manager.isNotChangeState = true;
             transform.position = Vector3.MoveTowards(this.transform.position, dashEndPos, 
                 _manager.Stat.statData._DashSpeed * Time.deltaTime);
 

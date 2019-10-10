@@ -12,12 +12,6 @@ public class RedHatHitCollider : MonoBehaviour
         redhat = GetComponentInParent<RedHatFSMManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnHitForMonster(AttackType attackType)
     {
 
@@ -57,26 +51,13 @@ public class RedHatHitCollider : MonoBehaviour
             StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.1f, 0.1f));
         if (attackType == AttackType.SKILL2)
             StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
-        //if (attackType == AttackType.SKILL3)
-        //    StartCoroutine(Shake.instance.ShakeCamera(0.01f, 0.01f, 0.01f));
 
         if (redhat.Stat.Hp > 0)
         {
             if (redhat.CurrentState == RedHatState.HIT) return;
+            if (redhat.isNotChangeState) return;
 
             redhat.SetState(RedHatState.HIT);
-
-            //플레이어 쳐다본 후
-            //try
-            //{
-            //    transform.localEulerAngles = Vector3.zero;
-            //    transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
-            //    //플레이어피버게이지증가?
-            //}
-            //catch
-            //{
-
-            //}
         }
         else
         {
@@ -108,7 +89,6 @@ public class RedHatHitCollider : MonoBehaviour
 
             if (redhat.Stat.Hp > 0)
             {
-                //OnHit();
                 OnHitForMonster(AttackType.SKILL1);
             }
         }
@@ -153,14 +133,7 @@ public class RedHatHitCollider : MonoBehaviour
         {
             if (redhat.Stat.Hp > 0)
             {
-                try
-                {
-                    OnHitForMonster(AttackType.SKILL2);
-                }
-                catch
-                {
-
-                }
+                OnHitForMonster(AttackType.SKILL2);
             }
         }
     }
