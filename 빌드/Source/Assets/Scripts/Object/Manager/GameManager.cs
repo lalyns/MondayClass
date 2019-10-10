@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(this.gameObject);
+
     }
 
     private void Start()
@@ -238,8 +239,18 @@ public class GameManager : MonoBehaviour
 
     private void BossSet()
     {
-        TempDirector.Instance.PlayMode = false;
-        TempDirector.Instance.CineStart();
+        UserInterface.SetPointerMode(false);
+
+        if (GameManager.Instance.CineMode)
+        {
+            TempDirector.Instance.PlayMode = false;
+            TempDirector.Instance.CineStart();
+        }
+        else
+        {
+            TempDirector.Instance.PlayMode = true;
+            TempDirector.Instance.SceneStart();
+        }
     }
 
     private void BossSceneSetting()

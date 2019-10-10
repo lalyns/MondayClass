@@ -27,9 +27,17 @@ namespace MC.UI
         public GameObject howToPlay;
         public GameObject config;
 
+        bool nextScene = true;
+
         public void StartButton()
         {
-            cutScene.SetActive(true);
+            //cutScene.SetActive(true);
+
+            if (nextScene)
+            {
+                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
+                nextScene = false;
+            }
         }
 
         public void HowToPlayButton()

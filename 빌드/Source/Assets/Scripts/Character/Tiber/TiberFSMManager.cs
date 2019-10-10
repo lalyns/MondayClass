@@ -91,6 +91,9 @@ public class TiberFSMManager : FSMManager
 
         //materialList.AddRange(_MR.materials);
 
+        if (!GameManager.Instance.uIActive.monster)
+            _HPBar.gameObject.SetActive(false);
+
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
         TiberState[] stateValues = (TiberState[])System.Enum.GetValues(typeof(TiberState));

@@ -49,15 +49,19 @@ public class RirisPATTERNA : RirisFSMState
     {
         base.EndState();
 
-        _manager._Weapon.gameObject.SetActive(false);
         _manager.Anim.SetBool("Stomp", false);
         _manager._WeaponAnimator.SetBool("Stomp", false);
         _PatternAAttackEffect.SetActive(false);
         SetJumpState = false;
         PatternEnd = false;
         useGravity = true;
-
         stompCount = 0;
+        Invoke("WeaponSetFalse", 0.5f);
+    }
+
+    public void WeaponSetFalse()
+    {
+        _manager._Weapon.gameObject.SetActive(false);
 
     }
 
