@@ -214,7 +214,7 @@ public class GameStatus : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) &&
             MCSceneManager.currentSceneNumber != MCSceneManager.TITLE &&
-            currentGameState != CurrentGameState.Loading)
+            currentGameState == CurrentGameState.Start)
         {
             isPause = !isPause;
             CanvasInfo.PauseMenuActive(isPause);
