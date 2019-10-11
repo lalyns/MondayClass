@@ -40,8 +40,10 @@ public class RirisPATTERNB : RirisFSMState
 
         _manager._Weapon.gameObject.SetActive(true);
 
-        transform.position = MissionManager.Instance.CurrentMission.Grid.center.position;
-        _manager._Weapon.position = MissionManager.Instance.CurrentMission.Grid.center.position;
+        var pos = MissionManager.Instance.CurrentMission.Grid.center.position;
+
+        transform.position = pos;
+        _manager._Weapon.position = pos;
 
         transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         _manager._Weapon.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager._Weapon.transform));
