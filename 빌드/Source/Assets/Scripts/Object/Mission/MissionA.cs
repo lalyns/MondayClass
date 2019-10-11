@@ -45,7 +45,7 @@ namespace MC.Mission
 
         public void MonsterCheck()
         {
-            Debug.Log("Check Call");
+            //Debug.Log("Check Call");
             if (spawning)
             {
                 bool monsterCheck = GameStatus.Instance.ActivedMonsterList.Count == 0;
@@ -77,7 +77,7 @@ namespace MC.Mission
         {
             StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
             currentWave++;
-            Debug.Log(currentWave);
+            //Debug.Log(currentWave);
         }
     }
 }
