@@ -8,11 +8,9 @@ using MC.SceneDirector;
 
 public enum CurrentGameState
 {
-    Title,
-    Tutorial,
+    Loading,
     Start,
-    Dialog,
-    VideoProduct,
+    Select,
 }
 
 public class GameStatus : MonoBehaviour
@@ -44,7 +42,9 @@ public class GameStatus : MonoBehaviour
 
     bool dummySet = false;
 
-    public static CurrentGameState currentGameState;
+    bool isPause = false;
+
+    public static CurrentGameState currentGameState = CurrentGameState.Start;
 
     public void Awake()
     {
@@ -152,10 +152,6 @@ public class GameStatus : MonoBehaviour
     int dialogNum = 0;
     public void Update()
     {
-        if(currentGameState == CurrentGameState.Dialog)
-        {
-
-        }
 
         // 유니티 에디터에서 작동하는 에디터 기능
         if (Input.GetKey(KeyCode.LeftAlt))
@@ -215,6 +211,14 @@ public class GameStatus : MonoBehaviour
             //        dialogNum = 0;
             //    }
             //}
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) &&
+            MCSceneManager.currentSceneNumber != MCSceneManager.TITLE &&
+            currentGameState == CurrentGameState.Start)
+        {
+            isPause = !isPause;
+            CanvasInfo.PauseMenuActive(isPause);
         }
 
         if (dummySet)
@@ -284,9 +288,7 @@ public class GameStatus : MonoBehaviour
     // 몬스터 지정소환
     public void SummonMonster()
     {
-        MonsterPoolManager._Instance._Mac.ItemSetActive(
-            _DummyLocationEffect.transform,
-            "monster");
+        MonsterPoolManager._Instance._Mac.ItemSetActive(_DummyLocationEffect.transform, "monster");
         dummySet = false;
         _DummyLocationEffect.SetActive(false);
         UserInterface.SetPointerMode(false);

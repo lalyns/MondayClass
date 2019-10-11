@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
+using MC.SceneDirector;
 
 namespace MC.UI {
 
@@ -75,10 +77,14 @@ namespace MC.UI {
 
         public UIDialog dialog;
 
+        public GameObject pauseMenu;
+
         public Texture2D cursorTexture;
         public bool hotSpotIsCenter = false;
         public Vector2 adjustHotSpot = Vector2.zero;
         private Vector2 hotSpot;
+
+        public Animator missionStartAnim;
 
         public void Start()
         {
@@ -133,6 +139,44 @@ namespace MC.UI {
             {
                 Layers[i].worldCamera = uiCam;
             }
+        }
+
+        public static void PauseMenuActive(bool isActive)
+        {
+            GameManager.Instance.IsPuase = isActive;
+            UserInterface.SetPointerMode(isActive);
+            //GameManager.Instance.CharacterControl = isActive;
+            Instance.pauseMenu.SetActive(isActive);
+        }
+
+        public void ToTitle()
+        {
+            PauseMenuActive(false);
+            MCSceneManager.Instance.NextScene(MCSceneManager.TITLE);
+
+            UserInterface.SetPointerMode(true);
+
+            UserInterface.Instance.SetValue();
+            UserInterface.SetPlayerUserInterface(false);
+            UserInterface.SetMissionProgressUserInterface(false);
+            UserInterface.SetMissionSelectionUI(false);
+            UserInterface.SetSystemInterface(false);
+        }
+
+        public void RestartScene()
+        {
+            PauseMenuActive(false);
+            MCSceneManager.Instance.NextScene(MCSceneManager.currentSceneNumber);
+        }
+
+        public void ExitGame()
+        {
+            PauseMenuActive(false);
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#elif UNITY_STANDALONE
+            Application.Quit();
+#endif
         }
     }
 }

@@ -30,6 +30,14 @@ public class RedHatWeapon : MonoBehaviour
                 - PlayerFSMManager.Instance.Stat.Defense;
 
                 var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", redHat.Stat, MonsterType.RedHat, damage);
+
+
+                Transform effectTransform =
+                    MonsterEffects.Instance.redHatAttackEffect.
+                    ItemSetActive(PlayerFSMManager.Instance.Anim.transform, "Effect");
+
+                effectTransform.rotation = redHat.transform.rotation;
+
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
             }
@@ -43,12 +51,15 @@ public class RedHatWeapon : MonoBehaviour
                 - PlayerFSMManager.Instance.Stat.Defense;
 
                 var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", redHat.Stat, damage);
+
+                Transform effectTransform =
+                    MonsterEffects.Instance.redHatSkillEffect1.
+                    ItemSetActive(PlayerFSMManager.Instance.Anim.transform, "Effect");
+
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;                
             }
         }
-
-
     }
 
     public void AttackSupport()

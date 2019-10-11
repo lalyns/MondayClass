@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(this.gameObject);
+
     }
 
     private void Start()
@@ -119,19 +120,10 @@ public class GameManager : MonoBehaviour
         if (!isPause)
         {
             Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
-            try
-            {
-                UserInterface.Instance.MousePointerSpeed(1 / TimeMagnificationValue);
-            }
-            catch
-            {
-
-            }
         }
         else
         {
-            Time.timeScale = 0.01f;
-            UserInterface.Instance.MousePointerSpeed(100f);
+            Time.timeScale = 0;
         }
     }
 
@@ -238,8 +230,18 @@ public class GameManager : MonoBehaviour
 
     private void BossSet()
     {
-        TempDirector.Instance.PlayMode = false;
-        TempDirector.Instance.CineStart();
+        UserInterface.SetPointerMode(false);
+
+        if (GameManager.Instance.CineMode)
+        {
+            TempDirector.Instance.PlayMode = false;
+            TempDirector.Instance.CineStart();
+        }
+        else
+        {
+            TempDirector.Instance.PlayMode = true;
+            TempDirector.Instance.SceneStart();
+        }
     }
 
     private void BossSceneSetting()

@@ -128,6 +128,8 @@ namespace MC.Mission
 
             var sound = MCSoundManager.Instance.objectSound.objectSFX;
             sound.PlaySound(Exit.gameObject, sound.portalCreate);
+
+            MissionManager.RewardMission();
         }
 
         public virtual void EnterDirector()

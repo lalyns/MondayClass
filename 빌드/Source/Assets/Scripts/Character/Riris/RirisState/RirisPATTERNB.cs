@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class RirisPATTERNB : RirisFSMState
 {
-    float _Time1 = 0;
     bool _IsTele = false;
-
-    public Transform _MapCenter;
 
     public GameObject PatternBReadyEffect;
     public GameObject PatternBAttackEffect;
     bool _IsAttackReady = false;
-    public float _AttackReadyTime = 1f;
-
-    float _Time2 = 0;
-    float _AttackEndTime = 5f;
-
     public bool isEnd = false;
 
     public ObjectPool bulletPool;
@@ -25,7 +17,7 @@ public class RirisPATTERNB : RirisFSMState
 
     void BulletPattern()
     {
-        transform.LookAt(_manager.PlayerCapsule.transform);
+        _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         foreach (Transform t in positionB)
         {
             bulletPool.ItemSetActive(t, false);
@@ -48,8 +40,10 @@ public class RirisPATTERNB : RirisFSMState
 
         _manager._Weapon.gameObject.SetActive(true);
 
-        transform.position = _MapCenter.position;
-        _manager._Weapon.position = _MapCenter.position;
+        var pos = MissionManager.Instance.CurrentMission.Grid.center.position;
+
+        transform.position = pos;
+        _manager._Weapon.position = pos;
 
         transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         _manager._Weapon.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager._Weapon.transform));
@@ -58,8 +52,14 @@ public class RirisPATTERNB : RirisFSMState
 
         if (_manager._Phase >= 1)
         {
+            var randPos = UnityEngine.Random.Range(0, MissionManager.Instance.CurrentMission.Grid.mapPositions.Count);
+            _manager.transform.position = MissionManager.Instance.CurrentMission.Grid.mapPositions[randPos];
+            _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
+
             _manager.Anim.Play("PatternC");
         }
+
+        _manager._WeaponAnimator.Play("Weapon_Skill2_A");
 
     }
 
@@ -69,8 +69,6 @@ public class RirisPATTERNB : RirisFSMState
 
         _IsAttackReady = false;
         _IsTele = false;
-        _Time1 = 0;
-        _Time2 = 0;
         isEnd = false;
         PatternBReadyEffect.SetActive(false);
         PatternBAttackEffect.SetActive(false);
@@ -82,8 +80,6 @@ public class RirisPATTERNB : RirisFSMState
     protected override void Update()
     {
         base.Update();
-
-        _Time1 += Time.deltaTime;
 
         if (_IsAttackReady)
              PatternBAttackEffect.transform.position = _manager._WeaponCenter.transform.position;
@@ -106,7 +102,7 @@ public class RirisPATTERNB : RirisFSMState
 
     public override void Start()
     {
-        bulletPool = EffectPoolManager._Instance._BossBulletPool;
+        bulletPool = BossEffects.Instance.bullet;
     }
 
     protected override void FixedUpdate()

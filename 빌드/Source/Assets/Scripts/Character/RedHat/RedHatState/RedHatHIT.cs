@@ -28,7 +28,8 @@ public class RedHatHIT : RedHatFSMState
 
         GetComponentInChildren<RedHatAnimEvent>()._WeaponCapsule.gameObject.SetActive(false);
 
-        StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
+        if(_manager.CurrentAttackType != AttackType.SKILL2)
+            StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
     }
 
     public override void EndState()
@@ -36,6 +37,8 @@ public class RedHatHIT : RedHatFSMState
         base.EndState();
 
         hitEnd = false;
+
+        StopAllCoroutines();
 
         _manager.CurrentAttackType = AttackType.NONE;
         _manager.isChange = false;
@@ -56,6 +59,8 @@ public class RedHatHIT : RedHatFSMState
             PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
             _manager.Stat.TakeDamage(playerStat, 1);
         }
+        if (_manager.Stat.Hp <= 0)
+            _manager.SetDeadState();
     }
 
     protected override void FixedUpdate()

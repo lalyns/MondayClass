@@ -2177,6 +2177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _manager: {fileID: 0}
   isWeapon: 0
+  patternA: {fileID: 0}
+  patternB: {fileID: 0}
 --- !u!1 &998662954716214113
 GameObject:
   m_ObjectHideFlags: 0
@@ -5764,10 +5766,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  _str: 10
+  _str: 15
   defense: 10
-  _maxHp: 1000
+  _maxHp: 10000
   _hp: 10000
+  _moveSpeed: 3
+  _turnSpeed: 540
+  _attackRange: 1
   lastHitBy: {fileID: 0}
   statData: {fileID: 11400000, guid: d9febd8abf401ad4d9bee12c60095743, type: 2}
   monsterData: {fileID: 11400000, guid: d9febd8abf401ad4d9bee12c60095743, type: 2}
@@ -5775,7 +5780,10 @@ MonoBehaviour:
   _BulletDamage: 5
   _BulletSpeed: 10
   _BulletLifeTime: 5
-  damageCoefiiecient: []
+  damageCoefiiecient:
+  - 100
+  - 200
+  - 300
   addStrPerRound: 0
   addDefPerRound: 0
 --- !u!114 &7112653474660143936
@@ -5793,9 +5801,11 @@ MonoBehaviour:
   _PatternAReadyEffect: {fileID: 7112653474965765310}
   _PatternAAttackEffect: {fileID: 8764448097886888123}
   SetJumpState: 0
-  targetSetDelay: 1.3
+  targetSetDelay: 1.2
   stompDelay: 1.5
   PatternEnd: 0
+  playerTransform: {fileID: 0}
+  targetPos: {x: 0, y: 0, z: 0}
   bulletPool: {fileID: 0}
   bulletPos: {fileID: 2031877484}
   positionB:
@@ -5827,11 +5837,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7536fde053b56154fb6370fe9d903e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MapCenter: {fileID: 2590806263654600089, guid: aeca34bd079dec2489425ccb8bb22773,
-    type: 3}
   PatternBReadyEffect: {fileID: 7112653475296903864}
   PatternBAttackEffect: {fileID: 7112653475308597921}
-  _AttackReadyTime: 1
   isEnd: 0
   bulletPool: {fileID: 0}
   bulletPos: {fileID: 2031877484}
@@ -6115,7 +6122,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.35, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &572319316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6148,7 +6155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7112653474965765309
 Transform:
   m_ObjectHideFlags: 0
@@ -6210,7 +6217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7112653475296903871
 Transform:
   m_ObjectHideFlags: 0
@@ -6241,7 +6248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7112653475308597920
 Transform:
   m_ObjectHideFlags: 0
@@ -7317,7 +7324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4025307308402251790}
   m_Layer: 0
-  m_Name: PatterA_Attack
+  m_Name: PatternAAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7331,7 +7338,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8764448097886888123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.55, z: 0}
+  m_LocalPosition: {x: 0, y: 0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9029238206947784909}
@@ -7563,7 +7570,7 @@ PrefabInstance:
     - target: {fileID: 8498239818957701014, guid: e215c958e17c8a647809b1c18eac2711,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.12
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 8498239818957701014, guid: e215c958e17c8a647809b1c18eac2711,
         type: 3}
@@ -7573,7 +7580,7 @@ PrefabInstance:
     - target: {fileID: 8498239818957701014, guid: e215c958e17c8a647809b1c18eac2711,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.17
+      value: -1.18
       objectReference: {fileID: 0}
     - target: {fileID: 8498239818957701014, guid: e215c958e17c8a647809b1c18eac2711,
         type: 3}
@@ -7678,6 +7685,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 400054, guid: 19e0e2ef6dc676549be7f64ef85b7a5f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 400054, guid: 19e0e2ef6dc676549be7f64ef85b7a5f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 74.999916
+      objectReference: {fileID: 0}
     - target: {fileID: 400174, guid: 19e0e2ef6dc676549be7f64ef85b7a5f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
@@ -7701,14 +7716,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 19e0e2ef6dc676549be7f64ef85b7a5f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 64.6876
-      objectReference: {fileID: 0}
-    - target: {fileID: 400054, guid: 19e0e2ef6dc676549be7f64ef85b7a5f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 400054, guid: 19e0e2ef6dc676549be7f64ef85b7a5f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 74.999916
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 19e0e2ef6dc676549be7f64ef85b7a5f, type: 3}
       propertyPath: m_Controller
@@ -7782,6 +7789,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b2b74735da6301e4aa729d5f76359fad, type: 2}
+    - target: {fileID: 13700008, guid: 19e0e2ef6dc676549be7f64ef85b7a5f, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300004, guid: 85275c4ebc3609347a5c08d7411d7ab8, type: 3}
     - target: {fileID: 13700006, guid: 19e0e2ef6dc676549be7f64ef85b7a5f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -8940,11 +8951,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7112653475308597920}
     m_Modifications:
-    - target: {fileID: 9085948909250431707, guid: c49046cd32f7fd04992ef57e1bc8d6c7,
-        type: 3}
-      propertyPath: m_Name
-      value: Boss_Effect_Pattern1_001
-      objectReference: {fileID: 0}
     - target: {fileID: 9085948909250431701, guid: c49046cd32f7fd04992ef57e1bc8d6c7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8999,6 +9005,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9085948909250431707, guid: c49046cd32f7fd04992ef57e1bc8d6c7,
+        type: 3}
+      propertyPath: m_Name
+      value: Boss_Effect_Pattern1_001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c49046cd32f7fd04992ef57e1bc8d6c7, type: 3}
