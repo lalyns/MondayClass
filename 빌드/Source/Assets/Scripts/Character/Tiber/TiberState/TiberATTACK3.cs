@@ -6,6 +6,8 @@ public class TiberATTACK3 : TiberFSMState
 {
     public float _time;
     bool _IsSpread = false;
+
+    Vector3 playerTrans;
     public override void BeginState()
     {
         base.BeginState();
@@ -16,6 +18,7 @@ public class TiberATTACK3 : TiberFSMState
     public override void EndState()
     {
         base.EndState();
+        _manager.agent.isStopped = true;
 
         _manager.Attack3Effect.SetActive(false);
         _time = 0;
@@ -23,6 +26,7 @@ public class TiberATTACK3 : TiberFSMState
     protected override void Update()
     {
         base.Update();
+        playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
 
         _time += Time.deltaTime;
 
@@ -34,29 +38,32 @@ public class TiberATTACK3 : TiberFSMState
         }
         if( _time < 6 && _time >= 1)
         {
-            Vector3 playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
+            _manager.agent.destination = playerTrans;
+            _manager.agent.isStopped = false;
 
-            _manager.CC.transform.LookAt(playerTrans);
+            //Vector3 playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
+
+            //_manager.CC.transform.LookAt(playerTrans);
 
 
-            Vector3 moveDir = (playerTrans
-                - _manager.CC.transform.position).normalized;
+            //Vector3 moveDir = (playerTrans
+            //    - _manager.CC.transform.position).normalized;
 
-            moveDir.y = 0;
+            //moveDir.y = 0;
 
-            if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
-            {
-                Vector3 correctDir = Vector3.zero;
-                if (!_IsSpread)
-                {
-                    correctDir = DecideSpreadDirection();
-                    _IsSpread = true;
-                }
+            //if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
+            //{
+            //    Vector3 correctDir = Vector3.zero;
+            //    if (!_IsSpread)
+            //    {
+            //        correctDir = DecideSpreadDirection();
+            //        _IsSpread = true;
+            //    }
 
-                moveDir += correctDir;
-            }
+            //    moveDir += correctDir;
+            //}
 
-            _manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * 1.3f * Time.deltaTime);
+            //_manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * 1.3f * Time.deltaTime);
         }
     }
     public void AttackSupport()

@@ -77,11 +77,6 @@ public static class GameLib
 
                         if (type == MonsterType.RedHat)
                         {
-                            Transform transform =
-                                EffectPoolManager._Instance._RedHatAttackEffect.
-                                ItemSetActive(PlayerFSMManager.Instance.Anim.transform, "Effect");
-
-                            transform.rotation = ownerStat.transform.rotation;
                         }
                     }
                 }
@@ -191,6 +186,17 @@ public static class GameLib
 
     }
 
+    public static IEnumerator BlinkOff(List<Material> mats)
+    {
+        for (int j = 0; j < mats.Count; j++)
+        {
+            mats[j].SetFloat("_Hittrigger", 0);
+
+        }
+
+        yield return new WaitForSeconds(Time.deltaTime);
+    }
+
     public static IEnumerator Blinking(List<Material> mats, Color color, int duration = 6, float timer = 0.15f)
     {
         int i = 0;
@@ -256,6 +262,11 @@ public static class GameLib
             default:
                 return -1;
         }
+    }
+
+    public static void MissionRewardSet(float Name, float Increase)
+    {
+        Name += Increase;
     }
 
 

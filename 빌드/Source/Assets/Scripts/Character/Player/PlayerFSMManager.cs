@@ -521,9 +521,10 @@ public class PlayerFSMManager : FSMManager
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
 
-                if (Skill2_Test.activeSelf)
+                if ((isNormal && Skill2_Test.activeSelf) || (!isNormal && Skill2_Test2.activeSelf))
                 {
                     Skill2_Test.SetActive(false);
+                    Skill2_Test2.SetActive(false);
                     isSkill2End = false;
                 }
             }
@@ -622,9 +623,10 @@ public class PlayerFSMManager : FSMManager
                 Skill3_End.transform.rotation = Skill3_Start.transform.rotation;
                 Skill3_End.SetActive(true);
             }
-            if (Skill2_Test.activeSelf)
+            if ((isNormal && Skill2_Test.activeSelf) || (!isNormal && Skill2_Test2.activeSelf))
             {
                 Skill2_Test.SetActive(false);
+                Skill2_Test2.SetActive(false);
                 isSkill2End = false;
             }
             _Sound.sfx.PlayPlayerSFX(this.gameObject, _Sound.sfx.teleportSFX);
@@ -972,7 +974,7 @@ public class PlayerFSMManager : FSMManager
         Skill2_Parent.localPosition = new Vector3(0, 0.35f, skill2_Distance);
     }
 
-    public GameObject Skill2_Test;
+    public GameObject Skill2_Test, Skill2_Test2;
     public bool isSkill2End;
     public void Skill2()
     {
@@ -980,11 +982,15 @@ public class PlayerFSMManager : FSMManager
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Skill2_Test.SetActive(true);            
+            if (isNormal)
+                Skill2_Test.SetActive(true);
+            else
+                Skill2_Test2.SetActive(true);
+
             isSkill2End = true;            
         }
 
-        if (Skill2_Test.activeSelf)
+        if ((isNormal && Skill2_Test.activeSelf) || (!isNormal && Skill2_Test2.activeSelf))
         {
             if (Input.GetMouseButtonDown(0))
             {

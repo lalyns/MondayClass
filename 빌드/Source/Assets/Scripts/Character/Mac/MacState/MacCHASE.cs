@@ -5,7 +5,7 @@ using UnityEngine;
 public class MacCHASE : MacFSMState
 {
     bool _IsSpread = false;
-
+    Vector3 playerTrans;
     public override void BeginState()
     {
 
@@ -14,6 +14,8 @@ public class MacCHASE : MacFSMState
 
     public override void EndState()
     {
+        _manager.agent.isStopped = true;
+
         _IsSpread = false;
 
         base.EndState();
@@ -21,34 +23,38 @@ public class MacCHASE : MacFSMState
 
     protected override void Update()
     {
+        base.Update();
+
+        playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
+
         if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) < _manager.Stat.AttackRange)
         {
             _manager.SetState(MacState.ATTACK);
-        }
-
+        }        
         else
         {
+            _manager.agent.destination = playerTrans;
+            _manager.agent.isStopped = false;
+            //_manager.CC.transform.LookAt(_manager._PriorityTarget.transform);
 
-            _manager.CC.transform.LookAt(_manager._PriorityTarget.transform);
+            //Vector3 moveDir = (_manager._PriorityTarget.transform.position
+            //    - _manager.CC.transform.position).normalized;
 
-            Vector3 moveDir = (_manager._PriorityTarget.transform.position
-                - _manager.CC.transform.position).normalized;
+            //moveDir.y = 0;
 
-            moveDir.y = 0;
+            //if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
+            //{
+            //    Vector3 correctDir = Vector3.zero;
+            //    if (!_IsSpread)
+            //    {
+            //        correctDir = DecideSpreadDirection();
+            //        _IsSpread = true;
+            //    }
 
-            if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
-            {
-                Vector3 correctDir = Vector3.zero;
-                if (!_IsSpread)
-                {
-                    correctDir = DecideSpreadDirection();
-                    _IsSpread = true;
-                }
+            //    moveDir += correctDir;
+            //}
 
-                moveDir += correctDir;
-            }
-
-            _manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
+            //_manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
 
         }
     }

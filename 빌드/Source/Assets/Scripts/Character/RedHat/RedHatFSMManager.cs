@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using MC.UI;
 using MC.Sound;
 using System.Collections;
+using UnityEngine.AI;
 
 public enum RedHatState
 {
@@ -69,6 +70,8 @@ public class RedHatFSMManager : FSMManager
     public MonsterSound _Sound;
 
     public GameObject dashEffect;
+    public GameObject dashEffect1;
+    public GameObject dashEffect2;
 
     public float _DetectingRange;
 
@@ -86,6 +89,7 @@ public class RedHatFSMManager : FSMManager
 
     public AttackType CurrentAttackType = AttackType.NONE;
 
+    public NavMeshAgent agent;
 
     protected override void Awake()
     {
@@ -120,6 +124,9 @@ public class RedHatFSMManager : FSMManager
         }
 
         monsterType = MonsterType.RedHat;
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.autoBraking = false;
     }
 
     private void Start()

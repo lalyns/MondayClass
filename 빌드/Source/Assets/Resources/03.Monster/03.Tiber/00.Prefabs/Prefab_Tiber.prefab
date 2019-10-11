@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 4151217681213245696}
   - component: {fileID: 4151217681213245708}
   - component: {fileID: 693423074}
+  - component: {fileID: 484767045431282778}
   m_Layer: 18
   m_Name: Prefab_Tiber
   m_TagString: Monster
@@ -349,6 +350,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _time: 0
+--- !u!195 &484767045431282778
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4151217681213245721}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.44
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &4151217681752296429
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,11 +585,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4151217681213245703}
     m_Modifications:
-    - target: {fileID: 2665247241951671117, guid: da3cfc570c7074f42afeff4bd4b169e5,
-        type: 3}
-      propertyPath: m_Name
-      value: TB01_Attack02_Effect
-      objectReference: {fileID: 0}
     - target: {fileID: 2665247241951671116, guid: da3cfc570c7074f42afeff4bd4b169e5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -621,6 +639,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665247241951671117, guid: da3cfc570c7074f42afeff4bd4b169e5,
+        type: 3}
+      propertyPath: m_Name
+      value: TB01_Attack02_Effect
       objectReference: {fileID: 0}
     - target: {fileID: 2665247242612268825, guid: da3cfc570c7074f42afeff4bd4b169e5,
         type: 3}
@@ -2255,11 +2278,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4151217681213245703}
     m_Modifications:
-    - target: {fileID: 3565865233609815905, guid: 15632f18cc910024ab0cefaab9bbaabe,
-        type: 3}
-      propertyPath: m_Name
-      value: TB01_Attack01_Effect
-      objectReference: {fileID: 0}
     - target: {fileID: 3565865233609815906, guid: 15632f18cc910024ab0cefaab9bbaabe,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2314,6 +2332,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565865233609815905, guid: 15632f18cc910024ab0cefaab9bbaabe,
+        type: 3}
+      propertyPath: m_Name
+      value: TB01_Attack01_Effect
       objectReference: {fileID: 0}
     - target: {fileID: 2109710106635198829, guid: 15632f18cc910024ab0cefaab9bbaabe,
         type: 3}

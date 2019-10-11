@@ -5,7 +5,7 @@ using UnityEngine;
 public class RedHatCHASE : RedHatFSMState
 {
     bool _IsSpread = false;
-
+    Vector3 playerTrans;
     public override void BeginState()
     {
         base.BeginState();
@@ -13,6 +13,8 @@ public class RedHatCHASE : RedHatFSMState
 
     public override void EndState()
     {
+        _manager.agent.isStopped = true;
+
         _IsSpread = false;
 
         base.EndState();
@@ -21,6 +23,8 @@ public class RedHatCHASE : RedHatFSMState
     protected override void Update()
     {
         base.Update();
+
+        playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
 
         DahsCheck();
 
@@ -31,26 +35,29 @@ public class RedHatCHASE : RedHatFSMState
 
         else
         {
-            _manager.CC.transform.LookAt(_manager._PriorityTarget.transform);
+            _manager.agent.destination = playerTrans;
+            _manager.agent.isStopped = false;
 
-            Vector3 moveDir = (_manager._PriorityTarget.transform.position
-                - _manager.CC.transform.position).normalized;
+            //_manager.CC.transform.LookAt(_manager._PriorityTarget.transform);
 
-            moveDir.y = 0;
+            //Vector3 moveDir = (_manager._PriorityTarget.transform.position
+            //    - _manager.CC.transform.position).normalized;
 
-            if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
-            {
-                Vector3 correctDir = Vector3.zero;
-                if (!_IsSpread)
-                {
-                    correctDir = DecideSpreadDirection();
-                    _IsSpread = true;
-                }
+            //moveDir.y = 0;
 
-                moveDir += correctDir;
-            }
+            //if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
+            //{
+            //    Vector3 correctDir = Vector3.zero;
+            //    if (!_IsSpread)
+            //    {
+            //        correctDir = DecideSpreadDirection();
+            //        _IsSpread = true;
+            //    }
 
-            _manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
+            //    moveDir += correctDir;
+            //}
+
+            //_manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
         }
 
         
