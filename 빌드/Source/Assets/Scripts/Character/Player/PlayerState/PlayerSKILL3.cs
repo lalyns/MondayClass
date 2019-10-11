@@ -20,6 +20,7 @@ public class PlayerSKILL3 : FSMState
         _manager.Skill3_Capsule.enabled = false;
 
         _manager.Skill2_Test.SetActive(false);
+        _manager.Skill2_Test2.SetActive(false);
         _manager.isSkill2End = false;
 
         var voice = _manager._Sound.voice;
