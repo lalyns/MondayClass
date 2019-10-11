@@ -152,6 +152,11 @@ public class TiberFSMManager : FSMManager
             isChange = true;
             return;
         }
+
+        if (Stat.Hp <= 0)
+        {
+            SetDeadState();
+        }
     }
 
     public override void SetDeadState()
