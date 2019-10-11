@@ -8,9 +8,7 @@ public class CharacterStat : MonoBehaviour
 
     [SerializeField] protected float _str = 10.0f;
     public float Str { get { return _str; } }
-
-    [SerializeField] protected float _int = 10.0f;
-    public float Int { get { return _int; } }
+    
     //[SerializeField] protected bool[] _KnockBackFlag = new bool[7];
     //public bool[] KnockBackFlag => _KnockBackFlag;
 
@@ -24,6 +22,7 @@ public class CharacterStat : MonoBehaviour
     //public float[] KnockBackDelay => _KnockBackDelay;
     [SerializeField] protected float defense = 10f;
     public float Defense => defense;
+    
 
     [SerializeField] protected float _maxHp = 1000.0f;
     public float MaxHp { get { return _maxHp; } }
@@ -43,8 +42,19 @@ public class CharacterStat : MonoBehaviour
 
     [SerializeField] protected float _attackRange = 1.0f;
     public float AttackRange { get { return _attackRange; } }
-          
-       
+
+    public void RewardStr(int value)
+    {
+        _str += value;
+    }
+    public void RewardDefense(int value)
+    {
+        defense += value;
+    }
+    public void RewardHP(int value)
+    {
+        _maxHp += value;
+    }
 
 
 
@@ -53,6 +63,7 @@ public class CharacterStat : MonoBehaviour
 
     [SerializeField]
     public StatData statData;
+
 
     protected virtual void Awake()
     {
