@@ -287,9 +287,7 @@ public class GameStatus : MonoBehaviour
     // 몬스터 지정소환
     public void SummonMonster()
     {
-        MonsterPoolManager._Instance._Mac.ItemSetActive(
-            _DummyLocationEffect.transform,
-            "monster");
+        MonsterPoolManager._Instance._Mac.ItemSetActive(_DummyLocationEffect.transform, "monster");
         dummySet = false;
         _DummyLocationEffect.SetActive(false);
         UserInterface.SetPointerMode(false);

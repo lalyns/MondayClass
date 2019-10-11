@@ -26,10 +26,10 @@ public class RedHatHitCollider : MonoBehaviour
         if (redhat.CurrentState == RedHatState.DEAD) return;
 
         if (PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(redhat.hitLocation, "Effect");
+            PlayerEffects.Instance.basicNormal.ItemSetActive(redhat.hitLocation, "Effect");
 
         if (!PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(redhat.hitLocation, "Effect");
+            PlayerEffects.Instance.basicSpecial.ItemSetActive(redhat.hitLocation, "Effect");
 
         redhat.CurrentAttackType = attackType;
         int value = GameLib.TransformTypeToInt(attackType);
