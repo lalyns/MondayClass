@@ -8,11 +8,8 @@ using MC.SceneDirector;
 
 public enum CurrentGameState
 {
-    Title,
-    Tutorial,
+    Loading,
     Start,
-    Dialog,
-    VideoProduct,
 }
 
 public class GameStatus : MonoBehaviour
@@ -43,6 +40,8 @@ public class GameStatus : MonoBehaviour
     public PlayerFSMManager _PlayerInstance;
 
     bool dummySet = false;
+
+    bool isPause = false;
 
     public static CurrentGameState currentGameState;
 
@@ -152,10 +151,6 @@ public class GameStatus : MonoBehaviour
     int dialogNum = 0;
     public void Update()
     {
-        if(currentGameState == CurrentGameState.Dialog)
-        {
-
-        }
 
         // 유니티 에디터에서 작동하는 에디터 기능
         if (Input.GetKey(KeyCode.LeftAlt))
@@ -215,6 +210,14 @@ public class GameStatus : MonoBehaviour
             //        dialogNum = 0;
             //    }
             //}
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) &&
+            MCSceneManager.currentSceneNumber != MCSceneManager.TITLE &&
+            currentGameState != CurrentGameState.Loading)
+        {
+            isPause = !isPause;
+            CanvasInfo.PauseMenuActive(isPause);
         }
 
         if (dummySet)
