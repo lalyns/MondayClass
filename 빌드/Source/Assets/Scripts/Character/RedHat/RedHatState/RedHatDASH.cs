@@ -28,8 +28,8 @@ public class RedHatDASH : RedHatFSMState
             dashEndPos += transform.forward * _manager.Stat.statData._DashRange;
             dashEndPos.y = this.transform.position.y;
 
-            _manager.dashEffect.SetActive(true);
-            _manager.dashEffect.GetComponent<UIAttackRange>().SetTarget(_manager._PriorityTarget);
+            //_manager.dashEffect.SetActive(true);
+            //_manager.dashEffect.GetComponent<UIAttackRange>().SetTarget(_manager._PriorityTarget);
 
             _manager.dashEffect1.SetActive(true);
             ParticleSystem effect1 = _manager.dashEffect1.GetComponentInChildren<ParticleSystem>();

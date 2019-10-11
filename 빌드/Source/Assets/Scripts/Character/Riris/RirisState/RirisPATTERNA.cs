@@ -60,13 +60,7 @@ public class RirisPATTERNA : RirisFSMState
         PatternEnd = false;
         useGravity = true;
         stompCount = 0;
-        Invoke("WeaponSetFalse", 0.5f);
-    }
-
-    public void WeaponSetFalse()
-    {
         _manager._Weapon.gameObject.SetActive(false);
-
     }
 
     protected override void Update()
@@ -75,9 +69,7 @@ public class RirisPATTERNA : RirisFSMState
 
         if (SetJumpState) {
             stompCount += Time.deltaTime;
-
         }
-
 
         if (stompCount > stompDelay) {
             Stomp();
