@@ -553,7 +553,7 @@ public class PlayerFSMManager : FSMManager
                 Change_Effect.SetActive(false);
                 SetState(PlayerState.IDLE);
             }
-            if (specialTimer >= 5.82f)
+            if (specialTimer >= 6f)
             {
                 specialTimer = 0;
                 TimeLine.SetActive(false);
