@@ -249,6 +249,9 @@ MonoBehaviour:
   defense: 10
   _maxHp: 1000
   _hp: 1000
+  _moveSpeed: 3
+  _turnSpeed: 540
+  _attackRange: 1
   lastHitBy: {fileID: 0}
   statData: {fileID: 11400000, guid: 5e8eb905037ee48469b20fbcaa84ffb1, type: 2}
   monsterData: {fileID: 11400000, guid: 5e8eb905037ee48469b20fbcaa84ffb1, type: 2}
@@ -2024,12 +2027,17 @@ PrefabInstance:
     - target: {fileID: 8969665379695499853, guid: fc1389c68c873b642948400443c21246,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 10
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969665379695499853, guid: fc1389c68c873b642948400443c21246,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 6203191354963168027, guid: fc1389c68c873b642948400443c21246,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 10
+      value: 7.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1389c68c873b642948400443c21246, type: 3}
@@ -2317,6 +2325,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.676
       objectReference: {fileID: 0}
+    - target: {fileID: 3565865234676354191, guid: 15632f18cc910024ab0cefaab9bbaabe,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 2.4411182
+      objectReference: {fileID: 0}
     - target: {fileID: 2109710106635198835, guid: 15632f18cc910024ab0cefaab9bbaabe,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -2336,11 +2349,6 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565865234676354191, guid: 15632f18cc910024ab0cefaab9bbaabe,
-        type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 2.4411182
       objectReference: {fileID: 0}
     - target: {fileID: 3565865233567342377, guid: 15632f18cc910024ab0cefaab9bbaabe,
         type: 3}
