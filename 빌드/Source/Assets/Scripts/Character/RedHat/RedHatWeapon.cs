@@ -60,8 +60,6 @@ public class RedHatWeapon : MonoBehaviour
                 _Dameged = true;                
             }
         }
-
-
     }
 
     public void AttackSupport()
