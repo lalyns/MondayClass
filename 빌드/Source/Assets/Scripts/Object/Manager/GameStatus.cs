@@ -10,6 +10,7 @@ public enum CurrentGameState
 {
     Loading,
     Start,
+    Select,
 }
 
 public class GameStatus : MonoBehaviour
@@ -214,7 +215,7 @@ public class GameStatus : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) &&
             MCSceneManager.currentSceneNumber != MCSceneManager.TITLE &&
-            currentGameState != CurrentGameState.Loading)
+            currentGameState == CurrentGameState.Start)
         {
             isPause = !isPause;
             CanvasInfo.PauseMenuActive(isPause);
