@@ -8,11 +8,34 @@ public class RirisAnimEvent : MonoBehaviour
 
     public bool isWeapon;
 
+    public Collider patternA;
+    public Collider patternB;
+
     public void Start()
     {
         if(!isWeapon)
             _manager = GetComponentInParent<RirisFSMManager>();
-            
+
+    }
+
+    void OnPatternATrigger()
+    {
+        patternA.enabled = true;
+    }
+
+    void DisablePatternATrigger()
+    {
+        patternA.enabled = false;
+    }
+
+    void OnPatternBTrigger()
+    {
+        patternB.enabled = true;
+    }
+
+    void DisablePatternBTrigger()
+    {
+        patternB.enabled = false;
     }
 
     public void PatternAJumpEnd()
@@ -42,7 +65,7 @@ public class RirisAnimEvent : MonoBehaviour
         if(_manager.CurrentState == RirisState.PATTERNA)
         {
             RirisPATTERNA pattern = _manager.CurrentStateComponent as RirisPATTERNA;
-            pattern.StartCoroutine(pattern.AddBullet());
+            pattern.StartCoroutine(pattern.AddBullet()); 
         }
         else if (_manager.CurrentState == RirisState.PATTERNB)
         {
