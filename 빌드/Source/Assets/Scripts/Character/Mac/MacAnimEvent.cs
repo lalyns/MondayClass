@@ -43,7 +43,7 @@ public class MacAnimEvent : MonoBehaviour
         {
 
         }
-        EffectPoolManager._Instance._MacBulletPool.ItemSetActive(
+        MonsterEffects.Instance.macBulletPool.ItemSetActive(
             bulletLuancher, 
             FSMManager.CC,
             FSMManager._PriorityTarget);
@@ -61,7 +61,7 @@ public class MacAnimEvent : MonoBehaviour
         {
 
         }
-        EffectPoolManager._Instance._MacSkillPool.ItemSetActive(skillLuancher,
+        MonsterEffects.Instance.macSkillPool.ItemSetActive(skillLuancher,
             FSMManager.CC,
             FSMManager._PriorityTarget);
     }

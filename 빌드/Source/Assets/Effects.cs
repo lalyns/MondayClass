@@ -10,6 +10,10 @@ public class Effects : MonoBehaviour
 
     public ObjectPool targetPool;
 
+    private void Start()
+    {
+    }
+
     public void EffectPlay()
     {
         for(int i=0; i<particleSystems.Length; i++)

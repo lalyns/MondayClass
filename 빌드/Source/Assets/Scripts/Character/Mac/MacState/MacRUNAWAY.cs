@@ -21,14 +21,17 @@ public class MacRUNAWAY : MacFSMState
         _SetTarget = false;
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (!_SetTarget) return;
 
         if (Vector3.Distance(this.transform.position, TargetPos) > 1f)
         {
-            
-            transform.position = Vector3.Lerp(this.transform.position, TargetPos, 0.5f * Time.deltaTime);
+            //transform.position = Vector3.Lerp(this.transform.position, TargetPos, 0.5f * Time.deltaTime);
+            _manager.agent.destination = TargetPos;
+            _manager.agent.isStopped = false;
         }
 
         else
@@ -53,7 +56,7 @@ public class MacRUNAWAY : MacFSMState
             set = Setting();
             loopEscape++;
 
-            if(loopEscape >= 100)
+            if (loopEscape >= 100)
             {
                 return;
             }
@@ -72,7 +75,7 @@ public class MacRUNAWAY : MacFSMState
 
         RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit, 0.5f, 1 << 17))
+        if (Physics.Raycast(ray, out hit, 0.5f, 1 << 17))
         {
             transform.LookAt(Targets[random]);
             TargetPos = hit.point;

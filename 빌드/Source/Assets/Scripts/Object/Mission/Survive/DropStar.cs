@@ -63,14 +63,16 @@ namespace MC.Mission
                 if (mission.activeStar.Contains(this.gameObject))
                     mission.activeStar.Remove(this.gameObject);
 
-                EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(this.gameObject);
+                mission.starPool.ItemReturnPool(this.gameObject);
             }
         }
 
 
         void ReturnStar()
         {
-            EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(this.gameObject);
+            MissionB mission = MissionManager.Instance.CurrentMission as MissionB;
+
+            mission.starPool.ItemReturnPool(this.gameObject);
         }
     }
 }

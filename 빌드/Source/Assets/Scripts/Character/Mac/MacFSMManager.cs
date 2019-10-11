@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MC.UI;
 using MC.Sound;
+using UnityEngine.AI;
 
 public enum MacState
 {
@@ -78,6 +79,8 @@ public class MacFSMManager : FSMManager
 
     public AttackType CurrentAttackType = AttackType.NONE;
 
+    public NavMeshAgent agent;
+
     protected override void Awake()
     {
         base.Awake();
@@ -110,6 +113,9 @@ public class MacFSMManager : FSMManager
         }
 
         monsterType = MonsterType.Mac;
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.autoBraking = false;
     }
 
     private void Start()
@@ -157,10 +163,10 @@ public class MacFSMManager : FSMManager
         if (CurrentState == MacState.DEAD) return;
 
         if (PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(hitLocation, "Effect");
+            PlayerEffects.Instance.basicNormal.ItemSetActive(hitLocation, "Effect");
 
         if (!PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(hitLocation, "Effect");
+            PlayerEffects.Instance.basicSpecial.ItemSetActive(hitLocation, "Effect");
 
         CurrentAttackType = attackType;
         int value = GameLib.TransformTypeToInt(attackType);
@@ -234,10 +240,12 @@ public class MacFSMManager : FSMManager
         }
         if (other.transform.tag == "Ball")
         {
+
             if (PlayerFSMManager.Instance.isNormal)
-                EffectPoolManager._Instance._PlayerEffectPool[2].ItemSetActive(hitLocation, "Effect");
-            else
-                EffectPoolManager._Instance._PlayerEffectPool[3].ItemSetActive(hitLocation, "Effect");
+                PlayerEffects.Instance.skill1Normal.ItemSetActive(hitLocation, "Effect");
+
+            if (!PlayerFSMManager.Instance.isNormal)
+                PlayerEffects.Instance.skill1Special.ItemSetActive(hitLocation, "Effect");
 
             if (Stat.Hp > 0)
             {

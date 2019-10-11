@@ -17,7 +17,7 @@ public class RirisPATTERNC : RirisFSMState
 
     public override void Start()
     {
-        bulletPool = EffectPoolManager._Instance._BossBulletPool;
+        bulletPool = BossEffects.Instance.bullet;
         init = bulletPos.rotation;
     }
 
