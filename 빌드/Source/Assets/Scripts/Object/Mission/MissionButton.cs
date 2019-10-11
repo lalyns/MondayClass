@@ -17,11 +17,13 @@ namespace MC.UI {
 
         // 외부에서 변경되어야하는 정보들
         [HideInInspector] public Image missioType;
-        [HideInInspector] public Image rewardType;
-        [HideInInspector] public Text rewardText;
 
         [HideInInspector] public MissionBase mission;
         [HideInInspector] public MissionType missionType;
+
+        [HideInInspector] public Image rewardIcon;
+        [HideInInspector] public Text[] rewardText;
+        [HideInInspector] public MissionRewardType[] rewardType;
 
         public static bool isPush = false;
 
@@ -34,9 +36,13 @@ namespace MC.UI {
         {
             button = GetComponent<Button>();
 
+            rewardText = new Text[2];
+            rewardType = new MissionRewardType[2];
+
             missioType = transform.GetComponent<Image>();
-            rewardType = transform.GetChild(0).GetComponent<Image>();
-            rewardText = transform.GetChild(1).GetComponent<Text>();
+            rewardIcon = transform.GetChild(0).GetComponent<Image>();
+            rewardText[0] = transform.GetChild(1).GetComponent<Text>();
+            rewardText[1] = transform.GetChild(2).GetComponent<Text>();
         }
 
         public void ChangeMission(int type)
@@ -46,13 +52,18 @@ namespace MC.UI {
             
         }
 
-        public void ChangeReward(RewardData rewardData)
+        public void ChangeReward(int num, MissionRewardType type)
         {
-            var rewardSprite = rewardData.RewardIcon;
-            var rewardText = rewardData.RewardText;
+            //var rewardSprite = rewardData.RewardIcon;
+            //var rewardText = rewardData.RewardText;
+            //var rewardText2 = rewardData.RewardText2;
 
-            rewardType.sprite = rewardSprite;
-            this.rewardText.text = rewardText;
+            if(num == 0)
+            {
+                this.rewardIcon.sprite = MissionManager.Instance.rewardData.RewardIcon[(int)type];
+            }
+            rewardType[num] = type;
+            rewardText[num].text = MissionManager.Instance.rewardData.RewardText[(int)type];
         }
 
         public void SetMissionOnClick()
