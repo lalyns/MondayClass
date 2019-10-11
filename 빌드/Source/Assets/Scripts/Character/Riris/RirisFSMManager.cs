@@ -110,7 +110,7 @@ public class RirisFSMManager : FSMManager
         {
             if (Input.GetKeyDown(KeyCode.B))
             {
-                Stat.TakeDamage(PlayerFSMManager.Instance.Stat, 22000);
+                Stat.TakeDamage(PlayerFSMManager.Instance.Stat, 3300);
                 Invoke("AttackSupport", 0.5f);
             }
 
@@ -119,7 +119,7 @@ public class RirisFSMManager : FSMManager
 
     public void SetState(RirisState newState)
     {
-        Debug.Log("New State : " + newState.ToString());
+        //Debug.Log("New State : " + newState.ToString());
 
         if (_isInit)
         {
@@ -151,9 +151,10 @@ public class RirisFSMManager : FSMManager
         if (other.transform.tag == "Ball")
         {
             if (PlayerFSMManager.Instance.isNormal)
-                EffectPoolManager._Instance._PlayerEffectPool[2].ItemSetActive(hitTransform, "Effect");
-            else
-                EffectPoolManager._Instance._PlayerEffectPool[3].ItemSetActive(hitTransform, "Effect");
+                PlayerEffects.Instance.skill1Normal.ItemSetActive(hitTransform, "Effect");
+
+            if (!PlayerFSMManager.Instance.isNormal)
+                PlayerEffects.Instance.skill1Special.ItemSetActive(hitTransform, "Effect");
 
             if (Stat.Hp > 0)
             {
@@ -201,16 +202,16 @@ public class RirisFSMManager : FSMManager
 
     public void OnHitForBoss(AttackType attackType)
     {
-        Debug.Log(string.Format("Current Attack : {0}, Current HP: {1}, Current Phase: {2} ",
-            attackType.ToString(), Stat.Hp, _Phase));
+        //Debug.Log(string.Format("Current Attack : {0}, Current HP: {1}, Current Phase: {2} ",
+            //attackType.ToString(), Stat.Hp, _Phase));
 
         if (CurrentState == RirisState.DEAD) return;
 
         if (PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(hitTransform, "Effect");
+            PlayerEffects.Instance.basicNormal.ItemSetActive(hitTransform, "Effect");
 
         if (!PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(hitTransform, "Effect");
+            PlayerEffects.Instance.basicSpecial.ItemSetActive(hitTransform, "Effect");
 
 
         CurrentAttackType = attackType;

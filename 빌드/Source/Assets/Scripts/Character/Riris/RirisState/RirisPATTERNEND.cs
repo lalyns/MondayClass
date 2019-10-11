@@ -64,7 +64,7 @@ public class RirisPATTERNEND : RirisFSMState
     public void PhaseCheck()
     {
         float hpRatio = _manager.Stat.Hp / _manager.Stat.MaxHp;
-        Debug.Log("HP 비율 : " + hpRatio);
+        //Debug.Log("HP 비율 : " + hpRatio);
 
         prevPhase = _manager._Phase;
 

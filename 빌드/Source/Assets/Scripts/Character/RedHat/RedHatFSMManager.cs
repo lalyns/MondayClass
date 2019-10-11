@@ -70,6 +70,8 @@ public class RedHatFSMManager : FSMManager
     public MonsterSound _Sound;
 
     public GameObject dashEffect;
+    public GameObject dashEffect1;
+    public GameObject dashEffect2;
 
     public float _DetectingRange;
 

@@ -49,7 +49,7 @@ public class RirisPATTERND : RirisFSMState
                 foreach(Transform a in TornadoLoc1)
                 {
                     // 대충 이펙트를 꺼내는 행위
-                    var ob = EffectPoolManager._Instance._BossTornaedoPool.ItemSetActive(a);
+                    var ob = BossEffects.Instance.tornaedo.ItemSetActive(a);
                     // 대충 꺼낸 이펙트 애니메이션을 실행하는 행위
                     ob.GetComponentInChildren<Animator>().Play("Toenaedo");
                 }

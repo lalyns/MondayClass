@@ -34,7 +34,7 @@ public class RirisBullet : MonoBehaviour
     private void Start()
     {
         RirisFSMManager = GameObject.FindGameObjectWithTag("Boss").GetComponent<RirisFSMManager>();
-        bulletPool = GameObject.FindGameObjectWithTag("BossBulletPool").GetComponent<ObjectPool>();
+        bulletPool = BossEffects.Instance.bullet;
         collider = GetComponent<Collider>();
 
     }
@@ -100,17 +100,6 @@ public class RirisBullet : MonoBehaviour
         Moving = false;
         dameged = false;
         bulletPool.ItemReturnPool(this.gameObject);
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.transform.tag == "Stage")
-        {
-            Debug.Log("Tagging : " + other.gameObject.name.ToString());
-
-            effect2.GetComponentInChildren<ParticleSystem>().Play();
-            ReturnBullet();
-        }
     }
 
     private void OnTriggerEnter(Collider other)

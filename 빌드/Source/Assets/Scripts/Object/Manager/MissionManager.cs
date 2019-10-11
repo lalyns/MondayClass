@@ -163,6 +163,36 @@ public class MissionManager : MonoBehaviour
         //EnterMission();
 
     }
+    public void EnterReward(int rand)
+    {
+        switch (rand)
+        {
+            case 0:
+                PlayerFSMManager.Instance.SpecialGauge = 100;
+                break;
+            case 1:
+                PlayerFSMManager.Instance.Stat.RewardStr(5);
+                break;
+            case 2:
+                PlayerFSMManager.Instance.Stat.RewardDefense(3);
+                break;
+            case 3:
+                PlayerFSMManager.Instance.Stat.RewardHP(150);
+                break;
+            case 4:
+                PlayerFSMManager.Instance.Stat.RewardSkill1Damage(40);
+                break;
+            case 5:
+                PlayerFSMManager.Instance.Stat.RewardSkill2Damage(25);
+                break;
+            case 6:
+                PlayerFSMManager.Instance.Stat.RewardSkill3Damage(10);
+                break;
+            case 7:
+                break;
+        }
+
+    }
 
     public static void EnterMission() {
         // 캐릭터 위치변경

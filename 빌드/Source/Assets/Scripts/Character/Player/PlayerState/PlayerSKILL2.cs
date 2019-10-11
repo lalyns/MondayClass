@@ -49,7 +49,7 @@ public class PlayerSKILL2 : FSMState
         if (_time >= 0.1f && !isBox)
         {
             _manager.Skill2_Test.SetActive(false);
-
+            _manager.Skill2_Test2.SetActive(false);
             if (_manager.isNormal)
             {
                 _manager.Skill2_Normal.SetActive(true);

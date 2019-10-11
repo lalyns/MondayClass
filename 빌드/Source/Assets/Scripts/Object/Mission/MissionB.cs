@@ -28,6 +28,8 @@ namespace MC.Mission
         public List<Transform> oldSpawnList = new List<Transform>();
         public List<GameObject> activeStar = new List<GameObject>();
 
+        public ObjectPool starPool;
+
         // Start is called before the first frame update
         protected override void Start()
         {
@@ -86,7 +88,7 @@ namespace MC.Mission
             base.ClearMission();
 
             foreach (GameObject star in activeStar)
-                EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(star);
+                starPool.ItemReturnPool(star);
 
             StopAllCoroutines();
         }
@@ -95,7 +97,7 @@ namespace MC.Mission
         {
             var randPos = UnityEngine.Random.Range(0, Grid.mapPositions.Count);
 
-            GameObject star = EffectPoolManager._Instance._MissionBstarPool.ItemSetActive(
+            GameObject star = starPool.ItemSetActive(
                 Grid.mapPositions[randPos] + Vector3.up * starHeight);
 
             star.GetComponent<DropStar>().stop = false;
