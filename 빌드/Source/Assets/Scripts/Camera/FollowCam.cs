@@ -101,7 +101,8 @@ public class FollowCam : MonoBehaviour
     
     private void FixedUpdate()
     {
-       
+        if (GameStatus.currentGameState == CurrentGameState.Select)
+            return;
         r_y = Input.GetAxis("Mouse Y");
         
         if (player.isMouseYLock)

@@ -10,6 +10,7 @@ public enum CurrentGameState
 {
     Loading,
     Start,
+    Select,
 }
 
 public class GameStatus : MonoBehaviour
