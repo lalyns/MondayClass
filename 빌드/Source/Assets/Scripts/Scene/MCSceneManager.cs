@@ -90,6 +90,7 @@ namespace MC.SceneDirector
                 GameManager.SetFadeInOut(() =>
                 {
                     GameStatus.currentGameState = CurrentGameState.Start;
+                    CanvasInfo.Instance.missionStartAnim.Play("MissionStart");
                     MCSoundManager.LoadBank();
                     isLoad = false;
                 }, true

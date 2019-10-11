@@ -84,6 +84,8 @@ namespace MC.UI {
         public Vector2 adjustHotSpot = Vector2.zero;
         private Vector2 hotSpot;
 
+        public Animator missionStartAnim;
+
         public void Start()
         {
             StartCoroutine("MyCursor");
