@@ -258,5 +258,10 @@ public static class GameLib
         }
     }
 
+    public static void MissionRewardSet(float Name, float Increase)
+    {
+        Name += Increase;
+    }
+
 
 }
