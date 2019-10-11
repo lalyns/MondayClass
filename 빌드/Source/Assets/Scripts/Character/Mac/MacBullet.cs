@@ -115,10 +115,10 @@ public class MacBullet : MonoBehaviour
         switch (_Type)
         {
             case MacBulletType.Normal:
-                pool = EffectPoolManager._Instance._MacBulletPool;
+                pool = MonsterEffects.Instance.macBulletPool;
                 break;
             case MacBulletType.Skill:
-                pool = EffectPoolManager._Instance._MacSkillPool;
+                pool = MonsterEffects.Instance.macSkillPool;
                 break;
         }
 

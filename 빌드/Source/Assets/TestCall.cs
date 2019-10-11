@@ -18,6 +18,6 @@ public class TestCall : MonoBehaviour
 
     void Setoff()
     {
-        EffectPoolManager._Instance._BossTornaedoPool.ItemReturnPool(this.gameObject);
+        BossEffects.Instance.tornaedo.ItemReturnPool(this.gameObject);
     }
 }

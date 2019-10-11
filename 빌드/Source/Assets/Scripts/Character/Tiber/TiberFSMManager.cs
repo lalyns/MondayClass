@@ -168,10 +168,10 @@ public class TiberFSMManager : FSMManager
         if (CurrentState == TiberState.DEAD) return;
 
         if (PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(hitLocation, "Effect");
+            PlayerEffects.Instance.basicNormal.ItemSetActive(hitLocation, "Effect");
 
         if (!PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(hitLocation, "Effect");
+            PlayerEffects.Instance.basicSpecial.ItemSetActive(hitLocation, "Effect");
 
         CurrentAttackType = attackType;
         int value = TransformTypeToInt(attackType);

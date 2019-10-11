@@ -163,10 +163,10 @@ public class MacFSMManager : FSMManager
         if (CurrentState == MacState.DEAD) return;
 
         if (PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(hitLocation, "Effect");
+            PlayerEffects.Instance.basicNormal.ItemSetActive(hitLocation, "Effect");
 
         if (!PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(hitLocation, "Effect");
+            PlayerEffects.Instance.basicSpecial.ItemSetActive(hitLocation, "Effect");
 
         CurrentAttackType = attackType;
         int value = GameLib.TransformTypeToInt(attackType);
@@ -240,10 +240,12 @@ public class MacFSMManager : FSMManager
         }
         if (other.transform.tag == "Ball")
         {
+
             if (PlayerFSMManager.Instance.isNormal)
-                EffectPoolManager._Instance._PlayerEffectPool[2].ItemSetActive(hitLocation, "Effect");
-            else
-                EffectPoolManager._Instance._PlayerEffectPool[3].ItemSetActive(hitLocation, "Effect");
+                PlayerEffects.Instance.skill1Normal.ItemSetActive(hitLocation, "Effect");
+
+            if (!PlayerFSMManager.Instance.isNormal)
+                PlayerEffects.Instance.skill1Special.ItemSetActive(hitLocation, "Effect");
 
             if (Stat.Hp > 0)
             {

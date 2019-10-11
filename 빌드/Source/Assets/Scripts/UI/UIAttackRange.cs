@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class tempLook : MonoBehaviour
+public class UIAttackRange : MonoBehaviour
 {
     public Transform target;
     bool targetSet = false;
@@ -17,7 +17,7 @@ public class tempLook : MonoBehaviour
     {
     }
 
-    public void TargetSet(Collider targetCol)
+    public void SetTarget(Collider targetCol)
     {
         target = targetCol.transform;
         Vector3 pos = target.position;
@@ -37,16 +37,7 @@ public class tempLook : MonoBehaviour
         _Time += Time.deltaTime;
         if (_Time < _DashReadyTime)
         {
-            //Vector3 dir = (target.position - transform.position).normalized;
-            //dir.y = 0;
-
-            //// Quaternion rotation = Quaternion.Slerp(transform.rotation, )
-            //// transform.eulerAngles = rotation;
-            //Vector3 look = Quaternion.Lerp(transform.rotation,
-            //    Quaternion.LookRotation(dir), rotateSpeed).eulerAngles;
-            //look.z = 0;
-
-            //transform.eulerAngles = look;
+            //EffectRotate();
         }
 
         if (_Time > _DashReadyTime && _Time < _DashReadyTime + _DashTime)
@@ -55,10 +46,24 @@ public class tempLook : MonoBehaviour
         }
     }
 
+    public void EffectRotate()
+    {
+        Vector3 dir = (target.position - transform.position).normalized;
+        dir.y = 0;
+
+        // Quaternion rotation = Quaternion.Slerp(transform.rotation, )
+        // transform.eulerAngles = rotation;
+        Vector3 look = Quaternion.Lerp(transform.rotation,
+            Quaternion.LookRotation(dir), rotateSpeed).eulerAngles;
+        look.z = 0;
+
+        transform.eulerAngles = look;
+    }
+
     public void EffectEnd()
     {
         _Time = 0;
-        EffectPoolManager._Instance._RedHatSkillRange.ItemReturnPool(this.gameObject);
         targetSet = false;
+        gameObject.SetActive(false);
     }
 }

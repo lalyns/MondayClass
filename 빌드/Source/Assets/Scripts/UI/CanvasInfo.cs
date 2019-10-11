@@ -144,6 +144,7 @@ namespace MC.UI {
             GameManager.Instance.IsPuase = isActive;
             UserInterface.SetPointerMode(isActive);
             Instance.pauseMenu.SetActive(isActive);
+            GameManager.Instance.CharacterControl = isActive;
         }
 
         public void ToTitle()

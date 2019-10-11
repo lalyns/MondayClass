@@ -88,7 +88,7 @@ public class ObjectPool : MonoBehaviour
         if(type == "Effect")
         {
             item.GetComponent<Effects>().EffectPlay();
-            item.GetComponent<Effects>().targetPool = this;
+            item.GetComponent<Effects>().targetPool = this.GetComponent<ObjectPool>();
         }
 
         return item.transform;
@@ -160,7 +160,7 @@ public class ObjectPool : MonoBehaviour
         if (type == "Effect")
         {
             item.GetComponent<Effects>().EffectPlay();
-            item.GetComponent<Effects>().targetPool = this;
+            item.GetComponent<Effects>().targetPool = this.GetComponent<ObjectPool>();
         }
 
         return item;
