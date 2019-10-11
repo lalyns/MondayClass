@@ -53,7 +53,7 @@ public class RedHatWeapon : MonoBehaviour
                 var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", redHat.Stat, damage);
 
                 Transform effectTransform =
-                    MonsterEffects.Instance.redHatSkillEffect2.
+                    MonsterEffects.Instance.redHatSkillEffect1.
                     ItemSetActive(PlayerFSMManager.Instance.Anim.transform, "Effect");
 
                 Invoke("AttackSupport", 0.5f);

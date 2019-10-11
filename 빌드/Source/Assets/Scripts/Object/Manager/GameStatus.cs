@@ -43,7 +43,7 @@ public class GameStatus : MonoBehaviour
 
     bool isPause = false;
 
-    public static CurrentGameState currentGameState;
+    public static CurrentGameState currentGameState = CurrentGameState.Start;
 
     public void Awake()
     {
