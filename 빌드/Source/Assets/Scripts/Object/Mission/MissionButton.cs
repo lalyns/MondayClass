@@ -49,15 +49,10 @@ namespace MC.UI {
         {
             missioType.sprite = MissionManager.Instance.resources.types[type];
             missionType = (MissionType)type;
-            
         }
 
         public void ChangeReward(int num, MissionRewardType type)
         {
-            //var rewardSprite = rewardData.RewardIcon;
-            //var rewardText = rewardData.RewardText;
-            //var rewardText2 = rewardData.RewardText2;
-
             if(num == 0)
             {
                 this.rewardIcon.sprite = MissionManager.Instance.rewardData.RewardIcon[(int)type];
