@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MC.UI;
 using MC.Sound;
+using UnityEngine.AI;
 
 public enum MacState
 {
@@ -78,6 +79,8 @@ public class MacFSMManager : FSMManager
 
     public AttackType CurrentAttackType = AttackType.NONE;
 
+    public NavMeshAgent agent;
+
     protected override void Awake()
     {
         base.Awake();
@@ -110,6 +113,9 @@ public class MacFSMManager : FSMManager
         }
 
         monsterType = MonsterType.Mac;
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.autoBraking = false;
     }
 
     private void Start()

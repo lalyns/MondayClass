@@ -972,7 +972,7 @@ public class PlayerFSMManager : FSMManager
         Skill2_Parent.localPosition = new Vector3(0, 0.35f, skill2_Distance);
     }
 
-    public GameObject Skill2_Test;
+    public GameObject Skill2_Test, Skill2_Test2;
     public bool isSkill2End;
     public void Skill2()
     {
@@ -980,7 +980,11 @@ public class PlayerFSMManager : FSMManager
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Skill2_Test.SetActive(true);            
+            if (isNormal)
+                Skill2_Test.SetActive(true);
+            else
+                Skill2_Test2.SetActive(true);
+
             isSkill2End = true;            
         }
 

@@ -7,6 +7,7 @@ public class TiberCHASE : TiberFSMState
     bool _IsSpread = false;
 
     float _time;
+    Vector3 playerTrans;
 
     public override void BeginState()
     {
@@ -16,6 +17,8 @@ public class TiberCHASE : TiberFSMState
 
     public override void EndState()
     {
+        _manager.agent.isStopped = true;
+
         _IsSpread = false;
         _time = 0;
         base.EndState();
@@ -24,6 +27,9 @@ public class TiberCHASE : TiberFSMState
     protected override void Update()
     {
         base.Update();
+
+        playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
+
         _time += Time.deltaTime;
         if (_time >= 2f)
         {
@@ -41,29 +47,31 @@ public class TiberCHASE : TiberFSMState
         }
         else
         {
-            Vector3 playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
+            _manager.agent.destination = playerTrans;
+            _manager.agent.isStopped = false;
+            //Vector3 playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
 
-            _manager.CC.transform.LookAt(playerTrans);
+            //_manager.CC.transform.LookAt(playerTrans);
 
             
-            Vector3 moveDir = (playerTrans
-                - _manager.CC.transform.position).normalized;
+            //Vector3 moveDir = (playerTrans
+            //    - _manager.CC.transform.position).normalized;
 
-            moveDir.y = 0;
+            //moveDir.y = 0;
 
-            if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
-            {
-                Vector3 correctDir = Vector3.zero;
-                if (!_IsSpread)
-                {
-                    correctDir = DecideSpreadDirection();
-                    _IsSpread = true;
-                }
+            //if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
+            //{
+            //    Vector3 correctDir = Vector3.zero;
+            //    if (!_IsSpread)
+            //    {
+            //        correctDir = DecideSpreadDirection();
+            //        _IsSpread = true;
+            //    }
 
-                moveDir += correctDir;
-            }
+            //    moveDir += correctDir;
+            //}
 
-            _manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
+            //_manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
         }
     }
 
