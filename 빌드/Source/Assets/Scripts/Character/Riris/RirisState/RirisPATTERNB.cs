@@ -17,7 +17,7 @@ public class RirisPATTERNB : RirisFSMState
 
     void BulletPattern()
     {
-        transform.LookAt(_manager.PlayerCapsule.transform);
+        _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         foreach (Transform t in positionB)
         {
             bulletPool.ItemSetActive(t, false);
@@ -40,8 +40,10 @@ public class RirisPATTERNB : RirisFSMState
 
         _manager._Weapon.gameObject.SetActive(true);
 
-        transform.position = MissionManager.Instance.CurrentMission.Grid.center.position;
-        _manager._Weapon.position = MissionManager.Instance.CurrentMission.Grid.center.position;
+        var pos = MissionManager.Instance.CurrentMission.Grid.center.position;
+
+        transform.position = pos;
+        _manager._Weapon.position = pos;
 
         transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         _manager._Weapon.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager._Weapon.transform));
@@ -50,6 +52,10 @@ public class RirisPATTERNB : RirisFSMState
 
         if (_manager._Phase >= 1)
         {
+            var randPos = UnityEngine.Random.Range(0, MissionManager.Instance.CurrentMission.Grid.mapPositions.Count);
+            _manager.transform.position = MissionManager.Instance.CurrentMission.Grid.mapPositions[randPos];
+            _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
+
             _manager.Anim.Play("PatternC");
         }
 

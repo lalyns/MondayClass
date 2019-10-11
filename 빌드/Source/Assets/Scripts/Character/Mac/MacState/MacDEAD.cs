@@ -22,6 +22,7 @@ public class MacDEAD : MacFSMState
         base.EndState();
 
         GameLib.DissoveActive(_manager.materialList, false);
+        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
 
         useGravity = true;
         _manager.CC.detectCollisions = true;
