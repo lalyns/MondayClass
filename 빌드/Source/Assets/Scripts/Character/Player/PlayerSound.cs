@@ -17,6 +17,9 @@ namespace MC.Sound
 
             #region SkillList
             public AK.Wwise.Event teleportSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event skill1SFX = new AK.Wwise.Event();
+            public AK.Wwise.Event skill2SFX = new AK.Wwise.Event();
+            public AK.Wwise.Event skill2LastSFX = new AK.Wwise.Event();
 
             #endregion
 

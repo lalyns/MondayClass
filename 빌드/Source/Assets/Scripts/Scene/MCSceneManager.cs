@@ -30,6 +30,7 @@ namespace MC.SceneDirector
 
         private bool isLoad;
 
+        private bool isPlay;
 
         private void Awake()
         {
@@ -57,13 +58,53 @@ namespace MC.SceneDirector
             }
         }
 
+        public void Start()
+        {
+            
+        }
+
+        private void Update()
+        {
+            //if (!isPlay)
+            {
+                try
+                {
+                    //MCSoundManager.LoadBank();
+                    var bgm = MCSoundManager.Instance.objectSound.bgm;
+
+                    if (currentSceneNumber == TITLE)
+                    {
+                        bgm.PlayBGM(this.gameObject, bgm.lobbyBGM);
+                    }
+
+                    if (currentSceneNumber == TUTORIAL ||
+                        currentSceneNumber == ANNIHILATION ||
+                        currentSceneNumber == SURVIVAL ||
+                        currentSceneNumber == DEFENCE ||
+                        currentSceneNumber == BOSS)
+                    {
+                        bgm.PlayBGM(this.gameObject, bgm.stageBGM);
+                    }
+
+                    isPlay = true;
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
         public void NextScene(int i)
         {
+            var bgm = MCSoundManager.Instance.objectSound.bgm;
+
             GameManager.SetFadeInOut(() =>
             {
                 StartCoroutine(LoadScene(i));
                 GameStatus.currentGameState = CurrentGameState.Loading;
-                
+                if(currentSceneNumber == TITLE)
+                    bgm.StopBGM(this.gameObject, bgm.lobbyBGM);
             }, false
             );
         }
@@ -87,6 +128,9 @@ namespace MC.SceneDirector
 
             if (async.isDone)
             {
+
+                var bgm = MCSoundManager.Instance.objectSound.bgm;
+                bgm.PlayBGM(this.gameObject, bgm.stageBGM);
                 GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>
                 {
