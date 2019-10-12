@@ -14,6 +14,8 @@ namespace AK
     namespace EVENTS
     {
         static const AkUniqueID BATTLEGROUND = 1835313730U;
+        static const AkUniqueID BGM_DUNGEON_04 = 3793957673U;
+        static const AkUniqueID BGM_TITLE_01 = 2511535208U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_ACTIVATIONL = 2682899652U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_CREATE = 1186601540U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_ENTER = 418004602U;

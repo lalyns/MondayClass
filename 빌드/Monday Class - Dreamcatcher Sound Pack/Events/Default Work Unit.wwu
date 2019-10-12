@@ -72,21 +72,28 @@
 										</Folder>
 										<Folder Name="Sound" ID="{72EDC8E8-3F93-4BD8-8FE5-0FE60EB15E19}" ShortID="214511389">
 											<ChildrenList>
-												<Folder Name="Cast Sound" ID="{68A86920-0F4A-4B65-9917-CF1F6BA82822}" ShortID="1015485291">
+												<Event Name="Player_Skill_Skill_01_Cast_Sound" ID="{AD55C0B0-B6C3-407C-8490-B0A84F95366E}">
 													<ChildrenList>
-														<Event Name="Player_Skill_Skill_01_Cast_Sound" ID="{AD55C0B0-B6C3-407C-8490-B0A84F95366E}">
-															<ChildrenList>
-																<Action Name="" ID="{5557FC51-738E-462A-A8E1-38D10E6502A5}" ShortID="311252461">
-																	<ReferenceList>
-																		<Reference Name="Target">
-																			<ObjectRef Name="Cast Sound" ID="{9B81722B-F6E0-4A75-9F05-6C9058CDE312}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
-																		</Reference>
-																	</ReferenceList>
-																</Action>
-															</ChildrenList>
-														</Event>
+														<Action Name="" ID="{5557FC51-738E-462A-A8E1-38D10E6502A5}" ShortID="311252461">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Cast Sound" ID="{9B81722B-F6E0-4A75-9F05-6C9058CDE312}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
 													</ChildrenList>
-												</Folder>
+												</Event>
+												<Event Name="Player_Skill_Skill_01_Hit_Sound" ID="{F6909604-07D1-456A-8084-B7E91E68FD12}">
+													<ChildrenList>
+														<Action Name="" ID="{2EAC4C22-E04F-4111-969D-68747E8D654D}" ShortID="1037264667">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Impact Sound" ID="{A02AE808-1E3E-4B40-A486-80C3BBCA7138}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
 											</ChildrenList>
 										</Folder>
 									</ChildrenList>
