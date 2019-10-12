@@ -24,7 +24,6 @@ public class PCWeapon : MonoBehaviour
     void Update()
     {
         float timeNow = Time.realtimeSinceStartup;
-        Debug.Log(timeNow + " : " + realTime);
 
         if (!player.isHardAttack)
         {

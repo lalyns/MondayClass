@@ -26,6 +26,8 @@ namespace MC.SceneDirector
             }
         }
 
+
+        int prevScene = -1;
         public static int currentSceneNumber = 0;
 
         private bool isLoad;
@@ -65,16 +67,16 @@ namespace MC.SceneDirector
 
         private void Update()
         {
-            //if (!isPlay)
+            if (!isPlay)
             {
                 try
                 {
-                    //MCSoundManager.LoadBank();
+                    MCSoundManager.LoadBank();
                     var bgm = MCSoundManager.Instance.objectSound.bgm;
 
                     if (currentSceneNumber == TITLE)
                     {
-                        bgm.PlayBGM(this.gameObject, bgm.lobbyBGM);
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.lobbyBGM);
                     }
 
                     if (currentSceneNumber == TUTORIAL ||
@@ -83,7 +85,7 @@ namespace MC.SceneDirector
                         currentSceneNumber == DEFENCE ||
                         currentSceneNumber == BOSS)
                     {
-                        bgm.PlayBGM(this.gameObject, bgm.stageBGM);
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
                     }
 
                     isPlay = true;
@@ -103,8 +105,7 @@ namespace MC.SceneDirector
             {
                 StartCoroutine(LoadScene(i));
                 GameStatus.currentGameState = CurrentGameState.Loading;
-                if(currentSceneNumber == TITLE)
-                    bgm.StopBGM(this.gameObject, bgm.lobbyBGM);
+                bgm.StopBGM(MCSoundManager.Instance.gameObject, bgm.lobbyBGM);
             }, false
             );
         }
@@ -113,8 +114,10 @@ namespace MC.SceneDirector
         {
             yield return null;
 
+
             if (!isLoad)
             {
+                prevScene = currentSceneNumber;
                 currentSceneNumber = i;
                 isLoad = true;
             }
@@ -128,9 +131,12 @@ namespace MC.SceneDirector
 
             if (async.isDone)
             {
+                if (prevScene == TITLE)
+                {
+                    var bgm = MCSoundManager.Instance.objectSound.bgm;
+                    bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
+                }
 
-                var bgm = MCSoundManager.Instance.objectSound.bgm;
-                bgm.PlayBGM(this.gameObject, bgm.stageBGM);
                 GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>
                 {
