@@ -28,6 +28,8 @@ public class TiberFSMState : MonoBehaviour
 
     protected virtual void Update()
     {
+        Debug.Log("Distance : " + _manager.agent.remainingDistance);
+
         if (GameManager.Instance.uIActive.monster)
             HPUI();
     }

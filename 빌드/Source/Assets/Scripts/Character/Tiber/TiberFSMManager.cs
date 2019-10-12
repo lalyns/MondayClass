@@ -49,6 +49,9 @@ public class TiberFSMManager : FSMManager
     private Animator _Anim;
     public Animator Anim { get { return _Anim; } }
 
+    private Rigidbody _RigidBody;
+    public Rigidbody RigidBody { get { return _RigidBody; } }
+
     public Transform _AttackTransform;
 
     //렌더
@@ -91,8 +94,7 @@ public class TiberFSMManager : FSMManager
         _Stat = GetComponent<TiberStat>();
         _Anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<MonsterSound>();
-
-        //materialList.AddRange(_MR.materials);
+        _RigidBody = GetComponent<Rigidbody>();
 
         if (!GameManager.Instance.uIActive.monster)
             _HPBar.gameObject.SetActive(false);
@@ -113,6 +115,7 @@ public class TiberFSMManager : FSMManager
             _States.Add(s, state);
             state.enabled = false;
         }
+
         CC.detectCollisions = true;
 
         monsterType = MonsterType.Tiber;
@@ -156,6 +159,14 @@ public class TiberFSMManager : FSMManager
         if (Stat.Hp <= 0)
         {
             SetDeadState();
+        }
+
+        if (RigidBody.velocity.sqrMagnitude > 0) {
+            RigidBody.velocity = Vector3.Lerp(RigidBody.velocity, Vector3.zero, 0.15f);
+
+            if (RigidBody.velocity.sqrMagnitude <= 0.1f) {
+                RigidBody.velocity = Vector3.zero;
+            }
         }
     }
 
