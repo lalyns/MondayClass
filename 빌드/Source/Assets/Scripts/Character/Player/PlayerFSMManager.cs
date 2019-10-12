@@ -413,12 +413,14 @@ public class PlayerFSMManager : FSMManager
             Stat.skillCTime[0] = 5f;
             Stat.skillCTime[1] = 10f;
             Stat.skillCTime[2] = 15f;
+            Stat.StrSet(30);
         }
         else { 
             _anim.SetFloat("Normal", 1f);
             Stat.skillCTime[0] = 2f;
             Stat.skillCTime[1] = 5f;
             Stat.skillCTime[2] = 7f;
+            Stat.StrSet(40);
         }
         if (!isNormal)
         {

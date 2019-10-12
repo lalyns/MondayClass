@@ -9,12 +9,12 @@ public class FollowCam : MonoBehaviour
     public float moveDamping = 99999f;
     public float rotateDamping = 10.0f;
     [Header("거리, 현재위치, 마우스위치(기본1)")]
-    public float distance = 5.0f;
+    public float distance = 4.0f;
     public float height = 3.0f;
 
     public bool isWall = false;
     public float nearDistance = 1.0f;
-    public float originDistance = 5f;
+    public float originDistance = 4f;
     public float targetOffset = 1.0f;
 
     [Header("벽 충돌 세팅, originHeight = 높이")]
@@ -107,19 +107,19 @@ public class FollowCam : MonoBehaviour
         
         if (player.isMouseYLock)
         {
-            maxDistance = 7;
+            maxDistance = 5.5f;
             maxHeight = 4f;
             originHeight = 4f;
             height = 4f;
-            distance = 7f;
+            distance = 5.5f;
             targetOffset = 0.7f;
             islock = false;
             return;
         }
         if (!player.isMouseYLock && !islock && !isWall)
         {            
-            maxDistance = 5f;
-            distance = 5f;
+            maxDistance = 4f;
+            distance = 4f;
             maxHeight = 3f;
             islock = true;
         }
