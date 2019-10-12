@@ -35,6 +35,10 @@ public class TiberHitCollider : MonoBehaviour
 
         float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - tiber.Stat.Defense;
         CharacterStat.ProcessDamage(playerStat, tiber.Stat, damage);
+
+        var sound = PlayerFSMManager.Instance._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.hitSFX);
+
         //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
 

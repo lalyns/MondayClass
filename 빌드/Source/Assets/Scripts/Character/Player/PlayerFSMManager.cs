@@ -892,7 +892,9 @@ public class PlayerFSMManager : FSMManager
                 Skill1Set(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
 
                 var voice = _Sound.voice;
+                var sfx = _Sound.sfx;
                 voice.PlayPlayerVoice(this.gameObject, voice.skill1Voice);
+                sfx.PlayPlayerSFX(this.gameObject, sfx.skill1SFX);
 
                 // 몬스터 수의 값을 랜덤함수 5개를 돌려서 배치 시킨 후.
                 for (int i = 0; i < 5; i++)

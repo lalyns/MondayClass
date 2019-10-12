@@ -38,6 +38,9 @@ public class RedHatHitCollider : MonoBehaviour
         float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - redhat.Stat.Defense;
         CharacterStat.ProcessDamage(playerStat, redhat.Stat, damage);
 
+        var sound = PlayerFSMManager.Instance._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.hitSFX);
+
         //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
 
