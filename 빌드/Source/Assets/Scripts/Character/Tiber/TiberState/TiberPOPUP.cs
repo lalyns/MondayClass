@@ -21,6 +21,7 @@ public class TiberPOPUP : TiberFSMState
         _PopupEffect.GetComponentInChildren<Animator>().Play("PopUpEffect");
 
         TargetPrioritySet();
+        _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
     }
 
     public override void EndState()

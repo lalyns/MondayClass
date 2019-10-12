@@ -73,7 +73,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!136 &5770879478255275768
 CapsuleCollider:
@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 4151217681213245708}
   - component: {fileID: 693423074}
   - component: {fileID: 484767045431282778}
+  - component: {fileID: 4864979645418019633}
   m_Layer: 18
   m_Name: Prefab_Tiber
   m_TagString: Untagged
@@ -289,6 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 0
   _str: 10
+  _KnockBackPower: 2
   defense: 5
   _maxHp: 600
   _hp: 600
@@ -414,6 +416,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &4864979645418019633
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4151217681213245721}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &4151217681752296429
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,6 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb1db771669c4a47903ca09fa465dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  billboardingType: 0
   Offset: 100
 --- !u!1001 &3105293563437435116
 PrefabInstance:
@@ -628,11 +647,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4151217681213245703}
     m_Modifications:
-    - target: {fileID: 2665247241951671117, guid: da3cfc570c7074f42afeff4bd4b169e5,
-        type: 3}
-      propertyPath: m_Name
-      value: TB01_Attack02_Effect
-      objectReference: {fileID: 0}
     - target: {fileID: 2665247241951671116, guid: da3cfc570c7074f42afeff4bd4b169e5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -687,6 +701,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665247241951671117, guid: da3cfc570c7074f42afeff4bd4b169e5,
+        type: 3}
+      propertyPath: m_Name
+      value: TB01_Attack02_Effect
       objectReference: {fileID: 0}
     - target: {fileID: 2665247242612268825, guid: da3cfc570c7074f42afeff4bd4b169e5,
         type: 3}
@@ -821,10 +840,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400082, guid: b6035d40f6240b8449a4bb9938e0b375, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: b6035d40f6240b8449a4bb9938e0b375, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0.54952556
@@ -864,6 +879,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: b6035d40f6240b8449a4bb9938e0b375, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 78.75007
+      objectReference: {fileID: 0}
+    - target: {fileID: 400082, guid: b6035d40f6240b8449a4bb9938e0b375, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 400042, guid: b6035d40f6240b8449a4bb9938e0b375, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2469,16 +2488,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4151217681752296426}
     m_Modifications:
-    - target: {fileID: 7997791748008708603, guid: 2c919a0b9d8831842afeb2561a7ddde5,
-        type: 3}
-      propertyPath: m_Name
-      value: Respawn_Effect
-      objectReference: {fileID: 0}
-    - target: {fileID: 7997791748008708603, guid: 2c919a0b9d8831842afeb2561a7ddde5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7997791748008708602, guid: 2c919a0b9d8831842afeb2561a7ddde5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2532,6 +2541,16 @@ PrefabInstance:
     - target: {fileID: 7997791748008708602, guid: 2c919a0b9d8831842afeb2561a7ddde5,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997791748008708603, guid: 2c919a0b9d8831842afeb2561a7ddde5,
+        type: 3}
+      propertyPath: m_Name
+      value: Respawn_Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997791748008708603, guid: 2c919a0b9d8831842afeb2561a7ddde5,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2840,11 +2859,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4151217681213245703}
     m_Modifications:
-    - target: {fileID: 3565865233609815905, guid: 15632f18cc910024ab0cefaab9bbaabe,
-        type: 3}
-      propertyPath: m_Name
-      value: TB01_Attack01_Effect
-      objectReference: {fileID: 0}
     - target: {fileID: 3565865233609815906, guid: 15632f18cc910024ab0cefaab9bbaabe,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2899,6 +2913,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565865233609815905, guid: 15632f18cc910024ab0cefaab9bbaabe,
+        type: 3}
+      propertyPath: m_Name
+      value: TB01_Attack01_Effect
       objectReference: {fileID: 0}
     - target: {fileID: 2109710106635198829, guid: 15632f18cc910024ab0cefaab9bbaabe,
         type: 3}

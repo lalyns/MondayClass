@@ -14,6 +14,7 @@ public class MacPOPUP : MacFSMState
 
         EffectPlay();
         TargetPrioritySet();
+        _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
     }
 
     public override void EndState()
