@@ -34,7 +34,12 @@ public class MacCHASE : MacFSMState
         else
         {
             _manager.agent.destination = playerTrans;
-            _manager.agent.isStopped = false;
+
+            if (_manager.agent.remainingDistance >= 1.5f) {
+                _manager.agent.isStopped = false;
+            } else {
+                _manager.agent.isStopped = true;
+            }
             //_manager.CC.transform.LookAt(_manager._PriorityTarget.transform);
 
             //Vector3 moveDir = (_manager._PriorityTarget.transform.position

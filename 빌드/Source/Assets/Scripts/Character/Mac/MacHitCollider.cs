@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MacHitCollider : MonoBehaviour
 {
-
     MacFSMManager mac;
 
     void Start()
@@ -40,6 +39,10 @@ public class MacHitCollider : MonoBehaviour
 
         //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
+
+        mac.RigidBody.velocity = Vector3.zero;
+        mac.RigidBody.velocity = -PlayerFSMManager.Instance.Anim.transform.forward
+            * PlayerFSMManager.Instance.Stat.KnockBackPower;
 
         if (attackType == AttackType.ATTACK1)
             StartCoroutine(Shake.instance.ShakeCamera(0.03f, 0.04f, 0.1f));
