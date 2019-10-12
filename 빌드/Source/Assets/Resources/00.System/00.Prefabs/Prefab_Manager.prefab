@@ -58,9 +58,11 @@ MonoBehaviour:
   ControlManual: 0
   IsPuase: 0
   CineMode: 0
+  softDuration: 0.03
+  hardDuration: 0.04
   uIActive:
     all: 1
-    player: 0
+    player: 1
     monster: 0
     system: 0
     progress: 0
@@ -177,6 +179,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  rewardData: {fileID: 0}
   MissionProgressUI: {fileID: 0}
 --- !u!1 &3718117072691014516
 GameObject:
@@ -496,6 +499,10 @@ PrefabInstance:
     - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
       propertyPath: m_LocalPosition.x
