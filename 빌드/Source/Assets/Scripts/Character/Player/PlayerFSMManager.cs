@@ -111,6 +111,7 @@ public class PlayerFSMManager : FSMManager
 
     public bool isAttackOne, isAttackTwo, isAttackThree, isSkill2;
 
+    public bool isHardAttack;
     public bool isSkill3, isSkill4;
 
     //[HideInInspector]
@@ -320,7 +321,10 @@ public class PlayerFSMManager : FSMManager
         shake = GameObject.Find("CameraRig").GetComponent<Shake>();
         mainCamera = GameObject.Find("mainCam").GetComponent<Camera>();
         followCam = shake.GetComponent<FollowCam>();
-        Skill1CTime = 10f;
+
+        Skill1CTime = Stat.skillCTime[0];
+        Skill2CTime = Stat.skillCTime[1];
+        Skill3CTime = Stat.skillCTime[2];
 
 
 
@@ -406,11 +410,17 @@ public class PlayerFSMManager : FSMManager
         if (isNormal)
         {
             _anim.SetFloat("Normal", 0);
-            Skill2_Special.SetActive(false);
+            Stat.skillCTime[0] = 5f;
+            Stat.skillCTime[1] = 10f;
+            Stat.skillCTime[2] = 15f;
+            Stat.StrSet(30);
         }
         else { 
             _anim.SetFloat("Normal", 1f);
-            Skill2_Normal.SetActive(false);
+            Stat.skillCTime[0] = 2f;
+            Stat.skillCTime[1] = 5f;
+            Stat.skillCTime[2] = 7f;
+            Stat.StrSet(40);
         }
         if (!isNormal)
         {
@@ -520,7 +530,7 @@ public class PlayerFSMManager : FSMManager
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
-
+                SetState(PlayerState.IDLE);
                 if ((isNormal && Skill2_Test.activeSelf) || (!isNormal && Skill2_Test2.activeSelf))
                 {
                     Skill2_Test.SetActive(false);
@@ -989,6 +999,15 @@ public class PlayerFSMManager : FSMManager
 
             isSkill2End = true;            
         }
+        if (isSkill2End)
+        {
+            if ((isNormal && Skill2_Test2.activeSelf) || (!isNormal && Skill2_Test.activeSelf))
+            {
+                Skill2_Test.SetActive(false);
+                Skill2_Test2.SetActive(false);
+                isSkill2End = false;
+            }
+        }
 
         if ((isNormal && Skill2_Test.activeSelf) || (!isNormal && Skill2_Test2.activeSelf))
         {
@@ -1060,7 +1079,7 @@ public class PlayerFSMManager : FSMManager
             if (Skill1CTime <= 0)
             {
                 UIPlayer.SkillSetUp(0);
-                Skill1CTime = 10f;
+                Skill1CTime = Stat.skillCTime[0];
                 isSkill1CTime = false;
             }
         }
@@ -1076,13 +1095,13 @@ public class PlayerFSMManager : FSMManager
             if (Skill2CTime <= 0)
             {
                 UIPlayer.SkillSetUp(1);
-                Skill2CTime = 10f;
-                if(isNormal)
-                    Skill2_Normal.SetActive(false);
-                else
-                    Skill2_Special.SetActive(false);
+                Skill2CTime = Stat.skillCTime[1];
+
                 isSkill2 = false;
                 isSkill2CTime = false;
+
+                Skill2_Normal.SetActive(false);
+                Skill2_Special.SetActive(false);
             }
         }
     }
@@ -1096,7 +1115,7 @@ public class PlayerFSMManager : FSMManager
             if (Skill3CTime <= 0)
             {
                 UIPlayer.SkillSetUp(2);
-                Skill3CTime = 10f;
+                Skill3CTime = Stat.skillCTime[2];
                 Skill3_End.SetActive(false);
                 isSkill3CTime = false;
             }

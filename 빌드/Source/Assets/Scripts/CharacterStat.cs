@@ -56,7 +56,10 @@ public class CharacterStat : MonoBehaviour
         _maxHp += value;
     }
 
-
+    public void StrSet(int value)
+    {
+        _str = value;
+    }
 
     [HideInInspector]
     public CharacterStat lastHitBy = null;
