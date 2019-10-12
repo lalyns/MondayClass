@@ -14,6 +14,9 @@ public class PlayerHIT2 : FSMState
         var voice = _manager._Sound.voice;
 
         voice.PlayPlayerVoice(this.gameObject, voice.damagedVoice);
+        _manager.isAttackOne = false;
+        _manager.isAttackTwo = false;
+        _manager.isAttackThree = false;
     }
 
     public override void EndState()

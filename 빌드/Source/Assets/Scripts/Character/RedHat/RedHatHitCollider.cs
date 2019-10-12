@@ -42,11 +42,11 @@ public class RedHatHitCollider : MonoBehaviour
         Invoke("AttackSupport", 0.5f);
 
         if (attackType == AttackType.ATTACK1)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.15f, 0.1f));
+            StartCoroutine(Shake.instance.ShakeCamera(0.03f, 0.04f, 0.1f));
         if (attackType == AttackType.ATTACK2)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.18f, 0.1f));
+            StartCoroutine(Shake.instance.ShakeCamera(0.03f, 0.04f, 0.1f));
         if (attackType == AttackType.ATTACK3)
-            StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.3f, 0.1f));
+            StartCoroutine(Shake.instance.ShakeCamera(0.07f, 0.07f, 0.1f));
         if (attackType == AttackType.SKILL1)
             StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.1f, 0.1f));
         if (attackType == AttackType.SKILL2)
@@ -114,7 +114,7 @@ public class RedHatHitCollider : MonoBehaviour
         {
 
             //stats.TakeDamage(PlayerFSMManager.Instance.stats, 30);
-            CharacterStat.ProcessDamage(stat, redhat.Stat, 200);
+            CharacterStat.ProcessDamage(stat, redhat.Stat, 10);
             attackTime += Time.deltaTime;
             yield return new WaitForSeconds(0.1f);
         }
