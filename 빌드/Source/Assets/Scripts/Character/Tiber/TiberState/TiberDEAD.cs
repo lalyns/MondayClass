@@ -54,7 +54,7 @@ public class TiberDEAD : TiberFSMState
 
     public void DeadHelper()
     {
-        Debug.Log("Dead Call");
+        //Debug.Log("Dead Call");
         _manager.SetState(TiberState.POPUP);
     }
 }

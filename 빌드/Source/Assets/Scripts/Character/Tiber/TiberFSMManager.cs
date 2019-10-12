@@ -16,6 +16,7 @@ public enum TiberState
     HIT,
     DEAD,    
 }
+
 [RequireComponent(typeof(TiberStat))]
 public class TiberFSMManager : FSMManager
 {
@@ -47,6 +48,9 @@ public class TiberFSMManager : FSMManager
 
     private Animator _Anim;
     public Animator Anim { get { return _Anim; } }
+
+    private Rigidbody _RigidBody;
+    public Rigidbody RigidBody { get { return _RigidBody; } }
 
     public Transform _AttackTransform;
 
@@ -90,8 +94,7 @@ public class TiberFSMManager : FSMManager
         _Stat = GetComponent<TiberStat>();
         _Anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<MonsterSound>();
-
-        //materialList.AddRange(_MR.materials);
+        _RigidBody = GetComponent<Rigidbody>();
 
         if (!GameManager.Instance.uIActive.monster)
             _HPBar.gameObject.SetActive(false);
@@ -112,6 +115,7 @@ public class TiberFSMManager : FSMManager
             _States.Add(s, state);
             state.enabled = false;
         }
+
         CC.detectCollisions = true;
 
         monsterType = MonsterType.Tiber;
@@ -151,179 +155,21 @@ public class TiberFSMManager : FSMManager
             isChange = true;
             return;
         }
-    }
 
-    public override void OnHitForMonster(AttackType attackType)
-    {
-        base.OnHitForMonster(attackType);
-
-        if ((attackType == AttackType.ATTACK1
-            || attackType == AttackType.ATTACK2
-            || attackType == AttackType.ATTACK3)
-            && ((int)CurrentAttackType & (int)attackType) != 0)
-        {
-            return;
-        }
-
-        if (CurrentState == TiberState.DEAD) return;
-
-        if (PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[0].ItemSetActive(hitLocation, "Effect");
-
-        if (!PlayerFSMManager.Instance.isNormal)
-            EffectPoolManager._Instance._PlayerEffectPool[1].ItemSetActive(hitLocation, "Effect");
-
-        CurrentAttackType = attackType;
-        int value = TransformTypeToInt(attackType);
-        PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
-
-        float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - Stat.Defense;
-        CharacterStat.ProcessDamage(playerStat, Stat, damage);
-        //SetKnockBack(playerStat, value);
-        Invoke("AttackSupport", 0.5f);
-
-        if (attackType == AttackType.ATTACK1)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.15f, 0.1f));
-        if (attackType == AttackType.ATTACK2)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.18f, 0.1f));
-        if (attackType == AttackType.ATTACK3)
-            StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.3f, 0.1f));
-        if (attackType == AttackType.SKILL1)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.1f, 0.1f));
-        if (attackType == AttackType.SKILL2)
-            StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
-        //if (attackType == AttackType.SKILL3)
-        //    StartCoroutine(Shake.instance.ShakeCamera(0.01f, 0.01f, 0.01f));
-
-        if (Stat.Hp > 0)
-        {
-            if (CurrentState == TiberState.HIT) return;
-
-            SetState(TiberState.HIT);
-
-            //플레이어 쳐다본 후
-            try
-            {
-                transform.localEulerAngles = Vector3.zero;
-                transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
-                //플레이어피버게이지증가?
-            }
-            catch
-            {
-
-            }
-        }
-        else
+        if (Stat.Hp <= 0)
         {
             SetDeadState();
         }
-    }
 
-    public void AttackSupport()
-    {
-        _HPBar.HitBackFun();
-    }
+        if (RigidBody.velocity.sqrMagnitude > 0) {
+            RigidBody.velocity = Vector3.Lerp(RigidBody.velocity, Vector3.zero, 0.15f);
 
-    //public void SetKnockBack(PlayerStat stat, int attackType)
-    //{
-    //    KnockBackFlag = stat.KnockBackFlag[attackType];
-    //    KnockBackDuration = stat.KnockBackDuration[attackType];
-    //    KnockBackPower = stat.KnockBackPower[attackType];
-    //    KnockBackDelay = stat.KnockBackDelay[attackType];
-    //}
-
-    public int TransformTypeToInt(AttackType type)
-    {
-        switch (type)
-        {
-            case AttackType.ATTACK1:
-                return 0;
-
-            case AttackType.ATTACK2:
-                return 1;
-
-            case AttackType.ATTACK3:
-                return 2;
-
-            case AttackType.SKILL1:
-                return 3;
-
-            case AttackType.SKILL2:
-                return 4;
-
-            case AttackType.SKILL3:
-                return 5;
-
-            case AttackType.SKILL4:
-                return 6;
-
-            default:
-                return -1;
-        }
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.tag == "Weapon" && !PlayerFSMManager.Instance.isSkill3)
-        {
-            if (Stat.Hp > 0)
-                OnHitForMonster(PlayerFSMManager.Instance.attackType);
-        }
-
-        if (other.transform.tag == "Ball")
-        {
-            if (PlayerFSMManager.Instance.isNormal)
-                Instantiate(hitEffect_Skill1, hitLocation.transform.position, Quaternion.identity);
-            if (!PlayerFSMManager.Instance.isNormal)
-                Instantiate(hitEffect_Skill1_Special, hitLocation.transform.position, Quaternion.identity);
-
-            other.transform.gameObject.SetActive(false);
-
-            if (Stat.Hp > 0)
-            {
-                //OnHit();
-                OnHitForMonster(AttackType.SKILL1);
-            }
-        }
-        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
-        {
-            StartCoroutine("Skill2Timer");
-
-            SetState(TiberState.HIT);
-        }
-        if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
-        {
-            StartCoroutine("Skill3Timer");
-        }
-    }
-
-
-    public override IEnumerator Skill3Timer()
-    {
-        return base.Skill3Timer();
-    }
-    public override IEnumerator Skill2Timer()
-    {
-        return base.Skill2Timer();
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.transform.tag == "Skill2")
-        {
-            if (Stat.Hp > 0)
-            {
-                try
-                {
-                    OnHitForMonster(AttackType.SKILL2);
-                }
-                catch
-                {
-
-                }
+            if (RigidBody.velocity.sqrMagnitude <= 0.1f) {
+                RigidBody.velocity = Vector3.zero;
             }
         }
     }
-    
+
     public override void SetDeadState()
     {
         base.SetDeadState();

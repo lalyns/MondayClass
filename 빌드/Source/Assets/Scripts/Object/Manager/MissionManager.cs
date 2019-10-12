@@ -16,7 +16,18 @@ public enum MissionType
     Boss = 3,
     Last,
 }
-
+public enum MissionRewardType
+{
+    SpecialGauge = 0,
+    Str,
+    Defense,
+    Hp,
+    Skill1Damage,
+    Skill2Damage,
+    Skill3Damage,
+    Skill3Speed,
+    Last,
+}
 [System.Serializable]
 public class MissionResources
 {
@@ -28,9 +39,11 @@ public class MissionManager : MonoBehaviour
     public MissionResources resources;
 
     private static MissionManager _Instance;
-    public static MissionManager Instance {
-        get {
-            if(_Instance == null)
+    public static MissionManager Instance
+    {
+        get
+        {
+            if (_Instance == null)
             {
                 _Instance = FindObjectOfType<MissionManager>();
             }
@@ -39,8 +52,10 @@ public class MissionManager : MonoBehaviour
     }
 
     [SerializeField] private MissionBase[] _Missions;
-    public MissionBase[] Missions {
-        get {
+    public MissionBase[] Missions
+    {
+        get
+        {
             return _Missions;
         }
         set
@@ -50,50 +65,61 @@ public class MissionManager : MonoBehaviour
     }
 
     [SerializeField] private MissionBase currentMission;
-    public MissionBase CurrentMission {
-        get {
+    public MissionBase CurrentMission
+    {
+        get
+        {
             if (currentMission == null) currentMission = GameObject.FindObjectOfType<MissionBase>();
             return currentMission;
         }
-        set {
+        set
+        {
             currentMission = value;
         }
     }
-    public MissionType CurrentMissionType => CurrentMission.Data.MissionType;
 
+
+    public MissionType CurrentMissionType => CurrentMission.Data.MissionType;
+    private MissionRewardType[] currentMissionRewards;
+
+    //public MissionRewardType CurrentMissionRewardType => //Currentmi
     private bool isFirst = true;
     public bool isChange = false;
     // For Editor Using
 
     public void Awake()
     {
-        if(_Instance == null)
+        if (_Instance == null)
         {
             _Instance = GetComponent<MissionManager>();
-            
+
         }
         else
         {
             Destroy(gameObject);
         }
+
+        currentMissionRewards = new MissionRewardType[2];
     }
 
 
     public GameObject MissionSelector;
     public MissionButton[] Choices;
+    public RewardData rewardData;
 
     public GameObject MissionProgressUI;
 
-    public static void PopUpMission() {
+    public static void PopUpMission()
+    {
         if (Instance.isChange) return;
 
+        GameStatus.currentGameState = CurrentGameState.Select;
         UserInterface.BlurSet(true);
-        
+
         UserInterface.SetMissionSelectionUI(true);
         UserInterface.SetPointerMode(true);
 
         Instance.ChangeMission();
-
         GameManager.Instance.CharacterControl = false;
     }
 
@@ -113,10 +139,39 @@ public class MissionManager : MonoBehaviour
             UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
         }
 
+        ChangeReward();
+
         isChange = true;
     }
 
-    public static void SelectMission(MissionType type) {
+    public void ChangeReward()
+    {
+
+        //랜덤 보상 출력하기
+        foreach (MissionButton choice in UserInterface.Instance.SelectorUI.buttons)
+        {
+            var type = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
+            var type2 = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
+
+            currentMissionRewards[0] = choice.ChangeReward(0, (MissionRewardType)type);
+            currentMissionRewards[1] = choice.ChangeReward(1, (MissionRewardType)type2);
+        }
+
+        //foreach (MissionButton choice in UserInterface.Instance.SelectorUI.buttons)
+        //{
+        //    var type = UnityEngine.Random.Range(0, 999) % ((int)(MissionType.Last) - 1);
+        //    choice.ChangeMission(type);
+        //}
+
+        //if (GameStatus.Instance.StageLevel >= 3)
+        //{
+        //    UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
+        //}
+
+    }
+
+    public static void SelectMission(MissionType type)
+    {
 
         UserInterface.BlurSet(false);
 
@@ -145,7 +200,6 @@ public class MissionManager : MonoBehaviour
                     break;
             }
 
-
             //UserInterface.SetPointerMode(false);
             //GameManager.Instance.IsPuase = false;
             //UserInterface.FullModeSetMP();
@@ -160,11 +214,41 @@ public class MissionManager : MonoBehaviour
             //    PlayerFSMManager.Instance.rigid.useGravity = false;
             //}, false);
         }
-        //EnterMission();
+
+    }
+    public void GetReward(MissionRewardType type)
+    {
+        switch (type)
+        {
+            case MissionRewardType.SpecialGauge:
+                PlayerFSMManager.Instance.SpecialGauge = 100;
+                break;
+            case MissionRewardType.Str:
+                PlayerFSMManager.Instance.Stat.RewardStr(5);
+                break;
+            case MissionRewardType.Defense:
+                PlayerFSMManager.Instance.Stat.RewardDefense(3);
+                break;
+            case MissionRewardType.Hp:
+                PlayerFSMManager.Instance.Stat.RewardHP(150);
+                break;
+            case MissionRewardType.Skill1Damage:
+                PlayerFSMManager.Instance.Stat.RewardSkill1Damage(40);
+                break;
+            case MissionRewardType.Skill2Damage:
+                PlayerFSMManager.Instance.Stat.RewardSkill2Damage(25);
+                break;
+            case MissionRewardType.Skill3Damage:
+                PlayerFSMManager.Instance.Stat.RewardSkill3Damage(10);
+                break;
+            case MissionRewardType.Skill3Speed:
+                break;
+        }
 
     }
 
-    public static void EnterMission() {
+    public static void EnterMission()
+    {
         // 캐릭터 위치변경
         Instance.CurrentMission.gameObject.SetActive(true);
 
@@ -178,7 +262,8 @@ public class MissionManager : MonoBehaviour
 
     }
 
-    public static void StartMission() {
+    public static void StartMission()
+    {
         // 미션 시작지
 
         PlayerFSMManager.Instance.rigid.useGravity = true;
@@ -187,13 +272,18 @@ public class MissionManager : MonoBehaviour
         UserInterface.SetMissionProgressUserInterface(true);
     }
 
-    public static void RewardMission() {
+    public static void RewardMission()
+    {
         // 여기서 보상에 관한 것을 처리함.
-        
+        Instance.GetReward(Instance.currentMissionRewards[0]);
+        Instance.GetReward(Instance.currentMissionRewards[1]);
 
+        Instance.currentMissionRewards[0] = MissionRewardType.Last;
+        Instance.currentMissionRewards[1] = MissionRewardType.Last;
     }
 
-    public static void ExitMission() {
+    public static void ExitMission()
+    {
         Input.ResetInputAxes();
 
         PlayerFSMManager.Instance._v = 0; //SetState(PlayerState.IDLE);

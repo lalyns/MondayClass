@@ -50,6 +50,9 @@ public class RedHatFSMManager : FSMManager
     private Animator _Anim;
     public Animator Anim { get { return _Anim; } }
 
+    private Rigidbody _RigidBody;
+    public Rigidbody RigidBody { get { return _RigidBody; } }
+
     public Transform _AttackTransform;
 
     // Renderers
@@ -70,6 +73,8 @@ public class RedHatFSMManager : FSMManager
     public MonsterSound _Sound;
 
     public GameObject dashEffect;
+    public GameObject dashEffect1;
+    public GameObject dashEffect2;
 
     public float _DetectingRange;
 
@@ -97,6 +102,9 @@ public class RedHatFSMManager : FSMManager
         _Stat = GetComponent<RedHatStat>();
         _Anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<MonsterSound>();
+        _RigidBody = GetComponent<Rigidbody>();
+
+        CC.detectCollisions = true;
 
         if (!GameManager.Instance.uIActive.monster)
             _HPBar.gameObject.SetActive(false);
@@ -161,6 +169,14 @@ public class RedHatFSMManager : FSMManager
         if (Stat.Hp <= 0)
         {
             SetDeadState();
+        }
+
+        if (RigidBody.velocity.sqrMagnitude > 0) {
+            RigidBody.velocity = Vector3.Lerp(RigidBody.velocity, Vector3.zero, 0.15f);
+
+            if (RigidBody.velocity.sqrMagnitude <= 0.1f) {
+                RigidBody.velocity = Vector3.zero;
+            }
         }
     }
 

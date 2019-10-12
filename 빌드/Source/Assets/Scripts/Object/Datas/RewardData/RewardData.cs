@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu]
 public class RewardData : ScriptableObject
 {
-    public Sprite RewardIcon;
-    public string RewardText;
+    public Sprite[] RewardIcon;
+    public string[] RewardText;
 }

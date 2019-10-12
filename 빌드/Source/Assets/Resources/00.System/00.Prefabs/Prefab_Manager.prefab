@@ -54,15 +54,16 @@ MonoBehaviour:
   _EditorCursorLock: 1
   TimeMagnificationMode: 0
   TimeMagnificationValue: 1
-  CharacterControl: 0
+  CharacterControl: 1
   ControlManual: 0
-  curScore: 0
   IsPuase: 0
   CineMode: 0
+  softDuration: 0.03
+  hardDuration: 0.04
   uIActive:
     all: 1
     player: 1
-    monster: 1
+    monster: 0
     system: 0
     progress: 0
     selector: 0
@@ -178,6 +179,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  rewardData: {fileID: 0}
   MissionProgressUI: {fileID: 0}
 --- !u!1 &3718117072691014516
 GameObject:
@@ -322,8 +324,7 @@ MonoBehaviour:
     lobbyAmbient:
       idInternal: 0
       valueGuidInternal: 
-      WwiseObjectReference: {fileID: 11400000, guid: 3a3a2b9186cc96a45bf8518fc0d2e6f1,
-        type: 2}
+      WwiseObjectReference: {fileID: 0}
     stageAmbient:
       idInternal: 0
       valueGuidInternal: 
@@ -332,8 +333,7 @@ MonoBehaviour:
     bossAmbient:
       idInternal: 0
       valueGuidInternal: 
-      WwiseObjectReference: {fileID: 11400000, guid: 9c4aae26ff1d9ae47a314e042a7650f8,
-        type: 2}
+      WwiseObjectReference: {fileID: 0}
   bgm:
     lobbyBGM:
       idInternal: 0
@@ -499,6 +499,10 @@ PrefabInstance:
     - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
       propertyPath: m_LocalPosition.x

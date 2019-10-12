@@ -27,9 +27,15 @@ public class RedHatDASH : RedHatFSMState
             dashEndPos = this.transform.position;
             dashEndPos += transform.forward * _manager.Stat.statData._DashRange;
             dashEndPos.y = this.transform.position.y;
-            
-            _manager.dashEffect = EffectPoolManager._Instance._RedHatSkillRange.ItemSetActive(this.transform);
-            _manager.dashEffect.GetComponent<tempLook>().TargetSet(_manager._PriorityTarget);
+
+            //_manager.dashEffect.SetActive(true);
+            //_manager.dashEffect.GetComponent<UIAttackRange>().SetTarget(_manager._PriorityTarget);
+
+            _manager.dashEffect1.SetActive(true);
+            ParticleSystem effect1 = _manager.dashEffect1.GetComponentInChildren<ParticleSystem>();
+            effect1.Play();
+
+
         }
         catch
         {
@@ -47,8 +53,12 @@ public class RedHatDASH : RedHatFSMState
 
         //_manager.dashEffect = null;
 
+        //_manager.dashEffect.GetComponent<UIAttackRange>().EffectEnd();
+
         _manager.CC.detectCollisions = true;
         _manager.isNotChangeState = false;
+
+        _manager.dashEffect1.SetActive(false);
         base.EndState();
     }
 

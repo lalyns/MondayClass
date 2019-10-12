@@ -13,7 +13,7 @@ public class RedHatDEAD : RedHatFSMState
 
         if (_manager.dashEffect != null)
         {
-            EffectPoolManager._Instance._RedHatSkillRange.ItemReturnPool(_manager.dashEffect);
+            _manager.dashEffect.SetActive(false);
             _manager.dashEffect = null;
         }
 
@@ -29,6 +29,7 @@ public class RedHatDEAD : RedHatFSMState
         base.EndState();
 
         GameLib.DissoveActive(_manager.materialList, false);
+        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
         useGravity = true;
         _manager.CC.detectCollisions = true;
         

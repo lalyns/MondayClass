@@ -35,6 +35,7 @@ namespace MC.SceneDirector
         {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             Screen.SetResolution(1920, 1080, true);
+            GameStatus.currentGameState = CurrentGameState.Wait;
 
             if (SceneManager.GetActiveScene().name == "00.Title") {
                 currentSceneNumber = TITLE;
@@ -89,7 +90,8 @@ namespace MC.SceneDirector
                 GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>
                 {
-                    GameStatus.currentGameState = CurrentGameState.Start;
+                    GameStatus.currentGameState = CurrentGameState.Wait;
+                    CanvasInfo.Instance.missionStartAnim.Play("MissionStart");
                     MCSoundManager.LoadBank();
                     isLoad = false;
                 }, true

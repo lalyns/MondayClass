@@ -31,6 +31,12 @@ public class TiberATTACK2 : TiberFSMState
 
         _time += Time.deltaTime;
 
+        if (_manager.agent.remainingDistance >= 1.5f) {
+            _manager.agent.isStopped = false;
+        } else {
+            _manager.agent.isStopped = true;
+        }
+
         if (isEnd)
         {
             _manager.SetState(TiberState.CHASE);

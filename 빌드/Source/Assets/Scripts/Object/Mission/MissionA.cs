@@ -7,6 +7,8 @@ namespace MC.Mission
 
     public class MissionA : MissionBase
     {
+        public static bool isDialogA = false;
+
         public bool spawning = false;
 
         public int currentWave = 0;
@@ -19,6 +21,11 @@ namespace MC.Mission
             base.Start();
 
             totalWave = waves.Length;
+
+            if (!isDialogA)
+            {
+                
+            }
         }
 
         protected override void Update()
@@ -45,7 +52,7 @@ namespace MC.Mission
 
         public void MonsterCheck()
         {
-            Debug.Log("Check Call");
+            //Debug.Log("Check Call");
             if (spawning)
             {
                 bool monsterCheck = GameStatus.Instance.ActivedMonsterList.Count == 0;
@@ -77,7 +84,7 @@ namespace MC.Mission
         {
             StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
             currentWave++;
-            Debug.Log(currentWave);
+            //Debug.Log(currentWave);
         }
     }
 }

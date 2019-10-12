@@ -10,6 +10,8 @@ public enum CurrentGameState
 {
     Loading,
     Start,
+    Select,
+    Wait,
 }
 
 public class GameStatus : MonoBehaviour
@@ -43,7 +45,9 @@ public class GameStatus : MonoBehaviour
 
     bool isPause = false;
 
-    public static CurrentGameState currentGameState;
+    public static CurrentGameState currentGameState = CurrentGameState.Start;
+
+    float timer = 0;
 
     public void Awake()
     {
@@ -151,7 +155,6 @@ public class GameStatus : MonoBehaviour
     int dialogNum = 0;
     public void Update()
     {
-
         // 유니티 에디터에서 작동하는 에디터 기능
         if (Input.GetKey(KeyCode.LeftAlt))
         {
@@ -166,14 +169,25 @@ public class GameStatus : MonoBehaviour
                 RemoveAllActiveMonster();
             }
 
-            if (Input.GetKey(KeyCode.LeftAlt))
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                if (Input.GetKeyDown(KeyCode.C))
-                {
-                    MissionManager.Instance.CurrentMission.ClearMission();
-                    MissionManager.Instance.CurrentMission.missionEnd = true;
-                }
+                MissionManager.Instance.CurrentMission.ClearMission();
+                MissionManager.Instance.CurrentMission.missionEnd = true;
+            }
 
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE);
             }
 
             if (Input.GetKeyDown(KeyCode.I))
@@ -212,9 +226,16 @@ public class GameStatus : MonoBehaviour
             //}
         }
 
+        timer += Time.deltaTime;
+        if(timer >= 3f)
+        {
+            GameStatusCheck();
+            timer = 0;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape) &&
             MCSceneManager.currentSceneNumber != MCSceneManager.TITLE &&
-            currentGameState != CurrentGameState.Loading)
+            currentGameState == CurrentGameState.Start)
         {
             isPause = !isPause;
             CanvasInfo.PauseMenuActive(isPause);
@@ -247,17 +268,15 @@ public class GameStatus : MonoBehaviour
 
     }
 
+    void GameStatusCheck()
+    {
+
+        Debug.Log(GameStatus.currentGameState.ToString());
+    }
+
     public static void SetCurrentGameState(CurrentGameState state)
     {
         currentGameState = state;
-    }
-
-    public void CheckDialog()
-    {
-        if(UserInterface.Instance.Dialog.currentLogNum == UserInterface.Instance.Dialog.CurrentDialogLength())
-        {
-
-        }
     }
 
     public void SummonReady()
@@ -287,9 +306,7 @@ public class GameStatus : MonoBehaviour
     // 몬스터 지정소환
     public void SummonMonster()
     {
-        MonsterPoolManager._Instance._Mac.ItemSetActive(
-            _DummyLocationEffect.transform,
-            "monster");
+        MonsterPoolManager._Instance._Mac.ItemSetActive(_DummyLocationEffect.transform, "monster");
         dummySet = false;
         _DummyLocationEffect.SetActive(false);
         UserInterface.SetPointerMode(false);

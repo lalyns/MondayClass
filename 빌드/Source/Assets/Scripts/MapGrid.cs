@@ -59,7 +59,7 @@ public class MapGrid : MonoBehaviour
                 ray.origin = actor.position + correct;
                 ray.direction = -actor.up;
 
-                bool isGround = Physics.Raycast(ray, 0.1f, (1 << 17), QueryTriggerInteraction.Ignore);
+                bool isGround = Physics.Raycast(ray, 1f, (1 << 17), QueryTriggerInteraction.Ignore);
 
                 //Debug.Log(string.Format("Ground Hit : {0}, Coord : {1}", isGround, ray.origin));
 
