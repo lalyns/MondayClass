@@ -29,14 +29,14 @@ public class PCWeapon : MonoBehaviour
         {
             if (timeNow > realTime + 0.05f)
             {
-                //Time.timeScale = 1;
+                Time.timeScale = 1;
             }
         }
         if (player.isHardAttack)
         {
             if (timeNow > realTime + 0.06f)
             {
-                //Time.timeScale = 1;
+                Time.timeScale = 1;
             }
         }
         if (_Damaged)
