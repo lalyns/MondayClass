@@ -28,6 +28,7 @@ public class TiberFSMState : MonoBehaviour
 
     protected virtual void Update()
     {
+
         if (GameManager.Instance.uIActive.monster)
             HPUI();
     }

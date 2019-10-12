@@ -9,6 +9,7 @@ public class PlayerATTACK3 : FSMState
     public override void BeginState()
     {
         base.BeginState();
+        _manager.isHardAttack = true;
         isAttackOne = false;
         _manager._Sound.sfx.PlayPlayerSFX(this.gameObject, _manager._Sound.sfx.attackSFX);
         _manager.attackType = AttackType.ATTACK3;
@@ -25,6 +26,7 @@ public class PlayerATTACK3 : FSMState
         _manager.isAttackOne = false;
         _manager.isAttackTwo = false;
         _manager.isAttackThree = false;
+        _manager.isHardAttack = false;
         _time = 0;
         _manager.isCantMove = false;
     }

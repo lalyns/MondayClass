@@ -48,12 +48,17 @@ public class TiberCHASE : TiberFSMState
         else
         {
             _manager.agent.destination = playerTrans;
-            _manager.agent.isStopped = false;
+
+            if (_manager.agent.remainingDistance >= 1.5f) {
+                _manager.agent.isStopped = false;
+            } else {
+                _manager.agent.isStopped = true;
+            }
             //Vector3 playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
 
             //_manager.CC.transform.LookAt(playerTrans);
 
-            
+
             //Vector3 moveDir = (playerTrans
             //    - _manager.CC.transform.position).normalized;
 

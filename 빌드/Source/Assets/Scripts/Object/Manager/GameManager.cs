@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
 
     void GameSpeed(bool isPause)
     {
-        if (!isPause)
+        if (!isPause && !PCWeapon.Instance._Damaged)
         {
             Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
         }
@@ -216,11 +216,6 @@ public class GameManager : MonoBehaviour
         UserInterface.SetPlayerUserInterface(true);
 
         CharacterControl = true;
-    }
-
-    private void Scene1Setting()
-    {
-
     }
 
     public void SetBank()

@@ -38,12 +38,16 @@ public class TiberHitCollider : MonoBehaviour
         //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
 
+        tiber.RigidBody.velocity = Vector3.zero;
+        tiber.RigidBody.velocity = -PlayerFSMManager.Instance.Anim.transform.forward
+            * PlayerFSMManager.Instance.Stat.KnockBackPower;
+
         if (attackType == AttackType.ATTACK1)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.15f, 0.1f));
+            StartCoroutine(Shake.instance.ShakeCamera(0.03f, 0.04f, 0.1f));
         if (attackType == AttackType.ATTACK2)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.18f, 0.1f));
+            StartCoroutine(Shake.instance.ShakeCamera(0.03f, 0.04f, 0.1f));
         if (attackType == AttackType.ATTACK3)
-            StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.3f, 0.1f));
+            StartCoroutine(Shake.instance.ShakeCamera(0.07f, 0.07f, 0.1f));
         if (attackType == AttackType.SKILL1)
             StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.1f, 0.1f));
         if (attackType == AttackType.SKILL2)

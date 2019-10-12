@@ -39,7 +39,12 @@ public class TiberATTACK3 : TiberFSMState
         if( _time < 6 && _time >= 1)
         {
             _manager.agent.destination = playerTrans;
-            _manager.agent.isStopped = false;
+
+            if (_manager.agent.remainingDistance >= 1.5f) {
+                _manager.agent.isStopped = false;
+            } else {
+                _manager.agent.isStopped = true;
+            }
 
             //Vector3 playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
 

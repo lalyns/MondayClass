@@ -14,6 +14,7 @@ public class MacPOPUP : MacFSMState
 
         EffectPlay();
         TargetPrioritySet();
+        _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
     }
 
     public override void EndState()
@@ -26,7 +27,7 @@ public class MacPOPUP : MacFSMState
     {
         _manager._PopupEffect.SetActive(true);
         _manager._PopupEffect.GetComponentInChildren<ParticleSystem>().Play();
-        _manager._PopupEffect.GetComponent<Animator>().Play("Ani");
+        _manager._PopupEffect.GetComponentInChildren<Animator>().Play("PopUpEffect");
     }
 
     protected override void FixedUpdate()

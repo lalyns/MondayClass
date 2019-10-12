@@ -16,9 +16,10 @@ public class RedHatPOPUP : RedHatFSMState
 
         _PopupEffect.SetActive(true);
         _PopupEffect.GetComponentInChildren<ParticleSystem>().Play();
-        _PopupEffect.GetComponent<Animator>().Play("Ani");
+        _PopupEffect.GetComponentInChildren<Animator>().Play("PopUpEffect");
 
         TargetPrioritySet();
+        _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
     }
 
     public override void EndState()
