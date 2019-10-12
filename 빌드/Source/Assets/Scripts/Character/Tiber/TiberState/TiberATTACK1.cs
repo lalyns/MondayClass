@@ -10,6 +10,9 @@ public class TiberATTACK1 : TiberFSMState
     public override void BeginState()
     {
         base.BeginState();
+
+        _manager.CC.detectCollisions = false;
+
         _manager.Attack1Effect.SetActive(true);
 
         _manager.Attack1Effect.transform.position = new Vector3(_manager.PlayerCapsule.transform.position.x, _manager.PlayerCapsule.transform.position.y + 0.3f, _manager.PlayerCapsule.transform.position.z);
@@ -21,6 +24,9 @@ public class TiberATTACK1 : TiberFSMState
     {
         base.EndState();
         _manager.Attack1Effect.SetActive(false);
+
+        _manager.CC.detectCollisions = false;
+
         _time = 0;
     }
     protected override void Update()
