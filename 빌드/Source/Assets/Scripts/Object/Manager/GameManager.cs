@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
 
     void GameSpeed(bool isPause)
     {
-        if (!isPause && !PCWeapon.Instance._Damaged)
+        if (!isPause /*&& !PCWeapon.Instance._Damaged*/)
         {
             Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
         }
