@@ -85,7 +85,7 @@ namespace MC.SceneDirector
                         currentSceneNumber == DEFENCE ||
                         currentSceneNumber == BOSS)
                     {
-                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
+                        //bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
                     }
 
                     isPlay = true;
@@ -131,11 +131,11 @@ namespace MC.SceneDirector
 
             if (async.isDone)
             {
-                if (prevScene == TITLE)
-                {
-                    var bgm = MCSoundManager.Instance.objectSound.bgm;
-                    bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
-                }
+                //if (prevScene == TITLE)
+                //{
+                //    var bgm = MCSoundManager.Instance.objectSound.bgm;
+                //    bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
+                //}
 
                 GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>
