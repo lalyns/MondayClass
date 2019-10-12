@@ -7,6 +7,8 @@ namespace MC.Mission
 
     public class MissionB : MissionBase
     {
+        public static bool isDialogB = false;
+
         public int goalScore = 5;
         public int currentScore = 0;
 

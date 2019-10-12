@@ -7,6 +7,8 @@ namespace MC.Mission
 
     public class MissionA : MissionBase
     {
+        public static bool isDialogA = false;
+
         public bool spawning = false;
 
         public int currentWave = 0;
@@ -19,6 +21,11 @@ namespace MC.Mission
             base.Start();
 
             totalWave = waves.Length;
+
+            if (!isDialogA)
+            {
+                
+            }
         }
 
         protected override void Update()

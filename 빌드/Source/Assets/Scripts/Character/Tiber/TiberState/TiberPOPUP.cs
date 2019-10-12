@@ -18,7 +18,7 @@ public class TiberPOPUP : TiberFSMState
 
         _PopupEffect.SetActive(true);
         _PopupEffect.GetComponentInChildren<ParticleSystem>().Play();
-        _PopupEffect.GetComponent<Animator>().Play("Ani");
+        _PopupEffect.GetComponentInChildren<Animator>().Play("PopUpEffect");
 
         TargetPrioritySet();
     }

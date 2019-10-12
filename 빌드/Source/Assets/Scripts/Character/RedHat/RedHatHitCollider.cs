@@ -114,7 +114,7 @@ public class RedHatHitCollider : MonoBehaviour
         {
 
             //stats.TakeDamage(PlayerFSMManager.Instance.stats, 30);
-            CharacterStat.ProcessDamage(stat, redhat.Stat, 200);
+            CharacterStat.ProcessDamage(stat, redhat.Stat, 10);
             attackTime += Time.deltaTime;
             yield return new WaitForSeconds(0.1f);
         }

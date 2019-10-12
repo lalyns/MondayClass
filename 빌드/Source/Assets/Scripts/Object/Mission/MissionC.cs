@@ -7,6 +7,7 @@ namespace MC.Mission
 
     public class MissionC : MissionBase
     {
+        public static bool isDialogC = false;
 
         public ProtectedTarget protectedTarget;
         public int _ProtectedTargetHP;
