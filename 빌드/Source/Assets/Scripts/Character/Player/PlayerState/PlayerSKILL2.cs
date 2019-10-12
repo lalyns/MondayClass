@@ -23,7 +23,12 @@ public class PlayerSKILL2 : FSMState
         var voice = _manager._Sound.voice;
         voice.PlayPlayerVoice(this.gameObject, voice.skill2Voice);
 
+        var sfx = _manager._Sound.sfx;
 
+        if(_manager.isNormal)
+            sfx.PlayPlayerSFX(_manager.Skill2_Test, sfx.skill2SFX);
+        else
+            sfx.PlayPlayerSFX(_manager.Skill2_Test2, sfx.skill2SFX);
     }
 
     public override void EndState()
