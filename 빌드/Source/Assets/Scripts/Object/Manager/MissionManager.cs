@@ -80,6 +80,8 @@ public class MissionManager : MonoBehaviour
 
 
     public MissionType CurrentMissionType => CurrentMission.Data.MissionType;
+    private MissionRewardType[] currentMissionRewards;
+
     //public MissionRewardType CurrentMissionRewardType => //Currentmi
     private bool isFirst = true;
     public bool isChange = false;
@@ -96,6 +98,8 @@ public class MissionManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        currentMissionRewards = new MissionRewardType[2];
     }
 
 
@@ -149,9 +153,10 @@ public class MissionManager : MonoBehaviour
             var type = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
             var type2 = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
 
-            choice.ChangeReward(0, (MissionRewardType)type);
-            choice.ChangeReward(1, (MissionRewardType)type2);
+            currentMissionRewards[0] = choice.ChangeReward(0, (MissionRewardType)type);
+            currentMissionRewards[1] = choice.ChangeReward(1, (MissionRewardType)type2);
         }
+
         //foreach (MissionButton choice in UserInterface.Instance.SelectorUI.buttons)
         //{
         //    var type = UnityEngine.Random.Range(0, 999) % ((int)(MissionType.Last) - 1);
@@ -195,7 +200,6 @@ public class MissionManager : MonoBehaviour
                     break;
             }
 
-
             //UserInterface.SetPointerMode(false);
             //GameManager.Instance.IsPuase = false;
             //UserInterface.FullModeSetMP();
@@ -210,10 +214,9 @@ public class MissionManager : MonoBehaviour
             //    PlayerFSMManager.Instance.rigid.useGravity = false;
             //}, false);
         }
-        //EnterMission();
 
     }
-    public void EnterReward(MissionRewardType type)
+    public void GetReward(MissionRewardType type)
     {
         switch (type)
         {
@@ -272,8 +275,11 @@ public class MissionManager : MonoBehaviour
     public static void RewardMission()
     {
         // 여기서 보상에 관한 것을 처리함.
+        Instance.GetReward(Instance.currentMissionRewards[0]);
+        Instance.GetReward(Instance.currentMissionRewards[1]);
 
-
+        Instance.currentMissionRewards[0] = MissionRewardType.Last;
+        Instance.currentMissionRewards[1] = MissionRewardType.Last;
     }
 
     public static void ExitMission()

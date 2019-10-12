@@ -93,4 +93,9 @@ public class CreateMissionDataClass : Editor
     //    asset.NumberOfTimesSpawn = 5;
     //    asset.CycleOfTimeRespawn = 20;
     //}
+
+    public static void ParseDialogData()
+    {
+
+    }
 }

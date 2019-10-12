@@ -218,11 +218,6 @@ public class GameManager : MonoBehaviour
         CharacterControl = true;
     }
 
-    private void Scene1Setting()
-    {
-
-    }
-
     public void SetBank()
     {
         MCSoundManager.SetSound();
