@@ -58,6 +58,7 @@ public class MacRUNAWAY : MacFSMState
 
             if (loopEscape >= 100)
             {
+                _manager.SetState(MacState.ATTACK);
                 return;
             }
         }
