@@ -39,6 +39,9 @@ public class GameManager : MonoBehaviour
 
     public bool CineMode;
 
+    public float softDuration = 0.05f;
+    public float hardDuration = 0.06f;
+
     [System.Serializable]
     public class UIActive
     {
@@ -117,7 +120,7 @@ public class GameManager : MonoBehaviour
 
     void GameSpeed(bool isPause)
     {
-        if (!isPause && !PCWeapon.Instance._Damaged)
+        if (!isPause)
         {
             Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
         }
