@@ -11,6 +11,7 @@ public class PCWeapon : MonoBehaviour
     public bool _Damaged = false;
     float _time;
     public static PCWeapon Instance;
+
     // Start is called before the first frame update
     PlayerFSMManager player => PlayerFSMManager.Instance;
     void Start()
@@ -23,20 +24,23 @@ public class PCWeapon : MonoBehaviour
     void Update()
     {
         float timeNow = Time.realtimeSinceStartup;
-        
 
         if (!player.isHardAttack)
         {
-            if (timeNow > realTime + 0.05f)
+            if (timeNow > realTime + GameManager.Instance.softDuration)
             {
                 //Time.timeScale = 1;
+                GameManager.Instance.TimeMagnificationMode = false;
+                GameManager.Instance.TimeMagnificationValue = 1;
             }
         }
         if (player.isHardAttack)
         {
-            if (timeNow > realTime + 0.06f)
+            if (timeNow > realTime + GameManager.Instance.hardDuration)
             {
                 //Time.timeScale = 1;
+                GameManager.Instance.TimeMagnificationMode = false;
+                GameManager.Instance.TimeMagnificationValue = 1;
             }
         }
         if (_Damaged)
@@ -53,9 +57,10 @@ public class PCWeapon : MonoBehaviour
 
     void BreakTime()
     {
-        Time.timeScale = 0;
+        GameManager.Instance.TimeMagnificationMode = true;
+        GameManager.Instance.TimeMagnificationValue = 0;
 
-        if (Time.timeScale == 0)
+        if (GameManager.Instance.TimeMagnificationValue == 0)
         {
             realTime = Time.realtimeSinceStartup;
             processTime = 0;

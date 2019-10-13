@@ -37,6 +37,10 @@ public class MacHitCollider : MonoBehaviour
         float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - mac.Stat.Defense;
         CharacterStat.ProcessDamage(playerStat, mac.Stat, damage);
 
+        var sound = PlayerFSMManager.Instance._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.hitSFX);
+
+
         //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
 

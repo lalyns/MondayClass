@@ -58,6 +58,8 @@ MonoBehaviour:
   ControlManual: 0
   IsPuase: 0
   CineMode: 0
+  softDuration: 0.03
+  hardDuration: 0.04
   uIActive:
     all: 1
     player: 0
@@ -177,6 +179,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  rewardData: {fileID: 11400000, guid: c2b419663b89d854794282c5f14bd70c, type: 2}
   MissionProgressUI: {fileID: 0}
 --- !u!1 &3718117072691014516
 GameObject:
@@ -335,11 +338,13 @@ MonoBehaviour:
     lobbyBGM:
       idInternal: 0
       valueGuidInternal: 
-      WwiseObjectReference: {fileID: 0}
+      WwiseObjectReference: {fileID: 11400000, guid: 891b5e503c4938f44be7ef037777a534,
+        type: 2}
     stageBGM:
       idInternal: 0
       valueGuidInternal: 
-      WwiseObjectReference: {fileID: 0}
+      WwiseObjectReference: {fileID: 11400000, guid: 356f62abc4d8e39489f4209e7dc441db,
+        type: 2}
     bossBGM:
       idInternal: 0
       valueGuidInternal: 
@@ -489,14 +494,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2274891494096624078}
     m_Modifications:
-    - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
-      propertyPath: m_Name
-      value: CFX3_MagicAura_B_Runic
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -539,6 +536,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
+      propertyPath: m_Name
+      value: CFX3_MagicAura_B_Runic
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19800006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}

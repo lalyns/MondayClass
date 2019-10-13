@@ -178,7 +178,6 @@ public class MissionManager : MonoBehaviour
         UserInterface.SetMissionSelectionUI(false);
         UserInterface.SetPointerMode(false);
         GameManager.Instance.IsPuase = false;
-        Instance.isChange = false;
         //UserInterface.FullModeSetMP();
 
         if (type == MissionType.Boss)
@@ -266,6 +265,7 @@ public class MissionManager : MonoBehaviour
     {
         // 미션 시작지
 
+        Instance.isChange = false;
         PlayerFSMManager.Instance.rigid.useGravity = true;
 
         Instance.CurrentMission.OperateMission();
