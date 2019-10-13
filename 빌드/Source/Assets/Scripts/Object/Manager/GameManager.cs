@@ -180,10 +180,35 @@ public class GameManager : MonoBehaviour
 
     public static void SetSceneSetting()
     {
-        var num = MCSceneManager.currentSceneNumber;
-
         MissionButton.isPush = false;
         CanvasInfo.Instance.SetRenderCam();
+        UserInterface.Instance.SetValue();
+
+        Instance.Invoke("ScriptCheck", 5f);
+    }
+
+    private void ScriptCheck()
+    {
+        if (GameStatus.Instance.StageLevel == 0)
+        {
+            var dialogEvent = GetComponent<DialogEvent>();
+            UserInterface.DialogSetActive(true);
+            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4]);
+            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            return;
+        }
+
+        if(MCSceneManager.currentSceneNumber == MCSceneManager.BOSS)
+        {
+            var dialogEvent = GetComponent<DialogEvent>();
+            UserInterface.DialogSetActive(true);
+            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[7]);
+            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            return;
+        }
+
+        var num = MCSceneManager.currentSceneNumber;
+        GameStatus.SetCurrentGameState(CurrentGameState.Wait);
 
         switch (num)
         {
@@ -210,11 +235,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void StageSet()
+    public void StageSet()
     {
         UserInterface.SetPointerMode(false);
 
-        UserInterface.Instance.SetValue();
         UserInterface.SetAllUserInterface(true);
         UserInterface.SetPlayerUserInterface(true);
 
@@ -226,7 +250,7 @@ public class GameManager : MonoBehaviour
         MCSoundManager.SetSound();
     }
 
-    private void BossSet()
+    public void BossSet()
     {
         UserInterface.SetPointerMode(false);
 

@@ -166,7 +166,7 @@ public class RedHatFSMManager : FSMManager
             return;
         }
 
-        if (Stat.Hp <= 0)
+        if (Stat.Hp <= 0 || PlayerFSMManager.Instance.isDead)
         {
             SetDeadState();
         }
