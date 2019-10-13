@@ -32,11 +32,11 @@ public class PlayerSKILL4 : FSMState
 
     private void Update()
     {
-        _manager.isCantMove = _time <= 15.3f ? true : false;
+        _manager.isCantMove = _time <= 17.1f ? true : false;
 
         _time += Time.deltaTime;
        
-        if (_time >= 15.5f)
+        if (_time >= 17.2f)
         {
             _manager.SetState(PlayerState.IDLE);
             return;
