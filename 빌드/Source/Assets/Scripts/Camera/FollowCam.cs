@@ -57,14 +57,14 @@ public class FollowCam : MonoBehaviour
             {
                 //보간함수를 사용하여 카메라의 높이를 부드럽게 상승시킴.
                 //height = Mathf.Lerp(height, heightAboveWall, Time.deltaTime * overDamping);
-                isWall = true;
+                //isWall = true;
                 //if (!isMax)
                 distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping * 10f);
 
                 Debug.Log("체크스페어상태");
             }
         }
-        else if (!isWall)
+        else// if (!isWall)
         {
             //보간함수를 이용하여 카메라의 높이를 부드럽게 하강시킨다.
             height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping * 5f);

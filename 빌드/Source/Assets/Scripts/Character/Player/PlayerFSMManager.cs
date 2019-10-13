@@ -140,7 +140,7 @@ public class PlayerFSMManager : FSMManager
     public GameObject Normal;
     public GameObject Special;
     public GameObject WeaponTransformEffect;
-    public GameObject TimeLine;
+    public GameObject TimeLine, TimeLine2;
     public GameObject Change_Effect;
     public float specialTimer = 0;
     CapsuleCollider Attack_Capsule;
@@ -183,6 +183,7 @@ public class PlayerFSMManager : FSMManager
 
     public Transform Skill2_Parent;
     public Vignette vignette;
+    public ColorGrading colorGrading;
     public bool isShake = false;
 
     public bool isMouseYLock;
@@ -224,6 +225,8 @@ public class PlayerFSMManager : FSMManager
         CMvcam2 = GameObject.Find("CMvcam2").GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
         vignette = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Vignette>();
+        colorGrading = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<ColorGrading>();
+
         bloom = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Bloom>();
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
@@ -296,6 +299,8 @@ public class PlayerFSMManager : FSMManager
 
         normalTimer = Stat.transDuration;
         gaugePerSecond = 100.0f / normalTimer;
+
+        
 
         //clip1 = AnimationClipChange("PC_Anim_Attack_003_2");
 
@@ -429,7 +434,7 @@ public class PlayerFSMManager : FSMManager
             Stat.skillCTime[2] = 7f;
             Stat.StrSet(40);
         }
-        if (!isNormal)
+        if (!isNormal && !isSkill4)
         {
             normalTimer -= Time.deltaTime;
             SpecialGauge -= gaugePerSecond * Time.deltaTime;
@@ -477,10 +482,15 @@ public class PlayerFSMManager : FSMManager
         _lastAttack = null;
         SetState(PlayerState.IDLE);
     }
-
+    public bool isDead = false;
     public override void SetDeadState()
     {
-        SetState(PlayerState.DEAD);
+        if (!isDead)
+        {
+            SetState(PlayerState.DEAD);
+            isDead = true;
+            return;
+        }
     }
 
     public override bool IsDie() { return CurrentState == PlayerState.DEAD; }
@@ -1068,6 +1078,7 @@ public class PlayerFSMManager : FSMManager
             return;
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
+            TimeLine2.SetActive(true);
             SetState(PlayerState.SKILL4);
             isSkill4 = true;
 
