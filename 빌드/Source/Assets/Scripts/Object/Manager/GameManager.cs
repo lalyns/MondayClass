@@ -184,29 +184,43 @@ public class GameManager : MonoBehaviour
 
         MissionButton.isPush = false;
         CanvasInfo.Instance.SetRenderCam();
+        UserInterface.Instance.SetValue();
 
-        switch (num)
+        Instance.Invoke("TutorialScripts", 5f);
+
+        //switch (num)
+        //{
+        //    case 0:
+        //        break;
+        //    case 1:
+        //        Debug.Log("aa");
+        //        break;
+        //    case 2:
+        //        Debug.Log("Stage1");
+        //        Instance.StageSet();
+        //        break;
+        //    case 3:
+        //        Debug.Log("Stage2");
+        //        Instance.StageSet();
+        //        break;
+        //    case 4:
+        //        Debug.Log("Stage3");
+        //        Instance.StageSet();
+        //        break;
+        //    case 5:
+        //        Instance.BossSet();
+        //        break;
+        //}
+    }
+
+    private void TutorialScripts()
+    {
+        if (GameStatus.Instance.StageLevel == 0)
         {
-            case 0:
-                break;
-            case 1:
-                Debug.Log("aa");
-                break;
-            case 2:
-                Debug.Log("Stage1");
-                Instance.StageSet();
-                break;
-            case 3:
-                Debug.Log("Stage2");
-                Instance.StageSet();
-                break;
-            case 4:
-                Debug.Log("Stage3");
-                Instance.StageSet();
-                break;
-            case 5:
-                Instance.BossSet();
-                break;
+            var dialogEvent = GetComponent<DialogEvent>();
+            UserInterface.DialogSetActive(true);
+            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4]);
+            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
         }
     }
 
@@ -214,7 +228,6 @@ public class GameManager : MonoBehaviour
     {
         UserInterface.SetPointerMode(false);
 
-        UserInterface.Instance.SetValue();
         UserInterface.SetAllUserInterface(true);
         UserInterface.SetPlayerUserInterface(true);
 

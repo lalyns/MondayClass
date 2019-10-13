@@ -6,12 +6,6 @@ using UnityEngine.UI;
 namespace MC.UI
 {
     [System.Serializable]
-    public class Dialog
-    {
-        public string[] dialog;
-    }
-
-    [System.Serializable]
     public class DialogUI
     {
         public GameObject gameObject;
@@ -31,9 +25,33 @@ namespace MC.UI
     {
         public DialogUI[] dialogs;
 
-        [HideInInspector] public DialogUI currentDialog;
+        [HideInInspector] public DialogUI currentDialogUI;
 
         public TalkerType currentTalker = TalkerType.None;
+
+        public Dialog currentDialog;
+        public int dialogLength = 0;
+        int currentTurn = 1;
+
+        public void SetDialog(Dialog dialog)
+        {
+            currentDialog = dialog;
+            dialogLength = currentDialog.talker.Count;
+            SetDialog(dialog.talker[0], dialog.dialog[0]);
+        }
+
+        public void NextDialog()
+        {
+            if(currentTurn < dialogLength)
+            {
+                SetDialog(currentDialog.talker[currentTurn], currentDialog.dialog[currentTurn]);
+                currentTurn++;
+            }
+            else
+            {
+                EndDialog();
+            }
+        }
 
         public void SetTalker(TalkerType talker)
         {
@@ -43,19 +61,19 @@ namespace MC.UI
                     dialogs[0].gameObject.SetActive(true);
                     dialogs[1].gameObject.SetActive(false);
                     dialogs[2].gameObject.SetActive(false);
-                    currentDialog = dialogs[0];
+                    currentDialogUI = dialogs[0];
                     break;
                 case TalkerType.Staff:
                     dialogs[0].gameObject.SetActive(false);
                     dialogs[1].gameObject.SetActive(true);
                     dialogs[2].gameObject.SetActive(false);
-                    currentDialog = dialogs[1];
+                    currentDialogUI = dialogs[1];
                     break;
                 case TalkerType.Riris:
                     dialogs[0].gameObject.SetActive(false);
                     dialogs[1].gameObject.SetActive(false);
                     dialogs[2].gameObject.SetActive(true);
-                    currentDialog = dialogs[2];
+                    currentDialogUI = dialogs[2];
                     break;
                 case TalkerType.None:
                     dialogs[0].gameObject.SetActive(false);
@@ -67,8 +85,7 @@ namespace MC.UI
                     dialogs[0].gameObject.SetActive(false);
                     dialogs[1].gameObject.SetActive(false);
                     dialogs[2].gameObject.SetActive(false);
-                    currentDialog = null;
-                    GameStatus.currentGameState = CurrentGameState.Wait;
+                    currentDialogUI = null;
                     break;
 
             }
@@ -82,9 +99,14 @@ namespace MC.UI
                 currentTalker = talker;
             }
 
-            currentDialog.text.text = str;
+            currentDialogUI.text.text = str;
         }
 
+        public void EndDialog()
+        {
+            GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+            UserInterface.DialogSetActive(false);
+        }
     }
 
 

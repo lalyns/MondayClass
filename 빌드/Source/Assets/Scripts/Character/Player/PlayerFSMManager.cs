@@ -362,6 +362,7 @@ public class PlayerFSMManager : FSMManager
     
     private void Update()
     {
+        if (GameStatus.currentGameState == CurrentGameState.Dialog) return;
 
         if (Input.GetKeyDown(KeyCode.U))
         {
