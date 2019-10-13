@@ -12,6 +12,7 @@ public enum CurrentGameState
     Start,
     Select,
     Wait,
+    Dialog,
 }
 
 public class GameStatus : MonoBehaviour
@@ -152,11 +153,10 @@ public class GameStatus : MonoBehaviour
         ActivedMonsterList.Clear();
     }
 
-    int dialogNum = 0;
     public void Update()
     {
         // 유니티 에디터에서 작동하는 에디터 기능
-        if (Input.GetKey(KeyCode.LeftAlt))
+        if (Input.GetKey(KeyCode.LeftAlt) && currentGameState == CurrentGameState.Start)
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
@@ -233,9 +233,18 @@ public class GameStatus : MonoBehaviour
             timer = 0;
         }
 
+        if(currentGameState == CurrentGameState.Dialog)
+        {
+            if(Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Space))
+            {
+                UserInterface.Instance.Dialog.NextDialog();
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape) &&
             MCSceneManager.currentSceneNumber != MCSceneManager.TITLE &&
-            currentGameState != CurrentGameState.Loading)
+            currentGameState != CurrentGameState.Loading &&
+            currentGameState != CurrentGameState.Dialog)
         {
             isPause = !isPause;
             CanvasInfo.PauseMenuActive(isPause);

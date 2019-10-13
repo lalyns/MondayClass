@@ -38,9 +38,9 @@ namespace MC.SceneDirector
         {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             Screen.SetResolution(1920, 1080, true);
-            GameStatus.currentGameState = CurrentGameState.Wait;
 
             if (SceneManager.GetActiveScene().name == "00.Title") {
+                GameStatus.currentGameState = CurrentGameState.Wait;
                 currentSceneNumber = TITLE;
             }
             if (SceneManager.GetActiveScene().name == "01-0.Tutorial") {
@@ -104,7 +104,8 @@ namespace MC.SceneDirector
             GameManager.SetFadeInOut(() =>
             {
                 StartCoroutine(LoadScene(i));
-                GameStatus.currentGameState = CurrentGameState.Loading;
+                GameStatus.SetCurrentGameState(CurrentGameState.Loading);
+                Debug.Log(GameStatus.currentGameState.ToString());
                 bgm.StopBGM(MCSoundManager.Instance.gameObject, bgm.lobbyBGM);
             }, false
             );
@@ -140,7 +141,7 @@ namespace MC.SceneDirector
                 GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>
                 {
-                    GameStatus.currentGameState = CurrentGameState.Wait;
+                    //GameStatus.currentGameState = CurrentGameState.Wait;
                     CanvasInfo.Instance.missionStartAnim.Play("MissionStart");
                     MCSoundManager.LoadBank();
                     isLoad = false;
