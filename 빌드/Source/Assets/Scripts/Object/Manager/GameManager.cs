@@ -39,6 +39,9 @@ public class GameManager : MonoBehaviour
 
     public bool CineMode;
 
+    public float softDuration = 0.05f;
+    public float hardDuration = 0.06f;
+
     [System.Serializable]
     public class UIActive
     {
@@ -216,11 +219,6 @@ public class GameManager : MonoBehaviour
         UserInterface.SetPlayerUserInterface(true);
 
         CharacterControl = true;
-    }
-
-    private void Scene1Setting()
-    {
-
     }
 
     public void SetBank()

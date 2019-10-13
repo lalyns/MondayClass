@@ -52,7 +52,7 @@ namespace MC.UI {
             
         }
 
-        public void ChangeReward(int num, MissionRewardType type)
+        public MissionRewardType ChangeReward(int num, MissionRewardType type)
         {
             //var rewardSprite = rewardData.RewardIcon;
             //var rewardText = rewardData.RewardText;
@@ -64,6 +64,8 @@ namespace MC.UI {
             }
             rewardType[num] = type;
             rewardText[num].text = MissionManager.Instance.rewardData.RewardText[(int)type];
+
+            return type;
         }
 
         public void SetMissionOnClick()

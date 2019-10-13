@@ -42,6 +42,9 @@ public class Skill2Effect : MonoBehaviour
             Sphere.enabled = false;
             // gameObject.SetActive(false);
             //player.isSkill2CTime = true;
+
+
+        
         }
         //if (_time >= 10f)
         //{
@@ -50,6 +53,13 @@ public class Skill2Effect : MonoBehaviour
         player.Skill2Reset();
 
     }
+
+    void PlayerSound()
+    {
+        var sfx = player._Sound.sfx;
+        sfx.PlayPlayerSFX(this.gameObject, sfx.skill2LastSFX);
+    }
+
     private void OnTriggerStay(Collider other)
     {
         

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MacHitCollider : MonoBehaviour
 {
-
     MacFSMManager mac;
 
     void Start()
@@ -38,15 +37,23 @@ public class MacHitCollider : MonoBehaviour
         float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - mac.Stat.Defense;
         CharacterStat.ProcessDamage(playerStat, mac.Stat, damage);
 
+        var sound = PlayerFSMManager.Instance._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.hitSFX);
+
+
         //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
 
+        mac.RigidBody.velocity = Vector3.zero;
+        mac.RigidBody.velocity = -PlayerFSMManager.Instance.Anim.transform.forward
+            * PlayerFSMManager.Instance.Stat.KnockBackPower;
+
         if (attackType == AttackType.ATTACK1)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.15f, 0.1f));
+            StartCoroutine(Shake.instance.ShakeCamera(0.03f, 0.04f, 0.1f));
         if (attackType == AttackType.ATTACK2)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.18f, 0.1f));
+            StartCoroutine(Shake.instance.ShakeCamera(0.03f, 0.04f, 0.1f));
         if (attackType == AttackType.ATTACK3)
-            StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.3f, 0.1f));
+            StartCoroutine(Shake.instance.ShakeCamera(0.07f, 0.07f, 0.1f));
         if (attackType == AttackType.SKILL1)
             StartCoroutine(Shake.instance.ShakeCamera(0.2f, 0.1f, 0.1f));
         if (attackType == AttackType.SKILL2)

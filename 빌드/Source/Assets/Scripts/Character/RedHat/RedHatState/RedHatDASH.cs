@@ -53,7 +53,7 @@ public class RedHatDASH : RedHatFSMState
 
         //_manager.dashEffect = null;
 
-        _manager.dashEffect.GetComponent<UIAttackRange>().EffectEnd();
+        //_manager.dashEffect.GetComponent<UIAttackRange>().EffectEnd();
 
         _manager.CC.detectCollisions = true;
         _manager.isNotChangeState = false;

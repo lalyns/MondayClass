@@ -8,15 +8,15 @@ public class CharacterStat : MonoBehaviour
 
     [SerializeField] protected float _str = 10.0f;
     public float Str { get { return _str; } }
-    
+
     //[SerializeField] protected bool[] _KnockBackFlag = new bool[7];
     //public bool[] KnockBackFlag => _KnockBackFlag;
 
     //[SerializeField] protected int[] _KnockBackDuration = new int[7];
     //public int[] KnockBackDuration => _KnockBackDuration;
 
-    //[SerializeField] protected float[] _KnockBackPower = new float[7];
-    //public float[] KnockBackPower => _KnockBackPower;
+    [SerializeField] protected float _KnockBackPower = 2f;
+    public float KnockBackPower => _KnockBackPower;
 
     //[SerializeField] protected float[] _KnockBackDelay = new float[7];
     //public float[] KnockBackDelay => _KnockBackDelay;
@@ -56,7 +56,10 @@ public class CharacterStat : MonoBehaviour
         _maxHp += value;
     }
 
-
+    public void StrSet(int value)
+    {
+        _str = value;
+    }
 
     [HideInInspector]
     public CharacterStat lastHitBy = null;
