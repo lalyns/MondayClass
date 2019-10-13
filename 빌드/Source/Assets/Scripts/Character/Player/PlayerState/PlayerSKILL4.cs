@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 public class PlayerSKILL4 : FSMState
 {
@@ -12,7 +13,7 @@ public class PlayerSKILL4 : FSMState
 
         _manager.attackType = AttackType.SKILL4;
 
-        
+        UserInterface.SetAllUserInterface(false);
     }
 
     public override void EndState()
@@ -27,6 +28,8 @@ public class PlayerSKILL4 : FSMState
         _manager.isSkill4CTime = true;
         _manager.isSkill4 = false;
         _manager.TimeLine2.SetActive(false);
+
+        UserInterface.SetAllUserInterface(true);
     }
 
 
