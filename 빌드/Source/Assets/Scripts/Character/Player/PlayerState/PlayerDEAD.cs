@@ -14,6 +14,10 @@ public class PlayerDEAD : FSMState
 
         var voice = _manager._Sound.voice;
         voice.PlayPlayerVoice(this.gameObject, voice.dieVoice);
+        
+        _manager.Skill2_Test.SetActive(false);
+        _manager.Skill2_Test2.SetActive(false);
+        _manager.isSkill2End = false;
     }
 
     public override void EndState()

@@ -14,12 +14,15 @@ public class PlayerAnimEvent : MonoBehaviour
     PlayerSKILL2 skill2;
     PlayerHIT2 hit2;
     public CapsuleCollider WeaponCapsule;
-    private void Start()    
+
+    public FollowCam cam;
+    private void Start()
     {
         //input = InputHandler.instance;
         player = PlayerFSMManager.Instance;
         skill2 = player.GetComponent<PlayerSKILL2>();
         hit2 = player.GetComponent<PlayerHIT2>();
+        cam = player.followCam;
     }
 
     void hitCheck()
@@ -118,7 +121,7 @@ public class PlayerAnimEvent : MonoBehaviour
 
     public void StopParticle()
     {
-        
+
         Debug.Log("끝");
 
         //particle.Stop();
@@ -137,7 +140,7 @@ public class PlayerAnimEvent : MonoBehaviour
     float processTime = 0;
     float countDown = 0;
     float countTime = 1;
-    
+
     private void Update()
     {
         isNormal = player.isNormal;
@@ -147,4 +150,24 @@ public class PlayerAnimEvent : MonoBehaviour
     //    if (other.transform.tag == "Monster")
     //        BreakTime();
     //}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "Wall")
+        {
+            cam.isWallState = true;
+            Debug.Log("벽");
+
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.tag == "Wall")
+        {
+            cam.isWallState = false;
+            Debug.Log("벽끝");
+        }
+
+    }
 }
+
