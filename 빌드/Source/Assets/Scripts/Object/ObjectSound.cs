@@ -57,7 +57,7 @@ namespace MC.Sound
 
             public void PlayBGM(GameObject go, AK.Wwise.Event bgm)
             {
-                if (GameManager.Instance.config.soundActive.bgm ||
+                if (GameManager.Instance.config.soundActive.bgm &&
                     GameManager.Instance.config.soundActive.all)
                     try
                     {
@@ -70,7 +70,7 @@ namespace MC.Sound
             }
             public void StopBGM(GameObject go, AK.Wwise.Event bgm)
             {
-                if (GameManager.Instance.config.soundActive.bgm ||
+                if (GameManager.Instance.config.soundActive.bgm &&
                     GameManager.Instance.config.soundActive.all)
                     try
                     {
