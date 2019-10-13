@@ -9,6 +9,8 @@ public class PlayerATTACK1 : FSMState
     public override void BeginState()
     {
         base.BeginState();
+        _manager.isSkill2End = false;
+
         _manager._Sound.sfx.PlayPlayerSFX(this.gameObject, _manager._Sound.sfx.attackSFX);
         _manager.attackType = AttackType.ATTACK1;
 

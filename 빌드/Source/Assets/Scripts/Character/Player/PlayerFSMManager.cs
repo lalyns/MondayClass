@@ -105,7 +105,7 @@ public class PlayerFSMManager : FSMManager
     [SerializeField]
     public float Skill2CTime, Skill3CTime = 10f, Skill4CTime = 10f;
     [Header("스킬1번 날라가는 속도,")]
-    public float skill1Speed = 20f;
+    public float skill1Speed = 40f;
     [Header("스킬1번 날라가는 시간,")]
     public float skill1ShootTime = 4f;
 
@@ -150,7 +150,7 @@ public class PlayerFSMManager : FSMManager
     public bool isNormal = false;
 
     CameraManager camManager;
-    FollowCam followCam;
+    public FollowCam followCam;
     Camera mainCamera;
     PostProcessVolume volume;
     PostProcessLayer layer;
