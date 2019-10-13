@@ -113,7 +113,7 @@ public class MissionManager : MonoBehaviour
     {
         if (Instance.isChange) return;
 
-        GameStatus.currentGameState = CurrentGameState.Select;
+        GameStatus.SetCurrentGameState(CurrentGameState.Select);
         UserInterface.BlurSet(true);
 
         UserInterface.SetMissionSelectionUI(true);
