@@ -140,7 +140,7 @@ public class PlayerFSMManager : FSMManager
     public GameObject Normal;
     public GameObject Special;
     public GameObject WeaponTransformEffect;
-    public GameObject TimeLine;
+    public GameObject TimeLine, TimeLine2;
     public GameObject Change_Effect;
     public float specialTimer = 0;
     CapsuleCollider Attack_Capsule;
@@ -362,6 +362,7 @@ public class PlayerFSMManager : FSMManager
     
     private void Update()
     {
+        if (GameStatus.currentGameState == CurrentGameState.Dialog) return;
 
         if (Input.GetKeyDown(KeyCode.U))
         {
@@ -434,7 +435,7 @@ public class PlayerFSMManager : FSMManager
             Stat.skillCTime[2] = 7f;
             Stat.StrSet(40);
         }
-        if (!isNormal)
+        if (!isNormal && !isSkill4)
         {
             normalTimer -= Time.deltaTime;
             SpecialGauge -= gaugePerSecond * Time.deltaTime;
@@ -1078,6 +1079,7 @@ public class PlayerFSMManager : FSMManager
             return;
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
+            TimeLine2.SetActive(true);
             SetState(PlayerState.SKILL4);
             isSkill4 = true;
 
