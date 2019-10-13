@@ -45,18 +45,18 @@ public class FollowCam : MonoBehaviour
     {
         //구체 형태의 충돌체로 충돌 여부를 검사
 
-        if (Physics.CheckSphere(transform.position, 0))
+        if (Physics.CheckSphere(transform.position, 1f))
         {
             //보간함수를 사용하여 카메라의 높이를 부드럽게 상승시킴.
             //height = Mathf.Lerp(height, heightAboveWall, Time.deltaTime * overDamping);
             isWall = true;
-            distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping);
+            distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping * 10f);
         }
         else
         {
             //보간함수를 이용하여 카메라의 높이를 부드럽게 하강시킨다.
             height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping);
-            distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping * 3f);
+            distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping * 10f);
             isWall = false;
         }
         //플레이어가 장애물에 가려졌는지를 판단할 레이캐스트의 높낮이를 설정
@@ -75,12 +75,12 @@ public class FollowCam : MonoBehaviour
                 isWall = true;
                 //보간함수 사용 카메라 상승
                 //height = Mathf.Lerp(height, heightAboveObstacle, Time.deltaTime * overDamping / 2f);
-                distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping / 3.5f);
+                distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping);
             }
             else
             {
                 height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping);
-                distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping * 3f);
+                distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping * 10f);
                 isWall = false;
             }
         }
