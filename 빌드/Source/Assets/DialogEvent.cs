@@ -9,14 +9,18 @@ namespace MC.UI
     {
         public List<TalkerType> talker;
         public List<string> dialog;
-        public List<int> rightStandingImageIndex;
-        public List<int> leftStandingImageIndex;
-        public List<int> dialogImageIndex;
+        public List<int> right;
+        public List<int> left;
+        public List<int> text;
 
         public Dialog()
         {
             talker = new List<TalkerType>();
             dialog = new List<string>();
+            right = new List<int>();
+            left = new List<int>();
+            text = new List<int>();
+
         }
     }
 
@@ -51,6 +55,9 @@ namespace MC.UI
 
                 dialogs[id - 1].talker.Add(TypeDefine(type));
                 dialogs[id - 1].dialog.Add(dialog);
+                dialogs[id - 1].right.Add(right);
+                dialogs[id - 1].left.Add(left);
+                dialogs[id - 1].text.Add(text);
             }
         }
 
