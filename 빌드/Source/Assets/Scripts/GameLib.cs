@@ -168,21 +168,23 @@ public static class GameLib
         {
             mats[i].SetFloat("_DissolveEdgeMultiplier", value);
             mats[i].SetFloat("_DissolveIntensity", 0);
+
         }
     }
 
-    public static IEnumerator Dissolving(List<Material> mats, float value = 0.45f, float range = 0.2f)
+    public static IEnumerator Dissolving(List<Material> mats, float value = 2f, float range = 0.013f)
     {
         float time = 0;
-
-        for(int i=0; i<mats.Count; i++)
+        time += value * Time.deltaTime;
+        while (time < 1f)
         {
-            time += value * Time.deltaTime;
-            mats[i].SetFloat("_DissolveIntensity", time);
-            mats[i].SetFloat("_DissolveEdgeRange", range);
-
-            yield return new WaitForSeconds(Time.deltaTime);
+            for (int i = 0; i < mats.Count; i++)
+            {         
+                mats[i].SetFloat("_DissolveIntensity", time);
+                mats[i].SetFloat("_DissolveEdgeRange", range);
+            }
         }
+        yield return new WaitForSeconds(1f);
 
     }
 
