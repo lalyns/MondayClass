@@ -27,7 +27,16 @@ public class PlayerDEAD : FSMState
     }
     private void Update()
     {
-      
+        time += Time.deltaTime;
+
+        if(time <= 1f)
+        {
+            _manager.colorGrading.saturation.value -= 2f;
+        }
+
+        if (_manager.colorGrading.saturation.value <= -85f)
+            _manager.colorGrading.saturation.value = -85f;
+
     }
 
     public void DeadSupport()
