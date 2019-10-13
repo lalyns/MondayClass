@@ -85,7 +85,7 @@
 						</MusicSegment>
 						<MusicSegment Name="Bgm_Dungeon_04" ID="{08054386-176E-4845-92B5-2F64A57E012F}" ShortID="277779524">
 							<PropertyList>
-								<Property Name="EndPosition" Type="Real64" Value="184000"/>
+								<Property Name="EndPosition" Type="Real64" Value="306437.505668934"/>
 								<Property Name="Highpass" Type="int16">
 									<ValueList>
 										<Value>10</Value>
@@ -99,7 +99,7 @@
 								<Property Name="Tempo" Type="Real64" Value="90"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-3</Value>
+										<Value>-1</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -112,20 +112,20 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<MusicTrack Name="Dungeon_04" ID="{77FD97A9-2910-4B59-9319-395FDDFE766D}" ShortID="321900287">
+								<MusicTrack Name="Marionette_Test_Bgm" ID="{CF2D5442-ABEB-48D9-BA89-68F0EADAD1BC}" ShortID="839288687">
 									<ReferenceList>
 										<Reference Name="OutputBus">
 											<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<AudioFileSource Name="Dungeon_04" ID="{F23A23D1-BF45-419A-8D10-47BE7FD20D38}" ShortID="917502596">
+										<AudioFileSource Name="TestBgm" ID="{420D5861-18DA-45C2-9F3F-99681AEDDCBC}" ShortID="177628582">
 											<Language>SFX</Language>
-											<AudioFile>Dungeon_04.wav</AudioFile>
+											<AudioFile>TestBgm.wav</AudioFile>
 										</AudioFileSource>
 									</ChildrenList>
 									<TransitionList>
-										<MusicTransition Name="Root" ID="{30D32D93-4DCD-4798-8F89-6625B55B056A}">
+										<MusicTransition Name="Root" ID="{9B3B087B-0D4F-4662-A36F-658990A5755D}">
 											<PropertyList>
 												<Property Name="IsFolder" Type="bool" Value="True"/>
 											</PropertyList>
@@ -133,15 +133,15 @@
 										</MusicTransition>
 									</TransitionList>
 									<SequenceList>
-										<MusicTrackSequence Name="" ID="{F3F996B5-5B25-4E22-BC19-CE9C3530E58C}">
+										<MusicTrackSequence Name="" ID="{EA6E1B6C-6690-4240-8583-2ED6B0519022}">
 											<ClipList>
-												<MusicClip Name="Dungeon_04" ID="{F761C15C-18FC-44A0-AD4A-46144D206472}">
+												<MusicClip Name="TestBgm" ID="{A9496050-123C-420A-BE21-2B841BF6F237}">
 													<PropertyList>
-														<Property Name="EndTrimOffset" Type="Real64" Value="184000"/>
+														<Property Name="EndTrimOffset" Type="Real64" Value="122437.505668934"/>
 														<Property Name="FadeInMode" Type="int16" Value="0"/>
 														<Property Name="FadeOutMode" Type="int16" Value="0"/>
 													</PropertyList>
-													<AudioSourceRef Name="Dungeon_04" ID="{F23A23D1-BF45-419A-8D10-47BE7FD20D38}"/>
+													<AudioSourceRef Name="TestBgm" ID="{420D5861-18DA-45C2-9F3F-99681AEDDCBC}"/>
 												</MusicClip>
 											</ClipList>
 										</MusicTrackSequence>
