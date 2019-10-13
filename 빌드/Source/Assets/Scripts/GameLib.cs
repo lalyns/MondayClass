@@ -86,7 +86,7 @@ public static class GameLib
         else
             return null;
     }
-    
+
     // 여러 오브젝트들에 대해 간단한 정보로 피해를 입히는 함수.
     public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag,
         CharacterStat ownerStat, float damage)
@@ -172,19 +172,26 @@ public static class GameLib
         }
     }
 
-    public static IEnumerator Dissolving(List<Material> mats, float value = 2f, float range = 0.013f)
+    public static IEnumerator Dissolving(List<Material> mats, float value = 5f, float range = 0.013f)
     {
         float time = 0;
-        time += value * Time.deltaTime;
-        while (time < 1f)
+
+        while (time < 2.5f)
         {
+            if(time < 0.05f)
+                time += Time.deltaTime / 2f;
+            if (time >= 0.05f)
+                time += value * Time.deltaTime;
+
             for (int i = 0; i < mats.Count; i++)
-            {         
+            {
+
                 mats[i].SetFloat("_DissolveIntensity", time);
                 mats[i].SetFloat("_DissolveEdgeRange", range);
+                yield return new WaitForSeconds(Time.deltaTime);
             }
         }
-        yield return new WaitForSeconds(1f);
+
 
     }
 
@@ -210,7 +217,7 @@ public static class GameLib
 
             for (int j = 0; j < mats.Count; j++)
             {
-                mats[j].SetFloat("_Hittrigger", value);                
+                mats[j].SetFloat("_Hittrigger", value);
             }
 
             blink = !blink;
@@ -223,7 +230,7 @@ public static class GameLib
         }
     }
 
-  
+
 
 
     public static IEnumerator KnockBack(Transform trans, AttackType attackType, Vector3 direction)
