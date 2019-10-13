@@ -25,6 +25,7 @@ public enum PlayerState
     HIT,
     HIT2,
     DEAD,    
+    IDLE2,   
 }
 public enum AttackType
 {
@@ -104,7 +105,7 @@ public class PlayerFSMManager : FSMManager
     [SerializeField]
     public float Skill2CTime, Skill3CTime = 10f, Skill4CTime = 10f;
     [Header("스킬1번 날라가는 속도,")]
-    public float skill1Speed = 20f;
+    public float skill1Speed = 40f;
     [Header("스킬1번 날라가는 시간,")]
     public float skill1ShootTime = 4f;
 
@@ -149,7 +150,7 @@ public class PlayerFSMManager : FSMManager
     public bool isNormal = false;
 
     CameraManager camManager;
-    FollowCam followCam;
+    public FollowCam followCam;
     Camera mainCamera;
     PostProcessVolume volume;
     PostProcessLayer layer;
@@ -195,6 +196,17 @@ public class PlayerFSMManager : FSMManager
     public List<Material> materialList = new List<Material>();
 
     public List<Transform> Seats = new List<Transform>();
+
+    VignetteModeParameter parameter;
+    //public Texture2D aaasdf;
+    public TextureParameter Concent;
+
+    float normalTimer;
+    float gaugePerSecond;
+
+    public int ShieldCount;
+    [HideInInspector] public bool isSpecialIDLE;
+    public int CurrentIdle;
 
     protected override void Awake()
     {
@@ -252,15 +264,7 @@ public class PlayerFSMManager : FSMManager
         remainingDash = 3;
 
     }
-    VignetteModeParameter parameter;
-    //public Texture2D aaasdf;
-    public TextureParameter Concent;
-
-    float normalTimer;
-    float gaugePerSecond;
-
-    public int ShieldCount;
-
+    
     //public float clip1, clip2;
     private void Start()
     {
@@ -407,15 +411,18 @@ public class PlayerFSMManager : FSMManager
         Skill3MouseLock();
         Skill3Reset();
 
+        _anim.SetFloat("CurrentIdle", (int)CurrentIdle);
+
         if (isNormal)
         {
-            _anim.SetFloat("Normal", 0);
+            _anim.SetFloat("Normal", 0);            
             Stat.skillCTime[0] = 5f;
             Stat.skillCTime[1] = 10f;
             Stat.skillCTime[2] = 15f;
             Stat.StrSet(30);
         }
-        else { 
+        else if(!isNormal)
+        { 
             _anim.SetFloat("Normal", 1f);
             Stat.skillCTime[0] = 2f;
             Stat.skillCTime[1] = 5f;
