@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FollowCam : MonoBehaviour
 {
-    
+
     public Transform target;
     public float moveDamping = 99999f;
     public float rotateDamping = 10.0f;
@@ -25,7 +25,7 @@ public class FollowCam : MonoBehaviour
 
     [Header("Etc Obstacle Setting")]
     //카메라가 올라갈 높이
-    public float heightAboveObstacle     = 12.0f;
+    public float heightAboveObstacle = 12.0f;
     //플레이어 투사할 레이캐스트의 높이 옵셋
     public float castOffset = 1.0f;
 
@@ -98,13 +98,13 @@ public class FollowCam : MonoBehaviour
     public bool isMax, isMin;
     float tFollowH = 12.3f;
     bool islock = false;
-    
+
     private void FixedUpdate()
     {
         if (GameStatus.currentGameState == CurrentGameState.Select)
             return;
         r_y = Input.GetAxis("Mouse Y");
-        
+
         if (player.isMouseYLock)
         {
             maxDistance = 5.5f;
@@ -117,7 +117,7 @@ public class FollowCam : MonoBehaviour
             return;
         }
         if (!player.isMouseYLock && !islock && !isWall)
-        {            
+        {
             maxDistance = 4f;
             distance = 4f;
             maxHeight = 3f;
@@ -182,11 +182,11 @@ public class FollowCam : MonoBehaviour
         if (isMin)
         {
             distance += r_y * Time.fixedDeltaTime * mouseSpeedY * tFollowH / 2f;
-            if(distance > maxDistance)
+            if (distance > maxDistance)
             {
                 isMin = false;
             }
-        }        
+        }
 
     }
 

@@ -10,12 +10,16 @@ public class PlayerIDLE : FSMState
         base.BeginState();
         _manager.isIDLE = true;
         _manager.isCantMove = false;
+
+        _manager.CurrentIdle = Random.Range((int)1, (int)4);
     }
 
     public override void EndState()
     {
         base.EndState();
         _manager.isIDLE = false;
+        
+        _time = 0;
     }
 
     private void Update()
@@ -25,8 +29,16 @@ public class PlayerIDLE : FSMState
             _manager.SetState(PlayerState.RUN);
             return;
         }
-        //_time += Time.deltaTime;
 
+        _time += Time.deltaTime;
+
+        if(_time >= 3f)
+        {
+            _manager.SetState(PlayerState.IDLE2);
+            _manager.isSpecialIDLE = true;
+            return;
+        }
+        
         //if(_time>= 1.25)
         //{
         //    _manager.TimeLine.SetActive(false);
