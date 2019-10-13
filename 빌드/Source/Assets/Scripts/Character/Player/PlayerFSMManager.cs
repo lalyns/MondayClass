@@ -105,7 +105,7 @@ public class PlayerFSMManager : FSMManager
     [SerializeField]
     public float Skill2CTime, Skill3CTime = 10f, Skill4CTime = 10f;
     [Header("스킬1번 날라가는 속도,")]
-    public float skill1Speed = 20f;
+    public float skill1Speed = 40f;
     [Header("스킬1번 날라가는 시간,")]
     public float skill1ShootTime = 4f;
 
@@ -150,7 +150,7 @@ public class PlayerFSMManager : FSMManager
     public bool isNormal = false;
 
     CameraManager camManager;
-    FollowCam followCam;
+    public FollowCam followCam;
     Camera mainCamera;
     PostProcessVolume volume;
     PostProcessLayer layer;
@@ -183,6 +183,7 @@ public class PlayerFSMManager : FSMManager
 
     public Transform Skill2_Parent;
     public Vignette vignette;
+    public ColorGrading colorGrading;
     public bool isShake = false;
 
     public bool isMouseYLock;
@@ -224,6 +225,8 @@ public class PlayerFSMManager : FSMManager
         CMvcam2 = GameObject.Find("CMvcam2").GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
         vignette = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Vignette>();
+        colorGrading = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<ColorGrading>();
+
         bloom = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Bloom>();
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
@@ -296,6 +299,8 @@ public class PlayerFSMManager : FSMManager
 
         normalTimer = Stat.transDuration;
         gaugePerSecond = 100.0f / normalTimer;
+
+        
 
         //clip1 = AnimationClipChange("PC_Anim_Attack_003_2");
 
@@ -477,10 +482,15 @@ public class PlayerFSMManager : FSMManager
         _lastAttack = null;
         SetState(PlayerState.IDLE);
     }
-
+    public bool isDead = false;
     public override void SetDeadState()
     {
-        SetState(PlayerState.DEAD);
+        if (!isDead)
+        {
+            SetState(PlayerState.DEAD);
+            isDead = true;
+            return;
+        }
     }
 
     public override bool IsDie() { return CurrentState == PlayerState.DEAD; }

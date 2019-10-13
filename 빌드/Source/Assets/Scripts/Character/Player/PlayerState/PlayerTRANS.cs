@@ -10,6 +10,10 @@ public class PlayerTRANS : FSMState
     {
         base.BeginState();
         _manager.isCantMove = true;
+
+        _manager.Skill2_Test.SetActive(false);
+        _manager.Skill2_Test2.SetActive(false);
+        _manager.isSkill2End = false;
     }
 
     public override void EndState()
@@ -22,7 +26,7 @@ public class PlayerTRANS : FSMState
     {
         _time += Time.deltaTime;
 
-        if (_time >= 3.73f)
+        if (_time >= 4.06f)
         {
             _manager.SetState(PlayerState.TRANS2);
             return;
