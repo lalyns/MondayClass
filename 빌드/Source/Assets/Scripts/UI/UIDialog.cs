@@ -33,6 +33,10 @@ namespace MC.UI
         public int dialogLength = 0;
         int currentTurn = 1;
 
+        public Sprite[] right;
+        public Sprite[] left;
+        public Sprite[] text;
+
         public void SetDialog(Dialog dialog)
         {
             currentDialog = dialog;
