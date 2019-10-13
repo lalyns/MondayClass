@@ -26,6 +26,7 @@ public class PlayerSKILL4 : FSMState
         
         _manager.isSkill4CTime = true;
         _manager.isSkill4 = false;
+        _manager.TimeLine2.SetActive(false);
     }
 
 
