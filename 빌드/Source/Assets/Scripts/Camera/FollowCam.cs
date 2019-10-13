@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FollowCam : MonoBehaviour
 {
-    
+
     public Transform target;
     public float moveDamping = 99999f;
     public float rotateDamping = 10.0f;
@@ -25,7 +25,7 @@ public class FollowCam : MonoBehaviour
 
     [Header("Etc Obstacle Setting")]
     //카메라가 올라갈 높이
-    public float heightAboveObstacle     = 12.0f;
+    public float heightAboveObstacle = 12.0f;
     //플레이어 투사할 레이캐스트의 높이 옵셋
     public float castOffset = 1.0f;
 
@@ -45,18 +45,21 @@ public class FollowCam : MonoBehaviour
     {
         //구체 형태의 충돌체로 충돌 여부를 검사
 
-        if (Physics.CheckSphere(transform.position, 0))
+        if (Physics.CheckSphere(transform.position, 0.3f))
         {
             //보간함수를 사용하여 카메라의 높이를 부드럽게 상승시킴.
             //height = Mathf.Lerp(height, heightAboveWall, Time.deltaTime * overDamping);
             isWall = true;
-            distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping);
+            if (!isMax)
+                distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping * 5f);
+
         }
         else
         {
             //보간함수를 이용하여 카메라의 높이를 부드럽게 하강시킨다.
-            height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping);
-            distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping * 3f);
+            height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping * 5f);
+            //if (!isMax)
+            //    distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping * 10f);
             isWall = false;
         }
         //플레이어가 장애물에 가려졌는지를 판단할 레이캐스트의 높낮이를 설정
@@ -75,12 +78,14 @@ public class FollowCam : MonoBehaviour
                 isWall = true;
                 //보간함수 사용 카메라 상승
                 //height = Mathf.Lerp(height, heightAboveObstacle, Time.deltaTime * overDamping / 2f);
-                distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping / 3.5f);
+                if (!isMax)
+                    distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping / 3.5f);
             }
             else
             {
-                height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping);
-                distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping * 3f);
+                height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping * 10f);
+                if(!isMax)
+                    distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping * 10f);
                 isWall = false;
             }
         }
@@ -98,13 +103,13 @@ public class FollowCam : MonoBehaviour
     public bool isMax, isMin;
     float tFollowH = 12.3f;
     bool islock = false;
-    
+
     private void FixedUpdate()
     {
         if (GameStatus.currentGameState == CurrentGameState.Select)
             return;
         r_y = Input.GetAxis("Mouse Y");
-        
+
         if (player.isMouseYLock)
         {
             maxDistance = 5.5f;
@@ -116,10 +121,9 @@ public class FollowCam : MonoBehaviour
             islock = false;
             return;
         }
-        if (!player.isMouseYLock && !islock && !isWall)
-        {            
+        if (!player.isMouseYLock && !islock && !isWall && !isMax)
+        {
             maxDistance = 4f;
-            distance = 4f;
             maxHeight = 3f;
             islock = true;
         }
@@ -167,26 +171,26 @@ public class FollowCam : MonoBehaviour
         }
         if (!isWall)
         {
-            if (distance <= minDistance)
-            {
-                distance = minDistance;
-            }
+            //if (distance <= minDistance)
+            //{
+            //    distance = minDistance;
+            //}
         }
         if (isWall)
         {
-            if (distance <= nearDistance)
-            {
-                distance = nearDistance;
-            }
+            //if (distance <= nearDistance)
+            //{
+            //    distance = nearDistance;
+            //}
         }
         if (isMin)
         {
             distance += r_y * Time.fixedDeltaTime * mouseSpeedY * tFollowH / 2f;
-            if(distance > maxDistance)
+            if (distance > maxDistance)
             {
                 isMin = false;
             }
-        }        
+        }
 
     }
 
