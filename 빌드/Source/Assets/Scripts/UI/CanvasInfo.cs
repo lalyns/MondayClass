@@ -86,6 +86,8 @@ namespace MC.UI {
 
         public Animator missionStartAnim;
 
+        public UIClearMission clearUI;
+
         public void Start()
         {
             StartCoroutine("MyCursor");
@@ -161,12 +163,26 @@ namespace MC.UI {
             UserInterface.SetMissionProgressUserInterface(false);
             UserInterface.SetMissionSelectionUI(false);
             UserInterface.SetSystemInterface(false);
+
+            GameStatus.Instance.StageLevel = 0;
         }
 
         public void RestartScene()
         {
             PauseMenuActive(false);
             MCSceneManager.Instance.NextScene(MCSceneManager.currentSceneNumber);
+        }
+
+        public void PlayStartAnim()
+        {
+            missionStartAnim.gameObject.SetActive(true);
+            missionStartAnim.Play("MissionStart");
+            Invoke("EndStartAnim", 4f);
+        }
+
+        public void EndStartAnim()
+        {
+            missionStartAnim.gameObject.SetActive(false);
         }
 
         public void ExitGame()

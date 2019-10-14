@@ -189,24 +189,32 @@ public class GameManager : MonoBehaviour
 
     private void ScriptCheck()
     {
-        if (GameStatus.Instance.StageLevel == 0)
+        if (MCSceneManager.currentSceneNumber != MCSceneManager.TITLE)
         {
-            var dialogEvent = GetComponent<DialogEvent>();
-            UserInterface.DialogSetActive(true);
-            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4]);
-            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            return;
+            if (GameStatus.Instance.StageLevel == 0)
+            {
+                var dialogEvent = GetComponent<DialogEvent>();
+                UserInterface.DialogSetActive(true);
+                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4]);
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                return;
+            }
+
+            if (MCSceneManager.currentSceneNumber == MCSceneManager.BOSS)
+            {
+                var dialogEvent = GetComponent<DialogEvent>();
+                UserInterface.DialogSetActive(true);
+                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[7]);
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                return;
+            }
         }
 
-        if(MCSceneManager.currentSceneNumber == MCSceneManager.BOSS)
-        {
-            var dialogEvent = GetComponent<DialogEvent>();
-            UserInterface.DialogSetActive(true);
-            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[7]);
-            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            return;
-        }
+        AfterDialog();
+    }
 
+    public void AfterDialog()
+    {
         var num = MCSceneManager.currentSceneNumber;
         GameStatus.SetCurrentGameState(CurrentGameState.Wait);
 
@@ -237,6 +245,8 @@ public class GameManager : MonoBehaviour
 
     public void StageSet()
     {
+        CanvasInfo.Instance.PlayStartAnim();
+
         UserInterface.SetPointerMode(false);
 
         UserInterface.SetAllUserInterface(true);

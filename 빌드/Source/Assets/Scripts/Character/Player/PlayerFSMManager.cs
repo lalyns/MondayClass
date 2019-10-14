@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 using MC.UI;
 using MC.Sound;
+using MC.SceneDirector;
 
 public enum PlayerState
 {
@@ -48,7 +49,7 @@ public class PlayerFSMManager : FSMManager
     {
         get
         {
-            if (instance == null)
+            if (instance == null && MCSceneManager.currentSceneNumber != MCSceneManager.TITLE)
                 instance = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<PlayerFSMManager>();
             return instance;
         }

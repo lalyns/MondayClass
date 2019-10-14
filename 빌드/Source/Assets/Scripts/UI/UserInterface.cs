@@ -20,6 +20,10 @@ namespace MC.UI
             {
                 instance = GetComponent<UserInterface>();
             }
+            else
+            {
+                return;
+            }
         }
 
         #region Instance Caching
@@ -397,6 +401,15 @@ namespace MC.UI
             Instance.Dialog.gameObject.SetActive(value);
         }
 
+
+        #endregion
+
+        #region Clear Mission
+        public UIClearMission ClearMission => CanvasInfo.Instance.clearUI;
+        public static void ClearMissionSetActive(bool value)
+        {
+            Instance.ClearMission.gameObject.SetActive(value);
+        }
 
         #endregion
 

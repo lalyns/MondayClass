@@ -98,7 +98,6 @@ namespace MC.Mission
 
         public virtual void RestMission()
         {
-            missionEnd = false;
             MissionOperate = false;
             Exit.Colliders.enabled = false;
             Exit._PortalEffect.SetActive(false);

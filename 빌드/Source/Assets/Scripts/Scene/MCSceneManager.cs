@@ -60,11 +60,6 @@ namespace MC.SceneDirector
             }
         }
 
-        public void Start()
-        {
-            
-        }
-
         private void Update()
         {
             if (!isPlay)
@@ -105,6 +100,7 @@ namespace MC.SceneDirector
             {
                 StartCoroutine(LoadScene(i));
                 GameStatus.SetCurrentGameState(CurrentGameState.Loading);
+                GameManager.Instance.CharacterControl = false;
                 Debug.Log(GameStatus.currentGameState.ToString());
                 bgm.StopBGM(MCSoundManager.Instance.gameObject, bgm.lobbyBGM);
             }, false
@@ -142,7 +138,6 @@ namespace MC.SceneDirector
                 GameManager.SetFadeInOut(() =>
                 {
                     //GameStatus.currentGameState = CurrentGameState.Wait;
-                    CanvasInfo.Instance.missionStartAnim.Play("MissionStart");
                     MCSoundManager.LoadBank();
                     isLoad = false;
                 }, true
