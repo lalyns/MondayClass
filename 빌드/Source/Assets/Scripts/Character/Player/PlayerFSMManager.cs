@@ -1155,20 +1155,30 @@ public class PlayerFSMManager : FSMManager
             isSkill4 = true;
 
             _monster = GameStatus.Instance.ActivedMonsterList;
-            for (int i = 0; i < _monster.Count; i++)
-            {
-                bool isTiber = false;
-                if (isTiber == true && i == 6) continue;
 
-                foreach(GameObject mob in _monster)
+
+            bool isTiber = false;
+            int count = 0;
+            foreach (GameObject mob in _monster)
+            {
+                if (mob.GetComponent<FSMManager>().monsterType == MonsterType.Tiber)
                 {
-                    if(mob.GetComponent<FSMManager>().monsterType == MonsterType.Tiber)
-                    {
-                        isTiber = true;
-                        // 여기서 내가 티버를 찾았고.  
-                        // 티버를 시트7번에 앉혀.
-                    }
+                    // 여기서 내가 티버를 찾았고.  
+                    // 티버를 시트7번에 앉혀.
+                    isTiber = true;
+                    mob.transform.position = Seats[6].position;
+                    mob.transform.LookAt(new Vector3(Anim.transform.position.x, mob.transform.position.y, Anim.transform.position.z));
+                    break;
+                        
                 }
+
+                count++;
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                if (isTiber == true && i == 6 || i == count) continue;
+
                 _monster[i].transform.position = Seats[i].transform.position;
                 _monster[i].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
             }

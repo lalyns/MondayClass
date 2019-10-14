@@ -13,6 +13,7 @@ public enum CurrentGameState
     Select,
     Wait,
     Dialog,
+    Dead,
 }
 
 public class GameStatus : MonoBehaviour

@@ -414,6 +414,7 @@ namespace MC.UI
         public UIFailMission FailMission => CanvasInfo.Instance.failUI;
         public static void FailMissionSetActive(bool value)
         {
+            SetPointerMode(value);
             Instance.FailMission.gameObject.SetActive(value);
         }
 
