@@ -642,7 +642,7 @@ public class PlayerFSMManager : FSMManager
             {
                 Normal.SetActive(false);
             }
-            if (specialTimer >= 5.82f - 1.5f)
+            if (specialTimer >= 5.82f)
             {
                 Change_Effect.SetActive(false);
                 //SetState(PlayerState.IDLE);
