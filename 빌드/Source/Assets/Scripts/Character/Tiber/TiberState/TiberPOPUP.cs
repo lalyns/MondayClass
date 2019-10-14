@@ -22,6 +22,7 @@ public class TiberPOPUP : TiberFSMState
 
         TargetPrioritySet();
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
+        _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
     }
 
     public override void EndState()

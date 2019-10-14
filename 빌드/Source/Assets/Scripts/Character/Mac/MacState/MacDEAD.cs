@@ -15,6 +15,7 @@ public class MacDEAD : MacFSMState
 
         useGravity = false;
         _manager.CC.detectCollisions = false;
+        _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
 
     public override void EndState()
@@ -34,7 +35,19 @@ public class MacDEAD : MacFSMState
             a.Invoke("MonsterCheck", 5f);
         }
 
+
+    }
+
+    void DeadSupport()
+    {
+        _manager.SetState(MacState.POPUP);
         MonsterPoolManager._Instance._Mac.ItemReturnPool(gameObject, MonsterType.Mac);
+
+    }
+    public void DeadHelper()
+    {
+        Invoke("DeadSupport", 3f);
+        Debug.Log("Dead Call");
 
     }
 
@@ -49,9 +62,5 @@ public class MacDEAD : MacFSMState
         base.FixedUpdate();
     }
 
-    public void DeadHelper()
-    {
-        Debug.Log("Dead Call");
-        _manager.SetState(MacState.POPUP);
-    }
+   
 }
