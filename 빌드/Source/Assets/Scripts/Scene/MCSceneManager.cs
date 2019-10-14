@@ -28,7 +28,7 @@ namespace MC.SceneDirector
 
 
         int prevScene = -1;
-        public static int currentSceneNumber = 0;
+        public static int currentScene = 0;
 
         private bool isLoad;
 
@@ -41,22 +41,22 @@ namespace MC.SceneDirector
 
             if (SceneManager.GetActiveScene().name == "00.Title") {
                 GameStatus.currentGameState = CurrentGameState.Wait;
-                currentSceneNumber = TITLE;
+                currentScene = TITLE;
             }
             if (SceneManager.GetActiveScene().name == "01-0.Tutorial") {
-                currentSceneNumber = TUTORIAL;
+                currentScene = TUTORIAL;
             }
             if (SceneManager.GetActiveScene().name == "01-1.Stage1") {
-                currentSceneNumber = ANNIHILATION;
+                currentScene = ANNIHILATION;
             }
             if (SceneManager.GetActiveScene().name == "02.Stage2") {
-                currentSceneNumber = SURVIVAL;
+                currentScene = SURVIVAL;
             }
             if (SceneManager.GetActiveScene().name == "03.Stage3") {
-                currentSceneNumber = DEFENCE;
+                currentScene = DEFENCE;
             }
             if (SceneManager.GetActiveScene().name == "04.Boss") {
-                currentSceneNumber = BOSS;
+                currentScene = BOSS;
             }
         }
 
@@ -69,18 +69,18 @@ namespace MC.SceneDirector
                     MCSoundManager.LoadBank();
                     var bgm = MCSoundManager.Instance.objectSound.bgm;
 
-                    if (currentSceneNumber == TITLE)
+                    if (currentScene == TITLE)
                     {
                         bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.lobbyBGM);
                     }
 
-                    if (currentSceneNumber == TUTORIAL ||
-                        currentSceneNumber == ANNIHILATION ||
-                        currentSceneNumber == SURVIVAL ||
-                        currentSceneNumber == DEFENCE ||
-                        currentSceneNumber == BOSS)
+                    if (currentScene == TUTORIAL ||
+                        currentScene == ANNIHILATION ||
+                        currentScene == SURVIVAL ||
+                        currentScene == DEFENCE ||
+                        currentScene == BOSS)
                     {
-                        //bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
                     }
 
                     isPlay = true;
@@ -114,8 +114,8 @@ namespace MC.SceneDirector
 
             if (!isLoad)
             {
-                prevScene = currentSceneNumber;
-                currentSceneNumber = i;
+                prevScene = currentScene;
+                currentScene = i;
                 isLoad = true;
             }
 
@@ -128,11 +128,11 @@ namespace MC.SceneDirector
 
             if (async.isDone)
             {
-                //if (prevScene == TITLE)
-                //{
-                //    var bgm = MCSoundManager.Instance.objectSound.bgm;
-                //    bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
-                //}
+                if (prevScene == TITLE)
+                {
+                    var bgm = MCSoundManager.Instance.objectSound.bgm;
+                    bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
+                }
 
                 GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>

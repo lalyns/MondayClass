@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if(MCSceneManager.currentSceneNumber == MCSceneManager.TITLE)
+        if(MCSceneManager.currentScene == MCSceneManager.TITLE)
         {
             UserInterface.SetPointerMode(true);
 
@@ -85,14 +85,14 @@ public class GameManager : MonoBehaviour
                 MCSoundManager.Instance.objectSound.ambient.lobbyAmbient);
         }
 
-        if (MCSceneManager.currentSceneNumber == MCSceneManager.ANNIHILATION ||
-            MCSceneManager.currentSceneNumber == MCSceneManager.SURVIVAL     ||
-            MCSceneManager.currentSceneNumber == MCSceneManager.DEFENCE)
+        if (MCSceneManager.currentScene == MCSceneManager.ANNIHILATION ||
+            MCSceneManager.currentScene == MCSceneManager.SURVIVAL     ||
+            MCSceneManager.currentScene == MCSceneManager.DEFENCE)
         {
             UserInterface.SetPointerMode(false);
         }
 
-        if(MCSceneManager.currentSceneNumber == MCSceneManager.BOSS)
+        if(MCSceneManager.currentScene == MCSceneManager.BOSS)
         {
             TempDirector.Instance.SceneStart();
             UserInterface.SetPointerMode(false);
@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
 
     private void ScriptCheck()
     {
-        if (MCSceneManager.currentSceneNumber != MCSceneManager.TITLE)
+        if (MCSceneManager.currentScene != MCSceneManager.TITLE)
         {
             if (GameStatus.Instance.StageLevel == 0)
             {
@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
                 return;
             }
 
-            if (MCSceneManager.currentSceneNumber == MCSceneManager.BOSS)
+            if (MCSceneManager.currentScene == MCSceneManager.BOSS)
             {
                 var dialogEvent = GetComponent<DialogEvent>();
                 UserInterface.DialogSetActive(true);
@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour
 
     public void AfterDialog()
     {
-        var num = MCSceneManager.currentSceneNumber;
+        var num = MCSceneManager.currentScene;
         GameStatus.SetCurrentGameState(CurrentGameState.Wait);
 
         switch (num)

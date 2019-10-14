@@ -173,7 +173,7 @@ namespace MC.UI {
         {
             PauseMenuActive(false);
             failUI.gameObject.SetActive(false);
-            MCSceneManager.Instance.NextScene(MCSceneManager.currentSceneNumber);
+            MCSceneManager.Instance.NextScene(MCSceneManager.currentScene);
             GameStatus.Instance.StageLevel--;
         }
 

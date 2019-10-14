@@ -243,7 +243,7 @@ public class GameStatus : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) &&
-            MCSceneManager.currentSceneNumber != MCSceneManager.TITLE &&
+            MCSceneManager.currentScene != MCSceneManager.TITLE &&
             currentGameState != CurrentGameState.Loading &&
             currentGameState != CurrentGameState.Dialog)
         {

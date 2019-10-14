@@ -453,7 +453,7 @@ namespace MC.UI
         #region Null Support
         public void SetValue()
         {
-            if (MCSceneManager.currentSceneNumber != MCSceneManager.TITLE)
+            if (MCSceneManager.currentScene != MCSceneManager.TITLE)
             {
                 playerFSMMgr = PlayerFSMManager.Instance;
                 UIPlayer.SetValue();
