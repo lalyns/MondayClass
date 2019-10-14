@@ -49,7 +49,7 @@ public class PlayerFSMManager : FSMManager
     {
         get
         {
-            if (instance == null && MCSceneManager.currentSceneNumber != MCSceneManager.TITLE)
+            if (instance == null && MCSceneManager.currentScene != MCSceneManager.TITLE)
                 instance = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<PlayerFSMManager>();
             return instance;
         }
