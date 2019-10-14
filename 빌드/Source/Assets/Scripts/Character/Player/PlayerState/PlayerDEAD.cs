@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 public class PlayerDEAD : FSMState
 {
@@ -18,6 +19,7 @@ public class PlayerDEAD : FSMState
         _manager.Skill2_Test.SetActive(false);
         _manager.Skill2_Test2.SetActive(false);
         _manager.isSkill2End = false;
+        isEnd = false;
     }
 
     public override void EndState()
@@ -25,6 +27,9 @@ public class PlayerDEAD : FSMState
         base.EndState();
 
     }
+
+    bool isEnd = false;
+
     private void Update()
     {
         time += Time.deltaTime;
@@ -34,8 +39,13 @@ public class PlayerDEAD : FSMState
             _manager.colorGrading.saturation.value -= 2f;
         }
 
-        if (_manager.colorGrading.saturation.value <= -85f)
+        if (_manager.colorGrading.saturation.value <= -85f && !isEnd)
+        {
             _manager.colorGrading.saturation.value = -85f;
+            UserInterface.FailMissionSetActive(true);
+            GameStatus.currentGameState = CurrentGameState.Dead;
+            isEnd = true;
+        }
 
     }
 

@@ -103,7 +103,8 @@ namespace MC.UI
         {
             GameStatus.SetCurrentGameState(CurrentGameState.Wait);
             UserInterface.DialogSetActive(false);
-            GameManager.SetSceneSetting();
+            GameManager.Instance.AfterDialog();
+            GameManager.Instance.CharacterControl = true;
         }
     }
 

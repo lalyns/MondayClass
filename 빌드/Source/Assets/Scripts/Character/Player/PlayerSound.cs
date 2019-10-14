@@ -17,9 +17,24 @@ namespace MC.Sound
 
             #region SkillList
             public AK.Wwise.Event teleportSFX = new AK.Wwise.Event();
+
             public AK.Wwise.Event skill1SFX = new AK.Wwise.Event();
+
             public AK.Wwise.Event skill2SFX = new AK.Wwise.Event();
             public AK.Wwise.Event skill2LastSFX = new AK.Wwise.Event();
+
+            public AK.Wwise.Event skill3CastSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event skill3LoopSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event skill3FinishSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event skill3HitSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event skill3CancleSFX = new AK.Wwise.Event();
+
+            public AK.Wwise.Event specialSwingSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event specialGripSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event specialSpinSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event specialJumpSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event specialHeartSFX = new AK.Wwise.Event();
+
 
             #endregion
 

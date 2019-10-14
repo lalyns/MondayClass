@@ -72,6 +72,8 @@ namespace MC.Mission
 
         protected virtual void Awake()
         {
+            if (GameStatus.currentGameState == CurrentGameState.Dead) return;
+
             Enter = GetComponentInChildren<MissionEnter>();
             //Enter.Colliders.enabled = false;
 
@@ -88,17 +90,18 @@ namespace MC.Mission
 
         protected virtual void Start()
         {
+            if (GameStatus.currentGameState == CurrentGameState.Dead) return;
 
         }
 
         protected virtual void Update()
         {
+            if (GameStatus.currentGameState == CurrentGameState.Dead) return;
 
         }
 
         public virtual void RestMission()
         {
-            missionEnd = false;
             MissionOperate = false;
             Exit.Colliders.enabled = false;
             Exit._PortalEffect.SetActive(false);
@@ -117,6 +120,8 @@ namespace MC.Mission
 
         public virtual void ClearMission()
         {
+            if (GameStatus.currentGameState == CurrentGameState.Dead) return;
+
             GameStatus.Instance._MissionStatus = false;
 
             if (!GameStatus.Instance.usingKeward && MissionManager.Instance.CurrentMissionType != MissionType.Annihilation)

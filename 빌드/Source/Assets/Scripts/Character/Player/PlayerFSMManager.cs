@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 using MC.UI;
 using MC.Sound;
+using MC.SceneDirector;
 
 public enum PlayerState
 {
@@ -48,7 +49,7 @@ public class PlayerFSMManager : FSMManager
     {
         get
         {
-            if (instance == null)
+            if (instance == null && MCSceneManager.currentScene != MCSceneManager.TITLE)
                 instance = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<PlayerFSMManager>();
             return instance;
         }
@@ -379,6 +380,11 @@ public class PlayerFSMManager : FSMManager
         if (isInputLock)
             return;
 
+        if(Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.D))
+        {
+            SetDeadState();
+        }
+
 
         if (Stat.Hp <= 0)
         {
@@ -522,7 +528,7 @@ public class PlayerFSMManager : FSMManager
 
         r_x = Input.GetAxis("Mouse X");
 
-        if (GameManager.Instance.CharacterControl && !isSpecial && !isSkill4)
+        if (GameManager.Instance.CharacterControl && !isSpecial && !isSkill4 && !isDead)
             _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
 
     }
@@ -599,10 +605,16 @@ public class PlayerFSMManager : FSMManager
                 isSpecial = true;
                 SetInvincibility(true);
                 TimeLine.SetActive(true);
+
+                SetState(PlayerState.TRANS);
+                //SetState(PlayerState.IDLE);
+
+                // 스킬 1번 사라졌다 나오게 하기.
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
-                SetState(PlayerState.IDLE);
+
+                // 스킬2번 바닥 사라지게하기.
                 if ((isNormal && Skill2_Test.activeSelf) || (!isNormal && Skill2_Test2.activeSelf))
                 {
                     Skill2_Test.SetActive(false);
@@ -616,32 +628,32 @@ public class PlayerFSMManager : FSMManager
         {//11.6초후변신끝
             WeaponTransformEffect.SetActive(true);
             specialTimer += Time.deltaTime;
-            if (specialTimer >= 0.6833f && !isTrans1)
-            {
-                isTrans1 = true;
-                SetState(PlayerState.TRANS);
-            }
-            if (specialTimer >= 2.26f)
+            //if (specialTimer >= 0.6833f && !isTrans1)
+            //{
+                //isTrans1 = true;
+                //SetState(PlayerState.TRANS);
+            //}
+            if (specialTimer >= 1.5f)
             {
                 WeaponTransformEffect.SetActive(false);
                 Special.SetActive(true);
             }
-            if (specialTimer >= 2.7f)
+            if (specialTimer >= 2f)
             {
                 Normal.SetActive(false);
             }
-            if (specialTimer >= 5.82f - 0.8f)
+            if (specialTimer >= 5.82f - 1.5f)
             {
                 Change_Effect.SetActive(false);
-                SetState(PlayerState.IDLE);
+                //SetState(PlayerState.IDLE);
             }
-            if (specialTimer >= 6f)
+            if (specialTimer >= 6.7f)
             {
                 specialTimer = 0;
                 TimeLine.SetActive(false);
                 isSpecial = false;
                 isAttackOne = false;
-                isTrans1 = false;
+                //isTrans1 = false;
                 StartCoroutine(SetOff());
                 return;
             }
@@ -1127,6 +1139,8 @@ public class PlayerFSMManager : FSMManager
     {
 
     }
+
+
     public void Skill4()
     {
         if (isSkill4 || isNormal)
@@ -1141,8 +1155,30 @@ public class PlayerFSMManager : FSMManager
             isSkill4 = true;
 
             _monster = GameStatus.Instance.ActivedMonsterList;
-            for (int i = 0; i < _monster.Count; i++)
+
+
+            bool isTiber = false;
+            int count = 0;
+            foreach (GameObject mob in _monster)
             {
+                if (mob.GetComponent<FSMManager>().monsterType == MonsterType.Tiber)
+                {
+                    // 여기서 내가 티버를 찾았고.  
+                    // 티버를 시트7번에 앉혀.
+                    isTiber = true;
+                    mob.transform.position = Seats[6].position;
+                    mob.transform.LookAt(new Vector3(Anim.transform.position.x, mob.transform.position.y, Anim.transform.position.z));
+                    break;
+                        
+                }
+
+                count++;
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                if (isTiber == true && i == 6 || i == count) continue;
+
                 _monster[i].transform.position = Seats[i].transform.position;
                 _monster[i].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
             }
