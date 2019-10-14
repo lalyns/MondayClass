@@ -599,10 +599,16 @@ public class PlayerFSMManager : FSMManager
                 isSpecial = true;
                 SetInvincibility(true);
                 TimeLine.SetActive(true);
+
+                SetState(PlayerState.TRANS);
+                //SetState(PlayerState.IDLE);
+
+                // 스킬 1번 사라졌다 나오게 하기.
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
-                SetState(PlayerState.IDLE);
+
+                // 스킬2번 바닥 사라지게하기.
                 if ((isNormal && Skill2_Test.activeSelf) || (!isNormal && Skill2_Test2.activeSelf))
                 {
                     Skill2_Test.SetActive(false);
@@ -616,24 +622,24 @@ public class PlayerFSMManager : FSMManager
         {//11.6초후변신끝
             WeaponTransformEffect.SetActive(true);
             specialTimer += Time.deltaTime;
-            if (specialTimer >= 0.6833f && !isTrans1)
-            {
-                isTrans1 = true;
-                SetState(PlayerState.TRANS);
-            }
-            if (specialTimer >= 2.26f)
+            //if (specialTimer >= 0.6833f && !isTrans1)
+            //{
+                //isTrans1 = true;
+                //SetState(PlayerState.TRANS);
+            //}
+            if (specialTimer >= 1.5f)
             {
                 WeaponTransformEffect.SetActive(false);
                 Special.SetActive(true);
             }
-            if (specialTimer >= 2.7f)
+            if (specialTimer >= 2f)
             {
                 Normal.SetActive(false);
             }
-            if (specialTimer >= 5.82f - 0.8f)
+            if (specialTimer >= 5.82f - 1.5f)
             {
                 Change_Effect.SetActive(false);
-                SetState(PlayerState.IDLE);
+                //SetState(PlayerState.IDLE);
             }
             if (specialTimer >= 6f)
             {
@@ -641,7 +647,7 @@ public class PlayerFSMManager : FSMManager
                 TimeLine.SetActive(false);
                 isSpecial = false;
                 isAttackOne = false;
-                isTrans1 = false;
+                //isTrans1 = false;
                 StartCoroutine(SetOff());
                 return;
             }
