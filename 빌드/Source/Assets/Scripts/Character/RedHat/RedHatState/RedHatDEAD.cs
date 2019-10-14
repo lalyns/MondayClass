@@ -22,6 +22,8 @@ public class RedHatDEAD : RedHatFSMState
 
         useGravity = false;
         _manager.CC.detectCollisions = false;
+
+        _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
 
     public override void EndState()
@@ -54,9 +56,16 @@ public class RedHatDEAD : RedHatFSMState
         base.FixedUpdate();
     }
 
+    void DeadSupport()
+    {
+        _manager.SetState(RedHatState.POPUP);
+        MonsterPoolManager._Instance._Mac.ItemReturnPool(gameObject, MonsterType.RedHat);
+
+    }
     public void DeadHelper()
     {
+        Invoke("DeadSupport", 3f);
         Debug.Log("Dead Call");
-        _manager.SetState(RedHatState.POPUP);
+
     }
 }

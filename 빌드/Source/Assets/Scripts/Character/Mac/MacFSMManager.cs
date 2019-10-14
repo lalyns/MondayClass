@@ -83,7 +83,7 @@ public class MacFSMManager : FSMManager
     public AttackType CurrentAttackType = AttackType.NONE;
 
     public NavMeshAgent agent;
-
+    
     protected override void Awake()
     {
         base.Awake();

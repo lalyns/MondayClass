@@ -5,6 +5,8 @@ using MC.Mission;
 
 public class MacPOPUP : MacFSMState
 {
+    public AnimationCurve animationCurve;
+
     public override void BeginState()
     {
         base.BeginState();
@@ -15,6 +17,7 @@ public class MacPOPUP : MacFSMState
         EffectPlay();
         TargetPrioritySet();
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
+        _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
     }
 
     public override void EndState()
