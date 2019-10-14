@@ -22,7 +22,7 @@ public class MissionEnter : MonoBehaviour
             if (!MissionManager.Instance.CurrentMission.MissionOperate)
             {
                 MissionManager.StartMission();
-                GameStatus.currentGameState = CurrentGameState.Start;
+                GameStatus.SetCurrentGameState(CurrentGameState.Start);
             }
         }
     }

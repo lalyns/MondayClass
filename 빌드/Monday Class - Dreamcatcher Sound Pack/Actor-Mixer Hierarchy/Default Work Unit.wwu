@@ -20,7 +20,7 @@
 														</Property>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
-																<Value>-4</Value>
+																<Value>1</Value>
 															</ValueList>
 														</Property>
 													</PropertyList>
@@ -33,16 +33,11 @@
 														</Reference>
 													</ReferenceList>
 													<ChildrenList>
-														<Sound Name="Player_Skill_Sound_Teleport_01" ID="{519556F8-68B2-495A-9321-EDE34290AB68}" ShortID="828118130">
+														<Sound Name="Player_Skill_Teleport_Cast_Sound_01" ID="{BD26F2BC-F83C-4B8E-9C9D-D010D5BDDE07}" ShortID="237046296">
 															<PropertyList>
-																<Property Name="Lowpass" Type="int16">
-																	<ValueList>
-																		<Value>15</Value>
-																	</ValueList>
-																</Property>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>1.5</Value>
+																		<Value>8</Value>
 																	</ValueList>
 																</Property>
 															</PropertyList>
@@ -55,13 +50,13 @@
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="Player_Action_Teleport_01" ID="{7B597594-6F47-4545-A901-DFE625E6BC88}" ShortID="487966253">
+																<AudioFileSource Name="Player_Skill_Teleport_Cast_Sound_01" ID="{06DFB873-41DB-4ED9-A8FC-C1172F6E5874}" ShortID="675900129">
 																	<Language>SFX</Language>
-																	<AudioFile>Player_Action_Teleport_01.wav</AudioFile>
+																	<AudioFile>Player_Skill_Teleport_Cast_Sound_01.wav</AudioFile>
 																</AudioFileSource>
 															</ChildrenList>
 															<ActiveSourceList>
-																<ActiveSource Name="Player_Action_Teleport_01" ID="{7B597594-6F47-4545-A901-DFE625E6BC88}" Platform="Linked"/>
+																<ActiveSource Name="Player_Skill_Teleport_Cast_Sound_01" ID="{06DFB873-41DB-4ED9-A8FC-C1172F6E5874}" Platform="Linked"/>
 															</ActiveSourceList>
 														</Sound>
 													</ChildrenList>
@@ -74,7 +69,7 @@
 													<PropertyList>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
-																<Value>5</Value>
+																<Value>12</Value>
 															</ValueList>
 														</Property>
 													</PropertyList>
@@ -172,6 +167,13 @@
 															</ActiveSourceList>
 														</Sound>
 														<Sound Name="Player_Skill_Skill_01_Cast_Voice_02" ID="{C404E4E0-8162-4C0E-A02F-AED61F742A85}" ShortID="849464908">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>-1</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
 															<ReferenceList>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -291,6 +293,13 @@
 															</ReferenceList>
 															<ChildrenList>
 																<Sound Name="Player_Skill_Skill_01_Hit_Sound_03" ID="{8ECD47F7-38C0-4434-B999-225620A797D0}" ShortID="424213996">
+																	<PropertyList>
+																		<Property Name="Volume" Type="Real64">
+																			<ValueList>
+																				<Value>-3</Value>
+																			</ValueList>
+																		</Property>
+																	</PropertyList>
 																	<ReferenceList>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -396,12 +405,17 @@
 															<PropertyList>
 																<Property Name="Highpass" Type="int16">
 																	<ValueList>
-																		<Value>25</Value>
+																		<Value>20</Value>
+																	</ValueList>
+																</Property>
+																<Property Name="Lowpass" Type="int16">
+																	<ValueList>
+																		<Value>10</Value>
 																	</ValueList>
 																</Property>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>-4</Value>
+																		<Value>1</Value>
 																	</ValueList>
 																</Property>
 															</PropertyList>
@@ -439,7 +453,7 @@
 															<PropertyList>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>-2</Value>
+																		<Value>1</Value>
 																	</ValueList>
 																</Property>
 															</PropertyList>
@@ -562,6 +576,215 @@
 															</ChildrenList>
 															<ActiveSourceList>
 																<ActiveSource Name="Player_Skill_Skill_03_Finish_Voice_01" ID="{01E6B491-D0F2-4785-BB29-D4B5030EEE85}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Sound" ID="{0D923650-287D-40C1-9088-AB5F23D4E839}" ShortID="681320349">
+											<ChildrenList>
+												<RandomSequenceContainer Name="Impact Sound" ID="{5273BF27-01B6-4E62-A685-8973585EC57D}" ShortID="553939550">
+													<PropertyList>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{C2BE7930-B30E-4008-95CA-D0CAE8A264C7}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="30"/>
+																			<Property Name="Min" Type="Real64" Value="-30"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Player_Skill_Skill_03_Impact_Sound_01" ID="{78C9BF24-AE85-4FAA-8D24-3BE35F4751DD}" ShortID="898828956">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>7</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Player_Skill_Skill_03_Impact_Sound_01" ID="{1A74D182-1382-4583-8A9E-7569FCCCF9FF}" ShortID="58896371">
+																	<Language>SFX</Language>
+																	<AudioFile>Player_Skill_Skill_03_Impact_Sound_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Player_Skill_Skill_03_Impact_Sound_01" ID="{1A74D182-1382-4583-8A9E-7569FCCCF9FF}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+												<RandomSequenceContainer Name="Cast Sound" ID="{FC223F39-1EB2-44A4-BAE2-C50E71E520A5}" ShortID="671356385">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Player_Skill_Skill_03_Cast_Sound_01" ID="{D5EC73A1-10AA-4899-A7E4-5D6DDA6413BF}" ShortID="866488631">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>5</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Player_Skill_Skill_03_Cast_Sound_01" ID="{70032357-C5BA-429E-B760-FA8F10393FF4}" ShortID="36735604">
+																	<Language>SFX</Language>
+																	<AudioFile>Player_Skill_Skill_03_Cast_Sound_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Player_Skill_Skill_03_Cast_Sound_01" ID="{70032357-C5BA-429E-B760-FA8F10393FF4}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+												<RandomSequenceContainer Name="Finish Sound" ID="{3E78E33C-BD2D-4F2C-A295-E28E62FCC2DD}" ShortID="808405258">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Player_Skill_Skill_03_Finish_Sound_01" ID="{778534B7-C41A-4A8E-A759-61B1C24B9DD9}" ShortID="240493430">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>5</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Player_Skill_Skill_03_Finish_Sound_01" ID="{8F8323A7-C369-4AB9-B910-E2E493957054}" ShortID="481455967">
+																	<Language>SFX</Language>
+																	<AudioFile>Player_Skill_Skill_03_Finish_Sound_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Player_Skill_Skill_03_Finish_Sound_01" ID="{8F8323A7-C369-4AB9-B910-E2E493957054}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+												<RandomSequenceContainer Name="Cancel Sound" ID="{C1FAE4A4-3223-4967-B7E6-8CDABF668C59}" ShortID="344649535">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Player_Skill_Skill_03_Cancel_Sound_01" ID="{9D60AB50-1E11-4C83-8CB7-88E9637219FA}" ShortID="237526691">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>5</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Player_Skill_Skill_03_Cancel_Sound_01" ID="{E71513AD-01A9-45EA-8422-F0935E027CE6}" ShortID="181165547">
+																	<Language>SFX</Language>
+																	<AudioFile>Player_Skill_Skill_03_Cancel_Sound_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Player_Skill_Skill_03_Cancel_Sound_01" ID="{E71513AD-01A9-45EA-8422-F0935E027CE6}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+												<RandomSequenceContainer Name="Loop Sound" ID="{2E1CD460-9EEC-40D8-9345-249FC728C1C5}" ShortID="881611401">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Player_Skill_Skill_03_Loop_Sound_01" ID="{E7FF80EC-5BAF-4044-ABBF-3F0F8AD1B9EA}" ShortID="244935322">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>3</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Player_Skill_Skill_03_Loop_Sound_01" ID="{3C0240B1-F9BF-4612-8780-4989A7A848D2}" ShortID="311219287">
+																	<Language>SFX</Language>
+																	<AudioFile>Player_Skill_Skill_03_Loop_Sound_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Player_Skill_Skill_03_Loop_Sound_01" ID="{3C0240B1-F9BF-4612-8780-4989A7A848D2}" Platform="Linked"/>
 															</ActiveSourceList>
 														</Sound>
 													</ChildrenList>
@@ -724,7 +947,7 @@
 															<PropertyList>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>2</Value>
+																		<Value>8</Value>
 																	</ValueList>
 																</Property>
 															</PropertyList>
@@ -744,32 +967,6 @@
 															</ChildrenList>
 															<ActiveSourceList>
 																<ActiveSource Name="Player_Skill_Transform_Cast_Voice_01" ID="{52A4A88A-BCA4-474B-9DC8-10712515E260}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
-														<Sound Name="Player_Skill_Transform_Cast_Voice_02" ID="{8A9EF94A-434F-4E6A-B8DC-9044FE5CA78D}" ShortID="26004037">
-															<PropertyList>
-																<Property Name="Volume" Type="Real64">
-																	<ValueList>
-																		<Value>1</Value>
-																	</ValueList>
-																</Property>
-															</PropertyList>
-															<ReferenceList>
-																<Reference Name="Conversion">
-																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
-																</Reference>
-																<Reference Name="OutputBus">
-																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
-																</Reference>
-															</ReferenceList>
-															<ChildrenList>
-																<AudioFileSource Name="Player_Skill_Transform_Cast_Voice_02" ID="{9FF5055B-38D3-4D4A-B135-68B862C81A10}" ShortID="800846579">
-																	<Language>SFX</Language>
-																	<AudioFile>Player_Skill_Transform_Cast_Voice_02.wav</AudioFile>
-																</AudioFileSource>
-															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="Player_Skill_Transform_Cast_Voice_02" ID="{9FF5055B-38D3-4D4A-B135-68B862C81A10}" Platform="Linked"/>
 															</ActiveSourceList>
 														</Sound>
 													</ChildrenList>
@@ -792,6 +989,13 @@
 													</ReferenceList>
 													<ChildrenList>
 														<Sound Name="Player_Skill_Transform_Finish_Voice_01" ID="{EC1C35BC-B2C3-46F7-A10A-47C18B3B7B77}" ShortID="559641461">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>12</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
 															<ReferenceList>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -808,6 +1012,238 @@
 															</ChildrenList>
 															<ActiveSourceList>
 																<ActiveSource Name="Player_Skill_Transform_Finish_Voice_01" ID="{53F7706D-42A5-4892-9B31-3B7D984DA2EE}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Sound" ID="{2C755C36-317F-4EAF-AA70-8A6AA4F59E5C}" ShortID="919781677">
+											<ChildrenList>
+												<RandomSequenceContainer Name="Hard Jump" ID="{76BEBF05-0CDC-4D4C-B83D-D6EEAF3341ED}" ShortID="1070735575">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Player_Skill_Transform_Sound_Hard_Jump_01" ID="{A42DE2BC-48F1-4883-9353-2BB19E1260AD}" ShortID="407189295">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>3</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Player_Skill_Transform_Sound_Hard_Jump_01" ID="{01306366-CC01-4717-BFCD-97D6D1015F88}" ShortID="223406883">
+																	<Language>SFX</Language>
+																	<AudioFile>Player_Skill_Transform_Sound_Hard_Jump_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Player_Skill_Transform_Sound_Hard_Jump_01" ID="{01306366-CC01-4717-BFCD-97D6D1015F88}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+												<RandomSequenceContainer Name="Heart Sign" ID="{3E1A2C53-D441-49C0-8D73-7159D80E3596}" ShortID="718690257">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Player_Skill_Transform_Sound_Heart_Sign_01" ID="{2F155D42-4342-4896-86CF-BF08B210E050}" ShortID="848367075">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>4</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Player_Skill_Transform_Sound_Heart_Sign_01" ID="{7DB1A1EE-EC62-4C9C-B167-A96060003140}" ShortID="187526107">
+																	<Language>SFX</Language>
+																	<AudioFile>Player_Skill_Transform_Sound_Heart_Sign_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Player_Skill_Transform_Sound_Heart_Sign_01" ID="{7DB1A1EE-EC62-4C9C-B167-A96060003140}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+												<RandomSequenceContainer Name="Spin Stick" ID="{2B948FA1-30AE-4A1C-A2BD-6D16E3CF6D62}" ShortID="1025869452">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Player_Skill_Transform_Sound_Spin_stick_01" ID="{24EA6E8B-4A9C-478D-A76A-A96D5B1AB5EE}" ShortID="68969221">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>8</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Player_Skill_Transform_Sound_Spin_stick_01" ID="{3BC7E3C5-71E3-41A6-949E-BEF6561073C0}" ShortID="378937012">
+																	<Language>SFX</Language>
+																	<AudioFile>Player_Skill_Transform_Sound_Spin_stick_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Player_Skill_Transform_Sound_Spin_stick_01" ID="{3BC7E3C5-71E3-41A6-949E-BEF6561073C0}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+												<RandomSequenceContainer Name="Stick_Grip" ID="{F6217D8B-E807-4BCA-9EDB-175CE8DA7D1A}" ShortID="469121669">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Player_Skill_Transform_Sound_Stick_Grip_01" ID="{67FAEEE1-E428-47B0-A8E3-7775CE27DF69}" ShortID="156904296">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>3</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Player_Skill_Transform_Sound_Stick_Grip_01" ID="{49AAFFA0-E05B-4932-8FB6-310D1B9D42F1}" ShortID="29482124">
+																	<Language>SFX</Language>
+																	<AudioFile>Player_Skill_Transform_Sound_Stick_Grip_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Player_Skill_Transform_Sound_Stick_Grip_01" ID="{49AAFFA0-E05B-4932-8FB6-310D1B9D42F1}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+												<RandomSequenceContainer Name="Swing" ID="{BD07FE6B-53C5-48A3-865C-8EF87CC1D483}" ShortID="724348679">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Player_Skill_Transform_Sound_Swing_01" ID="{F5413D1C-918A-432F-BA88-92CB95DA44F0}" ShortID="695377562">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>5</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Player_Skill_Transform_Sound_Swing_01" ID="{0F737E1B-6BDF-4567-85CE-E8748112DCE2}" ShortID="794880557">
+																	<Language>SFX</Language>
+																	<AudioFile>Player_Skill_Transform_Sound_Swing_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Player_Skill_Transform_Sound_Swing_01" ID="{0F737E1B-6BDF-4567-85CE-E8748112DCE2}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+												<RandomSequenceContainer Name="Violet Beam" ID="{13C802F1-8164-43DD-88FD-CDDE3CBF1E4D}" ShortID="847038931">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Player_Skill_Transform_Sound_Violet_Beam_01" ID="{1FC5F125-244E-446C-BC9F-F8B8276956BE}" ShortID="77691368">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>6</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Player_Skill_Transform_Sound_Violet_Beam_01" ID="{2DF8335A-BB20-45C7-A028-4AC8116C03F8}" ShortID="47095344">
+																	<Language>SFX</Language>
+																	<AudioFile>Player_Skill_Transform_Sound_Violet_Beam_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Player_Skill_Transform_Sound_Violet_Beam_01" ID="{2DF8335A-BB20-45C7-A028-4AC8116C03F8}" Platform="Linked"/>
 															</ActiveSourceList>
 														</Sound>
 													</ChildrenList>
@@ -840,7 +1276,7 @@
 														</Property>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
-																<Value>8</Value>
+																<Value>6</Value>
 															</ValueList>
 															<ModifierList>
 																<ModifierInfo>
@@ -894,7 +1330,7 @@
 															<PropertyList>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>-7</Value>
+																		<Value>-11</Value>
 																	</ValueList>
 																</Property>
 															</PropertyList>
@@ -920,7 +1356,7 @@
 															<PropertyList>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>-5</Value>
+																		<Value>-10</Value>
 																	</ValueList>
 																</Property>
 															</PropertyList>
@@ -1157,6 +1593,9 @@
 															</ModifierList>
 														</Property>
 														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-3</Value>
+															</ValueList>
 															<ModifierList>
 																<ModifierInfo>
 																	<Modifier Name="" ID="{BF0B1C1F-9B9C-40BB-80BF-0F7E526CBDFF}">
@@ -1543,6 +1982,13 @@
 										<Folder Name="Cast Sound" ID="{5A55FC60-33CC-4B15-B471-B46983BF6F76}" ShortID="73280939">
 											<ChildrenList>
 												<RandomSequenceContainer Name="Rage" ID="{824D71D7-6B74-4D22-B29F-310D27BB7154}" ShortID="11550410">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>12</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -1574,6 +2020,13 @@
 													</ChildrenList>
 												</RandomSequenceContainer>
 												<RandomSequenceContainer Name="Smile" ID="{31283663-BD3E-43DB-85E7-CDDFD2C8964C}" ShortID="776839819">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>12</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -1605,6 +2058,13 @@
 													</ChildrenList>
 												</RandomSequenceContainer>
 												<RandomSequenceContainer Name="Sad" ID="{7D9DDFEA-2AF3-45CA-9EF5-AD179246BC72}" ShortID="392447488">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>8</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -1655,6 +2115,13 @@
 													</ChildrenList>
 												</RandomSequenceContainer>
 												<RandomSequenceContainer Name="Surprised" ID="{012675C5-3CCC-4EAB-8BA3-1E6582E507E9}" ShortID="927725265">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>10</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>

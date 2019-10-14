@@ -83,7 +83,7 @@ public class MacFSMManager : FSMManager
     public AttackType CurrentAttackType = AttackType.NONE;
 
     public NavMeshAgent agent;
-
+    
     protected override void Awake()
     {
         base.Awake();
@@ -153,7 +153,7 @@ public class MacFSMManager : FSMManager
             return;
         }
 
-        if (Stat.Hp <= 0)
+        if (Stat.Hp <= 0 || PlayerFSMManager.Instance.isDead)
         {
             SetDeadState();
         }

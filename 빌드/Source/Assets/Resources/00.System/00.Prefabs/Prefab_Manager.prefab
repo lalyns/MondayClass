@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3422128152788782814}
   - component: {fileID: 1756816077}
   - component: {fileID: 5283286801710436719}
+  - component: {fileID: 6505339169610290423}
   m_Layer: 0
   m_Name: Prefab_Manager
   m_TagString: GameController
@@ -72,7 +73,7 @@ MonoBehaviour:
       all: 1
       sfx: 1
       voice: 1
-      bgm: 1
+      bgm: 0
       ambient: 1
   WidthRatio: 0
   HeightRatio: 0
@@ -119,6 +120,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2834ee53e883afd47a7faa4d7dc3ceb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6505339169610290423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2274891494096624079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3712c87ee09234990186754da3011e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogs: []
 --- !u!1 &2274891494841528154
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,6 +508,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2274891494096624078}
     m_Modifications:
+    - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
+      propertyPath: m_Name
+      value: CFX3_MagicAura_B_Runic
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -536,18 +562,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
-      propertyPath: m_Name
-      value: CFX3_MagicAura_B_Runic
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19800006, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}

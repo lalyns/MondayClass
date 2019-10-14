@@ -151,23 +151,6 @@ public class PlayerAnimEvent : MonoBehaviour
     //        BreakTime();
     //}
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.tag == "Wall")
-        {
-            cam.isWallState = true;
-            Debug.Log("벽");
-
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.transform.tag == "Wall")
-        {
-            cam.isWallState = false;
-            Debug.Log("벽끝");
-        }
-
-    }
+  
 }
 

@@ -49,7 +49,7 @@ public class FollowCam : MonoBehaviour
 
         if (isWall)
         {
-            Debug.Log("iswall인상태");
+            //Debug.Log("iswall인상태");
         }
         if (isWallState)
         {
@@ -57,21 +57,21 @@ public class FollowCam : MonoBehaviour
             {
                 //보간함수를 사용하여 카메라의 높이를 부드럽게 상승시킴.
                 //height = Mathf.Lerp(height, heightAboveWall, Time.deltaTime * overDamping);
-                isWall = true;
+                //isWall = true;
                 //if (!isMax)
                 distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping * 10f);
 
-                Debug.Log("체크스페어상태");
+                //Debug.Log("체크스페어상태");
             }
         }
-        else if (!isWall)
+        else// if (!isWall)
         {
             //보간함수를 이용하여 카메라의 높이를 부드럽게 하강시킨다.
             height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping * 5f);
             if (!isMax)
                 distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping * 10f);
 
-            Debug.Log("체크스페어아닌상태");
+            //Debug.Log("체크스페어아닌상태");
         }
         //플레이어가 장애물에 가려졌는지를 판단할 레이캐스트의 높낮이를 설정
         Vector3 castTarget = target.position + (target.up * castOffset);
@@ -117,7 +117,7 @@ public class FollowCam : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameStatus.currentGameState == CurrentGameState.Select)
+        if (GameStatus.currentGameState == CurrentGameState.Select || GameStatus.currentGameState == CurrentGameState.Dialog)
             return;
         r_y = Input.GetAxis("Mouse Y");
 

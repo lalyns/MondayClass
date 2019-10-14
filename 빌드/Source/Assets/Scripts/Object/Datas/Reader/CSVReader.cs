@@ -45,6 +45,7 @@ public class CSVReader
                 {
                     finalvalue = f;
                 }
+                
                 entry[header[j]] = finalvalue;
             }
             list.Add(entry);

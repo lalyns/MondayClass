@@ -55,8 +55,8 @@ public class TiberFSMManager : FSMManager
     public Transform _AttackTransform;
 
     //렌더
-    //public MeshRenderer _MR;
-    //public List<Material> materialList = new List<Material>();
+    public SkinnedMeshRenderer _MR;
+    public List<Material> materialList = new List<Material>();
 
 
     public HPBar _HPBar;
@@ -98,6 +98,8 @@ public class TiberFSMManager : FSMManager
 
         if (!GameManager.Instance.uIActive.monster)
             _HPBar.gameObject.SetActive(false);
+
+        materialList.AddRange(_MR.materials);
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
@@ -156,7 +158,7 @@ public class TiberFSMManager : FSMManager
             return;
         }
 
-        if (Stat.Hp <= 0)
+        if (Stat.Hp <= 0 || PlayerFSMManager.Instance.isDead)
         {
             SetDeadState();
         }
