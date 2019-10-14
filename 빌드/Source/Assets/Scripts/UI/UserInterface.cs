@@ -404,11 +404,17 @@ namespace MC.UI
 
         #endregion
 
-        #region Clear Mission
+        #region Clear/Fail Mission
         public UIClearMission ClearMission => CanvasInfo.Instance.clearUI;
         public static void ClearMissionSetActive(bool value)
         {
             Instance.ClearMission.gameObject.SetActive(value);
+        }
+
+        public UIFailMission FailMission => CanvasInfo.Instance.failUI;
+        public static void FailMissionSetActive(bool value)
+        {
+            Instance.FailMission.gameObject.SetActive(value);
         }
 
         #endregion
