@@ -63,7 +63,7 @@ public class GameStatus : MonoBehaviour
         }
         else
         {
-
+            return;
         }
     }
 
@@ -156,7 +156,7 @@ public class GameStatus : MonoBehaviour
     public void Update()
     {
         // 유니티 에디터에서 작동하는 에디터 기능
-        if (Input.GetKey(KeyCode.LeftAlt) && currentGameState == CurrentGameState.Start)
+        if (Input.GetKey(KeyCode.LeftAlt) /*&& currentGameState == CurrentGameState.Start*/)
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
@@ -250,6 +250,12 @@ public class GameStatus : MonoBehaviour
             CanvasInfo.PauseMenuActive(isPause);
         }
 
+        if (UserInterface.Instance.ClearMission.gameObject.activeSelf &&
+            Input.GetKeyDown(KeyCode.Space))
+        {
+            UserInterface.Instance.ClearMission.gameObject.SetActive(false);
+        }
+
         if (dummySet)
         {
             SummonEffect();
@@ -263,18 +269,12 @@ public class GameStatus : MonoBehaviour
 #if UNITY_STANDALONE
 
 #endif
-        try
+        if (currentGameState == CurrentGameState.Start &&
+            MissionManager.Instance.CurrentMission.MissionOperate && 
+            !MissionManager.Instance.CurrentMission.missionEnd)
         {
-            if (MissionManager.Instance.CurrentMission.MissionOperate)
-            {
-                _LimitTime -= Time.deltaTime;
-            }
+            _LimitTime -= Time.deltaTime;
         }
-        catch
-        {
-
-        }
-
     }
 
     void GameStatusCheck()
