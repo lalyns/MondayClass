@@ -117,7 +117,7 @@ public class FollowCam : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if ((GameStatus.currentGameState == CurrentGameState.Select || GameStatus.currentGameState == CurrentGameState.Dialog) || player.isSkill4)
+        if ((GameStatus.currentGameState == CurrentGameState.Select || GameStatus.currentGameState == CurrentGameState.Dialog) || player.isSkill4 || player.isDead)
             return;
         r_y = Input.GetAxis("Mouse Y");
 

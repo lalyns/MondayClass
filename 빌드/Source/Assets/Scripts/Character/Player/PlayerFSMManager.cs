@@ -379,6 +379,11 @@ public class PlayerFSMManager : FSMManager
         if (isInputLock)
             return;
 
+        if(Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.D))
+        {
+            SetDeadState();
+        }
+
 
         if (Stat.Hp <= 0)
         {
@@ -522,7 +527,7 @@ public class PlayerFSMManager : FSMManager
 
         r_x = Input.GetAxis("Mouse X");
 
-        if (GameManager.Instance.CharacterControl && !isSpecial && !isSkill4)
+        if (GameManager.Instance.CharacterControl && !isSpecial && !isSkill4 && !isDead)
             _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
 
     }
@@ -641,7 +646,7 @@ public class PlayerFSMManager : FSMManager
                 Change_Effect.SetActive(false);
                 //SetState(PlayerState.IDLE);
             }
-            if (specialTimer >= 6f)
+            if (specialTimer >= 6.7f)
             {
                 specialTimer = 0;
                 TimeLine.SetActive(false);
@@ -1133,6 +1138,8 @@ public class PlayerFSMManager : FSMManager
     {
 
     }
+
+
     public void Skill4()
     {
         if (isSkill4 || isNormal)
@@ -1149,6 +1156,18 @@ public class PlayerFSMManager : FSMManager
             _monster = GameStatus.Instance.ActivedMonsterList;
             for (int i = 0; i < _monster.Count; i++)
             {
+                bool isTiber = false;
+                if (isTiber == true && i == 6) continue;
+
+                foreach(GameObject mob in _monster)
+                {
+                    if(mob.GetComponent<FSMManager>().monsterType == MonsterType.Tiber)
+                    {
+                        isTiber = true;
+                        // 여기서 내가 티버를 찾았고.  
+                        // 티버를 시트7번에 앉혀.
+                    }
+                }
                 _monster[i].transform.position = Seats[i].transform.position;
                 _monster[i].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
             }
