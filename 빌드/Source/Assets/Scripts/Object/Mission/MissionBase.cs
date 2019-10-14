@@ -4,6 +4,7 @@ using UnityEngine;
 using MC.SceneDirector;
 using UnityEngine.Playables;
 using MC.Sound;
+using MC.UI;
 
 namespace MC.Mission
 {
@@ -121,6 +122,22 @@ namespace MC.Mission
             if (!GameStatus.Instance.usingKeward && MissionManager.Instance.CurrentMissionType != MissionType.Annihilation)
             {
                 GameStatus.Instance.RemoveAllActiveMonster();
+            }
+
+            if(GameStatus.Instance.StageLevel == 3)
+            {
+                var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+                UserInterface.DialogSetActive(true);
+                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5]);
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            }
+
+            if(GameStatus.Instance.StageLevel == 8)
+            {
+                var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+                UserInterface.DialogSetActive(true);
+                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6]);
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
             }
 
             Exit._PortalEffect.SetActive(true);

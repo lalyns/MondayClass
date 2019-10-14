@@ -151,7 +151,7 @@
 			float4 Lightingtoon(SurfaceOutput s, float3 lightDir, float3 viewDir, float atten) {
 				
 			
-			float ndotL = dot(s.Normal, lightDir) * _ShadowWidth + _AmbientWidth;
+			float ndotL = saturate(dot(s.Normal, lightDir) * _ShadowWidth + _AmbientWidth) * atten;
 
 			//float Shadow = step(0.1, 0.9, ndotL);
 			float Shadow = step(0.5, ndotL);
@@ -171,7 +171,7 @@
 
 
 			float4 final;
-			final.rgb = s.Albedo * _LightColor0.rgb;
+			final.rgb = s.Albedo * _LightColor0.rgb * (atten * 2);
 			final.a = s.Alpha ;
 
 

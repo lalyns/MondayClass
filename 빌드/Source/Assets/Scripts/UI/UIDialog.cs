@@ -9,7 +9,10 @@ namespace MC.UI
     public class DialogUI
     {
         public GameObject gameObject;
-        public Text text;
+        public Text conversation;
+        public Image rightStanding;
+        public Image leftStanding;
+        public Image textUI;
     }
 
     public enum TalkerType
@@ -23,9 +26,7 @@ namespace MC.UI
 
     public class UIDialog : MonoBehaviour
     {
-        public DialogUI[] dialogs;
-
-        [HideInInspector] public DialogUI currentDialogUI;
+        public DialogUI dialogUI;
 
         public TalkerType currentTalker = TalkerType.None;
 
@@ -33,22 +34,22 @@ namespace MC.UI
         public int dialogLength = 0;
         int currentTurn = 1;
 
-        public Sprite[] right;
-        public Sprite[] left;
+        public Sprite[] standing;
         public Sprite[] text;
 
         public void SetDialog(Dialog dialog)
         {
             currentDialog = dialog;
             dialogLength = currentDialog.talker.Count;
-            SetDialog(dialog.talker[0], dialog.dialog[0]);
+            currentTurn = 1;
+            SetDialog(0);
         }
 
         public void NextDialog()
         {
             if(currentTurn < dialogLength)
             {
-                SetDialog(currentDialog.talker[currentTurn], currentDialog.dialog[currentTurn]);
+                SetDialog(currentTurn);
                 currentTurn++;
             }
             else
@@ -57,59 +58,52 @@ namespace MC.UI
             }
         }
 
-        public void SetTalker(TalkerType talker)
+        //public void SetTalker(TalkerType talker)
+        //{
+        //    switch (talker)
+        //    {
+        //        case TalkerType.Galaxy:
+        //            dialogs[0].gameObject.SetActive(true);
+        //            dialogs[1].gameObject.SetActive(false);
+        //            dialogs[2].gameObject.SetActive(false);
+        //            currentDialogUI = dialogs[0];
+        //            break;
+        //        case TalkerType.Staff:
+        //            dialogs[0].gameObject.SetActive(false);
+        //            dialogs[1].gameObject.SetActive(true);
+        //            dialogs[2].gameObject.SetActive(false);
+        //            currentDialogUI = dialogs[1];
+        //            break;
+        //        case TalkerType.Riris:
+        //            dialogs[0].gameObject.SetActive(false);
+        //            dialogs[1].gameObject.SetActive(false);
+        //            dialogs[2].gameObject.SetActive(true);
+        //            currentDialogUI = dialogs[2];
+        //            break;
+        //        case TalkerType.None:
+        //            dialogs[0].gameObject.SetActive(false);
+        //            dialogs[1].gameObject.SetActive(false);
+        //            dialogs[2].gameObject.SetActive(false);
+
+        //            break;
+
+        //    }
+        //}
+
+        public void SetDialog(int turn)
         {
-            switch (talker)
-            {
-                case TalkerType.Galaxy:
-                    dialogs[0].gameObject.SetActive(true);
-                    dialogs[1].gameObject.SetActive(false);
-                    dialogs[2].gameObject.SetActive(false);
-                    currentDialogUI = dialogs[0];
-                    break;
-                case TalkerType.Staff:
-                    dialogs[0].gameObject.SetActive(false);
-                    dialogs[1].gameObject.SetActive(true);
-                    dialogs[2].gameObject.SetActive(false);
-                    currentDialogUI = dialogs[1];
-                    break;
-                case TalkerType.Riris:
-                    dialogs[0].gameObject.SetActive(false);
-                    dialogs[1].gameObject.SetActive(false);
-                    dialogs[2].gameObject.SetActive(true);
-                    currentDialogUI = dialogs[2];
-                    break;
-                case TalkerType.None:
-                    dialogs[0].gameObject.SetActive(false);
-                    dialogs[1].gameObject.SetActive(false);
-                    dialogs[2].gameObject.SetActive(false);
-
-                    break;
-                case TalkerType.End:
-                    dialogs[0].gameObject.SetActive(false);
-                    dialogs[1].gameObject.SetActive(false);
-                    dialogs[2].gameObject.SetActive(false);
-                    currentDialogUI = null;
-                    break;
-
-            }
-        }
-
-        public void SetDialog(TalkerType talker, string str)
-        {
-            if (currentTalker != talker)
-            {
-                SetTalker(talker);
-                currentTalker = talker;
-            }
-
-            currentDialogUI.text.text = str;
+            currentTalker = currentDialog.talker[turn];
+            dialogUI.conversation.text = currentDialog.dialog[turn];
+            dialogUI.rightStanding.sprite = standing[currentDialog.right[turn]];
+            dialogUI.leftStanding.sprite = standing[currentDialog.left[turn]];
+            dialogUI.textUI.sprite = text[currentDialog.text[turn]];
         }
 
         public void EndDialog()
         {
             GameStatus.SetCurrentGameState(CurrentGameState.Wait);
             UserInterface.DialogSetActive(false);
+            GameManager.SetSceneSetting();
         }
     }
 
