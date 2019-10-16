@@ -30,7 +30,7 @@ namespace MC.Mission
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 15f, 1 << 17, QueryTriggerInteraction.Collide))
             {
-                _FloorEffect.transform.position = hit.point;
+                _FloorEffect.transform.position = hit.point + Vector3.up * 0.05f;
             }
 
         }
