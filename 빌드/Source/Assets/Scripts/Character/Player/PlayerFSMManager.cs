@@ -145,6 +145,7 @@ public class PlayerFSMManager : FSMManager
     public GameObject Special;
     public GameObject WeaponTransformEffect;
     public GameObject TimeLine, TimeLine2;
+    public GameObject ClearTimeLine, ClearTimeLine2;
     public GameObject Change_Effect;
     public float specialTimer = 0;
     CapsuleCollider Attack_Capsule;
@@ -155,7 +156,8 @@ public class PlayerFSMManager : FSMManager
 
     CameraManager camManager;
     public FollowCam followCam;
-    Camera mainCamera;
+    [HideInInspector]
+    public Camera mainCamera;
     PostProcessVolume volume;
     PostProcessLayer layer;
     PostProcessEffectSettings asdf;

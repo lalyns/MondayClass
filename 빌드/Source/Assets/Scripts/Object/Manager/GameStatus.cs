@@ -13,6 +13,7 @@ public enum CurrentGameState
     Select,
     Wait,
     Dialog,
+    MissionClear,
     Dead,
 }
 
@@ -255,6 +256,7 @@ public class GameStatus : MonoBehaviour
             Input.GetKeyDown(KeyCode.Space))
         {
             UserInterface.Instance.ClearMission.gameObject.SetActive(false);
+            currentGameState = CurrentGameState.Wait;
         }
 
         if (dummySet)
