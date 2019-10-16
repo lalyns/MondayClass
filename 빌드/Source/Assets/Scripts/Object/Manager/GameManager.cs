@@ -172,6 +172,7 @@ public class GameManager : MonoBehaviour
 
     public static void SetFadeInOut(System.Action callback,  bool value)
     {
+        Debug.Log("ㅁㅁ");
         if (value)
             Instance.StartCoroutine(UserInterface.FadeIn(callback, 20));
         else
@@ -184,33 +185,32 @@ public class GameManager : MonoBehaviour
         CanvasInfo.Instance.SetRenderCam();
         UserInterface.Instance.SetValue();
 
-        Instance.Invoke("ScriptCheck", 5f);
     }
 
-    private void ScriptCheck()
+    public static void ScriptCheck()
     {
         if (MCSceneManager.currentScene != MCSceneManager.TITLE)
         {
             if (GameStatus.Instance.StageLevel == 0)
             {
-                var dialogEvent = GetComponent<DialogEvent>();
+                var dialogEvent = Instance.GetComponent<DialogEvent>();
                 UserInterface.DialogSetActive(true);
                 UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4]);
                 GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
                 return;
             }
 
-            if (MCSceneManager.currentScene == MCSceneManager.BOSS)
-            {
-                var dialogEvent = GetComponent<DialogEvent>();
-                UserInterface.DialogSetActive(true);
-                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[7]);
-                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-                return;
-            }
+            //if (MCSceneManager.currentScene == MCSceneManager.BOSS)
+            //{
+            //    var dialogEvent = GetComponent<DialogEvent>();
+            //    UserInterface.DialogSetActive(true);
+            //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[7]);
+            //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            //    return;
+            //}
         }
 
-        AfterDialog();
+        Instance.AfterDialog();
     }
 
     public void AfterDialog()
@@ -245,6 +245,7 @@ public class GameManager : MonoBehaviour
 
     public void StageSet()
     {
+        GameStatus.currentGameState = CurrentGameState.Wait;
         CanvasInfo.Instance.PlayStartAnim();
 
         UserInterface.SetPointerMode(false);
@@ -262,6 +263,7 @@ public class GameManager : MonoBehaviour
 
     public void BossSet()
     {
+        GameStatus.currentGameState = CurrentGameState.Wait;
         UserInterface.SetPointerMode(false);
 
         if (GameManager.Instance.CineMode)
