@@ -11,6 +11,11 @@ public class TiberHitCollider : MonoBehaviour
         tiber = GetComponentInParent<TiberFSMManager>();
     }
 
+    private void FixedUpdate()
+    {
+        this.transform.position = tiber.transform.position;
+    }
+
     public void OnHitForMonster(AttackType attackType)
     {
         if ((attackType == AttackType.ATTACK1

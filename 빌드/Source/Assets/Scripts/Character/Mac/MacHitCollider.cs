@@ -11,6 +11,11 @@ public class MacHitCollider : MonoBehaviour
         mac = GetComponentInParent<MacFSMManager>();
     }
 
+    private void FixedUpdate()
+    {
+        this.transform.position = mac.transform.position;
+    }
+
     public void OnHitForMonster(AttackType attackType)
     {
         if ((attackType == AttackType.ATTACK1
