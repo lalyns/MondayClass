@@ -22,7 +22,6 @@ public class MissionEnter : MonoBehaviour
             if (!MissionManager.Instance.CurrentMission.MissionOperate &&
                 !MissionManager.Instance.CurrentMission.missionEnd)
             {
-                Debug.Log("START");
                 MissionManager.StartMission();
                 GameStatus.SetCurrentGameState(CurrentGameState.Start);
             }
