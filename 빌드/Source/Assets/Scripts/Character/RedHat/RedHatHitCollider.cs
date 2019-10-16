@@ -12,6 +12,11 @@ public class RedHatHitCollider : MonoBehaviour
         redhat = GetComponentInParent<RedHatFSMManager>();
     }
 
+    private void FixedUpdate()
+    {
+        this.transform.position = redhat.transform.position;
+    }
+
     public void OnHitForMonster(AttackType attackType)
     {
 

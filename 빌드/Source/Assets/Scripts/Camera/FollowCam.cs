@@ -45,14 +45,15 @@ public class FollowCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (distance <= 1.5f)
+        {
+            distance = 1.5f;
+        }
         //구체 형태의 충돌체로 충돌 여부를 검사
 
-        if (isWall)
-        {
-            //Debug.Log("iswall인상태");
-        }
         if (isWallState)
         {
+            height = Mathf.Lerp(height, 1.3f, Time.deltaTime * 3f);
             if (Physics.CheckSphere(transform.position, 0))
             {
                 //보간함수를 사용하여 카메라의 높이를 부드럽게 상승시킴.
@@ -80,30 +81,27 @@ public class FollowCam : MonoBehaviour
         //충돌 정보를 반환받을 변수
         RaycastHit hit;
 
-        if (isWallState)
+        //레이캐스트를 투사해 장애물 여부 판단
+        if (Physics.Raycast(transform.position, castDir, out hit, Mathf.Infinity))
         {
-            //레이캐스트를 투사해 장애물 여부 판단
-            if (Physics.Raycast(transform.position, castDir, out hit, Mathf.Infinity))
+            //플레이어가 레이캐스트에 맞지 않았을 경우
+            if (!hit.collider.CompareTag("Player"))
             {
-                //플레이어가 레이캐스트에 맞지 않았을 경우
-                if (!hit.collider.CompareTag("Player"))
-                {
-                    isWall = true;
-                    //보간함수 사용 카메라 상승
-                    //height = Mathf.Lerp(height, heightAboveObstacle, Time.deltaTime * overDamping / 2f);
-                    if (!isMax)
-                        distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping / 3.5f);
-                }
+                //isWall = true;
+                //보간함수 사용 카메라 상승
+                //height = Mathf.Lerp(height, heightAboveObstacle, Time.deltaTime * overDamping / 2f);
+                if (!isMax)
+                    distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping / 3.5f);
             }
         }
         else
-            {
-                height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping * 10f);
-                if (!isMax)
-                    distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping * 10f);
-                isWall = false;
-            }        
-            
+        {
+            height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping * 10f);
+            if (!isMax)
+                distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping * 10f);
+            //isWall = false;
+        }
+
     }
     public float r_y = 0.00f;
     [Header("Y축 마우스감도, 최소, 최대")]
@@ -122,7 +120,8 @@ public class FollowCam : MonoBehaviour
     {
         if ((GameStatus.currentGameState == CurrentGameState.Select || GameStatus.currentGameState == CurrentGameState.Dialog) || player.isSkill4 || player.isDead)
             return;
-        r_y = Input.GetAxis("Mouse Y");
+        if(!isWallState)
+            r_y = Input.GetAxis("Mouse Y");
 
         if (!isWallState)
         {
@@ -145,10 +144,7 @@ public class FollowCam : MonoBehaviour
             islock = true;
         }
 
-        if(distance <= 1)
-        {
-            distance = 1;
-        }
+      
 
         // 마우스 위치와 높이값
         if (!isMax && !isMin)
@@ -214,7 +210,7 @@ public class FollowCam : MonoBehaviour
                 isMin = false;
             }
         }
-        if(isMax && (distance == 1) && (r_y >= 0.001f))
+        if (isMax && (distance == 1) && (r_y >= 0.001f))
         {
             r_y = 0;
         }
@@ -248,7 +244,7 @@ public class FollowCam : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-       if(other.transform.tag == "Wall")
+        if (other.transform.tag == "Wall")
         {
             Debug.Log("벽에닿은상태");
         }
