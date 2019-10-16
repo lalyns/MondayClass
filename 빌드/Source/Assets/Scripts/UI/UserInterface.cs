@@ -398,6 +398,7 @@ namespace MC.UI
         public UIDialog Dialog => CanvasInfo.Instance.dialog;
         public static void DialogSetActive(bool value)
         {
+            BlurSet(true);
             Instance.Dialog.gameObject.SetActive(value);
         }
 

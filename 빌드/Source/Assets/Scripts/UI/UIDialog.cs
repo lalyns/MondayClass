@@ -37,11 +37,19 @@ namespace MC.UI
         public Sprite[] standing;
         public Sprite[] text;
 
-        public void SetDialog(Dialog dialog)
+        System.Action NextAction;
+
+        public void SetNextAction(System.Action action)
+        {
+            NextAction = action;
+        }
+
+        public void SetDialog(Dialog dialog, System.Action action)
         {
             currentDialog = dialog;
             dialogLength = currentDialog.talker.Count;
             currentTurn = 1;
+            SetNextAction(action);
             SetDialog(0);
         }
 
@@ -58,38 +66,6 @@ namespace MC.UI
             }
         }
 
-        //public void SetTalker(TalkerType talker)
-        //{
-        //    switch (talker)
-        //    {
-        //        case TalkerType.Galaxy:
-        //            dialogs[0].gameObject.SetActive(true);
-        //            dialogs[1].gameObject.SetActive(false);
-        //            dialogs[2].gameObject.SetActive(false);
-        //            currentDialogUI = dialogs[0];
-        //            break;
-        //        case TalkerType.Staff:
-        //            dialogs[0].gameObject.SetActive(false);
-        //            dialogs[1].gameObject.SetActive(true);
-        //            dialogs[2].gameObject.SetActive(false);
-        //            currentDialogUI = dialogs[1];
-        //            break;
-        //        case TalkerType.Riris:
-        //            dialogs[0].gameObject.SetActive(false);
-        //            dialogs[1].gameObject.SetActive(false);
-        //            dialogs[2].gameObject.SetActive(true);
-        //            currentDialogUI = dialogs[2];
-        //            break;
-        //        case TalkerType.None:
-        //            dialogs[0].gameObject.SetActive(false);
-        //            dialogs[1].gameObject.SetActive(false);
-        //            dialogs[2].gameObject.SetActive(false);
-
-        //            break;
-
-        //    }
-        //}
-
         public void SetDialog(int turn)
         {
             currentTalker = currentDialog.talker[turn];
@@ -103,8 +79,11 @@ namespace MC.UI
         {
             GameStatus.SetCurrentGameState(CurrentGameState.Wait);
             UserInterface.DialogSetActive(false);
+            UserInterface.BlurSet(false);
             GameManager.Instance.AfterDialog();
             GameManager.Instance.CharacterControl = true;
+            NextAction();
+            NextAction = null;
         }
     }
 
