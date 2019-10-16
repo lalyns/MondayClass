@@ -221,26 +221,42 @@ public class GameManager : MonoBehaviour
         switch (num)
         {
             case 0:
+                Instance.TitleSet();
                 break;
             case 1:
-                Debug.Log("aa");
                 break;
             case 2:
-                Debug.Log("Stage1");
                 Instance.StageSet();
                 break;
             case 3:
-                Debug.Log("Stage2");
                 Instance.StageSet();
                 break;
             case 4:
-                Debug.Log("Stage3");
                 Instance.StageSet();
                 break;
             case 5:
                 Instance.BossSet();
                 break;
         }
+    }
+
+    public void TitleSet()
+    {
+        UserInterface.SetPlayerUserInterface(false);
+
+        UserInterface.SetMissionSelectionUI(false);
+        UserInterface.SetMissionProgressUserInterface(false);
+
+
+        MCSoundManager.Instance.objectSound.bgm.StopBGM(gameObject,
+            MCSoundManager.Instance.objectSound.bgm.stageBGM);
+        MCSoundManager.Instance.objectSound.bgm.StopBGM(gameObject,
+            MCSoundManager.Instance.objectSound.bgm.bossBGM);
+
+        MCSoundManager.Instance.objectSound.bgm.PlayBGM(gameObject,
+            MCSoundManager.Instance.objectSound.bgm.lobbyBGM);
+
+        CharacterControl = false;
     }
 
     public void StageSet()
