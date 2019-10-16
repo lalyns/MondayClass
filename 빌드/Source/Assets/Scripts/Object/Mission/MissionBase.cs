@@ -134,7 +134,7 @@ namespace MC.Mission
             {
                 var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
                 UserInterface.DialogSetActive(true);
-                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5]);
+                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () => { });
                 GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
             }
 
@@ -142,7 +142,7 @@ namespace MC.Mission
             {
                 var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
                 UserInterface.DialogSetActive(true);
-                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6]);
+                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () => { });
                 GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
             }
 
