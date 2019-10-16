@@ -7,7 +7,6 @@ public class PlayerCLEAR : FSMState
     [SerializeField]
     float _time = 0;
     bool isOne = false;
-    CurrentGameState currentGameState;
 
     public GameObject CMSet;
     public override void BeginState()
@@ -47,7 +46,7 @@ public class PlayerCLEAR : FSMState
                 isOne = true;
             }
         }      
-        if (currentGameState == CurrentGameState.Wait)
+        if (GameStatus.currentGameState == CurrentGameState.Wait)
         {
             CMSet.gameObject.SetActive(false);
             _manager.SetState(PlayerState.IDLE);

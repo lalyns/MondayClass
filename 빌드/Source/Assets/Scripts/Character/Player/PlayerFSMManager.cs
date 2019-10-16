@@ -538,7 +538,7 @@ public class PlayerFSMManager : FSMManager
 
         r_x = Input.GetAxis("Mouse X");
 
-        if (GameManager.Instance.CharacterControl && !isSpecial && !isSkill4 && !isDead)
+        if (GameManager.Instance.CharacterControl && !isSpecial && !isSkill4 && !isDead && GameStatus.currentGameState != CurrentGameState.MissionClear)
             _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
 
     }
