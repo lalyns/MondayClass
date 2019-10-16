@@ -7,9 +7,22 @@ public class PlayerCLEAR : FSMState
     [SerializeField]
     float _time = 0;
     bool isOne = false;
+    CurrentGameState currentGameState;
+
+    public GameObject CMSet;
     public override void BeginState()
     {
         base.BeginState();
+
+        if(_manager.CurrentClear == 0)
+        {
+            _manager.ClearTimeLine.SetActive(true);
+        }
+        else
+        {
+            _manager.ClearTimeLine2.SetActive(true);
+        }
+       
     }
 
     public override void EndState()
@@ -17,6 +30,8 @@ public class PlayerCLEAR : FSMState
         base.EndState();
         _time = 0;
         isOne = false;
+        _manager.ClearTimeLine.SetActive(false);
+        _manager.ClearTimeLine2.SetActive(false);
     }
 
     private void Update()
@@ -31,11 +46,12 @@ public class PlayerCLEAR : FSMState
                 _manager.Anim.SetFloat("CurrentClear", _manager.CurrentClear);
                 isOne = true;
             }
-        }
-        if (_time >= 4.1f)
+        }      
+        if (currentGameState == CurrentGameState.Wait)
         {
-            _time = 0;
+            CMSet.gameObject.SetActive(false);
             _manager.SetState(PlayerState.IDLE);
+            _manager.mainCamera.gameObject.SetActive(true);
             return;
         }
     }
