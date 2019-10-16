@@ -27,6 +27,7 @@ public enum PlayerState
     HIT2,
     DEAD,
     IDLE2,
+    CLEAR,
 }
 public enum AttackType
 {
@@ -211,6 +212,7 @@ public class PlayerFSMManager : FSMManager
     public int ShieldCount;
     [HideInInspector] public bool isSpecialIDLE;
     public int CurrentIdle;
+    public int CurrentClear;
 
     public List<GameObject> Shields = new List<GameObject>();
 
@@ -384,6 +386,11 @@ public class PlayerFSMManager : FSMManager
         {
             SetDeadState();
         }
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.Alpha0))
+        {
+            CurrentClear = Random.Range((int)0, (int)2);
+            SetState(PlayerState.CLEAR);
+        }
 
 
         if (Stat.Hp <= 0)
@@ -427,6 +434,7 @@ public class PlayerFSMManager : FSMManager
         Skill3Reset();
 
         _anim.SetFloat("CurrentIdle", (int)CurrentIdle);
+        _anim.SetFloat("CurrentClear", (int)CurrentClear);
 
         if (isNormal)
         {
@@ -642,7 +650,7 @@ public class PlayerFSMManager : FSMManager
             {
                 Normal.SetActive(false);
             }
-            if (specialTimer >= 5.82f - 1.5f)
+            if (specialTimer >= 5.82f)
             {
                 Change_Effect.SetActive(false);
                 //SetState(PlayerState.IDLE);
