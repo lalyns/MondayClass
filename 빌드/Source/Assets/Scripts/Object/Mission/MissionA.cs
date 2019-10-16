@@ -44,11 +44,11 @@ namespace MC.Mission
             if (currentWave == totalWave && GameStatus.Instance.ActivedMonsterList.Count == 0 && !missionEnd) {
                 missionEnd = true;
                 ClearMission();
-
+                PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
             }
-
-
         }
+
+
 
         public void MonsterCheck()
         {
