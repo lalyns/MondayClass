@@ -80,26 +80,29 @@ public class FollowCam : MonoBehaviour
         //충돌 정보를 반환받을 변수
         RaycastHit hit;
 
-        //레이캐스트를 투사해 장애물 여부 판단
-        if (Physics.Raycast(transform.position, castDir, out hit, Mathf.Infinity))
+        if (isWallState)
         {
-            //플레이어가 레이캐스트에 맞지 않았을 경우
-            if (!hit.collider.CompareTag("Player"))
+            //레이캐스트를 투사해 장애물 여부 판단
+            if (Physics.Raycast(transform.position, castDir, out hit, Mathf.Infinity))
             {
-                isWall = true;
-                //보간함수 사용 카메라 상승
-                //height = Mathf.Lerp(height, heightAboveObstacle, Time.deltaTime * overDamping / 2f);
-                if (!isMax)
-                    distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping / 3.5f);
-            }
-            else
-            {
-                height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping * 10f);
-                if(!isMax)
-                    distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping * 10f);
-                isWall = false;
+                //플레이어가 레이캐스트에 맞지 않았을 경우
+                if (!hit.collider.CompareTag("Player"))
+                {
+                    isWall = true;
+                    //보간함수 사용 카메라 상승
+                    //height = Mathf.Lerp(height, heightAboveObstacle, Time.deltaTime * overDamping / 2f);
+                    if (!isMax)
+                        distance = Mathf.Lerp(distance, nearDistance, Time.deltaTime * overDamping / 3.5f);
+                }
             }
         }
+        else
+            {
+                height = Mathf.Lerp(height, originHeight, Time.deltaTime * overDamping * 10f);
+                if (!isMax)
+                    distance = Mathf.Lerp(distance, originDistance, Time.deltaTime * overDamping * 10f);
+                isWall = false;
+            }        
             
     }
     public float r_y = 0.00f;
