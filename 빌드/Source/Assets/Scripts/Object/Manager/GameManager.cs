@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if(MCSceneManager.currentSceneNumber == MCSceneManager.TITLE)
+        if(MCSceneManager.currentScene == MCSceneManager.TITLE)
         {
             UserInterface.SetPointerMode(true);
 
@@ -85,14 +85,14 @@ public class GameManager : MonoBehaviour
                 MCSoundManager.Instance.objectSound.ambient.lobbyAmbient);
         }
 
-        if (MCSceneManager.currentSceneNumber == MCSceneManager.ANNIHILATION ||
-            MCSceneManager.currentSceneNumber == MCSceneManager.SURVIVAL     ||
-            MCSceneManager.currentSceneNumber == MCSceneManager.DEFENCE)
+        if (MCSceneManager.currentScene == MCSceneManager.ANNIHILATION ||
+            MCSceneManager.currentScene == MCSceneManager.SURVIVAL     ||
+            MCSceneManager.currentScene == MCSceneManager.DEFENCE)
         {
             UserInterface.SetPointerMode(false);
         }
 
-        if(MCSceneManager.currentSceneNumber == MCSceneManager.BOSS)
+        if(MCSceneManager.currentScene == MCSceneManager.BOSS)
         {
             TempDirector.Instance.SceneStart();
             UserInterface.SetPointerMode(false);
@@ -172,6 +172,7 @@ public class GameManager : MonoBehaviour
 
     public static void SetFadeInOut(System.Action callback,  bool value)
     {
+        Debug.Log("ㅁㅁ");
         if (value)
             Instance.StartCoroutine(UserInterface.FadeIn(callback, 20));
         else
@@ -184,49 +185,53 @@ public class GameManager : MonoBehaviour
         CanvasInfo.Instance.SetRenderCam();
         UserInterface.Instance.SetValue();
 
-        Instance.Invoke("ScriptCheck", 5f);
     }
 
-    private void ScriptCheck()
+    public static void ScriptCheck()
     {
-        if (GameStatus.Instance.StageLevel == 0)
+        if (MCSceneManager.currentScene != MCSceneManager.TITLE)
         {
-            var dialogEvent = GetComponent<DialogEvent>();
-            UserInterface.DialogSetActive(true);
-            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4]);
-            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            return;
+            if (GameStatus.Instance.StageLevel == 0)
+            {
+                var dialogEvent = Instance.GetComponent<DialogEvent>();
+                UserInterface.DialogSetActive(true);
+                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4], () => { });
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                return;
+            }
+
+            //if (MCSceneManager.currentScene == MCSceneManager.BOSS)
+            //{
+            //    var dialogEvent = GetComponent<DialogEvent>();
+            //    UserInterface.DialogSetActive(true);
+            //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[7]);
+            //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            //    return;
+            //}
         }
 
-        if(MCSceneManager.currentSceneNumber == MCSceneManager.BOSS)
-        {
-            var dialogEvent = GetComponent<DialogEvent>();
-            UserInterface.DialogSetActive(true);
-            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[7]);
-            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            return;
-        }
+        Instance.AfterDialog();
+    }
 
-        var num = MCSceneManager.currentSceneNumber;
+    public void AfterDialog()
+    {
+        var num = MCSceneManager.currentScene;
         GameStatus.SetCurrentGameState(CurrentGameState.Wait);
 
         switch (num)
         {
             case 0:
+                Instance.TitleSet();
                 break;
             case 1:
-                Debug.Log("aa");
                 break;
             case 2:
-                Debug.Log("Stage1");
                 Instance.StageSet();
                 break;
             case 3:
-                Debug.Log("Stage2");
                 Instance.StageSet();
                 break;
             case 4:
-                Debug.Log("Stage3");
                 Instance.StageSet();
                 break;
             case 5:
@@ -235,8 +240,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void TitleSet()
+    {
+        UserInterface.SetPlayerUserInterface(false);
+
+        UserInterface.SetMissionSelectionUI(false);
+        UserInterface.SetMissionProgressUserInterface(false);
+
+
+        MCSoundManager.Instance.objectSound.bgm.StopBGM(gameObject,
+            MCSoundManager.Instance.objectSound.bgm.stageBGM);
+        MCSoundManager.Instance.objectSound.bgm.StopBGM(gameObject,
+            MCSoundManager.Instance.objectSound.bgm.bossBGM);
+
+        MCSoundManager.Instance.objectSound.bgm.PlayBGM(gameObject,
+            MCSoundManager.Instance.objectSound.bgm.lobbyBGM);
+
+        CharacterControl = false;
+    }
+
     public void StageSet()
     {
+        GameStatus.currentGameState = CurrentGameState.Wait;
+        CanvasInfo.Instance.PlayStartAnim();
+
         UserInterface.SetPointerMode(false);
 
         UserInterface.SetAllUserInterface(true);
@@ -252,6 +279,7 @@ public class GameManager : MonoBehaviour
 
     public void BossSet()
     {
+        GameStatus.currentGameState = CurrentGameState.Wait;
         UserInterface.SetPointerMode(false);
 
         if (GameManager.Instance.CineMode)

@@ -9,10 +9,13 @@ using MC.SceneDirector;
 public enum CurrentGameState
 {
     Loading,
+    Tutorial,
     Start,
     Select,
     Wait,
     Dialog,
+    MissionClear,
+    Dead,
 }
 
 public class GameStatus : MonoBehaviour
@@ -63,7 +66,7 @@ public class GameStatus : MonoBehaviour
         }
         else
         {
-
+            return;
         }
     }
 
@@ -156,7 +159,7 @@ public class GameStatus : MonoBehaviour
     public void Update()
     {
         // 유니티 에디터에서 작동하는 에디터 기능
-        if (Input.GetKey(KeyCode.LeftAlt) && currentGameState == CurrentGameState.Start)
+        if (Input.GetKey(KeyCode.LeftAlt) /*&& currentGameState == CurrentGameState.Start*/)
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
@@ -195,7 +198,7 @@ public class GameStatus : MonoBehaviour
                 GameManager.Instance.OnInspectating = !GameManager.Instance.OnInspectating;
             }
 
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 PlayerFSMManager.Instance.SpecialGauge = 100.0f;
             }
@@ -211,19 +214,6 @@ public class GameStatus : MonoBehaviour
             {
                 MCSoundManager.SetSound();
             }
-
-            //if(Input.GetKeyDown(KeyCode.Mouse0) ||
-            //    Input.GetKeyDown(KeyCode.Space))
-            //{
-
-
-            //    UserInterface.Instance.Dialog.SetDialog(UserInterface.Instance.Dialog.dialog.dialog[dialogNum++]);
-
-            //    if(dialogNum >= 3)
-            //    {
-            //        dialogNum = 0;
-            //    }
-            //}
         }
 
         timer += Time.deltaTime;
@@ -242,12 +232,20 @@ public class GameStatus : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) &&
-            MCSceneManager.currentSceneNumber != MCSceneManager.TITLE &&
+            MCSceneManager.currentScene != MCSceneManager.TITLE &&
             currentGameState != CurrentGameState.Loading &&
             currentGameState != CurrentGameState.Dialog)
         {
             isPause = !isPause;
             CanvasInfo.PauseMenuActive(isPause);
+        }
+
+        if (currentGameState == CurrentGameState.MissionClear &&
+            UserInterface.Instance.ClearMission.gameObject.activeSelf &&
+            Input.GetKeyDown(KeyCode.Space))
+        {
+            UserInterface.Instance.ClearMission.gameObject.SetActive(false);
+            currentGameState = CurrentGameState.Wait;
         }
 
         if (dummySet)
@@ -263,18 +261,12 @@ public class GameStatus : MonoBehaviour
 #if UNITY_STANDALONE
 
 #endif
-        try
-        {
-            if (MissionManager.Instance.CurrentMission.MissionOperate)
+        if (currentGameState == CurrentGameState.Start) {
+            if (MissionManager.Instance.CurrentMission.MissionOperate &&
+            !MissionManager.Instance.CurrentMission.missionEnd)
             {
                 _LimitTime -= Time.deltaTime;
-            }
-        }
-        catch
-        {
-
-        }
-
+            } }
     }
 
     void GameStatusCheck()

@@ -106,7 +106,7 @@
 			//2nd pass
 
 			CGPROGRAM
-			#pragma surface surf toon 
+			#pragma surface surf toon addshadow
 			#pragma target 3.0
 
 
