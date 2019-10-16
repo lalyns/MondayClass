@@ -138,6 +138,7 @@ namespace MC.SceneDirector
                 GameManager.SetFadeInOut(() =>
                 {
                     //GameStatus.currentGameState = CurrentGameState.Wait;
+                    GameManager.ScriptCheck();
                     MCSoundManager.LoadBank();
                     isLoad = false;
                 }, true

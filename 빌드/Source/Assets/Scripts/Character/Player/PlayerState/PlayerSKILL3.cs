@@ -64,7 +64,10 @@ public class PlayerSKILL3 : FSMState
     public bool isMax, isMin;
     private void Update()
     {
+
         StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.03f, 0.1f));
+
+
         //1.7초동안 못움직임.
         _manager.isCantMove = _time <= 4.7f ? true : false;
 
