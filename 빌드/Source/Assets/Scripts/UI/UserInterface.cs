@@ -20,6 +20,10 @@ namespace MC.UI
             {
                 instance = GetComponent<UserInterface>();
             }
+            else
+            {
+                return;
+            }
         }
 
         #region Instance Caching
@@ -400,6 +404,22 @@ namespace MC.UI
 
         #endregion
 
+        #region Clear/Fail Mission
+        public UIClearMission ClearMission => CanvasInfo.Instance.clearUI;
+        public static void ClearMissionSetActive(bool value)
+        {
+            Instance.ClearMission.gameObject.SetActive(value);
+        }
+
+        public UIFailMission FailMission => CanvasInfo.Instance.failUI;
+        public static void FailMissionSetActive(bool value)
+        {
+            SetPointerMode(value);
+            Instance.FailMission.gameObject.SetActive(value);
+        }
+
+        #endregion
+
         #region User Interface Effect Support Functions
 
         /// <summary>
@@ -433,7 +453,7 @@ namespace MC.UI
         #region Null Support
         public void SetValue()
         {
-            if (MCSceneManager.currentSceneNumber != MCSceneManager.TITLE)
+            if (MCSceneManager.currentScene != MCSceneManager.TITLE)
             {
                 playerFSMMgr = PlayerFSMManager.Instance;
                 UIPlayer.SetValue();

@@ -32,7 +32,8 @@ namespace MC.Sound
         {
             if (Instance == null)
                 Instance = GetComponent<MCSoundManager>();
-
+            else
+                return;
         }
         
         public static void LoadBank()

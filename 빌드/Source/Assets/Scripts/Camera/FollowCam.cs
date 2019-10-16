@@ -117,20 +117,23 @@ public class FollowCam : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameStatus.currentGameState == CurrentGameState.Select || GameStatus.currentGameState == CurrentGameState.Dialog)
+        if ((GameStatus.currentGameState == CurrentGameState.Select || GameStatus.currentGameState == CurrentGameState.Dialog) || player.isSkill4 || player.isDead)
             return;
         r_y = Input.GetAxis("Mouse Y");
 
-        if (player.isMouseYLock)
+        if (!isWallState)
         {
-            maxDistance = 5.5f;
-            maxHeight = 4f;
-            originHeight = 4f;
-            height = 4f;
-            distance = 5.5f;
-            targetOffset = 0.7f;
-            islock = false;
-            return;
+            if (player.isMouseYLock)
+            {
+                maxDistance = 5.5f;
+                maxHeight = 4f;
+                originHeight = 4f;
+                height = 4f;
+                distance = 5.5f;
+                targetOffset = 0.7f;
+                islock = false;
+                return;
+            }
         }
         if (!player.isMouseYLock && !islock && !isWall && !isMax)
         {
@@ -138,10 +141,12 @@ public class FollowCam : MonoBehaviour
             maxHeight = 3f;
             islock = true;
         }
+
         if(distance <= 1)
         {
             distance = 1;
         }
+
         // 마우스 위치와 높이값
         if (!isMax && !isMin)
         {

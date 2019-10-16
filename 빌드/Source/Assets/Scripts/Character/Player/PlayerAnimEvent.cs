@@ -119,6 +119,56 @@ public class PlayerAnimEvent : MonoBehaviour
         voice.PlayPlayerVoice(this.gameObject, voice.specialFinishVoice);
     }
 
+    void Skill3CastSFX()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.skill3CastSFX);
+    }
+
+    void Skill3LoopSFX()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.skill3LoopSFX);
+    }
+
+    void Skill3FinishSFX()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.skill3FinishSFX);
+    }
+
+    void Skill3ImpactSFX()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.skill3HitSFX);
+    }
+
+    void SpecialJumpSFX()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.specialJumpSFX);
+    }
+    void SpecialSpinSFX()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.specialSpinSFX);
+    }
+    void SpecialGripSFX()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.specialGripSFX);
+    }
+    void SpecialHeartSFX()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.specialHeartSFX);
+    }
+    void SpecialSwingSFX()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.specialSwingSFX);
+    }
+
     public void StopParticle()
     {
 
