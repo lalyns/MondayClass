@@ -23,8 +23,13 @@ public class TiberPOPUP : TiberFSMState
         TargetPrioritySet();
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
         _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        _manager.agent.speed = 4f;
+        _manager.agent.angularSpeed = 120;
     }
-
+    private void Start()
+    {
+        GetComponentInChildren<TiberHitCollider>().capsule.enabled = true;
+    }
     public override void EndState()
     {
         base.EndState();

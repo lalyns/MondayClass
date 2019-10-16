@@ -13,8 +13,14 @@ public class TiberCHASE : TiberFSMState
     {
 
         base.BeginState();
-    }
 
+        _manager.agent.acceleration = 1f;
+        
+    }
+    private void Start()
+    {
+        GetComponentInChildren<TiberHitCollider>().capsule.enabled = true;
+    }
     public override void EndState()
     {
         _manager.agent.isStopped = true;
@@ -48,7 +54,6 @@ public class TiberCHASE : TiberFSMState
         else
         {
             _manager.agent.destination = playerTrans;
-
             if (_manager.agent.remainingDistance >= 1.5f) {
                 _manager.agent.isStopped = false;
             } else {

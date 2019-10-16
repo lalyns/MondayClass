@@ -181,9 +181,9 @@ public static class GameLib
         while (time < 2.5f)
         {
             if(time < 0.05f)
-                time += Time.deltaTime / 2f;
+                time += Time.deltaTime / 1.5f;
             if (time >= 0.05f)
-                time += value * Time.deltaTime;
+                time += value * Time.deltaTime * 2;
 
             for (int i = 0; i < mats.Count; i++)
             {

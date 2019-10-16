@@ -13,6 +13,8 @@ public class TiberATTACK3 : TiberFSMState
         base.BeginState();
 
         _manager.Attack3Effect.SetActive(true);
+
+        _manager.agent.acceleration = 4f;
     }
 
     public override void EndState()

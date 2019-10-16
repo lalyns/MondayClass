@@ -9,13 +9,13 @@ using MC.SceneDirector;
 public enum CurrentGameState
 {
     Loading,
-    Tutorial,
     Start,
     Select,
     Wait,
     Dialog,
     MissionClear,
     Dead,
+    Tutorial,
 }
 
 public class GameStatus : MonoBehaviour
@@ -214,6 +214,19 @@ public class GameStatus : MonoBehaviour
             {
                 MCSoundManager.SetSound();
             }
+
+            //if(Input.GetKeyDown(KeyCode.Mouse0) ||
+            //    Input.GetKeyDown(KeyCode.Space))
+            //{
+
+
+            //    UserInterface.Instance.Dialog.SetDialog(UserInterface.Instance.Dialog.dialog.dialog[dialogNum++]);
+
+            //    if(dialogNum >= 3)
+            //    {
+            //        dialogNum = 0;
+            //    }
+            //}
         }
 
         timer += Time.deltaTime;
@@ -240,8 +253,7 @@ public class GameStatus : MonoBehaviour
             CanvasInfo.PauseMenuActive(isPause);
         }
 
-        if (currentGameState == CurrentGameState.MissionClear &&
-            UserInterface.Instance.ClearMission.gameObject.activeSelf &&
+        if (UserInterface.Instance.ClearMission.gameObject.activeSelf &&
             Input.GetKeyDown(KeyCode.Space))
         {
             UserInterface.Instance.ClearMission.gameObject.SetActive(false);
@@ -261,18 +273,18 @@ public class GameStatus : MonoBehaviour
 #if UNITY_STANDALONE
 
 #endif
-        if (currentGameState == CurrentGameState.Start) {
-            if (MissionManager.Instance.CurrentMission.MissionOperate &&
+        if (currentGameState == CurrentGameState.Start &&
+            MissionManager.Instance.CurrentMission.MissionOperate && 
             !MissionManager.Instance.CurrentMission.missionEnd)
-            {
-                _LimitTime -= Time.deltaTime;
-            } }
+        {
+            _LimitTime -= Time.deltaTime;
+        }
     }
 
     void GameStatusCheck()
     {
 
-        //Debug.Log(GameStatus.currentGameState.ToString());
+        Debug.Log(GameStatus.currentGameState.ToString());
     }
 
     public static void SetCurrentGameState(CurrentGameState state)

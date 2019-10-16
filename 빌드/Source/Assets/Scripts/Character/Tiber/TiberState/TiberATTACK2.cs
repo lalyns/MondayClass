@@ -14,16 +14,18 @@ public class TiberATTACK2 : TiberFSMState
         this.transform.position = _manager.Attack1Effect.transform.position;
         _manager.Attack2Effect.SetActive(true);
         _manager.Attack2Effect.transform.position = this.transform.position;
-        
+
+        _manager.capsule.enabled = false;
 
     }
-
     public override void EndState()
     {
         base.EndState();
         _manager.Attack2Effect.SetActive(false);
         _time = 0;
         isEnd = false;
+
+        _manager.capsule.enabled = true;
     }
     protected override void Update()
     {
