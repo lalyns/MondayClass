@@ -123,6 +123,7 @@ namespace MC.Mission
             if (GameStatus.currentGameState == CurrentGameState.Dead) return;
 
             GameStatus.Instance._MissionStatus = false;
+            GameStatus.currentGameState = CurrentGameState.MissionClear;
 
             if (!GameStatus.Instance.usingKeward && MissionManager.Instance.CurrentMissionType != MissionType.Annihilation)
             {
