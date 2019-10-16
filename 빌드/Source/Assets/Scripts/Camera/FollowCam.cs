@@ -53,7 +53,7 @@ public class FollowCam : MonoBehaviour
 
         if (isWallState)
         {
-            height = Mathf.Lerp(height, 1.3f, Time.deltaTime * 10f);
+            height = Mathf.Lerp(height, 1.3f, Time.deltaTime * 3f);
             if (Physics.CheckSphere(transform.position, 0))
             {
                 //보간함수를 사용하여 카메라의 높이를 부드럽게 상승시킴.
