@@ -20,6 +20,7 @@ public class MacRUNAWAY : MacFSMState
     {
         base.EndState();
         _SetTarget = false;
+        _manager.agent.velocity = Vector3.zero;
         _manager.agent.destination = this.transform.position;
         _manager.agent.isStopped = true;
         _manager.agent.acceleration = 0.0f;
