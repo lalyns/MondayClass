@@ -109,8 +109,32 @@ namespace MC.Sound
             }
         }
 
+        [System.Serializable]
+        public class UISoundList
+        {
+            #region UI
+            public AK.Wwise.Event uiStart = new AK.Wwise.Event();
+            #endregion
+
+            public void PlaySound(GameObject go, AK.Wwise.Event bgm)
+            {
+                if (GameManager.Instance.config.soundActive.sfx ||
+                    GameManager.Instance.config.soundActive.all)
+                    try
+                    {
+                        bgm.Post(go);
+                    }
+                    catch
+                    {
+                        MCSoundManager.LoadBank();
+                    }
+            }
+
+        }
+
         public AmbientList ambient;
         public BGMList bgm;
         public ObjectSoundList objectSFX;
+        public UISoundList ui;
     }
 }

@@ -9,13 +9,13 @@ using MC.SceneDirector;
 public enum CurrentGameState
 {
     Loading,
-    Tutorial,
     Start,
     Select,
     Wait,
     Dialog,
     MissionClear,
     Dead,
+    Tutorial,
 }
 
 public class GameStatus : MonoBehaviour
@@ -147,7 +147,7 @@ public class GameStatus : MonoBehaviour
             MissionA missionA = MissionManager.Instance.CurrentMission as MissionA;
 
             if(missionA.currentWave < missionA.totalWave)
-                missionA.Invoke( "MonsterCheck", 5f);
+                missionA.Invoke("MonsterCheck", 5f);
             else if(missionA.currentWave == missionA.totalWave)
                 missionA.ClearMission();
         }
@@ -214,6 +214,19 @@ public class GameStatus : MonoBehaviour
             {
                 MCSoundManager.SetSound();
             }
+
+            //if(Input.GetKeyDown(KeyCode.Mouse0) ||
+            //    Input.GetKeyDown(KeyCode.Space))
+            //{
+
+
+            //    UserInterface.Instance.Dialog.SetDialog(UserInterface.Instance.Dialog.dialog.dialog[dialogNum++]);
+
+            //    if(dialogNum >= 3)
+            //    {
+            //        dialogNum = 0;
+            //    }
+            //}
         }
 
         timer += Time.deltaTime;
@@ -240,12 +253,17 @@ public class GameStatus : MonoBehaviour
             CanvasInfo.PauseMenuActive(isPause);
         }
 
-        if (currentGameState == CurrentGameState.MissionClear &&
-            UserInterface.Instance.ClearMission.gameObject.activeSelf &&
-            Input.GetKeyDown(KeyCode.Space))
+        if (UserInterface.Instance.ClearMission.gameObject.activeSelf &&
+            (Input.GetKeyDown(KeyCode.Space) ||
+            Input.GetKeyDown(KeyCode.Mouse0)))
         {
+
             UserInterface.Instance.ClearMission.gameObject.SetActive(false);
             currentGameState = CurrentGameState.Wait;
+
+            PlayerFSMManager.Instance.GetComponent<PlayerCLEAR>().CMSet.gameObject.SetActive(false);
+            PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
+            PlayerFSMManager.Instance.mainCamera.gameObject.SetActive(true);
         }
 
         if (dummySet)
@@ -261,18 +279,18 @@ public class GameStatus : MonoBehaviour
 #if UNITY_STANDALONE
 
 #endif
-        if (currentGameState == CurrentGameState.Start) {
-            if (MissionManager.Instance.CurrentMission.MissionOperate &&
+        if (currentGameState == CurrentGameState.Start &&
+            MissionManager.Instance.CurrentMission.MissionOperate && 
             !MissionManager.Instance.CurrentMission.missionEnd)
-            {
-                _LimitTime -= Time.deltaTime;
-            } }
+        {
+            _LimitTime -= Time.deltaTime;
+        }
     }
 
     void GameStatusCheck()
     {
 
-        //Debug.Log(GameStatus.currentGameState.ToString());
+        Debug.Log(GameStatus.currentGameState.ToString());
     }
 
     public static void SetCurrentGameState(CurrentGameState state)

@@ -15,6 +15,7 @@ public enum RedHatState
     DASH,
     HIT,
     DEAD,
+    DISSOLVE,
 }
 
 
