@@ -252,6 +252,7 @@ public class GameStatus : MonoBehaviour
         {
             isPause = !isPause;
             CanvasInfo.PauseMenuActive(isPause);
+            GameManager.Instance.IsPuase = isPause;
         }
 
         if (UserInterface.Instance.ClearMission.gameObject.activeSelf &&
