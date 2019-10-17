@@ -16,22 +16,24 @@ public class RedHatDEAD : RedHatFSMState
             _manager.dashEffect.SetActive(false);
             _manager.dashEffect = null;
         }
-
+        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
         GameLib.DissoveActive(_manager.materialList, true);
         StartCoroutine(GameLib.Dissolving(_manager.materialList));
-
+       
         useGravity = false;
         _manager.CC.detectCollisions = false;
-
         _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        _manager.agent.speed = 0;
+        _manager.agent.angularSpeed = 0;
     }
-
+    private void Start()
+    {
+        GetComponentInChildren<RedHatHitCollider>().capsule.enabled = false;
+    }
     public override void EndState()
     {
         base.EndState();
 
-        GameLib.DissoveActive(_manager.materialList, false);
-        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
         useGravity = true;
         _manager.CC.detectCollisions = true;
         
@@ -42,7 +44,7 @@ public class RedHatDEAD : RedHatFSMState
             a.Invoke("MonsterCheck", 5f);
         }
 
-        MonsterPoolManager._Instance._RedHat.ItemReturnPool(gameObject, MonsterType.RedHat);
+        GameStatus.Instance.RemoveActivedMonsterList(gameObject);
 
     }
 
@@ -56,15 +58,9 @@ public class RedHatDEAD : RedHatFSMState
         base.FixedUpdate();
     }
 
-    void DeadSupport()
-    {
-        _manager.SetState(RedHatState.POPUP);
-        MonsterPoolManager._Instance._Mac.ItemReturnPool(gameObject, MonsterType.RedHat);
-
-    }
     public void DeadHelper()
     {
-        Invoke("DeadSupport", 3f);
+        _manager.SetState(RedHatState.DISSOLVE);
         Debug.Log("Dead Call");
 
     }

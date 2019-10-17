@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PCWeapon : MonoBehaviour
 {
-
-    CapsuleCollider WeaponCollider;
+    [HideInInspector]
+    public CapsuleCollider WeaponCollider;
     float realTime;
     float processTime;
     public bool _Damaged = false;
