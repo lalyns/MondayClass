@@ -15,6 +15,7 @@ namespace MC.Mission
         public int totalWave = 3; 
 
         public MonsterWave[] waves;
+        public Canvas canvas;
 
         protected override void Start()
         {
@@ -82,9 +83,16 @@ namespace MC.Mission
 
         void Spawn()
         {
+            canvas.gameObject.SetActive(true);
             StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
             currentWave++;
             //Debug.Log(currentWave);
+            Invoke("CanvasOff", 3f);
+        }
+
+        void CanvasOff()
+        {
+            canvas.gameObject.SetActive(false);
         }
     }
 }
