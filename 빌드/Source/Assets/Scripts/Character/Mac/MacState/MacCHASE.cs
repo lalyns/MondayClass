@@ -9,6 +9,7 @@ public class MacCHASE : MacFSMState
     public override void BeginState()
     {
 
+        _manager.agent.acceleration = 0.5f;
         base.BeginState();
     }
 
@@ -25,6 +26,10 @@ public class MacCHASE : MacFSMState
     {
         base.Update();
 
+        this.transform.localRotation = Quaternion.RotateTowards(this.transform.rotation,
+            Quaternion.LookRotation(PlayerFSMManager.GetLookTargetPos(transform) - transform.position,
+            Vector3.up), 2f * Time.deltaTime);
+
         playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
 
         if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) < _manager.Stat.AttackRange)
@@ -35,6 +40,7 @@ public class MacCHASE : MacFSMState
         {
             _manager.agent.destination = playerTrans;
             _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
+            
             if (_manager.agent.remainingDistance >= 1.5f) {
                 _manager.agent.isStopped = false;
             } else {
