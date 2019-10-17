@@ -11,6 +11,9 @@ public class MacATTACK : MacFSMState
     public override void BeginState()
     {
         base.BeginState();
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.acceleration = 0.0f;
+        _manager.agent.isStopped = true;
 
         if(_AttackTimes == 3)
         {
@@ -25,9 +28,10 @@ public class MacATTACK : MacFSMState
     public override void EndState()
     {
         base.EndState();
+        _manager.agent.acceleration = 0.5f;
     }
 
-    private void Update()
+    protected override void Update()
     {
         if(isLookAt) transform.LookAt(_manager._PriorityTarget.transform);
 
