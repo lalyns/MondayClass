@@ -11,6 +11,7 @@ public class MacATTACK : MacFSMState
     public override void BeginState()
     {
         base.BeginState();
+        _manager.agent.velocity = Vector3.zero;
         _manager.agent.destination = this.transform.position;
         _manager.agent.acceleration = 0.0f;
         _manager.agent.isStopped = true;
