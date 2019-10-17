@@ -18,6 +18,14 @@ public class MacPOPUP : MacFSMState
         TargetPrioritySet();
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
         _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        _manager.agent.speed = 3.5f;
+        _manager.agent.angularSpeed = 60;
+    }
+    
+
+    private void Start()
+    {
+        GetComponentInChildren<MacHitCollider>().capsule.enabled = true;
     }
 
     public override void EndState()

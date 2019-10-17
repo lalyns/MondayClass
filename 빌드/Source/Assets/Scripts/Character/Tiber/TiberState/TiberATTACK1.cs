@@ -7,10 +7,13 @@ public class TiberATTACK1 : TiberFSMState
     public float _time;
     [Header("바로 찍길 원한다면 이걸 클릭하시오")]
     public bool isDongMin;
+
+    [HideInInspector]
+    public bool isEnd;
     public override void BeginState()
     {
         base.BeginState();
-
+        isEnd = false;
         _manager.CC.detectCollisions = false;
 
         _manager.Attack1Effect.SetActive(true);
@@ -23,32 +26,32 @@ public class TiberATTACK1 : TiberFSMState
     public override void EndState()
     {
         base.EndState();
-        _manager.Attack1Effect.SetActive(false);
-
-        _manager.CC.detectCollisions = false;
-
+        _manager.Attack1Effect.SetActive(false);        
+        
         _time = 0;
+        isEnd = false;
     }
     protected override void Update()
     {
         base.Update();
 
-        _time += Time.deltaTime;
+//        _time += Time.deltaTime;
 
-        if (_time < 0.1f)
-        {
-
-        }
-        if (_time >= 1f && isDongMin)
+        if (isEnd)
         {
             _manager.SetState(TiberState.ATTACK2);
             return;
         }
-        if (_time >= 1.3f && !isDongMin)
-        {
-            _manager.SetState(TiberState.ATTACK2);
-            return;
-        }
+        //if (_time >= 1f && isDongMin)
+        //{
+        //    _manager.SetState(TiberState.ATTACK2);
+        //    return;
+        //}
+        //if (_time >= 1.3f && !isDongMin)
+        //{
+        //    _manager.SetState(TiberState.ATTACK2);
+        //    return;
+        //}
         //if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) > _manager.Stat._AttackRange)
         //{
         //    _manager.SetState(TiberState.CHASE);

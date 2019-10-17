@@ -372,6 +372,7 @@ public class PlayerFSMManager : FSMManager
             vertical >= 0.01f || vertical <= -0.01f;
     }
 
+    float footPeriod = 0.0f;
     private void Update()
     {
         if (GameStatus.currentGameState == CurrentGameState.Dialog) return;
@@ -394,6 +395,28 @@ public class PlayerFSMManager : FSMManager
             SetState(PlayerState.CLEAR);
         }
 
+        if (_v != 0 || _h != 0)
+        {
+            if (_v < 0 && _h == 0)
+            {
+                if (footPeriod >= 0.35f)
+                {
+                    footPeriod = 0f;
+                    _Sound.sfx.PlayPlayerSFX(gameObject, _Sound.sfx.footstepSFX);
+                }
+            }
+            else
+            {
+                if (footPeriod >= 0.25f)
+                {
+                    footPeriod = 0f;
+                    _Sound.sfx.PlayPlayerSFX(gameObject, _Sound.sfx.footstepSFX);
+                }
+            }
+            footPeriod += Time.deltaTime;
+        }
+
+        if (CurrentState == PlayerState.IDLE) footPeriod = 0.0f;
 
         if (Stat.Hp <= 0)
         {
@@ -538,7 +561,7 @@ public class PlayerFSMManager : FSMManager
 
         r_x = Input.GetAxis("Mouse X");
 
-        if (GameManager.Instance.CharacterControl && !isSpecial && !isSkill4 && !isDead)
+        if (GameManager.Instance.CharacterControl && !isSpecial && !isSkill4 && !isDead && GameStatus.currentGameState != CurrentGameState.MissionClear)
             _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
 
     }
