@@ -28,6 +28,10 @@ public class RedHatCHASE : RedHatFSMState
 
         DahsCheck();
 
+        this.transform.localRotation = Quaternion.RotateTowards(this.transform.rotation,
+            Quaternion.LookRotation(PlayerFSMManager.GetLookTargetPos(transform) - transform.position,
+            Vector3.up), 2f * Time.deltaTime);
+
         if (GameLib.DistanceToCharacter(_manager.CC,_manager._PriorityTarget) < _manager.Stat.AttackRange)
         {
             _manager.SetState(RedHatState.ATTACK);
