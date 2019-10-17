@@ -48,6 +48,12 @@ public class MacPOPUP : MacFSMState
 
     private void TargetPrioritySet()
     {
+        if(GameStatus.currentGameState == CurrentGameState.EDITOR)
+        {
+            _manager._PriorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
+            return;
+        }
+
         if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
         {
 

@@ -40,7 +40,7 @@
 			//1st pass 
 
 			CGPROGRAM
-			#pragma surface surf Blackline vertex:vert addshadow noambient
+			#pragma surface surf Blackline vertex:vert noambient
 
 
 			sampler2D _MainTex,_DissolveTex;
@@ -107,7 +107,7 @@
 			//2nd pass
 
 			CGPROGRAM
-			#pragma surface surf toon 
+			#pragma surface surf toon addshadow
 			#pragma target 3.0
 
 

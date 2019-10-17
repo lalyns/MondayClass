@@ -32,6 +32,8 @@ public class MacFSMState : MonoBehaviour
 
     protected virtual void Update()
     {
+        Debug.DrawLine(_manager.agent.destination, new Vector3(_manager.agent.destination.x, 
+            _manager.agent.destination.y + 1f, _manager.agent.destination.z), Color.red);
 
     }
 

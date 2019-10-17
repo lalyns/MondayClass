@@ -15,6 +15,7 @@ namespace MC.SceneDirector
         public const int SURVIVAL       = 3;
         public const int DEFENCE        = 4;
         public const int BOSS           = 5;
+        public const int EDITOR         = 6;
 
         private static MCSceneManager _Instance;
         public static MCSceneManager Instance {
@@ -43,22 +44,29 @@ namespace MC.SceneDirector
                 GameStatus.currentGameState = CurrentGameState.Wait;
                 currentScene = TITLE;
             }
-            if (SceneManager.GetActiveScene().name == "01-0.Tutorial") { 
+            else if (SceneManager.GetActiveScene().name == "01-0.Tutorial") { 
                 GameStatus.currentGameState = CurrentGameState.Tutorial;
                 currentScene = TUTORIAL;
             }
-            if (SceneManager.GetActiveScene().name == "01-1.Stage1") {
+            else if (SceneManager.GetActiveScene().name == "01-1.Stage1") {
                 currentScene = ANNIHILATION;
             }
-            if (SceneManager.GetActiveScene().name == "02.Stage2") {
+            else if (SceneManager.GetActiveScene().name == "02.Stage2") {
                 currentScene = SURVIVAL;
             }
-            if (SceneManager.GetActiveScene().name == "03.Stage3") {
+            else if (SceneManager.GetActiveScene().name == "03.Stage3") {
                 currentScene = DEFENCE;
             }
-            if (SceneManager.GetActiveScene().name == "04.Boss") {
+            else if (SceneManager.GetActiveScene().name == "04.Boss") {
                 currentScene = BOSS;
             }
+            else
+            {
+                currentScene = EDITOR;
+                GameStatus.currentGameState = CurrentGameState.EDITOR;
+            }
+
+
         }
 
         private void Update()
