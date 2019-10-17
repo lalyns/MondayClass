@@ -42,7 +42,7 @@ public class TiberATTACK3 : TiberFSMState
         {
             _manager.agent.destination = playerTrans;
 
-            if (_manager.agent.remainingDistance >= 1.5f) {
+            if (_manager.agent.remainingDistance >= 3f) {
                 _manager.agent.isStopped = false;
             } else {
                 _manager.agent.isStopped = true;
@@ -77,15 +77,7 @@ public class TiberATTACK3 : TiberFSMState
     {
         UserInterface.Instance.UIPlayer.hpBar.HitBackFun();
     }
-    private Vector3 DecideSpreadDirection()
-    {
-        Vector3 correctDir;
-
-        correctDir = UnityEngine.Random.Range(1, 100) % 2 == 0 ? transform.right : -transform.right;
-        correctDir += transform.forward;
-
-        return correctDir;
-    }
+   
 
 
     protected override void FixedUpdate()

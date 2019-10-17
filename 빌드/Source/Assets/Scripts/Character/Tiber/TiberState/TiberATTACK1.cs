@@ -26,9 +26,7 @@ public class TiberATTACK1 : TiberFSMState
     public override void EndState()
     {
         base.EndState();
-        _manager.Attack1Effect.SetActive(false);
-
-        _manager.CC.detectCollisions = false;
+        _manager.Attack1Effect.SetActive(false);        
         
         _time = 0;
         isEnd = false;

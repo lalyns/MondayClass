@@ -16,7 +16,7 @@ public class TiberATTACK2 : TiberFSMState
         _manager.Attack2Effect.transform.position = this.transform.position;
 
         _manager.capsule.enabled = false;
-
+        _manager.Anim.Play("TB01_Anim_Attack1_002");
     }
     public override void EndState()
     {
@@ -24,7 +24,7 @@ public class TiberATTACK2 : TiberFSMState
         _manager.Attack2Effect.SetActive(false);
         _time = 0;
         isEnd = false;
-
+        _manager.CC.detectCollisions = true;
         _manager.capsule.enabled = true;
     }
     protected override void Update()
@@ -33,11 +33,11 @@ public class TiberATTACK2 : TiberFSMState
 
         _time += Time.deltaTime;
 
-        if (_manager.agent.remainingDistance >= 1.5f) {
-            _manager.agent.isStopped = false;
-        } else {
-            _manager.agent.isStopped = true;
-        }
+        //if (_manager.agent.remainingDistance >= 1.5f) {
+        //    _manager.agent.isStopped = false;
+        //} else {
+        //    _manager.agent.isStopped = true;
+        //}
 
         if (isEnd)
         {

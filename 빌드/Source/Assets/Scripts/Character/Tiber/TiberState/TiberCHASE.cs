@@ -13,7 +13,7 @@ public class TiberCHASE : TiberFSMState
     {
 
         base.BeginState();
-
+        _manager.agent.isStopped = true;
         _manager.agent.acceleration = 1f;
         
     }
