@@ -54,6 +54,7 @@ public class TiberFSMState : MonoBehaviour
             gravity.y = Physics.gravity.y * Time.deltaTime;
 
             _manager.CC.Move(gravity);
+
         }
     }
 

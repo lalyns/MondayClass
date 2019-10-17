@@ -265,7 +265,6 @@ public class ObjectPool : MonoBehaviour
 
         _ActiveItem.Remove(go);
 
-        GameStatus.Instance.RemoveActivedMonsterList(go);
 
         go.transform.localPosition = this.transform.position;
         go.SetActive(false);

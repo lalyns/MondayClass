@@ -34,7 +34,7 @@ namespace MC.Sound
             public AK.Wwise.Event specialSpinSFX = new AK.Wwise.Event();
             public AK.Wwise.Event specialJumpSFX = new AK.Wwise.Event();
             public AK.Wwise.Event specialHeartSFX = new AK.Wwise.Event();
-
+            public AK.Wwise.Event specialVioletBeamSFX = new AK.Wwise.Event();
 
             #endregion
 
