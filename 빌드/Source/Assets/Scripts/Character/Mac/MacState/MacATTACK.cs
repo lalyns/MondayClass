@@ -11,6 +11,7 @@ public class MacATTACK : MacFSMState
     public override void BeginState()
     {
         base.BeginState();
+        _manager.agent.velocity = Vector3.zero;
         _manager.agent.destination = this.transform.position;
         _manager.agent.acceleration = 0.0f;
         _manager.agent.isStopped = true;
@@ -33,6 +34,8 @@ public class MacATTACK : MacFSMState
 
     protected override void Update()
     {
+        base.Update();
+
         if(isLookAt) transform.LookAt(_manager._PriorityTarget.transform);
 
         if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) > _manager.Stat.statData._AttackRange)
