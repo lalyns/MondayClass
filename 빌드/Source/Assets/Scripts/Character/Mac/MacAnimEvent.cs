@@ -49,7 +49,7 @@ public class MacAnimEvent : MonoBehaviour
     {
         MacSKILL skill = _Manager.CurrentStateComponent as MacSKILL;
         
-        skill.isLookAt = false;
+        //skill.isLookAt = false;
         
         MonsterEffects.Instance.macSkillPool.ItemSetActive(skillLuancher,
             FSMManager.CC,

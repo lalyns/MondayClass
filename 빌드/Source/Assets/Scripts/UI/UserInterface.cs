@@ -35,7 +35,6 @@ namespace MC.UI
 
         private void Start()
         {
-            SetValue();
         }
 
         #region Canvas Control Function
@@ -121,6 +120,8 @@ namespace MC.UI
         private void Update()
         {
             if (!activeAllUI) { return; }
+
+            SetValue();
 
             if (activePlayerUI) {
                 PlayerUI();
