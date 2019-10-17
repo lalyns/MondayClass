@@ -16,6 +16,7 @@ public enum CurrentGameState
     MissionClear,
     Dead,
     Tutorial,
+    EDITOR,
 }
 
 public class GameStatus : MonoBehaviour
