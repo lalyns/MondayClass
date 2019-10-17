@@ -4,7 +4,7 @@
 	{
 
 	_MainTex("Albedo (RGB)", 2D) = "white" {}
-
+	_tintCol("tint color", Color) = (1,1,1,1)
 	_HitTex("Albedo(RGB)",2D) = "white"{}
 
 	[HDR]_EmissionCol("EmissionColor", Color) = (1,1,1,1)
@@ -40,7 +40,7 @@
 			//1st pass 
 
 			CGPROGRAM
-			#pragma surface surf Blackline vertex:vert noshadow noambient
+			#pragma surface surf Blackline vertex:vert addshadow noambient
 
 
 			sampler2D _MainTex,_DissolveTex;
@@ -113,7 +113,7 @@
 
 			sampler2D _MainTex, _ShadowMask, _EmissionMask, _DissolveTex, _HitTex;
 			float _ShadowWidth, _AmbientWidth;
-			float4 _ShadowColor, _EmissionCol, _SpecCol;
+			float4 _ShadowColor, _EmissionCol, _SpecCol, _tintCol;
 			float2 uv_ShadowMask;
 			uniform float4 _DissolveEdgeColor;
 			uniform float _DissolveEdgeRange;
@@ -130,7 +130,7 @@
 			};
 			void surf(Input IN, inout SurfaceOutput o)
 			{
-				float4 albedoMap = tex2D(_MainTex, IN.uv_MainTex) ;
+				float4 albedoMap = tex2D(_MainTex, IN.uv_MainTex) * _tintCol;
 				float4 EmissionMask = tex2D(_EmissionMask, IN.uv_EmissionMask) ;
 				float4 ShadowMask = tex2D(_ShadowMask, IN.uv_ShadowMask);
 				//------------------------Dissolve-----------------------------------------
@@ -174,6 +174,7 @@
 
 			//atten *= atten;
 			float4 final;
+			
 			final.rgb = s.Albedo * _LightColor0.rgb * (atten * 2);
 			final.a = s.Alpha ;
 

@@ -13,6 +13,9 @@ public enum CurrentGameState
     Select,
     Wait,
     Dialog,
+    MissionClear,
+    Dead,
+    Tutorial,
 }
 
 public class GameStatus : MonoBehaviour
@@ -63,7 +66,7 @@ public class GameStatus : MonoBehaviour
         }
         else
         {
-
+            return;
         }
     }
 
@@ -144,7 +147,7 @@ public class GameStatus : MonoBehaviour
             MissionA missionA = MissionManager.Instance.CurrentMission as MissionA;
 
             if(missionA.currentWave < missionA.totalWave)
-                missionA.Invoke( "MonsterCheck", 5f);
+                missionA.Invoke("MonsterCheck", 5f);
             else if(missionA.currentWave == missionA.totalWave)
                 missionA.ClearMission();
         }
@@ -156,7 +159,7 @@ public class GameStatus : MonoBehaviour
     public void Update()
     {
         // 유니티 에디터에서 작동하는 에디터 기능
-        if (Input.GetKey(KeyCode.LeftAlt) && currentGameState == CurrentGameState.Start)
+        if (Input.GetKey(KeyCode.LeftAlt) /*&& currentGameState == CurrentGameState.Start*/)
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
@@ -195,7 +198,7 @@ public class GameStatus : MonoBehaviour
                 GameManager.Instance.OnInspectating = !GameManager.Instance.OnInspectating;
             }
 
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 PlayerFSMManager.Instance.SpecialGauge = 100.0f;
             }
@@ -242,12 +245,25 @@ public class GameStatus : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) &&
-            MCSceneManager.currentSceneNumber != MCSceneManager.TITLE &&
+            MCSceneManager.currentScene != MCSceneManager.TITLE &&
             currentGameState != CurrentGameState.Loading &&
             currentGameState != CurrentGameState.Dialog)
         {
             isPause = !isPause;
             CanvasInfo.PauseMenuActive(isPause);
+        }
+
+        if (UserInterface.Instance.ClearMission.gameObject.activeSelf &&
+            (Input.GetKeyDown(KeyCode.Space) ||
+            Input.GetKeyDown(KeyCode.Mouse0)))
+        {
+
+            UserInterface.Instance.ClearMission.gameObject.SetActive(false);
+            currentGameState = CurrentGameState.Wait;
+
+            PlayerFSMManager.Instance.GetComponent<PlayerCLEAR>().CMSet.gameObject.SetActive(false);
+            PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
+            PlayerFSMManager.Instance.mainCamera.gameObject.SetActive(true);
         }
 
         if (dummySet)
@@ -263,18 +279,12 @@ public class GameStatus : MonoBehaviour
 #if UNITY_STANDALONE
 
 #endif
-        try
+        if (currentGameState == CurrentGameState.Start &&
+            MissionManager.Instance.CurrentMission.MissionOperate && 
+            !MissionManager.Instance.CurrentMission.missionEnd)
         {
-            if (MissionManager.Instance.CurrentMission.MissionOperate)
-            {
-                _LimitTime -= Time.deltaTime;
-            }
+            _LimitTime -= Time.deltaTime;
         }
-        catch
-        {
-
-        }
-
     }
 
     void GameStatusCheck()

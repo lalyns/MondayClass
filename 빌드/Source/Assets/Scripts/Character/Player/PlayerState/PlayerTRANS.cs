@@ -26,7 +26,7 @@ public class PlayerTRANS : FSMState
     {
         _time += Time.deltaTime;
 
-        if (_time >= 4.06f)
+        if (_time >= 5f)
         {
             _manager.SetState(PlayerState.TRANS2);
             return;

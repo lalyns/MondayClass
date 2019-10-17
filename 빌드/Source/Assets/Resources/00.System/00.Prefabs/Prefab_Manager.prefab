@@ -36,7 +36,6 @@ Transform:
   - {fileID: 2274891494841528157}
   - {fileID: 2152068016348216801}
   - {fileID: 7782009899968724664}
-  - {fileID: 5163106612235487447}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -58,7 +57,7 @@ MonoBehaviour:
   CharacterControl: 1
   ControlManual: 0
   IsPuase: 0
-  CineMode: 0
+  CineMode: 1
   softDuration: 0.03
   hardDuration: 0.04
   uIActive:
@@ -195,49 +194,6 @@ MonoBehaviour:
   - {fileID: 0}
   rewardData: {fileID: 11400000, guid: c2b419663b89d854794282c5f14bd70c, type: 2}
   MissionProgressUI: {fileID: 0}
---- !u!1 &3718117072691014516
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5163106612235487447}
-  - component: {fileID: 4583442552017285051}
-  m_Layer: 0
-  m_Name: SceneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5163106612235487447
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3718117072691014516}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2274891494096624078}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4583442552017285051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3718117072691014516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2834ee53e883afd47a7faa4d7dc3ceb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3950110929078011350
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +339,12 @@ MonoBehaviour:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 11400000, guid: c7749bbca0f6eea47a13cf6db1573660,
+        type: 2}
+  ui:
+    uiStart:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: 6fd3827a259e57d458ced0c5d6faf331,
         type: 2}
 --- !u!114 &795881696063601727
 MonoBehaviour:

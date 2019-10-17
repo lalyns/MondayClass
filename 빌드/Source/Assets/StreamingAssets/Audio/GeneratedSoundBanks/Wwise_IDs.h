@@ -56,6 +56,12 @@ namespace AK
         static const AkUniqueID PLAYER_SKILL_TRANSFORM_SOUND_SPIN_STICK = 2993732905U;
         static const AkUniqueID PLAYER_SKILL_TRANSFORM_SOUND_STICK_GRIP = 1547647635U;
         static const AkUniqueID PLAYER_SKILL_TRANSFORM_SOUND_SWING = 1347911398U;
+        static const AkUniqueID PLAYER_SKILL_TRANSFORM_SOUND_VIOLET_BEAM = 317307357U;
+        static const AkUniqueID UI_START_SOUND = 4234647542U;
+        static const AkUniqueID ZPANGYI_EMOTE_RAGE_VOICE = 1516934113U;
+        static const AkUniqueID ZPANGYI_EMOTE_SAD = 1769717327U;
+        static const AkUniqueID ZPANGYI_EMOTE_SMILE_VOICE = 1944912184U;
+        static const AkUniqueID ZPANGYI_EMOTE_SURPRISED_VOICE = 4178420103U;
     } // namespace EVENTS
 
     namespace BANKS

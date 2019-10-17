@@ -55,6 +55,7 @@ namespace MC.Mission
             if (!isClear && GameStatus.Instance._LimitTime <= 0 && protectedTarget.hp >= 0)
             {
                 ClearMission();
+                PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
                 isClear = true;
             }
         }

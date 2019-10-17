@@ -24,8 +24,8 @@ public class TempDirector : MonoBehaviour
 
     void Start()
     {
-        if (!GameManager.Instance.CineMode) SceneStart();
-        else CineStart();
+        //if (!GameManager.Instance.CineMode) SceneStart();
+        //else CineStart();
     }
 
     public void CineStart()

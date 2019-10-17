@@ -6,10 +6,19 @@ public class RedHatHitCollider : MonoBehaviour
 {
     RedHatFSMManager redhat;
 
-    // Start is called before the first frame update
-    void Start()
+    public CapsuleCollider capsule;
+    private void Awake()
+    {
+        capsule = GetComponent<CapsuleCollider>();
+    }
+    private void Start()
     {
         redhat = GetComponentInParent<RedHatFSMManager>();
+    }
+
+    private void FixedUpdate()
+    {
+        this.transform.position = redhat.transform.position;
     }
 
     public void OnHitForMonster(AttackType attackType)

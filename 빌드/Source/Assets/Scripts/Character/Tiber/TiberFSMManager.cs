@@ -15,6 +15,7 @@ public enum TiberState
     ATTACK3,
     HIT,
     DEAD,    
+    DISSOLVE,
 }
 
 [RequireComponent(typeof(TiberStat))]
@@ -87,6 +88,10 @@ public class TiberFSMManager : FSMManager
     public bool isAttack1, isAttack2;
 
     public NavMeshAgent agent;
+
+    public CapsuleCollider capsule;
+    //[HideInInspector]
+    //public CapsuleCollider capsule;
     protected override void Awake()
     {
         base.Awake();
@@ -124,6 +129,7 @@ public class TiberFSMManager : FSMManager
         Attack1Effect.SetActive(false);
         Attack2Effect.SetActive(false);
         Attack3Effect.SetActive(false);
+
 
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
@@ -164,10 +170,10 @@ public class TiberFSMManager : FSMManager
         }
 
         if (RigidBody.velocity.sqrMagnitude > 0) {
-            RigidBody.velocity = Vector3.Lerp(RigidBody.velocity, Vector3.zero, 0.15f);
+            RigidBody.velocity = Vector3.Lerp(RigidBody.velocity, Vector3.zero, 5f);
 
             if (RigidBody.velocity.sqrMagnitude <= 0.1f) {
-                RigidBody.velocity = Vector3.zero;
+                //RigidBody.velocity = Vector3.zero;
             }
         }
     }

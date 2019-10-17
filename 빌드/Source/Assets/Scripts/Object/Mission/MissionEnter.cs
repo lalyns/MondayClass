@@ -19,7 +19,8 @@ public class MissionEnter : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
-            if (!MissionManager.Instance.CurrentMission.MissionOperate)
+            if (!MissionManager.Instance.CurrentMission.MissionOperate &&
+                !MissionManager.Instance.CurrentMission.missionEnd)
             {
                 MissionManager.StartMission();
                 GameStatus.SetCurrentGameState(CurrentGameState.Start);

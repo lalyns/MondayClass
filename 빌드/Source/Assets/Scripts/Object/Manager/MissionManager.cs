@@ -199,6 +199,8 @@ public class MissionManager : MonoBehaviour
                     break;
             }
 
+            EnterMission();
+
             //UserInterface.SetPointerMode(false);
             //GameManager.Instance.IsPuase = false;
             //UserInterface.FullModeSetMP();
@@ -249,14 +251,14 @@ public class MissionManager : MonoBehaviour
     public static void EnterMission()
     {
         // 캐릭터 위치변경
-        Instance.CurrentMission.gameObject.SetActive(true);
+        //Instance.CurrentMission.gameObject.SetActive(true);
 
-        PlayerFSMManager.Instance.Anim.
-            transform.position =
-            Instance.CurrentMission.Enter.transform.position;
+        //PlayerFSMManager.Instance.Anim.
+        //    transform.position =
+        //    Instance.CurrentMission.Enter.transform.position;
 
-        PlayerFSMManager.Instance.Anim.
-            transform.LookAt(Instance.CurrentMission.Exit.transform);
+        //PlayerFSMManager.Instance.Anim.
+        //    transform.LookAt(Instance.CurrentMission.Exit.transform);
 
 
     }
@@ -277,6 +279,12 @@ public class MissionManager : MonoBehaviour
         // 여기서 보상에 관한 것을 처리함.
         Instance.GetReward(Instance.currentMissionRewards[0]);
         Instance.GetReward(Instance.currentMissionRewards[1]);
+
+        UserInterface.ClearMissionSetActive(true);
+        UserInterface.Instance.ClearMission.SetClearMission(
+            GameStatus.Instance._LimitTime,
+            Instance.currentMissionRewards[0],
+            Instance.currentMissionRewards[1]);
 
         Instance.currentMissionRewards[0] = MissionRewardType.Last;
         Instance.currentMissionRewards[1] = MissionRewardType.Last;

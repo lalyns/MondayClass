@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 using MC.UI;
 using MC.Sound;
+using MC.SceneDirector;
 
 public enum PlayerState
 {
@@ -26,6 +27,7 @@ public enum PlayerState
     HIT2,
     DEAD,
     IDLE2,
+    CLEAR,
 }
 public enum AttackType
 {
@@ -48,7 +50,7 @@ public class PlayerFSMManager : FSMManager
     {
         get
         {
-            if (instance == null)
+            if (instance == null && MCSceneManager.currentScene != MCSceneManager.TITLE)
                 instance = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<PlayerFSMManager>();
             return instance;
         }
@@ -143,6 +145,7 @@ public class PlayerFSMManager : FSMManager
     public GameObject Special;
     public GameObject WeaponTransformEffect;
     public GameObject TimeLine, TimeLine2;
+    public GameObject ClearTimeLine, ClearTimeLine2;
     public GameObject Change_Effect;
     public float specialTimer = 0;
     CapsuleCollider Attack_Capsule;
@@ -153,7 +156,8 @@ public class PlayerFSMManager : FSMManager
 
     CameraManager camManager;
     public FollowCam followCam;
-    Camera mainCamera;
+    [HideInInspector]
+    public Camera mainCamera;
     PostProcessVolume volume;
     PostProcessLayer layer;
     PostProcessEffectSettings asdf;
@@ -210,6 +214,7 @@ public class PlayerFSMManager : FSMManager
     public int ShieldCount;
     [HideInInspector] public bool isSpecialIDLE;
     public int CurrentIdle;
+    public int CurrentClear;
 
     public List<GameObject> Shields = new List<GameObject>();
 
@@ -367,6 +372,7 @@ public class PlayerFSMManager : FSMManager
             vertical >= 0.01f || vertical <= -0.01f;
     }
 
+    float footPeriod = 0.0f;
     private void Update()
     {
         if (GameStatus.currentGameState == CurrentGameState.Dialog) return;
@@ -379,6 +385,38 @@ public class PlayerFSMManager : FSMManager
         if (isInputLock)
             return;
 
+        if(Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.D))
+        {
+            SetDeadState();
+        }
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.Alpha0))
+        {
+            CurrentClear = Random.Range((int)0, (int)2);
+            SetState(PlayerState.CLEAR);
+        }
+
+        if (_v != 0 || _h != 0)
+        {
+            if (_v < 0 && _h == 0)
+            {
+                if (footPeriod >= 0.35f)
+                {
+                    footPeriod = 0f;
+                    _Sound.sfx.PlayPlayerSFX(gameObject, _Sound.sfx.footstepSFX);
+                }
+            }
+            else
+            {
+                if (footPeriod >= 0.25f)
+                {
+                    footPeriod = 0f;
+                    _Sound.sfx.PlayPlayerSFX(gameObject, _Sound.sfx.footstepSFX);
+                }
+            }
+            footPeriod += Time.deltaTime;
+        }
+
+        if (CurrentState == PlayerState.IDLE) footPeriod = 0.0f;
 
         if (Stat.Hp <= 0)
         {
@@ -421,6 +459,7 @@ public class PlayerFSMManager : FSMManager
         Skill3Reset();
 
         _anim.SetFloat("CurrentIdle", (int)CurrentIdle);
+        _anim.SetFloat("CurrentClear", (int)CurrentClear);
 
         if (isNormal)
         {
@@ -522,7 +561,7 @@ public class PlayerFSMManager : FSMManager
 
         r_x = Input.GetAxis("Mouse X");
 
-        if (GameManager.Instance.CharacterControl && !isSpecial && !isSkill4)
+        if (GameManager.Instance.CharacterControl && !isSpecial && !isSkill4 && !isDead && GameStatus.currentGameState != CurrentGameState.MissionClear)
             _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
 
     }
@@ -599,10 +638,16 @@ public class PlayerFSMManager : FSMManager
                 isSpecial = true;
                 SetInvincibility(true);
                 TimeLine.SetActive(true);
+
+                SetState(PlayerState.TRANS);
+                //SetState(PlayerState.IDLE);
+
+                // 스킬 1번 사라졌다 나오게 하기.
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
-                SetState(PlayerState.IDLE);
+
+                // 스킬2번 바닥 사라지게하기.
                 if ((isNormal && Skill2_Test.activeSelf) || (!isNormal && Skill2_Test2.activeSelf))
                 {
                     Skill2_Test.SetActive(false);
@@ -616,32 +661,32 @@ public class PlayerFSMManager : FSMManager
         {//11.6초후변신끝
             WeaponTransformEffect.SetActive(true);
             specialTimer += Time.deltaTime;
-            if (specialTimer >= 0.6833f && !isTrans1)
-            {
-                isTrans1 = true;
-                SetState(PlayerState.TRANS);
-            }
-            if (specialTimer >= 2.26f)
+            //if (specialTimer >= 0.6833f && !isTrans1)
+            //{
+                //isTrans1 = true;
+                //SetState(PlayerState.TRANS);
+            //}
+            if (specialTimer >= 1.5f)
             {
                 WeaponTransformEffect.SetActive(false);
                 Special.SetActive(true);
             }
-            if (specialTimer >= 2.7f)
+            if (specialTimer >= 2f)
             {
                 Normal.SetActive(false);
             }
-            if (specialTimer >= 5.82f - 0.8f)
+            if (specialTimer >= 5.82f)
             {
                 Change_Effect.SetActive(false);
-                SetState(PlayerState.IDLE);
+                //SetState(PlayerState.IDLE);
             }
-            if (specialTimer >= 6f)
+            if (specialTimer >= 6.7f)
             {
                 specialTimer = 0;
                 TimeLine.SetActive(false);
                 isSpecial = false;
                 isAttackOne = false;
-                isTrans1 = false;
+                //isTrans1 = false;
                 StartCoroutine(SetOff());
                 return;
             }
@@ -1127,6 +1172,8 @@ public class PlayerFSMManager : FSMManager
     {
 
     }
+
+
     public void Skill4()
     {
         if (isSkill4 || isNormal)
@@ -1141,8 +1188,30 @@ public class PlayerFSMManager : FSMManager
             isSkill4 = true;
 
             _monster = GameStatus.Instance.ActivedMonsterList;
-            for (int i = 0; i < _monster.Count; i++)
+
+
+            bool isTiber = false;
+            int count = 0;
+            foreach (GameObject mob in _monster)
             {
+                if (mob.GetComponent<FSMManager>().monsterType == MonsterType.Tiber)
+                {
+                    // 여기서 내가 티버를 찾았고.  
+                    // 티버를 시트7번에 앉혀.
+                    isTiber = true;
+                    mob.transform.position = Seats[6].position;
+                    mob.transform.LookAt(new Vector3(Anim.transform.position.x, mob.transform.position.y, Anim.transform.position.z));
+                    break;
+                        
+                }
+
+                count++;
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                if (isTiber == true && i == 6 || i == count) continue;
+
                 _monster[i].transform.position = Seats[i].transform.position;
                 _monster[i].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
             }

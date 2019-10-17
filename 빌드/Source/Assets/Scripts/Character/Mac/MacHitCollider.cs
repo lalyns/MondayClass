@@ -6,9 +6,18 @@ public class MacHitCollider : MonoBehaviour
 {
     MacFSMManager mac;
 
-    void Start()
+    public CapsuleCollider capsule;
+    private void Awake()
+    {
+        capsule = GetComponent<CapsuleCollider>();
+    }
+    private void Start()
     {
         mac = GetComponentInParent<MacFSMManager>();
+    }
+    private void FixedUpdate()
+    {
+       // this.transform.position = mac.transform.position;
     }
 
     public void OnHitForMonster(AttackType attackType)
