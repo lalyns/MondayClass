@@ -29,4 +29,9 @@ public class TitleCutScene : MonoBehaviour
         }
     }
     
+    public void CineNext()
+    {
+
+    }
+
 }
