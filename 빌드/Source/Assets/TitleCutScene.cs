@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MC.SceneDirector;
 using UnityEngine.UI;
+using UnityEngine.Playables;
 
 public class TitleCutScene : MonoBehaviour
 {
@@ -28,10 +29,25 @@ public class TitleCutScene : MonoBehaviour
             cutScene.sprite = cutSceneSprite[currentCutSceneNumber++];
         }
     }
-    
+
+    public PlayableDirector playableDirector;
+
+    public void CineStop()
+    {
+        playableDirector.Pause();
+    }
+
+    public void Update()
+    {
+        if(Input.anyKeyDown)
+        {
+            CineNext();
+        }
+    }
+
     public void CineNext()
     {
-
+        playableDirector.Resume();
     }
 
 }

@@ -756,7 +756,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4.799999, y: 2.3999996}
+  m_AnchoredPosition: {x: -4.799999, y: 2.4000015}
   m_SizeDelta: {x: 1531.4, y: 844.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &374807879
@@ -955,6 +955,7 @@ GameObject:
   - component: {fileID: 610659739}
   - component: {fileID: 610659741}
   - component: {fileID: 610659740}
+  - component: {fileID: 610659742}
   m_Layer: 5
   m_Name: CutSceneTimeLine
   m_TagString: Untagged
@@ -1027,6 +1028,47 @@ PlayableDirector:
     value: {fileID: 714132191}
   m_ExposedReferences:
     m_References: []
+--- !u!114 &610659742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610659738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb92791bd8ca2164fa666da807793029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutSceneSprite:
+  - {fileID: 21300000, guid: 3a53aecebcbd0e24189c85a4e732cd70, type: 3}
+  - {fileID: 21300000, guid: c91e36bef32e1c2478bd4e1c91fbba70, type: 3}
+  - {fileID: 21300000, guid: 4f46ce207dd835040a1fc43c0b148c43, type: 3}
+  - {fileID: 21300000, guid: 507e18d9b0ed37f498051ed898cb73ed, type: 3}
+  - {fileID: 21300000, guid: 59e50cbaf6d70114b99ada2ac9a440d6, type: 3}
+  - {fileID: 21300000, guid: 50ad15a6db621b8489226d8a05348abb, type: 3}
+  - {fileID: 21300000, guid: 7a60234061cde58479e4016ac0322e66, type: 3}
+  - {fileID: 21300000, guid: f79ee1aec405b204c925d0e7248889ed, type: 3}
+  - {fileID: 21300000, guid: 7c6ed69cb696cf44a9e5d7bf6e079b1a, type: 3}
+  - {fileID: 21300000, guid: ccbce5971a610e146a8ffdac10a7d088, type: 3}
+  - {fileID: 21300000, guid: 3d3e454fd45956c4c8955ee3c50edffc, type: 3}
+  - {fileID: 21300000, guid: 2f9caaf64c0b62849af41231c63cbd5a, type: 3}
+  - {fileID: 21300000, guid: 55f1a2b1e5b3f0145a993dafa8c9eead, type: 3}
+  - {fileID: 21300000, guid: 0a12fabd074c72745b860e3a7cbd3664, type: 3}
+  - {fileID: 21300000, guid: 70d8f511df2bdde48ab287ee3cd6b240, type: 3}
+  - {fileID: 21300000, guid: cda4caa4433fad548945d62d7724055d, type: 3}
+  - {fileID: 21300000, guid: 5614f57df5f00904e936a63dbe95b856, type: 3}
+  - {fileID: 21300000, guid: 5150799200e8c134b9440494f121f3b5, type: 3}
+  - {fileID: 21300000, guid: f3ef745487c015f4db4f7419c42c54f3, type: 3}
+  - {fileID: 21300000, guid: b2176e08d25a91f4aa51394455a96102, type: 3}
+  - {fileID: 21300000, guid: 8c94011e86e654444be812009a327c7e, type: 3}
+  - {fileID: 21300000, guid: da2c7d6adef64134487774842a767685, type: 3}
+  - {fileID: 21300000, guid: ebcb7f12844990143aac45483aec6c5b, type: 3}
+  - {fileID: 21300000, guid: 4eea1cfa43daf234f94955573e3b3d0d, type: 3}
+  - {fileID: 21300000, guid: da7dac45f6fa8b348864de71796beeb7, type: 3}
+  cutScene: {fileID: 1838726239420587298}
+  currentCutSceneNumber: 0
+  playableDirector: {fileID: 610659741}
 --- !u!1 &697916612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,7 +1177,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4.799999, y: 2.3999996}
+  m_AnchoredPosition: {x: -4.799999, y: 2.4000015}
   m_SizeDelta: {x: 1531.4, y: 844.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &714132191
@@ -2525,7 +2567,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 4345240201094013478, guid: 0b123d9a783ed4841a50045f1f0d3e8f,
+        type: 3}
+      propertyPath: playableDirector
+      value: 
+      objectReference: {fileID: 610659741}
+    - target: {fileID: 4345240201094013467, guid: 0b123d9a783ed4841a50045f1f0d3e8f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4345240201094013478, guid: 0b123d9a783ed4841a50045f1f0d3e8f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0b123d9a783ed4841a50045f1f0d3e8f, type: 3}
 --- !u!224 &1838726239420587297 stripped
 RectTransform:
@@ -2533,6 +2586,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1838726239420587296}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1838726239420587298 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4345240201094013465, guid: 0b123d9a783ed4841a50045f1f0d3e8f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1838726239420587296}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5813394014806566203
 PrefabInstance:
   m_ObjectHideFlags: 0
