@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
 using MC.SceneDirector;
+using MC.Sound;
 
 namespace MC.UI
 {
@@ -35,6 +36,8 @@ namespace MC.UI
 
             if (nextScene)
             {
+                var ui = MCSoundManager.Instance.objectSound.ui;
+                ui.PlaySound(this.gameObject, ui.uiStart);
                 MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
                 nextScene = false;
             }

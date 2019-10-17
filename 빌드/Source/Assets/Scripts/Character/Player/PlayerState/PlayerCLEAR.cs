@@ -46,11 +46,9 @@ public class PlayerCLEAR : FSMState
                 isOne = true;
             }
         }      
+
         if (GameStatus.currentGameState == CurrentGameState.Wait)
         {
-            CMSet.gameObject.SetActive(false);
-            _manager.SetState(PlayerState.IDLE);
-            _manager.mainCamera.gameObject.SetActive(true);
             return;
         }
     }
