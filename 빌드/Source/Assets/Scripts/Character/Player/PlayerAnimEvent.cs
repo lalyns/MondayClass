@@ -38,6 +38,7 @@ public class PlayerAnimEvent : MonoBehaviour
                 Special_trail.gameObject.SetActive(true);
         }
     }
+
     void hitCancel()
     {
         if (null != player)
@@ -50,25 +51,23 @@ public class PlayerAnimEvent : MonoBehaviour
                 Special_trail.gameObject.SetActive(false);
         }
     }
+
     void skill3Check()
     {
         player.Skill3Attack();
     }
+
     void skill3Cancel()
     {
         player.Skill3Cancel();
     }
+
     public void PlayParticle()
     {
         var main = particle.main;
         
         main.startLifetime = 1;
         particle.Play();
-    }
-
-    void FootStepSound()
-    {
-        player._Sound.sfx.PlayPlayerSFX(player.gameObject, player._Sound.sfx.footstepSFX);
     }
 
     void Skill3Finish()
@@ -119,26 +118,31 @@ public class PlayerAnimEvent : MonoBehaviour
         var sound = player._Sound.sfx;
         sound.PlayPlayerSFX(this.gameObject, sound.specialJumpSFX);
     }
+
     void SpecialSpinSFX()
     {
         var sound = player._Sound.sfx;
         sound.PlayPlayerSFX(this.gameObject, sound.specialSpinSFX);
     }
+
     void SpecialGripSFX()
     {
         var sound = player._Sound.sfx;
         sound.PlayPlayerSFX(this.gameObject, sound.specialGripSFX);
     }
+
     void SpecialHeartSFX()
     {
         var sound = player._Sound.sfx;
         sound.PlayPlayerSFX(this.gameObject, sound.specialHeartSFX);
     }
+
     void SpecialSwingSFX()
     {
         var sound = player._Sound.sfx;
         sound.PlayPlayerSFX(this.gameObject, sound.specialSwingSFX);
     }
+
     void SpecialVioletBeamSFX()
     {
         var sound = player._Sound.sfx;
@@ -147,9 +151,6 @@ public class PlayerAnimEvent : MonoBehaviour
 
     public void StopParticle()
     {
-
-        Debug.Log("끝");
-
         //particle.Stop();
         //particle.Clear();
     }
@@ -158,10 +159,12 @@ public class PlayerAnimEvent : MonoBehaviour
     {
         skill2.isEnd = true;
     }
+
     void Hit2End()
     {
         hit2.isEnd = true;
     }
+
     float realTime;
     float processTime = 0;
     float countDown = 0;
