@@ -15,6 +15,7 @@ public enum MacState
     RUNAWAY,
     HIT,
     DEAD,
+    DISSOLVE,
 }
 
 [RequireComponent(typeof(MacStat))]

@@ -15,6 +15,7 @@ public enum CurrentGameState
     Dialog,
     MissionClear,
     Dead,
+    Tutorial,
 }
 
 public class GameStatus : MonoBehaviour
@@ -146,7 +147,7 @@ public class GameStatus : MonoBehaviour
             MissionA missionA = MissionManager.Instance.CurrentMission as MissionA;
 
             if(missionA.currentWave < missionA.totalWave)
-                missionA.Invoke( "MonsterCheck", 5f);
+                missionA.Invoke("MonsterCheck", 5f);
             else if(missionA.currentWave == missionA.totalWave)
                 missionA.ClearMission();
         }
@@ -253,10 +254,16 @@ public class GameStatus : MonoBehaviour
         }
 
         if (UserInterface.Instance.ClearMission.gameObject.activeSelf &&
-            Input.GetKeyDown(KeyCode.Space))
+            (Input.GetKeyDown(KeyCode.Space) ||
+            Input.GetKeyDown(KeyCode.Mouse0)))
         {
+
             UserInterface.Instance.ClearMission.gameObject.SetActive(false);
             currentGameState = CurrentGameState.Wait;
+
+            PlayerFSMManager.Instance.GetComponent<PlayerCLEAR>().CMSet.gameObject.SetActive(false);
+            PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
+            PlayerFSMManager.Instance.mainCamera.gameObject.SetActive(true);
         }
 
         if (dummySet)

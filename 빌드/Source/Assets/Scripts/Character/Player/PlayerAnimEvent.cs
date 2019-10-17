@@ -31,72 +31,43 @@ public class PlayerAnimEvent : MonoBehaviour
         {
             //input.AttackCheck();
             player.AttackCheck();
-            try
-            {
-                if (isNormal)
-                    Normal_trail.gameObject.SetActive(true);
-                if (!isNormal)
-                    Special_trail.gameObject.SetActive(true);
-            }
-            catch
-            {
-
-            }
+            
+            if (isNormal)
+                Normal_trail.gameObject.SetActive(true);
+            if (!isNormal)
+                Special_trail.gameObject.SetActive(true);
         }
     }
+
     void hitCancel()
     {
         if (null != player)
         {
-            //input.AttackCancel();
             player.AttackCancel();
-            try
-            {
-                if (isNormal)
-                    Normal_trail.gameObject.SetActive(false);
-                if (!isNormal)
-                    Special_trail.gameObject.SetActive(false);
-            }
-            catch
-            {
-
-            }
+            
+            if (isNormal)
+                Normal_trail.gameObject.SetActive(false);
+            if (!isNormal)
+                Special_trail.gameObject.SetActive(false);
         }
     }
+
     void skill3Check()
     {
         player.Skill3Attack();
     }
+
     void skill3Cancel()
     {
         player.Skill3Cancel();
     }
+
     public void PlayParticle()
     {
-        //Debug.Log("시작");
-
         var main = particle.main;
-        try
-        {
-            main.startLifetime = 1;
-            particle.Play();
-        }
-        catch
-        {
-
-        }
-    }
-
-    void footstepsound()
-    {
-        try
-        {
-            player._Sound.sfx.PlayPlayerSFX(player.gameObject, player._Sound.sfx.footstepSFX);
-        }
-        catch
-        {
-
-        }
+        
+        main.startLifetime = 1;
+        particle.Play();
     }
 
     void Skill3Finish()
@@ -107,7 +78,6 @@ public class PlayerAnimEvent : MonoBehaviour
 
     void SpecialCast()
     {
-
         var voice = player._Sound.voice;
         voice.PlayPlayerVoice(this.gameObject, voice.specialCastVoice);
     }
@@ -148,32 +118,39 @@ public class PlayerAnimEvent : MonoBehaviour
         var sound = player._Sound.sfx;
         sound.PlayPlayerSFX(this.gameObject, sound.specialJumpSFX);
     }
+
     void SpecialSpinSFX()
     {
         var sound = player._Sound.sfx;
         sound.PlayPlayerSFX(this.gameObject, sound.specialSpinSFX);
     }
+
     void SpecialGripSFX()
     {
         var sound = player._Sound.sfx;
         sound.PlayPlayerSFX(this.gameObject, sound.specialGripSFX);
     }
+
     void SpecialHeartSFX()
     {
         var sound = player._Sound.sfx;
         sound.PlayPlayerSFX(this.gameObject, sound.specialHeartSFX);
     }
+
     void SpecialSwingSFX()
     {
         var sound = player._Sound.sfx;
         sound.PlayPlayerSFX(this.gameObject, sound.specialSwingSFX);
     }
 
+    void SpecialVioletBeamSFX()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.specialVioletBeamSFX);
+    }
+
     public void StopParticle()
     {
-
-        Debug.Log("끝");
-
         //particle.Stop();
         //particle.Clear();
     }
@@ -182,10 +159,12 @@ public class PlayerAnimEvent : MonoBehaviour
     {
         skill2.isEnd = true;
     }
+
     void Hit2End()
     {
         hit2.isEnd = true;
     }
+
     float realTime;
     float processTime = 0;
     float countDown = 0;

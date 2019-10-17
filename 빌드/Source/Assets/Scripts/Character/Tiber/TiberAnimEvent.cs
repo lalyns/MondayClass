@@ -58,4 +58,8 @@ public class TiberAnimEvent : MonoBehaviour
     {
         _deadCp.DeadHelper();
     }
+    public void EndCheck()
+    {
+        _attackCp1.isEnd = true;
+    }
 }

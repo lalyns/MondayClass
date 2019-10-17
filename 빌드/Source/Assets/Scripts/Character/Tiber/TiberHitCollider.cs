@@ -6,9 +6,22 @@ public class TiberHitCollider : MonoBehaviour
 {
     TiberFSMManager tiber;
 
+    //public Collider collider => GetComponent<Collider>();
+
+    public CapsuleCollider capsule;
+    private void Awake()
+    {
+        capsule = GetComponent<CapsuleCollider>();
+    }
+
     private void Start()
     {
         tiber = GetComponentInParent<TiberFSMManager>();
+    }
+
+    private void FixedUpdate()
+    {
+        this.transform.position = tiber.transform.position;
     }
 
     public void OnHitForMonster(AttackType attackType)

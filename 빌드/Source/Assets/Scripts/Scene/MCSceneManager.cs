@@ -43,7 +43,8 @@ namespace MC.SceneDirector
                 GameStatus.currentGameState = CurrentGameState.Wait;
                 currentScene = TITLE;
             }
-            if (SceneManager.GetActiveScene().name == "01-0.Tutorial") {
+            if (SceneManager.GetActiveScene().name == "01-0.Tutorial") { 
+                GameStatus.currentGameState = CurrentGameState.Tutorial;
                 currentScene = TUTORIAL;
             }
             if (SceneManager.GetActiveScene().name == "01-1.Stage1") {

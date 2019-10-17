@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour
             {
                 var dialogEvent = Instance.GetComponent<DialogEvent>();
                 UserInterface.DialogSetActive(true);
-                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4]);
+                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4], () => { });
                 GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
                 return;
             }

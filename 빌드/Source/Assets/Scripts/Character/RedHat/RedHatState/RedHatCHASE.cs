@@ -35,6 +35,8 @@ public class RedHatCHASE : RedHatFSMState
 
         else
         {
+            _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
+
             _manager.agent.destination = playerTrans;
 
             if (_manager.agent.remainingDistance >= 1.5f) {

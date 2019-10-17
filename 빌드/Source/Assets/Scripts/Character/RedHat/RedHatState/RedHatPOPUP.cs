@@ -22,8 +22,14 @@ public class RedHatPOPUP : RedHatFSMState
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
 
         _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-    }
 
+        _manager.agent.speed = 4;
+        _manager.agent.angularSpeed = 120;
+    }
+    private void Start()
+    {
+        GetComponentInChildren<RedHatHitCollider>().capsule.enabled = true;
+    }
     public override void EndState()
     {
         base.EndState();

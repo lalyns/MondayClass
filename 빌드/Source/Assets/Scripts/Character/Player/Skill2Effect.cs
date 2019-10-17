@@ -69,8 +69,9 @@ public class Skill2Effect : MonoBehaviour
 
             if (_triggerTime <= 2f)
             {
-                other.transform.position = Vector3.MoveTowards(other.transform.position, transform.position, 2f * Time.deltaTime);
-                other.transform.LookAt(transform.position);
+                other.GetComponentInParent<FSMManager>().transform.position
+                    = Vector3.MoveTowards(other.transform.position, transform.position, 2f * Time.deltaTime);
+                other.GetComponentInParent<FSMManager>().transform.LookAt(transform.position);
             }
             
         }
