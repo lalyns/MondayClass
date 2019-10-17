@@ -20,6 +20,8 @@ public class MacRUNAWAY : MacFSMState
     {
         base.EndState();
         _SetTarget = false;
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.isStopped = true;
         _manager.agent.acceleration = 0.0f;
     }
 
@@ -38,9 +40,6 @@ public class MacRUNAWAY : MacFSMState
 
         else
         {
-            _manager.agent.Stop();
-            _manager.agent.destination = this.transform.position;
-            _manager.agent.isStopped = true;
             _manager.SetState(MacState.CHASE);
         }
     }
