@@ -5,8 +5,6 @@ using MC.Mission;
 
 public class MacPOPUP : MacFSMState
 {
-    public AnimationCurve animationCurve;
-
     public override void BeginState()
     {
         base.BeginState();
@@ -22,6 +20,12 @@ public class MacPOPUP : MacFSMState
         _manager.agent.angularSpeed = 60;
     }
     
+    public void PopupReset()
+    {
+        GameLib.DissoveActive(_manager.materialList, false);
+        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
+        GetComponentInChildren<MacHitCollider>().capsule.enabled = true;
+    }
 
     private void Start()
     {
@@ -45,6 +49,8 @@ public class MacPOPUP : MacFSMState
     {
         base.FixedUpdate();
     }
+
+
 
     private void TargetPrioritySet()
     {

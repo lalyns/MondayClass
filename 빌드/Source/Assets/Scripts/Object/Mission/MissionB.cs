@@ -66,6 +66,7 @@ namespace MC.Mission
             if (currentScore == goalScore)
             {
                 ClearMission();
+                PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
                 PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
                 missionEnd = true;
             }

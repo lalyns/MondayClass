@@ -15,6 +15,7 @@ namespace MC.Mission
         public int totalWave = 3; 
 
         public MonsterWave[] waves;
+        public Canvas canvas;
 
         protected override void Start()
         {
@@ -44,6 +45,7 @@ namespace MC.Mission
             if (currentWave == totalWave && GameStatus.Instance.ActivedMonsterList.Count == 0 && !missionEnd) {
                 missionEnd = true;
                 ClearMission();
+                PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
                 PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
             }
         }
@@ -82,9 +84,16 @@ namespace MC.Mission
 
         void Spawn()
         {
+            canvas.gameObject.SetActive(true);
             StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
             currentWave++;
             //Debug.Log(currentWave);
+            Invoke("CanvasOff", 3f);
+        }
+
+        void CanvasOff()
+        {
+            canvas.gameObject.SetActive(false);
         }
     }
 }
