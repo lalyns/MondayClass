@@ -29,9 +29,10 @@ public class RedHatPOPUP : RedHatFSMState
 
     public void PopupReset()
     {
+        _manager.isDead = false;
         GameLib.DissoveActive(_manager.materialList, false);
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));
-        GetComponentInChildren<MacHitCollider>().capsule.enabled = true;
+        GetComponentInChildren<RedHatHitCollider>().capsule.enabled = true;
     }
 
     private void Start()
@@ -42,7 +43,6 @@ public class RedHatPOPUP : RedHatFSMState
     {
         base.EndState();
 
-        _manager.isDead = false;
     }
 
     protected override void FixedUpdate()

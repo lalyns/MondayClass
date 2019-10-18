@@ -100,6 +100,8 @@ public class MissionManager : MonoBehaviour
         }
 
         currentMissionRewards = new MissionRewardType[2];
+        currentMissionRewards[0] = MissionRewardType.Defense;
+        currentMissionRewards[0] = MissionRewardType.Str;
     }
 
 
