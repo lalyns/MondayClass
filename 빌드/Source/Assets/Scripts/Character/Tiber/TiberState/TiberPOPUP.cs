@@ -38,6 +38,13 @@ public class TiberPOPUP : TiberFSMState
         _manager.isDead = false;
     }
 
+    public void PopupReset()
+    {
+        GameLib.DissoveActive(_manager.materialList, false);
+        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
+        GetComponentInChildren<MacHitCollider>().capsule.enabled = true;
+    }
+
     protected override void Update()
     {
         base.Update();
