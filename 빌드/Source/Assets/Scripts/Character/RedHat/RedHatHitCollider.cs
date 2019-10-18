@@ -103,7 +103,7 @@ public class RedHatHitCollider : MonoBehaviour
             if (!PlayerFSMManager.Instance.isNormal)
                 PlayerEffects.Instance.skill1Special.ItemSetActive(redhat.hitLocation, "Effect");
 
-            other.transform.gameObject.SetActive(false);
+            //other.transform.gameObject.SetActive(false);
 
             if (redhat.Stat.Hp > 0)
             {

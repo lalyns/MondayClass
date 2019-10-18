@@ -128,7 +128,7 @@ public class MacHitCollider : MonoBehaviour
             if (mac.Stat.Hp > 0)
             {
                 OnHitForMonster(AttackType.SKILL1);
-                other.transform.gameObject.SetActive(false);
+                //other.transform.gameObject.SetActive(false);
             }
         }
 
