@@ -252,6 +252,7 @@ public class GameStatus : MonoBehaviour
         {
             isPause = !isPause;
             CanvasInfo.PauseMenuActive(isPause);
+            GameManager.Instance.IsPuase = isPause;
         }
 
         if (UserInterface.Instance.ClearMission.gameObject.activeSelf &&
@@ -326,7 +327,9 @@ public class GameStatus : MonoBehaviour
     // 몬스터 지정소환
     public void SummonMonster()
     {
-        MonsterPoolManager._Instance._Mac.ItemSetActive(_DummyLocationEffect.transform, "monster");
+        MonsterPoolManager._Instance._Mac.ItemSetActive(
+            _DummyLocationEffect.transform.position,
+            MonsterType.Mac);
         dummySet = false;
         _DummyLocationEffect.SetActive(false);
         UserInterface.SetPointerMode(false);

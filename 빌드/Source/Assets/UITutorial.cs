@@ -20,6 +20,16 @@ public class UITutorial : MonoBehaviour
         public Sprite[] DSprites;
     }
 
+    [System.Serializable]
+    public class UIDashTutorial
+    {
+        public GameObject gameObject;
+        public Image space;
+        public Sprite[] spaceSprites;
+    }
+
     public UIMoveTutorial move;
+    public UIDashTutorial dash;
+
 
 }
