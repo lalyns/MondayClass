@@ -34,13 +34,13 @@ public class UIClearMission : MonoBehaviour
     public void SetReward1(MissionRewardType type)
     {
         reward1.sprite = temp;
-        rewardName1.text = type.ToString();
+        rewardName1.text = MissionManager.Instance.rewardData.RewardText[(int)type];
     }
 
     public void SetReward2(MissionRewardType type)
     {
         reward1.sprite = temp2;
-        rewardName2.text = type.ToString();
+        rewardName2.text = MissionManager.Instance.rewardData.RewardText[(int)type];
     }
 
 }
