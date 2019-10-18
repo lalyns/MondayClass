@@ -45,12 +45,13 @@ public class FollowCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player.isMouseYLock)
+            return;
         if (distance <= 1.5f)
         {
             distance = 1.5f;
         }
-        //구체 형태의 충돌체로 충돌 여부를 검사
-
+        //구체 형태의 충돌체로 충돌 여부를 검사        
         if (isWallState)
         {
             height = Mathf.Lerp(height, 1.3f, Time.deltaTime * 3f);
@@ -131,7 +132,7 @@ public class FollowCam : MonoBehaviour
                 maxHeight = 4f;
                 originHeight = 4f;
                 height = 4f;
-                distance = 5.5f;
+                distance = 5f;
                 targetOffset = 0.7f;
                 islock = false;
                 return;

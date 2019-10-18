@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using MC.UI;
 public class PlayerCLEAR : FSMState
 {
     [SerializeField]
@@ -21,7 +21,8 @@ public class PlayerCLEAR : FSMState
         {
             _manager.ClearTimeLine2.SetActive(true);
         }
-       
+        UserInterface.SetPlayerUserInterface(false);
+
     }
 
     public override void EndState()
@@ -31,6 +32,8 @@ public class PlayerCLEAR : FSMState
         isOne = false;
         _manager.ClearTimeLine.SetActive(false);
         _manager.ClearTimeLine2.SetActive(false);
+
+        UserInterface.SetPlayerUserInterface(true);
     }
 
     private void Update()
