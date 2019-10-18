@@ -45,6 +45,7 @@ namespace MC.Mission
             if (currentWave == totalWave && GameStatus.Instance.ActivedMonsterList.Count == 0 && !missionEnd) {
                 missionEnd = true;
                 ClearMission();
+                PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
                 PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
             }
         }

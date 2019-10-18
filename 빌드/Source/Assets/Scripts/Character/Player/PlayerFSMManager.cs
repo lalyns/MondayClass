@@ -391,7 +391,7 @@ public class PlayerFSMManager : FSMManager
         }
         if (Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.Alpha0))
         {
-            CurrentClear = Random.Range((int)0, (int)2);
+            //CurrentClear = Random.Range((int)0, (int)2);
             SetState(PlayerState.CLEAR);
         }
 
