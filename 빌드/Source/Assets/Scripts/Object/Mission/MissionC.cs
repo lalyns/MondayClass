@@ -58,6 +58,7 @@ namespace MC.Mission
                 PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
                 PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
                 isClear = true;
+                missionEnd = true;
             }
         }
 
