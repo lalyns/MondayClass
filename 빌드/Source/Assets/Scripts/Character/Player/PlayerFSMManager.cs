@@ -218,6 +218,8 @@ public class PlayerFSMManager : FSMManager
 
     public List<GameObject> Shields = new List<GameObject>();
 
+    public bool isSkill1Upgrade = false;
+    public bool isSkill1Hit = false;
     protected override void Awake()
     {
         base.Awake();
@@ -1042,7 +1044,7 @@ public class PlayerFSMManager : FSMManager
             // 날라가는 시간을 정해준 후에.
             Skill1Timer1 += Time.deltaTime;
             // 날린다
-            Skill1Shoot(Skill1_Shoots, Skill1_Special_Shoots, _monster, randomShoot, 0, isNormal);
+            //Skill1Shoot(Skill1_Shoots, Skill1_Special_Shoots, _monster, randomShoot, 0, isNormal);
 
             if (_monster.Count == 0)
             {
@@ -1059,12 +1061,12 @@ public class PlayerFSMManager : FSMManager
             }
             // 날아가는 시간이 지났는데 안없어졌으면
 
-            if (Skill1Timer1 >= 2f && _monster.Count != 0)
-            {
-                _monster = GameStatus.Instance.ActivedMonsterList;
-                Skill1Shoot(Skill1_Shoots, Skill1_Special_Shoots, _monster, randomShoot, 0, isNormal);
+            //if (Skill1Timer1 >= 2f && _monster.Count != 0)
+            //{
+            //    _monster = GameStatus.Instance.ActivedMonsterList;
+            //    Skill1Shoot(Skill1_Shoots, Skill1_Special_Shoots, _monster, randomShoot, 0, isNormal);
 
-            }
+            //}
             if (Skill1Timer1 >= skill1ShootTime)
             {
 

@@ -117,7 +117,7 @@ public class TiberHitCollider : MonoBehaviour
             if (!PlayerFSMManager.Instance.isNormal)
                 PlayerEffects.Instance.skill1Special.ItemSetActive(tiber.hitLocation, "Effect");
 
-            other.transform.gameObject.SetActive(false);
+            //other.transform.gameObject.SetActive(false);
 
             if (tiber.Stat.Hp > 0)
             {

@@ -35,14 +35,14 @@ public class TiberPOPUP : TiberFSMState
         base.EndState();
 
         _curTime = 0.0f;
-        _manager.isDead = false;
     }
 
     public void PopupReset()
     {
+        _manager.isDead = false;
         GameLib.DissoveActive(_manager.materialList, false);
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));
-        GetComponentInChildren<MacHitCollider>().capsule.enabled = true;
+        GetComponentInChildren<TiberHitCollider>().capsule.enabled = true;
     }
 
     protected override void Update()

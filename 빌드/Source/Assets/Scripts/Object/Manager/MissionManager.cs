@@ -26,6 +26,7 @@ public enum MissionRewardType
     Skill2Damage,
     Skill3Damage,
     Skill3Speed,
+    Skill1Bounce,
     Last,
 }
 [System.Serializable]
@@ -100,6 +101,8 @@ public class MissionManager : MonoBehaviour
         }
 
         currentMissionRewards = new MissionRewardType[2];
+        currentMissionRewards[0] = MissionRewardType.Defense;
+        currentMissionRewards[0] = MissionRewardType.Str;
     }
 
 
