@@ -124,7 +124,7 @@ public class PlayerFSMManager : FSMManager
 
     [Header("X축 마우스 감도")]
     public float mouseSpeed = 80f;
-
+    public float Skill3MouseSpeed = 10f;
 
     float r_x = 0;
     // [HideInInspector]
@@ -219,7 +219,10 @@ public class PlayerFSMManager : FSMManager
     public List<GameObject> Shields = new List<GameObject>();
 
     public bool isSkill1Upgrade = false;
-    public bool isSkill1Hit = false;
+
+    public int Skill1BounceCount = 1;
+
+    public List<GameObject> UltimateEffect = new List<GameObject>();
     protected override void Awake()
     {
         base.Awake();
@@ -527,6 +530,26 @@ public class PlayerFSMManager : FSMManager
             Shields[1].SetActive(false);
             Shields[2].SetActive(true);           
         }
+
+        if (!isSpecial && SpecialGauge >=100 && isNormal && !isSpecialIDLE)
+        {
+            UltimateEffect[0].SetActive(true);
+        }
+        if (!isNormal && !isSkill4 && !isSpecialIDLE)
+        {
+            UltimateEffect[0].SetActive(false);
+            UltimateEffect[1].SetActive(true);
+        }
+        if (isNormal || isSkill4)
+        {
+            UltimateEffect[1].SetActive(false);
+        }
+        if (isSpecialIDLE)
+        {
+            UltimateEffect[0].SetActive(false);
+            UltimateEffect[1].SetActive(false);
+        }
+
     }
     //void Skill1Set(GameObject[] effects, GameObject[] effects_special, bool isnormal)
     //{
@@ -633,6 +656,8 @@ public class PlayerFSMManager : FSMManager
     {
         if (isNormal && SpecialGauge >= 100)
         {
+            
+            
             if (Input.GetKeyDown(KeyCode.R))
             {
 
