@@ -26,6 +26,14 @@ public class RedHatPOPUP : RedHatFSMState
         _manager.agent.speed = 4;
         _manager.agent.angularSpeed = 120;
     }
+
+    public void PopupReset()
+    {
+        GameLib.DissoveActive(_manager.materialList, false);
+        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
+        GetComponentInChildren<MacHitCollider>().capsule.enabled = true;
+    }
+
     private void Start()
     {
         GetComponentInChildren<RedHatHitCollider>().capsule.enabled = true;
