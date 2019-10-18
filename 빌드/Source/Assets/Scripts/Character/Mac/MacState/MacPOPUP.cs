@@ -22,6 +22,7 @@ public class MacPOPUP : MacFSMState
     
     public void PopupReset()
     {
+        _manager.isDead = false;
         GameLib.DissoveActive(_manager.materialList, false);
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));
         GetComponentInChildren<MacHitCollider>().capsule.enabled = true;
@@ -35,7 +36,6 @@ public class MacPOPUP : MacFSMState
     public override void EndState()
     {
         base.EndState();
-        _manager.isDead = false;
     }
 
     private void EffectPlay()

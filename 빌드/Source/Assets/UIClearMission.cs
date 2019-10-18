@@ -9,6 +9,9 @@ public class UIClearMission : MonoBehaviour
     public Image reward1;
     public Image reward2;
 
+    public Text rewardName1;
+    public Text rewardName2;
+
     public Sprite temp;
     public Sprite temp2;
 
@@ -31,11 +34,13 @@ public class UIClearMission : MonoBehaviour
     public void SetReward1(MissionRewardType type)
     {
         reward1.sprite = temp;
+        rewardName1.text = type.ToString();
     }
 
     public void SetReward2(MissionRewardType type)
     {
         reward1.sprite = temp2;
+        rewardName2.text = type.ToString();
     }
 
 }
