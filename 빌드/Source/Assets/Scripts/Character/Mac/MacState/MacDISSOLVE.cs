@@ -8,7 +8,6 @@ public class MacDISSOLVE : MacFSMState
     public override void BeginState()
     {
         base.BeginState();
-
     }
 
     public override void EndState()

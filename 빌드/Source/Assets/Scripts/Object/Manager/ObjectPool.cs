@@ -115,12 +115,15 @@ public class ObjectPool : MonoBehaviour
         {
             case MonsterType.Mac:
                 item.GetComponent<MacFSMManager>().SetState(MacState.POPUP);
+                item.GetComponent<MacPOPUP>().PopupReset();
                 break;
             case MonsterType.RedHat:
                 item.GetComponent<RedHatFSMManager>().SetState(RedHatState.POPUP);
+                item.GetComponent<RedHatPOPUP>().PopupReset();
                 break;
             case MonsterType.Tiber:
                 item.GetComponent<TiberFSMManager>().SetState(TiberState.POPUP);
+                item.GetComponent<TiberPOPUP>().PopupReset();
                 break;
 
         }
