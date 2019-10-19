@@ -40,7 +40,7 @@ public class RirisPATTERNB : RirisFSMState
 
         _manager._Weapon.gameObject.SetActive(true);
 
-        var pos = MissionManager.Instance.CurrentMission.Grid.center.position;
+        var pos = MissionManager.Instance.CurrentMission.MapGrid.center.position;
 
         transform.position = pos;
         _manager._Weapon.position = pos;
@@ -52,8 +52,8 @@ public class RirisPATTERNB : RirisFSMState
 
         if (_manager._Phase >= 1)
         {
-            var randPos = UnityEngine.Random.Range(0, MissionManager.Instance.CurrentMission.Grid.mapPositions.Count);
-            _manager.transform.position = MissionManager.Instance.CurrentMission.Grid.mapPositions[randPos];
+            var randPos = UnityEngine.Random.Range(0, MissionManager.Instance.CurrentMission.MapGrid.mapPositions.Count);
+            _manager.transform.position = MissionManager.Instance.CurrentMission.MapGrid.mapPositions[randPos];
             _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
 
             _manager.Anim.Play("PatternC");

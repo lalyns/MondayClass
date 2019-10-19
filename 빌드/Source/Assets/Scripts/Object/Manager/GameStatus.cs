@@ -175,6 +175,8 @@ public class GameStatus : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.C))
             {
+                PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
+                PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
                 MissionManager.Instance.CurrentMission.ClearMission();
                 MissionManager.Instance.CurrentMission.missionEnd = true;
             }
