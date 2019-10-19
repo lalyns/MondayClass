@@ -8,7 +8,7 @@ public class StatueAnim : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
-            GetComponent<Animator>().Play("Object_Anim_Bunny statue_5");
+            GetComponent<Animator>().Play("Play");
         }
     }
 }
