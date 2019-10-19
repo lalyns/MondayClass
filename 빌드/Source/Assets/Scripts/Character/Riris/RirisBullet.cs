@@ -33,7 +33,7 @@ public class RirisBullet : MonoBehaviour
 
     private void Start()
     {
-        RirisFSMManager = GameObject.FindGameObjectWithTag("Boss").GetComponent<RirisFSMManager>();
+        RirisFSMManager = GameObject.FindGameObjectWithTag("Boss").GetComponentInParent<RirisFSMManager>();
         bulletPool = BossEffects.Instance.bullet;
         collider = GetComponent<Collider>();
 

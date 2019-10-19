@@ -197,7 +197,7 @@ public class RirisFSMManager : FSMManager
 
     public void HPUI()
     {
-        UserInterface.Instance.HPChangeEffect(Stat, hpBar);
+        //UserInterface.Instance.HPChangeEffect(Stat, hpBar);
     }
 
     public void OnHitForBoss(AttackType attackType)
@@ -236,7 +236,7 @@ public class RirisFSMManager : FSMManager
 
     public void AttackSupport()
     {
-        hpBar.HitBackFun();
+        //hpBar.HitBackFun();
     }
 
     public int TransformTypeToInt(AttackType type)
