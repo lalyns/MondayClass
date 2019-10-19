@@ -132,9 +132,33 @@ namespace MC.Sound
 
         }
 
+        [System.Serializable]
+        public class DialogVoice
+        {
+            #region DialogVoice
+            public AK.Wwise.Event[] voice;
+
+            #endregion
+
+            public void PlaySound(GameObject go, AK.Wwise.Event voice)
+            {
+                if (GameManager.Instance.config.soundActive.voice ||
+                    GameManager.Instance.config.soundActive.all)
+                    try
+                    {
+                        voice.Post(go);
+                    }
+                    catch
+                    {
+                        MCSoundManager.LoadBank();
+                    }
+            }
+        }
+
         public AmbientList ambient;
         public BGMList bgm;
         public ObjectSoundList objectSFX;
         public UISoundList ui;
+        public DialogVoice dialogVoice;
     }
 }

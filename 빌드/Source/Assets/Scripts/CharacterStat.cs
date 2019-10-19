@@ -87,19 +87,19 @@ public class CharacterStat : MonoBehaviour
 
     }
 
-    private static float CalcDamage(CharacterStat from, CharacterStat to)
-    {
-        return from.Str;
-    }
-
-    public static void ProcessDamage(CharacterStat from, CharacterStat to)
-    {
-        float finalDamage = CalcDamage(from, to);
-        to.TakeDamage(from, finalDamage);
-    }
-
     public static void ProcessDamage(CharacterStat from, CharacterStat to, float damage)
     {
+
         to.TakeDamage(from, damage);
+
+        if (from.isPlayer)
+        {
+            from.lastHitBy = to;
+
+            if (from.lastHitBy._hp <= 0)
+            {
+                from.lastHitBy = null;
+            }
+        }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using MC.UI;
+
 public class RedHatHitCollider : MonoBehaviour
 {
     RedHatFSMManager redhat;
@@ -84,7 +86,7 @@ public class RedHatHitCollider : MonoBehaviour
 
     public void AttackSupport()
     {
-        redhat._HPBar.HitBackFun();
+        CanvasInfo.Instance.enemyHP.hpBar.HitBackFun();
     }
 
     public void OnTriggerEnter(Collider other)

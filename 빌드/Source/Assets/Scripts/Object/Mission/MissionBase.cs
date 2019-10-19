@@ -130,21 +130,21 @@ namespace MC.Mission
                 GameStatus.Instance.RemoveAllActiveMonster();
             }
 
-            if(GameStatus.Instance.StageLevel == 3)
-            {
-                var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-                UserInterface.DialogSetActive(true);
-                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () => { });
-                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            }
+            //if(GameStatus.Instance.StageLevel == 3)
+            //{
+            //    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+            //    UserInterface.DialogSetActive(true);
+            //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () => { });
+            //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            //}
 
-            if(GameStatus.Instance.StageLevel == 8)
-            {
-                var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-                UserInterface.DialogSetActive(true);
-                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () => { });
-                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            }
+            //if(GameStatus.Instance.StageLevel == 8)
+            //{
+            //    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+            //    UserInterface.DialogSetActive(true);
+            //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () => { });
+            //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            //}
 
             Exit._PortalEffect.SetActive(true);
             Exit.Colliders.enabled = true;
