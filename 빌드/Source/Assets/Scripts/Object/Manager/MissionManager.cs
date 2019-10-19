@@ -98,7 +98,7 @@ public class MissionManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
         currentMissionRewards = new MissionRewardType[2];

@@ -154,7 +154,7 @@ namespace MC.Mission
             if(!attack1 && GameStatus.Instance.ActivedMonsterList.Count == 0 && currentTutorial == TutorialEvent.Attack1)
             {
                 attack1 = true;
-                ClearMission();
+                currentTutorial = TutorialEvent.End;
             }
         }
 

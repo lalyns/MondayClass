@@ -181,22 +181,22 @@ public class GameStatus : MonoBehaviour
                 MissionManager.Instance.CurrentMission.missionEnd = true;
             }
 
-            if(Input.GetKeyDown(KeyCode.F1))
+            if(Input.GetKeyDown(KeyCode.U))
             {
                 MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
-            if (Input.GetKeyDown(KeyCode.F2))
+            if (Input.GetKeyDown(KeyCode.I))
             {
                 MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
-            if (Input.GetKeyDown(KeyCode.F3))
+            if (Input.GetKeyDown(KeyCode.O))
             {
                 MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
-            if (Input.GetKeyDown(KeyCode.F4))
+            if (Input.GetKeyDown(KeyCode.P))
             {
                 MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
