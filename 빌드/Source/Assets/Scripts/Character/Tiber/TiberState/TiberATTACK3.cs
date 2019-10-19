@@ -14,12 +14,19 @@ public class TiberATTACK3 : TiberFSMState
 
         _manager.Attack3Effect.SetActive(true);
 
+
+        _manager.agent.velocity = Vector3.zero;
+        _manager.agent.destination = this.transform.position;
         _manager.agent.acceleration = 4f;
     }
 
     public override void EndState()
     {
         base.EndState();
+
+        _manager.agent.velocity = Vector3.zero;
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.acceleration = 4f;
         _manager.agent.isStopped = true;
 
         _manager.Attack3Effect.SetActive(false);
