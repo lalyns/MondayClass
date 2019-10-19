@@ -16,6 +16,10 @@ public class TiberATTACK1 : TiberFSMState
         isEnd = false;
         _manager.CC.detectCollisions = false;
 
+        _manager.agent.velocity = Vector3.zero;
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.acceleration = 0.0f;
+
         _manager.Attack1Effect.SetActive(true);
 
         _manager.Attack1Effect.transform.position = new Vector3(_manager.PlayerCapsule.transform.position.x, _manager.PlayerCapsule.transform.position.y + 0.3f, _manager.PlayerCapsule.transform.position.z);

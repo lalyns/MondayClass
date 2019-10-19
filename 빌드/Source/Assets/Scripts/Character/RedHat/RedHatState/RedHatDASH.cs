@@ -19,6 +19,10 @@ public class RedHatDASH : RedHatFSMState
     {
         _TargetPos = _manager._PriorityTarget.transform.position;
 
+        _manager.agent.velocity = Vector3.zero;
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.acceleration = 0.0f;
+
         _manager.CC.detectCollisions = false;
         try
         {
