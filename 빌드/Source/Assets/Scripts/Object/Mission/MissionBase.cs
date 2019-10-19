@@ -140,10 +140,12 @@ namespace MC.Mission
                 GameStatus.Instance.RemoveAllActiveMonster();
             }
 
-            try
-            {
+            try {
                 FenceEffect.OpenFence();
-                
+
+            }
+            catch 
+            {
             }
 
             //if(GameStatus.Instance.StageLevel == 3)
