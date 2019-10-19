@@ -171,12 +171,12 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public static void SetFadeInOut(System.Action callback, bool value)
+    public static void SetFadeInOut(System.Action callback, string soundType, float duration, bool value)
     {
         if (value)
-            Instance.StartCoroutine(UserInterface.FadeIn(callback));
+            Instance.StartCoroutine(UserInterface.FadeIn(callback, soundType, duration));
         else
-            Instance.StartCoroutine(UserInterface.FadeOut(callback));
+            Instance.StartCoroutine(UserInterface.FadeOut(callback, soundType, duration));
     }
 
     public static void SetSceneSetting()
