@@ -34,6 +34,7 @@ namespace MC.Mission
         bool attack1, attack2, attack3, attack4 = false;
 
         public MonsterWave[] tutoWave;
+        public FenceEffect[] fences;
 
         // Start is called before the first frame update
         protected override void Awake()
@@ -110,6 +111,7 @@ namespace MC.Mission
                             GameStatus.currentGameState = CurrentGameState.Tutorial;
                             currentTutorial = TutorialEvent.Dash;
                             tutorialUI.dash.gameObject.SetActive(true);
+                            fences[0].OpenFence();
                         });
 
                 }
@@ -129,6 +131,7 @@ namespace MC.Mission
                     if (count == 7)
                     {
                         spaceChange = true;
+                        fences[1].OpenFence();
                         Invoke("SetDialogItem", 0.5f);
                     }
                 }
@@ -196,6 +199,7 @@ namespace MC.Mission
             GameStatus.currentGameState = CurrentGameState.Dialog;
             var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
+            fences[2].OpenFence();
             UserInterface.DialogSetActive(true);
             tutorialUI.dash.gameObject.SetActive(false);
             UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],

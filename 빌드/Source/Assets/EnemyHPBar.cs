@@ -8,7 +8,7 @@ namespace MC.UI
     {
         public HPBar hpBar;
 
-        private void Update()
+        public void HpBarView()
         {
             if (PlayerFSMManager.Instance.LastHit() == null)
             {

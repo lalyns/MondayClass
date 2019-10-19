@@ -103,7 +103,9 @@ namespace MC.SceneDirector
 
         public void NextScene(int sceneNumber, string soundType, float duration, bool fading)
         {
-            GameStatus.Instance.RemoveAllActiveMonster();
+            if(currentScene != TITLE)
+                GameStatus.Instance.RemoveAllActiveMonster();
+
             if (fading)
             {
                 GameManager.SetFadeInOut(() =>
