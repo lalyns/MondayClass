@@ -24,7 +24,7 @@ namespace MC.UI
         public Title title;
 
         public TitleCutScene cutScene;
-        public GameObject config;
+        public GameObject setting => CanvasInfo.Instance.setting;
 
         bool nextScene = true;
 
@@ -52,14 +52,14 @@ namespace MC.UI
             bgm.StopBGM(MCSoundManager.Instance.gameObject, bgm.lobbyBGM);
         }
 
-        public void ConfigButton()
+        public void SettingButton()
         {
-            config.SetActive(true);
+            setting.SetActive(true);
         }
 
-        public void ConfigExit()
+        public void SettingExit()
         {
-            config.SetActive(false);
+            setting.SetActive(false);
         }
 
         public void ExitButton()
