@@ -101,25 +101,27 @@ namespace MC.SceneDirector
             }
         }
 
-        public void NextScene(int i)
+        public void NextScene(int i, bool fading)
         {
-            var bgm = MCSoundManager.Instance.objectSound.bgm;
-
-            GameManager.SetFadeInOut(() =>
+            if (fading)
+            {
+                GameManager.SetFadeInOut(() =>
+                {
+                    StartCoroutine(LoadScene(i));
+                    GameStatus.SetCurrentGameState(CurrentGameState.Loading);
+                }, false
+                );
+            }
+            else
             {
                 StartCoroutine(LoadScene(i));
                 GameStatus.SetCurrentGameState(CurrentGameState.Loading);
-                GameManager.Instance.CharacterControl = false;
-                Debug.Log(GameStatus.currentGameState.ToString());
-                bgm.StopBGM(MCSoundManager.Instance.gameObject, bgm.lobbyBGM);
-            }, false
-            );
+            }
         }
 
         public IEnumerator LoadScene(int i)
         {
             yield return null;
-
 
             if (!isLoad)
             {
@@ -133,10 +135,12 @@ namespace MC.SceneDirector
             {
                 yield return null;
 
+                Debug.Log("Loading");
             }
 
             if (async.isDone)
             {
+                Debug.Log("Load Done");
                 if (prevScene == TITLE)
                 {
                     var bgm = MCSoundManager.Instance.objectSound.bgm;
@@ -146,6 +150,7 @@ namespace MC.SceneDirector
                 GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>
                 {
+                    Debug.Log("Fade In Load After");
                     //GameStatus.currentGameState = CurrentGameState.Wait;
                     GameManager.ScriptCheck();
                     MCSoundManager.LoadBank();

@@ -34,6 +34,9 @@ namespace MC.UI
 
             if (nextScene)
             {
+                var ui = MCSoundManager.Instance.objectSound.ui;
+                ui.PlaySound(this.gameObject, ui.uiStart);
+
                 cutScene.CineStart();
                 nextScene = false;
             }
@@ -41,9 +44,12 @@ namespace MC.UI
 
         public void NextScene()
         {
-            var ui = MCSoundManager.Instance.objectSound.ui;
-            ui.PlaySound(this.gameObject, ui.uiStart);
-            MCSceneManager.Instance.NextScene(MCSceneManager.TUTORIAL);
+            MCSceneManager.Instance.NextScene(MCSceneManager.TUTORIAL, false);
+            //StartCoroutine(MCSceneManager.Instance.LoadScene(MCSceneManager.TUTORIAL));
+            GameManager.Instance.CharacterControl = false;
+
+            var bgm = MCSoundManager.Instance.objectSound.bgm;
+            bgm.StopBGM(MCSoundManager.Instance.gameObject, bgm.lobbyBGM);
         }
 
         public void ConfigButton()

@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         public bool monster = true;
         public bool system = true;
         public bool progress = false;
-        public bool selector = true;
+        public bool selector = false;
     }
     public UIActive uIActive;
 
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
 
         UserInterface.SetAllUserInterface(uIActive.all);
         UserInterface.SetPlayerUserInterface(uIActive.player);
-        UserInterface.SetSystemInterface(uIActive.system);
+        //UserInterface.SetSystemInterface(uIActive.system);
         UserInterface.SetMissionProgressUserInterface(uIActive.progress);
         UserInterface.SetMissionSelectionUI(uIActive.selector);
     }
@@ -171,13 +171,12 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public static void SetFadeInOut(System.Action callback,  bool value)
+    public static void SetFadeInOut(System.Action callback, bool value)
     {
-        Debug.Log("ㅁㅁ");
         if (value)
-            Instance.StartCoroutine(UserInterface.FadeIn(callback, 20));
+            Instance.StartCoroutine(UserInterface.FadeIn(callback));
         else
-            Instance.StartCoroutine(UserInterface.FadeOut(callback, 20));
+            Instance.StartCoroutine(UserInterface.FadeOut(callback));
     }
 
     public static void SetSceneSetting()
