@@ -102,8 +102,6 @@ public class MissionManager : MonoBehaviour
         }
 
         currentMissionRewards = new MissionRewardType[2];
-        currentMissionRewards[0] = MissionRewardType.Defense;
-        currentMissionRewards[0] = MissionRewardType.Str;
     }
 
 
@@ -186,20 +184,20 @@ public class MissionManager : MonoBehaviour
 
         if (type == MissionType.Boss)
         {
-            MCSceneManager.Instance.NextScene(MCSceneManager.BOSS);
+            MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, true);
         }
         else
         {
             switch (type)
             {
                 case MissionType.Annihilation:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, true);
                     break;
                 case MissionType.Defence:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, true);
                     break;
                 case MissionType.Survival:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, true);
                     break;
             }
 
@@ -286,6 +284,12 @@ public class MissionManager : MonoBehaviour
     {
         // 여기서 보상에 관한 것을 처리함.
         if (GameStatus.currentGameState == CurrentGameState.Tutorial) return;
+
+        if (Instance.currentMissionRewards[0] == Instance.currentMissionRewards[1])
+        {
+            Instance.currentMissionRewards[0] = MissionRewardType.Defense;
+            Instance.currentMissionRewards[1] = MissionRewardType.Str;
+        }
 
         Instance.GetReward(Instance.currentMissionRewards[0]);
         Instance.GetReward(Instance.currentMissionRewards[1]);

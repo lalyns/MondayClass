@@ -5,49 +5,56 @@ using MC.SceneDirector;
 using UnityEngine.UI;
 using UnityEngine.Playables;
 
-public class TitleCutScene : MonoBehaviour
+namespace MC.UI
 {
-    public Sprite[] cutSceneSprite;
-    public Image cutScene;
 
-    public int currentCutSceneNumber = 0;
-
-    bool nextScene = true;
-
-    public void CutScene()
+    public class TitleCutScene : MonoBehaviour
     {
-        if(currentCutSceneNumber == cutSceneSprite.Length)
+        bool cinePlay = false;
+        public PlayableDirector playableDirector;
+
+        UITitle uiTitle => GetComponentInParent<UITitle>();
+
+        public void CineStart()
         {
-            if (nextScene)
+            GameManager.SetFadeInOut(() =>
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
-                nextScene = false;
+                playableDirector.gameObject.SetActive(true);
+                Invoke("PlayDirector", 2f);
+            }, false);
+        }
+
+        public void PlayDirector()
+        {
+            playableDirector.Play();
+        }
+
+        public void CineStop()
+        {
+            playableDirector.Pause();
+            cinePlay = false;
+        }
+
+        public void CineNext()
+        {
+            playableDirector.Resume();
+        }
+
+        public void CineEnd()
+        {
+            playableDirector.gameObject.SetActive(false);
+            uiTitle.NextScene();
+        }
+
+        public void Update()
+        {
+            if (Input.anyKeyDown && !cinePlay)
+            {
+                CineNext();
+                cinePlay = true;
             }
         }
-        else
-        {
-            cutScene.sprite = cutSceneSprite[currentCutSceneNumber++];
-        }
+
+
     }
-
-    public PlayableDirector playableDirector;
-
-    public void CineStop()
-    {
-        playableDirector.Pause();
-    }
-
-    public void Update()
-    {
-        if(Input.anyKeyDown)
-        {
-            CineNext();
-        }
-    }
-
-    public void CineNext()
-    {
-        playableDirector.Resume();
-    }
-
 }

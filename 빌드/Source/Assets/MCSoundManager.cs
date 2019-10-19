@@ -48,9 +48,57 @@ namespace MC.Sound
         {
             Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
                 Instance.objectSound.ambient.stageAmbient);
-            Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
+            Instance.objectSound.bgm.PlayBGM(Instance.gameObject,
                 Instance.objectSound.bgm.stageBGM);
         }
 
+        public static void SetRTPCParam(string type, float value)
+        {
+            AkSoundEngine.SetRTPCValue(type, value);
+        }
+
+        public static void GetRTPCParam(string type)
+        {
+            int rtpc = 1;
+            float value = 0;
+            AkSoundEngine.GetRTPCValue(type, Instance.gameObject, 0, out value, ref rtpc);
+            Debug.Log("RTPC Name : " + type + " Value : " + value);
+        }
+
+        public static IEnumerator SoundFadeOut(float duration)
+        {
+            float startTime = Time.realtimeSinceStartup;
+            float realTime = startTime;
+
+            while (realTime <= startTime + duration)
+            {
+                realTime = Time.realtimeSinceStartup;
+
+                var value = Mathf.Clamp01(1 - (realTime - startTime) / duration) * 100;
+                SetRTPCParam("Fade", value);
+
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            yield return null;
+        }
+
+        public static IEnumerator SoundFadeIn(float duration)
+        {
+            float startTime = Time.realtimeSinceStartup;
+            float realTime = startTime;
+
+            while (realTime <= startTime + duration)
+            {
+                realTime = Time.realtimeSinceStartup;
+
+                var value = Mathf.Clamp01((realTime - startTime) / duration) * 100;
+                SetRTPCParam("Fade", value);
+
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            yield return null;
+        }
     }
 }
