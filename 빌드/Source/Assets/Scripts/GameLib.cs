@@ -178,12 +178,12 @@ public static class GameLib
 
         
 
-        while (time < 2.5f)
+        while (time < 4f)
         {
             if(time < 0.05f)
-                time += Time.deltaTime / 1.5f;
+                time += Time.deltaTime / 1.2f;
             if (time >= 0.05f)
-                time += value * Time.deltaTime * 2;
+                time += value * Time.deltaTime * 1.6f;
 
             for (int i = 0; i < mats.Count; i++)
             {

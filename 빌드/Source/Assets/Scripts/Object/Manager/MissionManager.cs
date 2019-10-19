@@ -246,6 +246,10 @@ public class MissionManager : MonoBehaviour
                 PlayerFSMManager.Instance.Stat.RewardSkill3Damage(10);
                 break;
             case MissionRewardType.Skill3Speed:
+                PlayerFSMManager.Instance.Skill3MouseSpeed += 10;
+                break;
+            case MissionRewardType.Skill1Bounce:
+                PlayerFSMManager.Instance.Skill1BounceCount++;
                 break;
         }
 
