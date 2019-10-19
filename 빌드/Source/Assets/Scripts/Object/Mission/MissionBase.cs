@@ -147,6 +147,10 @@ namespace MC.Mission
             catch 
             {
             }
+            catch
+            {
+
+            }
 
             //if(GameStatus.Instance.StageLevel == 3)
             //{
