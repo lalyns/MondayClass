@@ -24,8 +24,8 @@ public class UIClearMission : MonoBehaviour
 
     public void SetTimer(float value)
     {
-        int min = (int)(value / 60f);
-        int sec = (int)(value % 60f);
+        int min = (int)((MissionManager.Instance.CurrentMission._LimitTime - value) / 60f);
+        int sec = (int)((MissionManager.Instance.CurrentMission._LimitTime - value) % 60f);
 
         var text = sec >= 10 ? min + "'" + sec + "''" : min + "'0" + sec + "''";
         timer.text = text;

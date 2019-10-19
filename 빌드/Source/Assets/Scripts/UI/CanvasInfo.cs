@@ -70,6 +70,7 @@ namespace MC.UI {
 
         [Space(5)][Header("HUDs")]
         public UIPlayer player;
+        public EnemyHPBar enemyHP;
         public UIMission mission;
         public SystemUI systemUI;
         public MousePointer mousePointer;

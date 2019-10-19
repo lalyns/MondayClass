@@ -215,7 +215,7 @@ namespace MC.Mission
 
             UserInterface.DialogSetActive(true);
             tutorialUI.dash.gameObject.SetActive(false);
-            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5],
+            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[8],
                 () => {
                     GameStatus.currentGameState = CurrentGameState.Tutorial;
                     currentTutorial = TutorialEvent.Attack1;

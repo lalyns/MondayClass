@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using MC.UI;
+
 public class MacHitCollider : MonoBehaviour
 {
     MacFSMManager mac;
@@ -94,7 +96,7 @@ public class MacHitCollider : MonoBehaviour
 
     public void AttackSupport()
     {
-        mac._HPBar.HitBackFun();
+        CanvasInfo.Instance.enemyHP.hpBar.HitBackFun();
     }
 
     //public void SetKnockBack(PlayerStat stat,int attackType)

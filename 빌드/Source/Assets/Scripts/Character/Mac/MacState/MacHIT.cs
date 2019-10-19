@@ -42,6 +42,8 @@ public class MacHIT : MacFSMState
 
         _manager.CurrentAttackType = AttackType.NONE;
         _manager.isChange = false;
+
+        StopAllCoroutines();
     }
 
     protected override void Update()

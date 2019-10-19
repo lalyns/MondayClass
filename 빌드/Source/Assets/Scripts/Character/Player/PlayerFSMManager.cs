@@ -1359,4 +1359,10 @@ public class PlayerFSMManager : FSMManager
         return new Vector3(Instance.Anim.transform.position.x,
             transform.position.y, Instance.Anim.transform.position.z);
     }
+
+
+    public CharacterStat LastHit()
+    {
+        return Stat.lastHitBy;
+    }
 }
