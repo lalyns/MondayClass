@@ -210,12 +210,12 @@ namespace MC.UI
 
         public float FadeInOutSpeed = 10.0f;
 
-        public static IEnumerator FadeIn(System.Action callback, float duration = 3.0f, float speed = 10.0f)
+        public static IEnumerator FadeIn(System.Action callback, string soundRTPC, float duration = 3.0f, float speed = 10.0f)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
 
-            Instance.StartCoroutine(MCSoundManager.SoundFadeIn(duration));
+            Instance.StartCoroutine(MCSoundManager.SoundFadeIn(soundRTPC, duration));
             var alpha = Instance.ScreenEffect.fading.image.color;
 
             while (realTime <= startTime + duration)
@@ -233,12 +233,12 @@ namespace MC.UI
             yield return Instance.StartCoroutine(Instance.FadeInOutReturnValue(callback));
         }
 
-        public static IEnumerator FadeOut(System.Action callback, float duration = 3.0f, float speed = 10.0f)
+        public static IEnumerator FadeOut(System.Action callback, string soundRTPC, float duration = 3.0f, float speed = 10.0f)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
 
-            Instance.StartCoroutine(MCSoundManager.SoundFadeOut(duration));
+            Instance.StartCoroutine(MCSoundManager.SoundFadeOut(soundRTPC, duration));
             var alpha = Instance.ScreenEffect.fading.image.color;
 
             while (realTime <= startTime + duration)
