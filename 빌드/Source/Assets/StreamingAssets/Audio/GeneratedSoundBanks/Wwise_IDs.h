@@ -28,6 +28,7 @@ namespace AK
         static const AkUniqueID PLAYER_ACTION_SWING_HARD_VOICE = 3895961451U;
         static const AkUniqueID PLAYER_ACTION_SWING_NORMAL_VOICE = 2873463837U;
         static const AkUniqueID PLAYER_ACTION_SWING_TRANSFORM_VOICE = 226778022U;
+        static const AkUniqueID PLAYER_EMOTE_HAPPY_VOICE = 3963107719U;
         static const AkUniqueID PLAYER_EMOTE_RAGE_VOICE = 3515964306U;
         static const AkUniqueID PLAYER_EMOTE_SAD_VOICE = 4170229925U;
         static const AkUniqueID PLAYER_EMOTE_SMILE_VOICE = 2926638781U;
@@ -63,6 +64,16 @@ namespace AK
         static const AkUniqueID ZPANGYI_EMOTE_SMILE_VOICE = 1944912184U;
         static const AkUniqueID ZPANGYI_EMOTE_SURPRISED_VOICE = 4178420103U;
     } // namespace EVENTS
+
+    namespace GAME_PARAMETERS
+    {
+        static const AkUniqueID ALLVOLUME = 2731583604U;
+        static const AkUniqueID AMBIENTVOLUME = 3546521921U;
+        static const AkUniqueID BGMVOLUME = 3043206523U;
+        static const AkUniqueID FADE = 2646605403U;
+        static const AkUniqueID SOUNDVOLUME = 3873835272U;
+        static const AkUniqueID VOICEVOLUME = 414646191U;
+    } // namespace GAME_PARAMETERS
 
     namespace BANKS
     {

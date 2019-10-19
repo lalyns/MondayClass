@@ -183,17 +183,17 @@ public class GameStatus : MonoBehaviour
 
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
+                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, true);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL);
+                MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, true);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE);
+                MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, true);
             }
 
             if (Input.GetKeyDown(KeyCode.I))
@@ -210,7 +210,7 @@ public class GameStatus : MonoBehaviour
             {
 
                 UserInterface.SetPlayerUserInterface(false);
-                MCSceneManager.Instance.NextScene(MCSceneManager.BOSS);
+                MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, true);
             }
 
             if (Input.GetKeyDown(KeyCode.P))
