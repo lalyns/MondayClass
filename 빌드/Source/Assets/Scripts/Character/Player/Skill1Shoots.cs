@@ -9,22 +9,21 @@ public class Skill1Shoots : MonoBehaviour
     private void Awake()
     {
         player = PlayerFSMManager.Instance;
-    }
-    private void OnEnable()
-    {
-        player.Skill1PositionSet(player.Skill1_Effects, player.Skill1_Shoots, player.Skill1_Special_Shoots, player.isNormal);
-    }
+    }    
     private void Update()
     {
         _time += Time.deltaTime;
-        if (_time >= 2f){
+        if (_time >= 5f){
             gameObject.SetActive(false);
         }
     }
 
+    private void OnEnable()
+    {
+        player.Skill1PositionSet(player.Skill1_Effects, player.Skill1_Shoots, player.Skill1_Special_Shoots, player.isNormal);
+    }
     private void OnDisable()
     {
         _time = 0;
     }
-
 }

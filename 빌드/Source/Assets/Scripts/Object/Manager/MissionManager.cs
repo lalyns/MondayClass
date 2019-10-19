@@ -14,6 +14,7 @@ public enum MissionType
     Survival = 1,
     Defence = 2,
     Boss = 3,
+    Tutorial = 4,
     Last,
 }
 public enum MissionRewardType
@@ -26,6 +27,7 @@ public enum MissionRewardType
     Skill2Damage,
     Skill3Damage,
     Skill3Speed,
+    Skill1Bounce,
     Last,
 }
 [System.Serializable]
@@ -130,7 +132,7 @@ public class MissionManager : MonoBehaviour
         //랜덤 미션 출력하기
         foreach (MissionButton choice in UserInterface.Instance.SelectorUI.buttons)
         {
-            var type = UnityEngine.Random.Range(0, 999) % ((int)(MissionType.Last) - 1);
+            var type = UnityEngine.Random.Range(0, 999) % ((int)(MissionType.Boss));
             choice.ChangeMission(type);
         }
 
@@ -243,6 +245,10 @@ public class MissionManager : MonoBehaviour
                 PlayerFSMManager.Instance.Stat.RewardSkill3Damage(10);
                 break;
             case MissionRewardType.Skill3Speed:
+                PlayerFSMManager.Instance.Skill3MouseSpeed += 10;
+                break;
+            case MissionRewardType.Skill1Bounce:
+                PlayerFSMManager.Instance.Skill1BounceCount++;
                 break;
         }
 
@@ -277,6 +283,14 @@ public class MissionManager : MonoBehaviour
     public static void RewardMission()
     {
         // 여기서 보상에 관한 것을 처리함.
+        if (GameStatus.currentGameState == CurrentGameState.Tutorial) return;
+
+        if (Instance.currentMissionRewards[0] == Instance.currentMissionRewards[1])
+        {
+            Instance.currentMissionRewards[0] = MissionRewardType.Defense;
+            Instance.currentMissionRewards[1] = MissionRewardType.Str;
+        }
+
         Instance.GetReward(Instance.currentMissionRewards[0]);
         Instance.GetReward(Instance.currentMissionRewards[1]);
 

@@ -66,6 +66,7 @@ namespace MC.Mission
             if (currentScore == goalScore)
             {
                 ClearMission();
+                PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
                 PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
                 missionEnd = true;
             }
@@ -98,10 +99,10 @@ namespace MC.Mission
 
         void DropStar()
         {
-            var randPos = UnityEngine.Random.Range(0, Grid.mapPositions.Count);
+            var randPos = UnityEngine.Random.Range(0, MapGrid.mapPositions.Count);
 
             GameObject star = starPool.ItemSetActive(
-                Grid.mapPositions[randPos] + Vector3.up * starHeight);
+                MapGrid.mapPositions[randPos] + Vector3.up * starHeight);
 
             star.GetComponent<DropStar>().stop = false;
 

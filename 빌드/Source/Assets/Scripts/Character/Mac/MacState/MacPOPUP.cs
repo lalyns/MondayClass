@@ -5,8 +5,6 @@ using MC.Mission;
 
 public class MacPOPUP : MacFSMState
 {
-    public AnimationCurve animationCurve;
-
     public override void BeginState()
     {
         base.BeginState();
@@ -22,6 +20,13 @@ public class MacPOPUP : MacFSMState
         _manager.agent.angularSpeed = 60;
     }
     
+    public void PopupReset()
+    {
+        _manager.isDead = false;
+        GameLib.DissoveActive(_manager.materialList, false);
+        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
+        GetComponentInChildren<MacHitCollider>().capsule.enabled = true;
+    }
 
     private void Start()
     {
@@ -31,7 +36,6 @@ public class MacPOPUP : MacFSMState
     public override void EndState()
     {
         base.EndState();
-        _manager.isDead = false;
     }
 
     private void EffectPlay()
@@ -46,9 +50,17 @@ public class MacPOPUP : MacFSMState
         base.FixedUpdate();
     }
 
+
+
     private void TargetPrioritySet()
     {
         if(GameStatus.currentGameState == CurrentGameState.EDITOR)
+        {
+            _manager._PriorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
+            return;
+        }
+
+        if (GameStatus.currentGameState == CurrentGameState.Tutorial)
         {
             _manager._PriorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
             return;

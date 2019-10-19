@@ -14,7 +14,6 @@ namespace MC.UI
         public GameObject gameObject;
 
         public Button start;
-        public Button howToPlay;
         public Button config;
         public Button exit;
 
@@ -24,8 +23,7 @@ namespace MC.UI
     {
         public Title title;
 
-        public GameObject cutScene;
-        public GameObject howToPlay;
+        public TitleCutScene cutScene;
         public GameObject config;
 
         bool nextScene = true;
@@ -36,21 +34,16 @@ namespace MC.UI
 
             if (nextScene)
             {
-                var ui = MCSoundManager.Instance.objectSound.ui;
-                ui.PlaySound(this.gameObject, ui.uiStart);
-                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
+                cutScene.CineStart();
                 nextScene = false;
             }
         }
 
-        public void HowToPlayButton()
+        public void NextScene()
         {
-            howToPlay.SetActive(true);
-        }
-
-        public void HowToPlayExit()
-        {
-            howToPlay.SetActive(false);
+            var ui = MCSoundManager.Instance.objectSound.ui;
+            ui.PlaySound(this.gameObject, ui.uiStart);
+            MCSceneManager.Instance.NextScene(MCSceneManager.TUTORIAL);
         }
 
         public void ConfigButton()

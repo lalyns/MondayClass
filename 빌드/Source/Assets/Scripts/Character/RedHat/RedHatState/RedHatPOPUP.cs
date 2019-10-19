@@ -26,6 +26,15 @@ public class RedHatPOPUP : RedHatFSMState
         _manager.agent.speed = 4;
         _manager.agent.angularSpeed = 120;
     }
+
+    public void PopupReset()
+    {
+        _manager.isDead = false;
+        GameLib.DissoveActive(_manager.materialList, false);
+        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
+        GetComponentInChildren<RedHatHitCollider>().capsule.enabled = true;
+    }
+
     private void Start()
     {
         GetComponentInChildren<RedHatHitCollider>().capsule.enabled = true;
@@ -34,7 +43,6 @@ public class RedHatPOPUP : RedHatFSMState
     {
         base.EndState();
 
-        _manager.isDead = false;
     }
 
     protected override void FixedUpdate()
@@ -44,6 +52,18 @@ public class RedHatPOPUP : RedHatFSMState
 
     private void TargetPrioritySet()
     {
+        if (GameStatus.currentGameState == CurrentGameState.EDITOR)
+        {
+            _manager._PriorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
+            return;
+        }
+
+        if (GameStatus.currentGameState == CurrentGameState.Tutorial)
+        {
+            _manager._PriorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
+            return;
+        }
+
         if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
         {
 

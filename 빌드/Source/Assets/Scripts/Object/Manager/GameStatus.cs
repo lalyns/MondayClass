@@ -175,6 +175,8 @@ public class GameStatus : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.C))
             {
+                PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
+                PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
                 MissionManager.Instance.CurrentMission.ClearMission();
                 MissionManager.Instance.CurrentMission.missionEnd = true;
             }
@@ -327,7 +329,9 @@ public class GameStatus : MonoBehaviour
     // 몬스터 지정소환
     public void SummonMonster()
     {
-        MonsterPoolManager._Instance._Mac.ItemSetActive(_DummyLocationEffect.transform, "monster");
+        MonsterPoolManager._Instance._Mac.ItemSetActive(
+            _DummyLocationEffect.transform.position,
+            MonsterType.Mac);
         dummySet = false;
         _DummyLocationEffect.SetActive(false);
         UserInterface.SetPointerMode(false);
