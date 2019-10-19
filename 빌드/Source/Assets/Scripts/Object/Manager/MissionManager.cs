@@ -184,20 +184,20 @@ public class MissionManager : MonoBehaviour
 
         if (type == MissionType.Boss)
         {
-            MCSceneManager.Instance.NextScene(MCSceneManager.BOSS);
+            MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, true);
         }
         else
         {
             switch (type)
             {
                 case MissionType.Annihilation:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, true);
                     break;
                 case MissionType.Defence:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, true);
                     break;
                 case MissionType.Survival:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, true);
                     break;
             }
 

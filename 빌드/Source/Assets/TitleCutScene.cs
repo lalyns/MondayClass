@@ -20,8 +20,13 @@ namespace MC.UI
             GameManager.SetFadeInOut(() =>
             {
                 playableDirector.gameObject.SetActive(true);
-                playableDirector.Play();
+                Invoke("PlayDirector", 2f);
             }, false);
+        }
+
+        public void PlayDirector()
+        {
+            playableDirector.Play();
         }
 
         public void CineStop()

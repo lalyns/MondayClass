@@ -4,6 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
+using MC.Sound;
 using MC.Mission;
 using MC.SceneDirector;
 
@@ -121,7 +122,7 @@ namespace MC.UI
         {
             if (!activeAllUI) { return; }
 
-            SetValue();
+            //SetValue();
 
             if (activePlayerUI) {
                 PlayerUI();
@@ -209,33 +210,46 @@ namespace MC.UI
 
         public float FadeInOutSpeed = 10.0f;
 
-        public static IEnumerator FadeIn(System.Action callback, float speed = 10.0f, float delay = 0.15f)
+        public static IEnumerator FadeIn(System.Action callback, float duration = 3.0f, float speed = 10.0f)
         {
+            float startTime = Time.realtimeSinceStartup;
+            float realTime = startTime;
+
+            Instance.StartCoroutine(MCSoundManager.SoundFadeIn(duration));
             var alpha = Instance.ScreenEffect.fading.image.color;
-            for (float i = 100; i >= 0;)
+
+            while (realTime <= startTime + duration)
             {
-                i -= speed;
-                var value = Mathf.Clamp01(i * 0.01f);
+                realTime = Time.realtimeSinceStartup;
+
+                var value = Mathf.Clamp01(1 - (realTime - startTime) / duration);
                 alpha.a = value;
                 Instance.ScreenEffect.fading.image.color = alpha;
 
-                yield return new WaitForSeconds(delay);
+                yield return new WaitForSeconds(0.1f);
             }
+
 
             yield return Instance.StartCoroutine(Instance.FadeInOutReturnValue(callback));
         }
 
-        public static IEnumerator FadeOut(System.Action callback, float speed = 10.0f, float delay = 0.15f)
+        public static IEnumerator FadeOut(System.Action callback, float duration = 3.0f, float speed = 10.0f)
         {
+            float startTime = Time.realtimeSinceStartup;
+            float realTime = startTime;
+
+            Instance.StartCoroutine(MCSoundManager.SoundFadeOut(duration));
             var alpha = Instance.ScreenEffect.fading.image.color;
-            for (float i = 0; i <= 100;)
+
+            while (realTime <= startTime + duration)
             {
-                i += speed;
-                var value = Mathf.Clamp01(i * 0.01f);
+                realTime = Time.realtimeSinceStartup;
+
+                var value = Mathf.Clamp01((realTime - startTime) / duration);
                 alpha.a = value;
                 Instance.ScreenEffect.fading.image.color = alpha;
 
-                yield return new WaitForSeconds(delay);
+                yield return new WaitForSeconds(0.1f);
             }
 
             yield return Instance.StartCoroutine(Instance.FadeInOutReturnValue(callback));

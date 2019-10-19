@@ -86,6 +86,8 @@ namespace MC.UI {
 
         public Animator missionStartAnim;
 
+        public GameObject setting;
+
         public UIClearMission clearUI;
         public UIFailMission failUI;
 
@@ -156,7 +158,7 @@ namespace MC.UI {
         {
             PauseMenuActive(false);
             failUI.gameObject.SetActive(false);
-            MCSceneManager.Instance.NextScene(MCSceneManager.TITLE);
+            MCSceneManager.Instance.NextScene(MCSceneManager.TITLE, true);
 
             UserInterface.SetPointerMode(true);
 
@@ -173,7 +175,7 @@ namespace MC.UI {
         {
             PauseMenuActive(false);
             failUI.gameObject.SetActive(false);
-            MCSceneManager.Instance.NextScene(MCSceneManager.currentScene);
+            MCSceneManager.Instance.NextScene(MCSceneManager.currentScene, true);
             GameStatus.Instance.StageLevel--;
         }
 
