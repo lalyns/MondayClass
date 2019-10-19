@@ -247,7 +247,7 @@ public class GameManager : MonoBehaviour
     public void TutorialSet()
     {
         GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
-        (MissionManager.Instance.CurrentMission as MissionTutorial).tutostart = true;
+        FindObjectOfType<MissionTutorial>().tutostart = true;
 
         UserInterface.SetPlayerUserInterface(true);
     }
