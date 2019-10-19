@@ -102,8 +102,6 @@ public class MissionManager : MonoBehaviour
         }
 
         currentMissionRewards = new MissionRewardType[2];
-        currentMissionRewards[0] = MissionRewardType.Defense;
-        currentMissionRewards[0] = MissionRewardType.Str;
     }
 
 
@@ -286,6 +284,12 @@ public class MissionManager : MonoBehaviour
     {
         // 여기서 보상에 관한 것을 처리함.
         if (GameStatus.currentGameState == CurrentGameState.Tutorial) return;
+
+        if (Instance.currentMissionRewards[0] == Instance.currentMissionRewards[1])
+        {
+            Instance.currentMissionRewards[0] = MissionRewardType.Defense;
+            Instance.currentMissionRewards[1] = MissionRewardType.Str;
+        }
 
         Instance.GetReward(Instance.currentMissionRewards[0]);
         Instance.GetReward(Instance.currentMissionRewards[1]);
