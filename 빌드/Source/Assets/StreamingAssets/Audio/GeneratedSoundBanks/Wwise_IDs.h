@@ -67,12 +67,14 @@ namespace AK
 
     namespace GAME_PARAMETERS
     {
-        static const AkUniqueID ALLVOLUME = 2731583604U;
-        static const AkUniqueID AMBIENTVOLUME = 3546521921U;
-        static const AkUniqueID BGMVOLUME = 3043206523U;
-        static const AkUniqueID FADE = 2646605403U;
-        static const AkUniqueID SOUNDVOLUME = 3873835272U;
-        static const AkUniqueID VOICEVOLUME = 414646191U;
+        static const AkUniqueID ALL_VOLUME = 1156109299U;
+        static const AkUniqueID AMBIENT_VOLUME = 2364768092U;
+        static const AkUniqueID BGM_DIE_FADE_OUT = 2848960966U;
+        static const AkUniqueID BGM_SCENESWITCH_FADE_OUT = 434843260U;
+        static const AkUniqueID BGM_START_FADE_IN = 2173888893U;
+        static const AkUniqueID BGM_VOLUME = 341651998U;
+        static const AkUniqueID SOUND_VOLUME = 495870151U;
+        static const AkUniqueID VOICE_VOLUME = 3538560642U;
     } // namespace GAME_PARAMETERS
 
     namespace BANKS
