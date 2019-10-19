@@ -14,7 +14,8 @@ namespace MC.UI
         public GameObject gameObject;
 
         public Button start;
-        public Button config;
+        public Button setting;
+        public Button developer;
         public Button exit;
 
     }
@@ -60,6 +61,11 @@ namespace MC.UI
         public void SettingExit()
         {
             setting.SetActive(false);
+        }
+
+        public void Developer()
+        {
+            Debug.Log("개발자 : ??");
         }
 
         public void ExitButton()
