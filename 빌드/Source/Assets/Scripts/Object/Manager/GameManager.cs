@@ -223,8 +223,7 @@ public class GameManager : MonoBehaviour
                 Instance.TitleSet();
                 break;
             case MCSceneManager.TUTORIAL:
-                GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
-                (MissionManager.Instance.CurrentMission as MissionTutorial).tutostart = true;
+                Instance.TutorialSet();
                 break;
             case MCSceneManager.ANNIHILATION:
                 GameStatus.SetCurrentGameState(CurrentGameState.Wait);
@@ -243,6 +242,14 @@ public class GameManager : MonoBehaviour
                 Instance.BossSet();
                 break;
         }
+    }
+
+    public void TutorialSet()
+    {
+        GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
+        (MissionManager.Instance.CurrentMission as MissionTutorial).tutostart = true;
+
+        UserInterface.SetPlayerUserInterface(true);
     }
 
     public void TitleSet()
