@@ -145,6 +145,10 @@ namespace MC.Mission
                 FenceEffect.OpenFence();
                 
             }
+            catch
+            {
+
+            }
 
             //if(GameStatus.Instance.StageLevel == 3)
             //{
