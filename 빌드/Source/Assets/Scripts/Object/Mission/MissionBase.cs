@@ -53,6 +53,16 @@ namespace MC.Mission
             }
         }
 
+        protected FenceEffect fenceEffect;
+        public FenceEffect FenceEffect{
+            get {
+                if (fenceEffect == null)
+                    fenceEffect = GetComponentInChildren<FenceEffect>();
+                return fenceEffect;
+            }
+        }
+
+
         [SerializeField] protected MissionData _Data;
         public MissionData Data {
             get { return _Data; }
@@ -128,6 +138,12 @@ namespace MC.Mission
             if (!GameStatus.Instance.usingKeward && MissionManager.Instance.CurrentMissionType != MissionType.Annihilation)
             {
                 GameStatus.Instance.RemoveAllActiveMonster();
+            }
+
+            try
+            {
+                FenceEffect.OpenFence();
+                
             }
 
             //if(GameStatus.Instance.StageLevel == 3)
