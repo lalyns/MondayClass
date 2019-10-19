@@ -16,12 +16,12 @@ namespace MC.Mission
 
     public class MissionBase : MonoBehaviour
     {
-        protected MapGrid grid;
-        public MapGrid Grid {
+        protected MapGrid mapGrid;
+        public MapGrid MapGrid {
             get {
-                if (grid == null)
-                    grid = GetComponent<MapGrid>();
-                return grid;
+                if (mapGrid == null)
+                    mapGrid = GetComponent<MapGrid>();
+                return mapGrid;
             }
         }
 
@@ -164,19 +164,19 @@ namespace MC.Mission
             GameObject a = null;
             foreach (MonsterType monsterType in monsterTypes)
             {
-                var position = Grid.mapPositions.Count;
+                var position = MapGrid.mapPositions.Count;
                 var rand = UnityEngine.Random.Range(0, position);
 
                 switch (monsterType)
                 {
                     case MonsterType.Mac:
-                        a = MonsterPoolManager._Instance._Mac.ItemSetActive(Grid.mapPositions[rand], monsterType);
+                        a = MonsterPoolManager._Instance._Mac.ItemSetActive(MapGrid.mapPositions[rand], monsterType);
                         break;
                     case MonsterType.RedHat:
-                        a = MonsterPoolManager._Instance._RedHat.ItemSetActive(Grid.mapPositions[rand], monsterType);
+                        a = MonsterPoolManager._Instance._RedHat.ItemSetActive(MapGrid.mapPositions[rand], monsterType);
                         break;
                     case MonsterType.Tiber:
-                        a = MonsterPoolManager._Instance._Tiber.ItemSetActive(Grid.mapPositions[rand], monsterType);
+                        a = MonsterPoolManager._Instance._Tiber.ItemSetActive(MapGrid.mapPositions[rand], monsterType);
                         break;
                 }
 

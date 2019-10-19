@@ -38,7 +38,7 @@ namespace MC.UI
             {
                 var ui = MCSoundManager.Instance.objectSound.ui;
                 ui.PlaySound(this.gameObject, ui.uiStart);
-                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION);
+                MCSceneManager.Instance.NextScene(MCSceneManager.TUTORIAL);
                 nextScene = false;
             }
         }
