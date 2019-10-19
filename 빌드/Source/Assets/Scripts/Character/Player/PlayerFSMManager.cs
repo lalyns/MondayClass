@@ -92,7 +92,7 @@ public class PlayerFSMManager : FSMManager
 
     //public CharacterController testTarget;
     public bool isCantMove;
-    float vertical, horizontal;
+    public float vertical, horizontal;
     public float attackCount;
     public GameObject[] Skill1Effeects;
     public bool isBall, isShoot;

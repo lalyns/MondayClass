@@ -13,22 +13,30 @@ namespace MC.Mission
         Move,
         Dash,
         Item,
-        Attack,
+        Attack1,
+        Attack2,
+        Attack3,
+        Attack4,
+        End,
     }
 
-    public class MissionTutorial : MonoBehaviour
+    public class MissionTutorial : MissionBase
     {
         public TutorialEvent currentTutorial = TutorialEvent.None;
         public UITutorial tutorialUI;
 
+        public bool tutostart = false;
         bool tutorial = false;
         [SerializeField]int count = 0;
 
         bool wChange, sChange, aChange, dChange = false;
         bool spaceChange = false;
+        bool attack1, attack2, attack3, attack4 = false;
+
+        public MonsterWave[] tutoWave;
 
         // Start is called before the first frame update
-        void Awake()
+        protected override void Awake()
         {
             //base.Awake();
 
@@ -36,16 +44,11 @@ namespace MC.Mission
         }
 
         // Update is called once per frame
-        void Start()
-        {
-            //.Start();
-        }
 
-        void Update()
+        protected override void Update()
         {
             // base.Update();
-
-            if(currentTutorial == TutorialEvent.None && !tutorial)
+            if (currentTutorial == TutorialEvent.None && !tutorial && tutostart)
             {
                 GameStatus.currentGameState = CurrentGameState.Dialog;
                 var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
@@ -56,7 +59,6 @@ namespace MC.Mission
                     () => {
                         GameStatus.currentGameState = CurrentGameState.Tutorial;
                         currentTutorial = TutorialEvent.Two;
-                        GameManager.Instance.CharacterControl = false;
                         //tutorialUI.gameObject.SetActive(true);
                         Invoke("SetDialog2", 2f);
                     });
@@ -127,9 +129,29 @@ namespace MC.Mission
                     if (count == 7)
                     {
                         spaceChange = true;
-                        SetDialogItem();
+                        Invoke("SetDialogItem", 0.5f);
                     }
                 }
+            }
+
+            if(currentTutorial != TutorialEvent.End && Input.GetKeyDown(KeyCode.F10))
+            {
+                currentTutorial = TutorialEvent.End;
+            }
+
+            if(currentTutorial == TutorialEvent.End)
+            {
+                if (!GetComponentInChildren<MissionExit>()._PortalEffect.activeSelf)
+                {
+                    GetComponentInChildren<MissionExit>()._PortalEffect.SetActive(true);
+                    GetComponentInChildren<MissionExit>().Colliders.enabled = true;
+                }
+            }
+
+            if(!attack1 && GameStatus.Instance.ActivedMonsterList.Count == 0 && currentTutorial == TutorialEvent.Attack1)
+            {
+                attack1 = true;
+                ClearMission();
             }
         }
 
@@ -185,6 +207,24 @@ namespace MC.Mission
                 });
 
         }
+
+        public void SetAttack1Event()
+        {
+            GameStatus.currentGameState = CurrentGameState.Dialog;
+            var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+
+            UserInterface.DialogSetActive(true);
+            tutorialUI.dash.gameObject.SetActive(false);
+            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5],
+                () => {
+                    GameStatus.currentGameState = CurrentGameState.Tutorial;
+                    currentTutorial = TutorialEvent.Attack1;
+                    //tutorialUI.move.gameObject.SetActive(true);
+                    StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
+                    GameManager.Instance.CharacterControl = true;
+                });
+        }
+
 
         void NextTutorial(TutorialEvent state)
         {

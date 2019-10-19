@@ -46,6 +46,7 @@ namespace MC.UI
 
         public void SetDialog(Dialog dialog, System.Action action)
         {
+            CharacterStop();
             currentDialog = dialog;
             dialogLength = currentDialog.talker.Count;
             currentTurn = 1;
@@ -73,6 +74,15 @@ namespace MC.UI
             dialogUI.rightStanding.sprite = standing[currentDialog.right[turn]];
             dialogUI.leftStanding.sprite = standing[currentDialog.left[turn]];
             dialogUI.textUI.sprite = text[currentDialog.text[turn]];
+        }
+
+        public void CharacterStop()
+        {
+            Debug.Log("Stop");
+            GameManager.Instance.CharacterControl = false;
+            PlayerFSMManager.Instance.vertical = 0;
+            PlayerFSMManager.Instance.horizontal = 0;
+            PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
         }
 
         public void EndDialog()
