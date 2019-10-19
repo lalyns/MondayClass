@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
 
+using MC.Mission;
 using MC.UI;
 using MC.Sound;
 using MC.SceneDirector;
@@ -189,15 +190,15 @@ public class GameManager : MonoBehaviour
 
     public static void ScriptCheck()
     {
-        if (MCSceneManager.currentScene != MCSceneManager.TITLE)
+        if (MCSceneManager.currentScene != MCSceneManager.TITLE || 
+            MCSceneManager.currentScene != MCSceneManager.TUTORIAL)
         {
             if (GameStatus.Instance.StageLevel == 0)
             {
-                var dialogEvent = Instance.GetComponent<DialogEvent>();
-                UserInterface.DialogSetActive(true);
-                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4], () => { });
-                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-                return;
+                //var dialogEvent = Instance.GetComponent<DialogEvent>();
+                //UserInterface.DialogSetActive(true);
+                //UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4], () => { });
+                //GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
             }
 
             //if (MCSceneManager.currentScene == MCSceneManager.BOSS)
@@ -216,25 +217,30 @@ public class GameManager : MonoBehaviour
     public void AfterDialog()
     {
         var num = MCSceneManager.currentScene;
-        GameStatus.SetCurrentGameState(CurrentGameState.Wait);
 
         switch (num)
         {
-            case 0:
+            case MCSceneManager.TITLE:
                 Instance.TitleSet();
                 break;
-            case 1:
+            case MCSceneManager.TUTORIAL:
+                GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
+                (MissionManager.Instance.CurrentMission as MissionTutorial).tutostart = true;
                 break;
-            case 2:
+            case MCSceneManager.ANNIHILATION:
+                GameStatus.SetCurrentGameState(CurrentGameState.Wait);
                 Instance.StageSet();
                 break;
-            case 3:
+            case MCSceneManager.SURVIVAL:
+                GameStatus.SetCurrentGameState(CurrentGameState.Wait);
                 Instance.StageSet();
                 break;
-            case 4:
+            case MCSceneManager.DEFENCE:
+                GameStatus.SetCurrentGameState(CurrentGameState.Wait);
                 Instance.StageSet();
                 break;
-            case 5:
+            case MCSceneManager.BOSS:
+                GameStatus.SetCurrentGameState(CurrentGameState.Wait);
                 Instance.BossSet();
                 break;
         }

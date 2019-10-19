@@ -44,7 +44,7 @@ public class RirisPATTERNC : RirisFSMState
 
         useGravity = false;
 
-        _manager.transform.position = MissionManager.Instance.CurrentMission.Grid.center.position;
+        _manager.transform.position = MissionManager.Instance.CurrentMission.MapGrid.center.position;
 
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.transform));
     }
