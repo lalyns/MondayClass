@@ -184,20 +184,20 @@ public class MissionManager : MonoBehaviour
 
         if (type == MissionType.Boss)
         {
-            MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, true);
+            MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, "Bgm_SceneSwitch_Fade_Out", 1f, true);
         }
         else
         {
             switch (type)
             {
                 case MissionType.Annihilation:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, true);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, "Bgm_SceneSwitch_Fade_Out", 1f, true);
                     break;
                 case MissionType.Defence:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, true);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, "Bgm_SceneSwitch_Fade_Out", 1f, true);
                     break;
                 case MissionType.Survival:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, true);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, "Bgm_SceneSwitch_Fade_Out", 1f, true);
                     break;
             }
 

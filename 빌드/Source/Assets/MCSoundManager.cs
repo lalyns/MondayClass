@@ -65,7 +65,7 @@ namespace MC.Sound
             Debug.Log("RTPC Name : " + type + " Value : " + value);
         }
 
-        public static IEnumerator SoundFadeOut(float duration)
+        public static IEnumerator SoundFadeOut(string type, float duration)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
@@ -75,7 +75,7 @@ namespace MC.Sound
                 realTime = Time.realtimeSinceStartup;
 
                 var value = Mathf.Clamp01(1 - (realTime - startTime) / duration) * 100;
-                SetRTPCParam("Fade", value);
+                SetRTPCParam(type, value);
 
                 yield return new WaitForSeconds(0.1f);
             }
@@ -83,7 +83,7 @@ namespace MC.Sound
             yield return null;
         }
 
-        public static IEnumerator SoundFadeIn(float duration)
+        public static IEnumerator SoundFadeIn(string type, float duration)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
@@ -93,7 +93,7 @@ namespace MC.Sound
                 realTime = Time.realtimeSinceStartup;
 
                 var value = Mathf.Clamp01((realTime - startTime) / duration) * 100;
-                SetRTPCParam("Fade", value);
+                SetRTPCParam(type, value);
 
                 yield return new WaitForSeconds(0.1f);
             }

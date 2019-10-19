@@ -41,7 +41,7 @@ namespace MC.SceneDirector
                 GameManager.Instance.CharacterControl = true;
                 MissionManager.Instance.isChange = false;
 
-            }, 
+            }, "Bgm_SceneSwitch_Fade_Out", 1f,
             true);
         }
 

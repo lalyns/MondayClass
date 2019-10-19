@@ -183,17 +183,17 @@ public class GameStatus : MonoBehaviour
 
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, true);
+                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, true);
+                MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, true);
+                MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
             if (Input.GetKeyDown(KeyCode.I))
@@ -210,7 +210,7 @@ public class GameStatus : MonoBehaviour
             {
 
                 UserInterface.SetPlayerUserInterface(false);
-                MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, true);
+                MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
             if (Input.GetKeyDown(KeyCode.P))

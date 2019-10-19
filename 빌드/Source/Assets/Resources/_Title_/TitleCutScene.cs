@@ -21,7 +21,7 @@ namespace MC.UI
             {
                 playableDirector.gameObject.SetActive(true);
                 Invoke("PlayDirector", 2f);
-            }, false);
+            }, "Bgm_Start_Fade_In", 1f, false);
         }
 
         public void PlayDirector()

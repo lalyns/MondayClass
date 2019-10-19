@@ -45,7 +45,7 @@ namespace MC.UI
 
         public void NextScene()
         {
-            MCSceneManager.Instance.NextScene(MCSceneManager.TUTORIAL, false);
+            MCSceneManager.Instance.NextScene(MCSceneManager.TUTORIAL, "Bgm_SceneSwitch_Fade_Out", 1f, false);
             //StartCoroutine(MCSceneManager.Instance.LoadScene(MCSceneManager.TUTORIAL));
             GameManager.Instance.CharacterControl = false;
 
