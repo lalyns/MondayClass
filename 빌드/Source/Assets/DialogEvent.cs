@@ -35,7 +35,7 @@ namespace MC.UI
         {
             dialogList = CSVReader.Read("TextList");
 
-            dialogs = new Dialog[16];
+            dialogs = new Dialog[8];
 
             for (int i = 0; i < dialogs.Length; i++)
                 dialogs[i] = new Dialog();
