@@ -154,8 +154,62 @@ public class RirisFSMManager : FSMManager
     {
         this.transform.position = pos;
     }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "Weapon" && !PlayerFSMManager.Instance.isSkill3)
+        {
+            if (Stat.Hp > 0)
+                OnHitForBoss(PlayerFSMManager.Instance.attackType);
 
-   
+        }
+        if (other.transform.tag == "Ball")
+        {
+            if (PlayerFSMManager.Instance.isNormal)
+                PlayerEffects.Instance.skill1Normal.ItemSetActive(hitTransform, "Effect");
+
+            if (!PlayerFSMManager.Instance.isNormal)
+                PlayerEffects.Instance.skill1Special.ItemSetActive(hitTransform, "Effect");
+
+            if (Stat.Hp > 0)
+            {
+                OnHitForBoss(AttackType.SKILL1);
+                other.transform.gameObject.SetActive(false);
+            }
+        }
+
+        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
+        {
+            StartCoroutine("Skill2Timer");
+
+        }
+        if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
+        {
+            StartCoroutine("Skill3Timer");
+        }
+    }
+
+    public override IEnumerator Skill3Timer()
+    {
+        return base.Skill3Timer();
+    }
+
+    public override IEnumerator Skill2Timer()
+    {
+        return base.Skill2Timer();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.tag == "Skill2")
+        {
+            if (Stat.Hp > 0)
+            {
+                OnHitForBoss(AttackType.SKILL2);
+            }
+        }
+    }
+
+
     public void HPUI()
     {
         //UserInterface.Instance.HPChangeEffect(Stat, hpBar);
