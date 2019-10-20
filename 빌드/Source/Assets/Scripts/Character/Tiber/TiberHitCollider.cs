@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using MC.UI;
+
+
 public class TiberHitCollider : MonoBehaviour
 {
     TiberFSMManager tiber;
@@ -98,7 +101,7 @@ public class TiberHitCollider : MonoBehaviour
 
     public void AttackSupport()
     {
-        tiber._HPBar.HitBackFun();
+        CanvasInfo.Instance.enemyHP.hpBar.HitBackFun();
     }
 
     public void OnTriggerEnter(Collider other)

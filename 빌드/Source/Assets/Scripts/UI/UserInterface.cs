@@ -20,6 +20,7 @@ namespace MC.UI
             if (instance == null)
             {
                 instance = GetComponent<UserInterface>();
+                SetValue();
             }
             else
             {
@@ -149,16 +150,25 @@ namespace MC.UI
 
         private void PlayerUI()
         {
-            UIPlayer.ProfileImage(playerFSMMgr.isNormal);
+            try
+            {
+                UIPlayer.ProfileImage(playerFSMMgr.isNormal);
 
-            HPChangeEffect(playerFSMMgr.Stat, UIPlayer.hpBar);
-            UIPlayer.SpecialGauge(playerFSMMgr.SpecialGauge);
-            UIPlayer.DashSetActive();
+                HPChangeEffect(playerFSMMgr.Stat, UIPlayer.hpBar);
+                UIPlayer.SpecialGauge(playerFSMMgr.SpecialGauge);
+                UIPlayer.DashSetActive();
+                UIPlayer.Skill4SetActive(!playerFSMMgr.isNormal);
+                CanvasInfo.Instance.enemyHP.HpBarView();
 
-            if (playerFSMMgr.isSkill1CTime) UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime);
-            if (playerFSMMgr.isSkill2CTime) UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime);
-            if (playerFSMMgr.isSkill3CTime) UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime);
-            if (playerFSMMgr.isSkill4CTime) UIPlayer.SkillSetActive(3, playerFSMMgr.Skill4CTime);
+                if (playerFSMMgr.isSkill1CTime) UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime);
+                if (playerFSMMgr.isSkill2CTime) UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime);
+                if (playerFSMMgr.isSkill3CTime) UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime);
+                if (playerFSMMgr.isSkill4CTime) UIPlayer.SkillSetActive(3, playerFSMMgr.Skill4CTime);
+            }
+            catch
+            {
+                SetValue();
+            }
         }
         #endregion
 
@@ -210,12 +220,12 @@ namespace MC.UI
 
         public float FadeInOutSpeed = 10.0f;
 
-        public static IEnumerator FadeIn(System.Action callback, float duration = 3.0f, float speed = 10.0f)
+        public static IEnumerator FadeIn(System.Action callback, string soundRTPC, float duration = 3.0f, float speed = 10.0f)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
 
-            Instance.StartCoroutine(MCSoundManager.SoundFadeIn(duration));
+            Instance.StartCoroutine(MCSoundManager.SoundFadeIn(soundRTPC, duration));
             var alpha = Instance.ScreenEffect.fading.image.color;
 
             while (realTime <= startTime + duration)
@@ -233,12 +243,12 @@ namespace MC.UI
             yield return Instance.StartCoroutine(Instance.FadeInOutReturnValue(callback));
         }
 
-        public static IEnumerator FadeOut(System.Action callback, float duration = 3.0f, float speed = 10.0f)
+        public static IEnumerator FadeOut(System.Action callback, string soundRTPC, float duration = 3.0f, float speed = 10.0f)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
 
-            Instance.StartCoroutine(MCSoundManager.SoundFadeOut(duration));
+            Instance.StartCoroutine(MCSoundManager.SoundFadeOut(soundRTPC, duration));
             var alpha = Instance.ScreenEffect.fading.image.color;
 
             while (realTime <= startTime + duration)

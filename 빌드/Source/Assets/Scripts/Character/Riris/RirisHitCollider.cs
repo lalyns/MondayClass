@@ -94,7 +94,7 @@ public class RirisHitCollider : MonoBehaviour
 
     public void AttackSupport()
     {
-        riris.hpBar.HitBackFun();
+        //riris.hpBar.HitBackFun();
     }
 
     public void OnTriggerEnter(Collider other)

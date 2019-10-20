@@ -101,36 +101,39 @@ namespace MC.SceneDirector
             }
         }
 
-        public void NextScene(int i, bool fading)
+        public void NextScene(int sceneNumber, string soundType, float duration, bool fading)
         {
+            if(currentScene != TITLE && GameStatus.Instance.ActivedMonsterList.Count != 0)
+                GameStatus.Instance.RemoveAllActiveMonster();
+
             if (fading)
             {
                 GameManager.SetFadeInOut(() =>
                 {
-                    StartCoroutine(LoadScene(i));
+                    StartCoroutine(LoadScene(sceneNumber, soundType, duration));
                     GameStatus.SetCurrentGameState(CurrentGameState.Loading);
-                }, false
+                }, soundType, duration, false
                 );
             }
             else
             {
-                StartCoroutine(LoadScene(i));
+                StartCoroutine(LoadScene(sceneNumber, soundType, duration));
                 GameStatus.SetCurrentGameState(CurrentGameState.Loading);
             }
         }
 
-        public IEnumerator LoadScene(int i)
+        public IEnumerator LoadScene(int sceneNumber, string soundType, float duration)
         {
             yield return null;
 
             if (!isLoad)
             {
                 prevScene = currentScene;
-                currentScene = i;
+                currentScene = sceneNumber;
                 isLoad = true;
             }
 
-            AsyncOperation async = SceneManager.LoadSceneAsync(i);
+            AsyncOperation async = SceneManager.LoadSceneAsync(sceneNumber);
             while (!async.isDone)
             {
                 yield return null;
@@ -155,7 +158,7 @@ namespace MC.SceneDirector
                     GameManager.ScriptCheck();
                     MCSoundManager.LoadBank();
                     isLoad = false;
-                }, true
+                }, soundType, duration, true
             );
             }
         }

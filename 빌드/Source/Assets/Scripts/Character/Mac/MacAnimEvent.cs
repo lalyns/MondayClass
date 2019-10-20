@@ -34,9 +34,9 @@ public class MacAnimEvent : MonoBehaviour
 
     public void CastingAttack()
     {
-        MacATTACK attack = _Manager.CurrentStateComponent as MacATTACK;
+        //MacATTACK attack = _Manager.CurrentStateComponent as MacATTACK;
         
-        attack.isLookAt = false;
+        //attack.isLookAt = false;
         
         MonsterEffects.Instance.macBulletPool.ItemSetActive(
             bulletLuancher, 

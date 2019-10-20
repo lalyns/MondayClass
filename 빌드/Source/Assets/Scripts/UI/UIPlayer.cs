@@ -14,6 +14,7 @@ namespace MC.UI
         public HPBar hpBar;
         public PlayerSpecialUI special;
         public PlayerSkillUI[] skill;
+        public GameObject skill4;
         public PlayerDashUI[] dash;
         public PlayerBuffUI[] Buff;
 
@@ -47,6 +48,11 @@ namespace MC.UI
         {
             var gaugeValue = Mathf.Clamp01(value / playerFSM.Stat.skillCTime[i]);
             skill[i].inActive.fillAmount = gaugeValue;
+        }
+
+        public void Skill4SetActive(bool isActive)
+        {
+            skill4.SetActive(isActive);
         }
 
         public void SpecialGauge(float value)

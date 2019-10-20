@@ -8,6 +8,10 @@ public class RedHatCHASE : RedHatFSMState
     Vector3 playerTrans;
     public override void BeginState()
     {
+        _manager.agent.velocity = Vector3.zero;
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.acceleration = 5.0f;
+
         base.BeginState();
     }
 

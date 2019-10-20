@@ -52,6 +52,9 @@ namespace MC.UI
             currentTurn = 1;
             SetNextAction(action);
             SetDialog(0);
+
+            var voice = MC.Sound.MCSoundManager.Instance.objectSound.dialogVoice;
+            voice.PlaySound(MC.Sound.MCSoundManager.Instance.gameObject, voice.voice[currentDialog.voice[0]]);
         }
 
         public void NextDialog()
@@ -74,6 +77,9 @@ namespace MC.UI
             dialogUI.rightStanding.sprite = standing[currentDialog.right[turn]];
             dialogUI.leftStanding.sprite = standing[currentDialog.left[turn]];
             dialogUI.textUI.sprite = text[currentDialog.text[turn]];
+
+            var voice = MC.Sound.MCSoundManager.Instance.objectSound.dialogVoice;
+            voice.PlaySound(MC.Sound.MCSoundManager.Instance.gameObject, voice.voice[currentDialog.voice[turn]]);
         }
 
         public void CharacterStop()

@@ -12,6 +12,7 @@ namespace MC.UI
         public List<int> right;
         public List<int> left;
         public List<int> text;
+        public List<int> voice;
 
         public Dialog()
         {
@@ -20,7 +21,7 @@ namespace MC.UI
             right = new List<int>();
             left = new List<int>();
             text = new List<int>();
-
+            voice = new List<int>();
         }
     }
 
@@ -34,7 +35,7 @@ namespace MC.UI
         {
             dialogList = CSVReader.Read("TextList");
 
-            dialogs = new Dialog[16];
+            dialogs = new Dialog[8];
 
             for (int i = 0; i < dialogs.Length; i++)
                 dialogs[i] = new Dialog();
@@ -52,12 +53,14 @@ namespace MC.UI
                 var right = (int)value["Right"];
                 var left = (int)value["Left"];
                 var text = (int)value["Text"];
+                var voice = (int)value["Voice"];
 
                 dialogs[id - 1].talker.Add(TypeDefine(type));
                 dialogs[id - 1].dialog.Add(dialog);
                 dialogs[id - 1].right.Add(right);
                 dialogs[id - 1].left.Add(left);
                 dialogs[id - 1].text.Add(text);
+                dialogs[id - 1].voice.Add(voice);
             }
         }
 

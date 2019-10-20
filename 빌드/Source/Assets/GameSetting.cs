@@ -14,39 +14,39 @@ public class GameSetting : MonoBehaviour
 
     public void Awake()
     {
-        MC.Sound.MCSoundManager.SetRTPCParam("AllVolume", all.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("BgmVolume", bgm.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("SoundVolume", sfx.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("AmbientVolume", amb.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("VoiceVolume", voice.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("All_Volume", all.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Bgm_Volume", bgm.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Sound_Volume", sfx.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Ambient_Volume", amb.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Voice_Volume", voice.value);
     }
 
     public void Start()
     {
-        MC.Sound.MCSoundManager.SetRTPCParam("AllVolume", all.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("BgmVolume", bgm.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("SoundVolume", sfx.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("AmbientVolume", amb.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("VoiceVolume", voice.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("All_Volume", all.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Bgm_Volume", bgm.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Sound_Volume", sfx.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Ambient_Volume", amb.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Voice_Volume", voice.value);
         gameObject.SetActive(false);
     }
 
     public void OnEnable()
     {
-        MC.Sound.MCSoundManager.SetRTPCParam("AllVolume", all.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("BgmVolume", bgm.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("SoundVolume", sfx.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("AmbientVolume", amb.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("VoiceVolume", voice.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("All_Volume", all.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Bgm_Volume", bgm.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Sound_Volume", sfx.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Ambient_Volume", amb.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Voice_Volume", voice.value);
     }
 
     public void Update()
     {
-        MC.Sound.MCSoundManager.SetRTPCParam("AllVolume", all.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("BgmVolume", bgm.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("SoundVolume", sfx.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("AmbientVolume", amb.value);
-        MC.Sound.MCSoundManager.SetRTPCParam("VoiceVolume", voice.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("All_Volume", all.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Bgm_Volume", bgm.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Sound_Volume", sfx.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Ambient_Volume", amb.value);
+        MC.Sound.MCSoundManager.SetRTPCParam("Voice_Volume", voice.value);
     }
 
 }

@@ -21,7 +21,7 @@ public class RedHatDASH : RedHatFSMState
 
         _manager.agent.velocity = Vector3.zero;
         _manager.agent.destination = this.transform.position;
-        _manager.agent.acceleration = 0.0f;
+        _manager.agent.acceleration = 5.0f;
 
         _manager.CC.detectCollisions = false;
         try
@@ -61,6 +61,10 @@ public class RedHatDASH : RedHatFSMState
 
         _manager.CC.detectCollisions = true;
         _manager.isNotChangeState = false;
+
+        _manager.agent.velocity = Vector3.zero;
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.acceleration = 5.0f;
 
         _manager.dashEffect1.SetActive(false);
         base.EndState();

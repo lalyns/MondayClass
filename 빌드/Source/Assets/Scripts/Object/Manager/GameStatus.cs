@@ -181,19 +181,24 @@ public class GameStatus : MonoBehaviour
                 MissionManager.Instance.CurrentMission.missionEnd = true;
             }
 
-            if(Input.GetKeyDown(KeyCode.Alpha1))
+            if(Input.GetKeyDown(KeyCode.U))
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, true);
+                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.I))
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, true);
+                MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            if (Input.GetKeyDown(KeyCode.O))
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, true);
+                MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+            }
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
             if (Input.GetKeyDown(KeyCode.I))
@@ -206,30 +211,11 @@ public class GameStatus : MonoBehaviour
                 PlayerFSMManager.Instance.SpecialGauge = 100.0f;
             }
 
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-
-                UserInterface.SetPlayerUserInterface(false);
-                MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, true);
-            }
-
             if (Input.GetKeyDown(KeyCode.P))
             {
                 MCSoundManager.SetSound();
             }
 
-            //if(Input.GetKeyDown(KeyCode.Mouse0) ||
-            //    Input.GetKeyDown(KeyCode.Space))
-            //{
-
-
-            //    UserInterface.Instance.Dialog.SetDialog(UserInterface.Instance.Dialog.dialog.dialog[dialogNum++]);
-
-            //    if(dialogNum >= 3)
-            //    {
-            //        dialogNum = 0;
-            //    }
-            //}
         }
 
         timer += Time.deltaTime;

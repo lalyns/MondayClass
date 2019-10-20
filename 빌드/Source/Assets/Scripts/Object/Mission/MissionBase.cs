@@ -53,6 +53,16 @@ namespace MC.Mission
             }
         }
 
+        protected FenceEffect fenceEffect;
+        public FenceEffect FenceEffect{
+            get {
+                if (fenceEffect == null)
+                    fenceEffect = GetComponentInChildren<FenceEffect>();
+                return fenceEffect;
+            }
+        }
+
+
         [SerializeField] protected MissionData _Data;
         public MissionData Data {
             get { return _Data; }
@@ -130,21 +140,30 @@ namespace MC.Mission
                 GameStatus.Instance.RemoveAllActiveMonster();
             }
 
-            if(GameStatus.Instance.StageLevel == 3)
+            try
             {
-                var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-                UserInterface.DialogSetActive(true);
-                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () => { });
-                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                FenceEffect.OpenFence();
+
+            }
+            catch 
+            {
             }
 
-            if(GameStatus.Instance.StageLevel == 8)
-            {
-                var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-                UserInterface.DialogSetActive(true);
-                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () => { });
-                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            }
+            //if(GameStatus.Instance.StageLevel == 3)
+            //{
+            //    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+            //    UserInterface.DialogSetActive(true);
+            //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () => { });
+            //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            //}
+
+            //if(GameStatus.Instance.StageLevel == 8)
+            //{
+            //    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+            //    UserInterface.DialogSetActive(true);
+            //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () => { });
+            //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            //}
 
             Exit._PortalEffect.SetActive(true);
             Exit.Colliders.enabled = true;
