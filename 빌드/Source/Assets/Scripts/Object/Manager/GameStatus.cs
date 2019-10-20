@@ -203,7 +203,7 @@ public class GameStatus : MonoBehaviour
                 MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
-            if (Input.GetKeyDown(KeyCode.I))
+            if (Input.GetKeyDown(KeyCode.L))
             {
                 GameManager.Instance.OnInspectating = !GameManager.Instance.OnInspectating;
             }
