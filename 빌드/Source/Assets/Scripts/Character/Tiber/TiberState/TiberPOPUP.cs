@@ -24,7 +24,7 @@ public class TiberPOPUP : TiberFSMState
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
         _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
         _manager.agent.speed = 4f;
-        _manager.agent.angularSpeed = 120;
+        _manager.agent.angularSpeed = 360;
     }
     private void Start()
     {

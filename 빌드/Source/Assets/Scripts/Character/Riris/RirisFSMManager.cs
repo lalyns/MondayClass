@@ -39,7 +39,13 @@ public class RirisFSMManager : FSMManager
     public CharacterController CC { get { return _CC; } }
 
     private CapsuleCollider _PlayerCapsule;
-    public CapsuleCollider PlayerCapsule { get { return _PlayerCapsule; } }
+    public CapsuleCollider PlayerCapsule {
+        get {
+            if(_PlayerCapsule == null)
+                _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
+            return _PlayerCapsule;
+        }
+    }
 
     private RirisStat _Stat;
     public RirisStat Stat { get { return _Stat; } }
@@ -78,7 +84,6 @@ public class RirisFSMManager : FSMManager
         _Stat = GetComponent<RirisStat>();
         _Anim = GetComponentInChildren<Animator>();
 
-        _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
         RirisState[] stateValues = (RirisState[])System.Enum.GetValues(typeof(RirisState));
         foreach (RirisState s in stateValues)

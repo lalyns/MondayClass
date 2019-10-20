@@ -273,7 +273,7 @@ public class GameManager : MonoBehaviour
 
     public void StageSet()
     {
-        GameStatus.currentGameState = CurrentGameState.Wait;
+        GameStatus.SetCurrentGameState(CurrentGameState.Wait);
         CanvasInfo.Instance.PlayStartAnim();
 
         UserInterface.SetPointerMode(false);
@@ -291,7 +291,7 @@ public class GameManager : MonoBehaviour
 
     public void BossSet()
     {
-        GameStatus.currentGameState = CurrentGameState.Wait;
+        GameStatus.SetCurrentGameState(CurrentGameState.Wait);
         UserInterface.SetPointerMode(false);
 
         if (GameManager.Instance.CineMode)

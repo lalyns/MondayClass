@@ -20,12 +20,13 @@ public class PlayerDEAD : FSMState
         _manager.Skill2_Test2.SetActive(false);
         _manager.isSkill2End = false;
         isEnd = false;
+        UserInterface.SetPlayerUserInterface(false);
     }
 
     public override void EndState()
     {
         base.EndState();
-
+        UserInterface.SetPlayerUserInterface(true);
     }
 
     bool isEnd = false;
@@ -43,7 +44,7 @@ public class PlayerDEAD : FSMState
         {
             _manager.colorGrading.saturation.value = -85f;
             UserInterface.FailMissionSetActive(true);
-            GameStatus.currentGameState = CurrentGameState.Dead;
+            GameStatus.SetCurrentGameState(CurrentGameState.Dead);
             isEnd = true;
         }
 
