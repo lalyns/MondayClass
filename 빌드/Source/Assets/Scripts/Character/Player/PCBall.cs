@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PCBall : MonoBehaviour
 {
+    public float Skill1Speed = 20f;
+
     PlayerFSMManager player;
-    SphereCollider collider;
+    SphereCollider coll;
     List<GameObject> _monster = new List<GameObject>();
     public bool isOne, isTwo, isThree, isFour, isFive, isSix, isSeven, isEight = false;
     public int BounceCount = 0;
@@ -15,18 +17,19 @@ public class PCBall : MonoBehaviour
     void Start()
     {
         player = PlayerFSMManager.Instance;
-        collider = GetComponent<SphereCollider>();
+        coll = GetComponent<SphereCollider>();
         BounceCount = 0;
     }
     void Update()
     {
+
         if (!isOne && BounceCount == 0)
         {
             transform.position = Vector3.MoveTowards(transform.position,
                 new Vector3(_monster[RandomShoot].transform.position.x, 
                 _monster[RandomShoot].transform.position.y + 1f,
                 _monster[RandomShoot].transform.position.z),
-                30f * Time.deltaTime);
+                Skill1Speed * Time.deltaTime);
         }
         if (BounceCount == 1 && player.Skill1BounceCount >= 1)//player.isSkill1Upgrade)
         {
@@ -34,7 +37,7 @@ public class PCBall : MonoBehaviour
               new Vector3(_monster[RandomShoot2].transform.position.x,
               _monster[RandomShoot2].transform.position.y + 1f,
               _monster[RandomShoot2].transform.position.z),
-              30f * Time.deltaTime);
+              Skill1Speed * Time.deltaTime);
         }
         if(BounceCount == 2 && player.Skill1BounceCount >= 2)
         {
@@ -42,7 +45,7 @@ public class PCBall : MonoBehaviour
                new Vector3(_monster[RandomShoot].transform.position.x,
                _monster[RandomShoot].transform.position.y + 1f,
                _monster[RandomShoot].transform.position.z),
-               30f * Time.deltaTime);
+               Skill1Speed * Time.deltaTime);
         }
         if(BounceCount == 3 && player.Skill1BounceCount >= 3)
         {
@@ -50,7 +53,7 @@ public class PCBall : MonoBehaviour
               new Vector3(_monster[RandomShoot2].transform.position.x,
               _monster[RandomShoot2].transform.position.y + 1f,
               _monster[RandomShoot2].transform.position.z),
-              30f * Time.deltaTime);
+              Skill1Speed * Time.deltaTime);
         }
         if (BounceCount == 4 && player.Skill1BounceCount >= 4)
         {
@@ -58,7 +61,7 @@ public class PCBall : MonoBehaviour
                new Vector3(_monster[RandomShoot].transform.position.x,
                _monster[RandomShoot].transform.position.y + 1f,
                _monster[RandomShoot].transform.position.z),
-               30f * Time.deltaTime);
+               Skill1Speed * Time.deltaTime);
         }
         if (BounceCount == 5 && player.Skill1BounceCount >= 5)
         {
@@ -66,7 +69,7 @@ public class PCBall : MonoBehaviour
               new Vector3(_monster[RandomShoot2].transform.position.x,
               _monster[RandomShoot2].transform.position.y + 1f,
               _monster[RandomShoot2].transform.position.z),
-              30f * Time.deltaTime);
+              Skill1Speed * Time.deltaTime);
         }
         if (BounceCount == 6 && player.Skill1BounceCount >= 6)
         {
@@ -74,7 +77,7 @@ public class PCBall : MonoBehaviour
                new Vector3(_monster[RandomShoot].transform.position.x,
                _monster[RandomShoot].transform.position.y + 1f,
                _monster[RandomShoot].transform.position.z),
-               30f * Time.deltaTime);
+               Skill1Speed * Time.deltaTime);
         }
         if (BounceCount == 7 && player.Skill1BounceCount >= 7)
         {
@@ -82,7 +85,7 @@ public class PCBall : MonoBehaviour
               new Vector3(_monster[RandomShoot2].transform.position.x,
               _monster[RandomShoot2].transform.position.y + 1f,
               _monster[RandomShoot2].transform.position.z),
-              30f * Time.deltaTime);
+              Skill1Speed * Time.deltaTime);
         }
     }
     void isOneSet() { isOne = true; }
@@ -95,19 +98,19 @@ public class PCBall : MonoBehaviour
     void isEightSet() { isEight = true; }
     void SetEnabled()
     {
-        collider.enabled = true;
+        coll.enabled = true;
     }
     private void OnTriggerEnter(Collider other)
     {
         if(other.transform.tag == "Monster" && !isOne && player.Skill1BounceCount >= 1)//player.isSkill1Upgrade)
         {
             BounceCount++;
-            Invoke("isOneSet", 0.1f);            
+            Invoke("isOneSet", 0.05f);            
             _monster = GameStatus.Instance.ActivedMonsterList;
 
             if (_monster.Count == 1)
             {
-                collider.enabled = false;
+                coll.enabled = false;
                 Invoke("SetEnabled", 0.15f);
             }
                 
@@ -126,11 +129,11 @@ public class PCBall : MonoBehaviour
         if(other.transform.tag == "Monster" && isOne && !isTwo && player.Skill1BounceCount >= 2)
         {
             BounceCount++;
-            Invoke("isTwoSet", 0.1f);
+            Invoke("isTwoSet", 0.05f);
             _monster = GameStatus.Instance.ActivedMonsterList;
             if (_monster.Count == 1)
             {
-                collider.enabled = false;
+                coll.enabled = false;
                 Invoke("SetEnabled", 0.15f);
             }
             if (_monster.Count >= 2)
@@ -148,11 +151,11 @@ public class PCBall : MonoBehaviour
         if (other.transform.tag == "Monster" && isTwo && !isThree && player.Skill1BounceCount >= 3)
         {
             BounceCount++;
-            Invoke("isThreeSet", 0.1f);
+            Invoke("isThreeSet", 0.05f);
             _monster = GameStatus.Instance.ActivedMonsterList;
             if (_monster.Count == 1)
             {
-                collider.enabled = false;
+                coll.enabled = false;
                 Invoke("SetEnabled", 0.15f);
             }
             if (_monster.Count >= 2)
@@ -170,11 +173,11 @@ public class PCBall : MonoBehaviour
         if (other.transform.tag == "Monster" && isThree && !isFour && player.Skill1BounceCount >= 4)
         {
             BounceCount++;
-            Invoke("isFourSet", 0.1f);
+            Invoke("isFourSet", 0.05f);
             _monster = GameStatus.Instance.ActivedMonsterList;
             if (_monster.Count == 1)
             {
-                collider.enabled = false;
+                coll.enabled = false;
                 Invoke("SetEnabled", 0.15f);
             }
             if (_monster.Count >= 2)
@@ -192,11 +195,11 @@ public class PCBall : MonoBehaviour
         if (other.transform.tag == "Monster" && isFour && !isFive && player.Skill1BounceCount >= 5)
         {
             BounceCount++;
-            Invoke("isFiveSet", 0.1f);
+            Invoke("isFiveSet", 0.05f);
             _monster = GameStatus.Instance.ActivedMonsterList;
             if (_monster.Count == 1)
             {
-                collider.enabled = false;
+                coll.enabled = false;
                 Invoke("SetEnabled", 0.15f);
             }
             if (_monster.Count >= 2)
@@ -214,11 +217,11 @@ public class PCBall : MonoBehaviour
         if (other.transform.tag == "Monster" && isFive && !isSix && player.Skill1BounceCount >= 6)
         {
             BounceCount++;
-            Invoke("isSixSet", 0.1f);
+            Invoke("isSixSet", 0.05f);
             _monster = GameStatus.Instance.ActivedMonsterList;
             if (_monster.Count == 1)
             {
-                collider.enabled = false;
+                coll.enabled = false;
                 Invoke("SetEnabled", 0.15f);
             }
             if (_monster.Count >= 2)
@@ -236,11 +239,11 @@ public class PCBall : MonoBehaviour
         if (other.transform.tag == "Monster" && isSix && !isSeven && player.Skill1BounceCount >= 7)
         {
             BounceCount++;
-            Invoke("isSevenSet", 0.1f);
+            Invoke("isSevenSet", 0.05f);
             _monster = GameStatus.Instance.ActivedMonsterList;
             if (_monster.Count == 1)
             {
-                collider.enabled = false;
+                coll.enabled = false;
                 Invoke("SetEnabled", 0.15f);
             }
             if (_monster.Count >= 2)
@@ -258,11 +261,11 @@ public class PCBall : MonoBehaviour
         if (other.transform.tag == "Monster" && isSeven && !isEight && player.Skill1BounceCount >= 8)
         {
             BounceCount++;
-            Invoke("isEightSet", 0.1f);
+            Invoke("isEightSet", 0.05f);
             _monster = GameStatus.Instance.ActivedMonsterList;
             if (_monster.Count == 1)
             {
-                collider.enabled = false;
+                coll.enabled = false;
                 Invoke("SetEnabled", 0.15f);
             }
             if (_monster.Count >= 2)
@@ -335,6 +338,6 @@ public class PCBall : MonoBehaviour
         isEight = false;
         isEnter = false;
         BounceCount = 0;
-        collider.enabled = true;
+        coll.enabled = true;
     }
 }

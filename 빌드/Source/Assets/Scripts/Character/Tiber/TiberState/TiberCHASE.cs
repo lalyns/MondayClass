@@ -15,6 +15,8 @@ public class TiberCHASE : TiberFSMState
         base.BeginState();
         _manager.agent.isStopped = true;
         _manager.agent.acceleration = 1f;
+        playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
+        transform.LookAt(playerTrans);
         
     }
     private void Start()
@@ -35,7 +37,7 @@ public class TiberCHASE : TiberFSMState
         base.Update();
 
         playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
-
+        transform.LookAt(playerTrans);
         _time += Time.deltaTime;
         if (_time >= 2f)
         {

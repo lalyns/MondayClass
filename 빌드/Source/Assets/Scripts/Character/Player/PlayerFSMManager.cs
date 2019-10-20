@@ -447,8 +447,8 @@ public class PlayerFSMManager : FSMManager
             Dash();
 
         GetInput();
-        if (isSpecialIDLE)
-            return;
+        //if (isSpecialIDLE)
+        //    return;
 
         Skill1();
         AttackDirection();
@@ -540,7 +540,7 @@ public class PlayerFSMManager : FSMManager
             UltimateEffect[0].SetActive(false);
             UltimateEffect[1].SetActive(true);
         }
-        if (isNormal || isSkill4)
+        if (isSkill4)
         {
             UltimateEffect[1].SetActive(false);
         }

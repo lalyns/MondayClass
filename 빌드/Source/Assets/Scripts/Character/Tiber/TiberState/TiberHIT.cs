@@ -27,7 +27,7 @@ public class TiberHIT : TiberFSMState
         knockBackTargetPos = direction + this.transform.position;
 
         //GetComponentInChildren<TiberAnimEvent>()._WeaponCapsule.gameObject.SetActive(false);
-
+        _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
         //StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
     }
 
@@ -39,6 +39,7 @@ public class TiberHIT : TiberFSMState
 
         _manager.CurrentAttackType = AttackType.NONE;
         _manager.isChange = false;
+        _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
     }
 
     protected override void Update()
