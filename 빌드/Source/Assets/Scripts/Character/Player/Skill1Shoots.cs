@@ -13,7 +13,7 @@ public class Skill1Shoots : MonoBehaviour
     private void Update()
     {
         _time += Time.deltaTime;
-        if (_time >= 5f){
+        if (_time >= 7f){
             gameObject.SetActive(false);
         }
     }

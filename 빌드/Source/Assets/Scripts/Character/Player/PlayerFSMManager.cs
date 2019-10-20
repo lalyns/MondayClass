@@ -447,8 +447,8 @@ public class PlayerFSMManager : FSMManager
             Dash();
 
         GetInput();
-        if (isSpecialIDLE)
-            return;
+        //if (isSpecialIDLE)
+        //    return;
 
         Skill1();
         AttackDirection();
@@ -540,7 +540,7 @@ public class PlayerFSMManager : FSMManager
             UltimateEffect[0].SetActive(false);
             UltimateEffect[1].SetActive(true);
         }
-        if (isNormal || isSkill4)
+        if (isSkill4)
         {
             UltimateEffect[1].SetActive(false);
         }
@@ -660,7 +660,7 @@ public class PlayerFSMManager : FSMManager
             
             if (Input.GetKeyDown(KeyCode.R))
             {
-
+                GameStatus. SetCurrentGameState(CurrentGameState.Product);
                 isNormal = false;
                 isSpecial = true;
                 SetInvincibility(true);
@@ -725,6 +725,7 @@ public class PlayerFSMManager : FSMManager
         yield return new WaitForSeconds(2f);
 
         SetInvincibility(false);
+        GameStatus.SetCurrentGameState(GameStatus.prevState);
     }
     public void GetInput()
     {

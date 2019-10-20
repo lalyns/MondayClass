@@ -16,6 +16,7 @@ public enum CurrentGameState
     MissionClear,
     Dead,
     Tutorial,
+    Product,
     EDITOR,
 }
 
@@ -51,6 +52,7 @@ public class GameStatus : MonoBehaviour
     bool isPause = false;
 
     public static CurrentGameState currentGameState = CurrentGameState.Start;
+    public static CurrentGameState prevState = CurrentGameState.Start;
 
     float timer = 0;
 
@@ -285,6 +287,7 @@ public class GameStatus : MonoBehaviour
 
     public static void SetCurrentGameState(CurrentGameState state)
     {
+        prevState = currentGameState;
         currentGameState = state;
     }
 

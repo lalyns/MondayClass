@@ -3153,6 +3153,20 @@ Transform:
   m_Father: {fileID: 74455031074601187}
   m_RootOrder: 97
   m_LocalEulerAnglesHint: {x: 0, y: 76.545006, z: 0}
+--- !u!136 &7183647801437526808
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2559707166826557602}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.41838154
+  m_Height: 1.5984691
+  m_Direction: 1
+  m_Center: {x: 0.018141508, y: 0.9158384, z: 0}
 --- !u!114 &5145865540438459322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3169,20 +3183,6 @@ MonoBehaviour:
   isWeapon: 0
   patternA: {fileID: 0}
   patternB: {fileID: 0}
---- !u!136 &7183647801437526808
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2559707166826557602}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.41838154
-  m_Height: 1.5984691
-  m_Direction: 1
-  m_Center: {x: 0.018141508, y: 0.9158384, z: 0}
 --- !u!114 &5461274283865402201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5802,6 +5802,7 @@ MonoBehaviour:
   _turnSpeed: 540
   _attackRange: 1
   lastHitBy: {fileID: 0}
+  monsterType: 3
   statData: {fileID: 11400000, guid: d9febd8abf401ad4d9bee12c60095743, type: 2}
   monsterData: {fileID: 11400000, guid: d9febd8abf401ad4d9bee12c60095743, type: 2}
   _AttackRange: 2
@@ -7665,15 +7666,15 @@ PrefabInstance:
       propertyPath: startDelay.scalar
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 8498239817731989369, guid: e215c958e17c8a647809b1c18eac2711,
-        type: 3}
-      propertyPath: startDelay.scalar
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 8498239817812522064, guid: e215c958e17c8a647809b1c18eac2711,
         type: 3}
       propertyPath: startDelay.scalar
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8498239817731989369, guid: e215c958e17c8a647809b1c18eac2711,
+        type: 3}
+      propertyPath: startDelay.scalar
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e215c958e17c8a647809b1c18eac2711, type: 3}
@@ -7920,6 +7921,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7112653475308597920}
     m_Modifications:
+    - target: {fileID: 9085948909250431707, guid: c49046cd32f7fd04992ef57e1bc8d6c7,
+        type: 3}
+      propertyPath: m_Name
+      value: Boss_Effect_Pattern1_001
+      objectReference: {fileID: 0}
     - target: {fileID: 9085948909250431701, guid: c49046cd32f7fd04992ef57e1bc8d6c7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7974,11 +7980,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9085948909250431707, guid: c49046cd32f7fd04992ef57e1bc8d6c7,
-        type: 3}
-      propertyPath: m_Name
-      value: Boss_Effect_Pattern1_001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c49046cd32f7fd04992ef57e1bc8d6c7, type: 3}

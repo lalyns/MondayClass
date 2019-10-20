@@ -58,11 +58,6 @@ namespace MC.UI
             setting.SetActive(true);
         }
 
-        public void SettingExit()
-        {
-            setting.SetActive(false);
-        }
-
         public void Developer()
         {
             Debug.Log("개발자 : ??");

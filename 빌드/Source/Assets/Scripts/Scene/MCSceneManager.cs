@@ -41,11 +41,11 @@ namespace MC.SceneDirector
             Screen.SetResolution(1920, 1080, true);
 
             if (SceneManager.GetActiveScene().name == "00.Title") {
-                GameStatus.currentGameState = CurrentGameState.Wait;
+                GameStatus.SetCurrentGameState(CurrentGameState.Wait);
                 currentScene = TITLE;
             }
             else if (SceneManager.GetActiveScene().name == "01-0.Tutorial") { 
-                GameStatus.currentGameState = CurrentGameState.Tutorial;
+                GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
                 currentScene = TUTORIAL;
             }
             else if (SceneManager.GetActiveScene().name == "01-1.Stage1") {
@@ -63,7 +63,7 @@ namespace MC.SceneDirector
             else
             {
                 currentScene = EDITOR;
-                GameStatus.currentGameState = CurrentGameState.EDITOR;
+                GameStatus.SetCurrentGameState(CurrentGameState.EDITOR);
             }
 
 

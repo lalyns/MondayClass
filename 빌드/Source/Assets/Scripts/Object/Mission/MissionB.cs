@@ -41,6 +41,8 @@ namespace MC.Mission
         // Update is called once per frame
         protected override void Update()
         {
+            base.Update();
+
             if (missionEnd) return;
 
             if (GameStatus.Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;

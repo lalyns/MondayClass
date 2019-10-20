@@ -31,6 +31,8 @@ namespace MC.Mission
 
         protected override void Update()
         {
+            base.Update();
+
             if (missionEnd) return;
 
             if (MissionOperate)
@@ -48,9 +50,19 @@ namespace MC.Mission
                 PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
                 missionEnd = true;
             }
+
+            if(GameStatus.Instance._LimitTime <= 0)
+            {
+                FailMission();
+            }
         }
 
+        public override void FailMission()
+        {
+            base.FailMission();
 
+
+        }
 
         public void MonsterCheck()
         {
