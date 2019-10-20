@@ -22,7 +22,6 @@ public class PCBall : MonoBehaviour
     }
     void Update()
     {
-
         if (!isOne && BounceCount == 0)
         {
             transform.position = Vector3.MoveTowards(transform.position,
