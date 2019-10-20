@@ -30,6 +30,9 @@ public class RedHatHIT : RedHatFSMState
 
         if(_manager.CurrentAttackType != AttackType.SKILL2)
             StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
+
+        _manager.agent.acceleration = 0;
+        _manager.agent.velocity = Vector3.zero;
     }
 
     public override void EndState()
@@ -42,6 +45,8 @@ public class RedHatHIT : RedHatFSMState
 
         _manager.CurrentAttackType = AttackType.NONE;
         _manager.isChange = false;
+
+        
     }
 
     protected override void Update()

@@ -1234,7 +1234,6 @@ public class PlayerFSMManager : FSMManager
 
                 count++;
             }
-
             for (int i = 0; i < 7; i++)
             {
                 if (isTiber == true && i == 6 || i == count) continue;

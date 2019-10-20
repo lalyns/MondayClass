@@ -30,7 +30,10 @@ public class MacHIT : MacFSMState
         knockBackTargetPos = direction + this.transform.position;
 
         StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
-        
+
+        _manager.agent.acceleration = 0;
+        _manager.agent.velocity = Vector3.zero;
+
     }
 
     public override void EndState()
