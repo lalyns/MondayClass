@@ -51,14 +51,14 @@ namespace MC.Mission
             // base.Update();
             if (currentTutorial == TutorialEvent.None && !tutorial && tutostart)
             {
-                GameStatus.currentGameState = CurrentGameState.Dialog;
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
                 var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
                 //tutorialUI.gameObject.SetActive(false);
                 UserInterface.DialogSetActive(true);
                 UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[0],
                     () => {
-                        GameStatus.currentGameState = CurrentGameState.Tutorial;
+                        GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
                         currentTutorial = TutorialEvent.Two;
                         //tutorialUI.gameObject.SetActive(true);
                         Invoke("SetDialog2", 2f);
@@ -99,7 +99,7 @@ namespace MC.Mission
 
                 if(count == 4)
                 {
-                    GameStatus.currentGameState = CurrentGameState.Dialog;
+                    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
                     var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
                     currentTutorial = TutorialEvent.None;
@@ -108,7 +108,7 @@ namespace MC.Mission
                     UserInterface.DialogSetActive(true);
                     UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[3],
                         () => {
-                            GameStatus.currentGameState = CurrentGameState.Tutorial;
+                            GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
                             currentTutorial = TutorialEvent.Dash;
                             tutorialUI.dash.gameObject.SetActive(true);
                             fences[0].OpenFence();
@@ -165,13 +165,13 @@ namespace MC.Mission
 
         void SetDialog2()
         {
-            GameStatus.currentGameState = CurrentGameState.Dialog;
+            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
             var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
             UserInterface.DialogSetActive(true);
             UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[1],
                 () => {
-                    GameStatus.currentGameState = CurrentGameState.Tutorial;
+                    GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
                     currentTutorial = TutorialEvent.Three;
                     Invoke("SetDialog3", 2f);
                 });
@@ -180,13 +180,13 @@ namespace MC.Mission
 
         void SetDialog3()
         {
-            GameStatus.currentGameState = CurrentGameState.Dialog;
+            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
             var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
             UserInterface.DialogSetActive(true);
             UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[2],
                 () => {
-                    GameStatus.currentGameState = CurrentGameState.Tutorial;
+                    GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
                     currentTutorial = TutorialEvent.Move;
                     tutorialUI.move.gameObject.SetActive(true);
                     GameManager.Instance.CharacterControl = true;
@@ -196,7 +196,7 @@ namespace MC.Mission
 
         void SetDialogItem()
         {
-            GameStatus.currentGameState = CurrentGameState.Dialog;
+            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
             var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
             fences[2].OpenFence();
@@ -204,7 +204,7 @@ namespace MC.Mission
             tutorialUI.dash.gameObject.SetActive(false);
             UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
                 () => {
-                    GameStatus.currentGameState = CurrentGameState.Tutorial;
+                    GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
                     currentTutorial = TutorialEvent.Item;
                     //tutorialUI.move.gameObject.SetActive(true);
                     GameManager.Instance.CharacterControl = true;
@@ -214,14 +214,14 @@ namespace MC.Mission
 
         public void SetAttack1Event()
         {
-            GameStatus.currentGameState = CurrentGameState.Dialog;
+            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
             var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
             UserInterface.DialogSetActive(true);
             tutorialUI.dash.gameObject.SetActive(false);
             UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6],
                 () => {
-                    GameStatus.currentGameState = CurrentGameState.Tutorial;
+                    GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
                     currentTutorial = TutorialEvent.Attack1;
                     //tutorialUI.move.gameObject.SetActive(true);
                     StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));

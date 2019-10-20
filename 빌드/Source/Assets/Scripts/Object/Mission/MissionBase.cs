@@ -106,8 +106,9 @@ namespace MC.Mission
 
         protected virtual void Update()
         {
-            if (GameStatus.currentGameState == CurrentGameState.Dead) return;
-
+            if (GameStatus.currentGameState == CurrentGameState.Dead || 
+                GameStatus.currentGameState == CurrentGameState.Product) return;
+            
         }
 
         public virtual void RestMission()
@@ -130,7 +131,7 @@ namespace MC.Mission
 
         public virtual void FailMission()
         {
-            GameStatus.currentGameState = CurrentGameState.Dead;
+            GameStatus.SetCurrentGameState(CurrentGameState.Dead);
             PlayerFSMManager.Instance.SetDeadState();
             missionEnd = true;
         }
@@ -140,7 +141,7 @@ namespace MC.Mission
             if (GameStatus.currentGameState == CurrentGameState.Dead) return;
 
             GameStatus.Instance._MissionStatus = false;
-            GameStatus.currentGameState = CurrentGameState.MissionClear;
+            GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
 
             if (!GameStatus.Instance.usingKeward && MissionManager.Instance.CurrentMissionType != MissionType.Annihilation)
             {

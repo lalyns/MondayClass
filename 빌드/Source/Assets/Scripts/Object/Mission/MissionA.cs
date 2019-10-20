@@ -31,6 +31,8 @@ namespace MC.Mission
 
         protected override void Update()
         {
+            base.Update();
+
             if (missionEnd) return;
 
             if (MissionOperate)
