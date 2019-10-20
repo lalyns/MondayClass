@@ -22,6 +22,8 @@ public class RirisHitCollider : MonoBehaviour
     private void FixedUpdate()
     {
         this.transform.position = riris.transform.position;
+
+        capsule.center = new Vector3(0, riris.Pevis.position.y, 0) + (Vector3.up * -0.915f);
     }
 
     public void OnHitForMonster(AttackType attackType)

@@ -44,7 +44,7 @@ public class PlayerDEAD : FSMState
         {
             _manager.colorGrading.saturation.value = -85f;
             UserInterface.FailMissionSetActive(true);
-            GameStatus.currentGameState = CurrentGameState.Dead;
+            GameStatus.SetCurrentGameState(CurrentGameState.Dead);
             isEnd = true;
         }
 

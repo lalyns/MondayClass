@@ -106,8 +106,9 @@ namespace MC.Mission
 
         protected virtual void Update()
         {
-            if (GameStatus.currentGameState == CurrentGameState.Dead) return;
-
+            if (GameStatus.currentGameState == CurrentGameState.Dead || 
+                GameStatus.currentGameState == CurrentGameState.Product) return;
+            
         }
 
         public virtual void RestMission()
@@ -128,12 +129,19 @@ namespace MC.Mission
             Exit.Colliders.enabled = false;
         }
 
+        public virtual void FailMission()
+        {
+            GameStatus.SetCurrentGameState(CurrentGameState.Dead);
+            PlayerFSMManager.Instance.SetDeadState();
+            missionEnd = true;
+        }
+
         public virtual void ClearMission()
         {
             if (GameStatus.currentGameState == CurrentGameState.Dead) return;
 
             GameStatus.Instance._MissionStatus = false;
-            GameStatus.currentGameState = CurrentGameState.MissionClear;
+            GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
 
             if (!GameStatus.Instance.usingKeward && MissionManager.Instance.CurrentMissionType != MissionType.Annihilation)
             {
@@ -149,21 +157,21 @@ namespace MC.Mission
             {
             }
 
-            //if(GameStatus.Instance.StageLevel == 3)
-            //{
-            //    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-            //    UserInterface.DialogSetActive(true);
-            //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () => { });
-            //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            //}
+            if (GameStatus.Instance.StageLevel == 3)
+            {
+                var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+                UserInterface.DialogSetActive(true);
+                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () => { });
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            }
 
-            //if(GameStatus.Instance.StageLevel == 8)
-            //{
-            //    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-            //    UserInterface.DialogSetActive(true);
-            //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () => { });
-            //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            //}
+            if (GameStatus.Instance.StageLevel == 8)
+            {
+                var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+                UserInterface.DialogSetActive(true);
+                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () => { });
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            }
 
             Exit._PortalEffect.SetActive(true);
             Exit.Colliders.enabled = true;
