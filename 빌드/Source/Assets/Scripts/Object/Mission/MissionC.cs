@@ -31,6 +31,7 @@ namespace MC.Mission
             base.OperateMission();
 
             protectedTarget.hp = _ProtectedTargetHP;
+            MissionOperate = true;
         }
 
         // Update is called once per frame
@@ -52,20 +53,21 @@ namespace MC.Mission
                     Spawn();
                     spawnTime = 0;
                 }
-            }
 
-            if (!isClear && GameStatus.Instance._LimitTime <= 0 && protectedTarget.hp > 0)
-            {
-                ClearMission();
-                PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
-                PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
-                isClear = true;
-                missionEnd = true;
-            }
+                if (!isClear && GameStatus.Instance._LimitTime <= 0 && protectedTarget.hp > 0)
+                {
+                    ClearMission();
+                    PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
+                    PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
+                    isClear = true;
+                    missionEnd = true;
+                }
 
-            if (GameStatus.Instance._LimitTime <= 0 || protectedTarget.hp <= 0)
-            {
-                FailMission();
+                if (GameStatus.Instance._LimitTime <= 0 || protectedTarget.hp <= 0)
+                {
+                    FailMission();
+                    missionEnd = true;
+                }
             }
         }
 

@@ -176,6 +176,7 @@ namespace MC.UI {
         {
             PauseMenuActive(false);
             failUI.gameObject.SetActive(false);
+            GameStatus.SetCurrentGameState(CurrentGameState.Loading);
             MCSceneManager.Instance.NextScene(MCSceneManager.currentScene, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             GameStatus.Instance.StageLevel--;
         }

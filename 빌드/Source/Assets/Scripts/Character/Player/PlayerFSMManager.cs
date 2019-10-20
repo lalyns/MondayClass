@@ -387,7 +387,7 @@ public class PlayerFSMManager : FSMManager
             StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
         }
 
-        if (isInputLock)
+        if (isInputLock || isDead)
             return;
 
         if(Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.D))
@@ -443,7 +443,7 @@ public class PlayerFSMManager : FSMManager
 
         if (isSpecial || isSkill4)
             return;
-        if (remainingDash > 0 && !isSkill3Dash && !isSkill2Dash)
+        if (remainingDash > 0 && !isSkill3Dash && !isSkill2Dash)            
             Dash();
 
         GetInput();
@@ -544,7 +544,7 @@ public class PlayerFSMManager : FSMManager
         {
             UltimateEffect[1].SetActive(false);
         }
-        if (isSpecialIDLE)
+        if (isSpecialIDLE || ClearTimeLine.activeSelf || ClearTimeLine2.activeSelf || isDead)
         {
             UltimateEffect[0].SetActive(false);
             UltimateEffect[1].SetActive(false);
