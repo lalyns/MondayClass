@@ -55,11 +55,16 @@ public class TiberHIT : TiberFSMState
         if (PlayerFSMManager.Instance.isSkill4)
         {
             PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
-            _manager.Stat.TakeDamage(playerStat, 1);
+            if (!PlayerFSMManager.Instance.isCantMove && !isHit)
+            {
+                _manager.Stat.TakeDamage(playerStat, playerStat.dmgCoefficient[6]);
+                isHit = true;
+            }
         }
         if (_manager.Stat.Hp <= 0)
             _manager.SetDeadState();
     }
+    bool isHit = false;
 
     protected override void FixedUpdate()
     {
