@@ -45,7 +45,7 @@ public class RirisPATTERNB : RirisFSMState
         transform.position = pos;
         _manager._Weapon.position = pos;
 
-        transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
+        _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         _manager._Weapon.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager._Weapon.transform));
 
         useGravity = false;

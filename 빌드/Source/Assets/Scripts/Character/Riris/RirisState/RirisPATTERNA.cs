@@ -37,6 +37,9 @@ public class RirisPATTERNA : RirisFSMState
         PatternEnd = false;
         useGravity = false;
 
+        _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
+        _manager._Weapon.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager._Weapon.transform));
+
         stompCount = 0;
 
         if (_manager._Phase >= 1)
