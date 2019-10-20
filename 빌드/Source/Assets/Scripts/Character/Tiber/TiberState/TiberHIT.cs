@@ -29,6 +29,9 @@ public class TiberHIT : TiberFSMState
         //GetComponentInChildren<TiberAnimEvent>()._WeaponCapsule.gameObject.SetActive(false);
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
         //StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
+
+        _manager.agent.acceleration = 0;
+        _manager.agent.velocity = Vector3.zero;
     }
 
     public override void EndState()
@@ -55,11 +58,16 @@ public class TiberHIT : TiberFSMState
         if (PlayerFSMManager.Instance.isSkill4)
         {
             PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
-            _manager.Stat.TakeDamage(playerStat, 1);
+            if (!PlayerFSMManager.Instance.isCantMove && !isHit)
+            {
+                _manager.Stat.TakeDamage(playerStat, playerStat.dmgCoefficient[6]);
+                isHit = true;
+            }
         }
         if (_manager.Stat.Hp <= 0)
             _manager.SetDeadState();
     }
+    bool isHit = false;
 
     protected override void FixedUpdate()
     {
