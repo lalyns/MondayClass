@@ -128,6 +128,13 @@ namespace MC.Mission
             Exit.Colliders.enabled = false;
         }
 
+        public virtual void FailMission()
+        {
+            GameStatus.currentGameState = CurrentGameState.Dead;
+            PlayerFSMManager.Instance.SetDeadState();
+            missionEnd = true;
+        }
+
         public virtual void ClearMission()
         {
             if (GameStatus.currentGameState == CurrentGameState.Dead) return;
