@@ -64,6 +64,8 @@ public class CharacterStat : MonoBehaviour
     [HideInInspector]
     public CharacterStat lastHitBy = null;
 
+    public MonsterType monsterType;
+
     [SerializeField]
     public StatData statData;
 

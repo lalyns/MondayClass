@@ -12,6 +12,8 @@ public class GameSetting : MonoBehaviour
     public Slider amb;
     public Slider voice;
 
+    public GameObject setting;
+
     public void Awake()
     {
         MC.Sound.MCSoundManager.SetRTPCParam("All_Volume", all.value);
@@ -47,6 +49,11 @@ public class GameSetting : MonoBehaviour
         MC.Sound.MCSoundManager.SetRTPCParam("Sound_Volume", sfx.value);
         MC.Sound.MCSoundManager.SetRTPCParam("Ambient_Volume", amb.value);
         MC.Sound.MCSoundManager.SetRTPCParam("Voice_Volume", voice.value);
+    }
+
+    public void SettingExit()
+    {
+        setting.SetActive(false);
     }
 
 }
