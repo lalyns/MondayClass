@@ -72,6 +72,11 @@ namespace MC.Mission
                 PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
                 missionEnd = true;
             }
+
+            if(GameStatus.Instance._LimitTime <= 0)
+            {
+                FailMission();
+            }
         }
 
         public void Spawn()
@@ -79,6 +84,11 @@ namespace MC.Mission
             if (currentWave >= totalWave) currentWave = 0;
 
             StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
+        }
+
+        public override void FailMission()
+        {
+            base.FailMission();
         }
 
         public override void RestMission()
