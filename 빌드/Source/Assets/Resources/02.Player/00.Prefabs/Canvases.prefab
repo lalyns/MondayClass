@@ -2763,12 +2763,12 @@ GameObject:
   - component: {fileID: 6876809348217682200}
   - component: {fileID: 8353285436941685274}
   m_Layer: 5
-  m_Name: Image
+  m_Name: RightWing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7780414165574837642
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4748,12 +4748,12 @@ GameObject:
   - component: {fileID: 6486083113624862443}
   - component: {fileID: 3859888984122040612}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: LeftWing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4695843989115026823
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6203,7 +6203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6174118319752736954
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6631,6 +6631,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpBar: {fileID: 1797592587230467767}
   name: {fileID: 7940482978046409838}
+  wings:
+  - {fileID: 8353285436941685274}
+  - {fileID: 3859888984122040612}
 --- !u!1 &8707375984316864466
 GameObject:
   m_ObjectHideFlags: 0
@@ -7420,6 +7423,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HPBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471184614439043481, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 165912331838315117, guid: 3bfc9b6bdc0e4754389dd43ff8ee4935,
         type: 3}

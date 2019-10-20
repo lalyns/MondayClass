@@ -9,6 +9,7 @@ namespace MC.UI
     {
         public HPBar hpBar;
         public Text name;
+        public Image[] wings;
 
         public void HpBarView()
         {
@@ -16,11 +17,15 @@ namespace MC.UI
             {
                 hpBar.gameObject.SetActive(false);
                 name.gameObject.SetActive(false);
+                wings[0].gameObject.SetActive(false);
+                wings[1].gameObject.SetActive(false);
             }
             else
             {
                 hpBar.gameObject.SetActive(true);
                 name.gameObject.SetActive(true);
+                wings[0].gameObject.SetActive(true);
+                wings[1].gameObject.SetActive(true);
                 UserInterface.Instance.HPChangeEffect(PlayerFSMManager.Instance.LastHit(), hpBar);
                 name.text = SetName(PlayerFSMManager.Instance.LastHit());
             }

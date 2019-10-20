@@ -660,7 +660,7 @@ public class PlayerFSMManager : FSMManager
             
             if (Input.GetKeyDown(KeyCode.R))
             {
-                GameStatus.SetCurrentGameState(CurrentGameState.Product);
+                GameStatus. SetCurrentGameState(CurrentGameState.Product);
                 isNormal = false;
                 isSpecial = true;
                 SetInvincibility(true);
