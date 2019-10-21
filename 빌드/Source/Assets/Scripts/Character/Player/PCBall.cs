@@ -22,7 +22,16 @@ public class PCBall : MonoBehaviour
     }
     void Update()
     {
-
+        if((BounceCount % 2) == 0)
+        {
+            if (!_monster[RandomShoot].activeSelf)
+                this.gameObject.SetActive(false);
+        }
+        if ((BounceCount % 2) == 1)
+        {
+            if (!_monster[RandomShoot2].activeSelf)
+                this.gameObject.SetActive(false);
+        }
         if (!isOne && BounceCount == 0)
         {
             transform.position = Vector3.MoveTowards(transform.position,

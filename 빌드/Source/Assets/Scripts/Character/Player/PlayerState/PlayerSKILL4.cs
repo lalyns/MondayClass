@@ -20,16 +20,15 @@ public class PlayerSKILL4 : FSMState
     {
         base.EndState();
         _time = 0;
+
+        UserInterface.SetAllUserInterface(true);
+        _manager.TimeLine2.SetActive(false);
         _manager.isCantMove = false;
         _manager.isAttackOne = false;
         _manager.isAttackTwo = false;
         _manager.isAttackThree = false;
-        
         _manager.isSkill4CTime = true;
-        _manager.isSkill4 = false;
-        _manager.TimeLine2.SetActive(false);
-
-        UserInterface.SetAllUserInterface(true);
+        _manager.isSkill4 = false;        
     }
 
 

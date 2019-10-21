@@ -12,6 +12,7 @@ public enum RirisState
     PATTERND,
     PATTERNEND,
     DEAD,
+    HIT,
 }
 
 
@@ -106,10 +107,19 @@ public class RirisFSMManager : FSMManager
         SetState(startState);
         _isInit = true;
     }
-
+    public bool isChange;
     private void Update()
     {
-        HPUI();
+        if ((PlayerFSMManager.Instance.isSpecial || PlayerFSMManager.Instance.isSkill4) && !isChange)
+        {
+            SetState(RirisState.HIT);
+            isChange = true;
+            return;
+        }
+        if (!PlayerFSMManager.Instance.isSpecial && !PlayerFSMManager.Instance.isSkill4)
+        {
+            isChange = false;
+        }
 
         if(Input.GetKey(KeyCode.LeftAlt))
         {
@@ -147,7 +157,7 @@ public class RirisFSMManager : FSMManager
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Weapon" && !PlayerFSMManager.Instance.isSkill3)
+        if (other.transform.tag == "Weapon"/* && !PlayerFSMManager.Instance.isSkill3*/)
         {
             if (Stat.Hp > 0)
                 OnHitForBoss(PlayerFSMManager.Instance.attackType);
@@ -199,6 +209,7 @@ public class RirisFSMManager : FSMManager
             }
         }
     }
+
 
     public void HPUI()
     {

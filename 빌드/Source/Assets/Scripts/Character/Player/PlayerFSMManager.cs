@@ -1217,7 +1217,6 @@ public class PlayerFSMManager : FSMManager
 
             _monster = GameStatus.Instance.ActivedMonsterList;
 
-
             bool isTiber = false;
             int count = 0;
             foreach (GameObject mob in _monster)
@@ -1235,7 +1234,6 @@ public class PlayerFSMManager : FSMManager
 
                 count++;
             }
-
             for (int i = 0; i < 7; i++)
             {
                 if (isTiber == true && i == 6 || i == count) continue;

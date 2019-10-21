@@ -22,5 +22,6 @@ public class FenceEffect : MonoBehaviour
         GameLib.DissoveActive(materials, true);
         StartCoroutine(GameLib.Dissolving(materials));
         Collider.enabled = false;
+        gameObject.SetActive(false);
     }
 }
