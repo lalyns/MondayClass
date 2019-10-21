@@ -24,33 +24,70 @@ public class PlayerStat : CharacterStat
     {
         return _str + (perStr * GameSetting.rewardAbillity.strLevel);
     }
+    public void SetStr()
+    {
+        _str = GetStr();
+    }
+
     public float GetDfs()
     {
         return defense + (perDef * GameSetting.rewardAbillity.defLevel);
     }
+    public void SetDfs()
+    {
+        defense = GetDfs();
+    }
+
     public float GetHP()
     {
         return _maxHp + (perHP * GameSetting.rewardAbillity.hpLevel);
     }
+
+
     public float GetSkill1Damage()
     {
         return dmgCoefficient[3] + (perSkill1 * GameSetting.rewardAbillity.skill1DMGLevel);
     }
+    public void SetSkill1Damage()
+    {
+        dmgCoefficient[3] = GetSkill1Damage();
+    }
+
     public float GetSkill2Damage()
     {
         return dmgCoefficient[4] + (perSkill2 * GameSetting.rewardAbillity.skill2DMGLevel);
     }
+    public void SetSkil2Damage()
+    {
+        dmgCoefficient[4] = GetSkill2Damage();
+    }
+
+
     public float GetSkill3Damage()
     {
         return dmgCoefficient[5] + (perSkill3 * GameSetting.rewardAbillity.skill3DMGLevel);
     }
+    public void SetSkill3Damage()
+    {
+        dmgCoefficient[5] = GetSkill3Damage();
+    }
+
     public float GetSkill3Speed()
     {
         return PlayerFSMManager.Instance.Skill3MouseSpeed + (perSkill3Speed * GameSetting.rewardAbillity.skill3TurnLevel);
     }
-    public float GetSkill1Bounce()
+    public void SetSkill3Speed()
+    {
+        PlayerFSMManager.Instance.Skill3MouseSpeed = GetSkill3Speed();
+    }
+
+    public int GetSkill1Bounce()
     {
         return PlayerFSMManager.Instance.Skill1BounceCount + (perSkill1Bounce * GameSetting.rewardAbillity.skill1BounceLevel);
+    }
+    public void SetSkill1Bounce()
+    {
+        PlayerFSMManager.Instance.Skill1BounceCount = GetSkill1Bounce();
     }
 
     public void StrSet(int value)
@@ -67,7 +104,21 @@ public class PlayerStat : CharacterStat
 
     public void SetStatValue()
     {
-        SetHp(_maxHp);
+        SetHp(GetHP());
+        SetDfs();
+        SetStr();
+        SetSkil2Damage();
+        SetSkill1Bounce();
+        SetSkill1Damage();
+        SetSkill3Damage();
+        SetSkill3Speed();
+
+
+
+
+
+
+
 
     }
 
