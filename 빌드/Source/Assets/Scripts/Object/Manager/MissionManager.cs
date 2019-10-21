@@ -228,32 +228,40 @@ public class MissionManager : MonoBehaviour
         switch (type)
         {
             case MissionRewardType.SpecialGauge:
-                PlayerFSMManager.Instance.SpecialGauge = 100;
+                //PlayerFSMManager.Instance.SpecialGauge = 100;
+                GameSetting.rewardAbillity.feverGauge = true;
                 break;
             case MissionRewardType.Str:
                 //4PlayerFSMManager.Instance.Stat.RewardStr(5);
                 GameSetting.rewardAbillity.strLevel++;
                 break;
             case MissionRewardType.Defense:
-                PlayerFSMManager.Instance.Stat.RewardDefense(3);
+                //PlayerFSMManager.Instance.Stat.RewardDefense(3);
+                GameSetting.rewardAbillity.defLevel++;
                 break;
             case MissionRewardType.Hp:
-                PlayerFSMManager.Instance.Stat.RewardHP(150);
+                //PlayerFSMManager.Instance.Stat.RewardHP(150);
+                GameSetting.rewardAbillity.hpLevel++;
                 break;
             case MissionRewardType.Skill1Damage:
-                PlayerFSMManager.Instance.Stat.RewardSkill1Damage(40);
+                //PlayerFSMManager.Instance.Stat.RewardSkill1Damage(40);
+                GameSetting.rewardAbillity.skill1DMGLevel++;
                 break;
             case MissionRewardType.Skill2Damage:
-                PlayerFSMManager.Instance.Stat.RewardSkill2Damage(25);
+                //PlayerFSMManager.Instance.Stat.RewardSkill2Damage(25);
+                GameSetting.rewardAbillity.skill2DMGLevel++;
                 break;
             case MissionRewardType.Skill3Damage:
-                PlayerFSMManager.Instance.Stat.RewardSkill3Damage(10);
+                //PlayerFSMManager.Instance.Stat.RewardSkill3Damage(10);
+                GameSetting.rewardAbillity.skill3DMGLevel++;
                 break;
             case MissionRewardType.Skill3Speed:
-                PlayerFSMManager.Instance.Skill3MouseSpeed += 10;
+                //PlayerFSMManager.Instance.Skill3MouseSpeed += 10;
+                GameSetting.rewardAbillity.skill3TurnLevel++;
                 break;
             case MissionRewardType.Skill1Bounce:
-                PlayerFSMManager.Instance.Skill1BounceCount++;
+                //PlayerFSMManager.Instance.Skill1BounceCount++;
+                GameSetting.rewardAbillity.skill1BounceLevel++;
                 break;
         }
 
