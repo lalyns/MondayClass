@@ -131,9 +131,9 @@ namespace MC.Mission
 
         public virtual void FailMission()
         {
-            //GameStatus.SetCurrentGameState(CurrentGameState.Dead);
-            //PlayerFSMManager.Instance.SetDeadState();
-            //missionEnd = true;
+            GameStatus.SetCurrentGameState(CurrentGameState.Dead);
+            PlayerFSMManager.Instance.SetDeadState();
+            missionEnd = true;
         }
 
         public virtual void ClearMission()
