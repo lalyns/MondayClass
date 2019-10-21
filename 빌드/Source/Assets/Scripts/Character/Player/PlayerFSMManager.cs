@@ -399,11 +399,11 @@ public class PlayerFSMManager : FSMManager
             //CurrentClear = Random.Range((int)0, (int)2);
             SetState(PlayerState.CLEAR);
         }
-        if (GameSetting.rewardAbillity.feverGauge)
-        {
-            SpecialGauge = 100;
-            GameSetting.rewardAbillity.feverGauge = false;
-        }
+        //if (GameSetting.rewardAbillity.feverGauge)
+        //{
+        //    SpecialGauge = 100;
+        //    //GameSetting.rewardAbillity.feverGauge = false;
+        //}
 
         if (_v != 0 || _h != 0)
         {
@@ -584,7 +584,10 @@ public class PlayerFSMManager : FSMManager
     //            effects_special[4].SetActive(false);
     //        }
     //    }
-
+    public void SetSpecialGauge()
+    {
+        SpecialGauge = 100;
+    }
     private void FixedUpdate()
     {
         Skill2Set();
