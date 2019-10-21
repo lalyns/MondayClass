@@ -33,7 +33,10 @@ public class CharacterStat : MonoBehaviour
     {
         _hp = hp;
     }
-
+    public void SetMaxHP(float maxhp)
+    {
+        _maxHp = maxhp;
+    }
     [SerializeField] protected float _moveSpeed = 3.0f;
     public float MoveSpeed { get { return _moveSpeed; } }
 

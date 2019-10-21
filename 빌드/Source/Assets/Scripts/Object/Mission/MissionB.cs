@@ -63,6 +63,12 @@ namespace MC.Mission
                     Spawn();
                     spawnTime = 0;
                 }
+
+                if (GameStatus.Instance._LimitTime <= 0)
+                {
+                    FailMission();
+                }
+            
             }
 
             if (currentScore == goalScore)
@@ -73,10 +79,6 @@ namespace MC.Mission
                 missionEnd = true;
             }
 
-            if(GameStatus.Instance._LimitTime <= 0)
-            {
-                FailMission();
-            }
         }
 
         public void Spawn()
