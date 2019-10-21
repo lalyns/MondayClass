@@ -143,7 +143,10 @@ namespace MC.Mission
             GameStatus.Instance._MissionStatus = false;
             GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
 
-            if (!GameStatus.Instance.usingKeward && MissionManager.Instance.CurrentMissionType != MissionType.Annihilation)
+            if (MissionManager.Instance.CurrentMissionType == MissionType.Annihilation)
+            {
+            }
+            else
             {
                 GameStatus.Instance.RemoveAllActiveMonster();
             }
