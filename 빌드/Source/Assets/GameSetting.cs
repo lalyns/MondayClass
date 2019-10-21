@@ -30,9 +30,25 @@ public class GameSetting : MonoBehaviour
         [Range(0, 8)] public int skill3TurnLevel;
 
         public bool feverGauge;
+
+        public RewardAbillity()
+        {
+            strLevel = 8;
+            defLevel = 6;
+            hpLevel = 7;
+
+            skill1DMGLevel = 3;
+            skill1BounceLevel = 3;
+            skill2DMGLevel = 2;
+
+            skill3DMGLevel = 3;
+            skill3TurnLevel = 3;
+
+            feverGauge = false;
+        }
     }
 
-    public static RewardAbillity rewardAbillity;
+    public static RewardAbillity rewardAbillity = new RewardAbillity();
     // finalStr = (BaseSTR + perStr * strLevel)
 
     // 게임오버되거나 씬이 로드될때 능력치 계산
