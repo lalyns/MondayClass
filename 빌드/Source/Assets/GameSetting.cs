@@ -46,6 +46,22 @@ public class GameSetting : MonoBehaviour
 
             feverGauge = false;
         }
+
+        public RewardAbillity(int a, int b, int c, int d, int e, int f, int g, int h, bool i)
+        {
+            strLevel = a;
+            defLevel = b;
+            hpLevel = c;
+
+            skill1DMGLevel = d;
+            skill1BounceLevel = e;
+            skill2DMGLevel = f;
+
+            skill3DMGLevel = g;
+            skill3TurnLevel = h;
+
+            feverGauge = i;
+        }
     }
 
     public static RewardAbillity rewardAbillity = new RewardAbillity();
