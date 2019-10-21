@@ -152,11 +152,23 @@ public class MissionManager : MonoBehaviour
         //랜덤 보상 출력하기
         foreach (MissionButton choice in UserInterface.Instance.SelectorUI.buttons)
         {
-            var type = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
-            var type2 = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
+            if (choice.missionType == MissionType.Boss)
+            {
+                choice.rewardIcon.gameObject.SetActive(false);
+                choice.rewardText[0].gameObject.SetActive(false);
+                choice.rewardText[1].gameObject.SetActive(false);
+            }
+            else
+            {
+                choice.rewardIcon.gameObject.SetActive(true);
+                choice.rewardText[0].gameObject.SetActive(true);
+                choice.rewardText[1].gameObject.SetActive(true);
+                var type = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
+                var type2 = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
 
-            currentMissionRewards[0] = choice.ChangeReward(0, (MissionRewardType)type);
-            currentMissionRewards[1] = choice.ChangeReward(1, (MissionRewardType)type2);
+                currentMissionRewards[0] = choice.ChangeReward(0, (MissionRewardType)type);
+                currentMissionRewards[1] = choice.ChangeReward(1, (MissionRewardType)type2);
+            }
         }
 
         //foreach (MissionButton choice in UserInterface.Instance.SelectorUI.buttons)
