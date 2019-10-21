@@ -10,18 +10,52 @@ public class PlayerStat : CharacterStat
 
     public float feverGaugeGetValue;
     public float transDuration;
-        
-    public void RewardSkill1Damage(int value)
+
+    public int perStr = 5;
+    public int perDef = 3;
+    public int perHP = 150;
+    public int perSkill1 = 40;
+    public int perSkill2 = 25;
+    public int perSkill3 = 10;
+    public int perSkill3Speed = 10;
+    public int perSkill1Bounce = 1;
+
+    public float GetStr()
     {
-        dmgCoefficient[3] += value;
+        return _str + (perStr * GameSetting.rewardAbillity.strLevel);
     }
-    public void RewardSkill2Damage(int value)
+    public float GetDfs()
     {
-        dmgCoefficient[4] += value;
+        return defense + (perDef * GameSetting.rewardAbillity.defLevel);
     }
-    public void RewardSkill3Damage(int value)
+    public float GetHP()
     {
-        dmgCoefficient[5] += value;
+        return _maxHp + (perHP * GameSetting.rewardAbillity.hpLevel);
+    }
+    public float GetSkill1Damage()
+    {
+        return dmgCoefficient[3] + (perSkill1 * GameSetting.rewardAbillity.skill1DMGLevel);
+    }
+    public float GetSkill2Damage()
+    {
+        return dmgCoefficient[4] + (perSkill2 * GameSetting.rewardAbillity.skill2DMGLevel);
+    }
+    public float GetSkill3Damage()
+    {
+        return dmgCoefficient[5] + (perSkill3 * GameSetting.rewardAbillity.skill3DMGLevel);
+    }
+    public float GetSkill3Speed()
+    {
+        return PlayerFSMManager.Instance.Skill3MouseSpeed + (perSkill3Speed * GameSetting.rewardAbillity.skill3TurnLevel);
+    }
+    public float GetSkill1Bounce()
+    {
+        return PlayerFSMManager.Instance.Skill1BounceCount + (perSkill1Bounce * GameSetting.rewardAbillity.skill1BounceLevel);
+    }
+
+    public void StrSet(int value)
+    {
+        _str = value;
     }
 
     protected override void Awake()
@@ -36,4 +70,30 @@ public class PlayerStat : CharacterStat
         SetHp(_maxHp);
 
     }
+
+    //public void RewardSkill1Damage(int value)
+    //{
+    //    dmgCoefficient[3] += value;
+    //}
+    //public void RewardSkill2Damage(int value)
+    //{
+    //    dmgCoefficient[4] += value;
+    //}
+    //public void RewardSkill3Damage(int value)
+    //{
+    //    dmgCoefficient[5] += value;
+    //}
+
+    //public void RewardStr(int value)
+    //{
+    //    _str += value;
+    //}
+    //public void RewardDefense(int value)
+    //{
+    //    defense += value;
+    //}
+    //public void RewardHP(int value)
+    //{
+    //    _maxHp += value;
+    //}
 }

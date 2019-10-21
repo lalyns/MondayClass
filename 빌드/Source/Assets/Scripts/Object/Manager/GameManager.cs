@@ -185,6 +185,14 @@ public class GameManager : MonoBehaviour
         CanvasInfo.Instance.SetRenderCam();
         UserInterface.Instance.SetValue();
 
+        PlayerFSMManager.Instance.Stat.GetStr();
+        PlayerFSMManager.Instance.Stat.GetDfs();
+        PlayerFSMManager.Instance.Stat.GetHP();
+        PlayerFSMManager.Instance.Stat.GetSkill1Damage();
+        PlayerFSMManager.Instance.Stat.GetSkill2Damage();
+        PlayerFSMManager.Instance.Stat.GetSkill3Damage();
+        PlayerFSMManager.Instance.Stat.GetSkill3Speed();
+        PlayerFSMManager.Instance.Stat.GetSkill1Bounce();
     }
 
     public static void ScriptCheck()
