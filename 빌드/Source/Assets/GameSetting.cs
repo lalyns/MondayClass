@@ -33,16 +33,16 @@ public class GameSetting : MonoBehaviour
 
         public RewardAbillity()
         {
-            strLevel = 8;
-            defLevel = 6;
-            hpLevel = 7;
+            strLevel = 0;
+            defLevel = 0;
+            hpLevel = 0;
 
-            skill1DMGLevel = 3;
-            skill1BounceLevel = 3;
-            skill2DMGLevel = 2;
+            skill1DMGLevel = 0;
+            skill1BounceLevel = 0;
+            skill2DMGLevel = 0;
 
-            skill3DMGLevel = 3;
-            skill3TurnLevel = 3;
+            skill3DMGLevel = 0;
+            skill3TurnLevel = 0;
 
             feverGauge = false;
         }
