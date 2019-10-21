@@ -43,24 +43,6 @@ public class CharacterStat : MonoBehaviour
     [SerializeField] protected float _attackRange = 1.0f;
     public float AttackRange { get { return _attackRange; } }
 
-    public void RewardStr(int value)
-    {
-        _str += value;
-    }
-    public void RewardDefense(int value)
-    {
-        defense += value;
-    }
-    public void RewardHP(int value)
-    {
-        _maxHp += value;
-    }
-
-    public void StrSet(int value)
-    {
-        _str = value;
-    }
-
     [HideInInspector]
     public CharacterStat lastHitBy = null;
 

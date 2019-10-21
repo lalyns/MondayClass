@@ -131,9 +131,9 @@ namespace MC.Mission
 
         public virtual void FailMission()
         {
-            //GameStatus.SetCurrentGameState(CurrentGameState.Dead);
-            //PlayerFSMManager.Instance.SetDeadState();
-            //missionEnd = true;
+            GameStatus.SetCurrentGameState(CurrentGameState.Dead);
+            PlayerFSMManager.Instance.SetDeadState();
+            missionEnd = true;
         }
 
         public virtual void ClearMission()
@@ -143,7 +143,10 @@ namespace MC.Mission
             GameStatus.Instance._MissionStatus = false;
             GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
 
-            if (!GameStatus.Instance.usingKeward && MissionManager.Instance.CurrentMissionType != MissionType.Annihilation)
+            if (MissionManager.Instance.CurrentMissionType == MissionType.Annihilation)
+            {
+            }
+            else
             {
                 GameStatus.Instance.RemoveAllActiveMonster();
             }

@@ -50,7 +50,7 @@ public class RirisHitCollider : MonoBehaviour
         int value = GameLib.TransformTypeToInt(attackType);
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
-        float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - riris.Stat.Defense;
+        float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f) - riris.Stat.Defense;
         CharacterStat.ProcessDamage(playerStat, riris.Stat, damage);
 
         var sound = PlayerFSMManager.Instance._Sound.sfx;
@@ -105,7 +105,6 @@ public class RirisHitCollider : MonoBehaviour
     {
         if (other.transform.tag == "Weapon" && !PlayerFSMManager.Instance.isSkill3)
         {
-            Debug.Log("Trigger");
             if (riris.Stat.Hp > 0)
                 OnHitForMonster(PlayerFSMManager.Instance.attackType);
         }

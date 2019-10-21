@@ -185,6 +185,7 @@ public class GameManager : MonoBehaviour
         CanvasInfo.Instance.SetRenderCam();
         UserInterface.Instance.SetValue();
 
+        PlayerFSMManager.Instance.Stat.SetStatValue();
     }
 
     public static void ScriptCheck()
