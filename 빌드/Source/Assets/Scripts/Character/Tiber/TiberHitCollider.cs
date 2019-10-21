@@ -49,7 +49,7 @@ public class TiberHitCollider : MonoBehaviour
         int value = GameLib.TransformTypeToInt(attackType);
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
-        float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - tiber.Stat.Defense;
+        float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f) - tiber.Stat.Defense;
         CharacterStat.ProcessDamage(playerStat, tiber.Stat, damage);
 
         var sound = PlayerFSMManager.Instance._Sound.sfx;
