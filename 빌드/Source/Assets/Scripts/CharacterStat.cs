@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 public class CharacterStat : MonoBehaviour
 {
@@ -64,12 +65,15 @@ public class CharacterStat : MonoBehaviour
         if (from.isPlayer)
         {
             var playerStat = from as PlayerStat;
-            
+
             if (PlayerFSMManager.Instance.isNormal)
+            {
                 PlayerFSMManager.Instance.SpecialGauge += playerStat.feverGaugeGetValue;
+            }
         }
 
     }
+
 
     public static void ProcessDamage(CharacterStat from, CharacterStat to, float damage)
     {

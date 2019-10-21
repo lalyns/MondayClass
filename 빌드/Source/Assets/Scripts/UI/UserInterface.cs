@@ -155,7 +155,7 @@ namespace MC.UI
                 UIPlayer.ProfileImage(playerFSMMgr.isNormal);
 
                 HPChangeEffect(playerFSMMgr.Stat, UIPlayer.hpBar);
-                UIPlayer.SpecialGauge(playerFSMMgr.SpecialGauge);
+                UIPlayer.SpecialGauge();
                 UIPlayer.DashSetActive();
                 UIPlayer.Skill4SetActive(!playerFSMMgr.isNormal);
                 CanvasInfo.Instance.enemyHP.HpBarView();
@@ -471,7 +471,6 @@ namespace MC.UI
                     hpBar.laterValue = hpBar.currentValue;
                 }
             }
-
         }
 
         #endregion
