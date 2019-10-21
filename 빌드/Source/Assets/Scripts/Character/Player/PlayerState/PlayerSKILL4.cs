@@ -14,6 +14,7 @@ public class PlayerSKILL4 : FSMState
         _manager.attackType = AttackType.SKILL4;
 
         UserInterface.SetAllUserInterface(false);
+        _manager.isCanUltimate = false;
     }
 
     public override void EndState()

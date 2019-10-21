@@ -223,6 +223,8 @@ public class PlayerFSMManager : FSMManager
     public int Skill1BounceCount = 1;
 
     public List<GameObject> UltimateEffect = new List<GameObject>();
+
+    public bool isCanUltimate = false;
     protected override void Awake()
     {
         base.Awake();
@@ -1212,7 +1214,7 @@ public class PlayerFSMManager : FSMManager
 
     public void Skill4()
     {
-        if (isSkill4 || isNormal)
+        if (isSkill4 || isNormal || !isCanUltimate)
             return;
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
