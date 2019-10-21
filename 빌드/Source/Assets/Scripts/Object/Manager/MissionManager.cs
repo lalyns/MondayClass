@@ -219,6 +219,10 @@ public class MissionManager : MonoBehaviour
         }
 
     }
+
+    // 클리어 됬을떄 받는다면, 게이지는 클리어 직후에 100으로 차게됨
+    // 다음씬에서 게이지가 0으로 초기화됨
+
     public void GetReward(MissionRewardType type)
     {
         switch (type)
@@ -227,7 +231,8 @@ public class MissionManager : MonoBehaviour
                 PlayerFSMManager.Instance.SpecialGauge = 100;
                 break;
             case MissionRewardType.Str:
-                PlayerFSMManager.Instance.Stat.RewardStr(5);
+                //4PlayerFSMManager.Instance.Stat.RewardStr(5);
+                GameSetting.rewardAbillity.strLevel++;
                 break;
             case MissionRewardType.Defense:
                 PlayerFSMManager.Instance.Stat.RewardDefense(3);
