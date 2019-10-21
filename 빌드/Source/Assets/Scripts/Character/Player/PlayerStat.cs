@@ -10,6 +10,8 @@ public class PlayerStat : CharacterStat
 
     public float feverGaugeGetValue;
     public float transDuration;
+
+    public int perStr = 5;
         
     public void RewardSkill1Damage(int value)
     {
@@ -22,6 +24,29 @@ public class PlayerStat : CharacterStat
     public void RewardSkill3Damage(int value)
     {
         dmgCoefficient[5] += value;
+    }
+
+    public float GetStr()
+    {
+        return Str + (perStr * GameSetting.rewardAbillity.strLevel);
+    }
+
+    public void RewardStr(int value)
+    {
+        _str += value;
+    }
+    public void RewardDefense(int value)
+    {
+        defense += value;
+    }
+    public void RewardHP(int value)
+    {
+        _maxHp += value;
+    }
+
+    public void StrSet(int value)
+    {
+        _str = value;
     }
 
     protected override void Awake()

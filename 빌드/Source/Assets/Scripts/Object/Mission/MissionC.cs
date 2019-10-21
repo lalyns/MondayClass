@@ -63,7 +63,7 @@ namespace MC.Mission
                     missionEnd = true;
                 }
 
-                if (GameStatus.Instance._LimitTime <= 0 || protectedTarget.hp <= 0)
+                if (!isClear && protectedTarget.hp <= 0)
                 {
                     FailMission();
                     missionEnd = true;

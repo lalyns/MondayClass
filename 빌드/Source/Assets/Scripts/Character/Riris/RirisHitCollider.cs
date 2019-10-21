@@ -23,11 +23,13 @@ public class RirisHitCollider : MonoBehaviour
     {
         this.transform.position = riris.transform.position;
 
-        capsule.center = new Vector3(0, riris.Pevis.position.y, 0) + (Vector3.up * -0.915f);
+        //capsule.center = new Vector3(0, riris.Pevis.position.y, 0) + (Vector3.up * -0.915f);
     }
 
     public void OnHitForMonster(AttackType attackType)
     {
+        Debug.Log("Attack!");
+
         if ((attackType == AttackType.ATTACK1
             || attackType == AttackType.ATTACK2
             || attackType == AttackType.ATTACK3)
@@ -48,7 +50,7 @@ public class RirisHitCollider : MonoBehaviour
         int value = GameLib.TransformTypeToInt(attackType);
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
-        float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - riris.Stat.Defense;
+        float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f) - riris.Stat.Defense;
         CharacterStat.ProcessDamage(playerStat, riris.Stat, damage);
 
         var sound = PlayerFSMManager.Instance._Sound.sfx;
@@ -106,6 +108,10 @@ public class RirisHitCollider : MonoBehaviour
             if (riris.Stat.Hp > 0)
                 OnHitForMonster(PlayerFSMManager.Instance.attackType);
         }
+        else if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
+        {
+            StartCoroutine("Skill3Timer");
+        }
 
         if (other.transform.tag == "Ball")
         {
@@ -128,10 +134,6 @@ public class RirisHitCollider : MonoBehaviour
             StartCoroutine("Skill2Timer");
 
             //riris.SetState(TiberState.HIT);
-        }
-        if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
-        {
-            StartCoroutine("Skill3Timer");
         }
     }
 
