@@ -348,6 +348,17 @@
 														</Action>
 													</ChildrenList>
 												</Event>
+												<Event Name="Player_Skill_Transform_Sound_Wink" ID="{69BA67B6-7A4D-4545-9EA3-2B8446B4849C}">
+													<ChildrenList>
+														<Action Name="" ID="{9DDD9A64-6ACB-4506-8D1A-B1B2AA51CF91}" ShortID="986139356">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Wink" ID="{3E612426-D2FD-4220-A513-48293F3FA2EE}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
 											</ChildrenList>
 										</Folder>
 									</ChildrenList>
@@ -678,9 +689,12 @@
 						<Event Name="Bgm_Title_01" ID="{A57D7A3B-43AA-48AE-B555-B194367857DB}">
 							<ChildrenList>
 								<Action Name="" ID="{21E1EBF3-7323-4B89-AF92-E5EE458291DF}" ShortID="249454496">
+									<PropertyList>
+										<Property Name="FadeInCurve" Type="int16" Value="1"/>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="Bgm_Title_01" ID="{6ED0CDDB-E958-415F-B203-2C9352AE8454}" WorkUnitID="{9850665D-5484-4161-902D-23B97DDF595A}"/>
+											<ObjectRef Name="Bgm_Title" ID="{6ED0CDDB-E958-415F-B203-2C9352AE8454}" WorkUnitID="{9850665D-5484-4161-902D-23B97DDF595A}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -689,9 +703,26 @@
 						<Event Name="Bgm_Dungeon_04" ID="{EDFC88BD-44EB-4AAC-AE5C-950EE0ADEF0E}">
 							<ChildrenList>
 								<Action Name="" ID="{448A65D3-1ACA-4878-9D60-746B3F5CE575}" ShortID="694392901">
+									<PropertyList>
+										<Property Name="FadeInCurve" Type="int16" Value="1"/>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="Bgm_Dungeon_04" ID="{08054386-176E-4845-92B5-2F64A57E012F}" WorkUnitID="{9850665D-5484-4161-902D-23B97DDF595A}"/>
+											<ObjectRef Name="Bgm_Dungeon" ID="{08054386-176E-4845-92B5-2F64A57E012F}" WorkUnitID="{9850665D-5484-4161-902D-23B97DDF595A}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Bgm_Boss_05" ID="{D9F1D083-0431-453A-A3E2-D8A2AE9A19D4}">
+							<ChildrenList>
+								<Action Name="" ID="{F9318E75-522C-47C0-B43E-046C6F53F04E}" ShortID="60054290">
+									<PropertyList>
+										<Property Name="FadeInCurve" Type="int16" Value="1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Bgm_Boss" ID="{526D108B-BCEC-4EBC-AF46-A029471ED4EC}" WorkUnitID="{9850665D-5484-4161-902D-23B97DDF595A}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -762,6 +793,70 @@
 										</Action>
 									</ChildrenList>
 								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Talk" ID="{4021A612-B124-4ABB-94E9-6E72B4C3AE15}" ShortID="911877687">
+							<ChildrenList>
+								<Event Name="Ui_Talk_Sound_01" ID="{0CCB3DEB-0DAA-47E1-81FA-CE9915D77006}">
+									<ChildrenList>
+										<Action Name="" ID="{7195A4AF-7233-494B-8572-4E6C13F6E119}" ShortID="453123348">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Talk" ID="{6B7C4338-0DDA-40A5-9524-B4F210CAD739}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Monster" ID="{E6AD2BB1-A26F-4F4D-A704-592C52E8B7EB}" ShortID="208923204">
+					<ChildrenList>
+						<Folder Name="RedHat" ID="{6D06B0FF-CB25-4480-8650-0C9AB9939848}" ShortID="746327964">
+							<ChildrenList>
+								<Folder Name="DrawingSword" ID="{4AB0BDB0-076C-4681-8CCF-00DB9E89187F}" ShortID="398783940">
+									<ChildrenList>
+										<Event Name="RedHat_Skill_Drawingsword_Cast_Sound" ID="{38F3AF68-A59B-4357-B1D3-CB9DA8440CD9}">
+											<ChildrenList>
+												<Action Name="" ID="{14471C38-0872-4E48-91E6-996DA1601E19}" ShortID="835361863">
+													<ReferenceList>
+														<Reference Name="Target">
+															<ObjectRef Name="Cast Sound" ID="{D0CFB60A-3A09-4C87-AC31-AC2D42537CC3}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+														</Reference>
+													</ReferenceList>
+												</Action>
+											</ChildrenList>
+										</Event>
+										<Event Name="RedHat_Skill_Drawingsword_Ready_Sound" ID="{7AFD2067-D7CE-420C-BFEC-CBCAC869C3E4}">
+											<ChildrenList>
+												<Action Name="" ID="{6C327E9E-3355-48AD-BDEE-C16EE5D062B2}" ShortID="800114205">
+													<ReferenceList>
+														<Reference Name="Target">
+															<ObjectRef Name="Ready" ID="{A1AC18E1-2701-41B2-B1AB-73CE7C5BA15E}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+														</Reference>
+													</ReferenceList>
+												</Action>
+											</ChildrenList>
+										</Event>
+									</ChildrenList>
+								</Folder>
+								<Folder Name="DashSword" ID="{503CE324-B36D-47F9-AC4C-5EA095AE97E4}" ShortID="739163341">
+									<ChildrenList>
+										<Event Name="RedHat_Skill_DashSword_Cast_Sound" ID="{DFE9B2EB-3F2A-4D06-869F-30E7D447A821}">
+											<ChildrenList>
+												<Action Name="" ID="{34E5CD6E-1E25-466B-BF7F-A37335E554AC}" ShortID="547180181">
+													<ReferenceList>
+														<Reference Name="Target">
+															<ObjectRef Name="Cast Sound" ID="{DA837EDA-3497-43F6-A532-A2414E007914}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+														</Reference>
+													</ReferenceList>
+												</Action>
+											</ChildrenList>
+										</Event>
+									</ChildrenList>
+								</Folder>
 							</ChildrenList>
 						</Folder>
 					</ChildrenList>
