@@ -17,6 +17,7 @@ public class PlayerTRANS2 : FSMState
     {
         base.EndState();
         _time = 0;
+        _manager.isCanUltimate = true;
     }
 
     void Update()

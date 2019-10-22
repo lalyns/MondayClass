@@ -60,13 +60,7 @@ public class Healing : MonoBehaviour
         }
         else
         {
-            for(int i=0; i<_HealingTime; i++)
-            {
-                if (player.Stat._hp + _HealValue > player.Stat.MaxHp)
-                    player.Stat._hp = player.Stat.MaxHp;
-                else
-                    player.Stat._hp += _HealValue;
-            }
+            
             StartCoroutine("TimeWaiting");
 
         }
@@ -74,7 +68,15 @@ public class Healing : MonoBehaviour
 
     public IEnumerator TimeWaiting()
     {
-        yield return new WaitForSeconds(interval);
+        for (int i = 0; i < _HealingTime; i++)
+        {
+            if (player.Stat._hp + _HealValue > player.Stat.MaxHp)
+                player.Stat._hp = player.Stat.MaxHp;
+            else
+                player.Stat._hp += _HealValue;
+            yield return new WaitForSeconds(interval);
+        }
+        
     }
     private void OnTriggerEnter(Collider other)
     {
