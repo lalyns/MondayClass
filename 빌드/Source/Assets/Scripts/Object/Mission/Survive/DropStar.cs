@@ -37,6 +37,8 @@ namespace MC.Mission
 
         private void OnTriggerEnter(Collider other)
         {
+            if (stop) return;
+
             if (other.transform.tag == "Player")
             {
                 stop = true;

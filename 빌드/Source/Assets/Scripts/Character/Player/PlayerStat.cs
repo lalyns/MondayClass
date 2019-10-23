@@ -105,6 +105,7 @@ public class PlayerStat : CharacterStat
     public void SetStatValue()
     {
         SetHp(GetHP());
+        SetMaxHP(GetHP());
         SetDfs();
         SetStr();
         SetSkil2Damage();

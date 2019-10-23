@@ -68,24 +68,8 @@ public class MacPOPUP : MacFSMState
 
         if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
         {
-
-            Collider[] allTarget = Physics.OverlapSphere(this.transform.position, _manager._DetectingRange);
-
-            foreach (Collider target in allTarget)
-            {
-                if (target.tag == "Player")
-                {
-                    _manager._PriorityTarget = PlayerFSMManager.
-                        Instance.Anim
-                        .GetComponent<Collider>();
-                    break;
-                }
-                else
-                {
-                    MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
-                    _manager._PriorityTarget = mission.protectedTarget.Collider;
-                }
-            }
+            MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
+            _manager._PriorityTarget = mission.protectedTarget.Collider;
         }
         else
         {

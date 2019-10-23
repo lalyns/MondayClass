@@ -223,6 +223,10 @@ public class PlayerFSMManager : FSMManager
     public int Skill1BounceCount = 1;
 
     public List<GameObject> UltimateEffect = new List<GameObject>();
+
+    public bool isCanUltimate = false;
+
+    public EnemyHPBar enemyHPBar;
     protected override void Awake()
     {
         base.Awake();
@@ -244,7 +248,7 @@ public class PlayerFSMManager : FSMManager
         bloom = GameObject.Find("mainCam").GetComponent<PostProcessVolume>().profile.GetSetting<Bloom>();
         Attack_Capsule = GameObject.FindGameObjectWithTag("Weapon").GetComponent<CapsuleCollider>();
         Skill3_Capsule = Skill3_Start.GetComponent<CapsuleCollider>();
-
+        enemyHPBar = GameObject.Find("EnemyHPBar").GetComponent<EnemyHPBar>();
         Skill1Shoots.gameObject.SetActive(false);
         instance = this;
         isSkill2 = false;
@@ -454,10 +458,11 @@ public class PlayerFSMManager : FSMManager
         GetInput();
         //if (isSpecialIDLE)
         //    return;
+        if (CurrentState == PlayerState.IDLE2 || CurrentState == PlayerState.CLEAR || CurrentState == PlayerState.DEAD)
+            return;
 
         Skill1();
         AttackDirection();
-
         Skill2();
         Skill3();
         Skill4();
@@ -554,7 +559,7 @@ public class PlayerFSMManager : FSMManager
             UltimateEffect[0].SetActive(false);
             UltimateEffect[1].SetActive(false);
         }
-
+        
     }
     //void Skill1Set(GameObject[] effects, GameObject[] effects_special, bool isnormal)
     //{
@@ -997,6 +1002,7 @@ public class PlayerFSMManager : FSMManager
         }
 
     }
+    PlayerState state;
     public void Skill1()
     {
 
@@ -1026,8 +1032,9 @@ public class PlayerFSMManager : FSMManager
                 Skill1_Amount = 6;
         }
         // 만약 구체 갯수가 0개면 다 꺼줌.
-        Skill1Set(Skill1_Effects, Skill1_Special_Effects, isNormal);
-
+        if (CurrentState != PlayerState.IDLE2 || CurrentState != PlayerState.CLEAR || CurrentState != PlayerState.DEAD)
+            Skill1Set(Skill1_Effects, Skill1_Special_Effects, isNormal);
+        
         // 구체가 1개 이상 있는 상태에서
         if (isBall)
         {
@@ -1212,7 +1219,7 @@ public class PlayerFSMManager : FSMManager
 
     public void Skill4()
     {
-        if (isSkill4 || isNormal)
+        if (isSkill4 || isNormal || !isCanUltimate)
             return;
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
