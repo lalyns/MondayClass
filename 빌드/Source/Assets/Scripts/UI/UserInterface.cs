@@ -129,7 +129,7 @@ namespace MC.UI
                 PlayerUI();
             }
 
-            if (activeMissionProgressUI) {
+            if (activeMissionProgressUI && GameStatus.currentGameState == CurrentGameState.Start) {
                 ProgressUI();
             }
 
@@ -155,6 +155,8 @@ namespace MC.UI
                 UIPlayer.ProfileImage(playerFSMMgr.isNormal);
 
                 HPChangeEffect(playerFSMMgr.Stat, UIPlayer.hpBar);
+                UIPlayer.HPValueText();
+
                 UIPlayer.SpecialGauge();
                 UIPlayer.DashSetActive();
                 UIPlayer.Skill4SetActive(!playerFSMMgr.isNormal);
@@ -272,9 +274,9 @@ namespace MC.UI
         }
 
         // Screen Effect : Blur
-        public static void BlurSet(bool isOn)
+        public static void BlurSet(bool isOn, float intensity = 20f)
         {
-            var value = isOn ? 20f : 0f;
+            var value = isOn ? intensity : 0f;
             Instance.ScreenEffect.blur.image.material.SetFloat("_Size", value);
 
             var color = isOn ? Instance.ScreenEffect.blur.color : Color.white;
@@ -305,8 +307,9 @@ namespace MC.UI
             Instance.FullMode.gameObject.SetActive(!value);
             Instance.SimpleMode.gameObject.SetActive(value);
             Instance.CurrentTimer = value ? Instance.SimpleMode.timeText : Instance.FullMode.timeText;
-            Instance.CurrentGoal = value ? Instance.SimpleMode.goalText : Instance.FullMode.goalText;
             Instance.CurrentTimeBack = value ? Instance.SimpleMode.timeImage : Instance.FullMode.timeImage;
+            Instance.CurrentGoal = value ? Instance.SimpleMode.goalText : Instance.FullMode.goalText;
+            Instance.CurrentGoalBack = value ? Instance.SimpleMode.goalImage : Instance.FullMode.goalImage;
             Instance.CurrentEffect = value ? Instance.SimpleMode.goalEffect : Instance.FullMode.goalEffect;
         }
 
@@ -320,14 +323,14 @@ namespace MC.UI
             }
         }
 
-        public static void FullModeSetMP()
+        public static void MissionSet()
         {
             Instance.FullMode.missionType.sprite =
                 Instance.missionMgr.CurrentMission.Data.MissionIcon;
             Instance.FullMode.missionText.text =
                 Instance.missionMgr.CurrentMission.Data.MissionText;
             Instance.FullMode.goalType.sprite =
-                Instance.missionMgr.CurrentMission.Data.MissionIcon;
+                Instance.missionMgr.CurrentMission.Data.GoalIcon;
         }
 
         private ProgressSimpleUI _SimpleMode;
@@ -354,27 +357,34 @@ namespace MC.UI
         }
 
         private Text CurrentGoal;
+        private Image CurrentGoalBack;
         private ParticleSystem CurrentEffect;
         public void GoalEffectPlay()
         {
-            //CurrentEffect.Play();
+            CurrentEffect.Play();
         }
 
         private void SetGoal(MissionType type)
         {
             var text = "";
+            float goalValue = 0;
             switch (type)
             {
                 case MissionType.Annihilation:
+                    var missionA = missionMgr.CurrentMission as MissionA;
+                    goalValue = Mathf.Clamp01((float)GameStatus.Instance.ActivedMonsterList.Count /
+                        (float)missionA.waves[missionA.currentWave - 1].monsterTypes.Length);
                     text = "남은 몬스터 " + gameStatus.ActivedMonsterList.Count + " 마리";
                     break;
                 case MissionType.Survival:
-                    MissionB missionB = MissionManager.Instance.CurrentMission as MissionB;
-                    text = missionB.currentScore + " 개 / 5 개";
+                    var missionB = MissionManager.Instance.CurrentMission as MissionB;
+                    goalValue = Mathf.Clamp01((float)missionB.currentScore / (float)missionB.goalScore);
+                    text = missionB.currentScore + " 개 / " + missionB.goalScore + " 개";
                     break;
                 case MissionType.Defence:
                     MissionC missionC = MissionManager.Instance.CurrentMission as MissionC;
-                    text = "남은 기둥 체력 " + missionC.protectedTarget.hp + " / " + missionC._ProtectedTargetHP;
+                    goalValue = Mathf.Clamp01((float)missionC.protectedTarget.hp / (float)missionC._ProtectedTargetHP);
+                    text = "남은 체력 " + missionC.protectedTarget.hp + " / " + missionC._ProtectedTargetHP;
                     break;
                 case MissionType.Boss:
                     text = "리리스를 처치하시오";
@@ -382,22 +392,29 @@ namespace MC.UI
             }
 
             CurrentGoal.text = text;
+            CurrentGoalBack.fillAmount = goalValue;
         }
 
         private void SetSimpleGoal(MissionType type)
         {
             var text = "";
+            float goalValue = 0;
             switch (type)
             {
                 case MissionType.Annihilation:
+                    var missionA = missionMgr.CurrentMission as MissionA;
+                    goalValue = Mathf.Clamp01((float)GameStatus.Instance.ActivedMonsterList.Count /
+                        (float)missionA.waves[missionA.currentWave].monsterTypes.Length);
                     text = gameStatus.ActivedMonsterList.Count + " ";
                     break;
                 case MissionType.Survival:
                     MissionB missionB = MissionManager.Instance.CurrentMission as MissionB;
+                    goalValue = Mathf.Clamp01((float)missionB.currentScore / (float)missionB.goalScore);
                     text = missionB.currentScore + " / 5";
                     break;
                 case MissionType.Defence:
                     MissionC missionC = MissionManager.Instance.CurrentMission as MissionC;
+                    goalValue = Mathf.Clamp01((float)missionC.protectedTarget.hp / (float)missionC._ProtectedTargetHP);
                     text = missionC.protectedTarget.hp + " / " + missionC._ProtectedTargetHP;
                     break;
                 case MissionType.Boss:
@@ -406,10 +423,12 @@ namespace MC.UI
             }
 
             CurrentGoal.text = text;
+            CurrentGoalBack.fillAmount = goalValue;
         }
 
         private void ProgressUI()
         {
+            MissionSet();
             SetTimer(gameStatus._LimitTime);
             if (!MPSimpleMode)
                 SetGoal(MissionManager.Instance.CurrentMissionType);
@@ -423,7 +442,7 @@ namespace MC.UI
         public UIDialog Dialog => CanvasInfo.Instance.dialog;
         public static void DialogSetActive(bool value)
         {
-            BlurSet(true);
+            BlurSet(true, 20);
             Instance.Dialog.gameObject.SetActive(value);
         }
 

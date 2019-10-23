@@ -77,6 +77,8 @@ public class RirisFSMManager : FSMManager
 
     public Transform hitTransform;
 
+    public bool isDead = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -129,6 +131,12 @@ public class RirisFSMManager : FSMManager
                 Invoke("AttackSupport", 0.5f);
             }
 
+        }
+
+        if (!isDead && Stat.Hp <= 0)
+        {
+            SetDeadState();
+            isDead = true;
         }
     }
 
@@ -284,10 +292,12 @@ public class RirisFSMManager : FSMManager
                 return -1;
         }
     }
+
     public override void SetDeadState()
     {
         base.SetDeadState();
 
+        SetState(RirisState.DEAD);
     }
 
 }

@@ -6,6 +6,7 @@ using MC.Sound;
 public class MissionExit : MonoBehaviour
 {
     public GameObject _PortalEffect;
+    public GameObject _BossPortalEffect;
 
     private Collider _Colliders;
     public Collider Colliders {

@@ -188,8 +188,14 @@ namespace MC.Mission
                 //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
                 //}
             }
-
-            Exit._PortalEffect.SetActive(true);
+            if (GameStatus.Instance.StageLevel < 3)
+            {
+                Exit._PortalEffect.SetActive(true);
+            }
+            else
+            {
+                Exit._BossPortalEffect.SetActive(true);
+            }
             Exit.Colliders.enabled = true;
 
             var sound = MCSoundManager.Instance.objectSound.objectSFX;

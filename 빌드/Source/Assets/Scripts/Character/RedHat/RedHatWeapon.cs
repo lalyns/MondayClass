@@ -29,7 +29,7 @@ public class RedHatWeapon : MonoBehaviour
                 (redHat.Stat.Str + redHat.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
                 - PlayerFSMManager.Instance.Stat.Defense;
 
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", redHat.Stat, MonsterType.RedHat, damage);
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 1f, "Player", redHat.Stat, MonsterType.RedHat, damage);
 
 
                 Transform effectTransform =
@@ -42,15 +42,17 @@ public class RedHatWeapon : MonoBehaviour
                 _Dameged = true;
             }
         }
-        else
+        else if(redHat.CurrentState == RedHatState.DASH)
         {
             if (other.transform.tag == "Player")
             {
+                Debug.Log("Dash HIT");
+
                 float damage = redHat.Stat.damageCoefiiecient[1] * 0.01f *
                 (redHat.Stat.Str + redHat.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
                 - PlayerFSMManager.Instance.Stat.Defense;
 
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", redHat.Stat, damage);
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 1f, "Player", redHat.Stat, damage);
 
                 Transform effectTransform =
                     MonsterEffects.Instance.redHatSkillEffect1.
@@ -66,5 +68,6 @@ public class RedHatWeapon : MonoBehaviour
     {
         Debug.Log("attackCall");
         UserInterface.Instance.UIPlayer.hpBar.HitBackFun();
+        _Dameged = false;
     }
 }

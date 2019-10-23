@@ -12,6 +12,9 @@ namespace MC.UI
     {
         public Image profile;
         public HPBar hpBar;
+        public Text hpValue;
+        public Text maxHPValue;
+
         public HPBar changeBar;
         public PlayerSpecialUI special;
         public PlayerSkillUI[] skill;
@@ -36,6 +39,12 @@ namespace MC.UI
         {
             Instance = this;
             playerFSM = PlayerFSMManager.Instance;
+        }
+
+        public void HPValueText()
+        {
+            hpValue.text = "" + PlayerFSMManager.Instance.Stat.Hp;
+            maxHPValue.text = " / " + PlayerFSMManager.Instance.Stat.MaxHp;
         }
 
         public void ProfileImage(bool isSpecial)

@@ -18,7 +18,7 @@ public class RedHatATTACK : RedHatFSMState
     public override void EndState()
     {
         base.EndState();
-        _WeaponCapsule.gameObject.SetActive(false);
+        //_WeaponCapsule.gameObject.SetActive(false);
         _time = 0;
     }
 
