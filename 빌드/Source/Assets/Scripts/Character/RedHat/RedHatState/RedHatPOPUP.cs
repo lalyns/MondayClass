@@ -64,28 +64,28 @@ public class RedHatPOPUP : RedHatFSMState
             return;
         }
 
-        if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
-        {
+        //if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
+        //{
 
-            Collider[] allTarget = Physics.OverlapSphere(this.transform.position, _manager._DetectingRange);
+        //    Collider[] allTarget = Physics.OverlapSphere(this.transform.position, _manager._DetectingRange);
 
-            foreach (Collider target in allTarget)
-            {
-                if (target.tag == "Player")
-                {
-                    _manager._PriorityTarget = PlayerFSMManager.
-                        Instance.GetComponentInChildren<Animator>()
-                        .GetComponent<Collider>();
-                    break;
-                }
-                else
-                {
-                    MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
-                    _manager._PriorityTarget = mission.protectedTarget.Collider;
-                }
-            }
-        }
-        else
+        //    foreach (Collider target in allTarget)
+        //    {
+        //        if (target.tag == "Player")
+        //        {
+        //            _manager._PriorityTarget = PlayerFSMManager.
+        //                Instance.GetComponentInChildren<Animator>()
+        //                .GetComponent<Collider>();
+        //            break;
+        //        }
+        //        else
+        //        {
+        //            MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
+        //            _manager._PriorityTarget = mission.protectedTarget.Collider;
+        //        }
+        //    }
+        //}
+        //else
         {
             _manager._PriorityTarget = PlayerFSMManager.
                 Instance.GetComponentInChildren<Animator>()
