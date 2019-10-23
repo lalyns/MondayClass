@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 public class CharacterStat : MonoBehaviour
 {
@@ -33,7 +34,10 @@ public class CharacterStat : MonoBehaviour
     {
         _hp = hp;
     }
-
+    public void SetMaxHP(float maxhp)
+    {
+        _maxHp = maxhp;
+    }
     [SerializeField] protected float _moveSpeed = 3.0f;
     public float MoveSpeed { get { return _moveSpeed; } }
 
@@ -42,24 +46,6 @@ public class CharacterStat : MonoBehaviour
 
     [SerializeField] protected float _attackRange = 1.0f;
     public float AttackRange { get { return _attackRange; } }
-
-    public void RewardStr(int value)
-    {
-        _str += value;
-    }
-    public void RewardDefense(int value)
-    {
-        defense += value;
-    }
-    public void RewardHP(int value)
-    {
-        _maxHp += value;
-    }
-
-    public void StrSet(int value)
-    {
-        _str = value;
-    }
 
     [HideInInspector]
     public CharacterStat lastHitBy = null;
@@ -82,12 +68,15 @@ public class CharacterStat : MonoBehaviour
         if (from.isPlayer)
         {
             var playerStat = from as PlayerStat;
-            
+
             if (PlayerFSMManager.Instance.isNormal)
+            {
                 PlayerFSMManager.Instance.SpecialGauge += playerStat.feverGaugeGetValue;
+            }
         }
 
     }
+
 
     public static void ProcessDamage(CharacterStat from, CharacterStat to, float damage)
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using MC.UI;
+using MC.Sound;
 
 public class MacHitCollider : MonoBehaviour
 {
@@ -45,11 +46,11 @@ public class MacHitCollider : MonoBehaviour
 
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
-        float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - mac.Stat.Defense;
+        float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f) - mac.Stat.Defense;
         CharacterStat.ProcessDamage(playerStat, mac.Stat, damage);
 
-        var sound = PlayerFSMManager.Instance._Sound.sfx;
-        sound.PlayPlayerSFX(this.gameObject, sound.hitSFX);
+        var sound = GetComponentInParent<MonsterSound>().monsterSFX;
+        sound.PlayMonsterSFX(this.gameObject, sound.attackSFX[value]);
 
 
         //SetKnockBack(playerStat, value);

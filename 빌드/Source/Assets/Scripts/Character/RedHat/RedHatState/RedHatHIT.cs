@@ -26,7 +26,7 @@ public class RedHatHIT : RedHatFSMState
         direction.y = 0;
         knockBackTargetPos = direction + this.transform.position;
 
-        GetComponentInChildren<RedHatAnimEvent>()._WeaponCapsule.gameObject.SetActive(false);
+        //GetComponentInChildren<RedHatAnimEvent>()._WeaponCapsule.gameObject.SetActive(false);
 
         if(_manager.CurrentAttackType != AttackType.SKILL2)
             StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));

@@ -143,7 +143,10 @@ namespace MC.Mission
             GameStatus.Instance._MissionStatus = false;
             GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
 
-            if (!GameStatus.Instance.usingKeward && MissionManager.Instance.CurrentMissionType != MissionType.Annihilation)
+            if (MissionManager.Instance.CurrentMissionType == MissionType.Annihilation)
+            {
+            }
+            else
             {
                 GameStatus.Instance.RemoveAllActiveMonster();
             }
@@ -157,23 +160,42 @@ namespace MC.Mission
             {
             }
 
-            if (GameStatus.Instance.StageLevel == 3)
+            if (MCSceneManager.currentScene == MCSceneManager.ANNIHILATION ||
+                MCSceneManager.currentScene == MCSceneManager.DEFENCE ||
+                MCSceneManager.currentScene == MCSceneManager.SURVIVAL)
             {
-                var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-                UserInterface.DialogSetActive(true);
-                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () => { });
-                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            }
+                //if (GameStatus.Instance.StageLevel == 3)
+                //{
+                //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                //    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+                //    UserInterface.DialogSetActive(true);
 
-            if (GameStatus.Instance.StageLevel == 8)
+
+                //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () => {
+                //        GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
+                //        GameManager.Instance.CharacterControl = true;
+                //    });
+                //}
+
+                //if (GameStatus.Instance.StageLevel == 8)
+                //{
+                //    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+                //    UserInterface.DialogSetActive(true);
+                //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () => {
+                //        GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
+                //        GameManager.Instance.CharacterControl = true;
+                //    });
+                //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                //}
+            }
+            if (GameStatus.Instance.StageLevel < 3)
             {
-                var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-                UserInterface.DialogSetActive(true);
-                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () => { });
-                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                Exit._PortalEffect.SetActive(true);
             }
-
-            Exit._PortalEffect.SetActive(true);
+            else
+            {
+                Exit._BossPortalEffect.SetActive(true);
+            }
             Exit.Colliders.enabled = true;
 
             var sound = MCSoundManager.Instance.objectSound.objectSFX;

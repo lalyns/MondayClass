@@ -10,6 +10,7 @@ public class RirisDEAD : RirisFSMState
     {
         base.BeginState();
 
+        BossDirector.Instance.PlayDeadCine();
     }
 
     public override void EndState()

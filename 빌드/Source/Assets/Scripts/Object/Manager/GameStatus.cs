@@ -203,7 +203,7 @@ public class GameStatus : MonoBehaviour
                 MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
-            if (Input.GetKeyDown(KeyCode.I))
+            if (Input.GetKeyDown(KeyCode.L))
             {
                 GameManager.Instance.OnInspectating = !GameManager.Instance.OnInspectating;
             }
@@ -235,27 +235,41 @@ public class GameStatus : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) &&
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (
             MCSceneManager.currentScene != MCSceneManager.TITLE &&
             currentGameState != CurrentGameState.Loading &&
-            currentGameState != CurrentGameState.Dialog)
-        {
-            isPause = !isPause;
-            CanvasInfo.PauseMenuActive(isPause);
-            GameManager.Instance.IsPuase = isPause;
+            currentGameState != CurrentGameState.Dialog &&
+            currentGameState != CurrentGameState.Product )
+            {
+                isPause = !isPause;
+                CanvasInfo.PauseMenuActive(isPause);
+                GameManager.Instance.IsPuase = isPause;
+                UserInterface.BlurSet(isPause, 10f);
+            }
+
+            if(currentGameState == CurrentGameState.Product)
+            {
+                BossDirector.Instance.PlayScene();
+            }
         }
 
-        if (UserInterface.Instance.ClearMission.gameObject.activeSelf &&
-            (Input.GetKeyDown(KeyCode.Space) ||
-            Input.GetKeyDown(KeyCode.Mouse0)))
+
+        if (GameStatus.currentGameState != CurrentGameState.Product)
         {
+            if (UserInterface.Instance.ClearMission.gameObject.activeSelf &&
+                (Input.GetKeyDown(KeyCode.Space) ||
+                Input.GetKeyDown(KeyCode.Mouse0)))
+            {
 
-            UserInterface.Instance.ClearMission.gameObject.SetActive(false);
-            currentGameState = CurrentGameState.Wait;
+                UserInterface.Instance.ClearMission.gameObject.SetActive(false);
+                currentGameState = CurrentGameState.Wait;
 
-            PlayerFSMManager.Instance.GetComponent<PlayerCLEAR>().CMSet.gameObject.SetActive(false);
-            PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
-            PlayerFSMManager.Instance.mainCamera.gameObject.SetActive(true);
+                PlayerFSMManager.Instance.GetComponent<PlayerCLEAR>().CMSet.gameObject.SetActive(false);
+                PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
+                PlayerFSMManager.Instance.mainCamera.gameObject.SetActive(true);
+            }
         }
 
         if (dummySet)
@@ -318,9 +332,9 @@ public class GameStatus : MonoBehaviour
     // 몬스터 지정소환
     public void SummonMonster()
     {
-        MonsterPoolManager._Instance._Mac.ItemSetActive(
+        MonsterPoolManager._Instance._RedHat.ItemSetActive(
             _DummyLocationEffect.transform.position,
-            MonsterType.Mac);
+            MonsterType.RedHat);
         dummySet = false;
         _DummyLocationEffect.SetActive(false);
         UserInterface.SetPointerMode(false);

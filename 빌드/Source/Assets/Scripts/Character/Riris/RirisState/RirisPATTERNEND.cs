@@ -20,6 +20,8 @@ public class RirisPATTERNEND : RirisFSMState
 
     private bool isDead = false;
 
+    private bool isPhase3Init = false;
+
     public override void BeginState()
     {
         base.BeginState();
@@ -35,6 +37,13 @@ public class RirisPATTERNEND : RirisFSMState
         if (turn >= ririsPhases[_manager._Phase].patterns.Length)
         {
             turn = 0;
+        }
+
+        
+        if (isPhase3Init)
+        {
+            isPhase3Init = false;
+            BossDirector.Instance.PlayPhaseChangeCine();
         }
 
         base.EndState();
@@ -79,6 +88,11 @@ public class RirisPATTERNEND : RirisFSMState
         else if(hpRatio >= _manager._PhaseThreshold[2])
         {
             _manager._Phase = 2;
+
+            if(prevPhase != _manager._Phase)
+            {
+                isPhase3Init = true;
+            }
         }
         else
         {

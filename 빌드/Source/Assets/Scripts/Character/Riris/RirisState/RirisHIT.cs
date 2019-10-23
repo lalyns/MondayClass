@@ -33,7 +33,7 @@ public class RirisHIT : RirisFSMState
             PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
             if (!PlayerFSMManager.Instance.isCantMove && !isHit)
             {
-                _manager.Stat.TakeDamage(playerStat, playerStat.dmgCoefficient[6]);
+                CharacterStat.ProcessDamage(playerStat, _manager.Stat, playerStat.dmgCoefficient[6]);
                 isHit = true;
             }
         }

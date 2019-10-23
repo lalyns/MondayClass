@@ -10,8 +10,7 @@ namespace MC.Sound
         public class MonsterSFXList
         {
             #region ActionList
-            public AK.Wwise.Event attackSFX = new AK.Wwise.Event();
-
+            public AK.Wwise.Event[] attackSFX = new AK.Wwise.Event[7];
             #endregion
 
             #region SkillList

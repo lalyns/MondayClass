@@ -48,6 +48,7 @@ namespace MC.UI
         public Text missionText;
         public Image timeImage;
         public Text timeText;
+        public Image goalImage;
         public Image goalType;
         public Text goalText;
         public ParticleSystem goalEffect;
@@ -59,6 +60,7 @@ namespace MC.UI
         public GameObject gameObject;
         public Image timeImage;
         public Text timeText;
+        public Image goalImage;
         public Image goalType;
         public Text goalText;
         public ParticleSystem goalEffect;
