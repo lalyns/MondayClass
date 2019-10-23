@@ -12,7 +12,6 @@ public class PlayerCLEAR : FSMState
     public override void BeginState()
     {
         base.BeginState();
-
         if(_manager.CurrentClear == 0)
         {
             _manager.ClearTimeLine.SetActive(true);
@@ -22,7 +21,11 @@ public class PlayerCLEAR : FSMState
             _manager.ClearTimeLine2.SetActive(true);
         }
         UserInterface.SetPlayerUserInterface(false);
-
+        UserInterface.SetMissionProgressUserInterface(false);
+        _manager.enemyHPBar.gameObject.SetActive(false);
+        _manager.Skill1Return(_manager.Skill1_Effects, _manager.Skill1_Special_Effects, _manager.isNormal);
+        _manager.Skill1Return(_manager.Skill1_Shoots, _manager.Skill1_Special_Shoots, _manager.isNormal);
+        _manager.Skill1PositionSet(_manager.Skill1_Effects, _manager.Skill1_Shoots, _manager.Skill1_Special_Shoots, _manager.isNormal);
     }
 
     public override void EndState()
@@ -34,6 +37,8 @@ public class PlayerCLEAR : FSMState
         _manager.ClearTimeLine2.SetActive(false);
 
         UserInterface.SetPlayerUserInterface(true);
+        UserInterface.SetMissionProgressUserInterface(true);
+        _manager.enemyHPBar.gameObject.SetActive(true);
     }
 
     private void Update()
