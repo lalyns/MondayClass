@@ -24,7 +24,7 @@ public class RirisHitCollider : MonoBehaviour
     {
         this.transform.position = riris.transform.position;
 
-        //capsule.center = new Vector3(0, riris.Pevis.position.y, 0) + (Vector3.up * -0.915f);
+        capsule.center = new Vector3(0, riris.Pevis.position.y, 0) + (Vector3.up * -0.915f);
     }
 
     public void OnHitForBoss(AttackType attackType)

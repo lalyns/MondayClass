@@ -11,6 +11,7 @@ public enum RirisState
     PATTERNC,
     PATTERND,
     PATTERNEND,
+    ULTIMATE,
     DEAD,
     HIT,
 }
