@@ -73,6 +73,7 @@ public class BossDirector : MonoBehaviour
 
         GameManager.Instance.CharacterControl = true;
         UserInterface.SetPlayerUserInterface(true);
+        UserInterface.SetPointerMode(false);
     }
 
     public void DeadEnd()

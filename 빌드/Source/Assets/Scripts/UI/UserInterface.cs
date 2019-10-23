@@ -162,10 +162,10 @@ namespace MC.UI
                 UIPlayer.Skill4SetActive(!playerFSMMgr.isNormal);
                 CanvasInfo.Instance.enemyHP.HpBarView();
 
-                if (playerFSMMgr.isSkill1CTime) UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime);
-                if (playerFSMMgr.isSkill2CTime) UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime);
-                if (playerFSMMgr.isSkill3CTime) UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime);
-                if (playerFSMMgr.isSkill4CTime) UIPlayer.SkillSetActive(3, playerFSMMgr.Skill4CTime);
+                UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime, playerFSMMgr.isSkill1CTime);
+                UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime, playerFSMMgr.isSkill1CTime);
+                UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime, playerFSMMgr.isSkill1CTime);
+                //if (playerFSMMgr.isSkill4CTime) UIPlayer.SkillSetActive(3, playerFSMMgr.Skill4CTime);
             }
             catch
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
+using MC.Sound;
 
 public class RirisHitCollider : MonoBehaviour
 {
@@ -54,8 +55,8 @@ public class RirisHitCollider : MonoBehaviour
         float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f) - riris.Stat.Defense;
         CharacterStat.ProcessDamage(playerStat, riris.Stat, damage);
 
-        var sound = PlayerFSMManager.Instance._Sound.sfx;
-        sound.PlayPlayerSFX(this.gameObject, sound.hitSFX);
+        var sound = GetComponentInParent<MonsterSound>().monsterSFX;
+        sound.PlayMonsterSFX(this.gameObject, sound.attackSFX[value]);
 
         //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
