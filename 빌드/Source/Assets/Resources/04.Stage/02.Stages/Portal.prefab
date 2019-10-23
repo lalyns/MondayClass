@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2801441691341514720
 Transform:
   m_ObjectHideFlags: 0
@@ -78,7 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd5c03f4706500418c53dce54a3963a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PortalEffect: {fileID: 2801441691341514723}
+  _PortalEffect: {fileID: 9163047741933063320}
+  _BossPortalEffect: {fileID: 3923142724240889620}
 --- !u!65 &2814187655512421488
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -157,11 +158,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2801441691341514720}
     m_Modifications:
-    - target: {fileID: 3404268251200683161, guid: ad3c7538f8f409b4b88a05888a5f41e0,
-        type: 3}
-      propertyPath: m_Name
-      value: ETC_Effect_Portal
-      objectReference: {fileID: 0}
     - target: {fileID: 3404268251200683162, guid: ad3c7538f8f409b4b88a05888a5f41e0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -217,8 +213,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3404268251200683161, guid: ad3c7538f8f409b4b88a05888a5f41e0,
+        type: 3}
+      propertyPath: m_Name
+      value: ETC_Effect_Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 3404268251200683161, guid: ad3c7538f8f409b4b88a05888a5f41e0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad3c7538f8f409b4b88a05888a5f41e0, type: 3}
+--- !u!1 &9163047741933063320 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3404268251200683161, guid: ad3c7538f8f409b4b88a05888a5f41e0,
+    type: 3}
+  m_PrefabInstance: {fileID: 5771306501858226177}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9163047741933063323 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3404268251200683162, guid: ad3c7538f8f409b4b88a05888a5f41e0,
@@ -232,11 +244,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2801441691341514720}
     m_Modifications:
-    - target: {fileID: 4613296565093551259, guid: 2c9785f201794dd40b170e4d6b1a451b,
-        type: 3}
-      propertyPath: m_Name
-      value: ETC_Effect_Portal_boss
-      objectReference: {fileID: 0}
     - target: {fileID: 4613296565093551256, guid: 2c9785f201794dd40b170e4d6b1a451b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -292,8 +299,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4613296565093551259, guid: 2c9785f201794dd40b170e4d6b1a451b,
+        type: 3}
+      propertyPath: m_Name
+      value: ETC_Effect_Portal_boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 4613296565093551259, guid: 2c9785f201794dd40b170e4d6b1a451b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c9785f201794dd40b170e4d6b1a451b, type: 3}
+--- !u!1 &3923142724240889620 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4613296565093551259, guid: 2c9785f201794dd40b170e4d6b1a451b,
+    type: 3}
+  m_PrefabInstance: {fileID: 8535576168360254351}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3923142724240889623 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4613296565093551256, guid: 2c9785f201794dd40b170e4d6b1a451b,

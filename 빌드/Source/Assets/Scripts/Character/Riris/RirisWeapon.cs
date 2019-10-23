@@ -7,13 +7,12 @@ public class RirisWeapon : MonoBehaviour
 {
     public bool _Dameged = false;
     public RirisFSMManager riris;
-    // Start is called before the first frame update
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -32,7 +31,9 @@ public class RirisWeapon : MonoBehaviour
                 (riris.Stat.Str + riris.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
                 - PlayerFSMManager.Instance.Stat.Defense;
 
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", riris.Stat, MonsterType.RedHat, damage);
+                //CharacterStat.ProcessDamage(riris.Stat, PlayerFSMManager.Instance.Stat, damage);
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 1f, "Player", riris.Stat, damage);
+                PlayerFSMManager.Instance.SetState(PlayerState.HIT2);
 
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
@@ -46,7 +47,9 @@ public class RirisWeapon : MonoBehaviour
                 (riris.Stat.Str + riris.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
                 - PlayerFSMManager.Instance.Stat.Defense;
 
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", riris.Stat, damage);
+                //CharacterStat.ProcessDamage(riris.Stat, PlayerFSMManager.Instance.Stat, damage);
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 1f, "Player", riris.Stat, damage);
+                PlayerFSMManager.Instance.SetState(PlayerState.HIT2);
 
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;

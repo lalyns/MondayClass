@@ -12,6 +12,10 @@ namespace MC.UI
     {
         public Image profile;
         public HPBar hpBar;
+        public Text hpValue;
+        public Text maxHPValue;
+
+        public HPBar changeBar;
         public PlayerSpecialUI special;
         public PlayerSkillUI[] skill;
         public GameObject skill4;
@@ -37,6 +41,12 @@ namespace MC.UI
             playerFSM = PlayerFSMManager.Instance;
         }
 
+        public void HPValueText()
+        {
+            hpValue.text = "" + PlayerFSMManager.Instance.Stat.Hp;
+            maxHPValue.text = " / " + PlayerFSMManager.Instance.Stat.MaxHp;
+        }
+
         public void ProfileImage(bool isSpecial)
         {
             profile.sprite = isSpecial ?
@@ -55,14 +65,11 @@ namespace MC.UI
             skill4.SetActive(isActive);
         }
 
-        public void SpecialGauge(float value)
+        public void SpecialGauge()
         {
-            var gaugeValue = Mathf.Clamp01(value * 0.01f);
-            special.inActive.fillAmount = gaugeValue;
-
-            var effectActive = gaugeValue >= 1.0;
-            for (int i = 0; i < special.effects.Length; i++)
-                special.effects[i].gameObject.SetActive(effectActive);
+            var value = Mathf.Clamp01(Mathf.Lerp(changeBar.currentValue,
+                (PlayerFSMManager.Instance.SpecialGauge) / 100.0f, Time.deltaTime * 5f));
+            changeBar.currentValue = value;
         }
 
         public static void SkillSetUp(int num)
@@ -74,6 +81,7 @@ namespace MC.UI
                 Instance.skill[num].effects[j].Play();
             }
         }
+
         public bool isEnd = false;
         public void DashSetActive()
         {

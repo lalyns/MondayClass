@@ -84,7 +84,6 @@ namespace MC.UI
 
         public void CharacterStop()
         {
-            Debug.Log("Stop");
             GameManager.Instance.CharacterControl = false;
             PlayerFSMManager.Instance.vertical = 0;
             PlayerFSMManager.Instance.horizontal = 0;

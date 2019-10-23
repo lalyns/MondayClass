@@ -14,6 +14,7 @@ namespace AK
     namespace EVENTS
     {
         static const AkUniqueID BATTLEGROUND = 1835313730U;
+        static const AkUniqueID BGM_BOSS_05 = 774246723U;
         static const AkUniqueID BGM_DUNGEON_04 = 3793957673U;
         static const AkUniqueID BGM_TITLE_01 = 2511535208U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_ACTIVATIONL = 2682899652U;
@@ -58,7 +59,12 @@ namespace AK
         static const AkUniqueID PLAYER_SKILL_TRANSFORM_SOUND_STICK_GRIP = 1547647635U;
         static const AkUniqueID PLAYER_SKILL_TRANSFORM_SOUND_SWING = 1347911398U;
         static const AkUniqueID PLAYER_SKILL_TRANSFORM_SOUND_VIOLET_BEAM = 317307357U;
+        static const AkUniqueID PLAYER_SKILL_TRANSFORM_SOUND_WINK = 3574800249U;
+        static const AkUniqueID REDHAT_SKILL_DASHSWORD_CAST_SOUND = 3602021817U;
+        static const AkUniqueID REDHAT_SKILL_DRAWINGSWORD_CAST_SOUND = 2591569459U;
+        static const AkUniqueID REDHAT_SKILL_DRAWINGSWORD_READY_SOUND = 974809067U;
         static const AkUniqueID UI_START_SOUND = 4234647542U;
+        static const AkUniqueID UI_TALK_SOUND_01 = 2576780850U;
         static const AkUniqueID ZPANGYI_EMOTE_RAGE_VOICE = 1516934113U;
         static const AkUniqueID ZPANGYI_EMOTE_SAD = 1769717327U;
         static const AkUniqueID ZPANGYI_EMOTE_SMILE_VOICE = 1944912184U;

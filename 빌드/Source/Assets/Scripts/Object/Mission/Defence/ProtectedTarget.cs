@@ -10,6 +10,7 @@ public class ProtectedTarget : MonoBehaviour
         [HideInInspector] public Collider Collider => GetComponent<Collider>();
 
         [System.NonSerialized] public int hp;
+        public int damage;
 
         // Start is called before the first frame update
         void Start()
@@ -27,7 +28,7 @@ public class ProtectedTarget : MonoBehaviour
             if (other.transform.tag == "MonsterWeapon")
             {
                 Debug.Log("HP 감소!");
-                hp -= 10;
+                hp -= damage;
             }
         }
     }

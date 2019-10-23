@@ -40,12 +40,12 @@ public class RedHatAnimEvent : MonoBehaviour
 
     void OnWeaponTrigger()
     {
-        _WeaponCapsule.gameObject.SetActive(true);
+        _WeaponCapsule.enabled = true;
     }
 
     void DisableWeaponTrigger()
     {
-        _WeaponCapsule.gameObject.SetActive(false);
+        _WeaponCapsule.enabled = false;
     }
 
     public void PopupOver()

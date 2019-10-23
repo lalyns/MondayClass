@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.UI;
 
 public class RirisHitCollider : MonoBehaviour
 {
@@ -23,10 +24,10 @@ public class RirisHitCollider : MonoBehaviour
     {
         this.transform.position = riris.transform.position;
 
-        //capsule.center = new Vector3(0, riris.Pevis.position.y, 0) + (Vector3.up * -0.915f);
+        capsule.center = new Vector3(0, riris.Pevis.position.y, 0) + (Vector3.up * -0.915f);
     }
 
-    public void OnHitForMonster(AttackType attackType)
+    public void OnHitForBoss(AttackType attackType)
     {
         Debug.Log("Attack!");
 
@@ -98,7 +99,7 @@ public class RirisHitCollider : MonoBehaviour
 
     public void AttackSupport()
     {
-        //riris.hpBar.HitBackFun();
+        CanvasInfo.Instance.enemyHP.hpBar.HitBackFun();
     }
 
     public void OnTriggerEnter(Collider other)
@@ -106,7 +107,7 @@ public class RirisHitCollider : MonoBehaviour
         if (other.transform.tag == "Weapon" && !PlayerFSMManager.Instance.isSkill3)
         {
             if (riris.Stat.Hp > 0)
-                OnHitForMonster(PlayerFSMManager.Instance.attackType);
+                OnHitForBoss(PlayerFSMManager.Instance.attackType);
         }
         else if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
         {
@@ -126,7 +127,7 @@ public class RirisHitCollider : MonoBehaviour
             if (riris.Stat.Hp > 0)
             {
                 //OnHit();
-                OnHitForMonster(AttackType.SKILL1);
+                OnHitForBoss(AttackType.SKILL1);
             }
         }
         if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
@@ -156,7 +157,7 @@ public class RirisHitCollider : MonoBehaviour
     {
         while (PlayerFSMManager.Instance.isSkill3)
         {
-            OnHitForMonster(AttackType.SKILL3);
+            OnHitForBoss(AttackType.SKILL3);
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -167,7 +168,7 @@ public class RirisHitCollider : MonoBehaviour
         {
             if (riris.Stat.Hp > 0)
             {
-                OnHitForMonster(AttackType.SKILL2);
+                OnHitForBoss(AttackType.SKILL2);
             }
         }
     }
