@@ -12,6 +12,9 @@ namespace MC.UI
     {
         public Image profile;
         public HPBar hpBar;
+        public Text hpValue;
+        public Text maxHPValue;
+
         public HPBar changeBar;
         public PlayerSpecialUI special;
         public PlayerSkillUI[] skill;
@@ -38,6 +41,12 @@ namespace MC.UI
             playerFSM = PlayerFSMManager.Instance;
         }
 
+        public void HPValueText()
+        {
+            hpValue.text = "" + PlayerFSMManager.Instance.Stat.Hp;
+            maxHPValue.text = " / " + PlayerFSMManager.Instance.Stat.MaxHp;
+        }
+
         public void ProfileImage(bool isSpecial)
         {
             profile.sprite = isSpecial ?
@@ -45,10 +54,19 @@ namespace MC.UI
                 CanvasInfo.Instance.player.resource.profiles[1];
         }
 
-        public void SkillSetActive(int i, float value)
+        public void SkillSetActive(int i, float value, bool isCool)
         {
-            var gaugeValue = Mathf.Clamp01(value / playerFSM.Stat.skillCTime[i]);
-            skill[i].inActive.fillAmount = gaugeValue;
+            if (isCool)
+            {
+                var gaugeValue = Mathf.Clamp01(value / playerFSM.Stat.skillCTime[i]);
+                skill[i].inActive.fillAmount = gaugeValue;
+                skill[i].cooltime.enabled = true;
+                skill[i].cooltime.text = "" + (int)value;
+            }
+            else
+            {
+                skill[i].cooltime.enabled = false;
+            }
         }
 
         public void Skill4SetActive(bool isActive)
@@ -146,6 +164,7 @@ namespace MC.UI
         public Image active;
         public Image inActive;
         public ParticleSystem[] effects;
+        public Text cooltime;
     }
 
     [System.Serializable]

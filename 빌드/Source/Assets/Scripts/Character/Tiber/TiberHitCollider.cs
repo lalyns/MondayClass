@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using MC.UI;
+using MC.Sound;
 
 
 public class TiberHitCollider : MonoBehaviour
@@ -52,8 +53,8 @@ public class TiberHitCollider : MonoBehaviour
         float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f) - tiber.Stat.Defense;
         CharacterStat.ProcessDamage(playerStat, tiber.Stat, damage);
 
-        var sound = PlayerFSMManager.Instance._Sound.sfx;
-        sound.PlayPlayerSFX(this.gameObject, sound.hitSFX);
+        var sound = GetComponentInParent<MonsterSound>().monsterSFX;
+        sound.PlayMonsterSFX(this.gameObject, sound.attackSFX[value]);
 
         //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);

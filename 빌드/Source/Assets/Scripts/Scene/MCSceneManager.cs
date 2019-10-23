@@ -86,10 +86,14 @@ namespace MC.SceneDirector
                     if (currentScene == TUTORIAL ||
                         currentScene == ANNIHILATION ||
                         currentScene == SURVIVAL ||
-                        currentScene == DEFENCE ||
-                        currentScene == BOSS)
+                        currentScene == DEFENCE)
                     {
                         bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
+                    }
+
+                    if(currentScene == BOSS)
+                    {
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.bossBGM);
                     }
 
                     isPlay = true;
@@ -143,11 +147,23 @@ namespace MC.SceneDirector
 
             if (async.isDone)
             {
+                var bgm = MCSoundManager.Instance.objectSound.bgm;
                 Debug.Log("Load Done");
-                if (prevScene == TITLE)
+                if (prevScene == TITLE && 
+                    (prevScene == ANNIHILATION ||
+                    prevScene == SURVIVAL ||
+                    prevScene == DEFENCE)
+                    )
                 {
-                    var bgm = MCSoundManager.Instance.objectSound.bgm;
                     bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
+                }
+
+                if((prevScene == ANNIHILATION ||
+                    prevScene == SURVIVAL ||
+                    prevScene == DEFENCE) &&
+                    currentScene == BOSS)
+                {
+                    bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.bossBGM);
                 }
 
                 GameManager.SetSceneSetting();

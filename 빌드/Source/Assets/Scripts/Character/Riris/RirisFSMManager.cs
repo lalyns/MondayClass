@@ -11,6 +11,7 @@ public enum RirisState
     PATTERNC,
     PATTERND,
     PATTERNEND,
+    ULTIMATE,
     DEAD,
     HIT,
 }
@@ -77,6 +78,8 @@ public class RirisFSMManager : FSMManager
 
     public Transform hitTransform;
 
+    public bool isDead = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -130,6 +133,12 @@ public class RirisFSMManager : FSMManager
             }
 
         }
+
+        if (!isDead && Stat.Hp <= 0)
+        {
+            SetDeadState();
+            isDead = true;
+        }
     }
 
     public void SetState(RirisState newState)
@@ -155,100 +164,100 @@ public class RirisFSMManager : FSMManager
         this.transform.position = pos;
     }
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.tag == "Weapon"/* && !PlayerFSMManager.Instance.isSkill3*/)
-        {
-            if (Stat.Hp > 0)
-                OnHitForBoss(PlayerFSMManager.Instance.attackType);
+    //public void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.transform.tag == "Weapon"/* && !PlayerFSMManager.Instance.isSkill3*/)
+    //    {
+    //        if (Stat.Hp > 0)
+    //            OnHitForBoss(PlayerFSMManager.Instance.attackType);
 
-        }
-        if (other.transform.tag == "Ball")
-        {
-            if (PlayerFSMManager.Instance.isNormal)
-                PlayerEffects.Instance.skill1Normal.ItemSetActive(hitTransform, "Effect");
+    //    }
+    //    if (other.transform.tag == "Ball")
+    //    {
+    //        if (PlayerFSMManager.Instance.isNormal)
+    //            PlayerEffects.Instance.skill1Normal.ItemSetActive(hitTransform, "Effect");
 
-            if (!PlayerFSMManager.Instance.isNormal)
-                PlayerEffects.Instance.skill1Special.ItemSetActive(hitTransform, "Effect");
+    //        if (!PlayerFSMManager.Instance.isNormal)
+    //            PlayerEffects.Instance.skill1Special.ItemSetActive(hitTransform, "Effect");
 
-            if (Stat.Hp > 0)
-            {
-                OnHitForBoss(AttackType.SKILL1);
-                other.transform.gameObject.SetActive(false);
-            }
-        }
+    //        if (Stat.Hp > 0)
+    //        {
+    //            OnHitForBoss(AttackType.SKILL1);
+    //            other.transform.gameObject.SetActive(false);
+    //        }
+    //    }
 
-        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
-        {
-            StartCoroutine("Skill2Timer");
+    //    if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
+    //    {
+    //        StartCoroutine("Skill2Timer");
 
-        }
-        if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
-        {
-            StartCoroutine("Skill3Timer");
-        }
-    }
+    //    }
+    //    if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
+    //    {
+    //        StartCoroutine("Skill3Timer");
+    //    }
+    //}
 
-    public override IEnumerator Skill3Timer()
-    {
-        return base.Skill3Timer();
-    }
+    //public override IEnumerator Skill3Timer()
+    //{
+    //    return base.Skill3Timer();
+    //}
 
-    public override IEnumerator Skill2Timer()
-    {
-        return base.Skill2Timer();
-    }
+    //public override IEnumerator Skill2Timer()
+    //{
+    //    return base.Skill2Timer();
+    //}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.transform.tag == "Skill2")
-        {
-            if (Stat.Hp > 0)
-            {
-                OnHitForBoss(AttackType.SKILL2);
-            }
-        }
-    }
-
-
-    public void HPUI()
-    {
-        //UserInterface.Instance.HPChangeEffect(Stat, hpBar);
-    }
-
-    public void OnHitForBoss(AttackType attackType)
-    {
-        //Debug.Log(string.Format("Current Attack : {0}, Current HP: {1}, Current Phase: {2} ",
-            //attackType.ToString(), Stat.Hp, _Phase));
-
-        if (CurrentState == RirisState.DEAD) return;
-
-        if (PlayerFSMManager.Instance.isNormal)
-            PlayerEffects.Instance.basicNormal.ItemSetActive(hitTransform, "Effect");
-
-        if (!PlayerFSMManager.Instance.isNormal)
-            PlayerEffects.Instance.basicSpecial.ItemSetActive(hitTransform, "Effect");
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.transform.tag == "Skill2")
+    //    {
+    //        if (Stat.Hp > 0)
+    //        {
+    //            OnHitForBoss(AttackType.SKILL2);
+    //        }
+    //    }
+    //}
 
 
-        CurrentAttackType = attackType;
-        int value = TransformTypeToInt(attackType);
-        PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
+    //public void HPUI()
+    //{
+    //    //UserInterface.Instance.HPChangeEffect(Stat, hpBar);
+    //}
 
-        float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - Stat.Defense;
-        CharacterStat.ProcessDamage(playerStat, Stat, damage);
-        Invoke("AttackSupport", 0.5f);
+    //public void OnHitForBoss(AttackType attackType)
+    //{
+    //    //Debug.Log(string.Format("Current Attack : {0}, Current HP: {1}, Current Phase: {2} ",
+    //        //attackType.ToString(), Stat.Hp, _Phase));
 
-        if (attackType == AttackType.ATTACK1)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.15f, 0.1f));
-        if (attackType == AttackType.ATTACK2)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.18f, 0.1f));
-        if (attackType == AttackType.ATTACK3)
-            StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.3f, 0.1f));
-        if (attackType == AttackType.SKILL1)
-            StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.1f, 0.1f));
-        if (attackType == AttackType.SKILL2)
-            StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
-    }
+    //    if (CurrentState == RirisState.DEAD) return;
+
+    //    if (PlayerFSMManager.Instance.isNormal)
+    //        PlayerEffects.Instance.basicNormal.ItemSetActive(hitTransform, "Effect");
+
+    //    if (!PlayerFSMManager.Instance.isNormal)
+    //        PlayerEffects.Instance.basicSpecial.ItemSetActive(hitTransform, "Effect");
+
+
+    //    CurrentAttackType = attackType;
+    //    int value = TransformTypeToInt(attackType);
+    //    PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
+
+    //    float damage = (playerStat.Str * playerStat.dmgCoefficient[value] * 0.01f) - Stat.Defense;
+    //    CharacterStat.ProcessDamage(playerStat, Stat, damage);
+    //    Invoke("AttackSupport", 0.5f);
+
+    //    if (attackType == AttackType.ATTACK1)
+    //        StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.15f, 0.1f));
+    //    if (attackType == AttackType.ATTACK2)
+    //        StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.18f, 0.1f));
+    //    if (attackType == AttackType.ATTACK3)
+    //        StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.3f, 0.1f));
+    //    if (attackType == AttackType.SKILL1)
+    //        StartCoroutine(Shake.instance.ShakeCamera(0.05f, 0.1f, 0.1f));
+    //    if (attackType == AttackType.SKILL2)
+    //        StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
+    //}
 
     public void AttackSupport()
     {
@@ -284,10 +293,12 @@ public class RirisFSMManager : FSMManager
                 return -1;
         }
     }
+
     public override void SetDeadState()
     {
         base.SetDeadState();
 
+        SetState(RirisState.DEAD);
     }
 
 }

@@ -16,7 +16,7 @@ namespace MC.SceneDirector
 
         public void SceneStart()
         {
-            TempDirector.Instance.SceneStart();
+            BossDirector.Instance.PlayScene();
         }
 
         public void SceneEnd()

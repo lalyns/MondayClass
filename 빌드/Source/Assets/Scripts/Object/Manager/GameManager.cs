@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(MCSceneManager.currentScene);
+
         if(MCSceneManager.currentScene == MCSceneManager.TITLE)
         {
             UserInterface.SetPointerMode(true);
@@ -95,8 +97,15 @@ public class GameManager : MonoBehaviour
 
         if(MCSceneManager.currentScene == MCSceneManager.BOSS)
         {
-            TempDirector.Instance.SceneStart();
-            UserInterface.SetPointerMode(false);
+            if (CineMode)
+            {
+                BossDirector.Instance.PlayStartCine();
+            }
+            else
+            {
+                BossDirector.Instance.PlayScene();
+                UserInterface.SetPointerMode(false);
+            }
         }
 
         UserInterface.SetAllUserInterface(uIActive.all);
@@ -260,6 +269,7 @@ public class GameManager : MonoBehaviour
         UserInterface.SetMissionSelectionUI(false);
         UserInterface.SetMissionProgressUserInterface(false);
 
+        UserInterface.SetPointerMode(false);
 
         MCSoundManager.Instance.objectSound.bgm.StopBGM(gameObject,
             MCSoundManager.Instance.objectSound.bgm.stageBGM);
@@ -297,13 +307,13 @@ public class GameManager : MonoBehaviour
 
         if (GameManager.Instance.CineMode)
         {
-            TempDirector.Instance.PlayMode = false;
-            TempDirector.Instance.CineStart();
+            BossDirector.Instance.PlayMode = false;
+            BossDirector.Instance.PlayStartCine();
         }
         else
         {
-            TempDirector.Instance.PlayMode = true;
-            TempDirector.Instance.SceneStart();
+            BossDirector.Instance.PlayMode = true;
+            BossDirector.Instance.PlayScene();
         }
     }
 
