@@ -163,8 +163,8 @@ namespace MC.UI
                 CanvasInfo.Instance.enemyHP.HpBarView();
 
                 UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime, playerFSMMgr.isSkill1CTime);
-                UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime, playerFSMMgr.isSkill1CTime);
-                UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime, playerFSMMgr.isSkill1CTime);
+                UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime, playerFSMMgr.isSkill2CTime);
+                UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime, playerFSMMgr.isSkill3CTime);
                 //if (playerFSMMgr.isSkill4CTime) UIPlayer.SkillSetActive(3, playerFSMMgr.Skill4CTime);
             }
             catch
@@ -200,7 +200,7 @@ namespace MC.UI
 
             Cursor.lockState = mode ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = mode;
-            Instance.MousePointer.transform.gameObject.SetActive(mode);
+            //Instance.MousePointer.transform.gameObject.SetActive(mode);
         }
 
         private void PointerLocation()

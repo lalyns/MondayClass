@@ -161,6 +161,8 @@ public class GameStatus : MonoBehaviour
 
     public void Update()
     {
+        if (Time.timeScale == 0 && Input.anyKey) return;
+        
         // 유니티 에디터에서 작동하는 에디터 기능
         if (Input.GetKey(KeyCode.LeftAlt) /*&& currentGameState == CurrentGameState.Start*/)
         {
@@ -213,10 +215,16 @@ public class GameStatus : MonoBehaviour
                 PlayerFSMManager.Instance.SpecialGauge = 100.0f;
             }
 
-            if (Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.Alpha0))
             {
-                MCSoundManager.SetSound();
+                MissionManager.ExitMission();
+                MissionManager.PopUpMission();
             }
+
+            //if (Input.GetKeyDown(KeyCode.P))
+            //{
+            //    MCSoundManager.SetSound();
+            //}
 
         }
 
@@ -251,7 +259,14 @@ public class GameStatus : MonoBehaviour
 
             if(currentGameState == CurrentGameState.Product)
             {
-                BossDirector.Instance.PlayScene();
+                if (MCSceneManager.currentScene == MCSceneManager.BOSS)
+                {
+                    BossDirector.Instance.PlayScene();
+                }
+                if (MCSceneManager.currentScene == MCSceneManager.TITLE)
+                {
+                    FindObjectOfType<TitleCutScene>().CineEnd();
+                }
             }
         }
 
