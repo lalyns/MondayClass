@@ -15,6 +15,8 @@ public class BossEffects : MonoBehaviour
 
     public ObjectPool bullet;
     public ObjectPool tornaedo;
+    public ObjectPool beam;
+    public ObjectPool flower;
 
     private void Awake()
     {
