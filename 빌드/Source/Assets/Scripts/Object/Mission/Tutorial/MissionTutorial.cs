@@ -209,7 +209,7 @@ namespace MC.Mission
                     skill3Change = true;
                     Invoke("SetSkill3Event", 0.5f);
 
-                }
+                } 
             }
 
             if (currentTutorial == TutorialEvent.Transform)
