@@ -16,7 +16,7 @@ namespace MC.Mission {
         {
             if(other.transform.tag == "Player")
             {
-                if(tutoEvent == TutorialEvent.Attack1 && mission.currentTutorial != TutorialEvent.End)
+                if(tutoEvent == TutorialEvent.Attack && mission.currentTutorial != TutorialEvent.End)
                 {
                     Invoke("Attack1Event", 0.5f);
                 }
@@ -25,7 +25,7 @@ namespace MC.Mission {
 
         public void Attack1Event()
         {
-            mission.SetAttack1Event();
+            mission.SetAttackEvent();
         }
     }
 }

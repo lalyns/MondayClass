@@ -260,6 +260,7 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<MissionTutorial>().tutostart = true;
 
         UserInterface.SetPlayerUserInterface(true);
+        UserInterface.SetPointerMode(false);
     }
 
     public void TitleSet()

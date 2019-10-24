@@ -65,6 +65,7 @@ namespace MC.UI
             }
             else
             {
+                skill[i].inActive.fillAmount = 0;
                 skill[i].cooltime.enabled = false;
             }
         }

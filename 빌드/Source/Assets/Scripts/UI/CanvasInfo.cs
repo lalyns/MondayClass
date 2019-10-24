@@ -149,6 +149,7 @@ namespace MC.UI {
 
         public static void PauseMenuActive(bool isActive)
         {
+            Debug.Log("Pause Mode : " + isActive);
             GameManager.Instance.IsPuase = isActive;
             UserInterface.SetPointerMode(isActive);
             //GameManager.Instance.CharacterControl = isActive;

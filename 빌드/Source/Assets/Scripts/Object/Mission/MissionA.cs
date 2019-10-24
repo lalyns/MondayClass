@@ -42,19 +42,22 @@ namespace MC.Mission
                     Spawn();
                     spawning = true;
                 }
+
+                if (currentWave == totalWave && GameStatus.Instance.ActivedMonsterList.Count == 0 && !missionEnd)
+                {
+                    ClearMission();
+                    PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
+                    PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
+                    missionEnd = true;
+                }
+
+                if (GameStatus.Instance._LimitTime <= 0)
+                {
+                    Debug.Log(GameStatus.Instance._LimitTime);
+                    FailMission();
+                }
             }
 
-            if (currentWave == totalWave && GameStatus.Instance.ActivedMonsterList.Count == 0 && !missionEnd) {
-                ClearMission();
-                PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
-                PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
-                missionEnd = true;
-            }
-
-            if(GameStatus.Instance._LimitTime <= 0)
-            {
-                FailMission();
-            }
         }
 
         public override void FailMission()

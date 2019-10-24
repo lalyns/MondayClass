@@ -39,6 +39,7 @@ namespace MC.UI
                 ui.PlaySound(this.gameObject, ui.uiStart);
 
                 cutScene.CineStart();
+                GameStatus.SetCurrentGameState(CurrentGameState.Product);
                 nextScene = false;
             }
         }

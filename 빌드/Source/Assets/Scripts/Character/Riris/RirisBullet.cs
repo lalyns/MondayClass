@@ -77,7 +77,7 @@ public class RirisBullet : MonoBehaviour
     {
         if (directionType)
         {
-            direction = (this.transform.position - RirisFSMManager.Pevis.position).normalized;
+            direction = (this.transform.position - (RirisFSMManager.CurrentStateComponent as RirisPATTERNC).bulletPos.position).normalized;
             transform.LookAt(transform.position + direction);
         }
         else
