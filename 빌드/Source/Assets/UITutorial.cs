@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UITutorial : MonoBehaviour
 {
     [System.Serializable]
-    public class UIMoveTutorial
+    public class UIMoveDashTutorial
     {
         public GameObject gameObject;
         public Image W;
@@ -18,18 +18,22 @@ public class UITutorial : MonoBehaviour
         public Sprite[] ASprites;
         public Sprite[] SSprites;
         public Sprite[] DSprites;
-    }
 
-    [System.Serializable]
-    public class UIDashTutorial
-    {
-        public GameObject gameObject;
         public Image space;
         public Sprite[] spaceSprites;
     }
 
-    public UIMoveTutorial move;
-    public UIDashTutorial dash;
+    [System.Serializable]
+    public class UIAttackTutorial
+    {
+        public GameObject gameObject;
+
+        public Image Attack;
+        public Sprite[] AttackSprites;
+    }
+
+    public UIMoveDashTutorial moveDash;
+    public UIAttackTutorial attack;
 
 
 }

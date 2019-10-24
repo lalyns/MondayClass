@@ -75,6 +75,8 @@ public class RirisAnimEvent : MonoBehaviour
         else if (_manager.CurrentState == RirisState.PATTERNC)
         {
             RirisPATTERNC pattern = _manager.CurrentStateComponent as RirisPATTERNC;
+
+            pattern.bulletPos.position = _manager.Pevis.transform.position;
             pattern.StartCoroutine(pattern.FireBullet());
         }
     }

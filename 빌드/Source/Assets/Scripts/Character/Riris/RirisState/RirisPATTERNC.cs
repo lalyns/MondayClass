@@ -45,14 +45,12 @@ public class RirisPATTERNC : RirisFSMState
         useGravity = false;
 
         _manager.transform.position = MissionManager.Instance.CurrentMission.MapGrid.center.position;
-
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.transform));
     }
 
     public override void EndState()
     {
         base.EndState();
-
         useGravity = true;
     }
 
@@ -63,8 +61,6 @@ public class RirisPATTERNC : RirisFSMState
 
     public IEnumerator FireBullet()
     {
-        bulletPos.position = _manager.Pevis.transform.position;
-
         for (int i = 0; i < 4; i++)
         {
             BulletPatternB();
