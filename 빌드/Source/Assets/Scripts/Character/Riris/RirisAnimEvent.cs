@@ -60,6 +60,12 @@ public class RirisAnimEvent : MonoBehaviour
 
     }
 
+    public void PatterBSound()
+    {
+        var voice = _manager.sound.ririsVoice;
+        voice.PlayRirisVoice(_manager.gameObject, voice.dash);
+    }
+
     public void AddBulletPattern()
     {
         if(_manager.CurrentState == RirisState.PATTERNA)

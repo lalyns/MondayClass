@@ -19,7 +19,10 @@ public class RedHatDEAD : RedHatFSMState
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));
         GameLib.DissoveActive(_manager.materialList, true);
         StartCoroutine(GameLib.Dissolving(_manager.materialList));
-       
+
+        var voice = _manager.sound.monsterVoice;
+        voice.PlayMonsterVoice(this.gameObject, voice.redhatDeadVoice);
+
         useGravity = false;
         _manager.CC.detectCollisions = false;
         _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;

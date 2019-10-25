@@ -94,6 +94,7 @@ public class RedHatFSMManager : FSMManager
     public AttackType CurrentAttackType = AttackType.NONE;
 
     public NavMeshAgent agent;
+    public MonsterSound sound;
 
     protected override void Awake()
     {
@@ -104,6 +105,7 @@ public class RedHatFSMManager : FSMManager
         _Anim = GetComponentInChildren<Animator>();
         _Sound = GetComponent<MonsterSound>();
         _RigidBody = GetComponent<Rigidbody>();
+        sound = GetComponent<MonsterSound>();
 
         CC.detectCollisions = true;
 

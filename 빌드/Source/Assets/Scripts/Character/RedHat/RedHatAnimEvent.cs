@@ -48,6 +48,18 @@ public class RedHatAnimEvent : MonoBehaviour
         _WeaponCapsule.enabled = false;
     }
 
+    void AttackSFX()
+    {
+        var sound = FSMManager.sound.monsterSFX;
+        sound.PlayMonsterSFX(this.gameObject, sound.redhatAttack);
+    }
+
+    void DashSFX()
+    {
+        var sound = FSMManager.sound.monsterSFX;
+        sound.PlayMonsterSFX(this.gameObject, sound.redhatDash);
+    }
+
     public void PopupOver()
     {
         FSMManager.SetState(RedHatState.CHASE);

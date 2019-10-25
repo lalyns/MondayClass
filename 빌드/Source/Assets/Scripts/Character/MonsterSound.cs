@@ -11,6 +11,10 @@ namespace MC.Sound
         {
             #region ActionList
             public AK.Wwise.Event[] attackSFX = new AK.Wwise.Event[7];
+
+            public AK.Wwise.Event redhatDash = new AK.Wwise.Event();
+            public AK.Wwise.Event redhatDashReady = new AK.Wwise.Event();
+            public AK.Wwise.Event redhatAttack = new AK.Wwise.Event();
             #endregion
 
             #region SkillList
@@ -28,6 +32,12 @@ namespace MC.Sound
         [System.Serializable]
         public class MonsterVoiceList
         {
+            #region
+            public AK.Wwise.Event redhatDeadVoice = new AK.Wwise.Event();
+            public AK.Wwise.Event redhatDamegedVoice = new AK.Wwise.Event();
+            public AK.Wwise.Event redhatDashVoice = new AK.Wwise.Event();
+            public AK.Wwise.Event redhatAttackVoice = new AK.Wwise.Event();
+            #endregion
 
             public void PlayMonsterVoice(GameObject go, AK.Wwise.Event voice)
             {
