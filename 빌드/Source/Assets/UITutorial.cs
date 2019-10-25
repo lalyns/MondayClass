@@ -30,7 +30,25 @@ public class UITutorial : MonoBehaviour
 
         public Image Attack;
         public Sprite[] AttackSprites;
+
+        public Image Skill1;
+        public Sprite[] skill1Sprites;
+        public Image Skill2;
+        public Sprite[] skill2Sprites;
+        public Image Skill3;
+        public Sprite[] skill3Sprites;
+        public Image Skill4;
+        public Sprite[] skill4Sprites;
+        public Image Special;
+        public Sprite[] specialSprites;
+
+        public Text attack;
+        public Text skill1;
+        public Text skill2;
+        public Text skill3;
+        public Text special;
     }
+
 
     public UIMoveDashTutorial moveDash;
     public UIAttackTutorial attack;

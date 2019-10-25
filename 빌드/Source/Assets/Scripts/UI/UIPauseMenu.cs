@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using MC.UI;
 
 public class UIPauseMenu : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class UIPauseMenu : MonoBehaviour
     public Image[] playerSkill3Turn;
 
     public Sprite[] gauge;
+
+    public GameObject setting;
 
     void ParameterSetting()
     {
@@ -64,6 +67,23 @@ public class UIPauseMenu : MonoBehaviour
         }
     }
 
+    public void PauseSetting()
+    {
+        setting.SetActive(true);
+    }
 
+    public void PauseSettingExit()
+    {
+        setting.SetActive(false);
+    }
+
+    public void PauseExit()
+    {
+        CanvasInfo.PauseMenuActive(false);
+        GameManager.Instance.IsPuase = false;
+        UserInterface.BlurSet(false, 10f);
+
+        gameObject.SetActive(false);
+    }
 
 }

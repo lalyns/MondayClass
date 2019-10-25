@@ -331,6 +331,9 @@ namespace MC.UI
                 Instance.missionMgr.CurrentMission.Data.MissionText;
             Instance.FullMode.goalType.sprite =
                 Instance.missionMgr.CurrentMission.Data.GoalIcon;
+
+            instance.SimpleMode.goalType.sprite =
+                Instance.missionMgr.CurrentMission.Data.GoalIcon;
         }
 
         private ProgressSimpleUI _SimpleMode;
@@ -405,7 +408,7 @@ namespace MC.UI
                     var missionA = missionMgr.CurrentMission as MissionA;
                     goalValue = Mathf.Clamp01((float)GameStatus.Instance.ActivedMonsterList.Count /
                         (float)missionA.waves[missionA.currentWave].monsterTypes.Length);
-                    text = gameStatus.ActivedMonsterList.Count + " ";
+                    text = gameStatus.ActivedMonsterList.Count + " / " + missionA.waves[missionA.currentWave].monsterTypes.Length;
                     break;
                 case MissionType.Survival:
                     MissionB missionB = MissionManager.Instance.CurrentMission as MissionB;

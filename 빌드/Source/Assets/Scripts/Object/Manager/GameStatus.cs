@@ -13,6 +13,7 @@ public enum CurrentGameState
     Select,
     Wait,
     Dialog,
+    Pause,
     MissionClear,
     Dead,
     Tutorial,
@@ -250,13 +251,15 @@ public class GameStatus : MonoBehaviour
             MCSceneManager.currentScene != MCSceneManager.TITLE &&
             currentGameState != CurrentGameState.Loading &&
             currentGameState != CurrentGameState.Dialog &&
-            currentGameState != CurrentGameState.Product )
+            currentGameState != CurrentGameState.Product && 
+            currentGameState != CurrentGameState.MissionClear)
             {
                 isPause = !isPause;
                 Debug.Log("Press Escape : " + isPause);
                 CanvasInfo.PauseMenuActive(isPause);
                 GameManager.Instance.IsPuase = isPause;
                 UserInterface.BlurSet(isPause, 10f);
+                SetCurrentGameState(isPause ? CurrentGameState.Pause : prevState);
             }
 
             if(currentGameState == CurrentGameState.Product)

@@ -22,6 +22,10 @@ public class PlayerCLEAR : FSMState
         }
         UserInterface.SetPlayerUserInterface(false);
         UserInterface.SetMissionProgressUserInterface(false);
+
+        var voice = _manager._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.victory);
+
         _manager.enemyHPBar.gameObject.SetActive(false);
         _manager.Skill1Return(_manager.Skill1_Effects, _manager.Skill1_Special_Effects, _manager.isNormal);
         _manager.Skill1Return(_manager.Skill1_Shoots, _manager.Skill1_Special_Shoots, _manager.isNormal);

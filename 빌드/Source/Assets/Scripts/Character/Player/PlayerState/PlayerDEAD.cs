@@ -15,7 +15,9 @@ public class PlayerDEAD : FSMState
 
         var voice = _manager._Sound.voice;
         voice.PlayPlayerVoice(this.gameObject, voice.dieVoice);
-        
+
+        GameStatus.SetCurrentGameState(CurrentGameState.Dead);
+
         _manager.Skill2_Test.SetActive(false);
         _manager.Skill2_Test2.SetActive(false);
         _manager.isSkill2End = false;
@@ -47,7 +49,6 @@ public class PlayerDEAD : FSMState
         {
             _manager.colorGrading.saturation.value = -85f;
             UserInterface.FailMissionSetActive(true);
-            GameStatus.SetCurrentGameState(CurrentGameState.Dead);
             isEnd = true;
         }
 
