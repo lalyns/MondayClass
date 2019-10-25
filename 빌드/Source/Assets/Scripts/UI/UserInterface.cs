@@ -159,7 +159,7 @@ namespace MC.UI
 
                 UIPlayer.SpecialGauge();
                 UIPlayer.DashSetActive();
-                UIPlayer.Skill4SetActive(!playerFSMMgr.isNormal);
+                UIPlayer.Skill4SetActive(!playerFSMMgr.isNormal && playerFSMMgr.isCanUltimate);
                 CanvasInfo.Instance.enemyHP.HpBarView();
 
                 UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime, playerFSMMgr.isSkill1CTime);
