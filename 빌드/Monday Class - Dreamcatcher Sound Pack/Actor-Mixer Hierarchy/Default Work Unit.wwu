@@ -1929,7 +1929,7 @@
 									<ChildrenList>
 										<Folder Name="Voice" ID="{65DA70CD-A2FE-46F4-97EF-65112AE85609}" ShortID="556810225">
 											<ChildrenList>
-												<RandomSequenceContainer Name="CastVoice" ID="{9990A082-4C79-4567-93C0-ADCC42E33F1C}" ShortID="345089202">
+												<RandomSequenceContainer Name="Cast Voice" ID="{9990A082-4C79-4567-93C0-ADCC42E33F1C}" ShortID="345089202">
 													<PropertyList>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
@@ -2300,7 +2300,7 @@
 								<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>5</Value>
+										<Value>10</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -2941,6 +2941,532 @@
 												</Sound>
 											</ChildrenList>
 										</RandomSequenceContainer>
+									</ChildrenList>
+								</Folder>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Liris" ID="{B75043E0-162A-4F21-B611-0C22857E33CB}" ShortID="982820607">
+							<ChildrenList>
+								<Folder Name="Transform" ID="{3A596238-D394-46A4-867A-3F9E7A411976}" ShortID="912208611">
+									<ChildrenList>
+										<Folder Name="Voice" ID="{4E922F25-EA07-48EF-868B-11F7C6D4D21B}" ShortID="1008163815">
+											<ChildrenList>
+												<RandomSequenceContainer Name="Cast Voice" ID="{0D936F84-A9D9-4742-A856-A92A670B550A}" ShortID="362626050">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>1</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Liris_Skill_Transform_Cast_Voice_01" ID="{D3080F9C-7121-4F07-9588-C304E2720F7C}" ShortID="187270275">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Liris_Skill_Transform_Cast_Voice_01" ID="{A13B14F6-0A4F-43C3-8DD5-DA2440A9BAAF}" ShortID="559953209">
+																	<Language>SFX</Language>
+																	<AudioFile>Liris_Skill_Transform_Cast_Voice_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Liris_Skill_Transform_Cast_Voice_01" ID="{A13B14F6-0A4F-43C3-8DD5-DA2440A9BAAF}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+											</ChildrenList>
+										</Folder>
+									</ChildrenList>
+								</Folder>
+								<Folder Name="Skill" ID="{6ECDEB4B-0237-4905-8D07-6B1C41220B1B}" ShortID="1049164886">
+									<ChildrenList>
+										<Folder Name="Special" ID="{7B9B884E-7252-4DF1-BE82-DB274EEF61E8}" ShortID="419476339">
+											<ChildrenList>
+												<Folder Name="Voice" ID="{C9D0C31B-1588-41F5-80CF-8264C08B1196}" ShortID="796010382">
+													<ChildrenList>
+														<RandomSequenceContainer Name="Cast Voice" ID="{9743C668-9FF8-44BE-88F4-0594231276E3}" ShortID="939154449">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>1</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Liris_Skill_Special_Cast_Voice_01" ID="{46FDF232-83BC-43B2-B1A2-675988E70313}" ShortID="126160389">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Special_Cast_Voice_01" ID="{FCCF4D0D-7AA2-408D-A66D-9E726A2FDFB1}" ShortID="920027305">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Special_Cast_Voice_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Special_Cast_Voice_01" ID="{FCCF4D0D-7AA2-408D-A66D-9E726A2FDFB1}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Liris_Skill_Special_Cast_Voice_02" ID="{4461685F-3F99-4037-897E-531C320C084E}" ShortID="850978060">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Special_Cast_Voice_02" ID="{AC64767F-C938-47BB-8B3C-2C72270864CA}" ShortID="694485018">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Special_Cast_Voice_02.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Special_Cast_Voice_02" ID="{AC64767F-C938-47BB-8B3C-2C72270864CA}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
+													</ChildrenList>
+												</Folder>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Bat Swarm" ID="{57E88B6A-E21C-4306-913F-36CFE29B9F43}" ShortID="316985654">
+											<ChildrenList>
+												<Folder Name="Voice" ID="{233F5F37-39FC-4F64-A4AF-EE39617DC25B}" ShortID="495275148">
+													<ChildrenList>
+														<RandomSequenceContainer Name="Cast Voice" ID="{97F88232-A353-4E05-9145-5AEEE0152741}" ShortID="942531031">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>1</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Liris_Skill_BatSwarm_Cast_Voice_01" ID="{94E2F96B-989A-4DB5-9048-12D36D280E87}" ShortID="279406476">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_BatSwarm_Cast_Voice_01" ID="{DFB38B8F-8C68-454F-BD8E-854C31E3F4C6}" ShortID="769378098">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_BatSwarm_Cast_Voice_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_BatSwarm_Cast_Voice_01" ID="{DFB38B8F-8C68-454F-BD8E-854C31E3F4C6}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Liris_Skill_BatSwarm_Cast_Voice_02" ID="{46DF622E-BA5E-4994-A64F-1DB403ED7D8D}" ShortID="159472258">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_BatSwarm_Cast_Voice_02" ID="{36F4F8BE-A497-4A8E-8885-FCB246604DC3}" ShortID="1073606540">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_BatSwarm_Cast_Voice_02.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_BatSwarm_Cast_Voice_02" ID="{36F4F8BE-A497-4A8E-8885-FCB246604DC3}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Liris_Skill_BatSwarm_Cast_Voice_03" ID="{BDAE89D0-6F61-41E3-983F-A988C4C7EFC0}" ShortID="1061337674">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_BatSwarm_Cast_Voice_03" ID="{1595D317-C016-472D-9F5B-CF4FA672FBCE}" ShortID="1059149347">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_BatSwarm_Cast_Voice_03.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_BatSwarm_Cast_Voice_03" ID="{1595D317-C016-472D-9F5B-CF4FA672FBCE}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
+													</ChildrenList>
+												</Folder>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Bat Swarm2" ID="{95137F59-E91E-4725-8ACD-356AB02B580B}" ShortID="489313155"/>
+										<Folder Name="Dash Attack" ID="{B9CDEF9F-DD1E-437A-9DE6-A2019979B63F}" ShortID="730247391">
+											<ChildrenList>
+												<RandomSequenceContainer Name="Cast Voice" ID="{A8952529-E151-4B06-9F5A-1FEBD3CCF0C3}" ShortID="68277388">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Liris_Skill_Dash Attack_Cast_Voice_01" ID="{3D5B0B4F-2F85-4090-AF1B-FCA18B02066C}" ShortID="608709895">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Liris_Skill_Dash Attack_Cast_Voice_01" ID="{8DC65A14-4801-49B3-BF3C-54C0AD46A272}" ShortID="891788778">
+																	<Language>SFX</Language>
+																	<AudioFile>Liris_Skill_Dash Attack_Cast_Voice_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Liris_Skill_Dash Attack_Cast_Voice_01" ID="{8DC65A14-4801-49B3-BF3C-54C0AD46A272}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="Liris_Skill_Dash Attack_Cast_Voice_02" ID="{B2BFA0C1-3378-4E4E-A4F9-DCBBF04B3992}" ShortID="896378213">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Liris_Skill_Dash Attack_Cast_Voice_02" ID="{5867E375-C998-4DFF-8528-54C792419734}" ShortID="991545727">
+																	<Language>SFX</Language>
+																	<AudioFile>Liris_Skill_Dash Attack_Cast_Voice_02.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Liris_Skill_Dash Attack_Cast_Voice_02" ID="{5867E375-C998-4DFF-8528-54C792419734}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="Liris_Skill_Dash Attack_Cast_Voice_03" ID="{6246E562-ED40-4AE9-80E5-E48611460A60}" ShortID="269543021">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Liris_Skill_Dash Attack_Cast_Voice_03" ID="{2E7A9F0E-41EB-4EE3-BF43-171244B3EF98}" ShortID="97666775">
+																	<Language>SFX</Language>
+																	<AudioFile>Liris_Skill_Dash Attack_Cast_Voice_03.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Liris_Skill_Dash Attack_Cast_Voice_03" ID="{2E7A9F0E-41EB-4EE3-BF43-171244B3EF98}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Crash" ID="{58FA9589-75ED-48AF-B669-012CDBD97869}" ShortID="838275860">
+											<ChildrenList>
+												<Folder Name="Voice" ID="{D2002407-7DFD-4FC9-B77B-5DD788EA9C42}" ShortID="563435171">
+													<ChildrenList>
+														<RandomSequenceContainer Name="Cast Sound" ID="{E3D20303-996A-4E28-B8B3-83F35C8380EA}" ShortID="1062528859">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>1</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Liris_Skill_Crash_Cast_Voice_01" ID="{3279C815-1614-4E62-BC0D-BC5DB9B0261F}" ShortID="866691533">
+																	<PropertyList>
+																		<Property Name="Volume" Type="Real64">
+																			<ValueList>
+																				<Value>-1</Value>
+																			</ValueList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Crash_Cast_Voice_01" ID="{1E15777B-8DD2-4DB4-A423-92576C3E9AB0}" ShortID="1020310782">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Crash_Cast_Voice_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Crash_Cast_Voice_01" ID="{1E15777B-8DD2-4DB4-A423-92576C3E9AB0}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Liris_Skill_Crash_Cast_Voice_02" ID="{2E17E70E-CEC0-4141-93D8-EEED3AF0072C}" ShortID="43216817">
+																	<PropertyList>
+																		<Property Name="Volume" Type="Real64">
+																			<ValueList>
+																				<Value>-1</Value>
+																			</ValueList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Crash_Cast_Voice_02" ID="{E03FDA64-A9AD-473E-BD5E-B6F9A3C13B10}" ShortID="772728075">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Crash_Cast_Voice_02.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Crash_Cast_Voice_02" ID="{E03FDA64-A9AD-473E-BD5E-B6F9A3C13B10}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Liris_Skill_Crash_Cast_Voice_03" ID="{78EABDF2-67C8-4351-B727-DB3DCFB2E1C8}" ShortID="613433018">
+																	<PropertyList>
+																		<Property Name="Volume" Type="Real64">
+																			<ValueList>
+																				<Value>-2</Value>
+																			</ValueList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Crash_Cast_Voice_03" ID="{48CD4900-22F8-401B-98EE-32F84B48583E}" ShortID="894129821">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Crash_Cast_Voice_03.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Crash_Cast_Voice_03" ID="{48CD4900-22F8-401B-98EE-32F84B48583E}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
+													</ChildrenList>
+												</Folder>
+											</ChildrenList>
+										</Folder>
+									</ChildrenList>
+								</Folder>
+								<Folder Name="Emote" ID="{FFAD48FB-E761-4ADC-A5CA-CC2D0DBB05D3}" ShortID="226625692">
+									<ChildrenList>
+										<Folder Name="Death" ID="{CF1EAF6A-BFBA-4F24-9576-6CABF784E3AF}" ShortID="1043690248">
+											<ChildrenList>
+												<RandomSequenceContainer Name="Cast Voice" ID="{524B7FDB-7AA5-40E6-B813-270CDB06A6D5}" ShortID="930061005">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Liris_Death_Cast_Voice_01" ID="{58357759-92F4-4839-83AC-A80A5FA851C0}" ShortID="36827546">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Liris_Death_Cast_Voice_01" ID="{1F3A0189-CEE0-4B86-9FFD-2CED81EB0FC4}" ShortID="114704057">
+																	<Language>SFX</Language>
+																	<AudioFile>Liris_Death_Cast_Voice_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Liris_Death_Cast_Voice_01" ID="{1F3A0189-CEE0-4B86-9FFD-2CED81EB0FC4}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Smile" ID="{553A8562-5ACD-4E1A-ABDF-EA77463CC7F4}" ShortID="565169263">
+											<ChildrenList>
+												<RandomSequenceContainer Name="Cast Voice" ID="{6BAE0C55-6D81-4EC9-B51C-8BB9A055F2AC}" ShortID="290918461">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Liris_Emote_Smile_Voice_01" ID="{33AA2D25-B4CB-4BF6-8E4E-AFC189E78873}" ShortID="658007753">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Liris_Emote_Smile_Voice_01" ID="{D2B1389A-6803-4359-AEAF-EF6B0500E111}" ShortID="770411566">
+																	<Language>SFX</Language>
+																	<AudioFile>Liris_Emote_Smile_Voice_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Liris_Emote_Smile_Voice_01" ID="{D2B1389A-6803-4359-AEAF-EF6B0500E111}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Surprised" ID="{33E59544-821B-4FDF-B3D9-C2C54C83BD48}" ShortID="1043036476">
+											<ChildrenList>
+												<RandomSequenceContainer Name="Cast Voice" ID="{76BAB325-65F6-4580-9A7F-AF4F1F3D0EAE}" ShortID="851173665">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Liris_Emote_Surprised_Voice_01" ID="{4CED0A0B-6DAD-450B-9972-39CF5B3EC032}" ShortID="273268893">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Liris_Emote_Surprised_Voice_01" ID="{B6BBA57D-7A70-4694-A9A4-4DC800D6C8A5}" ShortID="424155499">
+																	<Language>SFX</Language>
+																	<AudioFile>Liris_Emote_Surprised_Voice_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Liris_Emote_Surprised_Voice_01" ID="{B6BBA57D-7A70-4694-A9A4-4DC800D6C8A5}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Surprised 2" ID="{4B474788-6660-4621-8F6A-C616605EFA63}" ShortID="923702475">
+											<ChildrenList>
+												<RandomSequenceContainer Name="Cast Voice" ID="{A5ACDCF7-62FF-46FB-B9EC-DA08F79FDB87}" ShortID="468228063">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Liris_Emote_Surprised_Voice_02" ID="{45492E07-586A-4285-A627-AE6D8DA381FC}" ShortID="1038794446">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="Liris_Emote_Surprised_Voice_02" ID="{6D958772-1393-453C-A1DD-27D18B343FDE}" ShortID="754264408">
+																	<Language>SFX</Language>
+																	<AudioFile>Liris_Emote_Surprised_Voice_02.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="Liris_Emote_Surprised_Voice_02" ID="{6D958772-1393-453C-A1DD-27D18B343FDE}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+											</ChildrenList>
+										</Folder>
 									</ChildrenList>
 								</Folder>
 							</ChildrenList>

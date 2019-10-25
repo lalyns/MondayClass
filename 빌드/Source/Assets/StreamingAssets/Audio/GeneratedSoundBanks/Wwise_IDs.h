@@ -17,6 +17,16 @@ namespace AK
         static const AkUniqueID BGM_BOSS_05 = 774246723U;
         static const AkUniqueID BGM_DUNGEON_04 = 3793957673U;
         static const AkUniqueID BGM_TITLE_01 = 2511535208U;
+        static const AkUniqueID BGM_TUTORIAL_03 = 1633288558U;
+        static const AkUniqueID LIRIS_DEATH_CAST_VOICE = 63954050U;
+        static const AkUniqueID LIRIS_EMOTE_SMILE_VOICE = 1951680145U;
+        static const AkUniqueID LIRIS_EMOTE_SURPRISED_VOICE = 2040715222U;
+        static const AkUniqueID LIRIS_EMOTE_SURPRISED02_VOICE = 1035387440U;
+        static const AkUniqueID LIRIS_SKILL_BATSWARM_CAST_VOICE = 2379578413U;
+        static const AkUniqueID LIRIS_SKILL_CRASH_CAST_VOICE = 4239121697U;
+        static const AkUniqueID LIRIS_SKILL_DASH_ATTACK_CAST_VOICE = 2231595791U;
+        static const AkUniqueID LIRIS_SKILL_SPECIAL_CAST_VOICE = 2863736793U;
+        static const AkUniqueID LIRIS_SKILL_TRANSFORM_CAST_VOICE = 1088723654U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_ACTIVATIONL = 2682899652U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_CREATE = 1186601540U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_ENTER = 418004602U;
