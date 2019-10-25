@@ -10,7 +10,7 @@ public class PreviewCamera : MonoBehaviour
     float r_y;
     float _v;
     float _h;
-    public float speed = 5f;
+    public float speed = 20f;
     void Start()
     {
         
@@ -25,5 +25,9 @@ public class PreviewCamera : MonoBehaviour
         _h = Input.GetAxis("Horizontal");
 
         transform.Translate(Vector3.right * _h * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * _v * speed * Time.deltaTime);
+        transform.Rotate(Vector3.up * r_x * speed * Time.deltaTime);
+        transform.Rotate(Vector3.right * -1 * r_y * speed * Time.deltaTime);
+        
     }
 }

@@ -141,6 +141,13 @@ public class MissionManager : MonoBehaviour
             UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
         }
 
+        if (GameStatus.Instance.StageLevel >= 3)
+        {
+            UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
+            UserInterface.Instance.SelectorUI.buttons[1].ChangeMission((int)MissionType.Boss);
+            UserInterface.Instance.SelectorUI.buttons[2].ChangeMission((int)MissionType.Boss);
+        }
+
         ChangeReward();
 
         isChange = true;

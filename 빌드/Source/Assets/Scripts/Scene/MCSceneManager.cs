@@ -83,7 +83,12 @@ namespace MC.SceneDirector
                         bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.lobbyBGM);
                     }
 
-                    if (currentScene == TUTORIAL ||
+                    if (currentScene == TUTORIAL)
+                    {
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.tutoBGM);
+                    }
+
+                    if (
                         currentScene == ANNIHILATION ||
                         currentScene == SURVIVAL ||
                         currentScene == DEFENCE)
@@ -148,27 +153,33 @@ namespace MC.SceneDirector
             if (async.isDone)
             {
                 var bgm = MCSoundManager.Instance.objectSound.bgm;
-                Debug.Log("Load Done");
-                if (prevScene == TITLE && 
-                    (prevScene == ANNIHILATION ||
-                    prevScene == SURVIVAL ||
-                    prevScene == DEFENCE)
-                    )
-                {
-                    bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
-                }
 
-                if((prevScene == ANNIHILATION ||
-                    prevScene == SURVIVAL ||
-                    prevScene == DEFENCE) &&
-                    currentScene == BOSS)
-                {
-                    bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.bossBGM);
-                }
+                Debug.Log("Load Done From" + prevScene);
+                
 
                 GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>
                 {
+                    if (prevScene == TITLE)
+                    {
+                        StartCoroutine(MCSoundManager.SoundFadeIn("Bgm_Start_Fade_In", 1f));
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.tutoBGM);
+                    }
+
+                    if (prevScene == TUTORIAL)
+                    {
+                        bgm.StopBGM(MCSoundManager.Instance.gameObject, bgm.tutoBGM);
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
+                    }
+
+                    if ((prevScene == ANNIHILATION ||
+                        prevScene == SURVIVAL ||
+                        prevScene == DEFENCE) &&
+                        currentScene == BOSS)
+                    {
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.bossBGM);
+                    }
                     Debug.Log("Fade In Load After");
                     //GameStatus.currentGameState = CurrentGameState.Wait;
                     GameManager.ScriptCheck();
