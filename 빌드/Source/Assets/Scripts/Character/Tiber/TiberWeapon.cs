@@ -34,7 +34,8 @@ public class TiberWeapon : MonoBehaviour
                 var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", Tiber.Stat, 30);
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
-                PlayerFSMManager.Instance.SetState(PlayerState.HIT2);
+                if (!PlayerFSMManager.Instance.isDead)
+                    PlayerFSMManager.Instance.SetState(PlayerState.HIT2);
                 Debug.Log("티버 내려짝기.");
             }
         }
