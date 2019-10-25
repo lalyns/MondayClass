@@ -17,6 +17,7 @@ public class BossDirector : MonoBehaviour
 
     public GameObject startCine;
     public GameObject phaseChangeCine;
+    
     public GameObject deadCine;
     
     public PlayableDirector startDirector;

@@ -65,6 +65,7 @@ namespace MC.Mission
 
                 if (!isClear && protectedTarget.hp <= 0)
                 {
+                    Debug.Log(protectedTarget.hp);
                     FailMission();
                     missionEnd = true;
                 }
@@ -76,6 +77,7 @@ namespace MC.Mission
             base.RestMission();
 
             spawnTime = 0;
+            GameStatus.Instance._LimitTime = _LimitTime;
         }
 
         public override void ClearMission() {

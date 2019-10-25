@@ -30,8 +30,6 @@ public class RirisHitCollider : MonoBehaviour
 
     public void OnHitForBoss(AttackType attackType)
     {
-        Debug.Log("Attack!");
-
         if ((attackType == AttackType.ATTACK1
             || attackType == AttackType.ATTACK2
             || attackType == AttackType.ATTACK3)
@@ -55,6 +53,7 @@ public class RirisHitCollider : MonoBehaviour
         float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f) - riris.Stat.Defense;
         CharacterStat.ProcessDamage(playerStat, riris.Stat, damage);
 
+
         var sound = GetComponentInParent<MonsterSound>().monsterSFX;
         sound.PlayMonsterSFX(this.gameObject, sound.attackSFX[value]);
 
@@ -76,25 +75,17 @@ public class RirisHitCollider : MonoBehaviour
 
         if (riris.Stat.Hp > 0)
         {
-            //if (riris.CurrentState == RirisState.HIT) return;
 
-            //riris.SetState(RirisState.HIT);
-
-            //플레이어 쳐다본 후
-            try
+            if (damage > 0)
             {
-                transform.localEulerAngles = Vector3.zero;
-                transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
-                //플레이어피버게이지증가?
+                StartCoroutine(GameLib.Blinking(riris.materials, Color.white));
             }
-            catch
-            {
 
-            }
         }
         else
         {
             riris.SetDeadState();
+            StopAllCoroutines();
         }
     }
 

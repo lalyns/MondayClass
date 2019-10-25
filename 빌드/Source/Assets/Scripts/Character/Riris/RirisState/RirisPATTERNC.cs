@@ -24,8 +24,10 @@ public class RirisPATTERNC : RirisFSMState
     void BulletPatternA()
     {
         _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
-        foreach (Transform t in positionA) {
-            bulletPool.ItemSetActive(t, true);
+        foreach (Transform t in positionA)
+        {
+            GameObject bullet = bulletPool.ItemSetActive(t.position);
+            bullet.GetComponent<RirisBullet>().SetBullet(bulletPos.position, true);
         }
     }
 
@@ -34,7 +36,8 @@ public class RirisPATTERNC : RirisFSMState
         _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         foreach (Transform t in positionB)
         {
-            bulletPool.ItemSetActive(t, true);
+            GameObject bullet = bulletPool.ItemSetActive(t.position);
+            bullet.GetComponent<RirisBullet>().SetBullet(bulletPos.position, true);
         }
     }
 
@@ -45,14 +48,12 @@ public class RirisPATTERNC : RirisFSMState
         useGravity = false;
 
         _manager.transform.position = MissionManager.Instance.CurrentMission.MapGrid.center.position;
-
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.transform));
     }
 
     public override void EndState()
     {
         base.EndState();
-
         useGravity = true;
     }
 
@@ -63,8 +64,6 @@ public class RirisPATTERNC : RirisFSMState
 
     public IEnumerator FireBullet()
     {
-        bulletPos.position = _manager.Pevis.transform.position;
-
         for (int i = 0; i < 4; i++)
         {
             BulletPatternB();

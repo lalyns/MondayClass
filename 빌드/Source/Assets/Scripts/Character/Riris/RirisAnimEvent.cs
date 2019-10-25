@@ -75,6 +75,8 @@ public class RirisAnimEvent : MonoBehaviour
         else if (_manager.CurrentState == RirisState.PATTERNC)
         {
             RirisPATTERNC pattern = _manager.CurrentStateComponent as RirisPATTERNC;
+
+            pattern.bulletPos.position = _manager.Pevis.transform.position;
             pattern.StartCoroutine(pattern.FireBullet());
         }
     }
@@ -91,6 +93,20 @@ public class RirisAnimEvent : MonoBehaviour
         RirisPATTERNB pattern = _manager.CurrentStateComponent as RirisPATTERNB;
 
         pattern.isEnd = true;
+    }
+
+    public void Teleport()
+    {
+        var randPos = UnityEngine.Random.Range(0, MissionManager.Instance.CurrentMission.MapGrid.mapPositions.Count);
+        var pos = MissionManager.Instance.CurrentMission.MapGrid.mapPositions[randPos];
+        _manager.transform.position = pos;
+        _manager.GetComponent<RirisPATTERNEND>().NextState();
+        Instantiate(_manager.missingEndEffect, _manager.Pevis.position, Quaternion.identity);
+    }
+
+    public void UltimateEnd()
+    {
+        _manager.GetComponent<RirisULTIMATE>().PatternEnd();
     }
 
     public void SetOff()

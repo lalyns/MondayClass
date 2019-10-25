@@ -66,6 +66,7 @@ namespace MC.Mission
 
                 if (GameStatus.Instance._LimitTime <= 0)
                 {
+                    Debug.Log(GameStatus.Instance._LimitTime);
                     FailMission();
                 }
             

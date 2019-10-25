@@ -56,10 +56,9 @@ public class RedHatDASH : RedHatFSMState
         Vector3 _TargetPos = Vector3.zero;
 
         //_manager.dashEffect = null;
-
         //_manager.dashEffect.GetComponent<UIAttackRange>().EffectEnd();
 
-        _manager.CC.detectCollisions = true;
+        _manager.CC.detectCollisions = true; 
         _manager.isNotChangeState = false;
 
         _manager.agent.velocity = Vector3.zero;

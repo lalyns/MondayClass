@@ -169,24 +169,6 @@ public class ObjectPool : MonoBehaviour
         return item;
     }
 
-
-    public void ItemSetActive(Transform respawnTrans, bool bulletType)
-    {
-        if (_InActiveItemPool.Count == 0)
-        {
-            CreateItem();
-        }
-
-        var item = _InActiveItemPool.First.Value;
-        _InActiveItemPool.RemoveFirst();
-
-        item.transform.position = respawnTrans.position;
-        item.GetComponent<RirisBullet>().directionType = bulletType;
-        item.SetActive(true);
-
-        _ActiveItem.AddLast(item);
-    }
-
     public GameObject ItemSetActive(Vector3 respawnPos)
     {
         if (_InActiveItemPool.Count == 0)

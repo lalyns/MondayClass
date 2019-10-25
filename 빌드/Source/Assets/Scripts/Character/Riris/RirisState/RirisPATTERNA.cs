@@ -45,7 +45,8 @@ public class RirisPATTERNA : RirisFSMState
         if (_manager._Phase >= 1)
         {
             var randPos = UnityEngine.Random.Range(0, MissionManager.Instance.CurrentMission.MapGrid.mapPositions.Count);
-            _manager.transform.position = MissionManager.Instance.CurrentMission.MapGrid.mapPositions[randPos];
+            var pos = MissionManager.Instance.CurrentMission.MapGrid.mapPositions[randPos];
+
             _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
 
             _manager.Anim.Play("PatternC");
@@ -101,7 +102,8 @@ public class RirisPATTERNA : RirisFSMState
         _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         foreach (Transform t in positionB)
         {
-            bulletPool.ItemSetActive(t, false);
+            GameObject bullet = bulletPool.ItemSetActive(t.position);
+            bullet.GetComponent<RirisBullet>().SetBullet(bulletPos.position, false);
         }
     }
 
@@ -127,6 +129,7 @@ public class RirisPATTERNA : RirisFSMState
         _manager._Weapon.position = targetPos;
         
         _PatternAAttackEffect.SetActive(true);
+        _PatternAAttackEffect.transform.position = targetPos;
 
         ParticleSystem[] particleSystems = _PatternAAttackEffect.GetComponentsInChildren<ParticleSystem>();
         foreach(ParticleSystem p in particleSystems)
