@@ -148,6 +148,7 @@ namespace MC.SceneDirector
             if (async.isDone)
             {
                 var bgm = MCSoundManager.Instance.objectSound.bgm;
+
                 Debug.Log("Load Done");
                 if (prevScene == TITLE && 
                     (prevScene == ANNIHILATION ||
