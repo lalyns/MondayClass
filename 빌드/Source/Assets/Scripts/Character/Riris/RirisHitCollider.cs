@@ -110,7 +110,7 @@ public class RirisHitCollider : MonoBehaviour
             if (riris.Stat.Hp > 0)
                 OnHitForBoss(PlayerFSMManager.Instance.attackType);
         }
-        else if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
+        if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
         {
             StartCoroutine("Skill3Timer");
         }
@@ -148,7 +148,7 @@ public class RirisHitCollider : MonoBehaviour
         {
 
             //stats.TakeDamage(PlayerFSMManager.Instance.stats, 30);
-            CharacterStat.ProcessDamage(stat, riris.Stat, 200);
+            CharacterStat.ProcessDamage(stat, riris.Stat, 25);
             attackTime += Time.deltaTime;
             yield return new WaitForSeconds(0.1f);
         }

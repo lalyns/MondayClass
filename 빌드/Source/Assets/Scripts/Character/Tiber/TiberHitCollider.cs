@@ -144,13 +144,13 @@ public class TiberHitCollider : MonoBehaviour
 
     public IEnumerator Skill2Timer()
     {
+        
         PlayerStat stat = PlayerFSMManager.Instance.Stat;
         float attackTime = 0.0f;
         while (attackTime < 0.3f)
-        {
-
+        {            
             //stats.TakeDamage(PlayerFSMManager.Instance.stats, 30);
-            CharacterStat.ProcessDamage(stat, tiber.Stat, 200);
+            CharacterStat.ProcessDamage(stat, tiber.Stat, 20);
             attackTime += Time.deltaTime;
             yield return new WaitForSeconds(0.1f);
         }
