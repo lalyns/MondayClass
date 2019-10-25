@@ -31,8 +31,8 @@ public class RirisWeapon : MonoBehaviour
                 (riris.Stat.Str + riris.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
                 - PlayerFSMManager.Instance.Stat.Defense;
 
-                //CharacterStat.ProcessDamage(riris.Stat, PlayerFSMManager.Instance.Stat, damage);
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 1f, "Player", riris.Stat, damage);
+                CharacterStat.ProcessDamage(riris.Stat, PlayerFSMManager.Instance.Stat, damage);
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 1f, "Player", riris.Stat, 0);
                 PlayerFSMManager.Instance.SetState(PlayerState.HIT2);
 
                 Invoke("AttackSupport", 0.5f);
@@ -47,8 +47,8 @@ public class RirisWeapon : MonoBehaviour
                 (riris.Stat.Str + riris.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
                 - PlayerFSMManager.Instance.Stat.Defense;
 
-                //CharacterStat.ProcessDamage(riris.Stat, PlayerFSMManager.Instance.Stat, damage);
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 1f, "Player", riris.Stat, damage);
+                CharacterStat.ProcessDamage(riris.Stat, PlayerFSMManager.Instance.Stat, damage);
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 1f, "Player", riris.Stat, 0);
                 PlayerFSMManager.Instance.SetState(PlayerState.HIT2);
 
                 Invoke("AttackSupport", 0.5f);

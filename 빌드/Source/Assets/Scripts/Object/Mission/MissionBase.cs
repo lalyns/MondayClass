@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using MC.SceneDirector;
 using UnityEngine.Playables;
 using MC.Sound;
@@ -79,6 +80,7 @@ namespace MC.Mission
 
         public bool missionEnd = false;
 
+        public Image startImage;
 
         protected virtual void Awake()
         {
