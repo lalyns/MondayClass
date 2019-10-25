@@ -202,7 +202,7 @@ public class ObjectPool : MonoBehaviour
         try
         {
             item.GetComponent<MacBullet>().LookAtTarget(
-                GameObject.FindGameObjectWithTag("Player").transform);
+                PlayerFSMManager.GetLookTargetPos(item.transform));
 
             item.GetComponent<MacBullet>().dir =
                 GameLib.DirectionToCharacter(start, target);

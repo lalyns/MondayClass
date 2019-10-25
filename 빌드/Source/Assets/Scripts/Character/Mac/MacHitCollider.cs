@@ -147,18 +147,18 @@ public class MacHitCollider : MonoBehaviour
         }
     }
 
-    public IEnumerator Skill3Timer()
+    public IEnumerator Skill2Timer()
     {
         PlayerStat stat = PlayerFSMManager.Instance.Stat;
         float attackTime = 0.0f;
         while (attackTime < 0.3f)
         {
-            CharacterStat.ProcessDamage(stat, mac.Stat, 200);
+            CharacterStat.ProcessDamage(stat, mac.Stat, 14);
             attackTime += Time.deltaTime;
             yield return new WaitForSeconds(0.1f);
         }
     }
-    public IEnumerator Skill2Timer()
+    public IEnumerator Skill3Timer()
     {
         while (PlayerFSMManager.Instance.isSkill3)
         {

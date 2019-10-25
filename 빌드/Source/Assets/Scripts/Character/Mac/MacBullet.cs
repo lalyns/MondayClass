@@ -46,7 +46,7 @@ public class MacBullet : MonoBehaviour
                 break;
             case MacBulletType.Skill:
                 _CreativeTime = 1.000f;
-                _DestroyTime = 10.000f;
+                _DestroyTime = 7.000f;
                 _DestroyDelay = 1.100f;
                 break;
         }
@@ -140,7 +140,7 @@ public class MacBullet : MonoBehaviour
         _Dameged = false;
     }
 
-    public void LookAtTarget(Transform target)
+    public void LookAtTarget(Vector3 target)
     {
         this.transform.LookAt(target);
     }

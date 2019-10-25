@@ -10,6 +10,10 @@ public class RedHatATTACK : RedHatFSMState
     public override void BeginState()
     {
         base.BeginState();
+
+        var voice = _manager.sound.monsterVoice;
+        voice.PlayMonsterVoice(this.gameObject, voice.redhatAttackVoice);
+
         _manager.agent.velocity = Vector3.zero;
         _manager.agent.destination = this.transform.position;
         _manager.agent.acceleration = 0.0f;
