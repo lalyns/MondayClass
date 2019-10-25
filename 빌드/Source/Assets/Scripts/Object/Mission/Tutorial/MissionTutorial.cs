@@ -57,6 +57,7 @@ namespace MC.Mission
             // base.Update();
             if (currentTutorial == TutorialEvent.Start && !tutorial && tutostart)
             {
+                PlayerFSMManager.Instance.isInputLock = true;
                 GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
                 var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
@@ -352,6 +353,7 @@ namespace MC.Mission
 
         void SetMoveAndDashEvent()
         {
+            PlayerFSMManager.Instance.isInputLock = false;
             GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
             var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
