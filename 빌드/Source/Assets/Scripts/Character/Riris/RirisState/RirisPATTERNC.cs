@@ -24,8 +24,10 @@ public class RirisPATTERNC : RirisFSMState
     void BulletPatternA()
     {
         _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
-        foreach (Transform t in positionA) {
-            bulletPool.ItemSetActive(t, true);
+        foreach (Transform t in positionA)
+        {
+            GameObject bullet = bulletPool.ItemSetActive(t.position);
+            bullet.GetComponent<RirisBullet>().SetBullet(bulletPos.position, true);
         }
     }
 
@@ -34,7 +36,8 @@ public class RirisPATTERNC : RirisFSMState
         _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         foreach (Transform t in positionB)
         {
-            bulletPool.ItemSetActive(t, true);
+            GameObject bullet = bulletPool.ItemSetActive(t.position);
+            bullet.GetComponent<RirisBullet>().SetBullet(bulletPos.position, true);
         }
     }
 

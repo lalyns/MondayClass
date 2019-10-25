@@ -28,8 +28,10 @@ public class RirisBullet : MonoBehaviour
 
     public bool Moving = true;
 
-    public bool directionType = false;
     public bool dameged = false;
+
+    float damageType = 1;
+    
 
     private void Start()
     {
@@ -47,7 +49,6 @@ public class RirisBullet : MonoBehaviour
             model.SetActive(true);
             speed = RirisFSMManager.Stat._BulletSpeed;
             lifeTime = RirisFSMManager.Stat._BulletLifeTime;
-            SetBullet();
         }
         else if(time >= 1f && !IsFire)
         {
@@ -73,17 +74,19 @@ public class RirisBullet : MonoBehaviour
         }
     }
 
-    public void SetBullet()
+    public void SetBullet(Vector3 position, bool type)
     {
-        if (directionType)
+        if (type)
         {
-            direction = (this.transform.position - (RirisFSMManager.CurrentStateComponent as RirisPATTERNC).bulletPos.position).normalized;
+            direction = (this.transform.position - position).normalized;
             transform.LookAt(transform.position + direction);
+            damageType = 8f;
         }
         else
         {
             direction = GameLib.DirectionToCharacter(collider, RirisFSMManager.PlayerCapsule);
             transform.LookAt(transform.position + direction);
+            damageType = 1f;
         }
     }
 
@@ -122,7 +125,7 @@ public class RirisBullet : MonoBehaviour
                     (RirisFSMManager.Stat.Str + RirisFSMManager.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
                     - PlayerFSMManager.Instance.Stat.Defense;
 
-            var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", RirisFSMManager.Stat, damage);
+            var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", RirisFSMManager.Stat, damage * damageType);
             Invoke("AttackSupport", 0.5f);
             dameged = true;
 

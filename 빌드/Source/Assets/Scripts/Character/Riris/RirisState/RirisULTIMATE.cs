@@ -45,6 +45,7 @@ public class RirisULTIMATE : RirisFSMState
 
         useGravity = false;
         this.transform.position = bossUltPos;
+        _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         BigCircleCast();
     }
 
@@ -60,8 +61,10 @@ public class RirisULTIMATE : RirisFSMState
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         flowerLists = new List<GameObject>[5];
         beamLists = new List<GameObject>[5];
         currentList = 0;

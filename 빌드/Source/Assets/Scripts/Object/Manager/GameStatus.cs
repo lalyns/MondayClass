@@ -161,7 +161,7 @@ public class GameStatus : MonoBehaviour
 
     public void Update()
     {
-        if (Time.timeScale == 0 && Input.anyKey) return;
+        //if (Time.timeScale == 0 && Input.anyKey) return;
         
         // 유니티 에디터에서 작동하는 에디터 기능
         if (Input.GetKey(KeyCode.LeftAlt) /*&& currentGameState == CurrentGameState.Start*/)
@@ -245,6 +245,7 @@ public class GameStatus : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Debug.Log("Press");
             if (
             MCSceneManager.currentScene != MCSceneManager.TITLE &&
             currentGameState != CurrentGameState.Loading &&
@@ -252,6 +253,7 @@ public class GameStatus : MonoBehaviour
             currentGameState != CurrentGameState.Product )
             {
                 isPause = !isPause;
+                Debug.Log("Press Escape : " + isPause);
                 CanvasInfo.PauseMenuActive(isPause);
                 GameManager.Instance.IsPuase = isPause;
                 UserInterface.BlurSet(isPause, 10f);

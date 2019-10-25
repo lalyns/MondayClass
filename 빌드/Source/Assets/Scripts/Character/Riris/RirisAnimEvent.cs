@@ -95,6 +95,20 @@ public class RirisAnimEvent : MonoBehaviour
         pattern.isEnd = true;
     }
 
+    public void Teleport()
+    {
+        var randPos = UnityEngine.Random.Range(0, MissionManager.Instance.CurrentMission.MapGrid.mapPositions.Count);
+        var pos = MissionManager.Instance.CurrentMission.MapGrid.mapPositions[randPos];
+        _manager.transform.position = pos;
+        _manager.GetComponent<RirisPATTERNEND>().NextState();
+        Instantiate(_manager.missingEndEffect, _manager.Pevis.position, Quaternion.identity);
+    }
+
+    public void UltimateEnd()
+    {
+        _manager.GetComponent<RirisULTIMATE>().PatternEnd();
+    }
+
     public void SetOff()
     {
         BossEffects.Instance.tornaedo.ItemReturnPool(this.gameObject);

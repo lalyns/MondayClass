@@ -11,7 +11,7 @@ public class RirisFSMState : MonoBehaviour
 
     protected bool useGravity = true;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _manager = GetComponent<RirisFSMManager>();
     }

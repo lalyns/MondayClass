@@ -22,6 +22,8 @@ public class RirisPATTERNEND : RirisFSMState
 
     private bool isPhase3Init = false;
 
+    RirisState nextState;
+
     public override void BeginState()
     {
         base.BeginState();
@@ -58,9 +60,8 @@ public class RirisPATTERNEND : RirisFSMState
 
         if (!isDead && delayCount > delay)
         {
-            RirisState nextState = ririsPhases[_manager._Phase].patterns[turn];
-            _manager.SetState(nextState);
-
+            nextState = ririsPhases[_manager._Phase].patterns[turn];
+            Warp(nextState);
             delayCount = 0;
         }
     }
@@ -68,6 +69,49 @@ public class RirisPATTERNEND : RirisFSMState
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+    }
+
+    public void Warp(RirisState next)
+    {
+        if(_manager._Phase == 0)
+        {
+            if (next == RirisState.PATTERNB)
+            {
+                Instantiate(_manager.missingEffect, _manager.Pevis.position, Quaternion.identity);
+                _manager.Anim.Play("Warp");
+                SetNextState(next);
+            }
+            else
+            {
+                SetNextState(next);
+                NextState();
+            }
+        }
+
+        else
+        {
+            if (isPhase3Init)
+            {
+                SetNextState(next);
+                NextState();
+            }
+            else
+            {
+                Instantiate(_manager.missingEffect, _manager.Pevis.position, Quaternion.identity);
+                _manager.Anim.Play("Warp");
+                SetNextState(next);
+            }
+        }
+    }
+
+    public void SetNextState(RirisState next)
+    {
+        nextState = next;
+    }
+
+    public void NextState()
+    {
+        _manager.SetState(nextState);
     }
 
     public void PhaseCheck()
