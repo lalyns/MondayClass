@@ -20,6 +20,9 @@ public class RirisPATTERND : RirisFSMState
     public override void BeginState()
     {
         base.BeginState();
+
+        var sound = _manager.sound.ririsVoice;
+        sound.PlayRirisVoice(this.gameObject, sound.darkblast);
     }
 
     public override void EndState()

@@ -140,7 +140,7 @@ public class MacBullet : MonoBehaviour
         _Dameged = false;
     }
 
-    public void LookAtTarget(Transform target)
+    public void LookAtTarget(Vector3 target)
     {
         this.transform.LookAt(target);
     }

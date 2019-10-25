@@ -64,6 +64,8 @@ public class RirisPATTERNC : RirisFSMState
 
     public IEnumerator FireBullet()
     {
+        var sound = _manager.sound.ririsVoice;
+        sound.PlayRirisVoice(this.gameObject, sound.batswarm2);
         for (int i = 0; i < 4; i++)
         {
             BulletPatternB();

@@ -19,6 +19,12 @@ public class RedHatDASH : RedHatFSMState
     {
         _TargetPos = _manager._PriorityTarget.transform.position;
 
+        var sound = _manager.sound.monsterSFX;
+        sound.PlayMonsterSFX(this.gameObject, sound.redhatDashReady);
+
+        var voice = _manager.sound.monsterVoice;
+        voice.PlayMonsterVoice(this.gameObject, voice.redhatDashVoice);
+
         _manager.agent.velocity = Vector3.zero;
         _manager.agent.destination = this.transform.position;
         _manager.agent.acceleration = 5.0f;
