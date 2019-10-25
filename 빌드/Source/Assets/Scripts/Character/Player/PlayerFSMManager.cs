@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using MC.UI;
 using MC.Sound;
 using MC.SceneDirector;
-
+using MC.Mission;
 public enum PlayerState
 {
     IDLE = 0,
@@ -227,11 +227,12 @@ public class PlayerFSMManager : FSMManager
     public bool isCanUltimate = false;
 
     public EnemyHPBar enemyHPBar;
+    public MissionTutorial mission;
     protected override void Awake()
     {
         base.Awake();
 
-
+        
         SetGizmoColor(Color.red);
 
         _cc = GetComponentInChildren<CapsuleCollider>();
@@ -284,8 +285,17 @@ public class PlayerFSMManager : FSMManager
             materialList.AddRange(_MR[x].materials);
         remainingDash = 3;
 
+        try
+        {
+            mission = GameObject.Find("Tutorial").GetComponent<MissionTutorial>();
+        }
+        catch
+        {
+            mission = null;
+        }
     }
 
+    
     //public float clip1, clip2;
     private void Start()
     {
@@ -448,7 +458,15 @@ public class PlayerFSMManager : FSMManager
             return;
         }
 
-        ChangeModel();
+        if (mission != null)
+        {
+            if (mission.currentTutorial == TutorialEvent.Transform)
+            {
+                ChangeModel();
+            }
+        }
+        if (mission == null)
+            ChangeModel();
 
         if (isSpecial || isSkill4)
             return;
@@ -461,17 +479,56 @@ public class PlayerFSMManager : FSMManager
         if (CurrentState == PlayerState.IDLE2 || CurrentState == PlayerState.CLEAR || CurrentState == PlayerState.DEAD)
             return;
 
-        Skill1();
+        
         AttackDirection();
-        Skill2();
-        Skill3();
-        Skill4();
+
         if (!isSkill2End && !isSkill3)
             Attack();
 
+        // if 튜토리얼 스킬 1번 사용해야 할 때라면
+        if (mission != null)
+        {
 
-        Skill3MouseLock();
-        Skill3Reset();
+            if (mission.currentTutorial == TutorialEvent.Skill1)
+            {
+                Skill1();
+                return;
+            }
+
+            if (mission.currentTutorial == TutorialEvent.Skill2)
+            {
+                Skill1();
+                Skill2();
+                return;
+            }
+
+            // if 스킬3번 사용
+            if (mission.currentTutorial == TutorialEvent.Skill3)
+            {
+                Skill1();
+                Skill2();
+                Skill3();
+                Skill3MouseLock();
+                Skill3Reset();
+                return;
+            }
+
+
+        }
+        if (mission == null)
+        {
+            Skill1();
+            Skill2();
+            Skill3();
+            Skill3MouseLock();
+            Skill3Reset();
+        }
+        // if 궁극기 사용
+        Skill4();
+        
+
+
+        
 
         _anim.SetFloat("CurrentIdle", (int)CurrentIdle);
         _anim.SetFloat("CurrentClear", (int)CurrentClear);
@@ -514,10 +571,8 @@ public class PlayerFSMManager : FSMManager
             isShoot = false;
 
         }
-        if (isSkill2)
-            return;
 
-        if(ShieldCount <= 0)
+        if (ShieldCount <= 0)
         {
             for (int i = 0; i < 3; i++)
                 Shields[i].SetActive(false);
@@ -561,38 +616,12 @@ public class PlayerFSMManager : FSMManager
         }
         
     }
-    //void Skill1Set(GameObject[] effects, GameObject[] effects_special, bool isnormal)
-    //{
-    //    if (isnormal)
-    //    {
-    //        if (Skill1_Amount <= 1)
-    //            for (int i = 0; i < 5; i++)
-    //            {
-    //                effects[i].SetActive(false);
-    //                effects_special[i].SetActive(false);
-    //            }
-    //        if (Skill1_Amount >= 2)
-    //        {
-    //            effects[0].SetActive(true);
-    //            effects_special[0].SetActive(false);
-    //        }
-    //        if (Skill1_Amount >= 3)
-    //        {
-    //            effects[1].SetActive(true);
-    //            effects_special[1].SetActive(false);
-    //        }
-    //        if (Skill1_Amount >= 4)
-    //        {
-    //            effects[2].SetActive(true);
-    //            effects_special[2].SetActive(false);
-    //            effects_special[3].SetActive(false);
-    //            effects_special[4].SetActive(false);
-    //        }
-    //    }
+
     public void SetSpecialGauge()
     {
         SpecialGauge = 100;
     }
+
     private void FixedUpdate()
     {
         Skill2Set();
@@ -601,11 +630,6 @@ public class PlayerFSMManager : FSMManager
 
         if (GameManager.Instance.CharacterControl && !isSpecial && !isSkill4 && !isDead && GameStatus.currentGameState != CurrentGameState.MissionClear)
             _anim.transform.Rotate(Vector3.up * mouseSpeed * Time.deltaTime * r_x);
-
-    }
-
-    private void LateUpdate()
-    {
 
     }
 
@@ -1196,7 +1220,7 @@ public class PlayerFSMManager : FSMManager
     }
     public void Skill3()
     {
-        if (isSkill3 || Skill3_End.activeSelf)
+        if (isSkill3 || Skill3_End.activeSelf || isSkill2Dash)
             return;
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
