@@ -27,6 +27,8 @@ public class PlayerSKILL3 : FSMState
         voice.PlayPlayerVoice(this.gameObject, voice.skill3CastVoice);
 
         _manager.mouseSpeed = _manager.Skill3MouseSpeed;
+
+        _manager.isSkill2 = false;
     }
 
     public override void EndState()

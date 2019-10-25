@@ -34,10 +34,10 @@ namespace MC.Mission
         bool spaceChange = false;
         bool attack1, skill1, skill2, skill3, skill4, trans = false;
         bool attackChange = false;
-        bool skill1Change = false;
-        bool skill2Change = false;
-        bool skill3Change = false;
-        bool transChange = false;
+        [HideInInspector] public bool skill1Change = false;
+        [HideInInspector] public bool skill2Change = false;
+        [HideInInspector] public bool skill3Change = false;
+        [HideInInspector] public bool transChange = false;
 
         public MonsterWave[] tutoWave;
         public FenceEffect[] fences;
@@ -152,7 +152,7 @@ namespace MC.Mission
                 {
                     tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];
                     Debug.Log(GameStatus.Instance.ActivedMonsterList.Count);
-
+                    PlayerFSMManager.Instance.Skill1_Amount = 4;
                     if (GameStatus.Instance.ActivedMonsterList.Count > 0)
                     {
                         Invoke("ReturnAttack", 0.5f);
@@ -218,7 +218,7 @@ namespace MC.Mission
                 {
                     tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];
                     Debug.Log(GameStatus.Instance.ActivedMonsterList.Count);
-
+                    PlayerFSMManager.Instance.SpecialGauge = 100;
                     if (GameStatus.Instance.ActivedMonsterList.Count > 0)
                     {
                         Invoke("ReturnAttack", 0.5f);

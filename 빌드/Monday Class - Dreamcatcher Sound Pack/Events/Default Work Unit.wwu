@@ -515,7 +515,7 @@
 																<Action Name="" ID="{DEFBCE46-D400-4054-A4A1-2C8F325C5616}" ShortID="628835720">
 																	<ReferenceList>
 																		<Reference Name="Target">
-																			<ObjectRef Name="CastVoice" ID="{9990A082-4C79-4567-93C0-ADCC42E33F1C}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																			<ObjectRef Name="Cast Voice" ID="{9990A082-4C79-4567-93C0-ADCC42E33F1C}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
 																		</Reference>
 																	</ReferenceList>
 																</Action>
@@ -728,6 +728,17 @@
 								</Action>
 							</ChildrenList>
 						</Event>
+						<Event Name="Bgm_Tutorial_03" ID="{11307FF6-76CF-47D0-A5CC-7757E29BF6C8}">
+							<ChildrenList>
+								<Action Name="" ID="{C0CF38E7-D385-45FB-88F5-D696AE199554}" ShortID="234112419">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Bgm_Tutorial" ID="{20D3CE02-68F8-49AC-87FC-7DDE2C62284C}" WorkUnitID="{9850665D-5484-4161-902D-23B97DDF595A}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="ZPangYi" ID="{A4C4D611-9B86-40AB-9262-67031112C046}" ShortID="846057510">
@@ -855,6 +866,157 @@
 												</Action>
 											</ChildrenList>
 										</Event>
+									</ChildrenList>
+								</Folder>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Liris" ID="{D3EED367-6A08-4138-82BB-E70BFB5D29CA}" ShortID="1028735710">
+							<ChildrenList>
+								<Folder Name="Skill" ID="{3F7BDF79-4DF2-4A61-A4FC-20510EBEFC3E}" ShortID="948790971">
+									<ChildrenList>
+										<Folder Name="Special" ID="{09340932-F2A0-4849-A63F-DE5334D0E2CF}" ShortID="960493417">
+											<ChildrenList>
+												<Event Name="Liris_Skill_Special_Cast_Voice" ID="{65A01C41-5C13-41D4-AFE9-ADD3E950A3A4}">
+													<ChildrenList>
+														<Action Name="" ID="{FC3AAAC1-9664-4C91-9C0F-B6CD744977B5}" ShortID="913994762">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Cast Voice" ID="{9743C668-9FF8-44BE-88F4-0594231276E3}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Transform" ID="{A74CF646-E956-4880-8A6F-20DD728C5905}" ShortID="860961094">
+											<ChildrenList>
+												<Event Name="Liris_Skill_Transform_Cast_Voice" ID="{DD982B87-6481-422A-A15A-0EF631CB3A30}">
+													<ChildrenList>
+														<Action Name="" ID="{48083930-2986-4307-9FBB-00610605485F}" ShortID="450787146">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Cast Voice" ID="{0D936F84-A9D9-4742-A856-A92A670B550A}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Dash Attack" ID="{1B9C0D2D-AF37-47ED-B020-5F03661F2790}" ShortID="85289185">
+											<ChildrenList>
+												<Folder Name="Voice" ID="{59302FE3-F5D2-4C43-BB7E-BA871F6D5401}" ShortID="555930630">
+													<ChildrenList>
+														<Folder Name="Cast Voice" ID="{1B4B934C-56DC-41DF-9A63-2D10E3E77188}" ShortID="853496647">
+															<ChildrenList>
+																<Event Name="Liris_Skill_Dash_Attack_Cast_Voice" ID="{F4F7277C-942E-4842-91AE-51D766E45CF5}">
+																	<ChildrenList>
+																		<Action Name="" ID="{61D7DDDA-53D9-4C8E-8252-519C1FC8B0EA}" ShortID="485449273">
+																			<ReferenceList>
+																				<Reference Name="Target">
+																					<ObjectRef Name="Cast Voice" ID="{A8952529-E151-4B06-9F5A-1FEBD3CCF0C3}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																				</Reference>
+																			</ReferenceList>
+																		</Action>
+																	</ChildrenList>
+																</Event>
+															</ChildrenList>
+														</Folder>
+													</ChildrenList>
+												</Folder>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Bat Swarm" ID="{ABE3E57A-298C-47A0-AE9E-9E3CA3C71ED9}" ShortID="414570315">
+											<ChildrenList>
+												<Folder Name="Cast Voice" ID="{8C0263BE-528D-495E-AD2F-EDAD834D27BD}" ShortID="139728265">
+													<ChildrenList>
+														<Event Name="Liris_Skill_BatSwarm_Cast_Voice" ID="{CF83A618-F0C3-42A0-9513-AB801EBF1B9A}">
+															<ChildrenList>
+																<Action Name="" ID="{AC0E3A48-188D-4CA4-A429-3B8721DD0AF2}" ShortID="1071503434">
+																	<ReferenceList>
+																		<Reference Name="Target">
+																			<ObjectRef Name="Cast Voice" ID="{97F88232-A353-4E05-9145-5AEEE0152741}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																		</Reference>
+																	</ReferenceList>
+																</Action>
+															</ChildrenList>
+														</Event>
+													</ChildrenList>
+												</Folder>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Crash" ID="{BAA41950-7377-4FA9-85FE-9B298EB3AFD8}" ShortID="540292212">
+											<ChildrenList>
+												<Folder Name="Cast Voice" ID="{EC444571-B087-4BB7-8ED2-81A99F7567E7}" ShortID="85224093">
+													<ChildrenList>
+														<Event Name="Liris_Skill_Crash_Cast_Voice" ID="{FCD4CD1C-DE49-4D5B-8120-F07CFF4AFD23}">
+															<ChildrenList>
+																<Action Name="" ID="{A8AF19FC-FA18-4E7B-92C9-47103B6B8D22}" ShortID="537422568">
+																	<ReferenceList>
+																		<Reference Name="Target">
+																			<ObjectRef Name="Cast Sound" ID="{E3D20303-996A-4E28-B8B3-83F35C8380EA}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																		</Reference>
+																	</ReferenceList>
+																</Action>
+															</ChildrenList>
+														</Event>
+													</ChildrenList>
+												</Folder>
+											</ChildrenList>
+										</Folder>
+									</ChildrenList>
+								</Folder>
+								<Folder Name="Emote" ID="{468253C7-198F-462B-AA56-5FFB547F9AD8}" ShortID="739212792">
+									<ChildrenList>
+										<Folder Name="Cast Voice" ID="{B57337D0-80A4-457A-B154-D4D02A972684}" ShortID="407195530">
+											<ChildrenList>
+												<Event Name="Liris_Death_Cast_Voice" ID="{5927A626-CCEC-4FB0-B28E-A49DCBB1F5B6}">
+													<ChildrenList>
+														<Action Name="" ID="{3A34FF34-3FD4-480B-BBB0-727E2154DA4E}" ShortID="287119362">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Cast Voice" ID="{524B7FDB-7AA5-40E6-B813-270CDB06A6D5}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+												<Event Name="Liris_Emote_Smile_Voice" ID="{444D3298-8FE1-4B8A-A870-151B817C0902}">
+													<ChildrenList>
+														<Action Name="" ID="{CF70DE6C-6416-4123-8B47-404B8A28988E}" ShortID="982211047">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Cast Voice" ID="{6BAE0C55-6D81-4EC9-B51C-8BB9A055F2AC}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+												<Event Name="Liris_Emote_Surprised_Voice" ID="{C2A02CD1-056B-4FC9-903A-63F54EE107D4}">
+													<ChildrenList>
+														<Action Name="" ID="{9B7E2DCF-B9FC-44AC-906E-C3D49C97F3D5}" ShortID="706598694">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Cast Voice" ID="{76BAB325-65F6-4580-9A7F-AF4F1F3D0EAE}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+												<Event Name="Liris_Emote_Surprised02_Voice" ID="{8C3834CB-13A3-4745-9C13-220F4E361622}">
+													<ChildrenList>
+														<Action Name="" ID="{73BFED89-99A6-4D7E-980F-317939AAA4A3}" ShortID="741948913">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Cast Voice" ID="{A5ACDCF7-62FF-46FB-B9EC-DA08F79FDB87}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
 									</ChildrenList>
 								</Folder>
 							</ChildrenList>
