@@ -77,6 +77,8 @@ public static class GameLib
 
                         if (type == MonsterType.RedHat)
                         {
+                            var voice = ownerStat.GetComponent<RedHatFSMManager>().sound.monsterVoice;
+                            voice.PlayMonsterVoice(targetStat.gameObject, voice.redhatAttackVoice);
                         }
                     }
                 }

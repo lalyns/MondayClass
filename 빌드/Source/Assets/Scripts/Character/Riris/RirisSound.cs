@@ -29,7 +29,19 @@ namespace MC.Sound
         [System.Serializable]
         public class RirisVoiceList
         {
-
+            #region VoiceList
+            public AK.Wwise.Event dead = new AK.Wwise.Event();
+            public AK.Wwise.Event smile = new AK.Wwise.Event();
+            public AK.Wwise.Event surprise1 = new AK.Wwise.Event();
+            public AK.Wwise.Event surprise2 = new AK.Wwise.Event();
+            public AK.Wwise.Event batswarm1 = new AK.Wwise.Event();
+            public AK.Wwise.Event batswarm2 = new AK.Wwise.Event();
+            public AK.Wwise.Event stomp = new AK.Wwise.Event();
+            public AK.Wwise.Event darkblast = new AK.Wwise.Event();
+            public AK.Wwise.Event dash = new AK.Wwise.Event();
+            public AK.Wwise.Event special = new AK.Wwise.Event();
+            public AK.Wwise.Event phase3init = new AK.Wwise.Event();
+            #endregion
 
             public void PlayRirisVoice(GameObject go, AK.Wwise.Event voice)
             {

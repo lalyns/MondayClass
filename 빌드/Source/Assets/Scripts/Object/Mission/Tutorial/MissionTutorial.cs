@@ -207,7 +207,7 @@ namespace MC.Mission
                 if (GameStatus.Instance.ActivedMonsterList.Count == 0 && !skill3Change)
                 {
                     skill3Change = true;
-                    Invoke("SetSkill3Event", 0.5f);
+                    Invoke("SetTransformEvent", 0.5f);
 
                 } 
             }
@@ -229,8 +229,7 @@ namespace MC.Mission
                 if (GameStatus.Instance.ActivedMonsterList.Count == 0 && !transChange)
                 {
                     transChange = true;
-                    Invoke("SetTransformEvent", 0.5f);
-
+                    currentTutorial = TutorialEvent.End;
                 }
             }
 

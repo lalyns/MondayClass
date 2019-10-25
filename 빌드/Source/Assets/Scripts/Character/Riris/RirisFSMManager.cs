@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MC.UI;
+using MC.Sound;
 
 public enum RirisState
 {
@@ -82,6 +82,8 @@ public class RirisFSMManager : FSMManager
     public GameObject missingEffect;
     public GameObject missingEndEffect;
 
+    public RirisSound sound;
+
     public bool isDead = false;
 
     protected override void Awake()
@@ -91,8 +93,9 @@ public class RirisFSMManager : FSMManager
         _CC = GetComponent<CharacterController>();
         _Stat = GetComponent<RirisStat>();
         _Anim = GetComponentInChildren<Animator>();
+        sound = GetComponent<RirisSound>();
 
-        for(int i=0; i<MR.Length; i++)
+        for (int i=0; i<MR.Length; i++)
         {
             materials.AddRange(MR[i].materials);
         }
