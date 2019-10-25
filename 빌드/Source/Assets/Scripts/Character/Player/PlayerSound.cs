@@ -68,6 +68,8 @@ namespace MC.Sound
             public AK.Wwise.Event emoteSmileVoice = new AK.Wwise.Event();
             public AK.Wwise.Event emoteSurprisedVoice = new AK.Wwise.Event();
 
+            public AK.Wwise.Event victory = new AK.Wwise.Event();
+
             public AK.Wwise.Event skill1Voice = new AK.Wwise.Event();
             public AK.Wwise.Event skill2Voice = new AK.Wwise.Event();
             public AK.Wwise.Event skill3CastVoice = new AK.Wwise.Event();

@@ -50,6 +50,7 @@ namespace MC.Sound
         {
             #region BGMList
             public AK.Wwise.Event lobbyBGM = new AK.Wwise.Event();
+            public AK.Wwise.Event tutoBGM = new AK.Wwise.Event();
             public AK.Wwise.Event stageBGM = new AK.Wwise.Event();
             public AK.Wwise.Event bossBGM = new AK.Wwise.Event();
 

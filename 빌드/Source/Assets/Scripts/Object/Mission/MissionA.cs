@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MC.Mission
 {
@@ -15,7 +16,7 @@ namespace MC.Mission
         public int totalWave = 3; 
 
         public MonsterWave[] waves;
-        public Canvas canvas;
+        public Text text;
 
         protected override void Start()
         {
@@ -32,6 +33,9 @@ namespace MC.Mission
         protected override void Update()
         {
             base.Update();
+
+            if (GameStatus.currentGameState == CurrentGameState.Dead ||
+                GameStatus.currentGameState == CurrentGameState.Product) return;
 
             if (missionEnd) return;
 
@@ -53,7 +57,6 @@ namespace MC.Mission
 
                 if (GameStatus.Instance._LimitTime <= 0)
                 {
-                    Debug.Log(GameStatus.Instance._LimitTime);
                     FailMission();
                 }
             }
@@ -99,7 +102,7 @@ namespace MC.Mission
 
         void Spawn()
         {
-            canvas.gameObject.SetActive(true);
+            text.gameObject.SetActive(true);
             StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
             currentWave++;
             //Debug.Log(currentWave);
@@ -108,7 +111,7 @@ namespace MC.Mission
 
         void CanvasOff()
         {
-            canvas.gameObject.SetActive(false);
+            text.gameObject.SetActive(false);
         }
     }
 }

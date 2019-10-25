@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using MC.SceneDirector;
 using UnityEngine.Playables;
 using MC.Sound;
@@ -79,6 +80,7 @@ namespace MC.Mission
 
         public bool missionEnd = false;
 
+        public Image startImage;
 
         protected virtual void Awake()
         {
@@ -164,29 +166,31 @@ namespace MC.Mission
                 MCSceneManager.currentScene == MCSceneManager.DEFENCE ||
                 MCSceneManager.currentScene == MCSceneManager.SURVIVAL)
             {
-                //if (GameStatus.Instance.StageLevel == 3)
-                //{
-                //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-                //    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-                //    UserInterface.DialogSetActive(true);
+                if (GameStatus.Instance.StageLevel == 3)
+                {
+                    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+                    UserInterface.DialogSetActive(true);
 
 
-                //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () => {
-                //        GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
-                //        GameManager.Instance.CharacterControl = true;
-                //    });
-                //}
+                    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () =>
+                    {
+                        GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+                        GameManager.Instance.CharacterControl = true;
+                    });
+                }
 
-                //if (GameStatus.Instance.StageLevel == 8)
-                //{
-                //    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-                //    UserInterface.DialogSetActive(true);
-                //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () => {
-                //        GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
-                //        GameManager.Instance.CharacterControl = true;
-                //    });
-                //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-                //}
+                if (GameStatus.Instance.StageLevel == 8)
+                {
+                    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+                    UserInterface.DialogSetActive(true);
+                    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () =>
+                    {
+                        GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+                        GameManager.Instance.CharacterControl = true;
+                    });
+                    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                }
             }
             if (GameStatus.Instance.StageLevel < 3)
             {

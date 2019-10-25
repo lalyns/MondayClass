@@ -130,7 +130,7 @@ public class PlayerFSMManager : FSMManager
     // [HideInInspector]
     public float _v, _h;
 
-    bool isInputLock;
+    public bool isInputLock;
 
     public float flashTimer = 0;
     public bool isSpecial, isFlash;

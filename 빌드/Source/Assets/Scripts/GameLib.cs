@@ -61,7 +61,8 @@ public static class GameLib
             {
                 if (PlayerFSMManager.Instance.isIDLE)
                 {
-                    PlayerFSMManager.Instance.SetState(PlayerState.HIT);
+                    if (!PlayerFSMManager.Instance.isDead)
+                        PlayerFSMManager.Instance.SetState(PlayerState.HIT);
                 }
 
                 CharacterStat lastHit = null;
@@ -108,7 +109,8 @@ public static class GameLib
             {
                 if (PlayerFSMManager.Instance.isIDLE)
                 {
-                    PlayerFSMManager.Instance.SetState(PlayerState.HIT);
+                    if (!PlayerFSMManager.Instance.isDead)
+                        PlayerFSMManager.Instance.SetState(PlayerState.HIT);
                 }
                 CharacterStat lastHit = null;
                 foreach (var hitObject in hitObjects)
