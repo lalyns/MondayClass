@@ -259,6 +259,7 @@ public class GameManager : MonoBehaviour
         GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
         FindObjectOfType<MissionTutorial>().tutostart = true;
 
+
         UserInterface.SetPlayerUserInterface(true);
         UserInterface.SetPointerMode(false);
     }

@@ -127,16 +127,13 @@ namespace MC.Mission
 
             if(currentTutorial == TutorialEvent.Attack)
             {
-                if(Input.GetKeyDown(KeyCode.Mouse0) && !attackChange)
+                if(!attackChange)
                 {
-                    tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];
-                    Debug.Log(GameStatus.Instance.ActivedMonsterList.Count);
-
-                    if(GameStatus.Instance.ActivedMonsterList.Count > 0)
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
+                        tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];
                         Invoke("ReturnAttack", 0.5f);
                     }
-
                 }
 
                 if (GameStatus.Instance.ActivedMonsterList.Count == 0 &&!attackChange)
@@ -148,16 +145,18 @@ namespace MC.Mission
 
             if(currentTutorial == TutorialEvent.Skill1)
             {
-                if (Input.GetKeyDown(KeyCode.Mouse0) && !skill1Change)
+                if (!skill1Change)
                 {
-                    tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];
-                    Debug.Log(GameStatus.Instance.ActivedMonsterList.Count);
-                    PlayerFSMManager.Instance.Skill1_Amount = 4;
-                    if (GameStatus.Instance.ActivedMonsterList.Count > 0)
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
+                        tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];
                         Invoke("ReturnAttack", 0.5f);
                     }
-
+                    if (Input.GetKeyDown(KeyCode.Alpha1))
+                    {
+                        tutorialUI.attack.Skill1.sprite = tutorialUI.attack.skill1Sprites[1];
+                        Invoke("ReturnSkill1", 0.5f);
+                    }
                 }
 
                 if (GameStatus.Instance.ActivedMonsterList.Count == 0 && !skill1Change)
@@ -170,16 +169,23 @@ namespace MC.Mission
 
             if (currentTutorial == TutorialEvent.Skill2)
             {
-                if (Input.GetKeyDown(KeyCode.Mouse0) && !skill2Change)
+                if (!skill2Change)
                 {
-                    tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];
-                    Debug.Log(GameStatus.Instance.ActivedMonsterList.Count);
-
-                    if (GameStatus.Instance.ActivedMonsterList.Count > 0)
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
+                        tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];
                         Invoke("ReturnAttack", 0.5f);
                     }
-
+                    if (Input.GetKeyDown(KeyCode.Alpha1))
+                    {
+                        tutorialUI.attack.Skill1.sprite = tutorialUI.attack.skill1Sprites[1];
+                        Invoke("ReturnSkill1", 0.5f);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Alpha2))
+                    {
+                        tutorialUI.attack.Skill2.sprite = tutorialUI.attack.skill2Sprites[1];
+                        Invoke("ReturnSkill2", 0.5f);
+                    }
                 }
 
                 if (GameStatus.Instance.ActivedMonsterList.Count == 0 && !skill2Change)
@@ -194,14 +200,26 @@ namespace MC.Mission
             {
                 if (Input.GetKeyDown(KeyCode.Mouse0) && !skill3Change)
                 {
-                    tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];
-                    Debug.Log(GameStatus.Instance.ActivedMonsterList.Count);
-
-                    if (GameStatus.Instance.ActivedMonsterList.Count > 0)
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
+                        tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];
                         Invoke("ReturnAttack", 0.5f);
                     }
-
+                    if (Input.GetKeyDown(KeyCode.Alpha1))
+                    {
+                        tutorialUI.attack.Skill1.sprite = tutorialUI.attack.skill1Sprites[1];
+                        Invoke("ReturnSkill1", 0.5f);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Alpha2))
+                    {
+                        tutorialUI.attack.Skill2.sprite = tutorialUI.attack.skill2Sprites[1];
+                        Invoke("ReturnSkill2", 0.5f);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Alpha3))
+                    {
+                        tutorialUI.attack.Skill3.sprite = tutorialUI.attack.skill3Sprites[1];
+                        Invoke("ReturnSkill3", 0.5f);
+                    }
                 }
 
                 if (GameStatus.Instance.ActivedMonsterList.Count == 0 && !skill3Change)
@@ -216,19 +234,47 @@ namespace MC.Mission
             {
                 if (Input.GetKeyDown(KeyCode.Mouse0) && !transChange)
                 {
-                    tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];
-                    Debug.Log(GameStatus.Instance.ActivedMonsterList.Count);
-                    PlayerFSMManager.Instance.SpecialGauge = 100;
-                    if (GameStatus.Instance.ActivedMonsterList.Count > 0)
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
+                        tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];
                         Invoke("ReturnAttack", 0.5f);
                     }
+                    if (Input.GetKeyDown(KeyCode.Alpha1))
+                    {
+                        tutorialUI.attack.Skill1.sprite = tutorialUI.attack.skill1Sprites[1];
+                        Invoke("ReturnSkill1", 0.5f);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Alpha2))
+                    {
+                        tutorialUI.attack.Skill2.sprite = tutorialUI.attack.skill2Sprites[1];
+                        Invoke("ReturnSkill2", 0.5f);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Alpha3))
+                    {
+                        Invoke("ReturnSkill3", 0.5f);
+                        tutorialUI.attack.Skill3.sprite = tutorialUI.attack.skill3Sprites[1];
+                    }
+                    if (Input.GetKeyDown(KeyCode.Alpha4))
+                    {
+                        Invoke("ReturnSkill4", 0.5f);
+                        tutorialUI.attack.Skill4.sprite = tutorialUI.attack.skill4Sprites[1];
+                    }
+                    if (Input.GetKeyDown(KeyCode.R))
+                    {
+                        Invoke("ReturnSpecial", 0.5f);
+                        tutorialUI.attack.Special.sprite = tutorialUI.attack.specialSprites[1];
+                    }
+
+                    PlayerFSMManager.Instance.SpecialGauge = 100;
 
                 }
 
                 if (GameStatus.Instance.ActivedMonsterList.Count == 0 && !transChange)
                 {
                     transChange = true;
+
+                    tutorialUI.attack.special.gameObject.SetActive(false);
+                    tutorialUI.attack.Attack.gameObject.SetActive(false);
                     currentTutorial = TutorialEvent.End;
                 }
             }
@@ -262,6 +308,31 @@ namespace MC.Mission
         void ReturnAttack()
         {
             tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[0];
+        }
+
+        void ReturnSkill1()
+        {
+            tutorialUI.attack.Skill1.sprite = tutorialUI.attack.skill1Sprites[0];
+        }
+
+        void ReturnSkill2()
+        {
+            tutorialUI.attack.Skill2.sprite = tutorialUI.attack.skill2Sprites[0];
+        }
+
+        void ReturnSkill3()
+        {
+            tutorialUI.attack.Skill3.sprite = tutorialUI.attack.skill3Sprites[0];
+        }
+
+        void ReturnSkill4()
+        {
+            tutorialUI.attack.Skill4.sprite = tutorialUI.attack.skill4Sprites[0];
+        }
+
+        void ReturnSpecial()
+        {
+            tutorialUI.attack.Special.sprite = tutorialUI.attack.specialSprites[0];
         }
 
         void SetDiscription()
@@ -333,11 +404,12 @@ namespace MC.Mission
             var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
             UserInterface.DialogSetActive(true);
-            tutorialUI.attack.gameObject.SetActive(true);
             UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
                 () => {
                     GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
                     currentTutorial = TutorialEvent.Attack;
+                    tutorialUI.attack.gameObject.SetActive(true);
+                    tutorialUI.attack.attack.gameObject.SetActive(true);
                     //tutorialUI.move.gameObject.SetActive(true);
                     StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
                     GameManager.Instance.CharacterControl = true;
@@ -346,70 +418,94 @@ namespace MC.Mission
 
         public void SetSkill1Event()
         {
-            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+            //GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            //var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
-            UserInterface.DialogSetActive(true);
-            tutorialUI.attack.gameObject.SetActive(true);
-            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
-                () => {
-                    GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
-                    currentTutorial = TutorialEvent.Skill1;
-                    //tutorialUI.move.gameObject.SetActive(true);
-                    StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
-                    GameManager.Instance.CharacterControl = true;
-                });
+            //UserInterface.DialogSetActive(true);
+            //tutorialUI.attack.gameObject.SetActive(true);
+            //UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
+            //    () => {
+            //        GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
+            //        currentTutorial = TutorialEvent.Skill1;
+            //        tutorialUI.move.gameObject.SetActive(true);
+            //        StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
+            //        GameManager.Instance.CharacterControl = true;
+            //    });
+
+            currentTutorial = TutorialEvent.Skill1;
+            StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
+            tutorialUI.attack.attack.gameObject.SetActive(false);
+            tutorialUI.attack.skill1.gameObject.SetActive(true);
+
+
         }
 
         public void SetSkill2Event()
         {
-            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+            //GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            //var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
-            UserInterface.DialogSetActive(true);
-            tutorialUI.attack.gameObject.SetActive(true);
-            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
-                () => {
-                    GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
-                    currentTutorial = TutorialEvent.Skill2;
-                    //tutorialUI.move.gameObject.SetActive(true);
-                    StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
-                    GameManager.Instance.CharacterControl = true;
-                });
+            //UserInterface.DialogSetActive(true);
+            //tutorialUI.attack.gameObject.SetActive(true);
+            //UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
+            //    () => {
+            //        GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
+            //        currentTutorial = TutorialEvent.Skill2;
+            //        //tutorialUI.move.gameObject.SetActive(true);
+            //        StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
+            //        GameManager.Instance.CharacterControl = true;
+            //    });
+
+
+            currentTutorial = TutorialEvent.Skill2;
+            StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
+            tutorialUI.attack.skill1.gameObject.SetActive(false);
+            tutorialUI.attack.skill2.gameObject.SetActive(true);
         }
 
         public void SetSkill3Event()
         {
-            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+            //GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            //var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
-            UserInterface.DialogSetActive(true);
-            tutorialUI.attack.gameObject.SetActive(true);
-            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
-                () => {
-                    GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
-                    currentTutorial = TutorialEvent.Skill3;
-                    //tutorialUI.move.gameObject.SetActive(true);
-                    StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
-                    GameManager.Instance.CharacterControl = true;
-                });
+            //UserInterface.DialogSetActive(true);
+            //tutorialUI.attack.gameObject.SetActive(true);
+            //UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
+            //    () => {
+            //        GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
+            //        currentTutorial = TutorialEvent.Skill3;
+            //        //tutorialUI.move.gameObject.SetActive(true);
+            //        StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
+            //        GameManager.Instance.CharacterControl = true;
+            //    });
+
+
+            currentTutorial = TutorialEvent.Skill3;
+            StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
+            tutorialUI.attack.skill2.gameObject.SetActive(false);
+            tutorialUI.attack.skill3.gameObject.SetActive(true);
         }
 
         public void SetTransformEvent()
         {
-            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+            //GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            //var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
-            UserInterface.DialogSetActive(true);
-            tutorialUI.attack.gameObject.SetActive(true);
-            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
-                () => {
-                    GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
-                    currentTutorial = TutorialEvent.Transform;
-                    //tutorialUI.move.gameObject.SetActive(true);
-                    StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
-                    GameManager.Instance.CharacterControl = true;
-                });
+            //UserInterface.DialogSetActive(true);
+            //tutorialUI.attack.gameObject.SetActive(true);
+            //UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
+            //    () => {
+            //        GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
+            //        currentTutorial = TutorialEvent.Transform;
+            //        //tutorialUI.move.gameObject.SetActive(true);
+            //        StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
+            //        GameManager.Instance.CharacterControl = true;
+            //    });
+
+            currentTutorial = TutorialEvent.Transform;
+            StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
+            tutorialUI.attack.skill3.gameObject.SetActive(false);
+            tutorialUI.attack.special.gameObject.SetActive(true);
         }
 
         void NextTutorial(TutorialEvent state)
