@@ -10,7 +10,9 @@ public class RedHatDISSOLVE : RedHatFSMState
     public override void BeginState()
     {
         base.BeginState();
-        
+
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(_manager.gameObject, sound.monsterDisAppear);
     }
 
     public override void EndState()
@@ -19,7 +21,10 @@ public class RedHatDISSOLVE : RedHatFSMState
 
         _time = 0;
         GameLib.DissoveActive(_manager.materialList, false);
-        
+
+        useGravity = true;
+        _manager.CC.detectCollisions = true;
+
         MonsterPoolManager._Instance._RedHat.ItemReturnPool(gameObject, MonsterType.RedHat);
     }
 

@@ -20,7 +20,8 @@ namespace MC.Sound
     {
         public static MCSoundManager Instance;
 
-        public static int SoundCall = 0;
+        public static float SoundCall = 0;
+        public const float SoundSkill3Break = 0.4f;
 
         public ObjectSound objectSound;
         [SerializeField] private AkBank sound;
@@ -35,7 +36,12 @@ namespace MC.Sound
             else
                 return;
         }
-        
+
+        private void Update()
+        {
+            SoundCall += Time.deltaTime;
+        }
+
         public static void LoadBank()
         {
             Instance.sound.HandleEvent(Instance.gameObject);

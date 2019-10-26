@@ -25,9 +25,16 @@ public class MissionEnter : MonoBehaviour
                 MissionManager.Instance.CurrentMission.startImage.gameObject.SetActive(true);
                 MissionManager.Instance.CurrentMission.startImage.GetComponent<Animator>().Play("play");
 
+                Invoke("CanvasOff", 5f);
+
                 MissionManager.StartMission();
                 GameStatus.SetCurrentGameState(CurrentGameState.Start);
             }
         }
+    }
+
+    public void CanvasOff()
+    {
+        MissionManager.Instance.CurrentMission.startImage.gameObject.SetActive(false);
     }
 }

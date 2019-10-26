@@ -10,7 +10,6 @@ public class PlayerIDLE : FSMState
         base.BeginState();
         _manager.isIDLE = true;
         _manager.isCantMove = false;
-
         _manager.CurrentIdle = Random.Range((int)1, (int)4);
     }
 

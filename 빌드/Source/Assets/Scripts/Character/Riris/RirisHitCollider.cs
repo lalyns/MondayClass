@@ -59,9 +59,13 @@ public class RirisHitCollider : MonoBehaviour
         riris.Stat.TakeDamage(playerStat, damage);
         //CharacterStat.ProcessDamage(playerStat, riris.Stat, damage);
 
+        if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)
+        {
+            var sound = GetComponentInParent<MonsterSound>().monsterSFX;
+            sound.PlayMonsterSFX(this.gameObject, sound.attackSFX[value]);
 
-        var sound = GetComponentInParent<MonsterSound>().monsterSFX;
-        sound.PlayMonsterSFX(this.gameObject, sound.attackSFX[value]);
+            if (attackType == AttackType.SKILL3) MCSoundManager.SoundCall = 0;
+        }
 
         //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);

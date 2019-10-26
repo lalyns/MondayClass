@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.Mission;
+using MC.Sound;
+
 public class TiberPOPUP : TiberFSMState
 {
     float _PopUpTime = 2.0f;
@@ -43,6 +45,14 @@ public class TiberPOPUP : TiberFSMState
         GameLib.DissoveActive(_manager.materialList, false);
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));
         GetComponentInChildren<TiberHitCollider>().capsule.enabled = true;
+
+        if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)
+        {
+            var sound = _manager._Sound.monsterSFX;
+            sound.PlayMonsterSFX(_manager.gameObject, sound.monsterAppear);
+            MCSoundManager.SoundCall = 0f;
+        }
+
     }
 
     protected override void Update()

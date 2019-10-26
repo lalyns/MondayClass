@@ -10,12 +10,18 @@ public class TiberDISSOLVE : TiberFSMState
     public override void BeginState()
     {
         base.BeginState();
+
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(_manager.gameObject, sound.monsterDisAppear);
+
     }
 
     public override void EndState()
     {
         base.EndState();
 
+        useGravity = true;
+        _manager.CC.detectCollisions = true;
         _time = 0;
         
         GameLib.DissoveActive(_manager.materialList, false);

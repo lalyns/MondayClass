@@ -28,9 +28,6 @@ public class MacDEAD : MacFSMState
     {
         base.EndState();
 
-        useGravity = true;
-        _manager.CC.detectCollisions = true;
-
         GameStatus.Instance.RemoveActivedMonsterList(gameObject);
 
         _manager.agent.speed = 0;
