@@ -34,6 +34,11 @@ namespace MC.Sound
                     GameManager.Instance.config.soundActive.all)
                     sfx.Post(go);
             }
+
+            public void StopMonsterSFX(GameObject go, AK.Wwise.Event sfx)
+            {
+                sfx.Stop(go);
+            }
         }
 
         [System.Serializable]

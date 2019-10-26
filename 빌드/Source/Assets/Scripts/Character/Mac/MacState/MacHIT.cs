@@ -31,6 +31,9 @@ public class MacHIT : MacFSMState
 
         StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
 
+        var voice = _manager._Sound.monsterVoice;
+        voice.PlayMonsterVoice(this.gameObject, voice.macDamageVoice);
+
         _manager.agent.acceleration = 0;
         _manager.agent.velocity = Vector3.zero;
 

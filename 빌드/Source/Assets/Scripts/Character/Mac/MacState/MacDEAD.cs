@@ -14,7 +14,8 @@ public class MacDEAD : MacFSMState
         StartCoroutine(GameLib.Dissolving(_manager.materialList));
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));
 
-
+        var voice = _manager._Sound.monsterVoice;
+        voice.PlayMonsterVoice(this.gameObject, voice.macDieVoice);
 
         useGravity = false;
         _manager.CC.detectCollisions = false;

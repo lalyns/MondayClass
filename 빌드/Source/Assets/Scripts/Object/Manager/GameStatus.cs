@@ -173,7 +173,7 @@ public class GameStatus : MonoBehaviour
                 SummonReady(MonsterType.RedHat);
             }
 
-            if (Input.GetKeyDown(KeyCode.H))
+            if (Input.GetKeyDown(KeyCode.Y))
             {
                 SummonReady(MonsterType.Mac);
             }

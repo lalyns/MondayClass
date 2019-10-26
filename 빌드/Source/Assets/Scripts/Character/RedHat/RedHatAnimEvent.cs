@@ -59,7 +59,7 @@ public class RedHatAnimEvent : MonoBehaviour
         var sound = FSMManager.sound.monsterSFX;
         sound.PlayMonsterSFX(this.gameObject, sound.redhatAttack);
 
-        var voice = _manager.sound.monsterVoice;
+        var voice = FSMManager.sound.monsterVoice;
         voice.PlayMonsterVoice(this.gameObject, voice.redhatAttackVoice);
     }
 

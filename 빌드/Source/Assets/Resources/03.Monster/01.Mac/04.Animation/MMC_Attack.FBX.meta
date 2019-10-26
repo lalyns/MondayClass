@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fc9d06e785c1a0b46874631222adfffd
+guid: 8ffe57b3ffd280b45a83a61e9056fbb2
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -101,7 +101,7 @@ ModelImporter:
     2100010: 'Material #38'
     2100012: 03 - Default
     4300000: Mack Monster
-    7400000: MM01_Attack_001
+    7400000: Attack
     9500000: //RootNode
     13700000: Mack Monster
   externalObjects: {}
@@ -133,10 +133,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: MM01_Attack_001
-      takeName: MM01_Attack_001
+      name: Attack
+      takeName: MM01_Attack_002
       firstFrame: 0
-      lastFrame: 123
+      lastFrame: 122
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -156,8 +156,24 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.36012864
-        functionName: CastingSkill
+      - time: 0.29106894
+        functionName: CastingAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 92c3d410a082ae045a1373bdde6bc519,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.99016166
+        functionName: AttackOver
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 92c3d410a082ae045a1373bdde6bc519,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4748927
+        functionName: CastAttack
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 92c3d410a082ae045a1373bdde6bc519,
           type: 3}
