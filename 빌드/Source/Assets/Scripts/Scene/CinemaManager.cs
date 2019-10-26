@@ -28,7 +28,7 @@ namespace MC.SceneDirector
             }
             else
             {
-                Destroy(this.gameObject);
+                return;
             }
         }
 

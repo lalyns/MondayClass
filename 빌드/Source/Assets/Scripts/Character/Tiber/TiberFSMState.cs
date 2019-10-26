@@ -28,7 +28,9 @@ public class TiberFSMState : MonoBehaviour
 
     protected virtual void Update()
     {
-        HPUI();
+
+        if (GameManager.Instance.uIActive.monster)
+            HPUI();
     }
 
     public void HPUI()
@@ -52,6 +54,7 @@ public class TiberFSMState : MonoBehaviour
             gravity.y = Physics.gravity.y * Time.deltaTime;
 
             _manager.CC.Move(gravity);
+
         }
     }
 

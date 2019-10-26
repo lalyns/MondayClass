@@ -6,16 +6,28 @@ public class TiberATTACK3 : TiberFSMState
 {
     public float _time;
     bool _IsSpread = false;
+
+    Vector3 playerTrans;
     public override void BeginState()
     {
         base.BeginState();
 
         _manager.Attack3Effect.SetActive(true);
+
+
+        _manager.agent.velocity = Vector3.zero;
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.acceleration = 4f;
     }
 
     public override void EndState()
     {
         base.EndState();
+
+        _manager.agent.velocity = Vector3.zero;
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.acceleration = 4f;
+        _manager.agent.isStopped = true;
 
         _manager.Attack3Effect.SetActive(false);
         _time = 0;
@@ -23,6 +35,7 @@ public class TiberATTACK3 : TiberFSMState
     protected override void Update()
     {
         base.Update();
+        playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
 
         _time += Time.deltaTime;
 
@@ -34,44 +47,44 @@ public class TiberATTACK3 : TiberFSMState
         }
         if( _time < 6 && _time >= 1)
         {
-            Vector3 playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
+            _manager.agent.destination = playerTrans;
 
-            _manager.CC.transform.LookAt(playerTrans);
-
-
-            Vector3 moveDir = (playerTrans
-                - _manager.CC.transform.position).normalized;
-
-            moveDir.y = 0;
-
-            if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
-            {
-                Vector3 correctDir = Vector3.zero;
-                if (!_IsSpread)
-                {
-                    correctDir = DecideSpreadDirection();
-                    _IsSpread = true;
-                }
-
-                moveDir += correctDir;
+            if (_manager.agent.remainingDistance >= 3f) {
+                _manager.agent.isStopped = false;
+            } else {
+                _manager.agent.isStopped = true;
             }
 
-            _manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * 1.3f * Time.deltaTime);
+            //Vector3 playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
+
+            //_manager.CC.transform.LookAt(playerTrans);
+
+
+            //Vector3 moveDir = (playerTrans
+            //    - _manager.CC.transform.position).normalized;
+
+            //moveDir.y = 0;
+
+            //if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
+            //{
+            //    Vector3 correctDir = Vector3.zero;
+            //    if (!_IsSpread)
+            //    {
+            //        correctDir = DecideSpreadDirection();
+            //        _IsSpread = true;
+            //    }
+
+            //    moveDir += correctDir;
+            //}
+
+            //_manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * 1.3f * Time.deltaTime);
         }
     }
     public void AttackSupport()
     {
         UserInterface.Instance.UIPlayer.hpBar.HitBackFun();
     }
-    private Vector3 DecideSpreadDirection()
-    {
-        Vector3 correctDir;
-
-        correctDir = UnityEngine.Random.Range(1, 100) % 2 == 0 ? transform.right : -transform.right;
-        correctDir += transform.forward;
-
-        return correctDir;
-    }
+   
 
 
     protected override void FixedUpdate()

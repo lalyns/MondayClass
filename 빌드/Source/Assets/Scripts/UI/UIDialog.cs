@@ -6,48 +6,99 @@ using UnityEngine.UI;
 namespace MC.UI
 {
     [System.Serializable]
-    public class Dialog
-    {
-        public string[] dialog;
-    }
-
-    [System.Serializable]
     public class DialogUI
     {
         public GameObject gameObject;
-        public Text text;
+        public Text conversation;
+        public Image rightStanding;
+        public Image leftStanding;
+        public Image textUI;
+    }
+
+    public enum TalkerType
+    {
+        Galaxy,
+        Staff,
+        Riris,
+        None,
+        End,
     }
 
     public class UIDialog : MonoBehaviour
     {
-        public Dialog dialog;
+        public DialogUI dialogUI;
 
-        public DialogUI player;
-        public DialogUI boss;
+        public TalkerType currentTalker = TalkerType.None;
 
-        public DialogUI currentLog;
+        public Dialog currentDialog;
+        public int dialogLength = 0;
+        int currentTurn = 1;
 
-        public int currentLogNum;
+        public Sprite[] standing;
+        public Sprite[] text;
 
-        public void Start()
+        System.Action NextAction;
+
+        public void SetNextAction(System.Action action)
         {
-            currentLog = player;
+            NextAction = action;
         }
 
-        public void SetDialogText(DialogUI value)
+        public void SetDialog(Dialog dialog, System.Action action)
         {
-            currentLog = value;
+            CharacterStop();
+            currentDialog = dialog;
+            dialogLength = currentDialog.talker.Count;
+            currentTurn = 1;
+            SetNextAction(action);
+            SetDialog(0);
+
+            var voice = MC.Sound.MCSoundManager.Instance.objectSound.dialogVoice;
+            voice.PlaySound(MC.Sound.MCSoundManager.Instance.gameObject, voice.voice[currentDialog.voice[0]]);
         }
 
-        public void SetDialog(string text)
+        public void NextDialog()
         {
-            currentLog.text.text = text;
-            currentLogNum++;
+            if(currentTurn < dialogLength)
+            {
+                SetDialog(currentTurn);
+                currentTurn++;
+            }
+            else
+            {
+                EndDialog();
+            }
         }
 
-        public int CurrentDialogLength()
+        public void SetDialog(int turn)
         {
-            return dialog.dialog.Length;
+            currentTalker = currentDialog.talker[turn];
+            dialogUI.conversation.text = currentDialog.dialog[turn];
+            dialogUI.rightStanding.sprite = standing[currentDialog.right[turn]];
+            dialogUI.leftStanding.sprite = standing[currentDialog.left[turn]];
+            dialogUI.textUI.sprite = text[currentDialog.text[turn]];
+
+            var voice = MC.Sound.MCSoundManager.Instance.objectSound.dialogVoice;
+            voice.PlaySound(MC.Sound.MCSoundManager.Instance.gameObject, voice.voice[currentDialog.voice[turn]]);
+        }
+
+        public void CharacterStop()
+        {
+            GameManager.Instance.CharacterControl = false;
+            PlayerFSMManager.Instance.vertical = 0;
+            PlayerFSMManager.Instance.horizontal = 0;
+            PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
+        }
+
+        public void EndDialog()
+        {
+            GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+            UserInterface.DialogSetActive(false);
+            UserInterface.BlurSet(false);
+            GameManager.Instance.AfterDialog();
+            GameManager.Instance.CharacterControl = true;
+            NextAction();
+            NextAction = null;
         }
     }
 

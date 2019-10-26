@@ -16,16 +16,33 @@ public class RedHatPOPUP : RedHatFSMState
 
         _PopupEffect.SetActive(true);
         _PopupEffect.GetComponentInChildren<ParticleSystem>().Play();
-        _PopupEffect.GetComponent<Animator>().Play("Ani");
+        _PopupEffect.GetComponentInChildren<Animator>().Play("PopUpEffect");
 
         TargetPrioritySet();
+        _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
+
+        _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+
+        _manager.agent.speed = 4;
+        _manager.agent.angularSpeed = 120;
     }
 
+    public void PopupReset()
+    {
+        _manager.isDead = false;
+        GameLib.DissoveActive(_manager.materialList, false);
+        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
+        GetComponentInChildren<RedHatHitCollider>().capsule.enabled = true;
+    }
+
+    private void Start()
+    {
+        GetComponentInChildren<RedHatHitCollider>().capsule.enabled = true;
+    }
     public override void EndState()
     {
         base.EndState();
 
-        _manager.isDead = false;
     }
 
     protected override void FixedUpdate()
@@ -35,28 +52,40 @@ public class RedHatPOPUP : RedHatFSMState
 
     private void TargetPrioritySet()
     {
-        if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
+        if (GameStatus.currentGameState == CurrentGameState.EDITOR)
         {
-
-            Collider[] allTarget = Physics.OverlapSphere(this.transform.position, _manager._DetectingRange);
-
-            foreach (Collider target in allTarget)
-            {
-                if (target.tag == "Player")
-                {
-                    _manager._PriorityTarget = PlayerFSMManager.
-                        Instance.GetComponentInChildren<Animator>()
-                        .GetComponent<Collider>();
-                    break;
-                }
-                else
-                {
-                    MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
-                    _manager._PriorityTarget = mission.protectedTarget.Collider;
-                }
-            }
+            _manager._PriorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
+            return;
         }
-        else
+
+        if (GameStatus.currentGameState == CurrentGameState.Tutorial)
+        {
+            _manager._PriorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
+            return;
+        }
+
+        //if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
+        //{
+
+        //    Collider[] allTarget = Physics.OverlapSphere(this.transform.position, _manager._DetectingRange);
+
+        //    foreach (Collider target in allTarget)
+        //    {
+        //        if (target.tag == "Player")
+        //        {
+        //            _manager._PriorityTarget = PlayerFSMManager.
+        //                Instance.GetComponentInChildren<Animator>()
+        //                .GetComponent<Collider>();
+        //            break;
+        //        }
+        //        else
+        //        {
+        //            MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
+        //            _manager._PriorityTarget = mission.protectedTarget.Collider;
+        //        }
+        //    }
+        //}
+        //else
         {
             _manager._PriorityTarget = PlayerFSMManager.
                 Instance.GetComponentInChildren<Animator>()

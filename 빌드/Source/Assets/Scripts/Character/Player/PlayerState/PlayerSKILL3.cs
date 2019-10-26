@@ -20,12 +20,15 @@ public class PlayerSKILL3 : FSMState
         _manager.Skill3_Capsule.enabled = false;
 
         _manager.Skill2_Test.SetActive(false);
+        _manager.Skill2_Test2.SetActive(false);
         _manager.isSkill2End = false;
 
         var voice = _manager._Sound.voice;
         voice.PlayPlayerVoice(this.gameObject, voice.skill3CastVoice);
 
-        _manager.mouseSpeed = 10f;
+        _manager.mouseSpeed = _manager.Skill3MouseSpeed;
+
+        _manager.isSkill2 = false;
     }
 
     public override void EndState()
@@ -63,7 +66,10 @@ public class PlayerSKILL3 : FSMState
     public bool isMax, isMin;
     private void Update()
     {
+
         StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.03f, 0.1f));
+
+
         //1.7초동안 못움직임.
         _manager.isCantMove = _time <= 4.7f ? true : false;
 

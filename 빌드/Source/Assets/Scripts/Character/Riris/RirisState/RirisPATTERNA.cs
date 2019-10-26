@@ -10,14 +10,14 @@ public class RirisPATTERNA : RirisFSMState
     public bool SetJumpState = false;
 
     public float targetSetDelay = 1.3f;
-    public float stompDelay = 1.5f;
+    public float stompDelay = 0.5f;
 
     float stompCount = 0;
 
     public bool PatternEnd = false;
 
-    Transform playerTransform;
-    Vector3 targetPos;
+    public Transform playerTransform;
+    public Vector3 targetPos;
 
     public ObjectPool bulletPool;
     public Transform bulletPos;
@@ -27,21 +27,38 @@ public class RirisPATTERNA : RirisFSMState
     {
         base.BeginState();
 
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTransform = PlayerFSMManager.Instance.Anim.transform;
         _manager._Weapon.gameObject.SetActive(true);
         _manager._Weapon.transform.position = this.transform.position;
         _manager._Weapon.transform.rotation = this.transform.rotation;
+
 
         SetJumpState = false;
         PatternEnd = false;
         useGravity = false;
 
+        var sound = _manager.sound.ririsVoice;
+        sound.PlayRirisVoice(this.gameObject, sound.stomp);
+
+        _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
+        _manager._Weapon.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager._Weapon.transform));
+
         stompCount = 0;
 
         if (_manager._Phase >= 1)
         {
+            
+
+            var randPos = UnityEngine.Random.Range(0, MissionManager.Instance.CurrentMission.MapGrid.mapPositions.Count);
+            var pos = MissionManager.Instance.CurrentMission.MapGrid.mapPositions[randPos];
+
+            _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
+
             _manager.Anim.Play("PatternC");
         }
+        
+        
+        _manager._WeaponAnimator.Play("Weapon_Skill1_Jump");
 
     }
 
@@ -49,16 +66,14 @@ public class RirisPATTERNA : RirisFSMState
     {
         base.EndState();
 
-        _manager._Weapon.gameObject.SetActive(false);
         _manager.Anim.SetBool("Stomp", false);
         _manager._WeaponAnimator.SetBool("Stomp", false);
         _PatternAAttackEffect.SetActive(false);
         SetJumpState = false;
         PatternEnd = false;
         useGravity = true;
-
         stompCount = 0;
-
+        _manager._Weapon.gameObject.SetActive(false);
     }
 
     protected override void Update()
@@ -67,15 +82,7 @@ public class RirisPATTERNA : RirisFSMState
 
         if (SetJumpState) {
             stompCount += Time.deltaTime;
-
-            if (stompCount < targetSetDelay)
-            {
-                targetPos = playerTransform.position;
-            }
-            _PatternAReadyEffect.SetActive(true);
-            _PatternAReadyEffect.transform.position = targetPos;
         }
-
 
         if (stompCount > stompDelay) {
             Stomp();
@@ -92,20 +99,23 @@ public class RirisPATTERNA : RirisFSMState
 
     public override void Start()
     {
-        bulletPool = EffectPoolManager._Instance._BossBulletPool;
+        bulletPool = BossEffects.Instance.bullet;
     }
 
     void BulletPattern()
     {
-        transform.LookAt(_manager.PlayerCapsule.transform);
+        _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         foreach (Transform t in positionB)
         {
-            bulletPool.ItemSetActive(t, false);
+            GameObject bullet = bulletPool.ItemSetActive(t.position);
+            bullet.GetComponent<RirisBullet>().SetBullet(bulletPos.position, false);
         }
     }
 
     public IEnumerator AddBullet()
     {
+        var sound = _manager.sound.ririsVoice;
+        sound.PlayRirisVoice(this.gameObject, sound.batswarm1);
         bulletPos.position = _manager.Pevis.transform.position;
 
         for (int i = 0; i < 4; i++)
@@ -119,12 +129,14 @@ public class RirisPATTERNA : RirisFSMState
     {
         _PatternAReadyEffect.SetActive(false);
 
-        if(_manager._Phase < 1)
+
+        if (_manager._Phase < 1)
             transform.position = targetPos;
 
         _manager._Weapon.position = targetPos;
-
+        
         _PatternAAttackEffect.SetActive(true);
+        _PatternAAttackEffect.transform.position = targetPos;
 
         ParticleSystem[] particleSystems = _PatternAAttackEffect.GetComponentsInChildren<ParticleSystem>();
         foreach(ParticleSystem p in particleSystems)

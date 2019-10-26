@@ -17,24 +17,27 @@ public class RirisPATTERNC : RirisFSMState
 
     public override void Start()
     {
-        bulletPool = EffectPoolManager._Instance._BossBulletPool;
+        bulletPool = BossEffects.Instance.bullet;
         init = bulletPos.rotation;
     }
 
     void BulletPatternA()
     {
-        transform.LookAt(_manager.PlayerCapsule.transform);
-        foreach (Transform t in positionA) {
-            bulletPool.ItemSetActive(t, true);
+        _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
+        foreach (Transform t in positionA)
+        {
+            GameObject bullet = bulletPool.ItemSetActive(t.position);
+            bullet.GetComponent<RirisBullet>().SetBullet(bulletPos.position, true);
         }
     }
 
     void BulletPatternB()
     {
-        transform.LookAt(_manager.PlayerCapsule.transform);
+        _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         foreach (Transform t in positionB)
         {
-            bulletPool.ItemSetActive(t, true);
+            GameObject bullet = bulletPool.ItemSetActive(t.position);
+            bullet.GetComponent<RirisBullet>().SetBullet(bulletPos.position, true);
         }
     }
 
@@ -44,13 +47,13 @@ public class RirisPATTERNC : RirisFSMState
 
         useGravity = false;
 
-        transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
+        _manager.transform.position = MissionManager.Instance.CurrentMission.MapGrid.center.position;
+        _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.transform));
     }
 
     public override void EndState()
     {
         base.EndState();
-
         useGravity = true;
     }
 
@@ -61,8 +64,8 @@ public class RirisPATTERNC : RirisFSMState
 
     public IEnumerator FireBullet()
     {
-        bulletPos.position = _manager.Pevis.transform.position;
-
+        var sound = _manager.sound.ririsVoice;
+        sound.PlayRirisVoice(this.gameObject, sound.batswarm2);
         for (int i = 0; i < 4; i++)
         {
             BulletPatternB();

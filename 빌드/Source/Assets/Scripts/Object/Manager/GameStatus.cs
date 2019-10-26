@@ -8,11 +8,17 @@ using MC.SceneDirector;
 
 public enum CurrentGameState
 {
-    Title,
-    Tutorial,
+    Loading,
     Start,
+    Select,
+    Wait,
     Dialog,
-    VideoProduct,
+    Pause,
+    MissionClear,
+    Dead,
+    Tutorial,
+    Product,
+    EDITOR,
 }
 
 public class GameStatus : MonoBehaviour
@@ -44,7 +50,12 @@ public class GameStatus : MonoBehaviour
 
     bool dummySet = false;
 
-    public static CurrentGameState currentGameState;
+    bool isPause = false;
+
+    public static CurrentGameState currentGameState = CurrentGameState.Start;
+    public static CurrentGameState prevState = CurrentGameState.Start;
+
+    float timer = 0;
 
     public void Awake()
     {
@@ -59,7 +70,7 @@ public class GameStatus : MonoBehaviour
         }
         else
         {
-
+            return;
         }
     }
 
@@ -140,7 +151,7 @@ public class GameStatus : MonoBehaviour
             MissionA missionA = MissionManager.Instance.CurrentMission as MissionA;
 
             if(missionA.currentWave < missionA.totalWave)
-                missionA.Invoke( "MonsterCheck", 5f);
+                missionA.Invoke("MonsterCheck", 5f);
             else if(missionA.currentWave == missionA.totalWave)
                 missionA.ClearMission();
         }
@@ -149,20 +160,22 @@ public class GameStatus : MonoBehaviour
         ActivedMonsterList.Clear();
     }
 
-    int dialogNum = 0;
+    MonsterType summonType;
     public void Update()
     {
-        if(currentGameState == CurrentGameState.Dialog)
-        {
-
-        }
-
+        //if (Time.timeScale == 0 && Input.anyKey) return;
+        
         // 유니티 에디터에서 작동하는 에디터 기능
-        if (Input.GetKey(KeyCode.LeftAlt))
+        if (Input.GetKey(KeyCode.LeftAlt) /*&& currentGameState == CurrentGameState.Start*/)
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
-                SummonReady();
+                SummonReady(MonsterType.RedHat);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                SummonReady(MonsterType.Mac);
             }
 
             if (Input.GetKeyDown(KeyCode.X))
@@ -171,50 +184,118 @@ public class GameStatus : MonoBehaviour
                 RemoveAllActiveMonster();
             }
 
-            if (Input.GetKey(KeyCode.LeftAlt))
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                if (Input.GetKeyDown(KeyCode.C))
-                {
-                    MissionManager.Instance.CurrentMission.ClearMission();
-                    MissionManager.Instance.CurrentMission.missionEnd = true;
-                }
+                PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
+                PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
+                MissionManager.Instance.CurrentMission.ClearMission();
+                MissionManager.Instance.CurrentMission.missionEnd = true;
+            }
 
+            if(Input.GetKeyDown(KeyCode.U))
+            {
+                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
             if (Input.GetKeyDown(KeyCode.I))
             {
-                GameManager.Instance.OnInspectating = !GameManager.Instance.OnInspectating;
+                MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.O))
             {
-                PlayerFSMManager.Instance.SpecialGauge = 100.0f;
-            }
-
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-
-                UserInterface.SetPlayerUserInterface(false);
-                MCSceneManager.Instance.NextScene(MCSceneManager.BOSS);
+                MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
             if (Input.GetKeyDown(KeyCode.P))
             {
-                MCSoundManager.SetSound();
+                MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, "Bgm_SceneSwitch_Fade_Out", 1f, true);
             }
 
-            //if(Input.GetKeyDown(KeyCode.Mouse0) ||
-            //    Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                GameManager.Instance.OnInspectating = !GameManager.Instance.OnInspectating;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                PlayerFSMManager.Instance.SpecialGauge = 100.0f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                MissionManager.ExitMission();
+                MissionManager.PopUpMission();
+            }
+
+            //if (Input.GetKeyDown(KeyCode.P))
             //{
-
-
-            //    UserInterface.Instance.Dialog.SetDialog(UserInterface.Instance.Dialog.dialog.dialog[dialogNum++]);
-
-            //    if(dialogNum >= 3)
-            //    {
-            //        dialogNum = 0;
-            //    }
+            //    MCSoundManager.SetSound();
             //}
+
+        }
+
+        timer += Time.deltaTime;
+        if(timer >= 3f)
+        {
+            GameStatusCheck();
+            timer = 0;
+        }
+
+        if(currentGameState == CurrentGameState.Dialog)
+        {
+            if(Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Space))
+            {
+                UserInterface.Instance.Dialog.NextDialog();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("Press");
+            if (
+            MCSceneManager.currentScene != MCSceneManager.TITLE &&
+            currentGameState != CurrentGameState.Loading &&
+            currentGameState != CurrentGameState.Dialog &&
+            currentGameState != CurrentGameState.Product && 
+            currentGameState != CurrentGameState.MissionClear)
+            {
+                isPause = !isPause;
+                Debug.Log("Press Escape : " + isPause);
+                CanvasInfo.PauseMenuActive(isPause);
+                GameManager.Instance.IsPuase = isPause;
+                UserInterface.BlurSet(isPause, 10f);
+                SetCurrentGameState(isPause ? CurrentGameState.Pause : prevState);
+            }
+
+            if(currentGameState == CurrentGameState.Product)
+            {
+                if (MCSceneManager.currentScene == MCSceneManager.BOSS)
+                {
+                    BossDirector.Instance.PlayScene();
+                }
+                if (MCSceneManager.currentScene == MCSceneManager.TITLE)
+                {
+                    FindObjectOfType<TitleCutScene>().CineEnd();
+                }
+            }
+        }
+
+
+        if (GameStatus.currentGameState != CurrentGameState.Product)
+        {
+            if (UserInterface.Instance.ClearMission.gameObject.activeSelf &&
+                (Input.GetKeyDown(KeyCode.Space) ||
+                Input.GetKeyDown(KeyCode.Mouse0)))
+            {
+
+                UserInterface.Instance.ClearMission.gameObject.SetActive(false);
+                currentGameState = CurrentGameState.Wait;
+
+                PlayerFSMManager.Instance.GetComponent<PlayerCLEAR>().CMSet.gameObject.SetActive(false);
+                PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
+                PlayerFSMManager.Instance.mainCamera.gameObject.SetActive(true);
+            }
         }
 
         if (dummySet)
@@ -223,43 +304,37 @@ public class GameStatus : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                SummonMonster();
+                SummonMonster(summonType);
             }
         }
 
 #if UNITY_STANDALONE
 
 #endif
-        try
+        if (currentGameState == CurrentGameState.Start &&
+            MissionManager.Instance.CurrentMission.MissionOperate && 
+            !MissionManager.Instance.CurrentMission.missionEnd)
         {
-            if (MissionManager.Instance.CurrentMission.MissionOperate)
-            {
-                _LimitTime -= Time.deltaTime;
-            }
+            _LimitTime -= Time.deltaTime;
         }
-        catch
-        {
+    }
 
-        }
+    void GameStatusCheck()
+    {
 
+        Debug.Log(GameStatus.currentGameState.ToString());
     }
 
     public static void SetCurrentGameState(CurrentGameState state)
     {
+        prevState = currentGameState;
         currentGameState = state;
     }
 
-    public void CheckDialog()
-    {
-        if(UserInterface.Instance.Dialog.currentLogNum == UserInterface.Instance.Dialog.CurrentDialogLength())
-        {
-
-        }
-    }
-
-    public void SummonReady()
+    public void SummonReady(MonsterType type)
     {
         //Debug.Log("지정소환준비");
+        summonType = type;
         dummySet = true;
         _EditorMode = true;
         _DummyLocationEffect.SetActive(true);
@@ -282,11 +357,26 @@ public class GameStatus : MonoBehaviour
     }
 
     // 몬스터 지정소환
-    public void SummonMonster()
+    public void SummonMonster(MonsterType type)
     {
-        MonsterPoolManager._Instance._Mac.ItemSetActive(
-            _DummyLocationEffect.transform,
-            "monster");
+        switch(type)
+        {
+            case MonsterType.RedHat:
+                MonsterPoolManager._Instance._RedHat.ItemSetActive(
+                    _DummyLocationEffect.transform.position,
+                    MonsterType.RedHat);
+                break;
+            case MonsterType.Mac:
+                MonsterPoolManager._Instance._Mac.ItemSetActive(
+                    _DummyLocationEffect.transform.position,
+                    MonsterType.Mac);
+                break;
+            case MonsterType.Tiber:
+                MonsterPoolManager._Instance._Tiber.ItemSetActive(
+                    _DummyLocationEffect.transform.position,
+                    MonsterType.Tiber);
+                break;
+        }
         dummySet = false;
         _DummyLocationEffect.SetActive(false);
         UserInterface.SetPointerMode(false);

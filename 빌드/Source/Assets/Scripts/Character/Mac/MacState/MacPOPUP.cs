@@ -14,19 +14,35 @@ public class MacPOPUP : MacFSMState
 
         EffectPlay();
         TargetPrioritySet();
+        _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
+        _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        _manager.agent.speed = 3.5f;
+        _manager.agent.angularSpeed = 60;
+    }
+    
+    public void PopupReset()
+    {
+        _manager.isDead = false;
+        GameLib.DissoveActive(_manager.materialList, false);
+        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
+        GetComponentInChildren<MacHitCollider>().capsule.enabled = true;
+    }
+
+    private void Start()
+    {
+        GetComponentInChildren<MacHitCollider>().capsule.enabled = true;
     }
 
     public override void EndState()
     {
         base.EndState();
-        _manager.isDead = false;
     }
 
     private void EffectPlay()
     {
         _manager._PopupEffect.SetActive(true);
         _manager._PopupEffect.GetComponentInChildren<ParticleSystem>().Play();
-        _manager._PopupEffect.GetComponent<Animator>().Play("Ani");
+        _manager._PopupEffect.GetComponentInChildren<Animator>().Play("PopUpEffect");
     }
 
     protected override void FixedUpdate()
@@ -34,28 +50,26 @@ public class MacPOPUP : MacFSMState
         base.FixedUpdate();
     }
 
+
+
     private void TargetPrioritySet()
     {
+        if(GameStatus.currentGameState == CurrentGameState.EDITOR)
+        {
+            _manager._PriorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
+            return;
+        }
+
+        if (GameStatus.currentGameState == CurrentGameState.Tutorial)
+        {
+            _manager._PriorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
+            return;
+        }
+
         if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
         {
-
-            Collider[] allTarget = Physics.OverlapSphere(this.transform.position, _manager._DetectingRange);
-
-            foreach (Collider target in allTarget)
-            {
-                if (target.tag == "Player")
-                {
-                    _manager._PriorityTarget = PlayerFSMManager.
-                        Instance.Anim
-                        .GetComponent<Collider>();
-                    break;
-                }
-                else
-                {
-                    MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
-                    _manager._PriorityTarget = mission.protectedTarget.Collider;
-                }
-            }
+            MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
+            _manager._PriorityTarget = mission.protectedTarget.Collider;
         }
         else
         {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
+using MC.Sound;
 using MC.Mission;
 using MC.SceneDirector;
 
@@ -19,6 +20,11 @@ namespace MC.UI
             if (instance == null)
             {
                 instance = GetComponent<UserInterface>();
+                SetValue();
+            }
+            else
+            {
+                return;
             }
         }
 
@@ -31,7 +37,6 @@ namespace MC.UI
 
         private void Start()
         {
-            SetValue();
         }
 
         #region Canvas Control Function
@@ -118,11 +123,13 @@ namespace MC.UI
         {
             if (!activeAllUI) { return; }
 
+            //SetValue();
+
             if (activePlayerUI) {
                 PlayerUI();
             }
 
-            if (activeMissionProgressUI) {
+            if (activeMissionProgressUI && GameStatus.currentGameState == CurrentGameState.Start) {
                 ProgressUI();
             }
 
@@ -143,16 +150,27 @@ namespace MC.UI
 
         private void PlayerUI()
         {
-            UIPlayer.ProfileImage(playerFSMMgr.isNormal);
+            try
+            {
+                UIPlayer.ProfileImage(playerFSMMgr.isNormal);
 
-            HPChangeEffect(playerFSMMgr.Stat, UIPlayer.hpBar);
-            UIPlayer.SpecialGauge(playerFSMMgr.SpecialGauge);
-            UIPlayer.DashSetActive();
+                HPChangeEffect(playerFSMMgr.Stat, UIPlayer.hpBar);
+                UIPlayer.HPValueText();
 
-            if (playerFSMMgr.isSkill1CTime) UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime);
-            if (playerFSMMgr.isSkill2CTime) UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime);
-            if (playerFSMMgr.isSkill3CTime) UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime);
-            if (playerFSMMgr.isSkill4CTime) UIPlayer.SkillSetActive(3, playerFSMMgr.Skill4CTime);
+                UIPlayer.SpecialGauge();
+                UIPlayer.DashSetActive();
+                UIPlayer.Skill4SetActive(!playerFSMMgr.isNormal && playerFSMMgr.isCanUltimate);
+                CanvasInfo.Instance.enemyHP.HpBarView();
+
+                UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime, playerFSMMgr.isSkill1CTime);
+                UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime, playerFSMMgr.isSkill2CTime);
+                UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime, playerFSMMgr.isSkill3CTime);
+                //if (playerFSMMgr.isSkill4CTime) UIPlayer.SkillSetActive(3, playerFSMMgr.Skill4CTime);
+            }
+            catch
+            {
+                SetValue();
+            }
         }
         #endregion
 
@@ -182,7 +200,7 @@ namespace MC.UI
 
             Cursor.lockState = mode ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = mode;
-            Instance.MousePointer.transform.gameObject.SetActive(mode);
+            //Instance.MousePointer.transform.gameObject.SetActive(mode);
         }
 
         private void PointerLocation()
@@ -204,33 +222,46 @@ namespace MC.UI
 
         public float FadeInOutSpeed = 10.0f;
 
-        public static IEnumerator FadeIn(System.Action callback, float speed = 10.0f, float delay = 0.15f)
+        public static IEnumerator FadeIn(System.Action callback, string soundRTPC, float duration = 3.0f, float speed = 10.0f)
         {
+            float startTime = Time.realtimeSinceStartup;
+            float realTime = startTime;
+
+            Instance.StartCoroutine(MCSoundManager.SoundFadeIn(soundRTPC, duration));
             var alpha = Instance.ScreenEffect.fading.image.color;
-            for (float i = 100; i >= 0;)
+
+            while (realTime <= startTime + duration)
             {
-                i -= speed;
-                var value = Mathf.Clamp01(i * 0.01f);
+                realTime = Time.realtimeSinceStartup;
+
+                var value = Mathf.Clamp01(1 - (realTime - startTime) / duration);
                 alpha.a = value;
                 Instance.ScreenEffect.fading.image.color = alpha;
 
-                yield return new WaitForSeconds(delay);
+                yield return new WaitForSeconds(0.1f);
             }
+
 
             yield return Instance.StartCoroutine(Instance.FadeInOutReturnValue(callback));
         }
 
-        public static IEnumerator FadeOut(System.Action callback, float speed = 10.0f, float delay = 0.15f)
+        public static IEnumerator FadeOut(System.Action callback, string soundRTPC, float duration = 3.0f, float speed = 10.0f)
         {
+            float startTime = Time.realtimeSinceStartup;
+            float realTime = startTime;
+
+            Instance.StartCoroutine(MCSoundManager.SoundFadeOut(soundRTPC, duration));
             var alpha = Instance.ScreenEffect.fading.image.color;
-            for (float i = 0; i <= 100;)
+
+            while (realTime <= startTime + duration)
             {
-                i += speed;
-                var value = Mathf.Clamp01(i * 0.01f);
+                realTime = Time.realtimeSinceStartup;
+
+                var value = Mathf.Clamp01((realTime - startTime) / duration);
                 alpha.a = value;
                 Instance.ScreenEffect.fading.image.color = alpha;
 
-                yield return new WaitForSeconds(delay);
+                yield return new WaitForSeconds(0.1f);
             }
 
             yield return Instance.StartCoroutine(Instance.FadeInOutReturnValue(callback));
@@ -243,9 +274,9 @@ namespace MC.UI
         }
 
         // Screen Effect : Blur
-        public static void BlurSet(bool isOn)
+        public static void BlurSet(bool isOn, float intensity = 20f)
         {
-            var value = isOn ? 20f : 0f;
+            var value = isOn ? intensity : 0f;
             Instance.ScreenEffect.blur.image.material.SetFloat("_Size", value);
 
             var color = isOn ? Instance.ScreenEffect.blur.color : Color.white;
@@ -276,8 +307,9 @@ namespace MC.UI
             Instance.FullMode.gameObject.SetActive(!value);
             Instance.SimpleMode.gameObject.SetActive(value);
             Instance.CurrentTimer = value ? Instance.SimpleMode.timeText : Instance.FullMode.timeText;
-            Instance.CurrentGoal = value ? Instance.SimpleMode.goalText : Instance.FullMode.goalText;
             Instance.CurrentTimeBack = value ? Instance.SimpleMode.timeImage : Instance.FullMode.timeImage;
+            Instance.CurrentGoal = value ? Instance.SimpleMode.goalText : Instance.FullMode.goalText;
+            Instance.CurrentGoalBack = value ? Instance.SimpleMode.goalImage : Instance.FullMode.goalImage;
             Instance.CurrentEffect = value ? Instance.SimpleMode.goalEffect : Instance.FullMode.goalEffect;
         }
 
@@ -291,14 +323,17 @@ namespace MC.UI
             }
         }
 
-        public static void FullModeSetMP()
+        public static void MissionSet()
         {
             Instance.FullMode.missionType.sprite =
                 Instance.missionMgr.CurrentMission.Data.MissionIcon;
             Instance.FullMode.missionText.text =
                 Instance.missionMgr.CurrentMission.Data.MissionText;
             Instance.FullMode.goalType.sprite =
-                Instance.missionMgr.CurrentMission.Data.MissionIcon;
+                Instance.missionMgr.CurrentMission.Data.GoalIcon;
+
+            instance.SimpleMode.goalType.sprite =
+                Instance.missionMgr.CurrentMission.Data.GoalIcon;
         }
 
         private ProgressSimpleUI _SimpleMode;
@@ -325,27 +360,34 @@ namespace MC.UI
         }
 
         private Text CurrentGoal;
+        private Image CurrentGoalBack;
         private ParticleSystem CurrentEffect;
         public void GoalEffectPlay()
         {
-            //CurrentEffect.Play();
+            CurrentEffect.Play();
         }
 
         private void SetGoal(MissionType type)
         {
             var text = "";
+            float goalValue = 0;
             switch (type)
             {
                 case MissionType.Annihilation:
+                    var missionA = missionMgr.CurrentMission as MissionA;
+                    goalValue = Mathf.Clamp01((float)GameStatus.Instance.ActivedMonsterList.Count /
+                        (float)missionA.waves[missionA.currentWave - 1].monsterTypes.Length);
                     text = "남은 몬스터 " + gameStatus.ActivedMonsterList.Count + " 마리";
                     break;
                 case MissionType.Survival:
-                    MissionB missionB = MissionManager.Instance.CurrentMission as MissionB;
-                    text = missionB.currentScore + " 개 / 5 개";
+                    var missionB = MissionManager.Instance.CurrentMission as MissionB;
+                    goalValue = Mathf.Clamp01((float)missionB.currentScore / (float)missionB.goalScore);
+                    text = missionB.currentScore + " 개 / " + missionB.goalScore + " 개";
                     break;
                 case MissionType.Defence:
                     MissionC missionC = MissionManager.Instance.CurrentMission as MissionC;
-                    text = "남은 기둥 체력 " + missionC.protectedTarget.hp + " / " + missionC._ProtectedTargetHP;
+                    goalValue = Mathf.Clamp01((float)missionC.protectedTarget.hp / (float)missionC._ProtectedTargetHP);
+                    text = "남은 체력 " + missionC.protectedTarget.hp + " / " + missionC._ProtectedTargetHP;
                     break;
                 case MissionType.Boss:
                     text = "리리스를 처치하시오";
@@ -353,22 +395,29 @@ namespace MC.UI
             }
 
             CurrentGoal.text = text;
+            CurrentGoalBack.fillAmount = goalValue;
         }
 
         private void SetSimpleGoal(MissionType type)
         {
             var text = "";
+            float goalValue = 0;
             switch (type)
             {
                 case MissionType.Annihilation:
-                    text = gameStatus.ActivedMonsterList.Count + " ";
+                    var missionA = missionMgr.CurrentMission as MissionA;
+                    goalValue = Mathf.Clamp01((float)GameStatus.Instance.ActivedMonsterList.Count /
+                        (float)missionA.waves[missionA.currentWave].monsterTypes.Length);
+                    text = gameStatus.ActivedMonsterList.Count + " / " + missionA.waves[missionA.currentWave].monsterTypes.Length;
                     break;
                 case MissionType.Survival:
                     MissionB missionB = MissionManager.Instance.CurrentMission as MissionB;
+                    goalValue = Mathf.Clamp01((float)missionB.currentScore / (float)missionB.goalScore);
                     text = missionB.currentScore + " / 5";
                     break;
                 case MissionType.Defence:
                     MissionC missionC = MissionManager.Instance.CurrentMission as MissionC;
+                    goalValue = Mathf.Clamp01((float)missionC.protectedTarget.hp / (float)missionC._ProtectedTargetHP);
                     text = missionC.protectedTarget.hp + " / " + missionC._ProtectedTargetHP;
                     break;
                 case MissionType.Boss:
@@ -377,10 +426,12 @@ namespace MC.UI
             }
 
             CurrentGoal.text = text;
+            CurrentGoalBack.fillAmount = goalValue;
         }
 
         private void ProgressUI()
         {
+            MissionSet();
             SetTimer(gameStatus._LimitTime);
             if (!MPSimpleMode)
                 SetGoal(MissionManager.Instance.CurrentMissionType);
@@ -394,9 +445,26 @@ namespace MC.UI
         public UIDialog Dialog => CanvasInfo.Instance.dialog;
         public static void DialogSetActive(bool value)
         {
+            BlurSet(true, 20);
             Instance.Dialog.gameObject.SetActive(value);
         }
 
+
+        #endregion
+
+        #region Clear/Fail Mission
+        public UIClearMission ClearMission => CanvasInfo.Instance.clearUI;
+        public static void ClearMissionSetActive(bool value)
+        {
+            Instance.ClearMission.gameObject.SetActive(value);
+        }
+
+        public UIFailMission FailMission => CanvasInfo.Instance.failUI;
+        public static void FailMissionSetActive(bool value)
+        {
+            SetPointerMode(value);
+            Instance.FailMission.gameObject.SetActive(value);
+        }
 
         #endregion
 
@@ -425,7 +493,6 @@ namespace MC.UI
                     hpBar.laterValue = hpBar.currentValue;
                 }
             }
-
         }
 
         #endregion
@@ -433,7 +500,7 @@ namespace MC.UI
         #region Null Support
         public void SetValue()
         {
-            if (MCSceneManager.currentSceneNumber != MCSceneManager.TITLE)
+            if (MCSceneManager.currentScene != MCSceneManager.TITLE)
             {
                 playerFSMMgr = PlayerFSMManager.Instance;
                 UIPlayer.SetValue();

@@ -5,8 +5,8 @@ using UnityEngine;
 public class RedHatDASH : RedHatFSMState
 {
     float _DashTime = 1f;
-    float _DashReadyTime = 0.9f;
-    float _DashAfterDelay = 1.5f;
+    float _DashReadyTime = 0.5f;
+    float _DashAfterDelay = 1.1f;
     float _Time = 0.0f;
 
     bool _IsDrawDashRoute = false;
@@ -19,11 +19,30 @@ public class RedHatDASH : RedHatFSMState
     {
         _TargetPos = _manager._PriorityTarget.transform.position;
 
+        var voice = _manager.sound.monsterVoice;
+        voice.PlayMonsterVoice(this.gameObject, voice.redhatDashVoice);
+
+        _manager.agent.velocity = Vector3.zero;
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.acceleration = 5.0f;
+
         _manager.CC.detectCollisions = false;
         try
         {
-            _manager.dashEffect = EffectPoolManager._Instance._RedHatSkillRange.ItemSetActive(this.transform);
-            _manager.dashEffect.GetComponent<tempLook>().TargetSet(_manager._PriorityTarget);
+            transform.LookAt(_manager._PriorityTarget.transform);
+
+            dashEndPos = this.transform.position;
+            dashEndPos += transform.forward * _manager.Stat.statData._DashRange;
+            dashEndPos.y = this.transform.position.y;
+
+            //_manager.dashEffect.SetActive(true);
+            //_manager.dashEffect.GetComponent<UIAttackRange>().SetTarget(_manager._PriorityTarget);
+
+            _manager.dashEffect1.SetActive(true);
+            ParticleSystem effect1 = _manager.dashEffect1.GetComponentInChildren<ParticleSystem>();
+            effect1.Play();
+
+
         }
         catch
         {
@@ -40,9 +59,16 @@ public class RedHatDASH : RedHatFSMState
         Vector3 _TargetPos = Vector3.zero;
 
         //_manager.dashEffect = null;
+        //_manager.dashEffect.GetComponent<UIAttackRange>().EffectEnd();
 
-        _manager.CC.detectCollisions = true;
+        _manager.CC.detectCollisions = true; 
+        _manager.isNotChangeState = false;
 
+        _manager.agent.velocity = Vector3.zero;
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.acceleration = 5.0f;
+
+        _manager.dashEffect1.SetActive(false);
         base.EndState();
     }
 
@@ -56,18 +82,13 @@ public class RedHatDASH : RedHatFSMState
         {
             //if (!_IsDrawDashRoute)
             {
-                transform.LookAt(_manager._PriorityTarget.transform);
-
-                dashEndPos = this.transform.position;
-                dashEndPos += transform.forward * _manager.Stat.statData._DashRange;
-                dashEndPos.y = this.transform.position.y;
 
             }
         }
 
         else if(_Time < _DashReadyTime + _DashTime)
         {
-            
+            _manager.isNotChangeState = true;
             transform.position = Vector3.MoveTowards(this.transform.position, dashEndPos, 
                 _manager.Stat.statData._DashSpeed * Time.deltaTime);
 

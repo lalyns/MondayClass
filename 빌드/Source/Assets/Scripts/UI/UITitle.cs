@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
 using MC.SceneDirector;
+using MC.Sound;
 
 namespace MC.UI
 {
@@ -13,8 +14,8 @@ namespace MC.UI
         public GameObject gameObject;
 
         public Button start;
-        public Button howToPlay;
-        public Button config;
+        public Button setting;
+        public Button developer;
         public Button exit;
 
     }
@@ -23,33 +24,44 @@ namespace MC.UI
     {
         public Title title;
 
-        public GameObject cutScene;
-        public GameObject howToPlay;
-        public GameObject config;
+        public TitleCutScene cutScene;
+        public GameObject setting => CanvasInfo.Instance.setting;
+
+        bool nextScene = true;
 
         public void StartButton()
         {
-            cutScene.SetActive(true);
+            //cutScene.SetActive(true);
+
+            if (nextScene)
+            {
+                var ui = MCSoundManager.Instance.objectSound.ui;
+                ui.PlaySound(this.gameObject, ui.uiStart);
+
+                cutScene.CineStart();
+                GameStatus.SetCurrentGameState(CurrentGameState.Product);
+                nextScene = false;
+            }
         }
 
-        public void HowToPlayButton()
+        public void NextScene()
         {
-            howToPlay.SetActive(true);
+            MCSceneManager.Instance.NextScene(MCSceneManager.TUTORIAL, "Bgm_SceneSwitch_Fade_Out", 1f, false);
+            //StartCoroutine(MCSceneManager.Instance.LoadScene(MCSceneManager.TUTORIAL));
+            GameManager.Instance.CharacterControl = false;
+
+            var bgm = MCSoundManager.Instance.objectSound.bgm;
+            bgm.StopBGM(MCSoundManager.Instance.gameObject, bgm.lobbyBGM);
         }
 
-        public void HowToPlayExit()
+        public void SettingButton()
         {
-            howToPlay.SetActive(false);
+            setting.SetActive(true);
         }
 
-        public void ConfigButton()
+        public void Developer()
         {
-            config.SetActive(true);
-        }
-
-        public void ConfigExit()
-        {
-            config.SetActive(false);
+            Debug.Log("개발자 : ??");
         }
 
         public void ExitButton()

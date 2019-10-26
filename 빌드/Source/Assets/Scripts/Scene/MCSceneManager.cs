@@ -15,6 +15,7 @@ namespace MC.SceneDirector
         public const int SURVIVAL       = 3;
         public const int DEFENCE        = 4;
         public const int BOSS           = 5;
+        public const int EDITOR         = 6;
 
         private static MCSceneManager _Instance;
         public static MCSceneManager Instance {
@@ -26,68 +27,165 @@ namespace MC.SceneDirector
             }
         }
 
-        public static int currentSceneNumber = 0;
+
+        int prevScene = -1;
+        public static int currentScene = 0;
 
         private bool isLoad;
 
+        private bool isPlay;
 
         private void Awake()
         {
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            Screen.SetResolution(1920, 1080, true);
+
             if (SceneManager.GetActiveScene().name == "00.Title") {
-                currentSceneNumber = TITLE;
+                GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+                currentScene = TITLE;
             }
-            if (SceneManager.GetActiveScene().name == "01-0.Tutorial") {
-                currentSceneNumber = TUTORIAL;
+            else if (SceneManager.GetActiveScene().name == "01-0.Tutorial") { 
+                GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
+                currentScene = TUTORIAL;
             }
-            if (SceneManager.GetActiveScene().name == "01-1.Stage1") {
-                currentSceneNumber = ANNIHILATION;
+            else if (SceneManager.GetActiveScene().name == "01-1.Stage1") {
+                currentScene = ANNIHILATION;
             }
-            if (SceneManager.GetActiveScene().name == "02.Stage2") {
-                currentSceneNumber = SURVIVAL;
+            else if (SceneManager.GetActiveScene().name == "02.Stage2") {
+                currentScene = SURVIVAL;
             }
-            if (SceneManager.GetActiveScene().name == "03.Stage3") {
-                currentSceneNumber = DEFENCE;
+            else if (SceneManager.GetActiveScene().name == "03.Stage3") {
+                currentScene = DEFENCE;
             }
-            if (SceneManager.GetActiveScene().name == "04.Boss") {
-                currentSceneNumber = BOSS;
+            else if (SceneManager.GetActiveScene().name == "04.Boss") {
+                currentScene = BOSS;
             }
-        }
-
-        public void NextScene(int i)
-        {
-            GameManager.SetFadeInOut(() =>
+            else
             {
-                StartCoroutine(LoadScene(i));
-                
-            }, false
-            );
+                currentScene = EDITOR;
+                GameStatus.SetCurrentGameState(CurrentGameState.EDITOR);
+            }
+
+
         }
 
-        public IEnumerator LoadScene(int i)
+        private void Update()
+        {
+            if (!isPlay)
+            {
+                try
+                {
+                    MCSoundManager.LoadBank();
+                    var bgm = MCSoundManager.Instance.objectSound.bgm;
+
+                    if (currentScene == TITLE)
+                    {
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.lobbyBGM);
+                    }
+
+                    if (currentScene == TUTORIAL)
+                    {
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.tutoBGM);
+                    }
+
+                    if (
+                        currentScene == ANNIHILATION ||
+                        currentScene == SURVIVAL ||
+                        currentScene == DEFENCE)
+                    {
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
+                    }
+
+                    if(currentScene == BOSS)
+                    {
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.bossBGM);
+                    }
+
+                    isPlay = true;
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        public void NextScene(int sceneNumber, string soundType, float duration, bool fading)
+        {
+            if(currentScene != TITLE && GameStatus.Instance.ActivedMonsterList.Count != 0)
+                GameStatus.Instance.RemoveAllActiveMonster();
+
+            if (fading)
+            {
+                GameManager.SetFadeInOut(() =>
+                {
+                    StartCoroutine(LoadScene(sceneNumber, soundType, duration));
+                    GameStatus.SetCurrentGameState(CurrentGameState.Loading);
+                }, soundType, duration, false
+                );
+            }
+            else
+            {
+                StartCoroutine(LoadScene(sceneNumber, soundType, duration));
+                GameStatus.SetCurrentGameState(CurrentGameState.Loading);
+            }
+        }
+
+        public IEnumerator LoadScene(int sceneNumber, string soundType, float duration)
         {
             yield return null;
 
             if (!isLoad)
             {
-                currentSceneNumber = i;
+                prevScene = currentScene;
+                currentScene = sceneNumber;
                 isLoad = true;
             }
 
-            AsyncOperation async = SceneManager.LoadSceneAsync(i);
+            AsyncOperation async = SceneManager.LoadSceneAsync(sceneNumber);
             while (!async.isDone)
             {
                 yield return null;
 
+                Debug.Log("Loading");
             }
 
             if (async.isDone)
             {
+                var bgm = MCSoundManager.Instance.objectSound.bgm;
+
+                Debug.Log("Load Done From" + prevScene);
+                
+
                 GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>
                 {
+                    if (prevScene == TITLE)
+                    {
+                        StartCoroutine(MCSoundManager.SoundFadeIn("Bgm_Start_Fade_In", 1f));
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.tutoBGM);
+                    }
+
+                    if (prevScene == TUTORIAL)
+                    {
+                        bgm.StopBGM(MCSoundManager.Instance.gameObject, bgm.tutoBGM);
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
+                    }
+
+                    if ((prevScene == ANNIHILATION ||
+                        prevScene == SURVIVAL ||
+                        prevScene == DEFENCE) &&
+                        currentScene == BOSS)
+                    {
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
+                        bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.bossBGM);
+                    }
+                    Debug.Log("Fade In Load After");
+                    //GameStatus.currentGameState = CurrentGameState.Wait;
+                    GameManager.ScriptCheck();
                     MCSoundManager.LoadBank();
                     isLoad = false;
-                }, true
+                }, soundType, duration, true
             );
             }
         }

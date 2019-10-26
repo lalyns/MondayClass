@@ -10,18 +10,6 @@ namespace MC.UI
     {
         public MissionSelectorUI selector;
         public MissionProgressUI progress;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 
     [System.Serializable]
@@ -48,6 +36,7 @@ namespace MC.UI
         public Text missionText;
         public Image timeImage;
         public Text timeText;
+        public Image goalImage;
         public Image goalType;
         public Text goalText;
         public ParticleSystem goalEffect;
@@ -59,6 +48,7 @@ namespace MC.UI
         public GameObject gameObject;
         public Image timeImage;
         public Text timeText;
+        public Image goalImage;
         public Image goalType;
         public Text goalText;
         public ParticleSystem goalEffect;

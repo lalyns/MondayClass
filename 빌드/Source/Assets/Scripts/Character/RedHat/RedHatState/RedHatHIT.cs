@@ -26,9 +26,16 @@ public class RedHatHIT : RedHatFSMState
         direction.y = 0;
         knockBackTargetPos = direction + this.transform.position;
 
-        GetComponentInChildren<RedHatAnimEvent>()._WeaponCapsule.gameObject.SetActive(false);
+        //GetComponentInChildren<RedHatAnimEvent>()._WeaponCapsule.gameObject.SetActive(false);
 
-        StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
+        if(_manager.CurrentAttackType != AttackType.SKILL2)
+            StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
+
+        var voice = _manager.sound.monsterVoice;
+        voice.PlayMonsterVoice(this.gameObject, voice.redhatDamegedVoice);
+
+        _manager.agent.acceleration = 0;
+        _manager.agent.velocity = Vector3.zero;
     }
 
     public override void EndState()
@@ -37,8 +44,12 @@ public class RedHatHIT : RedHatFSMState
 
         hitEnd = false;
 
+        StopAllCoroutines();
+
         _manager.CurrentAttackType = AttackType.NONE;
         _manager.isChange = false;
+
+        
     }
 
     protected override void Update()
@@ -54,9 +65,16 @@ public class RedHatHIT : RedHatFSMState
         if (PlayerFSMManager.Instance.isSkill4)
         {
             PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
-            _manager.Stat.TakeDamage(playerStat, 1);
+            if (!PlayerFSMManager.Instance.isCantMove && !isHit)
+            {
+                _manager.Stat.TakeDamage(playerStat, playerStat.dmgCoefficient[6]);
+                isHit = true;
+            }
         }
+        if (_manager.Stat.Hp <= 0)
+            _manager.SetDeadState();
     }
+    bool isHit = false;
 
     protected override void FixedUpdate()
     {

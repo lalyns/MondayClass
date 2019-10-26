@@ -10,12 +10,16 @@ public class RedHatATTACK : RedHatFSMState
     public override void BeginState()
     {
         base.BeginState();
+
+        _manager.agent.velocity = Vector3.zero;
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.acceleration = 0.0f;
     }
 
     public override void EndState()
     {
         base.EndState();
-        _WeaponCapsule.gameObject.SetActive(false);
+        //_WeaponCapsule.gameObject.SetActive(false);
         _time = 0;
     }
 

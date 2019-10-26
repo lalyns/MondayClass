@@ -19,9 +19,14 @@ public class MissionEnter : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
-            if (!MissionManager.Instance.CurrentMission.MissionOperate)
+            if (!MissionManager.Instance.CurrentMission.MissionOperate &&
+                !MissionManager.Instance.CurrentMission.missionEnd)
             {
+                MissionManager.Instance.CurrentMission.startImage.gameObject.SetActive(true);
+                MissionManager.Instance.CurrentMission.startImage.GetComponent<Animator>().Play("play");
+
                 MissionManager.StartMission();
+                GameStatus.SetCurrentGameState(CurrentGameState.Start);
             }
         }
     }

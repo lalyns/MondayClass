@@ -56,6 +56,7 @@ public class FSMManager : MonoBehaviour
         }
     }
 
+    
     public virtual void LastHitBy()
     {
 
@@ -81,11 +82,16 @@ public class FSMManager : MonoBehaviour
     {
 
     }
+    PlayerStat stat;
+
     public virtual IEnumerator Skill2Timer()
     {
+        stat = PlayerFSMManager.Instance.stat;
         float attackTime = 0.0f;
         while (attackTime<0.3f) {
-            stats.TakeDamage(PlayerFSMManager.Instance.stats, 30);
+            
+            //stats.TakeDamage(PlayerFSMManager.Instance.stats, 30);
+            CharacterStat.ProcessDamage(stat, stats, 200);
             attackTime += Time.deltaTime;
             yield return new WaitForSeconds(0.1f);
         }

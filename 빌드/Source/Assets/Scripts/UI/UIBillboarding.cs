@@ -8,10 +8,19 @@ public class UIBillboarding : MonoBehaviour
     Transform Cam {
         get {
             if (cam == null)
-                cam = GameObject.FindGameObjectWithTag("UICam").GetComponent<Camera>().transform;
+                if (!billboardingType)
+                {
+                    cam = GameObject.FindGameObjectWithTag("UICam").GetComponent<Camera>().transform;
+                }
+                else
+                {
+                    cam = Camera.main.transform;
+                }
             return cam;
         }
     }
+
+    public bool billboardingType;
 
     public float Offset = 100f;
 

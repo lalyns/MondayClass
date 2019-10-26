@@ -18,17 +18,31 @@ public class TiberPOPUP : TiberFSMState
 
         _PopupEffect.SetActive(true);
         _PopupEffect.GetComponentInChildren<ParticleSystem>().Play();
-        _PopupEffect.GetComponent<Animator>().Play("Ani");
+        _PopupEffect.GetComponentInChildren<Animator>().Play("PopUpEffect");
 
         TargetPrioritySet();
+        _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
+        _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        _manager.agent.speed = 4f;
+        _manager.agent.angularSpeed = 360;
     }
-
+    private void Start()
+    {
+        GetComponentInChildren<TiberHitCollider>().capsule.enabled = true;
+    }
     public override void EndState()
     {
         base.EndState();
 
         _curTime = 0.0f;
+    }
+
+    public void PopupReset()
+    {
         _manager.isDead = false;
+        GameLib.DissoveActive(_manager.materialList, false);
+        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
+        GetComponentInChildren<TiberHitCollider>().capsule.enabled = true;
     }
 
     protected override void Update()

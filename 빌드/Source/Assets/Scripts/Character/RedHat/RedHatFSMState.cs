@@ -28,7 +28,8 @@ public class RedHatFSMState : MonoBehaviour
 
     protected virtual void Update()
     {
-        HPUI();
+        if(GameManager.Instance.uIActive.monster)
+            HPUI();
     }
 
     protected void DahsCheck()

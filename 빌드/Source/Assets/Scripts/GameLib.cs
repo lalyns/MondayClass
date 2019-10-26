@@ -61,7 +61,8 @@ public static class GameLib
             {
                 if (PlayerFSMManager.Instance.isIDLE)
                 {
-                    PlayerFSMManager.Instance.SetState(PlayerState.HIT);
+                    if (!PlayerFSMManager.Instance.isDead)
+                        PlayerFSMManager.Instance.SetState(PlayerState.HIT);
                 }
 
                 CharacterStat lastHit = null;
@@ -77,11 +78,6 @@ public static class GameLib
 
                         if (type == MonsterType.RedHat)
                         {
-                            Transform transform =
-                                EffectPoolManager._Instance._RedHatAttackEffect.
-                                ItemSetActive(PlayerFSMManager.Instance.Anim.transform, "Effect");
-
-                            transform.rotation = ownerStat.transform.rotation;
                         }
                     }
                 }
@@ -91,7 +87,7 @@ public static class GameLib
         else
             return null;
     }
-    
+
     // 여러 오브젝트들에 대해 간단한 정보로 피해를 입히는 함수.
     public static CharacterStat AttackProcess(RaycastHit[] hitObjects, string targetTag,
         CharacterStat ownerStat, float damage)
@@ -111,7 +107,8 @@ public static class GameLib
             {
                 if (PlayerFSMManager.Instance.isIDLE)
                 {
-                    PlayerFSMManager.Instance.SetState(PlayerState.HIT);
+                    if (!PlayerFSMManager.Instance.isDead)
+                        PlayerFSMManager.Instance.SetState(PlayerState.HIT);
                 }
                 CharacterStat lastHit = null;
                 foreach (var hitObject in hitObjects)
@@ -173,22 +170,44 @@ public static class GameLib
         {
             mats[i].SetFloat("_DissolveEdgeMultiplier", value);
             mats[i].SetFloat("_DissolveIntensity", 0);
+
         }
     }
 
-    public static IEnumerator Dissolving(List<Material> mats, float value = 0.45f, float range = 0.2f)
+    public static IEnumerator Dissolving(List<Material> mats, float value = 5f, float range = 0.013f)
     {
         float time = 0;
 
-        for(int i=0; i<mats.Count; i++)
-        {
-            time += value * Time.deltaTime;
-            mats[i].SetFloat("_DissolveIntensity", time);
-            mats[i].SetFloat("_DissolveEdgeRange", range);
+        
 
-            yield return new WaitForSeconds(Time.deltaTime);
+        while (time < 4f)
+        {
+            if(time < 0.05f)
+                time += Time.deltaTime / 1.2f;
+            if (time >= 0.05f)
+                time += value * Time.deltaTime * 1.6f;
+
+            for (int i = 0; i < mats.Count; i++)
+            {
+
+                mats[i].SetFloat("_DissolveIntensity", time);
+                mats[i].SetFloat("_DissolveEdgeRange", range);
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
         }
 
+
+    }
+
+    public static IEnumerator BlinkOff(List<Material> mats)
+    {
+        for (int j = 0; j < mats.Count; j++)
+        {
+            mats[j].SetFloat("_Hittrigger", 0);
+
+        }
+
+        yield return new WaitForSeconds(Time.deltaTime);
     }
 
     public static IEnumerator Blinking(List<Material> mats, Color color, int duration = 6, float timer = 0.15f)
@@ -202,7 +221,7 @@ public static class GameLib
 
             for (int j = 0; j < mats.Count; j++)
             {
-                mats[j].SetFloat("_Hittrigger", value);                
+                mats[j].SetFloat("_Hittrigger", value);
             }
 
             blink = !blink;
@@ -215,7 +234,7 @@ public static class GameLib
         }
     }
 
-  
+
 
 
     public static IEnumerator KnockBack(Transform trans, AttackType attackType, Vector3 direction)
@@ -256,6 +275,11 @@ public static class GameLib
             default:
                 return -1;
         }
+    }
+
+    public static void MissionRewardSet(float Name, float Increase)
+    {
+        Name += Increase;
     }
 
 

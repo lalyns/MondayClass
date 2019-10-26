@@ -30,13 +30,15 @@ namespace MC.Mission
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 15f, 1 << 17, QueryTriggerInteraction.Collide))
             {
-                _FloorEffect.transform.position = hit.point;
+                _FloorEffect.transform.position = hit.point + Vector3.up * 0.05f;
             }
 
         }
 
         private void OnTriggerEnter(Collider other)
         {
+            if (stop) return;
+
             if (other.transform.tag == "Player")
             {
                 stop = true;
@@ -63,14 +65,16 @@ namespace MC.Mission
                 if (mission.activeStar.Contains(this.gameObject))
                     mission.activeStar.Remove(this.gameObject);
 
-                EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(this.gameObject);
+                mission.starPool.ItemReturnPool(this.gameObject);
             }
         }
 
 
         void ReturnStar()
         {
-            EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(this.gameObject);
+            MissionB mission = MissionManager.Instance.CurrentMission as MissionB;
+
+            mission.starPool.ItemReturnPool(this.gameObject);
         }
     }
 }

@@ -12,29 +12,42 @@ public class MacDEAD : MacFSMState
 
         GameLib.DissoveActive(_manager.materialList, true);
         StartCoroutine(GameLib.Dissolving(_manager.materialList));
+        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
+
+        var voice = _manager._Sound.monsterVoice;
+        voice.PlayMonsterVoice(this.gameObject, voice.macDieVoice);
 
         useGravity = false;
         _manager.CC.detectCollisions = false;
+        _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
-
+    private void Start()
+    {
+    }
     public override void EndState()
     {
         base.EndState();
 
-        GameLib.DissoveActive(_manager.materialList, false);
-
         useGravity = true;
         _manager.CC.detectCollisions = true;
 
-        if (MissionManager.Instance.CurrentMissionType == MissionType.Annihilation)
-        {
-            UserInterface.Instance.GoalEffectPlay();
-            MissionA a = MissionManager.Instance.CurrentMission as MissionA;
-            a.Invoke("MonsterCheck", 5f);
-        }
+        GameStatus.Instance.RemoveActivedMonsterList(gameObject);
 
-        MonsterPoolManager._Instance._Mac.ItemReturnPool(gameObject, MonsterType.Mac);
+        _manager.agent.speed = 0;
+        _manager.agent.angularSpeed = 0;
 
+        if(GameStatus.currentGameState != CurrentGameState.EDITOR)
+            if (MissionManager.Instance.CurrentMissionType == MissionType.Annihilation)
+            {
+                UserInterface.Instance.GoalEffectPlay();
+                MissionA a = MissionManager.Instance.CurrentMission as MissionA;
+                a.Invoke("MonsterCheck", 5f);
+            }
+    }
+
+    public void DeadHelper()
+    {
+        _manager.SetState(MacState.DISSOLVE);
     }
 
     protected override void Update()
@@ -48,9 +61,5 @@ public class MacDEAD : MacFSMState
         base.FixedUpdate();
     }
 
-    public void DeadHelper()
-    {
-        Debug.Log("Dead Call");
-        _manager.SetState(MacState.POPUP);
-    }
+   
 }

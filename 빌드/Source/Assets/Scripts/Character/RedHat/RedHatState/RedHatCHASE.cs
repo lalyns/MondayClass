@@ -5,14 +5,20 @@ using UnityEngine;
 public class RedHatCHASE : RedHatFSMState
 {
     bool _IsSpread = false;
-
+    Vector3 playerTrans;
     public override void BeginState()
     {
+        _manager.agent.velocity = Vector3.zero;
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.acceleration = 5.0f;
+
         base.BeginState();
     }
 
     public override void EndState()
     {
+        _manager.agent.isStopped = true;
+
         _IsSpread = false;
 
         base.EndState();
@@ -22,7 +28,13 @@ public class RedHatCHASE : RedHatFSMState
     {
         base.Update();
 
+        playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
+
         DahsCheck();
+
+        this.transform.localRotation = Quaternion.RotateTowards(this.transform.rotation,
+            Quaternion.LookRotation(PlayerFSMManager.GetLookTargetPos(transform) - transform.position,
+            Vector3.up), 2f * Time.deltaTime);
 
         if (GameLib.DistanceToCharacter(_manager.CC,_manager._PriorityTarget) < _manager.Stat.AttackRange)
         {
@@ -31,26 +43,36 @@ public class RedHatCHASE : RedHatFSMState
 
         else
         {
-            _manager.CC.transform.LookAt(_manager._PriorityTarget.transform);
+            _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
 
-            Vector3 moveDir = (_manager._PriorityTarget.transform.position
-                - _manager.CC.transform.position).normalized;
+            _manager.agent.destination = playerTrans;
 
-            moveDir.y = 0;
-
-            if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
-            {
-                Vector3 correctDir = Vector3.zero;
-                if (!_IsSpread)
-                {
-                    correctDir = DecideSpreadDirection();
-                    _IsSpread = true;
-                }
-
-                moveDir += correctDir;
+            if (_manager.agent.remainingDistance >= 1.5f) {
+                _manager.agent.isStopped = false;
+            } else {
+                _manager.agent.isStopped = true;
             }
 
-            _manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
+            //_manager.CC.transform.LookAt(_manager._PriorityTarget.transform);
+
+            //Vector3 moveDir = (_manager._PriorityTarget.transform.position
+            //    - _manager.CC.transform.position).normalized;
+
+            //moveDir.y = 0;
+
+            //if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
+            //{
+            //    Vector3 correctDir = Vector3.zero;
+            //    if (!_IsSpread)
+            //    {
+            //        correctDir = DecideSpreadDirection();
+            //        _IsSpread = true;
+            //    }
+
+            //    moveDir += correctDir;
+            //}
+
+            //_manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
         }
 
         

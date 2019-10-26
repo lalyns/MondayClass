@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
+using MC.SceneDirector;
 
 namespace MC.UI {
 
@@ -68,6 +70,7 @@ namespace MC.UI {
 
         [Space(5)][Header("HUDs")]
         public UIPlayer player;
+        public EnemyHPBar enemyHP;
         public UIMission mission;
         public SystemUI systemUI;
         public MousePointer mousePointer;
@@ -75,10 +78,19 @@ namespace MC.UI {
 
         public UIDialog dialog;
 
+        public GameObject pauseMenu;
+
         public Texture2D cursorTexture;
         public bool hotSpotIsCenter = false;
         public Vector2 adjustHotSpot = Vector2.zero;
         private Vector2 hotSpot;
+
+        public Animator missionStartAnim;
+
+        public GameObject setting;
+
+        public UIClearMission clearUI;
+        public UIFailMission failUI;
 
         public void Start()
         {
@@ -133,6 +145,64 @@ namespace MC.UI {
             {
                 Layers[i].worldCamera = uiCam;
             }
+        }
+
+        public static void PauseMenuActive(bool isActive)
+        {
+            Debug.Log("Pause Mode : " + isActive);
+            GameManager.Instance.IsPuase = isActive;
+            UserInterface.SetPointerMode(isActive);
+            //GameManager.Instance.CharacterControl = isActive;
+            Instance.pauseMenu.SetActive(isActive);
+        }
+
+        public void ToTitle()
+        {
+            PauseMenuActive(false);
+            failUI.gameObject.SetActive(false);
+            MCSceneManager.Instance.NextScene(MCSceneManager.TITLE, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+
+            UserInterface.SetPointerMode(true);
+
+            UserInterface.Instance.SetValue();
+            UserInterface.SetPlayerUserInterface(false);
+            UserInterface.SetMissionProgressUserInterface(false);
+            UserInterface.SetMissionSelectionUI(false);
+            UserInterface.SetSystemInterface(false);
+
+            GameStatus.Instance.StageLevel = 0;
+        }
+
+        public void RestartScene()
+        {
+            PauseMenuActive(false);
+            failUI.gameObject.SetActive(false);
+            GameStatus.SetCurrentGameState(CurrentGameState.Loading);
+            MCSceneManager.Instance.NextScene(MCSceneManager.currentScene, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+            GameStatus.Instance.StageLevel--;
+        }
+
+        public void PlayStartAnim()
+        {
+            missionStartAnim.gameObject.SetActive(true);
+            missionStartAnim.Play("MissionStart");
+            Invoke("EndStartAnim", 4f);
+        }
+
+        public void EndStartAnim()
+        {
+            missionStartAnim.gameObject.SetActive(false);
+        }
+
+        public void ExitGame()
+        {
+            PauseMenuActive(false);
+            failUI.gameObject.SetActive(false);
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#elif UNITY_STANDALONE
+            Application.Quit();
+#endif
         }
     }
 }

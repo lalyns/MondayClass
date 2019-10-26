@@ -7,6 +7,8 @@ namespace MC.Mission
 
     public class MissionB : MissionBase
     {
+        public static bool isDialogB = false;
+
         public int goalScore = 5;
         public int currentScore = 0;
 
@@ -28,6 +30,8 @@ namespace MC.Mission
         public List<Transform> oldSpawnList = new List<Transform>();
         public List<GameObject> activeStar = new List<GameObject>();
 
+        public ObjectPool starPool;
+
         // Start is called before the first frame update
         protected override void Start()
         {
@@ -37,6 +41,8 @@ namespace MC.Mission
         // Update is called once per frame
         protected override void Update()
         {
+            base.Update();
+
             if (missionEnd) return;
 
             if (GameStatus.Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
@@ -57,13 +63,23 @@ namespace MC.Mission
                     Spawn();
                     spawnTime = 0;
                 }
+
+                if (GameStatus.Instance._LimitTime <= 0)
+                {
+                    Debug.Log(GameStatus.Instance._LimitTime);
+                    FailMission();
+                }
+            
             }
 
             if (currentScore == goalScore)
             {
                 ClearMission();
+                PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
+                PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
                 missionEnd = true;
             }
+
         }
 
         public void Spawn()
@@ -71,6 +87,11 @@ namespace MC.Mission
             if (currentWave >= totalWave) currentWave = 0;
 
             StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
+        }
+
+        public override void FailMission()
+        {
+            base.FailMission();
         }
 
         public override void RestMission()
@@ -86,17 +107,17 @@ namespace MC.Mission
             base.ClearMission();
 
             foreach (GameObject star in activeStar)
-                EffectPoolManager._Instance._MissionBstarPool.ItemReturnPool(star);
+                starPool.ItemReturnPool(star);
 
             StopAllCoroutines();
         }
 
         void DropStar()
         {
-            var randPos = UnityEngine.Random.Range(0, Grid.mapPositions.Count);
+            var randPos = UnityEngine.Random.Range(0, MapGrid.mapPositions.Count);
 
-            GameObject star = EffectPoolManager._Instance._MissionBstarPool.ItemSetActive(
-                Grid.mapPositions[randPos] + Vector3.up * starHeight);
+            GameObject star = starPool.ItemSetActive(
+                MapGrid.mapPositions[randPos] + Vector3.up * starHeight);
 
             star.GetComponent<DropStar>().stop = false;
 

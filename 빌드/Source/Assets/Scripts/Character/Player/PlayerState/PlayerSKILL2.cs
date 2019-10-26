@@ -22,6 +22,13 @@ public class PlayerSKILL2 : FSMState
 
         var voice = _manager._Sound.voice;
         voice.PlayPlayerVoice(this.gameObject, voice.skill2Voice);
+
+        var sfx = _manager._Sound.sfx;
+
+        if(_manager.isNormal)
+            sfx.PlayPlayerSFX(_manager.Skill2_Test, sfx.skill2SFX);
+        else
+            sfx.PlayPlayerSFX(_manager.Skill2_Test2, sfx.skill2SFX);
     }
 
     public override void EndState()
@@ -46,9 +53,17 @@ public class PlayerSKILL2 : FSMState
 
         if (_time >= 0.1f && !isBox)
         {
-            //Instantiate(_manager.Skill2_Start, _manager.Skill2_Parent.transform.position, _manager.Skill2_Start.transform.rotation);
             _manager.Skill2_Test.SetActive(false);
-            _manager.Skill2_Start.SetActive(true);
+            _manager.Skill2_Test2.SetActive(false);
+            if (_manager.isNormal)
+            {
+                _manager.Skill2_Normal.SetActive(true);
+            }
+            else
+            {
+                _manager.Skill2_Special.SetActive(true);
+            }
+            _manager.isSkill2Dash = false;
             isBox = true;
         }
      

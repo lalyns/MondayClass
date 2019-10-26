@@ -10,12 +10,22 @@ namespace MC.Sound
         public class MonsterSFXList
         {
             #region ActionList
-            public AK.Wwise.Event attackSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event[] attackSFX = new AK.Wwise.Event[7];
 
-            #endregion
+            public AK.Wwise.Event redhatDash = new AK.Wwise.Event();
+            public AK.Wwise.Event redhatDashHit = new AK.Wwise.Event();
+            public AK.Wwise.Event redhatAttackReady = new AK.Wwise.Event();
+            public AK.Wwise.Event redhatAttack = new AK.Wwise.Event();
+            public AK.Wwise.Event redhatAttackHit = new AK.Wwise.Event();
 
-            #region SkillList
+            public AK.Wwise.Event macBigBall = new AK.Wwise.Event();
+            public AK.Wwise.Event macBigBallHit = new AK.Wwise.Event();
+            public AK.Wwise.Event macBigBallMove = new AK.Wwise.Event();
+            public AK.Wwise.Event macSmallBall = new AK.Wwise.Event();
+            public AK.Wwise.Event macSmallBallHit = new AK.Wwise.Event();
 
+            public AK.Wwise.Event tiberSpin = new AK.Wwise.Event();
+            public AK.Wwise.Event tiberStamp = new AK.Wwise.Event();
             #endregion
 
             public void PlayMonsterSFX(GameObject go, AK.Wwise.Event sfx)
@@ -24,11 +34,31 @@ namespace MC.Sound
                     GameManager.Instance.config.soundActive.all)
                     sfx.Post(go);
             }
+
+            public void StopMonsterSFX(GameObject go, AK.Wwise.Event sfx)
+            {
+                sfx.Stop(go);
+            }
         }
 
         [System.Serializable]
         public class MonsterVoiceList
         {
+            #region
+            public AK.Wwise.Event redhatDeadVoice = new AK.Wwise.Event();
+            public AK.Wwise.Event redhatDamegedVoice = new AK.Wwise.Event();
+            public AK.Wwise.Event redhatDashVoice = new AK.Wwise.Event();
+            public AK.Wwise.Event redhatAttackVoice = new AK.Wwise.Event();
+
+            public AK.Wwise.Event macBigBallVoice = new AK.Wwise.Event();
+            public AK.Wwise.Event macDamageVoice = new AK.Wwise.Event();
+            public AK.Wwise.Event macDieVoice = new AK.Wwise.Event();
+
+            public AK.Wwise.Event tiberDamageVoice = new AK.Wwise.Event();
+            public AK.Wwise.Event tiberDieVoice = new AK.Wwise.Event();
+            public AK.Wwise.Event tiberSpinVoice = new AK.Wwise.Event();
+            public AK.Wwise.Event tiberStompVoice = new AK.Wwise.Event();
+            #endregion
 
             public void PlayMonsterVoice(GameObject go, AK.Wwise.Event voice)
             {

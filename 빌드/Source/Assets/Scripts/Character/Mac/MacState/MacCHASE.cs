@@ -5,15 +5,18 @@ using UnityEngine;
 public class MacCHASE : MacFSMState
 {
     bool _IsSpread = false;
-
+    Vector3 playerTrans;
     public override void BeginState()
     {
 
+        _manager.agent.acceleration = 0.5f;
         base.BeginState();
     }
 
     public override void EndState()
     {
+        _manager.agent.isStopped = true;
+
         _IsSpread = false;
 
         base.EndState();
@@ -21,35 +24,24 @@ public class MacCHASE : MacFSMState
 
     protected override void Update()
     {
-        if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) < _manager.Stat.AttackRange)
+        base.Update();
+
+        this.transform.localRotation = Quaternion.RotateTowards(this.transform.rotation,
+            Quaternion.LookRotation(PlayerFSMManager.GetLookTargetPos(transform) - transform.position,
+            Vector3.up), 2f * Time.deltaTime);
+
+        playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
+
+        if (_manager.agent.remainingDistance < _manager.Stat.AttackRange)
         {
             _manager.SetState(MacState.ATTACK);
-        }
-
+            _manager.agent.isStopped = true;
+        }        
         else
         {
-
-            _manager.CC.transform.LookAt(_manager._PriorityTarget.transform);
-
-            Vector3 moveDir = (_manager._PriorityTarget.transform.position
-                - _manager.CC.transform.position).normalized;
-
-            moveDir.y = 0;
-
-            if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
-            {
-                Vector3 correctDir = Vector3.zero;
-                if (!_IsSpread)
-                {
-                    correctDir = DecideSpreadDirection();
-                    _IsSpread = true;
-                }
-
-                moveDir += correctDir;
-            }
-
-            _manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
-
+            _manager.agent.destination = playerTrans;
+            _manager.agent.isStopped = false;
+            _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
         }
     }
 

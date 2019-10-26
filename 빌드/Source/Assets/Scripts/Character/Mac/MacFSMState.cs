@@ -12,6 +12,7 @@ public class MacFSMState : MonoBehaviour
     protected float _SkillCoolTime = 10f;
     protected float _CurTime = 0f;
 
+
     protected bool useGravity = true;
 
     private void Awake()
@@ -32,6 +33,8 @@ public class MacFSMState : MonoBehaviour
 
     protected virtual void Update()
     {
+        Debug.DrawLine(_manager.agent.destination, new Vector3(_manager.agent.destination.x, 
+            _manager.agent.destination.y + 1f, _manager.agent.destination.z), Color.red);
 
     }
 
@@ -39,7 +42,8 @@ public class MacFSMState : MonoBehaviour
     {
         if (sub) return;
 
-        HPUI();
+        if (GameManager.Instance.uIActive.monster)
+            HPUI();
 
         if(useGravity)
             Gravity();

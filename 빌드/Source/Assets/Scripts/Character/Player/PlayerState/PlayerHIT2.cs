@@ -14,6 +14,14 @@ public class PlayerHIT2 : FSMState
         var voice = _manager._Sound.voice;
 
         voice.PlayPlayerVoice(this.gameObject, voice.damagedVoice);
+
+        _manager.Skill2_Test.SetActive(false);
+        _manager.Skill2_Test2.SetActive(false);
+        _manager.isSkill2End = false;
+
+        _manager.isAttackOne = false;
+        _manager.isAttackTwo = false;
+        _manager.isAttackThree = false;
     }
 
     public override void EndState()
@@ -25,10 +33,19 @@ public class PlayerHIT2 : FSMState
     // Update is called once per frame
     void Update()
     {
+        _manager.isCantMove = _time <= 1.3f ? true : false;
         if (isEnd)
         {
-            _manager.SetState(PlayerState.IDLE);            
-            return;
+            if (!_manager.OnMove())
+            {
+                _manager.SetState(PlayerState.IDLE);
+                return;
+            }
+            if (_manager.OnMove())
+            {
+                _manager.SetState(PlayerState.RUN);
+                return;
+            }
         }
         //if (_manager.OnMove())
         //{

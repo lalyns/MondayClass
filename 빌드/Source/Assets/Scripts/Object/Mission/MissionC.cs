@@ -7,6 +7,7 @@ namespace MC.Mission
 
     public class MissionC : MissionBase
     {
+        public static bool isDialogC = false;
 
         public ProtectedTarget protectedTarget;
         public int _ProtectedTargetHP;
@@ -30,11 +31,14 @@ namespace MC.Mission
             base.OperateMission();
 
             protectedTarget.hp = _ProtectedTargetHP;
+            MissionOperate = true;
         }
 
         // Update is called once per frame
         protected override void Update()
         {
+            base.Update();
+
             if (missionEnd) return;
 
             if (GameStatus.Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
@@ -49,12 +53,22 @@ namespace MC.Mission
                     Spawn();
                     spawnTime = 0;
                 }
-            }
 
-            if (!isClear && GameStatus.Instance._LimitTime <= 0 && protectedTarget.hp >= 0)
-            {
-                ClearMission();
-                isClear = true;
+                if (!isClear && GameStatus.Instance._LimitTime <= 0 && protectedTarget.hp > 0)
+                {
+                    ClearMission();
+                    PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
+                    PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
+                    isClear = true;
+                    missionEnd = true;
+                }
+
+                if (!isClear && protectedTarget.hp <= 0)
+                {
+                    Debug.Log(protectedTarget.hp);
+                    FailMission();
+                    missionEnd = true;
+                }
             }
         }
 
@@ -63,12 +77,18 @@ namespace MC.Mission
             base.RestMission();
 
             spawnTime = 0;
+            GameStatus.Instance._LimitTime = _LimitTime;
         }
 
         public override void ClearMission() {
             base.ClearMission();
 
             StopAllCoroutines();
+        }
+
+        public override void FailMission()
+        {
+            base.FailMission();
         }
 
         void Spawn()

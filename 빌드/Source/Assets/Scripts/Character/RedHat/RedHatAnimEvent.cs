@@ -40,12 +40,33 @@ public class RedHatAnimEvent : MonoBehaviour
 
     void OnWeaponTrigger()
     {
-        _WeaponCapsule.gameObject.SetActive(true);
+        _WeaponCapsule.enabled = true;
     }
 
     void DisableWeaponTrigger()
     {
-        _WeaponCapsule.gameObject.SetActive(false);
+        _WeaponCapsule.enabled = false;
+    }
+
+    void AttackReadySFX()
+    {
+        var sound = FSMManager.sound.monsterSFX;
+        sound.PlayMonsterSFX(this.gameObject, sound.redhatAttackReady);
+    }
+
+    void AttackSFX()
+    {
+        var sound = FSMManager.sound.monsterSFX;
+        sound.PlayMonsterSFX(this.gameObject, sound.redhatAttack);
+
+        var voice = FSMManager.sound.monsterVoice;
+        voice.PlayMonsterVoice(this.gameObject, voice.redhatAttackVoice);
+    }
+
+    void DashSFX()
+    {
+        var sound = FSMManager.sound.monsterSFX;
+        sound.PlayMonsterSFX(this.gameObject, sound.redhatDash);
     }
 
     public void PopupOver()

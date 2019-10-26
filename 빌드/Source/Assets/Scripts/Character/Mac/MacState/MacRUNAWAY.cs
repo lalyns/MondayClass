@@ -12,6 +12,7 @@ public class MacRUNAWAY : MacFSMState
     {
         base.BeginState();
         TargetPos = Vector3.zero;
+        _manager.agent.acceleration = 0.5f;
         SetTarget();
     }
 
@@ -19,16 +20,23 @@ public class MacRUNAWAY : MacFSMState
     {
         base.EndState();
         _SetTarget = false;
+        _manager.agent.velocity = Vector3.zero;
+        _manager.agent.destination = this.transform.position;
+        _manager.agent.isStopped = true;
+        _manager.agent.acceleration = 0.0f;
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (!_SetTarget) return;
 
-        if (Vector3.Distance(this.transform.position, TargetPos) > 1f)
+        if (_manager.agent.remainingDistance > 0.5f)
         {
-            
-            transform.position = Vector3.Lerp(this.transform.position, TargetPos, 0.5f * Time.deltaTime);
+            //transform.position = Vector3.Lerp(this.transform.position, TargetPos, 0.5f * Time.deltaTime);
+            _manager.agent.destination = TargetPos;
+            _manager.agent.isStopped = false;
         }
 
         else
@@ -44,21 +52,29 @@ public class MacRUNAWAY : MacFSMState
 
     public void SetTarget()
     {
-        bool set = false;
+        //bool set = false;
 
-        int loopEscape = 0;
+        //int loopEscape = 0;
 
-        while (!set)
-        {
-            set = Setting();
-            loopEscape++;
+        //while (!set)
+        //{
+        //    set = Setting();
+        //    loopEscape++;
 
-            if(loopEscape >= 100)
-            {
-                return;
-            }
-        }
+        //    if (loopEscape >= 100)
+        //    {
+        //        _manager.SetState(MacState.ATTACK);
+        //        return;
+        //    }
+        //}
 
+        //_SetTarget = true;
+
+        List<Vector3> lists = FindObjectOfType<MapGrid>().mapPositions;
+        var rand = UnityEngine.Random.Range(0, lists.Count);
+        TargetPos = lists[rand];
+
+        _manager.agent.destination = TargetPos;
         _SetTarget = true;
     }
 
@@ -72,7 +88,7 @@ public class MacRUNAWAY : MacFSMState
 
         RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit, 0.5f, 1 << 17))
+        if (Physics.Raycast(ray, out hit, 0.5f, 1 << 17))
         {
             transform.LookAt(Targets[random]);
             TargetPos = hit.point;

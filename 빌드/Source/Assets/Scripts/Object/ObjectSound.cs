@@ -50,6 +50,7 @@ namespace MC.Sound
         {
             #region BGMList
             public AK.Wwise.Event lobbyBGM = new AK.Wwise.Event();
+            public AK.Wwise.Event tutoBGM = new AK.Wwise.Event();
             public AK.Wwise.Event stageBGM = new AK.Wwise.Event();
             public AK.Wwise.Event bossBGM = new AK.Wwise.Event();
 
@@ -57,7 +58,7 @@ namespace MC.Sound
 
             public void PlayBGM(GameObject go, AK.Wwise.Event bgm)
             {
-                if (GameManager.Instance.config.soundActive.bgm ||
+                if (GameManager.Instance.config.soundActive.bgm &&
                     GameManager.Instance.config.soundActive.all)
                     try
                     {
@@ -70,7 +71,7 @@ namespace MC.Sound
             }
             public void StopBGM(GameObject go, AK.Wwise.Event bgm)
             {
-                if (GameManager.Instance.config.soundActive.bgm ||
+                if (GameManager.Instance.config.soundActive.bgm &&
                     GameManager.Instance.config.soundActive.all)
                     try
                     {
@@ -109,8 +110,56 @@ namespace MC.Sound
             }
         }
 
+        [System.Serializable]
+        public class UISoundList
+        {
+            #region UI
+            public AK.Wwise.Event uiStart = new AK.Wwise.Event();
+            #endregion
+
+            public void PlaySound(GameObject go, AK.Wwise.Event bgm)
+            {
+                if (GameManager.Instance.config.soundActive.sfx ||
+                    GameManager.Instance.config.soundActive.all)
+                    try
+                    {
+                        bgm.Post(go);
+                    }
+                    catch
+                    {
+                        MCSoundManager.LoadBank();
+                    }
+            }
+
+        }
+
+        [System.Serializable]
+        public class DialogVoice
+        {
+            #region DialogVoice
+            public AK.Wwise.Event[] voice;
+
+            #endregion
+
+            public void PlaySound(GameObject go, AK.Wwise.Event voice)
+            {
+                if (GameManager.Instance.config.soundActive.voice ||
+                    GameManager.Instance.config.soundActive.all)
+                    try
+                    {
+                        voice.Post(go);
+                    }
+                    catch
+                    {
+                        MCSoundManager.LoadBank();
+                    }
+            }
+        }
+
         public AmbientList ambient;
         public BGMList bgm;
         public ObjectSoundList objectSFX;
+        public UISoundList ui;
+        public DialogVoice dialogVoice;
     }
 }

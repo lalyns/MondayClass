@@ -34,6 +34,8 @@ public class MacBullet : MonoBehaviour
     public bool _Destroy = false;
     private bool _Dameged = false;
 
+    private bool _SoundPlay = false;
+
 
     private void Start()
     {
@@ -41,12 +43,12 @@ public class MacBullet : MonoBehaviour
         {
             case MacBulletType.Normal:
                 _CreativeTime = 0.800f;
-                _DestroyTime = 4.000f;
+                _DestroyTime = 2.000f;
                 _DestroyDelay = 0.650f;
                 break;
             case MacBulletType.Skill:
                 _CreativeTime = 1.000f;
-                _DestroyTime = 5.000f;
+                _DestroyTime = 7.000f;
                 _DestroyDelay = 1.100f;
                 break;
         }
@@ -77,8 +79,11 @@ public class MacBullet : MonoBehaviour
             _CreateEffect.SetActive(false);
             _MoveEffect.SetActive(true);
 
+
             if (!_Destroy)
+            {
                 this.transform.position += dir * speed * Time.deltaTime;
+            }
         }
        
         if (_PlayTime > _CreativeTime + _DestroyTime && !_Destroy)
@@ -91,10 +96,20 @@ public class MacBullet : MonoBehaviour
         }
 
         if (_Destroy)
+        {
+            if (!_SoundPlay)
+            {
+                _SoundPlay = true;
+                var sound = mac._Sound.monsterSFX;
+                sound.StopMonsterSFX(this.gameObject, sound.macBigBallMove);
+                sound.PlayMonsterSFX(this.gameObject, sound.macBigBallHit);
+            }
             _DestroyPlayTime += Time.deltaTime;
+        }
 
         if (_DestroyPlayTime > _DestroyDelay)
         {
+
             _DestroyPlayTime = 0;
             EffectReturnPool();
         }
@@ -115,10 +130,10 @@ public class MacBullet : MonoBehaviour
         switch (_Type)
         {
             case MacBulletType.Normal:
-                pool = EffectPoolManager._Instance._MacBulletPool;
+                pool = MonsterEffects.Instance.macBulletPool;
                 break;
             case MacBulletType.Skill:
-                pool = EffectPoolManager._Instance._MacSkillPool;
+                pool = MonsterEffects.Instance.macSkillPool;
                 break;
         }
 
@@ -128,6 +143,7 @@ public class MacBullet : MonoBehaviour
         _Move = false;
         _SetPlay = false;
         _Destroy = false;
+        _SoundPlay = false;
 
         _PlayTime = 0;
         _DestroyPlayTime = 0;
@@ -140,7 +156,7 @@ public class MacBullet : MonoBehaviour
         _Dameged = false;
     }
 
-    public void LookAtTarget(Transform target)
+    public void LookAtTarget(Vector3 target)
     {
         this.transform.LookAt(target);
     }
@@ -162,6 +178,9 @@ public class MacBullet : MonoBehaviour
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
 
+                var sound = mac._Sound.monsterSFX;
+                sound.PlayMonsterSFX(this.gameObject, sound.macSmallBallHit);
+
                 if (!_Destroy)
                 {
                     _MoveEffect.SetActive(false);
@@ -180,6 +199,7 @@ public class MacBullet : MonoBehaviour
                 var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", mac.Stat, damage);
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
+
             }
             
 

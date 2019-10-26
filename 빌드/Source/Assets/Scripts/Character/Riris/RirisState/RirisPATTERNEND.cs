@@ -20,6 +20,10 @@ public class RirisPATTERNEND : RirisFSMState
 
     private bool isDead = false;
 
+    private bool isPhase3Init = false;
+
+    RirisState nextState;
+
     public override void BeginState()
     {
         base.BeginState();
@@ -37,6 +41,13 @@ public class RirisPATTERNEND : RirisFSMState
             turn = 0;
         }
 
+        
+        if (isPhase3Init)
+        {
+            isPhase3Init = false;
+            BossDirector.Instance.PlayPhaseChangeCine();
+        }
+
         base.EndState();
     }
 
@@ -49,9 +60,8 @@ public class RirisPATTERNEND : RirisFSMState
 
         if (!isDead && delayCount > delay)
         {
-            RirisState nextState = ririsPhases[_manager._Phase].patterns[turn];
-            _manager.SetState(nextState);
-
+            nextState = ririsPhases[_manager._Phase].patterns[turn];
+            Warp(nextState);
             delayCount = 0;
         }
     }
@@ -61,10 +71,53 @@ public class RirisPATTERNEND : RirisFSMState
         base.FixedUpdate();
     }
 
+    public void Warp(RirisState next)
+    {
+        if(_manager._Phase == 0)
+        {
+            if (next == RirisState.PATTERNB)
+            {
+                Instantiate(_manager.missingEffect, _manager.Pevis.position, Quaternion.identity);
+                _manager.Anim.Play("Warp");
+                SetNextState(next);
+            }
+            else
+            {
+                SetNextState(next);
+                NextState();
+            }
+        }
+
+        else
+        {
+            if (isPhase3Init)
+            {
+                SetNextState(next);
+                NextState();
+            }
+            else
+            {
+                Instantiate(_manager.missingEffect, _manager.Pevis.position, Quaternion.identity);
+                _manager.Anim.Play("Warp");
+                SetNextState(next);
+            }
+        }
+    }
+
+    public void SetNextState(RirisState next)
+    {
+        nextState = next;
+    }
+
+    public void NextState()
+    {
+        _manager.SetState(nextState);
+    }
+
     public void PhaseCheck()
     {
         float hpRatio = _manager.Stat.Hp / _manager.Stat.MaxHp;
-        Debug.Log("HP 비율 : " + hpRatio);
+        //Debug.Log("HP 비율 : " + hpRatio);
 
         prevPhase = _manager._Phase;
 
@@ -79,6 +132,11 @@ public class RirisPATTERNEND : RirisFSMState
         else if(hpRatio >= _manager._PhaseThreshold[2])
         {
             _manager._Phase = 2;
+
+            if(prevPhase != _manager._Phase)
+            {
+                isPhase3Init = true;
+            }
         }
         else
         {

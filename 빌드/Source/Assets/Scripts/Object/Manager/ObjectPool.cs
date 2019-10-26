@@ -88,7 +88,7 @@ public class ObjectPool : MonoBehaviour
         if(type == "Effect")
         {
             item.GetComponent<Effects>().EffectPlay();
-            item.GetComponent<Effects>().targetPool = this;
+            item.GetComponent<Effects>().targetPool = this.GetComponent<ObjectPool>();
         }
 
         return item.transform;
@@ -115,12 +115,15 @@ public class ObjectPool : MonoBehaviour
         {
             case MonsterType.Mac:
                 item.GetComponent<MacFSMManager>().SetState(MacState.POPUP);
+                item.GetComponent<MacPOPUP>().PopupReset();
                 break;
             case MonsterType.RedHat:
                 item.GetComponent<RedHatFSMManager>().SetState(RedHatState.POPUP);
+                item.GetComponent<RedHatPOPUP>().PopupReset();
                 break;
             case MonsterType.Tiber:
                 item.GetComponent<TiberFSMManager>().SetState(TiberState.POPUP);
+                item.GetComponent<TiberPOPUP>().PopupReset();
                 break;
 
         }
@@ -160,28 +163,10 @@ public class ObjectPool : MonoBehaviour
         if (type == "Effect")
         {
             item.GetComponent<Effects>().EffectPlay();
-            item.GetComponent<Effects>().targetPool = this;
+            item.GetComponent<Effects>().targetPool = this.GetComponent<ObjectPool>();
         }
 
         return item;
-    }
-
-
-    public void ItemSetActive(Transform respawnTrans, bool bulletType)
-    {
-        if (_InActiveItemPool.Count == 0)
-        {
-            CreateItem();
-        }
-
-        var item = _InActiveItemPool.First.Value;
-        _InActiveItemPool.RemoveFirst();
-
-        item.transform.position = respawnTrans.position;
-        item.GetComponent<RirisBullet>().directionType = bulletType;
-        item.SetActive(true);
-
-        _ActiveItem.AddLast(item);
     }
 
     public GameObject ItemSetActive(Vector3 respawnPos)
@@ -217,7 +202,7 @@ public class ObjectPool : MonoBehaviour
         try
         {
             item.GetComponent<MacBullet>().LookAtTarget(
-                GameObject.FindGameObjectWithTag("Player").transform);
+                PlayerFSMManager.GetLookTargetPos(item.transform));
 
             item.GetComponent<MacBullet>().dir =
                 GameLib.DirectionToCharacter(start, target);
@@ -265,7 +250,6 @@ public class ObjectPool : MonoBehaviour
 
         _ActiveItem.Remove(go);
 
-        GameStatus.Instance.RemoveActivedMonsterList(go);
 
         go.transform.localPosition = this.transform.position;
         go.SetActive(false);

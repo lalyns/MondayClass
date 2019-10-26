@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
 
+using MC.Mission;
 using MC.UI;
 using MC.Sound;
 using MC.SceneDirector;
@@ -39,6 +40,9 @@ public class GameManager : MonoBehaviour
 
     public bool CineMode;
 
+    public float softDuration = 0.05f;
+    public float hardDuration = 0.06f;
+
     [System.Serializable]
     public class UIActive
     {
@@ -47,7 +51,7 @@ public class GameManager : MonoBehaviour
         public bool monster = true;
         public bool system = true;
         public bool progress = false;
-        public bool selector = true;
+        public bool selector = false;
     }
     public UIActive uIActive;
 
@@ -69,11 +73,14 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(this.gameObject);
+
     }
 
     private void Start()
     {
-        if(MCSceneManager.currentSceneNumber == MCSceneManager.TITLE)
+        Debug.Log(MCSceneManager.currentScene);
+
+        if(MCSceneManager.currentScene == MCSceneManager.TITLE)
         {
             UserInterface.SetPointerMode(true);
 
@@ -81,22 +88,29 @@ public class GameManager : MonoBehaviour
                 MCSoundManager.Instance.objectSound.ambient.lobbyAmbient);
         }
 
-        if (MCSceneManager.currentSceneNumber == MCSceneManager.ANNIHILATION ||
-            MCSceneManager.currentSceneNumber == MCSceneManager.SURVIVAL     ||
-            MCSceneManager.currentSceneNumber == MCSceneManager.DEFENCE)
+        if (MCSceneManager.currentScene == MCSceneManager.ANNIHILATION ||
+            MCSceneManager.currentScene == MCSceneManager.SURVIVAL     ||
+            MCSceneManager.currentScene == MCSceneManager.DEFENCE)
         {
             UserInterface.SetPointerMode(false);
         }
 
-        if(MCSceneManager.currentSceneNumber == MCSceneManager.BOSS)
+        if(MCSceneManager.currentScene == MCSceneManager.BOSS)
         {
-            TempDirector.Instance.SceneStart();
-            UserInterface.SetPointerMode(false);
+            if (CineMode)
+            {
+                BossDirector.Instance.PlayStartCine();
+            }
+            else
+            {
+                BossDirector.Instance.PlayScene();
+                UserInterface.SetPointerMode(false);
+            }
         }
 
         UserInterface.SetAllUserInterface(uIActive.all);
         UserInterface.SetPlayerUserInterface(uIActive.player);
-        UserInterface.SetSystemInterface(uIActive.system);
+        //UserInterface.SetSystemInterface(uIActive.system);
         UserInterface.SetMissionProgressUserInterface(uIActive.progress);
         UserInterface.SetMissionSelectionUI(uIActive.selector);
     }
@@ -119,19 +133,10 @@ public class GameManager : MonoBehaviour
         if (!isPause)
         {
             Time.timeScale = TimeMagnificationMode ? TimeMagnificationValue : 1.0f;
-            try
-            {
-                UserInterface.Instance.MousePointerSpeed(1 / TimeMagnificationValue);
-            }
-            catch
-            {
-
-            }
         }
         else
         {
-            Time.timeScale = 0.01f;
-            UserInterface.Instance.MousePointerSpeed(100f);
+            Time.timeScale = 0;
         }
     }
 
@@ -175,60 +180,121 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public static void SetFadeInOut(System.Action callback,  bool value)
+    public static void SetFadeInOut(System.Action callback, string soundType, float duration, bool value)
     {
         if (value)
-            Instance.StartCoroutine(UserInterface.FadeIn(callback, 20));
+            Instance.StartCoroutine(UserInterface.FadeIn(callback, soundType, duration));
         else
-            Instance.StartCoroutine(UserInterface.FadeOut(callback, 20));
+            Instance.StartCoroutine(UserInterface.FadeOut(callback, soundType, duration));
     }
 
     public static void SetSceneSetting()
     {
-        var num = MCSceneManager.currentSceneNumber;
-
         MissionButton.isPush = false;
         CanvasInfo.Instance.SetRenderCam();
+        UserInterface.Instance.SetValue();
+
+        PlayerFSMManager.Instance.Stat.SetStatValue();
+    }
+
+    public static void ScriptCheck()
+    {
+        if (MCSceneManager.currentScene != MCSceneManager.TITLE || 
+            MCSceneManager.currentScene != MCSceneManager.TUTORIAL)
+        {
+            if (GameStatus.Instance.StageLevel == 0)
+            {
+                //var dialogEvent = Instance.GetComponent<DialogEvent>();
+                //UserInterface.DialogSetActive(true);
+                //UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4], () => { });
+                //GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            }
+
+            //if (MCSceneManager.currentScene == MCSceneManager.BOSS)
+            //{
+            //    var dialogEvent = GetComponent<DialogEvent>();
+            //    UserInterface.DialogSetActive(true);
+            //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[7]);
+            //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            //    return;
+            //}
+        }
+
+        Instance.AfterDialog();
+    }
+
+    public void AfterDialog()
+    {
+        var num = MCSceneManager.currentScene;
 
         switch (num)
         {
-            case 0:
+            case MCSceneManager.TITLE:
+                Instance.TitleSet();
                 break;
-            case 1:
-                Debug.Log("aa");
+            case MCSceneManager.TUTORIAL:
+                Instance.TutorialSet();
                 break;
-            case 2:
-                Debug.Log("Stage1");
+            case MCSceneManager.ANNIHILATION:
+                GameStatus.SetCurrentGameState(CurrentGameState.Wait);
                 Instance.StageSet();
                 break;
-            case 3:
-                Debug.Log("Stage2");
+            case MCSceneManager.SURVIVAL:
+                GameStatus.SetCurrentGameState(CurrentGameState.Wait);
                 Instance.StageSet();
                 break;
-            case 4:
-                Debug.Log("Stage3");
+            case MCSceneManager.DEFENCE:
+                GameStatus.SetCurrentGameState(CurrentGameState.Wait);
                 Instance.StageSet();
                 break;
-            case 5:
+            case MCSceneManager.BOSS:
+                GameStatus.SetCurrentGameState(CurrentGameState.Wait);
                 Instance.BossSet();
                 break;
         }
     }
 
-    private void StageSet()
+    public void TutorialSet()
     {
+        GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
+        FindObjectOfType<MissionTutorial>().tutostart = true;
+
+
+        UserInterface.SetPlayerUserInterface(true);
+        UserInterface.SetPointerMode(false);
+    }
+
+    public void TitleSet()
+    {
+        UserInterface.SetPlayerUserInterface(false);
+
+        UserInterface.SetMissionSelectionUI(false);
+        UserInterface.SetMissionProgressUserInterface(false);
+
         UserInterface.SetPointerMode(false);
 
-        UserInterface.Instance.SetValue();
+        MCSoundManager.Instance.objectSound.bgm.StopBGM(gameObject,
+            MCSoundManager.Instance.objectSound.bgm.stageBGM);
+        MCSoundManager.Instance.objectSound.bgm.StopBGM(gameObject,
+            MCSoundManager.Instance.objectSound.bgm.bossBGM);
+
+        MCSoundManager.Instance.objectSound.bgm.PlayBGM(gameObject,
+            MCSoundManager.Instance.objectSound.bgm.lobbyBGM);
+
+        CharacterControl = false;
+    }
+
+    public void StageSet()
+    {
+        GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+        CanvasInfo.Instance.PlayStartAnim();
+
+        UserInterface.SetPointerMode(false);
+
         UserInterface.SetAllUserInterface(true);
         UserInterface.SetPlayerUserInterface(true);
 
         CharacterControl = true;
-    }
-
-    private void Scene1Setting()
-    {
-
     }
 
     public void SetBank()
@@ -236,10 +302,21 @@ public class GameManager : MonoBehaviour
         MCSoundManager.SetSound();
     }
 
-    private void BossSet()
+    public void BossSet()
     {
-        TempDirector.Instance.PlayMode = false;
-        TempDirector.Instance.CineStart();
+        GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+        UserInterface.SetPointerMode(false);
+
+        if (GameManager.Instance.CineMode)
+        {
+            BossDirector.Instance.PlayMode = false;
+            BossDirector.Instance.PlayStartCine();
+        }
+        else
+        {
+            BossDirector.Instance.PlayMode = true;
+            BossDirector.Instance.PlayScene();
+        }
     }
 
     private void BossSceneSetting()
