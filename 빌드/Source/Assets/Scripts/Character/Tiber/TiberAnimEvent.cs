@@ -51,6 +51,27 @@ public class TiberAnimEvent : MonoBehaviour
         voice.PlayMonsterVoice(gameObject, voice.tiberDieVoice);
     }
 
+    void JumpSound()
+    {
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(gameObject, sound.tiberStamp);
+
+    }
+
+    void DropSound()
+    {
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(gameObject, sound.tiberStampDrop);
+
+    }
+
+    void BoomSound()
+    {
+
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(gameObject, sound.tiberStampBoom);
+    }
+
     void HitCheck1()
     {
         //if (null != _attackCp2)

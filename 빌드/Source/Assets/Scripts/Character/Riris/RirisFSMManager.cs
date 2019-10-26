@@ -25,6 +25,8 @@ public class RirisFSMManager : FSMManager
     public RirisState startState = RirisState.POPUP;
     private Dictionary<RirisState, RirisFSMState> _States = new Dictionary<RirisState, RirisFSMState>();
 
+    public static RirisFSMManager Instance;
+
     private RirisState _CurrentState;
     public RirisState CurrentState {
         get {
@@ -90,6 +92,8 @@ public class RirisFSMManager : FSMManager
     protected override void Awake()
     {
         base.Awake();
+
+        Instance = GetComponent<RirisFSMManager>();
 
         _CC = GetComponent<CharacterController>();
         _Stat = GetComponent<RirisStat>();
