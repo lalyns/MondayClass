@@ -141,7 +141,7 @@ public class MissionManager : MonoBehaviour
             UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
         }
 
-        if (GameStatus.Instance.StageLevel >= 3)
+        if (GameStatus.Instance.StageLevel >= 8)
         {
             UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
             UserInterface.Instance.SelectorUI.buttons[1].ChangeMission((int)MissionType.Boss);
@@ -320,7 +320,7 @@ public class MissionManager : MonoBehaviour
         if (Instance.currentMissionRewards[0] == Instance.currentMissionRewards[1])
         {
             Instance.currentMissionRewards[0] = MissionRewardType.Defense;
-            Instance.currentMissionRewards[1] = MissionRewardType.Str;
+            Instance.currentMissionRewards[1] = MissionRewardType.Hp;
         }
 
         Instance.GetReward(Instance.currentMissionRewards[0]);

@@ -164,37 +164,38 @@ namespace MC.Mission
             {
             }
 
-            if (MCSceneManager.currentScene == MCSceneManager.ANNIHILATION ||
-                MCSceneManager.currentScene == MCSceneManager.DEFENCE ||
-                MCSceneManager.currentScene == MCSceneManager.SURVIVAL)
-            {
-                if (GameStatus.Instance.StageLevel == 3)
-                {
-                    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            //if (MCSceneManager.currentScene == MCSceneManager.ANNIHILATION ||
+            //    MCSceneManager.currentScene == MCSceneManager.DEFENCE ||
+            //    MCSceneManager.currentScene == MCSceneManager.SURVIVAL)
+            //{
+            //    if (GameStatus.Instance.StageLevel == 3)
+            //    {
+            //        GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
 
-                    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-                    UserInterface.DialogSetActive(true);
+            //        var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+            //        UserInterface.DialogSetActive(true);
 
-                    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () =>
-                    {
-                        GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
-                        GameManager.Instance.CharacterControl = true;
-                    });
-                }
+            //        UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () =>
+            //        {
+            //            GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
+            //            GameManager.Instance.CharacterControl = true;
+            //        });
+            //    }
 
-                if (GameStatus.Instance.StageLevel == 8)
-                {
-                    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            //    if (GameStatus.Instance.StageLevel == 8)
+            //    {
+            //        GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
 
-                    var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-                    UserInterface.DialogSetActive(true);
-                    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () =>
-                    {
-                        GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
-                        GameManager.Instance.CharacterControl = true;
-                    });
-                }
-            }
+            //        var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+            //        UserInterface.DialogSetActive(true);
+            //        UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () =>
+            //        {
+            //            GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
+            //            GameManager.Instance.CharacterControl = true;
+            //        });
+            //    }
+            //}
+
             if (GameStatus.Instance.StageLevel < 3)
             {
                 Exit._PortalEffect.SetActive(true);
