@@ -139,6 +139,7 @@ public class RirisULTIMATE : RirisFSMState
             GameObject beam = BossEffects.Instance.beam.ItemSetActive(pattern.startTrans[i].position);
             beamLists[value].Add(beam);
             beam.transform.LookAt(pattern.targetTrans[i].position);
+            StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
 
             flowerLists[value][i].GetComponent<BossUltEffect>().impactEffect.PlayEffects();
         }

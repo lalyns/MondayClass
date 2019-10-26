@@ -14,6 +14,7 @@ public class RedHatPOPUP : RedHatFSMState
         _manager.Anim.Play("PopUp");
         _manager.Stat.SetHp(_manager.Stat.MaxHp);
 
+
         _PopupEffect.SetActive(true);
         _PopupEffect.GetComponentInChildren<ParticleSystem>().Play();
         _PopupEffect.GetComponentInChildren<Animator>().Play("PopUpEffect");
@@ -33,6 +34,14 @@ public class RedHatPOPUP : RedHatFSMState
         GameLib.DissoveActive(_manager.materialList, false);
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));
         GetComponentInChildren<RedHatHitCollider>().capsule.enabled = true;
+
+        if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)
+        {
+            var sound = _manager._Sound.monsterSFX;
+            sound.PlayMonsterSFX(_manager.gameObject, sound.monsterAppear);
+            MCSoundManager.SoundCall = 0f;
+        }
+
     }
 
     private void Start()

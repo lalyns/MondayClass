@@ -12,6 +12,9 @@ namespace MC.Sound
             #region ActionList
             public AK.Wwise.Event[] attackSFX = new AK.Wwise.Event[7];
 
+            public AK.Wwise.Event monsterAppear = new AK.Wwise.Event();
+            public AK.Wwise.Event monsterDisAppear = new AK.Wwise.Event();
+
             public AK.Wwise.Event redhatDash = new AK.Wwise.Event();
             public AK.Wwise.Event redhatDashHit = new AK.Wwise.Event();
             public AK.Wwise.Event redhatAttackReady = new AK.Wwise.Event();

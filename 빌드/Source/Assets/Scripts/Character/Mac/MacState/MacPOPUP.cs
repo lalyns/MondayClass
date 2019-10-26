@@ -12,6 +12,7 @@ public class MacPOPUP : MacFSMState
         _manager.Anim.Play("PopUp");
         _manager.Stat.SetHp(_manager.Stat.MaxHp);
 
+
         EffectPlay();
         TargetPrioritySet();
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
@@ -26,6 +27,14 @@ public class MacPOPUP : MacFSMState
         GameLib.DissoveActive(_manager.materialList, false);
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));
         GetComponentInChildren<MacHitCollider>().capsule.enabled = true;
+
+        if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)
+        {
+            var sound = _manager._Sound.monsterSFX;
+            sound.PlayMonsterSFX(_manager.gameObject, sound.monsterAppear);
+            MCSoundManager.SoundCall = 0f;
+        }
+
     }
 
     private void Start()

@@ -50,8 +50,13 @@ public class RedHatHitCollider : MonoBehaviour
         float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f);
         CharacterStat.ProcessDamage(playerStat, redhat.Stat, damage);
 
-        var sound = GetComponentInParent<MonsterSound>().monsterSFX;
-        sound.PlayMonsterSFX(this.gameObject, sound.attackSFX[value]);
+        if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)
+        {
+            var sound = GetComponentInParent<MonsterSound>().monsterSFX;
+            sound.PlayMonsterSFX(this.gameObject, sound.attackSFX[value]);
+
+            if (attackType == AttackType.SKILL3) MCSoundManager.SoundCall = 0;
+        }
 
         //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);

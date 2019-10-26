@@ -8,13 +8,22 @@ public class MacDISSOLVE : MacFSMState
     public override void BeginState()
     {
         base.BeginState();
+
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(_manager.gameObject, sound.monsterDisAppear);
+
     }
 
     public override void EndState()
     {
         base.EndState();
-        MonsterPoolManager._Instance._Mac.ItemReturnPool(gameObject, MonsterType.Mac);       
-        
+
+        useGravity = true;
+        _manager.CC.detectCollisions = true;
+
+        MonsterPoolManager._Instance._Mac.ItemReturnPool(gameObject, MonsterType.Mac);
+
+
         _time = 0;
     }
 
