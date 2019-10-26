@@ -45,10 +45,24 @@ public class TiberAnimEvent : MonoBehaviour
         _attackCp2.isEnd = true;
     }
 
+    void SpinStart()
+    {
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(gameObject, sound.tiberSpinInit);
+
+    }
+
     void SpinSound()
     {
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(gameObject, sound.tiberSpin);
+    }
+
+    void SpinVoice()
+    {
         var voice = _manager._Sound.monsterVoice;
-        voice.PlayMonsterVoice(gameObject, voice.tiberDieVoice);
+        voice.PlayMonsterVoice(gameObject, voice.tiberSpinVoice);
+
     }
 
     void JumpSound()
@@ -56,6 +70,12 @@ public class TiberAnimEvent : MonoBehaviour
         var sound = _manager._Sound.monsterSFX;
         sound.PlayMonsterSFX(gameObject, sound.tiberStamp);
 
+    }
+
+    void JumpVoice()
+    {
+        var voice = _manager._Sound.monsterVoice;
+        voice.PlayMonsterVoice(gameObject, voice.tiberStompVoice);
     }
 
     void DropSound()

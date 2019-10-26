@@ -44,8 +44,6 @@ public class TiberDEAD : TiberFSMState
         base.EndState();
 
         //GameLib.DissoveActive(_manager.materialList, false);
-        useGravity = true;
-        _manager.CC.detectCollisions = true;
 
         if (MissionManager.Instance.CurrentMissionType == MissionType.Annihilation)
         {

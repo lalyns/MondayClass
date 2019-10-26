@@ -37,8 +37,6 @@ public class RedHatDEAD : RedHatFSMState
     {
         base.EndState();
 
-        useGravity = true;
-        _manager.CC.detectCollisions = true;
         
         if (MissionManager.Instance.CurrentMissionType == MissionType.Annihilation)
         {

@@ -12,6 +12,9 @@ namespace MC.Sound
             #region ActionList
             public AK.Wwise.Event[] attackSFX = new AK.Wwise.Event[7];
 
+            public AK.Wwise.Event monsterAppear = new AK.Wwise.Event();
+            public AK.Wwise.Event monsterDisAppear = new AK.Wwise.Event();
+
             public AK.Wwise.Event redhatDash = new AK.Wwise.Event();
             public AK.Wwise.Event redhatDashHit = new AK.Wwise.Event();
             public AK.Wwise.Event redhatAttackReady = new AK.Wwise.Event();
@@ -24,7 +27,9 @@ namespace MC.Sound
             public AK.Wwise.Event macSmallBall = new AK.Wwise.Event();
             public AK.Wwise.Event macSmallBallHit = new AK.Wwise.Event();
 
+            public AK.Wwise.Event tiberSpinInit = new AK.Wwise.Event();
             public AK.Wwise.Event tiberSpin = new AK.Wwise.Event();
+            public AK.Wwise.Event tiberSpinHit = new AK.Wwise.Event();
             public AK.Wwise.Event tiberStamp = new AK.Wwise.Event();
             public AK.Wwise.Event tiberStampDrop = new AK.Wwise.Event();
             public AK.Wwise.Event tiberStampBoom = new AK.Wwise.Event();

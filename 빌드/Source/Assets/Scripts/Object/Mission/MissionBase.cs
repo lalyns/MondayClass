@@ -170,27 +170,28 @@ namespace MC.Mission
                 if (GameStatus.Instance.StageLevel == 3)
                 {
                     GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+
                     var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
                     UserInterface.DialogSetActive(true);
 
-
                     UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () =>
                     {
-                        GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+                        GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
                         GameManager.Instance.CharacterControl = true;
                     });
                 }
 
                 if (GameStatus.Instance.StageLevel == 8)
                 {
+                    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+
                     var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
                     UserInterface.DialogSetActive(true);
                     UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () =>
                     {
-                        GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+                        GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
                         GameManager.Instance.CharacterControl = true;
                     });
-                    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
                 }
             }
             if (GameStatus.Instance.StageLevel < 3)
