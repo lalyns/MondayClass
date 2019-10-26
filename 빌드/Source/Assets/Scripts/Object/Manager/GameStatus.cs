@@ -178,6 +178,11 @@ public class GameStatus : MonoBehaviour
                 SummonReady(MonsterType.Mac);
             }
 
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                SummonReady(MonsterType.Tiber);
+            }
+
             if (Input.GetKeyDown(KeyCode.X))
             {
                 usingKeward = true;
