@@ -182,18 +182,6 @@ namespace MC.UI {
             GameStatus.Instance.StageLevel--;
         }
 
-        public void PlayStartAnim()
-        {
-            missionStartAnim.gameObject.SetActive(true);
-            missionStartAnim.Play("MissionStart");
-            Invoke("EndStartAnim", 4f);
-        }
-
-        public void EndStartAnim()
-        {
-            missionStartAnim.gameObject.SetActive(false);
-        }
-
         public void ExitGame()
         {
             PauseMenuActive(false);

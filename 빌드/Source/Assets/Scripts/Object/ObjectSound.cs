@@ -90,6 +90,8 @@ namespace MC.Sound
         {
             #region ObjectList
             public AK.Wwise.Event portalActive = new AK.Wwise.Event();
+            public AK.Wwise.Event portalLoop = new AK.Wwise.Event();
+
             public AK.Wwise.Event portalCreate = new AK.Wwise.Event();
             public AK.Wwise.Event portalEnter = new AK.Wwise.Event();
             public AK.Wwise.Event portalExit = new AK.Wwise.Event();
@@ -103,6 +105,20 @@ namespace MC.Sound
                     try
                     {
                         bgm.Post(go);
+                    }
+                    catch
+                    {
+                        MCSoundManager.LoadBank();
+                    }
+            }
+
+            public void StopSound(GameObject go, AK.Wwise.Event bgm)
+            {
+                if (GameManager.Instance.config.soundActive.sfx ||
+                    GameManager.Instance.config.soundActive.all)
+                    try
+                    {
+                        bgm.Stop(go);
                     }
                     catch
                     {

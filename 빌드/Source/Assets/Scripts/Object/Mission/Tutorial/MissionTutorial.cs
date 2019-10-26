@@ -58,6 +58,8 @@ namespace MC.Mission
 
         protected override void Update()
         {
+            tutorialUI.gameObject.SetActive(GameStatus.currentGameState == CurrentGameState.Tutorial);
+
             // base.Update();
             if (currentTutorial == TutorialEvent.Start && !tutorial && tutostart)
             {

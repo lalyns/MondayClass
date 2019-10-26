@@ -112,7 +112,12 @@ namespace MC.SceneDirector
 
         public void NextScene(int sceneNumber, string soundType, float duration, bool fading)
         {
-            if(currentScene != TITLE && GameStatus.Instance.ActivedMonsterList.Count != 0)
+            if (currentScene != TITLE) {
+                var sound = MCSoundManager.Instance.objectSound.objectSFX;
+                sound.StopSound(MissionManager.Instance.CurrentMission.Exit.gameObject, sound.portalLoop);
+            }
+
+            if (currentScene != TITLE && GameStatus.Instance.ActivedMonsterList.Count != 0)
                 GameStatus.Instance.RemoveAllActiveMonster();
 
             if (fading)
