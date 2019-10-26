@@ -151,6 +151,7 @@ namespace MC.Mission
             else
             {
                 GameStatus.Instance.RemoveAllActiveMonster();
+                PlayerFSMManager.Instance.Stat.lastHitBy = null;
             }
 
             try

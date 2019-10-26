@@ -46,7 +46,7 @@ public class MacHitCollider : MonoBehaviour
 
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
-        float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f) - mac.Stat.Defense;
+        float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f);
         CharacterStat.ProcessDamage(playerStat, mac.Stat, damage);
 
         var sound = GetComponentInParent<MonsterSound>().monsterSFX;

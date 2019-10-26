@@ -36,6 +36,10 @@ public class MacBullet : MonoBehaviour
 
     private bool _SoundPlay = false;
 
+    public void OnEnable()
+    {
+        transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
+    }
 
     private void Start()
     {
@@ -101,8 +105,15 @@ public class MacBullet : MonoBehaviour
             {
                 _SoundPlay = true;
                 var sound = mac._Sound.monsterSFX;
-                sound.StopMonsterSFX(this.gameObject, sound.macBigBallMove);
-                sound.PlayMonsterSFX(this.gameObject, sound.macBigBallHit);
+                if (_Type == MacBulletType.Skill)
+                {
+                    sound.StopMonsterSFX(this.gameObject, sound.macBigBallMove);
+                    sound.PlayMonsterSFX(this.gameObject, sound.macBigBallHit);
+                }
+                else
+                {
+                    sound.PlayMonsterSFX(this.gameObject, sound.macSmallBallHit);
+                }
             }
             _DestroyPlayTime += Time.deltaTime;
         }
@@ -207,7 +218,6 @@ public class MacBullet : MonoBehaviour
 
         if(other.transform.tag == "DreamPillar")
         {
-            other.GetComponent<MC.Mission.ProtectedTarget>().hp -= 10;
             _Dameged = true;
 
             if (!_Destroy)
