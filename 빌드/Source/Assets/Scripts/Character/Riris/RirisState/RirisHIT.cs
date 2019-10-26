@@ -35,8 +35,14 @@ public class RirisHIT : RirisFSMState
             {
                 CharacterStat.ProcessDamage(playerStat, _manager.Stat, playerStat.dmgCoefficient[6]);
                 isHit = true;
+                _manager.isUlt = false;
             }
         }
+        if (!PlayerFSMManager.Instance.isSpecial)
+        {
+            _manager.isChange = false; 
+        }
+
         if (_manager.Stat.Hp <= 0)
             _manager.SetDeadState();
     }

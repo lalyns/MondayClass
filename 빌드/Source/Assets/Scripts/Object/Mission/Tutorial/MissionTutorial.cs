@@ -354,6 +354,7 @@ namespace MC.Mission
         void SetMoveAndDashEvent()
         {
             PlayerFSMManager.Instance.isInputLock = false;
+            PlayerFSMManager.Instance.isAttackOne = false;
             GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
             var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
@@ -372,7 +373,7 @@ namespace MC.Mission
         {
             GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
             var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-
+            PlayerFSMManager.Instance.isAttackOne = false;
             UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[3],
                 () => 
                 {
@@ -386,7 +387,7 @@ namespace MC.Mission
         {
             GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
             var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-
+            PlayerFSMManager.Instance.isAttackOne = false;
             fences[2].OpenFence();
             UserInterface.DialogSetActive(true);
             tutorialUI.moveDash.gameObject.SetActive(false);
