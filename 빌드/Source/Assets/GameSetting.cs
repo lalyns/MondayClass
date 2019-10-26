@@ -97,6 +97,8 @@ public class GameSetting : MonoBehaviour
         MC.Sound.MCSoundManager.SetRTPCParam("Sound_Volume", sfx.value);
         MC.Sound.MCSoundManager.SetRTPCParam("Ambient_Volume", amb.value);
         MC.Sound.MCSoundManager.SetRTPCParam("Voice_Volume", voice.value);
+
+        MC.UI.UserInterface.BlurSet(true, 10f);
     }
 
     public void Update()
@@ -111,6 +113,7 @@ public class GameSetting : MonoBehaviour
     public void SettingExit()
     {
         setting.SetActive(false);
+        MC.UI.UserInterface.BlurSet(false, 10f);
     }
 
 }
