@@ -62,6 +62,9 @@ namespace MC.UI
             if(currentTurn < dialogLength)
             {
                 SetDialog(currentTurn);
+                var sound = MC.Sound.MCSoundManager.Instance.objectSound.ui;
+                sound.PlaySound(this.gameObject, sound.nextPage);
+
                 currentTurn++;
             }
             else

@@ -5,6 +5,8 @@ using MC.SceneDirector;
 using UnityEngine.UI;
 using UnityEngine.Playables;
 
+using MC.Sound;
+
 namespace MC.UI
 {
 
@@ -38,6 +40,50 @@ namespace MC.UI
         public void CineNext()
         {
             playableDirector.Resume();
+
+            var sound = MCSoundManager.Instance.objectSound.ui;
+            sound.PlaySound(this.gameObject, sound.nextPage);
+        }
+
+        public void PlayCrowd()
+        {
+            var sound = MCSoundManager.Instance.objectSound.cinema;
+            sound.PlaySound(this.gameObject, sound.storyCrowd);
+        }
+
+        public void PlayDive()
+        {
+
+            var sound = MCSoundManager.Instance.objectSound.cinema;
+            sound.PlaySound(this.gameObject, sound.storyDive);
+        }
+
+        public void PlayPhone()
+        {
+
+            var sound = MCSoundManager.Instance.objectSound.cinema;
+            sound.PlaySound(this.gameObject, sound.storyPhone);
+        }
+        
+        public void PlayPangYi()
+        {
+
+            var sound = MCSoundManager.Instance.objectSound.dialogVoice;
+            sound.PlaySound(this.gameObject, sound.voice[9]);
+        }
+
+        public void GalaxySurprised()
+        {
+
+            var sound = MCSoundManager.Instance.objectSound.dialogVoice;
+            sound.PlaySound(this.gameObject, sound.voice[6]);
+        }
+
+        public void PlayWind()
+        {
+
+            var sound = MCSoundManager.Instance.objectSound.cinema;
+            sound.PlaySound(this.gameObject, sound.storyWind);
         }
 
         public void CineEnd()
