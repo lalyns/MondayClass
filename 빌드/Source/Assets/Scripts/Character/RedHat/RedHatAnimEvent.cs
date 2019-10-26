@@ -48,10 +48,19 @@ public class RedHatAnimEvent : MonoBehaviour
         _WeaponCapsule.enabled = false;
     }
 
+    void AttackReadySFX()
+    {
+        var sound = FSMManager.sound.monsterSFX;
+        sound.PlayMonsterSFX(this.gameObject, sound.redhatAttackReady);
+    }
+
     void AttackSFX()
     {
         var sound = FSMManager.sound.monsterSFX;
         sound.PlayMonsterSFX(this.gameObject, sound.redhatAttack);
+
+        var voice = _manager.sound.monsterVoice;
+        voice.PlayMonsterVoice(this.gameObject, voice.redhatAttackVoice);
     }
 
     void DashSFX()
