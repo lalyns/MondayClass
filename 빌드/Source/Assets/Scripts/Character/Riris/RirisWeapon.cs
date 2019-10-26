@@ -10,7 +10,7 @@ public class RirisWeapon : MonoBehaviour
 
     void Start()
     {
-        
+        riris = RirisFSMManager.Instance;
     }
 
     void Update()
@@ -39,7 +39,7 @@ public class RirisWeapon : MonoBehaviour
                 _Dameged = true;
             }
         }
-        else
+        else if(riris.CurrentState == RirisState.PATTERNB)
         {
             if (other.transform.tag == "Player")
             {
@@ -54,6 +54,23 @@ public class RirisWeapon : MonoBehaviour
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
             }
+        }
+        else if(riris.CurrentState == RirisState.ULTIMATE)
+        {
+            if (other.transform.tag == "Player")
+            {
+                float damage = riris.Stat.damageCoefiiecient[4] * 0.01f *
+                (riris.Stat.Str + riris.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
+                - PlayerFSMManager.Instance.Stat.Defense;
+
+                CharacterStat.ProcessDamage(riris.Stat, PlayerFSMManager.Instance.Stat, damage);
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 1f, "Player", riris.Stat, 0);
+                PlayerFSMManager.Instance.SetState(PlayerState.HIT2);
+
+                Invoke("AttackSupport", 0.5f);
+                _Dameged = true;
+            }
+
         }
     }
 

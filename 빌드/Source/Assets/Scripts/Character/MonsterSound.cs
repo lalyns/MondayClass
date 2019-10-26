@@ -26,6 +26,8 @@ namespace MC.Sound
 
             public AK.Wwise.Event tiberSpin = new AK.Wwise.Event();
             public AK.Wwise.Event tiberStamp = new AK.Wwise.Event();
+            public AK.Wwise.Event tiberStampDrop = new AK.Wwise.Event();
+            public AK.Wwise.Event tiberStampBoom = new AK.Wwise.Event();
             #endregion
 
             public void PlayMonsterSFX(GameObject go, AK.Wwise.Event sfx)
