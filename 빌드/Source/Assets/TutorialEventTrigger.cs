@@ -7,6 +7,7 @@ namespace MC.Mission {
     public class TutorialEventTrigger : MonoBehaviour
     {
         public TutorialEvent tutoEvent;
+        bool eventPlay = false;
 
         public MissionTutorial mission {
             get => GetComponentInParent<MissionTutorial>();
@@ -16,8 +17,10 @@ namespace MC.Mission {
         {
             if(other.transform.tag == "Player")
             {
-                if(tutoEvent == TutorialEvent.Attack && mission.currentTutorial != TutorialEvent.End)
+                if(tutoEvent == TutorialEvent.Attack && mission.currentTutorial != TutorialEvent.End
+                    && !eventPlay)
                 {
+                    eventPlay = true;
                     Invoke("Attack1Event", 0.5f);
                 }
             }

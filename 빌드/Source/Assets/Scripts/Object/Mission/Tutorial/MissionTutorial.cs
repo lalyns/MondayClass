@@ -48,6 +48,10 @@ namespace MC.Mission
             //base.Awake();
 
             currentTutorial = TutorialEvent.Start;
+
+            MC.Sound.MCSoundManager.LoadBank();
+            var amb = MC.Sound.MCSoundManager.Instance.objectSound.ambient;
+            amb.PlayAmbient(this.gameObject, amb.tutoAmbient);
         }
 
         // Update is called once per frame
