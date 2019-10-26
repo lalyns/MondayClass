@@ -287,7 +287,6 @@ public class GameManager : MonoBehaviour
     public void StageSet()
     {
         GameStatus.SetCurrentGameState(CurrentGameState.Wait);
-        CanvasInfo.Instance.PlayStartAnim();
 
         UserInterface.SetPointerMode(false);
 

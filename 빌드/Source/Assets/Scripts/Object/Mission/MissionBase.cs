@@ -119,6 +119,7 @@ namespace MC.Mission
             Exit.Colliders.enabled = false;
             Exit._PortalEffect.SetActive(false);
 
+
         }
 
         public virtual void OperateMission()
@@ -205,7 +206,8 @@ namespace MC.Mission
             Exit.Colliders.enabled = true;
 
             var sound = MCSoundManager.Instance.objectSound.objectSFX;
-            sound.PlaySound(Exit.gameObject, sound.portalCreate);
+            sound.PlaySound(Exit.gameObject, sound.portalActive);
+            sound.PlaySound(Exit.gameObject, sound.portalLoop);
 
             MissionManager.RewardMission();
         }
