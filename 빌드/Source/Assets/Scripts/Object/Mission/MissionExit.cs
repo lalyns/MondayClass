@@ -30,8 +30,8 @@ public class MissionExit : MonoBehaviour
         {
             if (!isEnd) {
                 var sound = MCSoundManager.Instance.objectSound.objectSFX;
-
                 sound.PlaySound(this.gameObject, sound.portalEnter);
+
                 MissionManager.ExitMission();
                 MissionManager.PopUpMission();
                 PlayerFSMManager.Instance.rigid.useGravity = false;
