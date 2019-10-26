@@ -41,7 +41,7 @@ public class MacBullet : MonoBehaviour
         {
             case MacBulletType.Normal:
                 _CreativeTime = 0.800f;
-                _DestroyTime = 4.000f;
+                _DestroyTime = 2.000f;
                 _DestroyDelay = 0.650f;
                 break;
             case MacBulletType.Skill:
