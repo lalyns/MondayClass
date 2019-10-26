@@ -18,6 +18,10 @@ namespace AK
         static const AkUniqueID BGM_DUNGEON_04 = 3793957673U;
         static const AkUniqueID BGM_TITLE_01 = 2511535208U;
         static const AkUniqueID BGM_TUTORIAL_03 = 1633288558U;
+        static const AkUniqueID CINEMATIC_SOUND_CROWD = 460128710U;
+        static const AkUniqueID CINEMATIC_SOUND_DIVE = 1418554577U;
+        static const AkUniqueID CINEMATIC_SOUND_PHONE = 3872752641U;
+        static const AkUniqueID CINEMATIC_SOUND_WIND = 4253332529U;
         static const AkUniqueID LIRIS_DEATH_CAST_VOICE = 63954050U;
         static const AkUniqueID LIRIS_EMOTE_SMILE_VOICE = 1951680145U;
         static const AkUniqueID LIRIS_EMOTE_SURPRISED_VOICE = 2040715222U;
@@ -29,6 +33,9 @@ namespace AK
         static const AkUniqueID LIRIS_SKILL_DASH_ATTACK_CAST_VOICE = 2231595791U;
         static const AkUniqueID LIRIS_SKILL_SPECIAL_CAST_VOICE = 2863736793U;
         static const AkUniqueID LIRIS_SKILL_TRANSFORM_CAST_VOICE = 1088723654U;
+        static const AkUniqueID MACK_ACTION_DAMAGE_VOICE = 3432005513U;
+        static const AkUniqueID MACK_ACTION_DIE_VOICE = 1487405066U;
+        static const AkUniqueID MACK_SKILL_DARKBALL_VOICE = 499502726U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_ACTIVATIONL = 2682899652U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_CREATE = 1186601540U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_ENTER = 418004602U;
@@ -42,9 +49,12 @@ namespace AK
         static const AkUniqueID PLAYER_ACTION_SWING_NORMAL_VOICE = 2873463837U;
         static const AkUniqueID PLAYER_ACTION_SWING_TRANSFORM_VOICE = 226778022U;
         static const AkUniqueID PLAYER_EMOTE_HAPPY_VOICE = 3963107719U;
+        static const AkUniqueID PLAYER_EMOTE_HUMMING_VOICE = 848710408U;
         static const AkUniqueID PLAYER_EMOTE_RAGE_VOICE = 3515964306U;
         static const AkUniqueID PLAYER_EMOTE_SAD_VOICE = 4170229925U;
+        static const AkUniqueID PLAYER_EMOTE_SIGH_VOICE = 4249575596U;
         static const AkUniqueID PLAYER_EMOTE_SMILE_VOICE = 2926638781U;
+        static const AkUniqueID PLAYER_EMOTE_SONG_VOICE = 625322946U;
         static const AkUniqueID PLAYER_EMOTE_SURPRISED_VOICE = 1382127474U;
         static const AkUniqueID PLAYER_SKILL_SKILL_01_CAST_SOUND = 998903206U;
         static const AkUniqueID PLAYER_SKILL_SKILL_01_CAST_VOICE = 2493544557U;
@@ -76,8 +86,10 @@ namespace AK
         static const AkUniqueID REDHAT_ACTION_DIE_VOICE = 2778672982U;
         static const AkUniqueID REDHAT_SKILL_DASHSWORD_CAST_SOUND = 3602021817U;
         static const AkUniqueID REDHAT_SKILL_DASHSWORD_CAST_VOICE = 992191338U;
+        static const AkUniqueID REDHAT_SKILL_DASHSWORD_IMPACT_SOUND = 1090293494U;
         static const AkUniqueID REDHAT_SKILL_DRAWINGSWORD_CAST_SOUND = 2591569459U;
         static const AkUniqueID REDHAT_SKILL_DRAWINGSWORD_CAST_VOICE = 3262149532U;
+        static const AkUniqueID REDHAT_SKILL_DRAWINGSWORD_IMPACT_SOUND = 3162791252U;
         static const AkUniqueID REDHAT_SKILL_DRAWINGSWORD_READY_SOUND = 974809067U;
         static const AkUniqueID UI_START_SOUND = 4234647542U;
         static const AkUniqueID UI_TALK_SOUND_01 = 2576780850U;
