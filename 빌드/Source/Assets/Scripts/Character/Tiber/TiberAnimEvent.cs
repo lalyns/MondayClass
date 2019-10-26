@@ -45,8 +45,17 @@ public class TiberAnimEvent : MonoBehaviour
         _attackCp2.isEnd = true;
     }
 
+    void SpinStart()
+    {
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(gameObject, sound.tiberSpinInit);
+
+    }
+
     void SpinSound()
     {
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(gameObject, sound.tiberSpin);
     }
 
     void SpinVoice()

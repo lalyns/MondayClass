@@ -70,6 +70,27 @@ public class PlayerAnimEvent : MonoBehaviour
         particle.Play();
     }
 
+
+    void Sigh()
+    {
+        var voice = player._Sound.voice;
+        voice.PlayPlayerVoice(player.gameObject, voice.sigh);
+    }
+
+    void Singing()
+    {
+
+        var voice = player._Sound.voice;
+        voice.PlayPlayerVoice(player.gameObject, voice.singing);
+    }
+
+    void Humming()
+    {
+
+        var voice = player._Sound.voice;
+        voice.PlayPlayerVoice(player.gameObject, voice.humming);
+    }
+
     void Skill3Finish()
     {
         var voice = player._Sound.voice;
@@ -80,6 +101,12 @@ public class PlayerAnimEvent : MonoBehaviour
     {
         var voice = player._Sound.voice;
         voice.PlayPlayerVoice(this.gameObject, voice.specialCastVoice);
+    }
+
+    void SpecialWink()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.specialWinkSFX);
     }
 
     void SpecialEnd()

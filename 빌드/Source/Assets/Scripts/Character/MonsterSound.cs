@@ -27,7 +27,9 @@ namespace MC.Sound
             public AK.Wwise.Event macSmallBall = new AK.Wwise.Event();
             public AK.Wwise.Event macSmallBallHit = new AK.Wwise.Event();
 
+            public AK.Wwise.Event tiberSpinInit = new AK.Wwise.Event();
             public AK.Wwise.Event tiberSpin = new AK.Wwise.Event();
+            public AK.Wwise.Event tiberSpinHit = new AK.Wwise.Event();
             public AK.Wwise.Event tiberStamp = new AK.Wwise.Event();
             public AK.Wwise.Event tiberStampDrop = new AK.Wwise.Event();
             public AK.Wwise.Event tiberStampBoom = new AK.Wwise.Event();
