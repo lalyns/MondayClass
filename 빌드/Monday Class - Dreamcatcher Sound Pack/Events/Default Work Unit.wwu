@@ -682,7 +682,17 @@
 												</Action>
 											</ChildrenList>
 										</Event>
-										<Event Name="Object_Portal_Sound_Enter" ID="{E9B013CD-5835-4598-8F68-9FC3A57C8DC9}"/>
+										<Event Name="Object_Portal_Sound_Loop" ID="{E9B013CD-5835-4598-8F68-9FC3A57C8DC9}">
+											<ChildrenList>
+												<Action Name="" ID="{A37FC041-D21A-4A96-8960-C78175FA020E}" ShortID="40774250">
+													<ReferenceList>
+														<Reference Name="Target">
+															<ObjectRef Name="Loop" ID="{D417BE46-DF58-4491-9B48-D31C0220A6B9}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+														</Reference>
+													</ReferenceList>
+												</Action>
+											</ChildrenList>
+										</Event>
 										<Event Name="Object_Portal_Sound_Exit" ID="{A5A2E932-9815-4A27-819F-4C33603A7A58}">
 											<ChildrenList>
 												<Action Name="" ID="{43A5446C-17C5-421F-9BE0-808972F4C11C}" ShortID="225752359">
@@ -857,6 +867,36 @@
 											<ReferenceList>
 												<Reference Name="Target">
 													<ObjectRef Name="Talk" ID="{6B7C4338-0DDA-40A5-9524-B4F210CAD739}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Die" ID="{C97E480C-2337-4110-9B36-6B5E856CC12D}" ShortID="725150333">
+							<ChildrenList>
+								<Event Name="Ui_Die_Sound_01" ID="{EF236709-7CC4-4E68-AD9B-176665B9961E}">
+									<ChildrenList>
+										<Action Name="" ID="{C388C66B-877F-4311-B386-9CEC17CEF1E5}" ShortID="235125278">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Die" ID="{1942A8C8-52CC-4D4B-BFA8-3BD91046075A}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Stage Mneu" ID="{87C2805D-0228-4F0C-9AAE-4B9C5DF4ECA0}" ShortID="178642394">
+							<ChildrenList>
+								<Event Name="Ui_StageMenu_Sound_01" ID="{C227FF8D-A6B8-4F80-88A9-15B25AC19B2E}">
+									<ChildrenList>
+										<Action Name="" ID="{CA31AAE9-DCE0-4E48-845B-33A23A6D0E9A}" ShortID="847717385">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Stage Menu" ID="{28EEABA9-3A46-4A0A-8F04-95F8A893A699}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
 												</Reference>
 											</ReferenceList>
 										</Action>

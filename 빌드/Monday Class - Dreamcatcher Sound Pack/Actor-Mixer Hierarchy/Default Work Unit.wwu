@@ -2506,9 +2506,9 @@
 							<ChildrenList>
 								<RandomSequenceContainer Name="Activationl" ID="{D31A846C-0AA3-4902-917C-83CD6C257C90}" ShortID="699389973">
 									<PropertyList>
-										<Property Name="Volume" Type="Real64">
+										<Property Name="Highpass" Type="int16">
 											<ValueList>
-												<Value>-3</Value>
+												<Value>15</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -2549,7 +2549,11 @@
 										</Sound>
 									</ChildrenList>
 								</RandomSequenceContainer>
-								<RandomSequenceContainer Name="Enter" ID="{D417BE46-DF58-4491-9B48-D31C0220A6B9}" ShortID="812106404">
+								<RandomSequenceContainer Name="Loop" ID="{D417BE46-DF58-4491-9B48-D31C0220A6B9}" ShortID="812106404">
+									<PropertyList>
+										<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
+										<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -2558,12 +2562,33 @@
 											<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
 										</Reference>
 									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Object_Portal_Loop_Sound_01" ID="{A35DBDED-D56D-442C-A087-21D7B88D3E3E}" ShortID="1020020806">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Object_Portal_Loop_Sound_01" ID="{4304BFE8-197A-4DBC-B188-BD5357C1AFEC}" ShortID="941792460">
+													<Language>SFX</Language>
+													<AudioFile>Object_Portal_Loop_Sound_01.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Object_Portal_Loop_Sound_01" ID="{4304BFE8-197A-4DBC-B188-BD5357C1AFEC}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
 								</RandomSequenceContainer>
 								<RandomSequenceContainer Name="Exit" ID="{F2695639-87D8-4723-B9C3-B21B9E4EDDC1}" ShortID="569932716">
 									<PropertyList>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-3</Value>
+												<Value>1</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -2606,9 +2631,14 @@
 								</RandomSequenceContainer>
 								<RandomSequenceContainer Name="Create" ID="{AB042970-B611-411D-B164-B1DB1991A6E8}" ShortID="287303783">
 									<PropertyList>
+										<Property Name="Highpass" Type="int16">
+											<ValueList>
+												<Value>15</Value>
+											</ValueList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-2</Value>
+												<Value>1</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -2826,6 +2856,11 @@
 												<Value>20</Value>
 											</ValueList>
 										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>3</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -2908,6 +2943,95 @@
 											</ChildrenList>
 											<ActiveSourceList>
 												<ActiveSource Name="Ui_Talk_Sound_01" ID="{32B6050D-3F4E-4D60-ABDC-B409B05E554D}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Die" ID="{29B458AB-2878-4E3B-931A-71BAE268721F}" ShortID="490860696">
+							<ChildrenList>
+								<RandomSequenceContainer Name="Die" ID="{1942A8C8-52CC-4D4B-BFA8-3BD91046075A}" ShortID="892714693">
+									<PropertyList>
+										<Property Name="Highpass" Type="int16">
+											<ValueList>
+												<Value>20</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>1</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Ui_Die_Sound_01" ID="{04199F43-DCB0-40E6-A36E-F04435780B0C}" ShortID="192076877">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Ui_Die_Sound_01" ID="{2AE1CA57-4E63-48AD-B199-47A78D0F8EDD}" ShortID="459086136">
+													<Language>SFX</Language>
+													<AudioFile>Ui_Die_Sound_01.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Ui_Die_Sound_01" ID="{2AE1CA57-4E63-48AD-B199-47A78D0F8EDD}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Stage Menu" ID="{D673D504-F96E-4577-AA4B-00262E58B25C}" ShortID="1020529526">
+							<ChildrenList>
+								<RandomSequenceContainer Name="Stage Menu" ID="{28EEABA9-3A46-4A0A-8F04-95F8A893A699}" ShortID="583109004">
+									<PropertyList>
+										<Property Name="Highpass" Type="int16">
+											<ValueList>
+												<Value>25</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Ui_StageMenu_Sound_01" ID="{7FF494D1-ADED-4BBA-A323-A139C8720BEC}" ShortID="82051530">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Ui_StageMenu_Sound" ID="{35D121FC-B727-4D88-99F6-A4F7B5283530}" ShortID="453848607">
+													<Language>SFX</Language>
+													<AudioFile>Ui_StageMenu_Sound.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Ui_StageMenu_Sound" ID="{35D121FC-B727-4D88-99F6-A4F7B5283530}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
 									</ChildrenList>
@@ -5573,12 +5697,16 @@
 													<Modifier Name="" ID="{2E202DAC-7916-4FF4-BC0A-0A1A6FA5CFD0}">
 														<PropertyList>
 															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Max" Type="Real64" Value="200"/>
-															<Property Name="Min" Type="Real64" Value="-200"/>
+															<Property Name="Max" Type="Real64" Value="500"/>
 														</PropertyList>
 													</Modifier>
 												</ModifierInfo>
 											</ModifierList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-4</Value>
+											</ValueList>
 										</Property>
 									</PropertyList>
 									<ReferenceList>
@@ -5613,6 +5741,18 @@
 								</RandomSequenceContainer>
 								<RandomSequenceContainer Name="Calling" ID="{74116236-9BA1-4052-9F1E-71FA25B9EEB2}" ShortID="1023013992">
 									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{A44BEAA3-861A-4C7F-A84A-F423E715FB87}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="100"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>1</Value>

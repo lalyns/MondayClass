@@ -45,8 +45,8 @@ namespace AK
         static const AkUniqueID MAP_AMBIENT_TUTORIAL = 3853670893U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_ACTIVATIONL = 2682899652U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_CREATE = 1186601540U;
-        static const AkUniqueID OBJECT_PORTAL_SOUND_ENTER = 418004602U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_EXIT = 3390316968U;
+        static const AkUniqueID OBJECT_PORTAL_SOUND_LOOP = 4103339506U;
         static const AkUniqueID PLAYER_ACTION_ATTACKSOUND_SWING = 2601194728U;
         static const AkUniqueID PLAYER_ACTION_DAMAGE_VOICE = 447796342U;
         static const AkUniqueID PLAYER_ACTION_DIE_VOICE = 4038288023U;
