@@ -11,6 +11,8 @@ public class TiberHIT : TiberFSMState
 
     public bool hitEnd = false;
 
+    public bool isBelowHalf = false;
+
     Vector3 knockBackTargetPos = Vector3.zero;
 
     public override void BeginState()
@@ -25,6 +27,13 @@ public class TiberHIT : TiberFSMState
         Vector3 direction = (_manager.PlayerCapsule.transform.forward).normalized;
         direction.y = 0;
         knockBackTargetPos = direction + this.transform.position;
+
+        if(_manager.Stat.Hp/_manager.Stat.MaxHp < 0.5f && !isBelowHalf)
+        {
+            isBelowHalf = true;
+            var voice = _manager._Sound.monsterVoice;
+            voice.PlayMonsterVoice(gameObject, voice.tiberDamageVoice);
+        }
 
         //GetComponentInChildren<TiberAnimEvent>()._WeaponCapsule.gameObject.SetActive(false);
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));

@@ -13,6 +13,7 @@ public enum RirisState
     PATTERNEND,
     ULTIMATE,
     DEAD,
+    PHASE,
     HIT,
 }
 

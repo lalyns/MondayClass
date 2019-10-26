@@ -9,6 +9,7 @@ public class MacSKILL : MacFSMState
     public override void BeginState()
     {
         base.BeginState();
+
         isLookAt = true;
     }
 
@@ -17,10 +18,13 @@ public class MacSKILL : MacFSMState
         base.EndState();
 
         GetComponent<MacATTACK>()._AttackTimes = 0;
+        Debug.Log(GetComponent<MacATTACK>()._AttackTimes);
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if(isLookAt)
             transform.LookAt(_manager._PriorityTarget.transform);
 

@@ -160,6 +160,7 @@ public class GameStatus : MonoBehaviour
         ActivedMonsterList.Clear();
     }
 
+    MonsterType summonType;
     public void Update()
     {
         //if (Time.timeScale == 0 && Input.anyKey) return;
@@ -169,7 +170,17 @@ public class GameStatus : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
-                SummonReady();
+                SummonReady(MonsterType.RedHat);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                SummonReady(MonsterType.Mac);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                SummonReady(MonsterType.Tiber);
             }
 
             if (Input.GetKeyDown(KeyCode.X))
@@ -298,7 +309,7 @@ public class GameStatus : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                SummonMonster();
+                SummonMonster(summonType);
             }
         }
 
@@ -325,9 +336,10 @@ public class GameStatus : MonoBehaviour
         currentGameState = state;
     }
 
-    public void SummonReady()
+    public void SummonReady(MonsterType type)
     {
         //Debug.Log("지정소환준비");
+        summonType = type;
         dummySet = true;
         _EditorMode = true;
         _DummyLocationEffect.SetActive(true);
@@ -350,11 +362,26 @@ public class GameStatus : MonoBehaviour
     }
 
     // 몬스터 지정소환
-    public void SummonMonster()
+    public void SummonMonster(MonsterType type)
     {
-        MonsterPoolManager._Instance._RedHat.ItemSetActive(
-            _DummyLocationEffect.transform.position,
-            MonsterType.RedHat);
+        switch(type)
+        {
+            case MonsterType.RedHat:
+                MonsterPoolManager._Instance._RedHat.ItemSetActive(
+                    _DummyLocationEffect.transform.position,
+                    MonsterType.RedHat);
+                break;
+            case MonsterType.Mac:
+                MonsterPoolManager._Instance._Mac.ItemSetActive(
+                    _DummyLocationEffect.transform.position,
+                    MonsterType.Mac);
+                break;
+            case MonsterType.Tiber:
+                MonsterPoolManager._Instance._Tiber.ItemSetActive(
+                    _DummyLocationEffect.transform.position,
+                    MonsterType.Tiber);
+                break;
+        }
         dummySet = false;
         _DummyLocationEffect.SetActive(false);
         UserInterface.SetPointerMode(false);

@@ -31,10 +31,12 @@ public class RedHatWeapon : MonoBehaviour
 
                 var hitTarget = GameLib.SimpleDamageProcess(this.transform, 1f, "Player", redHat.Stat, MonsterType.RedHat, damage);
 
-
                 Transform effectTransform =
                     MonsterEffects.Instance.redHatAttackEffect.
                     ItemSetActive(PlayerFSMManager.Instance.Anim.transform, "Effect");
+
+                var sound = redHat.sound.monsterSFX;
+                sound.PlayMonsterSFX(hitTarget.gameObject, sound.redhatAttackHit);
 
                 effectTransform.rotation = redHat.transform.rotation;
 
@@ -57,6 +59,9 @@ public class RedHatWeapon : MonoBehaviour
                 Transform effectTransform =
                     MonsterEffects.Instance.redHatSkillEffect1.
                     ItemSetActive(PlayerFSMManager.Instance.Anim.transform, "Effect");
+
+                var sound = redHat.sound.monsterSFX;
+                sound.PlayMonsterSFX(hitTarget.gameObject, sound.redhatDashHit);
 
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;                

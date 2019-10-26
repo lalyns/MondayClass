@@ -12,6 +12,7 @@ public class MacFSMState : MonoBehaviour
     protected float _SkillCoolTime = 10f;
     protected float _CurTime = 0f;
 
+
     protected bool useGravity = true;
 
     private void Awake()

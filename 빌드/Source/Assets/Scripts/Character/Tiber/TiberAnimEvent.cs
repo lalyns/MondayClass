@@ -9,6 +9,8 @@ public class TiberAnimEvent : MonoBehaviour
     public TiberHIT _hitCp;
     public TiberDEAD _deadCp;
 
+    public TiberFSMManager _manager => GetComponentInParent<TiberFSMManager>();
+
     private void Awake()
     {
         _attackCp1 = GetComponentInParent<TiberATTACK1>();
@@ -41,6 +43,12 @@ public class TiberAnimEvent : MonoBehaviour
     void Attack2End()
     {
         _attackCp2.isEnd = true;
+    }
+
+    void SpinSound()
+    {
+        var voice = _manager._Sound.monsterVoice;
+        voice.PlayMonsterVoice(gameObject, voice.tiberDieVoice);
     }
 
     void HitCheck1()
