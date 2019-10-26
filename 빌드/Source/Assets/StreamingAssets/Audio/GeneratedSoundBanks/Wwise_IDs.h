@@ -35,6 +35,7 @@ namespace AK
         static const AkUniqueID MACK_ACTION_DAMAGE_VOICE = 3432005513U;
         static const AkUniqueID MACK_ACTION_DIE_VOICE = 1487405066U;
         static const AkUniqueID MACK_SKILL_DARKBALL_CAST_SOUND = 3025534573U;
+        static const AkUniqueID MACK_SKILL_DARKBALL_HIT_SOUND = 2247208551U;
         static const AkUniqueID MACK_SKILL_DARKBALL_IMPACT_SOUND = 2588255074U;
         static const AkUniqueID MACK_SKILL_DARKBALL_MOVE_SOUND = 3131580975U;
         static const AkUniqueID MACK_SKILL_DARKBALL_VOICE = 499502726U;
@@ -106,6 +107,8 @@ namespace AK
         static const AkUniqueID TVER_SKILL_STAMP_DROP_SOUND = 1378555676U;
         static const AkUniqueID UI_START_SOUND = 4234647542U;
         static const AkUniqueID UI_TALK_SOUND_01 = 2576780850U;
+        static const AkUniqueID UNION_MONSTER_CALLING_SOUND = 3649037288U;
+        static const AkUniqueID UNION_MONSTER_DIE_SOUND = 4134658210U;
         static const AkUniqueID ZPANGYI_EMOTE_RAGE_VOICE = 1516934113U;
         static const AkUniqueID ZPANGYI_EMOTE_SAD = 1769717327U;
         static const AkUniqueID ZPANGYI_EMOTE_SMILE_VOICE = 1944912184U;
