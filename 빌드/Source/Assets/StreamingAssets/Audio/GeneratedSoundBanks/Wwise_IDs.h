@@ -13,7 +13,6 @@ namespace AK
 {
     namespace EVENTS
     {
-        static const AkUniqueID BATTLEGROUND = 1835313730U;
         static const AkUniqueID BGM_BOSS_05 = 774246723U;
         static const AkUniqueID BGM_DUNGEON_04 = 3793957673U;
         static const AkUniqueID BGM_TITLE_01 = 2511535208U;
@@ -41,6 +40,8 @@ namespace AK
         static const AkUniqueID MACK_SKILL_DARKBALL_VOICE = 499502726U;
         static const AkUniqueID MACK_SKILL_SMALLBALL_CAST_SOUND = 59277750U;
         static const AkUniqueID MACK_SKILL_SMALLBALL_IMPACT_SOUND = 4027790189U;
+        static const AkUniqueID MAP_AMBIENT_DUNGEON = 2101260039U;
+        static const AkUniqueID MAP_AMBIENT_TUTORIAL = 3853670893U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_ACTIVATIONL = 2682899652U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_CREATE = 1186601540U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_ENTER = 418004602U;
@@ -99,7 +100,10 @@ namespace AK
         static const AkUniqueID TVER_ACTION_DAMAGE_VOICE = 2302006766U;
         static const AkUniqueID TVER_ACTION_DIE_VOICE = 1303339167U;
         static const AkUniqueID TVER_SKILL_HURRICANE_CAST_VOICE = 3460109481U;
+        static const AkUniqueID TVER_SKILL_STAMP_BOOM_SOUND = 816774758U;
+        static const AkUniqueID TVER_SKILL_STAMP_CAST_SOUND = 4099464826U;
         static const AkUniqueID TVER_SKILL_STAMP_CAST_VOICE = 4148910185U;
+        static const AkUniqueID TVER_SKILL_STAMP_DROP_SOUND = 1378555676U;
         static const AkUniqueID UI_START_SOUND = 4234647542U;
         static const AkUniqueID UI_TALK_SOUND_01 = 2576780850U;
         static const AkUniqueID ZPANGYI_EMOTE_RAGE_VOICE = 1516934113U;

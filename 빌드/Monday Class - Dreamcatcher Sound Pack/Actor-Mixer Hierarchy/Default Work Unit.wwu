@@ -2405,7 +2405,7 @@
 				</Folder>
 				<Folder Name="Ambient" ID="{166442E9-392E-45C9-AA46-49E3E217C34D}" ShortID="772333755">
 					<ChildrenList>
-						<RandomSequenceContainer Name="Battleground" ID="{47D42ABE-6F62-4335-BE0C-9BE5E6C7B415}" ShortID="415824425">
+						<RandomSequenceContainer Name="Dungeon" ID="{47D42ABE-6F62-4335-BE0C-9BE5E6C7B415}" ShortID="415824425">
 							<PropertyList>
 								<Property Name="Lowpass" Type="int16">
 									<ValueList>
@@ -2429,7 +2429,7 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<Sound Name="Map_Battleground_Ambient_01" ID="{3A630431-5492-4234-B548-8C24BC2DA02F}" ShortID="688065895">
+								<Sound Name="Map_Dungeon_Ambient_01" ID="{3A630431-5492-4234-B548-8C24BC2DA02F}" ShortID="688065895">
 									<PropertyList>
 										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 									</PropertyList>
@@ -2453,7 +2453,11 @@
 								</Sound>
 							</ChildrenList>
 						</RandomSequenceContainer>
-						<RandomSequenceContainer Name="Lobby" ID="{58CEA2D3-F41A-4748-86CE-FCEE2B901F20}" ShortID="943377127">
+						<RandomSequenceContainer Name="Tutorial" ID="{58CEA2D3-F41A-4748-86CE-FCEE2B901F20}" ShortID="943377127">
+							<PropertyList>
+								<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
+								<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -2462,6 +2466,27 @@
 									<ObjectRef Name="Ambient" ID="{CA6B1F81-FA9D-4075-B287-5290F2ACD74A}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
 								</Reference>
 							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="Map_Tutorial_Ambient_01" ID="{40875728-B2E1-425F-9D19-0C2FF235D5AA}" ShortID="162641773">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Map_Tutorial_Ambient_01" ID="{E9A1F2CB-F7D3-420B-9D1B-1DB756B8E8BF}" ShortID="54578639">
+											<Language>SFX</Language>
+											<AudioFile>Map_Tutorial_Ambient_01.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Map_Tutorial_Ambient_01" ID="{E9A1F2CB-F7D3-420B-9D1B-1DB756B8E8BF}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
 						</RandomSequenceContainer>
 						<RandomSequenceContainer Name="Bossroom" ID="{924A57C4-AE26-413F-8EA8-CC6D31B36C25}" ShortID="435390848">
 							<ReferenceList>
@@ -4249,7 +4274,7 @@
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<Sound Name="Mack_Skill_DarkBall_Move_Sound_01" ID="{D1864F36-085F-4497-9A91-C4FAADF13F0E}" ShortID="5564150">
+																<Sound Name="Mack_Skill_DarkBall_Move_Sound_01" ID="{1ADAF3FD-30F8-4A52-A220-28649BA5468F}" ShortID="704314681">
 																	<PropertyList>
 																		<Property Name="Volume" Type="Real64">
 																			<ValueList>
@@ -4266,13 +4291,13 @@
 																		</Reference>
 																	</ReferenceList>
 																	<ChildrenList>
-																		<AudioFileSource Name="Mack_Skill_DarkBall_Move_Sound_01" ID="{9BF58EB1-C677-4B5A-89A5-095B10C43545}" ShortID="754957687">
+																		<AudioFileSource Name="Mack_Skill_DarkBall_Move_Sound_01" ID="{0C92803A-FA62-4D23-AC89-8DA9FDDEB70D}" ShortID="333168333">
 																			<Language>SFX</Language>
 																			<AudioFile>Mack_Skill_DarkBall_Move_Sound_01.wav</AudioFile>
 																		</AudioFileSource>
 																	</ChildrenList>
 																	<ActiveSourceList>
-																		<ActiveSource Name="Mack_Skill_DarkBall_Move_Sound_01" ID="{9BF58EB1-C677-4B5A-89A5-095B10C43545}" Platform="Linked"/>
+																		<ActiveSource Name="Mack_Skill_DarkBall_Move_Sound_01" ID="{0C92803A-FA62-4D23-AC89-8DA9FDDEB70D}" Platform="Linked"/>
 																	</ActiveSourceList>
 																</Sound>
 															</ChildrenList>
@@ -4943,7 +4968,242 @@
 										</Folder>
 										<Folder Name="Stamp" ID="{2748D413-D633-40EE-852B-4C85972246EA}" ShortID="773680510">
 											<ChildrenList>
-												<Folder Name="Sound" ID="{FD518559-7C3A-40A9-B7C5-EFF330527255}" ShortID="496653176"/>
+												<Folder Name="Sound" ID="{FD518559-7C3A-40A9-B7C5-EFF330527255}" ShortID="496653176">
+													<ChildrenList>
+														<RandomSequenceContainer Name="Cast Sound" ID="{A45967E3-0C5F-4577-871B-9D68523F9772}" ShortID="825904384">
+															<PropertyList>
+																<Property Name="Highpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{88220018-DFBF-4658-90B0-03E7EC181537}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="20"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{61CFB28B-F095-4905-801D-D048C28348EC}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="20"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{E0BD1427-5643-41EA-831C-A84FA5244302}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="200"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>1</Value>
+																	</ValueList>
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{6FB021C6-FF9E-433B-8957-0C4E86C4967A}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Min" Type="Real64" Value="-2"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Tver_Skill_Stamp_Cast_Sound_01" ID="{FCBD8845-20A0-4A87-9597-D19E45D666E6}" ShortID="579803766">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Tver_Skill_Stamp_Cast_Sound_01" ID="{08BF5CE3-D0CE-43DE-AAA1-AA8A5C503138}" ShortID="229029160">
+																			<Language>SFX</Language>
+																			<AudioFile>Tver_Skill_Stamp_Cast_Sound_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Tver_Skill_Stamp_Cast_Sound_01" ID="{08BF5CE3-D0CE-43DE-AAA1-AA8A5C503138}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
+														<RandomSequenceContainer Name="Boom Sound" ID="{233B507D-F9D1-4B5F-9793-CB414FAB68F4}" ShortID="49357990">
+															<PropertyList>
+																<Property Name="Highpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{8D80EC5B-3D8C-438B-B1B8-5759F992CAF3}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="20"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{2AB2789B-CAE6-4C3D-8A1D-31BFDE7B25AC}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="15"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{8063A0F7-D5D0-404E-BADB-23F50F2659DD}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="200"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>-1</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Tver_Skill_Stamp_Boom_Sound_01" ID="{8CDB044F-772D-48BF-AF0B-4BA08507EAB1}" ShortID="401164490">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Tver_Skill_Stamp_Boom_Sound_01" ID="{4F58C0AD-260D-40BC-83D0-7A2C3C712003}" ShortID="431736218">
+																			<Language>SFX</Language>
+																			<AudioFile>Tver_Skill_Stamp_Boom_Sound_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Tver_Skill_Stamp_Boom_Sound_01" ID="{4F58C0AD-260D-40BC-83D0-7A2C3C712003}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
+														<RandomSequenceContainer Name="Drop Sonud" ID="{207B86E4-2E47-41ED-A5DA-A29F8FB5D23E}" ShortID="142314883">
+															<PropertyList>
+																<Property Name="Highpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{7CA3F203-8FFB-4D8C-9D12-D5FD52B23834}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="20"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{B09438F7-A0A0-4258-A95C-2756F5AC51C6}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="15"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{8EF2F0B5-7F58-4B69-8674-8F78D8F6DCF4}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="200"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>3</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Tver_Skill_Stamp_Drop_Sound_01" ID="{A24EA844-4FE1-4933-8009-6C38875C795F}" ShortID="1005193970">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Tver_Skill_Stamp_Drop_Sound_01" ID="{077DC872-4030-497D-924E-75CCBD78706A}" ShortID="728114634">
+																			<Language>SFX</Language>
+																			<AudioFile>Tver_Skill_Stamp_Drop_Sound_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Tver_Skill_Stamp_Drop_Sound_01" ID="{077DC872-4030-497D-924E-75CCBD78706A}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
+													</ChildrenList>
+												</Folder>
 												<Folder Name="Voice" ID="{06471C6D-5ACB-4DA6-9BAB-21C800E1E989}" ShortID="167966847">
 													<ChildrenList>
 														<RandomSequenceContainer Name="Cast Sound" ID="{2718829B-B5CE-44DB-91B8-8EE89AF724CE}" ShortID="767416745">
