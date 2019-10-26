@@ -207,7 +207,6 @@ public class MacBullet : MonoBehaviour
 
         if(other.transform.tag == "DreamPillar")
         {
-            other.GetComponent<MC.Mission.ProtectedTarget>().hp -= 10;
             _Dameged = true;
 
             if (!_Destroy)
