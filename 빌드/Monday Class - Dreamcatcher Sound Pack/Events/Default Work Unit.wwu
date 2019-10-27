@@ -1194,17 +1194,58 @@
 									<ChildrenList>
 										<Folder Name="Special" ID="{09340932-F2A0-4849-A63F-DE5334D0E2CF}" ShortID="960493417">
 											<ChildrenList>
-												<Event Name="Liris_Skill_Special_Cast_Voice" ID="{65A01C41-5C13-41D4-AFE9-ADD3E950A3A4}">
+												<Folder Name="Voice" ID="{F17C6394-5177-470C-94AA-B5A27B310999}" ShortID="523106918">
 													<ChildrenList>
-														<Action Name="" ID="{FC3AAAC1-9664-4C91-9C0F-B6CD744977B5}" ShortID="913994762">
-															<ReferenceList>
-																<Reference Name="Target">
-																	<ObjectRef Name="Cast Voice" ID="{9743C668-9FF8-44BE-88F4-0594231276E3}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
-																</Reference>
-															</ReferenceList>
-														</Action>
+														<Event Name="Liris_Skill_Special_Cast_Voice" ID="{65A01C41-5C13-41D4-AFE9-ADD3E950A3A4}">
+															<ChildrenList>
+																<Action Name="" ID="{FC3AAAC1-9664-4C91-9C0F-B6CD744977B5}" ShortID="913994762">
+																	<ReferenceList>
+																		<Reference Name="Target">
+																			<ObjectRef Name="Cast Voice" ID="{9743C668-9FF8-44BE-88F4-0594231276E3}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																		</Reference>
+																	</ReferenceList>
+																</Action>
+															</ChildrenList>
+														</Event>
 													</ChildrenList>
-												</Event>
+												</Folder>
+												<Folder Name="Sound" ID="{FC5190DF-4B39-46AD-AACD-ECD2B3CE07AA}" ShortID="605098623">
+													<ChildrenList>
+														<Event Name="Liris_Skill_Special_Gate_Sound" ID="{66D32A52-129E-48E0-9E68-EDC404461100}">
+															<ChildrenList>
+																<Action Name="" ID="{EFC7B084-CC76-49D5-8B01-D6AE78099602}" ShortID="537110190">
+																	<ReferenceList>
+																		<Reference Name="Target">
+																			<ObjectRef Name="Gate" ID="{90598DFC-236D-4F1E-AB1D-C4DEFC7E2A82}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																		</Reference>
+																	</ReferenceList>
+																</Action>
+															</ChildrenList>
+														</Event>
+														<Event Name="Liris_Skill_Special_Laser_Cast_Sound" ID="{D3BACD30-C25C-4913-94E2-7D72F8A0BE24}">
+															<ChildrenList>
+																<Action Name="" ID="{D9984292-B098-48B2-974C-FE1E7A9B3956}" ShortID="1012848580">
+																	<ReferenceList>
+																		<Reference Name="Target">
+																			<ObjectRef Name="Laser Cast" ID="{A4F4D1EA-6C12-4676-8BA9-9E3C1E5D47BC}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																		</Reference>
+																	</ReferenceList>
+																</Action>
+															</ChildrenList>
+														</Event>
+														<Event Name="Liris_Skill_Special_Laser_impact_Sound" ID="{98D38458-769E-45EB-98CF-24B69B019442}">
+															<ChildrenList>
+																<Action Name="" ID="{E11C5648-C163-462B-8AC1-8D6965B48A92}" ShortID="371145752">
+																	<ReferenceList>
+																		<Reference Name="Target">
+																			<ObjectRef Name="Laser Impact" ID="{A9EF3216-62F3-4B16-A57F-759FB86E772B}" WorkUnitID="{C271B858-AF08-4973-85DD-E457391500DE}"/>
+																		</Reference>
+																	</ReferenceList>
+																</Action>
+															</ChildrenList>
+														</Event>
+													</ChildrenList>
+												</Folder>
 											</ChildrenList>
 										</Folder>
 										<Folder Name="Transform" ID="{A74CF646-E956-4880-8A6F-20DD728C5905}" ShortID="860961094">
