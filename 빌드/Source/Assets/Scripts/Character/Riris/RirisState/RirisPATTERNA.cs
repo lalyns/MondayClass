@@ -37,9 +37,6 @@ public class RirisPATTERNA : RirisFSMState
         PatternEnd = false;
         useGravity = false;
 
-        var sound = _manager.sound.ririsVoice;
-        sound.PlayRirisVoice(this.gameObject, sound.stomp);
-
         _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         _manager._Weapon.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager._Weapon.transform));
 
