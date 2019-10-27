@@ -2776,14 +2776,14 @@
 											<ReferenceList>
 												<Reference Name="Attenuation">
 													<Custom CreatedFrom="{A962F77E-7F17-42B4-8FD0-DCC1C917B21C}">
-														<Attenuation Name="Portal (Custom)" ID="{C9BEBC7B-937D-4EE1-B536-7C516200938D}" ShortID="838880051">
+														<Attenuation Name="Portal (Custom)" ID="{24080835-DB23-4233-A6BA-3322BE87ED63}" ShortID="723288787">
 															<PropertyList>
 																<Property Name="RadiusMax" Type="Real64" Value="50"/>
 															</PropertyList>
 															<CurveUsageInfoList>
 																<VolumeDryUsage>
 																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
-																		<Curve Name="VolumeDry" ID="{DCC54A6D-457F-4BB5-992D-440FC06073AF}">
+																		<Curve Name="VolumeDry" ID="{60956D9D-F034-466C-B843-C63781706832}">
 																			<PropertyList>
 																				<Property Name="Flags" Type="int32" Value="3"/>
 																			</PropertyList>
@@ -2822,7 +2822,7 @@
 																</VolumeWetUserUsage>
 																<LowPassFilterUsage>
 																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
-																		<Curve Name="LowPassFilter" ID="{A007F8F2-F33C-4AA0-982C-A172FDA55F91}">
+																		<Curve Name="LowPassFilter" ID="{AC3B7E9E-8921-4744-B7CC-AEC4CE049631}">
 																			<PropertyList>
 																				<Property Name="Flags" Type="int32" Value="65537"/>
 																			</PropertyList>
@@ -2833,8 +2833,8 @@
 																					<Flags>5</Flags>
 																				</Point>
 																				<Point>
-																					<XPos>44.279</XPos>
-																					<YPos>19</YPos>
+																					<XPos>26.80151</XPos>
+																					<YPos>70</YPos>
 																					<Flags>0</Flags>
 																				</Point>
 																				<Point>
@@ -3071,6 +3071,7 @@
 									<ChildrenList>
 										<Sound Name="Object_Star_Loop_Sound_01" ID="{8617916F-6290-455E-A054-6E77B369E921}" ShortID="352895656">
 											<PropertyList>
+												<Property Name="OverridePositioning" Type="bool" Value="True"/>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
 														<Value>4</Value>
@@ -3078,6 +3079,9 @@
 												</Property>
 											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Portal" ID="{A962F77E-7F17-42B4-8FD0-DCC1C917B21C}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 												</Reference>
@@ -3240,8 +3244,12 @@
 										<Sound Name="Object_DreamFiller_Loop_Sound_01" ID="{EADBF29F-88CD-4F30-B234-63CF901A7C40}" ShortID="100010329">
 											<PropertyList>
 												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="OverridePositioning" Type="bool" Value="True"/>
 											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Portal" ID="{A962F77E-7F17-42B4-8FD0-DCC1C917B21C}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 												</Reference>
@@ -5381,7 +5389,13 @@
 															</ReferenceList>
 															<ChildrenList>
 																<Sound Name="Mack_Skill_DarkBall_Voice_01" ID="{9EA6853B-F411-46B6-8C4A-A0A31061C7D0}" ShortID="133350914">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Mac" ID="{8ABE5198-61A7-4887-9A74-75674D8F91CC}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -5805,7 +5819,13 @@
 															</ReferenceList>
 															<ChildrenList>
 																<Sound Name="Mack_Skill_SmallBall_Cast_Sound_01" ID="{F3A5EA28-25EF-4336-BF93-B2DBDEDCCEF6}" ShortID="645489405">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Mac" ID="{8ABE5198-61A7-4887-9A74-75674D8F91CC}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -5824,7 +5844,13 @@
 																	</ActiveSourceList>
 																</Sound>
 																<Sound Name="Mack_Skill_SmallBall_Cast_Sound_02" ID="{6AC2AA1E-7EF0-4D21-96A7-0AEDFC026818}" ShortID="747169037">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Mac" ID="{8ABE5198-61A7-4887-9A74-75674D8F91CC}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -6443,7 +6469,13 @@
 															</ReferenceList>
 															<ChildrenList>
 																<Sound Name="Tver_Skill_Hurricane_Cast_Voice_02" ID="{ADDE3D1F-365F-4730-B7D3-D24768E1D16F}" ShortID="379342464">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Tver" ID="{29FF29F1-B4FC-4CCF-84C9-8A312DD7B662}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -6462,7 +6494,13 @@
 																	</ActiveSourceList>
 																</Sound>
 																<Sound Name="Tver_Skill_Hurricane_Cast_Voice_01" ID="{90DB9AE4-52A2-4FB5-A348-E5948D457AC1}" ShortID="241650471">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Tver" ID="{29FF29F1-B4FC-4CCF-84C9-8A312DD7B662}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -6497,7 +6535,13 @@
 															</ReferenceList>
 															<ChildrenList>
 																<Sound Name="Tver_Skill_Hurricane_Cast_Sound_01" ID="{846962C1-2D1C-46B4-9468-C7CEA1FD37E5}" ShortID="497703159">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Tver" ID="{29FF29F1-B4FC-4CCF-84C9-8A312DD7B662}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -6535,7 +6579,13 @@
 															</ReferenceList>
 															<ChildrenList>
 																<Sound Name="Tver_Skill_Hurricane_Loop_Sound_01" ID="{6CE5F3A1-AA73-4177-B2A9-86FD15E95ACE}" ShortID="625312742">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Tver" ID="{29FF29F1-B4FC-4CCF-84C9-8A312DD7B662}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -6616,7 +6666,13 @@
 															</ReferenceList>
 															<ChildrenList>
 																<Sound Name="Tver_Skill_Hurricane_Impact_Sound_01" ID="{3E62CD16-DCE7-49CC-A8B0-F40F72E9AAC5}" ShortID="202135229">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Tver" ID="{29FF29F1-B4FC-4CCF-84C9-8A312DD7B662}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -6635,7 +6691,13 @@
 																	</ActiveSourceList>
 																</Sound>
 																<Sound Name="Tver_Skill_Hurricane_Impact_Sound_02" ID="{8770C99B-CC9A-4FA7-A913-64857F2A574A}" ShortID="377252315">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Tver" ID="{29FF29F1-B4FC-4CCF-84C9-8A312DD7B662}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -6727,7 +6789,13 @@
 															</ReferenceList>
 															<ChildrenList>
 																<Sound Name="Tver_Skill_Stamp_Cast_Sound_01" ID="{FCBD8845-20A0-4A87-9597-D19E45D666E6}" ShortID="579803766">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Tver" ID="{29FF29F1-B4FC-4CCF-84C9-8A312DD7B662}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -6801,7 +6869,13 @@
 															</ReferenceList>
 															<ChildrenList>
 																<Sound Name="Tver_Skill_Stamp_Boom_Sound_01" ID="{8CDB044F-772D-48BF-AF0B-4BA08507EAB1}" ShortID="401164490">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Tver" ID="{29FF29F1-B4FC-4CCF-84C9-8A312DD7B662}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -6875,7 +6949,13 @@
 															</ReferenceList>
 															<ChildrenList>
 																<Sound Name="Tver_Skill_Stamp_Drop_Sound_01" ID="{A24EA844-4FE1-4933-8009-6C38875C795F}" ShortID="1005193970">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Tver" ID="{29FF29F1-B4FC-4CCF-84C9-8A312DD7B662}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
