@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Timeline;
 using Cinemachine;
 using MC.UI;
+using MC.Sound;
 
 
 namespace MC.SceneDirector
@@ -32,6 +33,7 @@ namespace MC.SceneDirector
 
         public void FadeInTrue()
         {
+            UserInterface.Instance.ScreenEffect.fading.image.color = Color.black;
             GameManager.SetFadeInOut(
                 () =>
                 {
@@ -41,6 +43,7 @@ namespace MC.SceneDirector
 
         public void FadeInFalse()
         {
+            UserInterface.Instance.ScreenEffect.fading.image.color = Color.black;
             GameManager.SetFadeInOut(
                    () =>
                    {
@@ -57,6 +60,20 @@ namespace MC.SceneDirector
                 }, 1f, true);
         }
 
+        public void WhiteFadeIn()
+        {
+            UserInterface.Instance.ScreenEffect.fading.image.color = Color.white;
+            Color color = UserInterface.Instance.ScreenEffect.fading.image.color;
+            color.a = 1f;
+            UserInterface.Instance.ScreenEffect.fading.image.color = color;
+            UserInterface.Instance.ScreenEffect.fading.image.color = Color.white;
+            GameManager.SetFadeInOut(
+                () =>
+                {
+
+                }, 1f, true);
+        }
+
         public void WhiteFadeOut()
         {
             UserInterface.Instance.ScreenEffect.fading.image.color = Color.white;
@@ -65,6 +82,43 @@ namespace MC.SceneDirector
                 {
 
                 }, 1f, false);
+        }
+
+        public void PortalOpenPlay()
+        {
+            var sound = MCSoundManager.Instance.objectSound.objectSFX;
+            sound.PlaySound(gameObject, sound.portalCreate);
+        }
+
+        public void PortalExit()
+        {
+            var sound = MCSoundManager.Instance.objectSound.objectSFX;
+            sound.PlaySound(gameObject, sound.portalExit);
+        }
+
+        public void GalaxySurprise()
+        {
+            var sound = MCSoundManager.Instance.objectSound.dialogVoice;
+            sound.PlaySound(gameObject, sound.voice[5]);
+        }
+
+        public void RirisSurprise()
+        {
+            var sound = MCSoundManager.Instance.objectSound.dialogVoice;
+            sound.PlaySound(gameObject, sound.voice[5]);
+        }
+
+        public void RirisLaugh()
+        {
+            var sound = MCSoundManager.Instance.objectSound.dialogVoice;
+            sound.PlaySound(gameObject, sound.voice[5]);
+        }
+
+        public void EnterLastSFX()
+        {
+
+            var sound = MCSoundManager.Instance.objectSound.cinema;
+            sound.PlaySound(gameObject, sound.bossEnterLast);
         }
 
         public void LookAtCamDefine() 

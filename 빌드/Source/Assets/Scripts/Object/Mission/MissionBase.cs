@@ -160,26 +160,15 @@ namespace MC.Mission
                 FenceEffect.OpenFence();
 
             }
-            catch 
+            catch
             {
             }
 
-           
+            Invoke("Reward", 1f);
+        }
 
-            if (GameStatus.Instance.StageLevel < 3)
-            {
-                Exit._PortalEffect.SetActive(true);
-            }
-            else
-            {
-                Exit._BossPortalEffect.SetActive(true);
-            }
-            Exit.Colliders.enabled = true;
-
-            var sound = MCSoundManager.Instance.objectSound.objectSFX;
-            sound.PlaySound(Exit.gameObject, sound.portalActive);
-            sound.PlaySound(Exit.gameObject, sound.portalLoop);
-
+        void Reward()
+        {
             MissionManager.RewardMission();
         }
 
