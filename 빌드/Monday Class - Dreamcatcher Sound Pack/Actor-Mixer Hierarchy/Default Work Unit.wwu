@@ -2770,7 +2770,95 @@
 									</ReferenceList>
 									<ChildrenList>
 										<Sound Name="Object_Portal_Loop_Sound_01" ID="{A35DBDED-D56D-442C-A087-21D7B88D3E3E}" ShortID="1020020806">
+											<PropertyList>
+												<Property Name="OverridePositioning" Type="bool" Value="True"/>
+											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<Custom CreatedFrom="{A962F77E-7F17-42B4-8FD0-DCC1C917B21C}">
+														<Attenuation Name="Portal (Custom)" ID="{C9BEBC7B-937D-4EE1-B536-7C516200938D}" ShortID="838880051">
+															<PropertyList>
+																<Property Name="RadiusMax" Type="Real64" Value="50"/>
+															</PropertyList>
+															<CurveUsageInfoList>
+																<VolumeDryUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																		<Curve Name="VolumeDry" ID="{DCC54A6D-457F-4BB5-992D-440FC06073AF}">
+																			<PropertyList>
+																				<Property Name="Flags" Type="int32" Value="3"/>
+																			</PropertyList>
+																			<PointList>
+																				<Point>
+																					<XPos>0</XPos>
+																					<YPos>0</YPos>
+																					<Flags>5</Flags>
+																					<SegmentShape>Log2</SegmentShape>
+																				</Point>
+																				<Point>
+																					<XPos>35.50157</XPos>
+																					<YPos>-12.14034</YPos>
+																					<Flags>0</Flags>
+																					<SegmentShape>Exp3</SegmentShape>
+																				</Point>
+																				<Point>
+																					<XPos>48.90282</XPos>
+																					<YPos>-200</YPos>
+																					<Flags>0</Flags>
+																				</Point>
+																				<Point>
+																					<XPos>50</XPos>
+																					<YPos>-200</YPos>
+																					<Flags>37</Flags>
+																				</Point>
+																			</PointList>
+																		</Curve>
+																	</CurveUsageInfo>
+																</VolumeDryUsage>
+																<VolumeWetGameUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																</VolumeWetGameUsage>
+																<VolumeWetUserUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																</VolumeWetUserUsage>
+																<LowPassFilterUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																		<Curve Name="LowPassFilter" ID="{A007F8F2-F33C-4AA0-982C-A172FDA55F91}">
+																			<PropertyList>
+																				<Property Name="Flags" Type="int32" Value="65537"/>
+																			</PropertyList>
+																			<PointList>
+																				<Point>
+																					<XPos>0</XPos>
+																					<YPos>0</YPos>
+																					<Flags>5</Flags>
+																				</Point>
+																				<Point>
+																					<XPos>44.279</XPos>
+																					<YPos>19</YPos>
+																					<Flags>0</Flags>
+																				</Point>
+																				<Point>
+																					<XPos>50</XPos>
+																					<YPos>100</YPos>
+																					<Flags>37</Flags>
+																				</Point>
+																			</PointList>
+																		</Curve>
+																	</CurveUsageInfo>
+																</LowPassFilterUsage>
+																<HighPassFilterUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</HighPassFilterUsage>
+																<SpreadUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</SpreadUsage>
+																<FocusUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</FocusUsage>
+															</CurveUsageInfoList>
+														</Attenuation>
+													</Custom>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 												</Reference>
@@ -3648,7 +3736,92 @@
 													</ReferenceList>
 													<ChildrenList>
 														<Sound Name="RedHat_Action_Die_Voice_01" ID="{58B5284A-BAAC-443F-9FEC-DBE74232112D}" ShortID="912290805">
+															<PropertyList>
+																<Property Name="OverridePositioning" Type="bool" Value="True"/>
+															</PropertyList>
 															<ReferenceList>
+																<Reference Name="Attenuation">
+																	<Custom CreatedFrom="{069E2FD4-AE39-4D20-9C85-FEC8EB61856E}">
+																		<Attenuation Name="CreateDie (Custom)" ID="{DC038DF3-9683-47E3-A397-7B874370F868}" ShortID="298041342">
+																			<CurveUsageInfoList>
+																				<VolumeDryUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																						<Curve Name="VolumeDry" ID="{3C4AC5D9-8D1F-44CC-BF09-43BA962B777B}">
+																							<PropertyList>
+																								<Property Name="Flags" Type="int32" Value="3"/>
+																							</PropertyList>
+																							<PointList>
+																								<Point>
+																									<XPos>0</XPos>
+																									<YPos>0</YPos>
+																									<Flags>5</Flags>
+																									<SegmentShape>Log3</SegmentShape>
+																								</Point>
+																								<Point>
+																									<XPos>55.32916</XPos>
+																									<YPos>-11.46871</YPos>
+																									<Flags>0</Flags>
+																									<SegmentShape>Exp3</SegmentShape>
+																								</Point>
+																								<Point>
+																									<XPos>61.28527</XPos>
+																									<YPos>-200</YPos>
+																									<Flags>0</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>100</XPos>
+																									<YPos>-200</YPos>
+																									<Flags>37</Flags>
+																								</Point>
+																							</PointList>
+																						</Curve>
+																					</CurveUsageInfo>
+																				</VolumeDryUsage>
+																				<VolumeWetGameUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																				</VolumeWetGameUsage>
+																				<VolumeWetUserUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																				</VolumeWetUserUsage>
+																				<LowPassFilterUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																						<Curve Name="LowPassFilter" ID="{845D69E0-BD08-4D24-9AAE-854930BDE14A}">
+																							<PropertyList>
+																								<Property Name="Flags" Type="int32" Value="65537"/>
+																							</PropertyList>
+																							<PointList>
+																								<Point>
+																									<XPos>0</XPos>
+																									<YPos>0</YPos>
+																									<Flags>5</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>60.65831</XPos>
+																									<YPos>25</YPos>
+																									<Flags>0</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>100</XPos>
+																									<YPos>100</YPos>
+																									<Flags>37</Flags>
+																								</Point>
+																							</PointList>
+																						</Curve>
+																					</CurveUsageInfo>
+																				</LowPassFilterUsage>
+																				<HighPassFilterUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</HighPassFilterUsage>
+																				<SpreadUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</SpreadUsage>
+																				<FocusUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</FocusUsage>
+																			</CurveUsageInfoList>
+																		</Attenuation>
+																	</Custom>
+																</Reference>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																</Reference>
@@ -3668,6 +3841,7 @@
 														</Sound>
 														<Sound Name="RedHat_Action_Die_Voice_02" ID="{87B8EFB0-7351-4406-89FD-7281477FAEDA}" ShortID="94138497">
 															<PropertyList>
+																<Property Name="OverridePositioning" Type="bool" Value="True"/>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
 																		<Value>-2</Value>
@@ -3675,6 +3849,88 @@
 																</Property>
 															</PropertyList>
 															<ReferenceList>
+																<Reference Name="Attenuation">
+																	<Custom CreatedFrom="{069E2FD4-AE39-4D20-9C85-FEC8EB61856E}">
+																		<Attenuation Name="CreateDie (Custom)" ID="{7DE143F1-2B84-40C6-8B72-D4055FFA75C6}" ShortID="820347692">
+																			<CurveUsageInfoList>
+																				<VolumeDryUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																						<Curve Name="VolumeDry" ID="{AAE1646C-51E6-4329-B74E-BA4E0B9277B9}">
+																							<PropertyList>
+																								<Property Name="Flags" Type="int32" Value="3"/>
+																							</PropertyList>
+																							<PointList>
+																								<Point>
+																									<XPos>0</XPos>
+																									<YPos>0</YPos>
+																									<Flags>5</Flags>
+																									<SegmentShape>Log3</SegmentShape>
+																								</Point>
+																								<Point>
+																									<XPos>55.32916</XPos>
+																									<YPos>-11.46871</YPos>
+																									<Flags>0</Flags>
+																									<SegmentShape>Exp3</SegmentShape>
+																								</Point>
+																								<Point>
+																									<XPos>61.28527</XPos>
+																									<YPos>-200</YPos>
+																									<Flags>0</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>100</XPos>
+																									<YPos>-200</YPos>
+																									<Flags>37</Flags>
+																								</Point>
+																							</PointList>
+																						</Curve>
+																					</CurveUsageInfo>
+																				</VolumeDryUsage>
+																				<VolumeWetGameUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																				</VolumeWetGameUsage>
+																				<VolumeWetUserUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																				</VolumeWetUserUsage>
+																				<LowPassFilterUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																						<Curve Name="LowPassFilter" ID="{9CD55E5B-E1C1-4D2A-8A41-84F278B9E923}">
+																							<PropertyList>
+																								<Property Name="Flags" Type="int32" Value="65537"/>
+																							</PropertyList>
+																							<PointList>
+																								<Point>
+																									<XPos>0</XPos>
+																									<YPos>0</YPos>
+																									<Flags>5</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>60.65831</XPos>
+																									<YPos>25</YPos>
+																									<Flags>0</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>100</XPos>
+																									<YPos>100</YPos>
+																									<Flags>37</Flags>
+																								</Point>
+																							</PointList>
+																						</Curve>
+																					</CurveUsageInfo>
+																				</LowPassFilterUsage>
+																				<HighPassFilterUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</HighPassFilterUsage>
+																				<SpreadUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</SpreadUsage>
+																				<FocusUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</FocusUsage>
+																			</CurveUsageInfoList>
+																		</Attenuation>
+																	</Custom>
+																</Reference>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																</Reference>
@@ -3766,6 +4022,7 @@
 																				</ModifierInfo>
 																			</ModifierList>
 																		</Property>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
 																		<Property Name="Pitch" Type="int32">
 																			<ModifierList>
 																				<ModifierInfo>
@@ -3780,6 +4037,68 @@
 																		</Property>
 																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<Custom>
+																				<Attenuation Name="Attenuation (Custom)" ID="{839B9149-49B4-4A89-9710-DEFD807D8BC6}" ShortID="922819687">
+																					<PropertyList>
+																						<Property Name="RadiusMax" Type="Real64" Value="60"/>
+																					</PropertyList>
+																					<CurveUsageInfoList>
+																						<VolumeDryUsage>
+																							<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																								<Curve Name="VolumeDry" ID="{8CBDDA6A-973B-4741-A24F-F0C6A2F09703}">
+																									<PropertyList>
+																										<Property Name="Flags" Type="int32" Value="3"/>
+																									</PropertyList>
+																									<PointList>
+																										<Point>
+																											<XPos>0</XPos>
+																											<YPos>0</YPos>
+																											<Flags>5</Flags>
+																											<SegmentShape>Exp3</SegmentShape>
+																										</Point>
+																										<Point>
+																											<XPos>46.9279</XPos>
+																											<YPos>-21.33924</YPos>
+																											<Flags>0</Flags>
+																											<SegmentShape>Log3</SegmentShape>
+																										</Point>
+																										<Point>
+																											<XPos>58.96552</XPos>
+																											<YPos>-200</YPos>
+																											<Flags>0</Flags>
+																										</Point>
+																										<Point>
+																											<XPos>60</XPos>
+																											<YPos>-200</YPos>
+																											<Flags>37</Flags>
+																										</Point>
+																									</PointList>
+																								</Curve>
+																							</CurveUsageInfo>
+																						</VolumeDryUsage>
+																						<VolumeWetGameUsage>
+																							<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																						</VolumeWetGameUsage>
+																						<VolumeWetUserUsage>
+																							<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																						</VolumeWetUserUsage>
+																						<LowPassFilterUsage>
+																							<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																						</LowPassFilterUsage>
+																						<HighPassFilterUsage>
+																							<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																						</HighPassFilterUsage>
+																						<SpreadUsage>
+																							<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																						</SpreadUsage>
+																						<FocusUsage>
+																							<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																						</FocusUsage>
+																					</CurveUsageInfoList>
+																				</Attenuation>
+																			</Custom>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -5078,6 +5397,7 @@
 															<ChildrenList>
 																<Sound Name="Mack_Skill_DarkBall_Move_Sound_01" ID="{1ADAF3FD-30F8-4A52-A220-28649BA5468F}" ShortID="704314681">
 																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
 																		<Property Name="Volume" Type="Real64">
 																			<ValueList>
 																				<Value>-3</Value>
@@ -5085,6 +5405,9 @@
 																		</Property>
 																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Mac" ID="{8ABE5198-61A7-4887-9A74-75674D8F91CC}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -5165,7 +5488,13 @@
 															</ReferenceList>
 															<ChildrenList>
 																<Sound Name="Mack_Skill_DarkBall_Cast_Sound_01" ID="{436AA13B-9812-4F3D-9BFA-2B9F2C6098C5}" ShortID="663559572">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Mac" ID="{8ABE5198-61A7-4887-9A74-75674D8F91CC}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -5246,7 +5575,13 @@
 															</ReferenceList>
 															<ChildrenList>
 																<Sound Name="Mack_Skill_DarkBall_Impact_Sound_01" ID="{D288EC05-8A72-4B75-947D-9104634C0E14}" ShortID="839181473">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Mac" ID="{8ABE5198-61A7-4887-9A74-75674D8F91CC}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -5327,7 +5662,13 @@
 															</ReferenceList>
 															<ChildrenList>
 																<Sound Name="Mack_Skill_DarkBall_Hit_Sound_01" ID="{F692954F-02DA-49DF-888A-E41DDA4A44C8}" ShortID="145935391">
+																	<PropertyList>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																	</PropertyList>
 																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Mac" ID="{8ABE5198-61A7-4887-9A74-75674D8F91CC}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+																		</Reference>
 																		<Reference Name="Conversion">
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
@@ -5577,7 +5918,92 @@
 													</ReferenceList>
 													<ChildrenList>
 														<Sound Name="Mack_Action_Die_Voice_01" ID="{689B8747-1BC1-4125-8474-20BE8BB35267}" ShortID="572819868">
+															<PropertyList>
+																<Property Name="OverridePositioning" Type="bool" Value="True"/>
+															</PropertyList>
 															<ReferenceList>
+																<Reference Name="Attenuation">
+																	<Custom CreatedFrom="{069E2FD4-AE39-4D20-9C85-FEC8EB61856E}">
+																		<Attenuation Name="CreateDie (Custom)" ID="{D3A3900E-3ACF-4B9A-A9E0-FA22C69699BD}" ShortID="296877433">
+																			<CurveUsageInfoList>
+																				<VolumeDryUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																						<Curve Name="VolumeDry" ID="{A7BB55C7-9C57-4098-9DCE-E5557D97DEB7}">
+																							<PropertyList>
+																								<Property Name="Flags" Type="int32" Value="3"/>
+																							</PropertyList>
+																							<PointList>
+																								<Point>
+																									<XPos>0</XPos>
+																									<YPos>0</YPos>
+																									<Flags>5</Flags>
+																									<SegmentShape>Log3</SegmentShape>
+																								</Point>
+																								<Point>
+																									<XPos>55.32916</XPos>
+																									<YPos>-11.46871</YPos>
+																									<Flags>0</Flags>
+																									<SegmentShape>Exp3</SegmentShape>
+																								</Point>
+																								<Point>
+																									<XPos>61.28527</XPos>
+																									<YPos>-200</YPos>
+																									<Flags>0</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>100</XPos>
+																									<YPos>-200</YPos>
+																									<Flags>37</Flags>
+																								</Point>
+																							</PointList>
+																						</Curve>
+																					</CurveUsageInfo>
+																				</VolumeDryUsage>
+																				<VolumeWetGameUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																				</VolumeWetGameUsage>
+																				<VolumeWetUserUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																				</VolumeWetUserUsage>
+																				<LowPassFilterUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																						<Curve Name="LowPassFilter" ID="{A6338F18-45F0-46A4-A8DC-65FCBFFD0E7B}">
+																							<PropertyList>
+																								<Property Name="Flags" Type="int32" Value="65537"/>
+																							</PropertyList>
+																							<PointList>
+																								<Point>
+																									<XPos>0</XPos>
+																									<YPos>0</YPos>
+																									<Flags>5</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>60.65831</XPos>
+																									<YPos>25</YPos>
+																									<Flags>0</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>100</XPos>
+																									<YPos>100</YPos>
+																									<Flags>37</Flags>
+																								</Point>
+																							</PointList>
+																						</Curve>
+																					</CurveUsageInfo>
+																				</LowPassFilterUsage>
+																				<HighPassFilterUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</HighPassFilterUsage>
+																				<SpreadUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</SpreadUsage>
+																				<FocusUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</FocusUsage>
+																			</CurveUsageInfoList>
+																		</Attenuation>
+																	</Custom>
+																</Reference>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																</Reference>
@@ -5596,7 +6022,92 @@
 															</ActiveSourceList>
 														</Sound>
 														<Sound Name="Mack_Action_Die_Voice_02" ID="{2A8D3384-CB7F-4BA1-AA1F-02A8ABBEF628}" ShortID="431820451">
+															<PropertyList>
+																<Property Name="OverridePositioning" Type="bool" Value="True"/>
+															</PropertyList>
 															<ReferenceList>
+																<Reference Name="Attenuation">
+																	<Custom CreatedFrom="{069E2FD4-AE39-4D20-9C85-FEC8EB61856E}">
+																		<Attenuation Name="CreateDie (Custom)" ID="{D598EB01-D8CE-4FDC-8860-CB8B29A2FED3}" ShortID="746045039">
+																			<CurveUsageInfoList>
+																				<VolumeDryUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																						<Curve Name="VolumeDry" ID="{C68733A3-C170-42DE-94FE-D1C4B38049BA}">
+																							<PropertyList>
+																								<Property Name="Flags" Type="int32" Value="3"/>
+																							</PropertyList>
+																							<PointList>
+																								<Point>
+																									<XPos>0</XPos>
+																									<YPos>0</YPos>
+																									<Flags>5</Flags>
+																									<SegmentShape>Log3</SegmentShape>
+																								</Point>
+																								<Point>
+																									<XPos>55.32916</XPos>
+																									<YPos>-11.46871</YPos>
+																									<Flags>0</Flags>
+																									<SegmentShape>Exp3</SegmentShape>
+																								</Point>
+																								<Point>
+																									<XPos>61.28527</XPos>
+																									<YPos>-200</YPos>
+																									<Flags>0</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>100</XPos>
+																									<YPos>-200</YPos>
+																									<Flags>37</Flags>
+																								</Point>
+																							</PointList>
+																						</Curve>
+																					</CurveUsageInfo>
+																				</VolumeDryUsage>
+																				<VolumeWetGameUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																				</VolumeWetGameUsage>
+																				<VolumeWetUserUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																				</VolumeWetUserUsage>
+																				<LowPassFilterUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																						<Curve Name="LowPassFilter" ID="{CE0BF1D2-7061-4BE9-A9B2-C79AEAC6FDBE}">
+																							<PropertyList>
+																								<Property Name="Flags" Type="int32" Value="65537"/>
+																							</PropertyList>
+																							<PointList>
+																								<Point>
+																									<XPos>0</XPos>
+																									<YPos>0</YPos>
+																									<Flags>5</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>60.65831</XPos>
+																									<YPos>25</YPos>
+																									<Flags>0</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>100</XPos>
+																									<YPos>100</YPos>
+																									<Flags>37</Flags>
+																								</Point>
+																							</PointList>
+																						</Curve>
+																					</CurveUsageInfo>
+																				</LowPassFilterUsage>
+																				<HighPassFilterUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</HighPassFilterUsage>
+																				<SpreadUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</SpreadUsage>
+																				<FocusUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</FocusUsage>
+																			</CurveUsageInfoList>
+																		</Attenuation>
+																	</Custom>
+																</Reference>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																</Reference>
@@ -5752,7 +6263,92 @@
 													</ReferenceList>
 													<ChildrenList>
 														<Sound Name="Tver_Action_Die_Voice_01" ID="{F298B94F-129A-49E1-95EC-BC77BBFA5889}" ShortID="433041335">
+															<PropertyList>
+																<Property Name="OverridePositioning" Type="bool" Value="True"/>
+															</PropertyList>
 															<ReferenceList>
+																<Reference Name="Attenuation">
+																	<Custom CreatedFrom="{069E2FD4-AE39-4D20-9C85-FEC8EB61856E}">
+																		<Attenuation Name="CreateDie (Custom)" ID="{DE09AFCF-E300-4262-BCFA-A26BACED7F62}" ShortID="149069077">
+																			<CurveUsageInfoList>
+																				<VolumeDryUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																						<Curve Name="VolumeDry" ID="{7893701A-8F21-4A7B-BEE7-8BC4EDFFB4E5}">
+																							<PropertyList>
+																								<Property Name="Flags" Type="int32" Value="3"/>
+																							</PropertyList>
+																							<PointList>
+																								<Point>
+																									<XPos>0</XPos>
+																									<YPos>0</YPos>
+																									<Flags>5</Flags>
+																									<SegmentShape>Log3</SegmentShape>
+																								</Point>
+																								<Point>
+																									<XPos>55.32916</XPos>
+																									<YPos>-11.46871</YPos>
+																									<Flags>0</Flags>
+																									<SegmentShape>Exp3</SegmentShape>
+																								</Point>
+																								<Point>
+																									<XPos>61.28527</XPos>
+																									<YPos>-200</YPos>
+																									<Flags>0</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>100</XPos>
+																									<YPos>-200</YPos>
+																									<Flags>37</Flags>
+																								</Point>
+																							</PointList>
+																						</Curve>
+																					</CurveUsageInfo>
+																				</VolumeDryUsage>
+																				<VolumeWetGameUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																				</VolumeWetGameUsage>
+																				<VolumeWetUserUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																				</VolumeWetUserUsage>
+																				<LowPassFilterUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																						<Curve Name="LowPassFilter" ID="{316B17AF-5458-4424-911B-EF4A29F9E188}">
+																							<PropertyList>
+																								<Property Name="Flags" Type="int32" Value="65537"/>
+																							</PropertyList>
+																							<PointList>
+																								<Point>
+																									<XPos>0</XPos>
+																									<YPos>0</YPos>
+																									<Flags>5</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>60.65831</XPos>
+																									<YPos>25</YPos>
+																									<Flags>0</Flags>
+																								</Point>
+																								<Point>
+																									<XPos>100</XPos>
+																									<YPos>100</YPos>
+																									<Flags>37</Flags>
+																								</Point>
+																							</PointList>
+																						</Curve>
+																					</CurveUsageInfo>
+																				</LowPassFilterUsage>
+																				<HighPassFilterUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</HighPassFilterUsage>
+																				<SpreadUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</SpreadUsage>
+																				<FocusUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</FocusUsage>
+																			</CurveUsageInfoList>
+																		</Attenuation>
+																	</Custom>
+																</Reference>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																</Reference>
@@ -6383,7 +6979,92 @@
 									</ReferenceList>
 									<ChildrenList>
 										<Sound Name="Union_Monster_Die_Sound_01" ID="{A75D94BB-CA47-4C84-921E-26D89CE50053}" ShortID="470048943">
+											<PropertyList>
+												<Property Name="OverridePositioning" Type="bool" Value="True"/>
+											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<Custom CreatedFrom="{069E2FD4-AE39-4D20-9C85-FEC8EB61856E}">
+														<Attenuation Name="CreateDie (Custom)" ID="{CB7A19FC-7C1E-445A-9444-1A9D30FBF873}" ShortID="435363343">
+															<CurveUsageInfoList>
+																<VolumeDryUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																		<Curve Name="VolumeDry" ID="{51B5F6FB-35E4-41CF-84E7-DA207F87080A}">
+																			<PropertyList>
+																				<Property Name="Flags" Type="int32" Value="3"/>
+																			</PropertyList>
+																			<PointList>
+																				<Point>
+																					<XPos>0</XPos>
+																					<YPos>0</YPos>
+																					<Flags>5</Flags>
+																					<SegmentShape>Log3</SegmentShape>
+																				</Point>
+																				<Point>
+																					<XPos>55.32916</XPos>
+																					<YPos>-11.46871</YPos>
+																					<Flags>0</Flags>
+																					<SegmentShape>Exp3</SegmentShape>
+																				</Point>
+																				<Point>
+																					<XPos>61.28527</XPos>
+																					<YPos>-200</YPos>
+																					<Flags>0</Flags>
+																				</Point>
+																				<Point>
+																					<XPos>100</XPos>
+																					<YPos>-200</YPos>
+																					<Flags>37</Flags>
+																				</Point>
+																			</PointList>
+																		</Curve>
+																	</CurveUsageInfo>
+																</VolumeDryUsage>
+																<VolumeWetGameUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																</VolumeWetGameUsage>
+																<VolumeWetUserUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																</VolumeWetUserUsage>
+																<LowPassFilterUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																		<Curve Name="LowPassFilter" ID="{8C351656-6AF5-4E45-A61F-2F231EFA0715}">
+																			<PropertyList>
+																				<Property Name="Flags" Type="int32" Value="65537"/>
+																			</PropertyList>
+																			<PointList>
+																				<Point>
+																					<XPos>0</XPos>
+																					<YPos>0</YPos>
+																					<Flags>5</Flags>
+																				</Point>
+																				<Point>
+																					<XPos>60.65831</XPos>
+																					<YPos>25</YPos>
+																					<Flags>0</Flags>
+																				</Point>
+																				<Point>
+																					<XPos>100</XPos>
+																					<YPos>100</YPos>
+																					<Flags>37</Flags>
+																				</Point>
+																			</PointList>
+																		</Curve>
+																	</CurveUsageInfo>
+																</LowPassFilterUsage>
+																<HighPassFilterUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</HighPassFilterUsage>
+																<SpreadUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</SpreadUsage>
+																<FocusUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</FocusUsage>
+															</CurveUsageInfoList>
+														</Attenuation>
+													</Custom>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 												</Reference>
@@ -6433,7 +7114,92 @@
 									</ReferenceList>
 									<ChildrenList>
 										<Sound Name="Union_Monster_Calling_Sound_01" ID="{BE5C7BE3-D517-45D5-9C91-5E2031BDB807}" ShortID="36076197">
+											<PropertyList>
+												<Property Name="OverridePositioning" Type="bool" Value="True"/>
+											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<Custom CreatedFrom="{069E2FD4-AE39-4D20-9C85-FEC8EB61856E}">
+														<Attenuation Name="CreateDie (Custom)" ID="{CDD5AA4E-A006-4717-8E7C-27ABCE4DB760}" ShortID="767671856">
+															<CurveUsageInfoList>
+																<VolumeDryUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																		<Curve Name="VolumeDry" ID="{E63AE596-F34F-46E4-B6DE-CB27BBC5744A}">
+																			<PropertyList>
+																				<Property Name="Flags" Type="int32" Value="3"/>
+																			</PropertyList>
+																			<PointList>
+																				<Point>
+																					<XPos>0</XPos>
+																					<YPos>0</YPos>
+																					<Flags>5</Flags>
+																					<SegmentShape>Log3</SegmentShape>
+																				</Point>
+																				<Point>
+																					<XPos>55.32916</XPos>
+																					<YPos>-11.46871</YPos>
+																					<Flags>0</Flags>
+																					<SegmentShape>Exp3</SegmentShape>
+																				</Point>
+																				<Point>
+																					<XPos>61.28527</XPos>
+																					<YPos>-200</YPos>
+																					<Flags>0</Flags>
+																				</Point>
+																				<Point>
+																					<XPos>100</XPos>
+																					<YPos>-200</YPos>
+																					<Flags>37</Flags>
+																				</Point>
+																			</PointList>
+																		</Curve>
+																	</CurveUsageInfo>
+																</VolumeDryUsage>
+																<VolumeWetGameUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																</VolumeWetGameUsage>
+																<VolumeWetUserUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																</VolumeWetUserUsage>
+																<LowPassFilterUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																		<Curve Name="LowPassFilter" ID="{B90098C5-85C7-4270-9F6E-1DE52BA176A7}">
+																			<PropertyList>
+																				<Property Name="Flags" Type="int32" Value="65537"/>
+																			</PropertyList>
+																			<PointList>
+																				<Point>
+																					<XPos>0</XPos>
+																					<YPos>0</YPos>
+																					<Flags>5</Flags>
+																				</Point>
+																				<Point>
+																					<XPos>60.65831</XPos>
+																					<YPos>25</YPos>
+																					<Flags>0</Flags>
+																				</Point>
+																				<Point>
+																					<XPos>100</XPos>
+																					<YPos>100</YPos>
+																					<Flags>37</Flags>
+																				</Point>
+																			</PointList>
+																		</Curve>
+																	</CurveUsageInfo>
+																</LowPassFilterUsage>
+																<HighPassFilterUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</HighPassFilterUsage>
+																<SpreadUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</SpreadUsage>
+																<FocusUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</FocusUsage>
+															</CurveUsageInfoList>
+														</Attenuation>
+													</Custom>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 												</Reference>

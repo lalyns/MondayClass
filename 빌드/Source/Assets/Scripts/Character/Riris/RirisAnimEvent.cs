@@ -134,6 +134,17 @@ public class RirisAnimEvent : MonoBehaviour
         sound.PlayRirisSFX(_manager.gameObject, sound.batSwarmLoopSFX);
     }
 
+    public void BoxTriggerOn()
+    {
+        GetComponentInParent<Collider>().enabled = true;
+    }
+
+    public void BoxTriggerOff()
+    {
+        GetComponentInParent<Collider>().enabled = false;
+    }
+
+
     public void SetOff()
     {
         BossEffects.Instance.tornaedo.ItemReturnPool(this.gameObject);
