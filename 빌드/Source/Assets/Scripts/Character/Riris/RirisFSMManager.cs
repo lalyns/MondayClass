@@ -44,13 +44,7 @@ public class RirisFSMManager : FSMManager
     public CharacterController CC { get { return _CC; } }
 
     private CapsuleCollider _PlayerCapsule;
-    public CapsuleCollider PlayerCapsule {
-        get {
-            if(_PlayerCapsule == null)
-                _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
-            return _PlayerCapsule;
-        }
-    }
+    public CapsuleCollider PlayerCapsule => PlayerFSMManager.Instance.Anim.GetComponent<CapsuleCollider>();
 
     private RirisStat _Stat;
     public RirisStat Stat { get { return _Stat; } }
@@ -86,6 +80,7 @@ public class RirisFSMManager : FSMManager
     public GameObject missingEndEffect;
 
     public RirisSound sound;
+    public MonsterSound sound2;
 
     public bool isDead = false;
 
@@ -99,6 +94,7 @@ public class RirisFSMManager : FSMManager
         _Stat = GetComponent<RirisStat>();
         _Anim = GetComponentInChildren<Animator>();
         sound = GetComponent<RirisSound>();
+        sound2 = GetComponent<MonsterSound>();
 
         for (int i=0; i<MR.Length; i++)
         {
@@ -156,8 +152,6 @@ public class RirisFSMManager : FSMManager
 
     public void SetState(RirisState newState)
     {
-        //Debug.Log("New State : " + newState.ToString());
-
         if (_isInit)
         {
             _States[_CurrentState].enabled = false;

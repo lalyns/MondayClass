@@ -83,9 +83,7 @@ public class RirisBullet : MonoBehaviour
         }
         else
         {
-            Debug.Log(collider.name);
-            Debug.Log(RirisFSMManager.PlayerCapsule.name);
-            direction = GameLib.DirectionToCharacter(collider, RirisFSMManager.PlayerCapsule);
+            direction = GameLib.DirectionToCharacter(collider, PlayerFSMManager.Instance.Anim.GetComponent<CapsuleCollider>());
             transform.LookAt(transform.position + direction);
             damageType = 1f;
         }

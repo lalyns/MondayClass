@@ -57,11 +57,6 @@ public class RirisPATTERNC : RirisFSMState
         useGravity = true;
     }
 
-    protected override void Update()
-    {
-
-    }
-
     public IEnumerator FireBullet()
     {
         for (int i = 0; i < 4; i++)

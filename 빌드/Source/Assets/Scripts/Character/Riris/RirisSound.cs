@@ -17,6 +17,9 @@ namespace MC.Sound
             public AK.Wwise.Event dropSFX = new AK.Wwise.Event();
             public AK.Wwise.Event stompSFX = new AK.Wwise.Event();
 
+            public AK.Wwise.Event dashSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event dashLoopSFX = new AK.Wwise.Event();
+
             public AK.Wwise.Event batSwarmFirstSFX = new AK.Wwise.Event();
             public AK.Wwise.Event batSwarmLoopSFX = new AK.Wwise.Event();
 

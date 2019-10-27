@@ -17,6 +17,7 @@ namespace AK
         static const AkUniqueID BGM_DUNGEON_04 = 3793957673U;
         static const AkUniqueID BGM_TITLE_01 = 2511535208U;
         static const AkUniqueID BGM_TUTORIAL_03 = 1633288558U;
+        static const AkUniqueID BOSSROOM = 3329270527U;
         static const AkUniqueID CINEMATIC_SOUND_CROWD = 460128710U;
         static const AkUniqueID CINEMATIC_SOUND_DIVE = 1418554577U;
         static const AkUniqueID CINEMATIC_SOUND_PHONE = 3872752641U;

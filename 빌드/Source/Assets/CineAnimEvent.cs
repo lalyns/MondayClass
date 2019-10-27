@@ -5,6 +5,7 @@ using UnityEngine.Timeline;
 using Cinemachine;
 using MC.UI;
 using MC.Sound;
+using UnityEngine.SceneManagement;
 
 
 namespace MC.SceneDirector
@@ -53,11 +54,7 @@ namespace MC.SceneDirector
 
         public void SceneEnd()
         {
-            GameManager.SetFadeInOut(
-                () =>
-                {
-
-                }, 1f, true);
+            SceneManager.LoadScene(MCSceneManager.CREDIT);
         }
 
         public void WhiteFadeIn()
@@ -128,6 +125,30 @@ namespace MC.SceneDirector
         {
             var sound = MCSoundManager.Instance.objectSound.cinema;
             sound.PlaySound(gameObject, sound.bossEnterLast);
+        }
+
+        public void PhaseChangeVoice()
+        {
+            var sound = RirisFSMManager.Instance.sound.ririsVoice;
+            sound.PlayRirisVoice(RirisFSMManager.Instance.gameObject, sound.phase3init);
+        }
+
+        public void RirisDeadVoice()
+        {
+            var sound = RirisFSMManager.Instance.sound.ririsVoice;
+            sound.PlayRirisVoice(RirisFSMManager.Instance.gameObject, sound.dead);
+        }
+
+        public void RirisDeadDissolveSound()
+        {
+            var sound = RirisFSMManager.Instance.sound2.monsterSFX;
+            sound.PlayMonsterSFX(RirisFSMManager.Instance.gameObject, sound.monsterDisAppear);
+        }
+
+        public void DeadEndSound()
+        {
+            var sound = MCSoundManager.Instance.objectSound.cinema;
+            sound.PlaySound(RirisFSMManager.Instance.gameObject, sound.storyWind);
         }
 
         public void LookAtCamDefine() 
