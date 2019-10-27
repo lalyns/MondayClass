@@ -18,9 +18,13 @@ namespace AK
         static const AkUniqueID BGM_TITLE_01 = 2511535208U;
         static const AkUniqueID BGM_TUTORIAL_03 = 1633288558U;
         static const AkUniqueID BOSSROOM = 3329270527U;
+        static const AkUniqueID CINEMATIC_SOUND_CHOICE = 3941706286U;
         static const AkUniqueID CINEMATIC_SOUND_CROWD = 460128710U;
         static const AkUniqueID CINEMATIC_SOUND_DIVE = 1418554577U;
+        static const AkUniqueID CINEMATIC_SOUND_KICK = 2642621281U;
         static const AkUniqueID CINEMATIC_SOUND_PHONE = 3872752641U;
+        static const AkUniqueID CINEMATIC_SOUND_POWERUP = 3065369805U;
+        static const AkUniqueID CINEMATIC_SOUND_SIGH = 1078650622U;
         static const AkUniqueID CINEMATIC_SOUND_WIND = 4253332529U;
         static const AkUniqueID LIRIS_DEATH_CAST_VOICE = 63954050U;
         static const AkUniqueID LIRIS_EMOTE_SMILE_VOICE = 1951680145U;
@@ -61,6 +65,7 @@ namespace AK
         static const AkUniqueID MAP_AMBIENT_TUTORIAL = 3853670893U;
         static const AkUniqueID OBJECT_DREAMFILLER_DESTROY_SOUND = 2011695621U;
         static const AkUniqueID OBJECT_DREAMFILLER_LOOP_SOUND = 2418564623U;
+        static const AkUniqueID OBJECT_ITEM_SOUND = 1859384058U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_ACTIVATIONL = 2682899652U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_CREATE = 1186601540U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_EXIT = 3390316968U;
