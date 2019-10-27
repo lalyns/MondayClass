@@ -99,24 +99,23 @@ namespace MC.SceneDirector
         public void GalaxySurprise()
         {
             var sound = MCSoundManager.Instance.objectSound.dialogVoice;
-            sound.PlaySound(gameObject, sound.voice[5]);
+            sound.PlaySound(gameObject, sound.voice[6]);
         }
 
         public void RirisSurprise()
         {
             var sound = MCSoundManager.Instance.objectSound.dialogVoice;
-            sound.PlaySound(gameObject, sound.voice[5]);
+            sound.PlaySound(gameObject, sound.voice[13]);
         }
 
         public void RirisLaugh()
         {
             var sound = MCSoundManager.Instance.objectSound.dialogVoice;
-            sound.PlaySound(gameObject, sound.voice[5]);
+            sound.PlaySound(gameObject, sound.voice[12]);
         }
 
         public void EnterLastSFX()
         {
-
             var sound = MCSoundManager.Instance.objectSound.cinema;
             sound.PlaySound(gameObject, sound.bossEnterLast);
         }

@@ -28,8 +28,8 @@ namespace MC.Sound
                     {
                         MCSoundManager.LoadBank();
                     }
-
             }
+
             public void StopAmbient(GameObject go, AK.Wwise.Event amb)
             {
                     if (GameManager.Instance.config.soundActive.ambient ||

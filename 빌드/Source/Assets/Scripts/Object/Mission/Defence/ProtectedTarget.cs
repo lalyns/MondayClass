@@ -11,6 +11,8 @@ public class ProtectedTarget : MonoBehaviour
         [HideInInspector] public Collider Collider => GetComponent<Collider>();
 
         public Animator anim;
+        public GameObject activeEffect;
+        public GameObject destroyEffect;
 
         [System.NonSerialized] public int hp;
         public int damage;
@@ -26,6 +28,9 @@ public class ProtectedTarget : MonoBehaviour
         {
             var sound = MCSoundManager.Instance.objectSound.objectSFX;
             sound.PlaySound(this.gameObject, sound.pillarDestroy);
+            activeEffect.SetActive(false);
+            GetComponentInChildren<MeshRenderer>().enabled = false;
+            Instantiate(destroyEffect, this.transform.position + Vector3.up * 1.5f, Quaternion.identity);
         }
 
         public void SetProtectedHP()

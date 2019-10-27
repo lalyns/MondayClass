@@ -52,7 +52,8 @@ namespace MC.Mission
 
             MC.Sound.MCSoundManager.LoadBank();
             var amb = MCSoundManager.Instance.objectSound.ambient;
-            amb.PlayAmbient(MCSoundManager.Instance.gameObject, amb.tutoAmbient);
+            MCSoundManager.ChangeAMB(amb.tutoAmbient);
+            //amb.PlayAmbient(MCSoundManager.Instance.gameObject, amb.tutoAmbient);
         }
 
         // Update is called once per frame

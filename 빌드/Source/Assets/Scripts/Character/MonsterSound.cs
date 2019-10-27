@@ -38,7 +38,8 @@ namespace MC.Sound
             public void PlayMonsterSFX(GameObject go, AK.Wwise.Event sfx)
             {
                 if (GameManager.Instance.config.soundActive.sfx ||
-                    GameManager.Instance.config.soundActive.all)
+                    GameManager.Instance.config.soundActive.all ||
+                    GameStatus.currentGameState != CurrentGameState.Dead)
                     sfx.Post(go);
             }
 
