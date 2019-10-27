@@ -15,7 +15,8 @@ namespace MC.SceneDirector
         public const int SURVIVAL       = 3;
         public const int DEFENCE        = 4;
         public const int BOSS           = 5;
-        public const int EDITOR         = 6;
+        public const int CREDIT         = 6;
+        public const int EDITOR         = 7;
 
         private static MCSceneManager _Instance;
         public static MCSceneManager Instance {
@@ -76,13 +77,13 @@ namespace MC.SceneDirector
 
         public void NextScene(int sceneNumber, float duration, bool fading)
         {
-            if (currentScene != TITLE && GameStatus.Instance.ActivedMonsterList.Count != 0)
-                GameStatus.Instance.RemoveAllActiveMonster();
+            //if ((currentScene != TITLE || currentScene != BOSS || currentScene != CREDIT)
+            //    && GameStatus.Instance.ActivedMonsterList.Count != 0)
+            //    GameStatus.Instance.RemoveAllActiveMonster();
 
             Instance.StartCoroutine(MCSoundManager.BGMFadeOut(duration));
             Instance.StartCoroutine(MCSoundManager.AmbFadeOut(duration));
             
-
             if (fading)
             {
                 GameManager.SetFadeInOut(() =>

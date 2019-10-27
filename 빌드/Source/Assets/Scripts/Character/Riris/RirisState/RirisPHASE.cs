@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
 using MC.Mission;
+using MC.Sound;
 
 public class RirisPHASE : RirisFSMState
 {
@@ -10,6 +11,8 @@ public class RirisPHASE : RirisFSMState
     {
         base.BeginState();
 
+        StartCoroutine(MCSoundManager.AmbFadeOut(1f, 30f));
+        StartCoroutine(MCSoundManager.BGMFadeOut(1f, 30f));
         BossDirector.Instance.PlayPhaseChangeCine();
     }
 
@@ -17,7 +20,8 @@ public class RirisPHASE : RirisFSMState
     {
         base.EndState();
 
-
+        StartCoroutine(MCSoundManager.AmbFadeIn(1f, 30f));
+        StartCoroutine(MCSoundManager.BGMFadeIn(1f, 30f));
     }
 
     float _time = 0;

@@ -60,7 +60,14 @@ public class RirisAnimEvent : MonoBehaviour
 
     }
 
-    public void PatternBVoice()
+    public void DashSound()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.dashLoopSFX);
+        sound.PlayRirisSFX(_manager.gameObject, sound.dashSFX);
+    }
+
+    public void DashVoice()
     {
         var voice = _manager.sound.ririsVoice;
         voice.PlayRirisVoice(_manager.gameObject, voice.dash);
