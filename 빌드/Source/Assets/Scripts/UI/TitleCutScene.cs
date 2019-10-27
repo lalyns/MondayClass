@@ -51,6 +51,13 @@ namespace MC.UI
             sound.PlaySound(this.gameObject, sound.storyCrowd);
         }
 
+        public void PlaySigh()
+        {
+            var sound = MCSoundManager.Instance.objectSound.cinema;
+            sound.PlaySound(this.gameObject, sound.storySigh);
+
+        }
+
         public void PlayDive()
         {
 

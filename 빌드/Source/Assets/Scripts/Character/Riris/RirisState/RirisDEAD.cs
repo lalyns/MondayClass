@@ -14,6 +14,7 @@ public class RirisDEAD : RirisFSMState
         UserInterface.SetPlayerUserInterface(false);
 
         StartCoroutine(MCSoundManager.BGMFadeOut(1f));
+        MCSoundManager.StopBGM();
         BossDirector.Instance.PlayDeadCine();
     }
 

@@ -12,6 +12,9 @@ namespace MC.Sound
         {
             #region ActionList
             public AK.Wwise.Event teleportSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event falldownSFX = new AK.Wwise.Event();
+
+            public AK.Wwise.Event changePhase = new AK.Wwise.Event();
 
             public AK.Wwise.Event jumpSFX = new AK.Wwise.Event();
             public AK.Wwise.Event dropSFX = new AK.Wwise.Event();

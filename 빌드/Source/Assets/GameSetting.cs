@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MC.SceneDirector;
 using MC.UI;
-
+using MC.Sound;
 
 
 public class GameSetting : MonoBehaviour
@@ -147,6 +147,9 @@ public class GameSetting : MonoBehaviour
     {
         setting.SetActive(false);
         MC.UI.UserInterface.BlurSet(false, 10f);
+
+        var sound = MCSoundManager.Instance.objectSound.ui;
+        sound.PlaySound(MCSoundManager.Instance.gameObject, sound.nextPage);
 
         if (MCSceneManager.currentScene == MCSceneManager.TITLE)
         {

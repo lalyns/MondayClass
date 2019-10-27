@@ -85,10 +85,8 @@ namespace MC.SceneDirector
         {
             MC.Sound.MCSoundManager.LoadBank();
             var sound = MCSoundManager.Instance.objectSound;
-            StartCoroutine(MCSoundManager.AmbFadeIn(0.7f));
-            StartCoroutine(MCSoundManager.BGMFadeIn(0.7f));
             MCSoundManager.ChangeBGM(sound.bgm.bossBGM);
-            MCSoundManager.ChangeAMB(sound.ambient.bossAmbient);
+            StartCoroutine(MCSoundManager.BGMFadeIn(0.7f));
         }
 
         public void PortalOpenPlay()
@@ -131,6 +129,18 @@ namespace MC.SceneDirector
         {
             var sound = RirisFSMManager.Instance.sound.ririsVoice;
             sound.PlayRirisVoice(RirisFSMManager.Instance.gameObject, sound.phase3init);
+        }
+
+        public void PhageChange()
+        {
+            var sound = RirisFSMManager.Instance.sound.ririsSFX;
+            sound.PlayRirisSFX(RirisFSMManager.Instance.gameObject, sound.changePhase);
+        }
+
+        public void RirisFalldown()
+        {
+            var sound = RirisFSMManager.Instance.sound.ririsSFX;
+            sound.PlayRirisSFX(RirisFSMManager.Instance.gameObject, sound.falldownSFX);
         }
 
         public void RirisDeadVoice()

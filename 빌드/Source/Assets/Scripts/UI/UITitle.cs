@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using MC.SceneDirector;
 using MC.Sound;
 
@@ -71,11 +72,18 @@ namespace MC.UI
             title.start.interactable = false;
             title.developer.interactable = false;
             title.exit.interactable = false;
+
+            var sound = MCSoundManager.Instance.objectSound.ui;
+            sound.PlaySound(MCSoundManager.Instance.gameObject, sound.nextPage);
         }
 
         public void Developer()
         {
             Debug.Log("개발자 : ??");
+
+            MCSoundManager.StopAMB();
+            MCSoundManager.StopBGM();
+            SceneManager.LoadScene(MCSceneManager.CREDIT);
         }
 
         public void ExitButton()

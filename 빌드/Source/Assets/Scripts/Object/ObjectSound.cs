@@ -100,6 +100,8 @@ namespace MC.Sound
             public AK.Wwise.Event starDrop = new AK.Wwise.Event();
             public AK.Wwise.Event starGet = new AK.Wwise.Event();
 
+            public AK.Wwise.Event itemGet = new AK.Wwise.Event();
+
             public AK.Wwise.Event pillarActive = new AK.Wwise.Event();
             public AK.Wwise.Event pillarDestroy = new AK.Wwise.Event();
             #endregion
@@ -166,6 +168,7 @@ namespace MC.Sound
             #region CinemaSound
 
             public AK.Wwise.Event storyCrowd = new AK.Wwise.Event();
+            public AK.Wwise.Event storySigh = new AK.Wwise.Event();
             public AK.Wwise.Event storyDive = new AK.Wwise.Event();
             public AK.Wwise.Event storyPhone = new AK.Wwise.Event();
             public AK.Wwise.Event storyWind = new AK.Wwise.Event();

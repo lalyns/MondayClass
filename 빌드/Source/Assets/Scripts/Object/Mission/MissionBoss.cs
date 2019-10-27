@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Sound;
 
 namespace MC.Mission
 {
@@ -20,7 +21,10 @@ namespace MC.Mission
                 Destroy(gameObject);
             }
 
-            
+            var sound = MCSoundManager.Instance.objectSound;
+            StartCoroutine(MCSoundManager.AmbFadeIn(0.7f));
+            MCSoundManager.ChangeAMB(sound.ambient.stageAmbient);
+
         }
 
     }

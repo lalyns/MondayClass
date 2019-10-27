@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Sound;
 
 public class MissionEnter : MonoBehaviour
 {
@@ -24,6 +25,9 @@ public class MissionEnter : MonoBehaviour
             {
                 MissionManager.Instance.CurrentMission.startImage.gameObject.SetActive(true);
                 MissionManager.Instance.CurrentMission.startImage.GetComponent<Animator>().Play("play");
+
+                var sound = MCSoundManager.Instance.objectSound.objectSFX;
+                sound.PlaySound(this.gameObject, sound.portalExit);
 
                 Invoke("CanvasOff", 5f);
 
