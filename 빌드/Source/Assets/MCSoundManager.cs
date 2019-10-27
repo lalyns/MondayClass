@@ -67,6 +67,7 @@ namespace MC.Sound
         {
             if(bgm != Instance.preBGM)
             {
+                Instance.objectSound.bgm.StopBGM(Instance.gameObject, Instance.preBGM);
                 Instance.preBGM = bgm;
                 Instance.curBGM = bgm;
                 Instance.objectSound.bgm.PlayBGM(Instance.gameObject, bgm);
@@ -76,7 +77,14 @@ namespace MC.Sound
 
         public static void ChangeAMB(AK.Wwise.Event amb)
         {
-
+            if (amb != Instance.preAMB)
+            {
+                Instance.objectSound.ambient.StopAmbient(Instance.gameObject, Instance.preAMB);
+                Instance.preAMB = amb;
+                Instance.preAMB = amb;
+                Instance.objectSound.bgm.PlayBGM(Instance.gameObject, amb);
+                BGMFadeIn(2f);
+            }
         }
 
         public static void SetRTPCParam(string type, float value)

@@ -294,11 +294,6 @@ public class GameManager : MonoBehaviour
         CharacterControl = true;
     }
 
-    public void SetBank()
-    {
-        MCSoundManager.SetSound();
-    }
-
     public void BossSet()
     {
         GameStatus.SetCurrentGameState(CurrentGameState.Wait);
