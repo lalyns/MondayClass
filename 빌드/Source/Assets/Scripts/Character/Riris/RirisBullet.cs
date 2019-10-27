@@ -8,7 +8,7 @@ public class RirisBullet : MonoBehaviour
     RirisFSMManager RirisFSMManager;
     ObjectPool bulletPool;
 
-    Collider collider;
+    Collider collider => GetComponent<Collider>();
 
     public GameObject model;
     public GameObject effect1;
@@ -37,7 +37,6 @@ public class RirisBullet : MonoBehaviour
     {
         RirisFSMManager = GameObject.FindGameObjectWithTag("Boss").GetComponentInParent<RirisFSMManager>();
         bulletPool = BossEffects.Instance.bullet;
-        collider = GetComponent<Collider>();
 
     }
 

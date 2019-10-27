@@ -27,8 +27,6 @@ public class RirisPATTERNB : RirisFSMState
 
     public IEnumerator AddBullet()
     {
-        var sound = _manager.sound.ririsVoice;
-        sound.PlayRirisVoice(this.gameObject, sound.batswarm1);
         bulletPos.position = _manager.Pevis.transform.position;
         for (int i = 0; i < 4; i++)
         {

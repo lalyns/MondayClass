@@ -115,6 +115,25 @@ public class RirisAnimEvent : MonoBehaviour
         _manager.GetComponent<RirisULTIMATE>().PatternEnd();
     }
 
+    public void BatSwarmVoice()
+    {
+        var voice = _manager.sound.ririsVoice;
+        voice.PlayRirisVoice(_manager.gameObject, voice.batswarm);
+    }
+
+
+    public void BatSwarmFirstCast()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.batSwarmFirstSFX);
+    }
+
+    public void BatSwarmCast()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.batSwarmLoopSFX);
+    }
+
     public void SetOff()
     {
         BossEffects.Instance.tornaedo.ItemReturnPool(this.gameObject);
