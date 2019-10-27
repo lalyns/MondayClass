@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using MC.Sound;
+using MC.UI;
 
 namespace MC.Mission
 {
@@ -9,6 +11,7 @@ namespace MC.Mission
     public class MissionC : MissionBase
     {
         public static bool isDialogC = false;
+        public Button manual;
 
         public ProtectedTarget protectedTarget;
         public int _ProtectedTargetHP;
@@ -26,7 +29,7 @@ namespace MC.Mission
         public List<Transform> oldSpawnList = new List<Transform>();
 
         bool isClear = false;
-
+        
         protected override void Start()
         {
             base.Start();
@@ -47,11 +50,17 @@ namespace MC.Mission
             MissionOperate = true;
         }
 
-        // Update is called once per frame
+        float _manualTime = 0;
         protected override void Update()
         {
             base.Update();
 
+            _manualTime += Time.realtimeSinceStartup;
+            if (_manualTime > 10.0f && !isDialogC)
+            {
+                UserInterface.SetPointerMode(true);
+                manual.interactable = true;
+            }
             if (missionEnd) return;
 
             if (GameStatus.currentGameState == CurrentGameState.Dead ||
@@ -121,5 +130,13 @@ namespace MC.Mission
             currentWave++;
         }
 
+        public void ManualSupport()
+        {
+            isDialogC = true;
+            GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+            GameManager.Instance.IsPuase = false;
+            UserInterface.SetPointerMode(false);
+            manual.gameObject.SetActive(false);
+        }
     }
 }
