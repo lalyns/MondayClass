@@ -25,9 +25,17 @@ namespace MC.UI
         public Title title;
 
         public TitleCutScene cutScene;
-        public GameObject setting => CanvasInfo.Instance.setting;
+        public GameObject Setting => CanvasInfo.Instance.setting;
 
         bool nextScene = true;
+
+        public void OnEnable()
+        {
+            MCSoundManager.LoadBank();
+            var sound = MCSoundManager.Instance.objectSound;
+            MCSoundManager.ChangeBGM(sound.bgm.lobbyBGM);
+            MCSoundManager.ChangeAMB(sound.ambient.lobbyAmbient);
+        }
 
         public void StartButton()
         {
@@ -37,6 +45,9 @@ namespace MC.UI
             {
                 var ui = MCSoundManager.Instance.objectSound.ui;
                 ui.PlaySound(this.gameObject, ui.uiStart);
+
+                StartCoroutine(MCSoundManager.BGMFadeOut(1f));
+                StartCoroutine(MCSoundManager.AmbFadeOut(1f));
 
                 cutScene.CineStart();
                 GameStatus.SetCurrentGameState(CurrentGameState.Product);
@@ -56,7 +67,7 @@ namespace MC.UI
 
         public void SettingButton()
         {
-            setting.SetActive(true);
+            Setting.SetActive(true);
             title.start.interactable = false;
             title.developer.interactable = false;
             title.exit.interactable = false;
