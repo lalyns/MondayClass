@@ -56,7 +56,6 @@ namespace MC.Mission
             StartCoroutine(MCSoundManager.BGMFadeIn(0.7f));
             MCSoundManager.ChangeBGM(sound.bgm.tutoBGM);
             MCSoundManager.ChangeAMB(sound.ambient.tutoAmbient);
-            //amb.PlayAmbient(MCSoundManager.Instance.gameObject, amb.tutoAmbient);
         }
 
         // Update is called once per frame

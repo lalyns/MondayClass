@@ -21,8 +21,10 @@ public class RirisPATTERND : RirisFSMState
     {
         base.BeginState();
 
-        var sound = _manager.sound.ririsVoice;
-        sound.PlayRirisVoice(this.gameObject, sound.darkblast);
+        _manager.Anim.Play("PatternD");
+
+        var voice = _manager.sound.ririsVoice;
+        voice.PlayRirisVoice(this.gameObject, voice.darkblast);
     }
 
     public override void EndState()
@@ -47,8 +49,12 @@ public class RirisPATTERND : RirisFSMState
 
         if(time >= duration)
         {
+            var sound = _manager.sound.ririsSFX;
+
             if (!set1Play)
             {
+                sound.PlayRirisSFX(this.gameObject, sound.tornaedoCastSFX);
+                sound.PlayRirisSFX(_manager.gameObject, sound.tornaedoFirstSFX);
                 foreach(Transform a in TornadoLoc1)
                 {
                     // 대충 이펙트를 꺼내는 행위
@@ -63,6 +69,7 @@ public class RirisPATTERND : RirisFSMState
             {
                 if (!set2Play)
                 {
+                    sound.PlayRirisSFX(_manager.gameObject, sound.tornaedoLastSFX);
                     foreach (Transform a in TornadoLoc2)
                     {
                         // 대충 이펙트를 꺼내는 행위

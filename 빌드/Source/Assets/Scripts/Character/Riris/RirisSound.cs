@@ -11,7 +11,12 @@ namespace MC.Sound
         public class RirisSFXList
         {
             #region ActionList
+            public AK.Wwise.Event batSwarmFirstSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event batSwarmLoopSFX = new AK.Wwise.Event();
 
+            public AK.Wwise.Event tornaedoCastSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event tornaedoFirstSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event tornaedoLastSFX = new AK.Wwise.Event();
             #endregion
 
             #region SkillList
@@ -34,8 +39,7 @@ namespace MC.Sound
             public AK.Wwise.Event smile = new AK.Wwise.Event();
             public AK.Wwise.Event surprise1 = new AK.Wwise.Event();
             public AK.Wwise.Event surprise2 = new AK.Wwise.Event();
-            public AK.Wwise.Event batswarm1 = new AK.Wwise.Event();
-            public AK.Wwise.Event batswarm2 = new AK.Wwise.Event();
+            public AK.Wwise.Event batswarm = new AK.Wwise.Event();
             public AK.Wwise.Event stomp = new AK.Wwise.Event();
             public AK.Wwise.Event darkblast = new AK.Wwise.Event();
             public AK.Wwise.Event dash = new AK.Wwise.Event();
