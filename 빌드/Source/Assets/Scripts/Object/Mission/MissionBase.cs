@@ -132,6 +132,28 @@ namespace MC.Mission
             Exit.Colliders.enabled = false;
         }
 
+        bool isPlayPortal = false;
+        public void PortalPlay()
+        {
+            if (!isPlayPortal)
+            {
+                if (GameStatus.Instance.StageLevel < 3)
+                {
+                    MissionManager.Instance.CurrentMission.Exit._PortalEffect.SetActive(true);
+                }
+                else
+                {
+                    MissionManager.Instance.CurrentMission.Exit._BossPortalEffect.SetActive(true);
+                }
+                MissionManager.Instance.CurrentMission.Exit.Colliders.enabled = true;
+
+                var sound = MCSoundManager.Instance.objectSound.objectSFX;
+                sound.PlaySound(MissionManager.Instance.CurrentMission.Exit.gameObject, sound.portalActive);
+                sound.PlaySound(MissionManager.Instance.CurrentMission.Exit.gameObject, sound.portalLoop);
+                isPlayPortal = true;
+            }
+        }
+
         public virtual void FailMission()
         {
             GameStatus.SetCurrentGameState(CurrentGameState.Dead);

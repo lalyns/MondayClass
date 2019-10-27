@@ -127,17 +127,14 @@ public class RirisFSMManager : FSMManager
         _isInit = true;
     }
     public bool isChange, isUlt;
+
     private void Update()
     {
-        if (PlayerFSMManager.Instance.isSpecial && !isChange)
+        if(GameStatus.currentGameState == CurrentGameState.Product)
         {
             SetState(RirisState.HIT);
-            isChange = true;
-        }
-        if (PlayerFSMManager.Instance.isSkill4 && !isUlt)
-        {
-            isUlt = true;
-            SetState(RirisState.HIT);
+            if (PlayerFSMManager.Instance.isSpecial && !isChange) isChange = true;
+            if (PlayerFSMManager.Instance.isSkill4 && !isUlt) isUlt = true;
         }
 
         if(Input.GetKey(KeyCode.LeftAlt))

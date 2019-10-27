@@ -76,16 +76,12 @@ namespace MC.SceneDirector
 
         public void NextScene(int sceneNumber, float duration, bool fading)
         {
-            if (currentScene != TITLE) {
-                var sound = MCSoundManager.Instance.objectSound.objectSFX;
-                sound.StopSound(MissionManager.Instance.CurrentMission.Exit.gameObject, sound.portalLoop);
-            }
-
             if (currentScene != TITLE && GameStatus.Instance.ActivedMonsterList.Count != 0)
                 GameStatus.Instance.RemoveAllActiveMonster();
 
             Instance.StartCoroutine(MCSoundManager.BGMFadeOut(duration));
             Instance.StartCoroutine(MCSoundManager.AmbFadeOut(duration));
+            
 
             if (fading)
             {
@@ -106,6 +102,8 @@ namespace MC.SceneDirector
         public IEnumerator LoadScene(int sceneNumber, float duration)
         {
             yield return null;
+
+            MCSoundManager.StopAMB();
 
             if (!isLoad)
             {

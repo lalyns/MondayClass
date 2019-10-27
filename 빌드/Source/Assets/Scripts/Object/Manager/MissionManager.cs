@@ -4,6 +4,7 @@ using UnityEngine;
 using MC.UI;
 using MC.SceneDirector;
 using MC.Mission;
+using MC.Sound;
 
 /// <summary>
 /// 미션의 종류

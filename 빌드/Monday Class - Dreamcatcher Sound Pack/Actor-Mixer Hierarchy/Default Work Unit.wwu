@@ -1093,6 +1093,13 @@
 												<Folder Name="Fountain" ID="{650978A7-5E09-4510-A55D-9323F59A8440}" ShortID="465643385">
 													<ChildrenList>
 														<RandomSequenceContainer Name="Fountain" ID="{59FBF204-1814-448F-B26E-1A897FADE2A8}" ShortID="406565241">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>-0.5</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
 															<ReferenceList>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -4441,66 +4448,87 @@
 														</RandomSequenceContainer>
 													</ChildrenList>
 												</Folder>
-											</ChildrenList>
-										</Folder>
-										<Folder Name="Bat Swarm 02" ID="{95137F59-E91E-4725-8ACD-356AB02B580B}" ShortID="489313155">
-											<ChildrenList>
-												<RandomSequenceContainer Name="Cast Voice" ID="{F92761F5-7A11-4B4D-A181-303996AB11AF}" ShortID="946307866">
-													<ReferenceList>
-														<Reference Name="Conversion">
-															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
-														</Reference>
-														<Reference Name="OutputBus">
-															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
-														</Reference>
-													</ReferenceList>
+												<Folder Name="Sound" ID="{908A7E6D-6FA1-4736-AAFB-97ECAF260870}" ShortID="767793408">
 													<ChildrenList>
-														<Sound Name="Liris_Skill_BatSwarm02_Cast_Voice_01" ID="{2DC38567-0F46-42A1-888F-78F274D28DE2}" ShortID="1053711131">
+														<RandomSequenceContainer Name="First Cast Sound" ID="{82B9A647-1965-4CC5-AA42-3243BA631F90}" ShortID="317239123">
 															<ReferenceList>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																</Reference>
 																<Reference Name="OutputBus">
-																	<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
 																</Reference>
 															</ReferenceList>
-															<ChildrenList>
-																<AudioFileSource Name="Liris_Skill_BatSwarm_Cast_Voice_02" ID="{099B6B86-9C2F-4B9F-8BF1-BCBEB2199521}" ShortID="617826809">
-																	<Language>SFX</Language>
-																	<AudioFile>Liris_Skill_BatSwarm_Cast_Voice_02.wav</AudioFile>
-																	<ConvertedFileIDList>
-																		<File ID="1073606540"/>
-																	</ConvertedFileIDList>
-																</AudioFileSource>
-															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="Liris_Skill_BatSwarm_Cast_Voice_02" ID="{099B6B86-9C2F-4B9F-8BF1-BCBEB2199521}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
-														<Sound Name="Liris_Skill_BatSwarm02_Cast_Voice_02" ID="{BE5FC6E1-AC03-4FCC-BE5A-2FF42C85C311}" ShortID="784207178">
+														</RandomSequenceContainer>
+														<RandomSequenceContainer Name="Cast Sound" ID="{E6ACCE53-D0DE-406B-87DB-4140BDCF0A07}" ShortID="242593581">
+															<PropertyList>
+																<Property Name="Highpass" Type="int16">
+																	<ValueList>
+																		<Value>20</Value>
+																	</ValueList>
+																</Property>
+																<Property Name="Lowpass" Type="int16">
+																	<ValueList>
+																		<Value>20</Value>
+																	</ValueList>
+																</Property>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{7ECB6987-8A67-4205-921C-8A635018CB47}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="200"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{93D630D5-BB18-42A8-A8C1-2CA268219BB6}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Min" Type="Real64" Value="-3"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
 															<ReferenceList>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																</Reference>
 																<Reference Name="OutputBus">
-																	<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="Liris_Skill_BatSwarm_Cast_Voice_03" ID="{3FB76906-E0DF-4573-B5E3-1194DE923490}" ShortID="58372195">
-																	<Language>SFX</Language>
-																	<AudioFile>Liris_Skill_BatSwarm_Cast_Voice_03.wav</AudioFile>
-																	<ConvertedFileIDList>
-																		<File ID="1059149347"/>
-																	</ConvertedFileIDList>
-																</AudioFileSource>
+																<Sound Name="Liris_Skill_BatSwarm01_Cast_Sound_01" ID="{72411A60-D377-4ABB-9657-1AC4B7957F69}" ShortID="915400584">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_BatSwarm_Cast_Sound_01" ID="{8616C939-4143-441E-A394-4C10F431C9A7}" ShortID="158201611">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_BatSwarm_Cast_Sound_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_BatSwarm_Cast_Sound_01" ID="{8616C939-4143-441E-A394-4C10F431C9A7}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
 															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="Liris_Skill_BatSwarm_Cast_Voice_03" ID="{3FB76906-E0DF-4573-B5E3-1194DE923490}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
+														</RandomSequenceContainer>
 													</ChildrenList>
-												</RandomSequenceContainer>
+												</Folder>
 											</ChildrenList>
 										</Folder>
 										<Folder Name="Dash Attack" ID="{B9CDEF9F-DD1E-437A-9DE6-A2019979B63F}" ShortID="730247391">
@@ -4683,37 +4711,138 @@
 										</Folder>
 										<Folder Name="Dark Blast" ID="{178EAF67-06E4-47E0-9087-DC7740D5FB7A}" ShortID="973039519">
 											<ChildrenList>
-												<RandomSequenceContainer Name="Cast Voice" ID="{815703C3-7DEA-4DD0-9B88-B62AB8EDDF61}" ShortID="661700652">
-													<ReferenceList>
-														<Reference Name="Conversion">
-															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
-														</Reference>
-														<Reference Name="OutputBus">
-															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
-														</Reference>
-													</ReferenceList>
+												<Folder Name="Sound" ID="{85CB9EF9-F4A6-4E76-9BB9-61524C0E087E}" ShortID="711722455">
 													<ChildrenList>
-														<Sound Name="Liris_Skill_DarkBlast_Cast_Voice_01" ID="{94E2F96B-989A-4DB5-9048-12D36D280E87}" ShortID="279406476">
+														<RandomSequenceContainer Name="Boom Sound" ID="{2AB7E3D3-7FA7-4C71-8C26-A6488E4B6F11}" ShortID="301210234">
 															<ReferenceList>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																</Reference>
 																<Reference Name="OutputBus">
-																	<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="Liris_Skill_BatSwarm_Cast_Voice_01" ID="{DFB38B8F-8C68-454F-BD8E-854C31E3F4C6}" ShortID="769378098">
-																	<Language>SFX</Language>
-																	<AudioFile>Liris_Skill_BatSwarm_Cast_Voice_01.wav</AudioFile>
-																</AudioFileSource>
+																<Sound Name="Liris_Skill_Dark Blast_Boom_Sound_01" ID="{989D0066-F109-4F51-B550-0AE66ED360DE}" ShortID="801007568">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Dark Blast_Cast_Sound_01" ID="{FC1D62DA-E1B9-423C-B2B3-1EB50DC2A85E}" ShortID="453954942">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Dark Blast_Cast_Sound_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Dark Blast_Cast_Sound_01" ID="{FC1D62DA-E1B9-423C-B2B3-1EB50DC2A85E}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
 															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="Liris_Skill_BatSwarm_Cast_Voice_01" ID="{DFB38B8F-8C68-454F-BD8E-854C31E3F4C6}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
+														</RandomSequenceContainer>
+														<RandomSequenceContainer Name="First Boom Sound" ID="{91D4D76E-4119-4CB8-9AB1-0C1DA3474ECF}" ShortID="792250358">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Liris_Skill_Dark Blast_First_Boom_Sound_01" ID="{930BD79F-6A8C-4A6B-91DD-6A7C8FE3DA55}" ShortID="295613001">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Dark Blast_First_Cast_Sound_01" ID="{3887A153-DAF3-4DC5-87BE-371546AFD293}" ShortID="461478937">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Dark Blast_First_Cast_Sound_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Dark Blast_First_Cast_Sound_01" ID="{3887A153-DAF3-4DC5-87BE-371546AFD293}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
+														<RandomSequenceContainer Name="Cast Sound" ID="{83F60BAA-19FB-4DFB-BF91-1D438D86CC19}" ShortID="254675716">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Liris_Skill_Dark Blast_Cast_Sound_01" ID="{060A1860-E3E0-401C-B48C-55079CBE9F3E}" ShortID="658685137">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_BatSwarm_First_Cast_Sound_01" ID="{76C99AE7-071A-46BB-9617-6760B3EC3CC0}" ShortID="506766041">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_BatSwarm_First_Cast_Sound_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_BatSwarm_First_Cast_Sound_01" ID="{76C99AE7-071A-46BB-9617-6760B3EC3CC0}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
 													</ChildrenList>
-												</RandomSequenceContainer>
+												</Folder>
+												<Folder Name="Voice" ID="{26A3AA3D-6389-44D1-BD77-8D46C069F2E3}" ShortID="973273136">
+													<ChildrenList>
+														<RandomSequenceContainer Name="Cast Voice" ID="{815703C3-7DEA-4DD0-9B88-B62AB8EDDF61}" ShortID="661700652">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Liris_Skill_DarkBlast_Cast_Voice_01" ID="{94E2F96B-989A-4DB5-9048-12D36D280E87}" ShortID="279406476">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_BatSwarm_Cast_Voice_01" ID="{DFB38B8F-8C68-454F-BD8E-854C31E3F4C6}" ShortID="769378098">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_BatSwarm_Cast_Voice_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_BatSwarm_Cast_Voice_01" ID="{DFB38B8F-8C68-454F-BD8E-854C31E3F4C6}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
+													</ChildrenList>
+												</Folder>
 											</ChildrenList>
 										</Folder>
 									</ChildrenList>

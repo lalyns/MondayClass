@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Sound;
 
 namespace MC.Mission
 {
@@ -36,6 +37,14 @@ namespace MC.Mission
         protected override void Start()
         {
             totalWave = waves.Length;
+
+
+            MC.Sound.MCSoundManager.LoadBank();
+            var sound = MCSoundManager.Instance.objectSound;
+            StartCoroutine(MCSoundManager.AmbFadeIn(0.7f));
+            StartCoroutine(MCSoundManager.BGMFadeIn(0.7f));
+            MCSoundManager.ChangeBGM(sound.bgm.stageBGM);
+            MCSoundManager.ChangeAMB(sound.ambient.tutoAmbient);
         }
 
         // Update is called once per frame

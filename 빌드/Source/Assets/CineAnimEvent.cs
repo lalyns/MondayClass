@@ -84,6 +84,16 @@ namespace MC.SceneDirector
                 }, 1f, false);
         }
 
+        public void StartSoundPlay()
+        {
+            MC.Sound.MCSoundManager.LoadBank();
+            var sound = MCSoundManager.Instance.objectSound;
+            StartCoroutine(MCSoundManager.AmbFadeIn(0.7f));
+            StartCoroutine(MCSoundManager.BGMFadeIn(0.7f));
+            MCSoundManager.ChangeBGM(sound.bgm.bossBGM);
+            MCSoundManager.ChangeAMB(sound.ambient.bossAmbient);
+        }
+
         public void PortalOpenPlay()
         {
             var sound = MCSoundManager.Instance.objectSound.objectSFX;

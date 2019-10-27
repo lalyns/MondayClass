@@ -55,14 +55,6 @@ namespace MC.Sound
             Instance.voice.HandleEvent(Instance.gameObject);
         }
 
-        public static void SetSound()
-        {
-            Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
-                Instance.objectSound.ambient.stageAmbient);
-            Instance.objectSound.bgm.PlayBGM(Instance.gameObject,
-                Instance.objectSound.bgm.stageBGM);
-        }
-
         public static void ChangeBGM(AK.Wwise.Event bgm)
         {
             if(bgm != Instance.preBGM)
@@ -74,14 +66,19 @@ namespace MC.Sound
             }
         }
 
+        public static void StopAMB()
+        {
+            Instance.objectSound.ambient.StopAmbient(Instance.gameObject, Instance.curAMB);
+        }
+
         public static void ChangeAMB(AK.Wwise.Event amb)
         {
             if (amb != Instance.preAMB)
             {
                 Instance.objectSound.ambient.StopAmbient(Instance.gameObject, Instance.preAMB);
                 Instance.preAMB = amb;
-                Instance.preAMB = amb;
-                Instance.objectSound.bgm.PlayBGM(Instance.gameObject, amb);
+                Instance.curAMB = amb;
+                Instance.objectSound.ambient.PlayAmbient(Instance.gameObject, amb);
             }
         }
 
