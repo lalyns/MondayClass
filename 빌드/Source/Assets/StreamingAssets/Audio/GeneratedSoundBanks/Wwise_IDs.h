@@ -47,6 +47,9 @@ namespace AK
         static const AkUniqueID OBJECT_PORTAL_SOUND_CREATE = 1186601540U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_EXIT = 3390316968U;
         static const AkUniqueID OBJECT_PORTAL_SOUND_LOOP = 4103339506U;
+        static const AkUniqueID OBJECT_STAR_CREATOR_SOUND = 1812913002U;
+        static const AkUniqueID OBJECT_STAR_GET_SOUND = 1797323514U;
+        static const AkUniqueID OBJECT_STAR_LOOP_SOUND = 1675920208U;
         static const AkUniqueID PLAYER_ACTION_ATTACKSOUND_SWING = 2601194728U;
         static const AkUniqueID PLAYER_ACTION_DAMAGE_VOICE = 447796342U;
         static const AkUniqueID PLAYER_ACTION_DIE_VOICE = 4038288023U;

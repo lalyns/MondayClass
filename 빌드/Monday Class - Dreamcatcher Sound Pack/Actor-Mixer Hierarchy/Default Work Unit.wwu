@@ -2674,6 +2674,187 @@
 								</RandomSequenceContainer>
 							</ChildrenList>
 						</Folder>
+						<Folder Name="Star" ID="{8B2BC70E-DB91-4677-900A-6CCB3930C9D4}" ShortID="644456182">
+							<ChildrenList>
+								<RandomSequenceContainer Name="Get" ID="{A7CAFFD0-B60F-4331-B3D5-E9AD0B35BB24}" ShortID="1062220399">
+									<PropertyList>
+										<Property Name="Highpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{098F2F08-6C7C-4659-BA66-82D30941E9B3}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Lowpass" Type="int16">
+											<ValueList>
+												<Value>15</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>-3</Value>
+											</ValueList>
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{55DBBFBD-D574-4053-A3C6-7601B12AFD27}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="25"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>3</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Object_Star_Get_Sound_01" ID="{8875AD90-705E-4961-A37A-5B146235E729}" ShortID="933946570">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Ui_Star_Get_Sound_01" ID="{38BC582C-2E9C-4E19-9F36-7997ECC8B04B}" ShortID="67841153">
+													<Language>SFX</Language>
+													<AudioFile>Ui_Star_Get_Sound_01.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Ui_Star_Get_Sound_01" ID="{38BC582C-2E9C-4E19-9F36-7997ECC8B04B}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="Loop" ID="{E51B9532-B795-477C-B0C2-5B4AC067AC85}" ShortID="390653430">
+									<PropertyList>
+										<Property Name="Lowpass" Type="int16">
+											<ValueList>
+												<Value>10</Value>
+											</ValueList>
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{08A06E53-3D98-47F6-9938-1A3633A8A733}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{5FD59907-8AE5-467D-9E45-3EF67D08C62C}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="100"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Object_Star_Loop_Sound_01" ID="{8617916F-6290-455E-A054-6E77B369E921}" ShortID="352895656">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>4</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Object_Star_Loop_Sound_01" ID="{02DF9336-328C-4564-8FD6-52E46A170B5C}" ShortID="707525798">
+													<Language>SFX</Language>
+													<AudioFile>Object_Star_Loop_Sound_01.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Object_Star_Loop_Sound_01" ID="{02DF9336-328C-4564-8FD6-52E46A170B5C}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="Creator" ID="{548F0C6D-4E51-4B0A-98BE-CF3A3BAD5617}" ShortID="536665266">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{E12DDEC3-3DBF-41CB-BE72-6BF9355DAC61}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="25"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>5</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Object_Star_Creator_Sound_01" ID="{DF936C50-071C-4334-9C5D-C4CF5469BDC9}" ShortID="233738336">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Object_Star_Creator_Sound_01" ID="{38A54764-DA65-4684-B7DC-492DCE21E65B}" ShortID="745035728">
+													<Language>SFX</Language>
+													<AudioFile>Object_Star_Creator_Sound_01.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Object_Star_Creator_Sound_01" ID="{38A54764-DA65-4684-B7DC-492DCE21E65B}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+							</ChildrenList>
+						</Folder>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="ZPangYi" ID="{75DA40E1-7E17-443F-A3A1-03E95A572880}" ShortID="1005783219">
