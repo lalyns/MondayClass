@@ -13,6 +13,10 @@ public class PlayerSKILL4 : FSMState
 
         _manager.attackType = AttackType.SKILL4;
 
+        // 시작해볼까?
+        var voice = _manager._Sound.voice;
+        voice.PlayPlayerVoice(_manager.gameObject, voice.skill4CastVoice);
+
         UserInterface.SetAllUserInterface(false);
         _manager.isCanUltimate = false;
     }

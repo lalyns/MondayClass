@@ -286,6 +286,7 @@ public class GameStatus : MonoBehaviour
                     FindObjectOfType<TitleCutScene>().CineEnd();
                 }
             }
+
         }
 
 
@@ -304,6 +305,20 @@ public class GameStatus : MonoBehaviour
                 PlayerFSMManager.Instance.mainCamera.gameObject.SetActive(true);
 
                 Invoke("DialogCheck", 0.5f);
+
+                if (GameStatus.Instance.StageLevel < 3)
+                {
+                    MissionManager.Instance.CurrentMission.Exit._PortalEffect.SetActive(true);
+                }
+                else
+                {
+                    MissionManager.Instance.CurrentMission.Exit._BossPortalEffect.SetActive(true);
+                }
+                MissionManager.Instance.CurrentMission.Exit.Colliders.enabled = true;
+
+                var sound = MCSoundManager.Instance.objectSound.objectSFX;
+                sound.PlaySound(MissionManager.Instance.CurrentMission.Exit.gameObject, sound.portalActive);
+                sound.PlaySound(MissionManager.Instance.CurrentMission.Exit.gameObject, sound.portalLoop);
 
             }
         }

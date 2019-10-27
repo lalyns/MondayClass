@@ -160,22 +160,15 @@ public class MissionManager : MonoBehaviour
                 var type = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
                 var type2 = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
 
+                while (type == type2)
+                {
+                    type2 = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
+                }
+
                 currentMissionRewards[0] = choice.ChangeReward(0, (MissionRewardType)type);
                 currentMissionRewards[1] = choice.ChangeReward(1, (MissionRewardType)type2);
             }
         }
-
-        //foreach (MissionButton choice in UserInterface.Instance.SelectorUI.buttons)
-        //{
-        //    var type = UnityEngine.Random.Range(0, 999) % ((int)(MissionType.Last) - 1);
-        //    choice.ChangeMission(type);
-        //}
-
-        //if (GameStatus.Instance.StageLevel >= 3)
-        //{
-        //    UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
-        //}
-
     }
 
     public static void SelectMission(MissionType type)
@@ -208,20 +201,6 @@ public class MissionManager : MonoBehaviour
             }
 
             EnterMission();
-
-            //UserInterface.SetPointerMode(false);
-            //GameManager.Instance.IsPuase = false;
-            //UserInterface.FullModeSetMP();
-
-            //// 페이드 Out
-            //GameManager.SetFadeInOut(() =>
-            //{
-
-            //    //MissionManager.EnterMission();
-            //    UserInterface.BlurSet(false);
-            //    // RigidBody Gravity => false
-            //    PlayerFSMManager.Instance.rigid.useGravity = false;
-            //}, false);
         }
 
     }

@@ -29,7 +29,7 @@ public class RirisPHASE : RirisFSMState
         if(_time >= 5f)
         {
             _time = 0;
-            _manager.SetState(RirisState.ULTIMATE);
+            _manager.SetState(RirisState.PATTERNEND);
         }
     }
 
