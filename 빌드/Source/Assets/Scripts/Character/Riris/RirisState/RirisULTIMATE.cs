@@ -45,7 +45,8 @@ public class RirisULTIMATE : RirisFSMState
 
         useGravity = false;
         this.transform.position = bossUltPos;
-        _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
+        _manager.Anim.transform.LookAt
+            (PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         BigCircleCast();
     }
 
@@ -79,17 +80,31 @@ public class RirisULTIMATE : RirisFSMState
 
     public void BigCircleCast()
     {
+        var voice = _manager.sound.ririsVoice;
+        voice.PlayRirisVoice(_manager.gameObject, voice.special);
+
         bigCircle.gameObject.SetActive(true);
         bigCircle.particle[0].Play();
         bigCircle.particle[1].Play();
         bigCircle.anim.Play("play");
 
+        Invoke("SoundCast", 1.5f);
+
         Invoke("SmallCircleCast", 2.8f);
+    }
+
+    void SoundCast()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.ultGate);
     }
 
     public void SmallCircleCast()
     {
-        foreach(SmallCircle small in smallCircle)
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.ultSmallGate);
+
+        foreach (SmallCircle small in smallCircle)
         {
             small.gameObject.SetActive(true);
             for(int i =0; i<small.particle.Length; i++)
@@ -111,7 +126,6 @@ public class RirisULTIMATE : RirisFSMState
         {
             yield return new WaitForSeconds(delay);
 
-
             GameObject flower = BossEffects.Instance.flower.ItemSetActive(pattern.targetTrans[i].position);
             flower.GetComponent<BossUltEffect>().setEffect.PlayEffects();
 
@@ -131,6 +145,8 @@ public class RirisULTIMATE : RirisFSMState
 
     public IEnumerator SetBeam(UltiPattern pattern)
     {
+        var sound = _manager.sound.ririsSFX;
+
         int value = currentList;
         for (int i = 0; i < pattern.startTrans.Length; i++)
         {
@@ -141,10 +157,19 @@ public class RirisULTIMATE : RirisFSMState
             beam.transform.LookAt(pattern.targetTrans[i].position);
             StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
 
+            sound.PlayRirisSFX(_manager.gameObject, sound.ultBeam);
+            Invoke("BlastSound", 0.8f);
+
             flowerLists[value][i].GetComponent<BossUltEffect>().impactEffect.PlayEffects();
         }
 
         yield return StartCoroutine(SetFalse(beamLists[value], flowerLists[value]));
+    }
+
+    void BlastSound()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.ultBlast);
     }
 
     public IEnumerator SetFalse(List<GameObject> beam, List<GameObject> flower)

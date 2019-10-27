@@ -60,10 +60,42 @@ public class RirisAnimEvent : MonoBehaviour
 
     }
 
-    public void PatterBSound()
+    public void PatternBVoice()
     {
         var voice = _manager.sound.ririsVoice;
         voice.PlayRirisVoice(_manager.gameObject, voice.dash);
+    }
+
+    public void JumpVoice()
+    {
+        var voice = _manager.sound.ririsVoice;
+        voice.PlayRirisVoice(_manager.gameObject, voice.jump);
+    }
+
+    public void PatternAJumpSound()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.jumpSFX);
+    }
+
+    public void DropSound()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.dropSFX);
+
+    }
+
+    public void StompSound()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.stompSFX);
+
+    }
+
+    public void DropVoice()
+    {
+        var voice = _manager.sound.ririsVoice;
+        voice.PlayRirisVoice(_manager.gameObject, voice.stomp);
     }
 
     public void AddBulletPattern()
@@ -108,6 +140,11 @@ public class RirisAnimEvent : MonoBehaviour
         _manager.transform.position = pos;
         _manager.GetComponent<RirisPATTERNEND>().NextState();
         Instantiate(_manager.missingEndEffect, _manager.Pevis.position, Quaternion.identity);
+
+        var sfx = _manager.sound.ririsSFX;
+        var voice = _manager.sound.ririsVoice;
+        sfx.PlayRirisSFX(gameObject, sfx.teleportSFX);
+        voice.PlayRirisVoice(gameObject, voice.smile);
     }
 
     public void UltimateEnd()
