@@ -108,6 +108,7 @@ namespace AK
         static const AkUniqueID TVER_SKILL_STAMP_CAST_SOUND = 4099464826U;
         static const AkUniqueID TVER_SKILL_STAMP_CAST_VOICE = 4148910185U;
         static const AkUniqueID TVER_SKILL_STAMP_DROP_SOUND = 1378555676U;
+        static const AkUniqueID UI_DIE_SOUND_01 = 3102317866U;
         static const AkUniqueID UI_STAGEMENU_SOUND_01 = 1698976225U;
         static const AkUniqueID UI_START_SOUND = 4234647542U;
         static const AkUniqueID UI_TALK_SOUND_01 = 2576780850U;

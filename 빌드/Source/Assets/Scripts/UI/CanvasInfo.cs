@@ -160,7 +160,7 @@ namespace MC.UI {
         {
             PauseMenuActive(false);
             failUI.gameObject.SetActive(false);
-            MCSceneManager.Instance.NextScene(MCSceneManager.TITLE, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+            MCSceneManager.Instance.NextScene(MCSceneManager.TITLE, 1f, true);
 
             UserInterface.SetPointerMode(true);
 
@@ -178,7 +178,7 @@ namespace MC.UI {
             PauseMenuActive(false);
             failUI.gameObject.SetActive(false);
             GameStatus.SetCurrentGameState(CurrentGameState.Loading);
-            MCSceneManager.Instance.NextScene(MCSceneManager.currentScene, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+            MCSceneManager.Instance.NextScene(MCSceneManager.currentScene, 1f, true);
             GameStatus.Instance.StageLevel--;
         }
 

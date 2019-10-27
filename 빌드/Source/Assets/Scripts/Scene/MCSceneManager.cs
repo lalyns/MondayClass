@@ -88,8 +88,7 @@ namespace MC.SceneDirector
                         bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.tutoBGM);
                     }
 
-                    if (
-                        currentScene == ANNIHILATION ||
+                    if (currentScene == ANNIHILATION ||
                         currentScene == SURVIVAL ||
                         currentScene == DEFENCE)
                     {
@@ -110,7 +109,7 @@ namespace MC.SceneDirector
             }
         }
 
-        public void NextScene(int sceneNumber, string soundType, float duration, bool fading)
+        public void NextScene(int sceneNumber, float duration, bool fading)
         {
             if (currentScene != TITLE) {
                 var sound = MCSoundManager.Instance.objectSound.objectSFX;
@@ -124,19 +123,19 @@ namespace MC.SceneDirector
             {
                 GameManager.SetFadeInOut(() =>
                 {
-                    StartCoroutine(LoadScene(sceneNumber, soundType, duration));
+                    StartCoroutine(LoadScene(sceneNumber, duration));
                     GameStatus.SetCurrentGameState(CurrentGameState.Loading);
-                }, soundType, duration, false
+                }, duration, false
                 );
             }
             else
             {
-                StartCoroutine(LoadScene(sceneNumber, soundType, duration));
+                StartCoroutine(LoadScene(sceneNumber, duration));
                 GameStatus.SetCurrentGameState(CurrentGameState.Loading);
             }
         }
 
-        public IEnumerator LoadScene(int sceneNumber, string soundType, float duration)
+        public IEnumerator LoadScene(int sceneNumber, float duration)
         {
             yield return null;
 
@@ -165,13 +164,16 @@ namespace MC.SceneDirector
                 GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>
                 {
-                    if (prevScene == TITLE)
+                    if (prevScene == TITLE || prevScene == TUTORIAL)
                     {
-                        StartCoroutine(MCSoundManager.SoundFadeIn("Bgm_Start_Fade_In", 1f));
+                        StartCoroutine(MCSoundManager.BGMFadeIn(1f));
                         bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.tutoBGM);
                     }
 
-                    if (prevScene == TUTORIAL)
+                    if (prevScene == TUTORIAL && (
+                        currentScene == ANNIHILATION ||
+                        currentScene == SURVIVAL ||
+                        currentScene == DEFENCE))
                     {
                         bgm.StopBGM(MCSoundManager.Instance.gameObject, bgm.tutoBGM);
                         bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
@@ -188,9 +190,10 @@ namespace MC.SceneDirector
                     Debug.Log("Fade In Load After");
                     //GameStatus.currentGameState = CurrentGameState.Wait;
                     GameManager.ScriptCheck();
+                    UserInterface.BlurSet(false);
                     MCSoundManager.LoadBank();
                     isLoad = false;
-                }, soundType, duration, true
+                }, duration, true
             );
             }
         }

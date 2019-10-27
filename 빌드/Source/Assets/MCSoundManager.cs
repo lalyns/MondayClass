@@ -29,6 +29,11 @@ namespace MC.Sound
         [SerializeField] private AkBank ambient;
         [SerializeField] private AkBank voice;
 
+        public AK.Wwise.Event preBGM;
+        public AK.Wwise.Event curBGM;
+        public AK.Wwise.Event preAMB;
+        public AK.Wwise.Event curAMB;
+
         private void Awake()
         {
             if (Instance == null)
@@ -63,15 +68,16 @@ namespace MC.Sound
             AkSoundEngine.SetRTPCValue(type, value);
         }
 
-        public static void GetRTPCParam(string type)
+        public static float GetRTPCParam(string type)
         {
             int rtpc = 1;
             float value = 0;
             AkSoundEngine.GetRTPCValue(type, Instance.gameObject, 0, out value, ref rtpc);
-            Debug.Log("RTPC Name : " + type + " Value : " + value);
+
+            return value;
         }
 
-        public static IEnumerator SoundFadeOut(string type, float duration)
+        public static IEnumerator AmbFadeOut(float duration)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
@@ -81,7 +87,10 @@ namespace MC.Sound
                 realTime = Time.realtimeSinceStartup;
 
                 var value = Mathf.Clamp01(1 - (realTime - startTime) / duration) * 100;
-                SetRTPCParam(type, value);
+                value = value > GetRTPCParam("Ambient_Volume") ?
+                    GetRTPCParam("Ambient_Volume") : value;
+
+                SetRTPCParam("Ambient_Volume", value);
 
                 yield return new WaitForSeconds(0.1f);
             }
@@ -89,7 +98,7 @@ namespace MC.Sound
             yield return null;
         }
 
-        public static IEnumerator SoundFadeIn(string type, float duration)
+        public static IEnumerator AmbFadeIn(float duration)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
@@ -99,7 +108,46 @@ namespace MC.Sound
                 realTime = Time.realtimeSinceStartup;
 
                 var value = Mathf.Clamp01((realTime - startTime) / duration) * 100;
-                SetRTPCParam(type, value);
+                SetRTPCParam("Ambient_Volume", value);
+
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            yield return null;
+        }
+
+        public static IEnumerator BGMFadeOut(float duration)
+        {
+            float startTime = Time.realtimeSinceStartup;
+            float realTime = startTime;
+
+            while (realTime <= startTime + duration)
+            {
+                realTime = Time.realtimeSinceStartup;
+
+                var value = Mathf.Clamp01(1 - (realTime - startTime) / duration) * 100;
+                value = value > GetRTPCParam("Bgm_Start_Fade_In") ?
+                    GetRTPCParam("Bgm_Start_Fade_In") : value;
+
+                SetRTPCParam("Bgm_Start_Fade_In", value);
+
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            yield return null;
+        }
+
+        public static IEnumerator BGMFadeIn(float duration)
+        {
+            float startTime = Time.realtimeSinceStartup;
+            float realTime = startTime;
+
+            while (realTime <= startTime + duration)
+            {
+                realTime = Time.realtimeSinceStartup;
+
+                var value = Mathf.Clamp01((realTime - startTime) / duration) * 100;
+                SetRTPCParam("Bgm_Start_Fade_In", value);
 
                 yield return new WaitForSeconds(0.1f);
             }

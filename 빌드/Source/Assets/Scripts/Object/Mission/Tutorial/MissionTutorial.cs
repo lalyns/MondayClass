@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
+using MC.Sound;
 
 namespace MC.Mission
 {
@@ -50,8 +51,8 @@ namespace MC.Mission
             currentTutorial = TutorialEvent.Start;
 
             MC.Sound.MCSoundManager.LoadBank();
-            var amb = MC.Sound.MCSoundManager.Instance.objectSound.ambient;
-            amb.PlayAmbient(this.gameObject, amb.tutoAmbient);
+            var amb = MCSoundManager.Instance.objectSound.ambient;
+            amb.PlayAmbient(MCSoundManager.Instance.gameObject, amb.tutoAmbient);
         }
 
         // Update is called once per frame

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using MC.SceneDirector;
+using MC.UI;
+
 
 
 public class GameSetting : MonoBehaviour
@@ -114,6 +117,15 @@ public class GameSetting : MonoBehaviour
     {
         setting.SetActive(false);
         MC.UI.UserInterface.BlurSet(false, 10f);
+
+        if (MCSceneManager.currentScene == MCSceneManager.TITLE)
+        {
+            var titleUI = FindObjectOfType<UITitle>().GetComponent<UITitle>();
+            titleUI.title.start.interactable = true;
+            titleUI.title.developer.interactable = true;
+            titleUI.title.exit.interactable = true;
+
+        }
     }
 
 }

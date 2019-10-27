@@ -133,6 +133,7 @@ namespace MC.Sound
             #region UI
             public AK.Wwise.Event uiStart = new AK.Wwise.Event();
             public AK.Wwise.Event nextPage = new AK.Wwise.Event();
+            public AK.Wwise.Event dead = new AK.Wwise.Event();
             #endregion
 
             public void PlaySound(GameObject go, AK.Wwise.Event bgm)
