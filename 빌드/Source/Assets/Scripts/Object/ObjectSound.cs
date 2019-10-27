@@ -168,6 +168,7 @@ namespace MC.Sound
             public AK.Wwise.Event storyPhone = new AK.Wwise.Event();
             public AK.Wwise.Event storyWind = new AK.Wwise.Event();
 
+            public AK.Wwise.Event bossEnterLast = new AK.Wwise.Event();
             #endregion
 
             public void PlaySound(GameObject go, AK.Wwise.Event bgm)
