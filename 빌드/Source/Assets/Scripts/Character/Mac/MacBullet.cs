@@ -38,7 +38,6 @@ public class MacBullet : MonoBehaviour
 
     public void OnEnable()
     {
-        transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
     }
 
     private void Start()
@@ -75,6 +74,8 @@ public class MacBullet : MonoBehaviour
             {
                 PlayEffect(_CreateEffectParticles);
                 _SetPlay = !_SetPlay;
+
+                transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
             }
         }
 

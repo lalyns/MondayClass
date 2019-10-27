@@ -102,7 +102,7 @@ namespace MC.Mission
 
         void Spawn()
         {
-            text.gameObject.SetActive(true);
+            text.gameObject.SetActive(GameStatus.currentGameState != CurrentGameState.Product);
             StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
             currentWave++;
             //Debug.Log(currentWave);

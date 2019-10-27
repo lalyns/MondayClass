@@ -53,19 +53,6 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private MissionBase[] _Missions;
-    public MissionBase[] Missions
-    {
-        get
-        {
-            return _Missions;
-        }
-        set
-        {
-            _Missions = value;
-        }
-    }
-
     [SerializeField] private MissionBase currentMission;
     public MissionBase CurrentMission
     {
@@ -82,7 +69,7 @@ public class MissionManager : MonoBehaviour
 
 
     public MissionType CurrentMissionType => CurrentMission.Data.MissionType;
-    private MissionRewardType[] currentMissionRewards;
+    [SerializeField] private MissionRewardType[] currentMissionRewards;
 
     //public MissionRewardType CurrentMissionRewardType => //Currentmi
     private bool isFirst = true;
@@ -203,20 +190,20 @@ public class MissionManager : MonoBehaviour
 
         if (type == MissionType.Boss)
         {
-            MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+            MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, 1f, true);
         }
         else
         {
             switch (type)
             {
                 case MissionType.Annihilation:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, 1f, true);
                     break;
                 case MissionType.Defence:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, 1f, true);
                     break;
                 case MissionType.Survival:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, 1f, true);
                     break;
             }
 
@@ -353,8 +340,8 @@ public class MissionManager : MonoBehaviour
         MissionSelector = UserInterface.Instance.MissionSelectionUICanvas;
         MissionProgressUI = UserInterface.Instance.MissionProgressUICanvas;
 
-        var Maps = GameObject.FindObjectsOfType<MissionBase>();
-        Missions = Maps;
+        //var Maps = GameObject.FindObjectsOfType<MissionBase>();
+        //Missions = Maps;
         Choices = UserInterface.Instance.SelectorUI.buttons;
     }
 
