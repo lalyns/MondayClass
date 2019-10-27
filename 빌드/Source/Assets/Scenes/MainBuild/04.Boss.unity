@@ -392,6 +392,31 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7742391091944958878, guid: f2de8be93bf7eb346b99d36fcb392e29,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1003278119}
+    - target: {fileID: 127321082781792207, guid: f2de8be93bf7eb346b99d36fcb392e29,
+        type: 3}
+      propertyPath: m_PlaneDistance
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 127321082781792207, guid: f2de8be93bf7eb346b99d36fcb392e29,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2016180596}
+    - target: {fileID: 127321082280455423, guid: f2de8be93bf7eb346b99d36fcb392e29,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1003278119}
+    - target: {fileID: 6419656722383678023, guid: f2de8be93bf7eb346b99d36fcb392e29,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1003278119}
     - target: {fileID: 2213190197633091624, guid: f2de8be93bf7eb346b99d36fcb392e29,
         type: 3}
       propertyPath: m_IsActive
@@ -749,6 +774,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2274891494096624113, guid: 15bd7f263b3ac6f4482e4f39aa9594de,
+        type: 3}
+      propertyPath: uIActive.progress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274891494096624113, guid: 15bd7f263b3ac6f4482e4f39aa9594de,
+        type: 3}
+      propertyPath: uIActive.system
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15bd7f263b3ac6f4482e4f39aa9594de, type: 3}
 --- !u!198 &40252899 stripped
@@ -989,7 +1024,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh410878
+  m_Name: pb_Mesh2047770
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1168,7 +1203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &107477408
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1200,7 +1235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5474b36aef03c5145a0bfb58b20e2326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cineCam: {fileID: 0}
   target: {fileID: 0}
+  whiteOut: {fileID: 0}
 --- !u!95 &107477410
 Animator:
   serializedVersion: 3
@@ -4089,7 +4126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5474b36aef03c5145a0bfb58b20e2326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cineCam: {fileID: 2016180596}
   target: {fileID: 0}
+  whiteOut: {fileID: 1382097197}
 --- !u!1001 &380764339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5304,7 +5343,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh410768
+  m_Name: pb_Mesh2047660
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -6375,6 +6414,14 @@ PrefabInstance:
     - target: {fileID: 400070, guid: 44c516115a0240442899913956482f0a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -25.633673
+      objectReference: {fileID: 0}
+    - target: {fileID: 400070, guid: 44c516115a0240442899913956482f0a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.001109376
+      objectReference: {fileID: 0}
+    - target: {fileID: 400070, guid: 44c516115a0240442899913956482f0a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.21645272
       objectReference: {fileID: 0}
     - target: {fileID: 400060, guid: 44c516115a0240442899913956482f0a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -19076,6 +19123,12 @@ Transform:
   m_Father: {fileID: 1381037336}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &1003278119 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5379944023762768004, guid: b9c3e744a5e40e04e9b91d9372569807,
+    type: 3}
+  m_PrefabInstance: {fileID: 2104715025}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1006699723
 GameObject:
   m_ObjectHideFlags: 0
@@ -19087,6 +19140,7 @@ GameObject:
   - component: {fileID: 1006699726}
   - component: {fileID: 1006699725}
   - component: {fileID: 1006699724}
+  - component: {fileID: 1006699727}
   m_Layer: 0
   m_Name: Boss_Dead_Cinemachine_Time_Line
   m_TagString: Untagged
@@ -19132,9 +19186,9 @@ PlayableDirector:
     value: {fileID: 1006699724}
   - key: {fileID: 114142786146577242, guid: 816cd7b203e71f447a6c96a73f541b26, type: 2}
     value: {fileID: 1006699724}
-  - key: {fileID: 114480308421028954, guid: 816cd7b203e71f447a6c96a73f541b26, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 1382097197}
-  - key: {fileID: 114713310195186748, guid: 816cd7b203e71f447a6c96a73f541b26, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 107477410}
   - key: {fileID: 114816425850278414, guid: 816cd7b203e71f447a6c96a73f541b26, type: 2}
     value: {fileID: 3827016913490204068}
@@ -19164,6 +19218,8 @@ PlayableDirector:
     value: {fileID: 1374831136}
   - key: {fileID: 114025641313101052, guid: 816cd7b203e71f447a6c96a73f541b26, type: 2}
     value: {fileID: 0}
+  - key: {fileID: 114713310195186748, guid: 816cd7b203e71f447a6c96a73f541b26, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1006699726
@@ -19180,6 +19236,21 @@ Transform:
   m_Father: {fileID: 241166989}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1006699727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006699723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5474b36aef03c5145a0bfb58b20e2326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cineCam: {fileID: 2016180596}
+  target: {fileID: 0}
+  whiteOut: {fileID: 1382097197}
 --- !u!1 &1006882784
 GameObject:
   m_ObjectHideFlags: 0
@@ -36930,6 +37001,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8704051449824737619, guid: ab74cfdabfca65b4490e25edec0fb4b8,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5010377
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704051449824737619, guid: ab74cfdabfca65b4490e25edec0fb4b8,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.50043285
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704051449824737619, guid: ab74cfdabfca65b4490e25edec0fb4b8,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.4997054
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704051449824737619, guid: ab74cfdabfca65b4490e25edec0fb4b8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.4988214
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704051449824737619, guid: ab74cfdabfca65b4490e25edec0fb4b8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab74cfdabfca65b4490e25edec0fb4b8, type: 3}
 --- !u!1 &1452737803
@@ -38319,6 +38415,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_Boss_Lilith
       objectReference: {fileID: 0}
+    - target: {fileID: 7112653474660143932, guid: 5c0a95de10c3c814785b9b7321b55840,
+        type: 3}
+      propertyPath: _Weapon
+      value: 
+      objectReference: {fileID: 320833701}
+    - target: {fileID: 7112653474660143932, guid: 5c0a95de10c3c814785b9b7321b55840,
+        type: 3}
+      propertyPath: _WeaponAnimator
+      value: 
+      objectReference: {fileID: 432364729}
+    - target: {fileID: 7112653474660143932, guid: 5c0a95de10c3c814785b9b7321b55840,
+        type: 3}
+      propertyPath: _WeaponCenter
+      value: 
+      objectReference: {fileID: 1371023617}
     - target: {fileID: 7112653474660143935, guid: 5c0a95de10c3c814785b9b7321b55840,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -38374,21 +38485,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7112653474660143932, guid: 5c0a95de10c3c814785b9b7321b55840,
-        type: 3}
-      propertyPath: _Weapon
-      value: 
-      objectReference: {fileID: 320833701}
-    - target: {fileID: 7112653474660143932, guid: 5c0a95de10c3c814785b9b7321b55840,
-        type: 3}
-      propertyPath: _WeaponAnimator
-      value: 
-      objectReference: {fileID: 432364729}
-    - target: {fileID: 7112653474660143932, guid: 5c0a95de10c3c814785b9b7321b55840,
-        type: 3}
-      propertyPath: _WeaponCenter
-      value: 
-      objectReference: {fileID: 1371023617}
     - target: {fileID: 572319316, guid: 5c0a95de10c3c814785b9b7321b55840, type: 3}
       propertyPath: ririsPhases.Array.data[2].patterns.Array.data[0]
       value: 6
@@ -50434,7 +50530,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5474b36aef03c5145a0bfb58b20e2326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cineCam: {fileID: 2016180596}
   target: {fileID: 0}
+  whiteOut: {fileID: 1382097197}
 --- !u!1 &1801891588
 GameObject:
   m_ObjectHideFlags: 0
@@ -52322,8 +52420,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 5000
-  field of view: 60
+  far clip plane: 1000
+  field of view: 50
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -57249,7 +57347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2034948339
 Transform:
   m_ObjectHideFlags: 0
@@ -57551,12 +57649,12 @@ PrefabInstance:
     - target: {fileID: 5432222725066181751, guid: b9c3e744a5e40e04e9b91d9372569807,
         type: 3}
       propertyPath: far clip plane
-      value: 5000
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5432222725066181751, guid: b9c3e744a5e40e04e9b91d9372569807,
         type: 3}
       propertyPath: field of view
-      value: 60
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9c3e744a5e40e04e9b91d9372569807, type: 3}

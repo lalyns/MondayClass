@@ -11,17 +11,60 @@ namespace MC.SceneDirector
 
     public class CineAnimEvent : MonoBehaviour
     {
-
+        public Camera cineCam;
         public Transform target;
+        public GameObject whiteOut;
 
         public void SceneStart()
         {
             BossDirector.Instance.PlayScene();
+            whiteOut.gameObject.SetActive(false);
+        }
+
+        public void BlackScreen()
+        {
+            CanvasInfo.Instance.Layers[1].worldCamera = cineCam;
+            CanvasInfo.Instance.Layers[1].planeDistance = 0.3f;
+            Color color = UserInterface.Instance.ScreenEffect.fading.image.color;
+            color.a = 1f;
+            UserInterface.Instance.ScreenEffect.fading.image.color = color;
+        }
+
+        public void FadeInTrue()
+        {
+            GameManager.SetFadeInOut(
+                () =>
+                {
+
+                }, 1f, true);
+        }
+
+        public void FadeInFalse()
+        {
+            GameManager.SetFadeInOut(
+                   () =>
+                   {
+
+                   }, 1f, false);
         }
 
         public void SceneEnd()
         {
-            //TempDirector.Instance.CinemaEnd();
+            GameManager.SetFadeInOut(
+                () =>
+                {
+
+                }, 1f, true);
+        }
+
+        public void WhiteFadeOut()
+        {
+            UserInterface.Instance.ScreenEffect.fading.image.color = Color.white;
+            GameManager.SetFadeInOut(
+                () =>
+                {
+
+                }, 1f, false);
         }
 
         public void LookAtCamDefine() 

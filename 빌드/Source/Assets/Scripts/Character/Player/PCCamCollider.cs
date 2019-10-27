@@ -23,8 +23,6 @@ public class PCCamCollider : MonoBehaviour
         if (other.transform.tag == "Wall")
         {
             cam.isWallState = true;
-            Debug.Log("벽");
-
         }
     }
     private void OnTriggerExit(Collider other)
@@ -32,7 +30,6 @@ public class PCCamCollider : MonoBehaviour
         if (other.transform.tag == "Wall")
         {
             cam.isWallState = false;
-            Debug.Log("벽끝");
         }
 
     }

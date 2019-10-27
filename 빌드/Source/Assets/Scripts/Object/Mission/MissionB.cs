@@ -120,6 +120,7 @@ namespace MC.Mission
                 MapGrid.mapPositions[randPos] + Vector3.up * starHeight);
 
             star.GetComponent<DropStar>().stop = false;
+            star.GetComponent<DropStar>().PlaySound();
 
             activeStar.Add(star);
         }

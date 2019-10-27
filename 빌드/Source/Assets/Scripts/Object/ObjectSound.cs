@@ -96,6 +96,12 @@ namespace MC.Sound
             public AK.Wwise.Event portalEnter = new AK.Wwise.Event();
             public AK.Wwise.Event portalExit = new AK.Wwise.Event();
 
+            public AK.Wwise.Event startCreate = new AK.Wwise.Event();
+            public AK.Wwise.Event starDrop = new AK.Wwise.Event();
+            public AK.Wwise.Event starGet = new AK.Wwise.Event();
+
+            public AK.Wwise.Event pillarActive = new AK.Wwise.Event();
+            public AK.Wwise.Event pillarDestroy = new AK.Wwise.Event();
             #endregion
 
             public void PlaySound(GameObject go, AK.Wwise.Event bgm)

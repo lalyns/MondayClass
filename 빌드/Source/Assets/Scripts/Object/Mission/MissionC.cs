@@ -89,6 +89,8 @@ namespace MC.Mission
         public override void FailMission()
         {
             base.FailMission();
+
+            protectedTarget.DestroyPillar();
         }
 
         void Spawn()

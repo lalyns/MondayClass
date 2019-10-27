@@ -63,6 +63,22 @@ namespace MC.Sound
                 Instance.objectSound.bgm.stageBGM);
         }
 
+        public static void ChangeBGM(AK.Wwise.Event bgm)
+        {
+            if(bgm != Instance.preBGM)
+            {
+                Instance.preBGM = bgm;
+                Instance.curBGM = bgm;
+                Instance.objectSound.bgm.PlayBGM(Instance.gameObject, bgm);
+                BGMFadeIn(2f);
+            }
+        }
+
+        public static void ChangeAMB(AK.Wwise.Event amb)
+        {
+
+        }
+
         public static void SetRTPCParam(string type, float value)
         {
             AkSoundEngine.SetRTPCValue(type, value);

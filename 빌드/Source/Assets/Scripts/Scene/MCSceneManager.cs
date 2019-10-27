@@ -150,16 +150,11 @@ namespace MC.SceneDirector
             while (!async.isDone)
             {
                 yield return null;
-
-                Debug.Log("Loading");
             }
 
             if (async.isDone)
             {
                 var bgm = MCSoundManager.Instance.objectSound.bgm;
-
-                Debug.Log("Load Done From" + prevScene);
-                
 
                 GameManager.SetSceneSetting();
                 GameManager.SetFadeInOut(() =>
@@ -187,7 +182,6 @@ namespace MC.SceneDirector
                         bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.stageBGM);
                         bgm.PlayBGM(MCSoundManager.Instance.gameObject, bgm.bossBGM);
                     }
-                    Debug.Log("Fade In Load After");
                     //GameStatus.currentGameState = CurrentGameState.Wait;
                     GameManager.ScriptCheck();
                     UserInterface.BlurSet(false);

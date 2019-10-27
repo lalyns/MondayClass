@@ -38,6 +38,15 @@ public class MacBullet : MonoBehaviour
 
     public void OnEnable()
     {
+        transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
+
+        foreach (ParticleSystem ps in _MoveEffect.GetComponentsInChildren<ParticleSystem>())
+        {
+            var main = ps.main;
+            main.startRotationX = transform.localEulerAngles.x;
+            main.startRotationY = transform.localEulerAngles.y;
+            main.startRotationZ = transform.localEulerAngles.z;
+        }
     }
 
     private void Start()
@@ -75,7 +84,6 @@ public class MacBullet : MonoBehaviour
                 PlayEffect(_CreateEffectParticles);
                 _SetPlay = !_SetPlay;
 
-                transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
             }
         }
 

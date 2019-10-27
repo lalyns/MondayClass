@@ -75,6 +75,16 @@ public class BossDirector : MonoBehaviour
         GameManager.Instance.CharacterControl = true;
         UserInterface.SetPlayerUserInterface(true);
         UserInterface.SetPointerMode(false);
+
+        CamLayerReset();
+    }
+
+    public void CamLayerReset()
+    {
+        CanvasInfo.Instance.SetRenderCam();
+        CanvasInfo.Instance.Layers[1].planeDistance = 10f;
+        GameManager.SetFadeInOut(
+            () => { }, 1f, true);
     }
 
     public void DeadEnd()

@@ -78,8 +78,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(MCSceneManager.currentScene);
-
         if(MCSceneManager.currentScene == MCSceneManager.TITLE)
         {
             UserInterface.SetPointerMode(true);
