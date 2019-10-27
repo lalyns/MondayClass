@@ -79,7 +79,7 @@ public class RirisBullet : MonoBehaviour
         {
             direction = (this.transform.position - position).normalized;
             transform.LookAt(transform.position + direction);
-            damageType = 8f;
+            damageType = 4f;
         }
         else
         {
