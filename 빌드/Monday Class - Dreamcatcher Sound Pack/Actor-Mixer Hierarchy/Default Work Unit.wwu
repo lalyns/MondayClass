@@ -405,6 +405,23 @@
 										<Folder Name="Sound" ID="{228D6F24-3CB1-4DF1-9C0E-47C950F2BF06}" ShortID="1037868430">
 											<ChildrenList>
 												<RandomSequenceContainer Name="Cast Sound" ID="{B0197F2C-301D-4284-B62D-CF982F0FE0D7}" ShortID="1030386145">
+													<PropertyList>
+														<Property Name="Highpass" Type="int16">
+															<ValueList>
+																<Value>10</Value>
+															</ValueList>
+														</Property>
+														<Property Name="Lowpass" Type="int16">
+															<ValueList>
+																<Value>10</Value>
+															</ValueList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-3</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -2613,16 +2630,21 @@
 					<ChildrenList>
 						<RandomSequenceContainer Name="Dungeon" ID="{47D42ABE-6F62-4335-BE0C-9BE5E6C7B415}" ShortID="415824425">
 							<PropertyList>
+								<Property Name="Highpass" Type="int16">
+									<ValueList>
+										<Value>20</Value>
+									</ValueList>
+								</Property>
 								<Property Name="Lowpass" Type="int16">
 									<ValueList>
-										<Value>15</Value>
+										<Value>20</Value>
 									</ValueList>
 								</Property>
 								<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
 								<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>5</Value>
+										<Value>2</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -2661,11 +2683,21 @@
 						</RandomSequenceContainer>
 						<RandomSequenceContainer Name="Tutorial" ID="{58CEA2D3-F41A-4748-86CE-FCEE2B901F20}" ShortID="943377127">
 							<PropertyList>
+								<Property Name="Highpass" Type="int16">
+									<ValueList>
+										<Value>20</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>20</Value>
+									</ValueList>
+								</Property>
 								<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
 								<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-5</Value>
+										<Value>-7</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -3006,7 +3038,7 @@
 										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>3</Value>
+												<Value>4</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -3492,11 +3524,6 @@
 										</RandomSequenceContainer>
 										<RandomSequenceContainer Name="Surprised" ID="{8206148C-8532-4AC4-8279-4DD5B892B930}" ShortID="688955183">
 											<PropertyList>
-												<Property Name="Inclusion" Type="bool">
-													<ValueList>
-														<Value>False</Value>
-													</ValueList>
-												</Property>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
 														<Value>1</Value>
@@ -3747,7 +3774,7 @@
 														<Property Name="RandomAvoidRepeating" Type="bool" Value="False"/>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
-																<Value>-1</Value>
+																<Value>-4</Value>
 															</ValueList>
 														</Property>
 													</PropertyList>
@@ -3796,7 +3823,7 @@
 													<PropertyList>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
-																<Value>-2</Value>
+																<Value>-4</Value>
 															</ValueList>
 														</Property>
 													</PropertyList>
@@ -4286,7 +4313,7 @@
 																<Property Name="3DSpatialization" Type="int16" Value="2"/>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>-2</Value>
+																		<Value>-3</Value>
 																	</ValueList>
 																</Property>
 															</PropertyList>
@@ -4681,7 +4708,7 @@
 													<PropertyList>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
-																<Value>1</Value>
+																<Value>-3</Value>
 															</ValueList>
 														</Property>
 													</PropertyList>
@@ -5756,6 +5783,13 @@
 										<Folder Name="Smile" ID="{553A8562-5ACD-4E1A-ABDF-EA77463CC7F4}" ShortID="565169263">
 											<ChildrenList>
 												<RandomSequenceContainer Name="Cast Voice" ID="{6BAE0C55-6D81-4EC9-B51C-8BB9A055F2AC}" ShortID="290918461">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-12</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -5791,6 +5825,13 @@
 										<Folder Name="Surprised" ID="{33E59544-821B-4FDF-B3D9-C2C54C83BD48}" ShortID="1043036476">
 											<ChildrenList>
 												<RandomSequenceContainer Name="Cast Voice" ID="{76BAB325-65F6-4580-9A7F-AF4F1F3D0EAE}" ShortID="851173665">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-13</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -5826,6 +5867,13 @@
 										<Folder Name="Surprised 2" ID="{4B474788-6660-4621-8F6A-C616605EFA63}" ShortID="923702475">
 											<ChildrenList>
 												<RandomSequenceContainer Name="Cast Voice" ID="{A5ACDCF7-62FF-46FB-B9EC-DA08F79FDB87}" ShortID="468228063">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-13</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -6705,7 +6753,7 @@
 														<Property Name="RandomAvoidRepeating" Type="bool" Value="False"/>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
-																<Value>-3</Value>
+																<Value>-5</Value>
 															</ValueList>
 														</Property>
 													</PropertyList>
@@ -6778,11 +6826,6 @@
 														<Property Name="Highpass" Type="int16">
 															<ValueList>
 																<Value>25</Value>
-															</ValueList>
-														</Property>
-														<Property Name="Volume" Type="Real64">
-															<ValueList>
-																<Value>3</Value>
 															</ValueList>
 														</Property>
 													</PropertyList>
@@ -7353,11 +7396,6 @@
 																		</ModifierInfo>
 																	</ModifierList>
 																</Property>
-																<Property Name="Volume" Type="Real64">
-																	<ValueList>
-																		<Value>-1</Value>
-																	</ValueList>
-																</Property>
 															</PropertyList>
 															<ReferenceList>
 																<Reference Name="Conversion">
@@ -7858,6 +7896,11 @@
 														<Value>25</Value>
 													</ValueList>
 												</Property>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-2</Value>
+													</ValueList>
+												</Property>
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
@@ -7894,11 +7937,6 @@
 												<Property Name="Highpass" Type="int16">
 													<ValueList>
 														<Value>25</Value>
-													</ValueList>
-												</Property>
-												<Property Name="Volume" Type="Real64">
-													<ValueList>
-														<Value>-1</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -7977,7 +8015,7 @@
 												</Property>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>-2</Value>
+														<Value>-8</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -8119,6 +8157,13 @@
 						<Folder Name="Boss Join" ID="{37C58DC9-BDDF-460B-8E40-F1CD5C98926F}" ShortID="5426804">
 							<ChildrenList>
 								<RandomSequenceContainer Name="Choice" ID="{86360D21-27EB-44D6-81A4-24DE4A9C56C8}" ShortID="844587680">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-4</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
