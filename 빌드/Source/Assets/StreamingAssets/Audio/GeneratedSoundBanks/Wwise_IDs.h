@@ -18,9 +18,12 @@ namespace AK
         static const AkUniqueID BGM_TITLE_01 = 2511535208U;
         static const AkUniqueID BGM_TUTORIAL_03 = 1633288558U;
         static const AkUniqueID BOSSROOM = 3329270527U;
+        static const AkUniqueID CINEMATIC_SOUND_CHOICE = 3941706286U;
         static const AkUniqueID CINEMATIC_SOUND_CROWD = 460128710U;
         static const AkUniqueID CINEMATIC_SOUND_DIVE = 1418554577U;
+        static const AkUniqueID CINEMATIC_SOUND_KICK = 2642621281U;
         static const AkUniqueID CINEMATIC_SOUND_PHONE = 3872752641U;
+        static const AkUniqueID CINEMATIC_SOUND_POWERUP = 3065369805U;
         static const AkUniqueID CINEMATIC_SOUND_WIND = 4253332529U;
         static const AkUniqueID LIRIS_DEATH_CAST_VOICE = 63954050U;
         static const AkUniqueID LIRIS_EMOTE_SMILE_VOICE = 1951680145U;

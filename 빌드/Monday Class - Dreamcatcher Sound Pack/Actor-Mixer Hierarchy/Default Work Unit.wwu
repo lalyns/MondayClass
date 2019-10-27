@@ -7961,6 +7961,111 @@
 								</Folder>
 							</ChildrenList>
 						</Folder>
+						<Folder Name="Boss Power Up" ID="{9F5DF20E-71AB-4470-9684-9EA6783853F5}" ShortID="131616665">
+							<ChildrenList>
+								<RandomSequenceContainer Name="Power UP" ID="{D8D5C611-0C00-4370-B866-9980022B1AB5}" ShortID="349121340">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Cinematic_Sound_PowerUp" ID="{633303AC-18BA-4AED-AD13-062324126797}" ShortID="51188150">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cinematic_Sound_PowerUp" ID="{0C3E1E05-B519-4042-AE7F-B412C7E02839}" ShortID="518358918">
+													<Language>SFX</Language>
+													<AudioFile>Cinematic_Sound_PowerUp.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cinematic_Sound_PowerUp" ID="{0C3E1E05-B519-4042-AE7F-B412C7E02839}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Boss Die" ID="{51393BC3-9D04-4A85-9428-7BE20285520C}" ShortID="778333995">
+							<ChildrenList>
+								<RandomSequenceContainer Name="Kick" ID="{E91A1AE4-1702-4A77-A49D-57284ED3BBE3}" ShortID="19701824">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Cinematic_Sound_Kick" ID="{6FF196D9-E319-40CD-AD06-81A904E1BDFC}" ShortID="1015090794">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cinematic_Sound_Kick" ID="{16CBDDEF-6A11-4F73-A5C6-B2CE43D7AEA3}" ShortID="12665197">
+													<Language>SFX</Language>
+													<AudioFile>Cinematic_Sound_Kick.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cinematic_Sound_Kick" ID="{16CBDDEF-6A11-4F73-A5C6-B2CE43D7AEA3}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Boss Join" ID="{37C58DC9-BDDF-460B-8E40-F1CD5C98926F}" ShortID="5426804">
+							<ChildrenList>
+								<RandomSequenceContainer Name="Choice" ID="{86360D21-27EB-44D6-81A4-24DE4A9C56C8}" ShortID="844587680">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Cinematic_Sound_Choice" ID="{C0B20432-EC9E-4DB8-B738-9F56E46E02EA}" ShortID="800204335">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cinematic_Sound_Choice" ID="{E60F43CB-8F3B-4DE6-A96C-9FEA4D77BC96}" ShortID="751466844">
+													<Language>SFX</Language>
+													<AudioFile>Cinematic_Sound_Choice.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cinematic_Sound_Choice" ID="{E60F43CB-8F3B-4DE6-A96C-9FEA4D77BC96}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+							</ChildrenList>
+						</Folder>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>
