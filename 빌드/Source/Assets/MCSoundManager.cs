@@ -103,6 +103,8 @@ namespace MC.Sound
 
         public static IEnumerator AmbFadeOut(float duration)
         {
+            Debug.Log("FadeOut AMB");
+
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
 
@@ -142,6 +144,7 @@ namespace MC.Sound
 
         public static IEnumerator BGMFadeOut(float duration)
         {
+            Debug.Log("FadeOut BGM");
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
 
@@ -150,10 +153,10 @@ namespace MC.Sound
                 realTime = Time.realtimeSinceStartup;
 
                 var value = Mathf.Clamp01(1 - (realTime - startTime) / duration) * 100;
-                value = value > GetRTPCParam("Bgm_Start_Fade_In") ?
-                    GetRTPCParam("Bgm_Start_Fade_In") : value;
+                value = value > GetRTPCParam("Bgm_SceneSwitch_Fade_Out") ?
+                    GetRTPCParam("Bgm_SceneSwitch_Fade_Out") : value;
 
-                SetRTPCParam("Bgm_Start_Fade_In", value);
+                SetRTPCParam("Bgm_SceneSwitch_Fade_Out", value);
 
                 yield return new WaitForSeconds(0.1f);
             }
@@ -171,7 +174,7 @@ namespace MC.Sound
                 realTime = Time.realtimeSinceStartup;
 
                 var value = Mathf.Clamp01((realTime - startTime) / duration) * 100;
-                SetRTPCParam("Bgm_Start_Fade_In", value);
+                SetRTPCParam("Bgm_SceneSwitch_Fade_Out", value);
 
                 yield return new WaitForSeconds(0.1f);
             }

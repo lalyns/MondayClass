@@ -31,8 +31,11 @@ public class RedHatHIT : RedHatFSMState
         if(_manager.CurrentAttackType != AttackType.SKILL2)
             StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
 
-        var voice = _manager.sound.monsterVoice;
-        voice.PlayMonsterVoice(this.gameObject, voice.redhatDamegedVoice);
+        if (!PlayerFSMManager.Instance.isSkill4)
+        {
+            var voice = _manager.sound.monsterVoice;
+            voice.PlayMonsterVoice(this.gameObject, voice.redhatDamegedVoice);
+        }
 
         _manager.agent.acceleration = 0;
         _manager.agent.velocity = Vector3.zero;

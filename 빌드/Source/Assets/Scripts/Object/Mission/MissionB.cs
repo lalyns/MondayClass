@@ -45,6 +45,9 @@ namespace MC.Mission
 
             if (missionEnd) return;
 
+            if (GameStatus.currentGameState == CurrentGameState.Dead ||
+                GameStatus.currentGameState == CurrentGameState.Product) return;
+
             if (GameStatus.Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
 
             if (MissionOperate)
