@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         {
             UserInterface.SetPointerMode(true);
 
-            MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
+            MCSoundManager.Instance.objectSound.ambient.PlayAmbient(MCSoundManager.Instance.gameObject,
                 MCSoundManager.Instance.objectSound.ambient.lobbyAmbient);
         }
 
@@ -180,12 +180,12 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public static void SetFadeInOut(System.Action callback, string soundType, float duration, bool value)
+    public static void SetFadeInOut(System.Action callback, float duration, bool value)
     {
         if (value)
-            Instance.StartCoroutine(UserInterface.FadeIn(callback, soundType, duration));
+            Instance.StartCoroutine(UserInterface.FadeIn(callback, duration));
         else
-            Instance.StartCoroutine(UserInterface.FadeOut(callback, soundType, duration));
+            Instance.StartCoroutine(UserInterface.FadeOut(callback, duration));
     }
 
     public static void SetSceneSetting()

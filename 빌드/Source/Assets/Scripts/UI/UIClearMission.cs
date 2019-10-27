@@ -39,7 +39,7 @@ public class UIClearMission : MonoBehaviour
 
     public void SetReward2(MissionRewardType type)
     {
-        reward1.sprite = MissionManager.Instance.rewardData.RewardIcon[(int)type];
+        reward2.sprite = MissionManager.Instance.rewardData.RewardIcon[(int)type];
         rewardName2.text = MissionManager.Instance.rewardData.RewardText[(int)type];
     }
 

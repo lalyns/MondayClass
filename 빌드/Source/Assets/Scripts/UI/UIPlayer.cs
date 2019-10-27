@@ -84,7 +84,7 @@ namespace MC.UI
             special.value.text = (PlayerFSMManager.Instance.SpecialGauge > 100 ? 100 : PlayerFSMManager.Instance.SpecialGauge)  + "%";
             special.inActive.fillAmount = value;
             
-            special.effects[0].gameObject.SetActive(value == 1);
+            special.effects[0].gameObject.SetActive(value >= 1);
 
             changeBar.currentValue = value;
         }

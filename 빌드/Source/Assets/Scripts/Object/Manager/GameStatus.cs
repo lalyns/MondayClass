@@ -43,6 +43,7 @@ public class GameStatus : MonoBehaviour
     public bool _MissionStatus = false;
 
     public bool usingKeward = false;
+    public bool canInput = true;
 
     public GameObject _DummyLocationEffect;
 
@@ -163,6 +164,7 @@ public class GameStatus : MonoBehaviour
     MonsterType summonType;
     public void Update()
     {
+        if (!canInput) return;
         //if (Time.timeScale == 0 && Input.anyKey) return;
         
         // 유니티 에디터에서 작동하는 에디터 기능
@@ -199,22 +201,22 @@ public class GameStatus : MonoBehaviour
 
             if(Input.GetKeyDown(KeyCode.U))
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, 1f, true);
             }
 
             if (Input.GetKeyDown(KeyCode.I))
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+                MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, 1f, true);
             }
 
             if (Input.GetKeyDown(KeyCode.O))
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+                MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, 1f, true);
             }
 
             if (Input.GetKeyDown(KeyCode.P))
             {
-                MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+                MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, 1f, true);
             }
 
             if (Input.GetKeyDown(KeyCode.L))
@@ -300,6 +302,9 @@ public class GameStatus : MonoBehaviour
                 PlayerFSMManager.Instance.GetComponent<PlayerCLEAR>().CMSet.gameObject.SetActive(false);
                 PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
                 PlayerFSMManager.Instance.mainCamera.gameObject.SetActive(true);
+
+                Invoke("DialogCheck", 0.5f);
+
             }
         }
 
@@ -321,6 +326,41 @@ public class GameStatus : MonoBehaviour
             !MissionManager.Instance.CurrentMission.missionEnd)
         {
             _LimitTime -= Time.deltaTime;
+        }
+    }
+
+    void DialogCheck()
+    {
+        if (MCSceneManager.currentScene == MCSceneManager.ANNIHILATION ||
+            MCSceneManager.currentScene == MCSceneManager.DEFENCE ||
+            MCSceneManager.currentScene == MCSceneManager.SURVIVAL)
+        {
+            if (GameStatus.Instance.StageLevel == 3)
+            {
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+
+                var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+                UserInterface.DialogSetActive(true);
+
+                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () =>
+                {
+                    GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+                    GameManager.Instance.CharacterControl = true;
+                });
+            }
+
+            if (GameStatus.Instance.StageLevel == 8)
+            {
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+
+                var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
+                UserInterface.DialogSetActive(true);
+                UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () =>
+                {
+                    GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+                    GameManager.Instance.CharacterControl = true;
+                });
+            }
         }
     }
 

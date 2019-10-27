@@ -46,7 +46,7 @@ namespace MC.UI
 
         public void NextScene()
         {
-            MCSceneManager.Instance.NextScene(MCSceneManager.TUTORIAL, "Bgm_SceneSwitch_Fade_Out", 1f, false);
+            MCSceneManager.Instance.NextScene(MCSceneManager.TUTORIAL, 1f, false);
             //StartCoroutine(MCSceneManager.Instance.LoadScene(MCSceneManager.TUTORIAL));
             GameManager.Instance.CharacterControl = false;
 
@@ -57,6 +57,9 @@ namespace MC.UI
         public void SettingButton()
         {
             setting.SetActive(true);
+            title.start.interactable = false;
+            title.developer.interactable = false;
+            title.exit.interactable = false;
         }
 
         public void Developer()
