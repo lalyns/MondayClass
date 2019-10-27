@@ -1595,7 +1595,7 @@
 														</Property>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
-																<Value>9</Value>
+																<Value>4</Value>
 															</ValueList>
 															<ModifierList>
 																<ModifierInfo>
@@ -2622,7 +2622,7 @@
 								<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>10</Value>
+										<Value>5</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -2663,6 +2663,11 @@
 							<PropertyList>
 								<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
 								<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-5</Value>
+									</ValueList>
+								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -3734,6 +3739,13 @@
 										<Folder Name="Die" ID="{75781094-FA1D-435D-A45F-09A5D62C549E}" ShortID="256469702">
 											<ChildrenList>
 												<RandomSequenceContainer Name="Cast Voice" ID="{CA303768-EF38-415B-BEEC-C75C2ECBB92E}" ShortID="601233945">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-2</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -3996,6 +4008,9 @@
 																	</ModifierList>
 																</Property>
 																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>1</Value>
+																	</ValueList>
 																	<ModifierList>
 																		<ModifierInfo>
 																			<Modifier Name="" ID="{7871C26A-BA1F-432B-B2D1-CC9760ED9F21}">
@@ -4215,6 +4230,11 @@
 														<RandomSequenceContainer Name="Cast Voice" ID="{2DD96E5E-348F-4D4C-973E-9D44293516DD}" ShortID="232207210">
 															<PropertyList>
 																<Property Name="3DSpatialization" Type="int16" Value="2"/>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>-2</Value>
+																	</ValueList>
+																</Property>
 															</PropertyList>
 															<ReferenceList>
 																<Reference Name="Conversion">
@@ -5190,6 +5210,18 @@
 																		<ActiveSource Name="Liris_Skill_Crash_Cast_Voice_02" ID="{E03FDA64-A9AD-473E-BD5E-B6F9A3C13B10}" Platform="Linked"/>
 																	</ActiveSourceList>
 																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
+														<RandomSequenceContainer Name="Boom Voice" ID="{649A92F8-EA89-4B71-B470-C759BD6E6F20}" ShortID="812875673">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
 																<Sound Name="Liris_Skill_Crash_Cast_Voice_03" ID="{78EABDF2-67C8-4351-B727-DB3DCFB2E1C8}" ShortID="613433018">
 																	<PropertyList>
 																		<Property Name="Volume" Type="Real64">
@@ -5203,7 +5235,7 @@
 																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
 																		</Reference>
 																		<Reference Name="OutputBus">
-																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																			<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
 																		</Reference>
 																	</ReferenceList>
 																	<ChildrenList>
@@ -5214,6 +5246,103 @@
 																	</ChildrenList>
 																	<ActiveSourceList>
 																		<ActiveSource Name="Liris_Skill_Crash_Cast_Voice_03" ID="{48CD4900-22F8-401B-98EE-32F84B48583E}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
+													</ChildrenList>
+												</Folder>
+												<Folder Name="Sound" ID="{BF61CD20-84A4-4DA2-B2B0-CF04F5362867}" ShortID="285606201">
+													<ChildrenList>
+														<RandomSequenceContainer Name="Cast Sound" ID="{77AC78F5-4E1F-4A9C-A4AD-8E17BA7F09D4}" ShortID="857975400">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Liris_Skill_Crash_Cast_Sound_01" ID="{51E6E846-8419-44B6-81B7-F56924D5BB4E}" ShortID="392236635">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Crash_Cast_Sound_01" ID="{1E332484-D355-4DEC-AA42-AF8FEBA2598F}" ShortID="456577287">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Crash_Cast_Sound_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Crash_Cast_Sound_01" ID="{1E332484-D355-4DEC-AA42-AF8FEBA2598F}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
+														<RandomSequenceContainer Name="Boom Sound" ID="{19913BA2-0B1B-446A-BB89-B3FA793189FD}" ShortID="590700793">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Liris_Skill_Crash_Boom_Sound_01" ID="{C403400F-CE51-40C1-821C-8B1A5F1EFB05}" ShortID="36438504">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Crash_Boom_Sound_01" ID="{67D8B2DD-34FE-439A-86EA-417396C88F80}" ShortID="473949594">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Crash_Boom_Sound_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Crash_Boom_Sound_01" ID="{67D8B2DD-34FE-439A-86EA-417396C88F80}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
+														<RandomSequenceContainer Name="Drop Sound" ID="{639C6990-BC44-4191-88FA-0508C64DE614}" ShortID="950371322">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Liris_Skill_Crash_Drop_Sound_01" ID="{819E5497-51E3-434C-9916-6E15CA5D8B61}" ShortID="1045937368">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Crash_Drop_Sound_01" ID="{B1C45B7C-1BA0-4209-A3E0-D6F3BF24A074}" ShortID="1040324481">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Crash_Drop_Sound_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Crash_Drop_Sound_01" ID="{B1C45B7C-1BA0-4209-A3E0-D6F3BF24A074}" Platform="Linked"/>
 																	</ActiveSourceList>
 																</Sound>
 															</ChildrenList>
