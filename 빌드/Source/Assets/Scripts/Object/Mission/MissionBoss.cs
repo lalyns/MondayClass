@@ -22,10 +22,16 @@ namespace MC.Mission
             }
 
             var sound = MCSoundManager.Instance.objectSound;
-            StartCoroutine(MCSoundManager.AmbFadeIn(0.7f));
+            StartCoroutine(MCSoundManager.AmbFadeIn(1f));
             MCSoundManager.ChangeAMB(sound.ambient.stageAmbient);
+
 
         }
 
+        private void Update()
+        {
+            Debug.Log("RTPC Size : " + MCSoundManager.GetRTPCParam("Bgm_SceneSwitch_Fade_Out"));
+
+        }
     }
 }

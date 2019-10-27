@@ -44,8 +44,8 @@ namespace MC.Mission
 
             MC.Sound.MCSoundManager.LoadBank();
             var sound = MCSoundManager.Instance.objectSound;
-            StartCoroutine(MCSoundManager.AmbFadeIn(0.7f));
-            StartCoroutine(MCSoundManager.BGMFadeIn(0.7f));
+            StartCoroutine(MCSoundManager.AmbFadeIn(1f));
+            StartCoroutine(MCSoundManager.BGMFadeIn(1f));
             MCSoundManager.ChangeBGM(sound.bgm.stageBGM);
             MCSoundManager.ChangeAMB(sound.ambient.tutoAmbient);
         }

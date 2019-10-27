@@ -54,6 +54,7 @@ namespace MC.SceneDirector
 
         public void SceneEnd()
         {
+            MCSoundManager.StopAMB();
             SceneManager.LoadScene(MCSceneManager.CREDIT);
         }
 
@@ -86,7 +87,9 @@ namespace MC.SceneDirector
             MC.Sound.MCSoundManager.LoadBank();
             var sound = MCSoundManager.Instance.objectSound;
             MCSoundManager.ChangeBGM(sound.bgm.bossBGM);
-            StartCoroutine(MCSoundManager.BGMFadeIn(0.7f));
+            //StartCoroutine(MCSoundManager.BGMFadeIn(1f));
+
+            MCSoundManager.SetRTPCParam("Bgm_SceneSwitch_Fade_Out", 100f);
         }
 
         public void PortalOpenPlay()

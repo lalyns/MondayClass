@@ -20,8 +20,8 @@ public class PlayerSKILL4 : FSMState
 
         GameStatus.SetCurrentGameState(CurrentGameState.Product);
 
-        StartCoroutine(MCSoundManager.BGMFadeOut(0.7f));
-        StartCoroutine(MCSoundManager.AmbFadeOut(0.7f));
+        StartCoroutine(MCSoundManager.BGMFadeOut(1f));
+        StartCoroutine(MCSoundManager.AmbFadeOut(1f));
 
         UserInterface.SetAllUserInterface(false);
         _manager.isCanUltimate = false;
@@ -32,8 +32,8 @@ public class PlayerSKILL4 : FSMState
         base.EndState();
         _time = 0;
 
-        StartCoroutine(MCSoundManager.BGMFadeIn(0.7f));
-        StartCoroutine(MCSoundManager.AmbFadeIn(0.7f));
+        StartCoroutine(MCSoundManager.BGMFadeIn(1f));
+        StartCoroutine(MCSoundManager.AmbFadeIn(1f));
         GameStatus.SetCurrentGameState(CurrentGameState.Start);
 
         UserInterface.SetAllUserInterface(true);

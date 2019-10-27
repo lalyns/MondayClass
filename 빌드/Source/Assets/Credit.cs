@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using MC.UI;
+
 public class Credit : MonoBehaviour
 {
     public AkBank bgmBank;
@@ -16,6 +18,8 @@ public class Credit : MonoBehaviour
         bgmBank.HandleEvent(gameObject);
         sfxBank.HandleEvent(gameObject);
         bgm.Post(gameObject);
+
+        GameManager.SetFadeInOut(() => { }, 1f, true);
     }
 
     // Update is called once per frame
