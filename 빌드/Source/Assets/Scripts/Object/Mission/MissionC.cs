@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Sound;
 
 namespace MC.Mission
 {
@@ -25,6 +26,18 @@ namespace MC.Mission
         public List<Transform> oldSpawnList = new List<Transform>();
 
         bool isClear = false;
+
+        protected override void Start()
+        {
+            base.Start();
+
+            MC.Sound.MCSoundManager.LoadBank();
+            var sound = MCSoundManager.Instance.objectSound;
+            StartCoroutine(MCSoundManager.AmbFadeIn(0.7f));
+            StartCoroutine(MCSoundManager.BGMFadeIn(0.7f));
+            MCSoundManager.ChangeBGM(sound.bgm.stageBGM);
+            MCSoundManager.ChangeAMB(sound.ambient.tutoAmbient);
+        }
 
         public override void OperateMission()
         {
@@ -85,6 +98,10 @@ namespace MC.Mission
 
         public override void ClearMission() {
             base.ClearMission();
+
+
+            var sound = MCSoundManager.Instance.objectSound.objectSFX;
+            sound.StopSound(protectedTarget.gameObject, sound.pillarActive);
 
             StopAllCoroutines();
         }

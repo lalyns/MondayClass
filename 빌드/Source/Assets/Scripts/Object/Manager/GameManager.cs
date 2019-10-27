@@ -81,9 +81,6 @@ public class GameManager : MonoBehaviour
         if(MCSceneManager.currentScene == MCSceneManager.TITLE)
         {
             UserInterface.SetPointerMode(true);
-
-            MCSoundManager.Instance.objectSound.ambient.PlayAmbient(MCSoundManager.Instance.gameObject,
-                MCSoundManager.Instance.objectSound.ambient.lobbyAmbient);
         }
 
         if (MCSceneManager.currentScene == MCSceneManager.ANNIHILATION ||
