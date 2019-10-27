@@ -396,6 +396,8 @@ public class PlayerFSMManager : FSMManager
     {
         if (GameStatus.currentGameState == CurrentGameState.Dialog) return;
 
+        SetInvincibility(GameStatus.currentGameState == CurrentGameState.Product);
+
         if (Input.GetKeyDown(KeyCode.U))
         {
             StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
