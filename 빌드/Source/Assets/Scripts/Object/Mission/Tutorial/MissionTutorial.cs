@@ -51,8 +51,11 @@ namespace MC.Mission
             currentTutorial = TutorialEvent.Start;
 
             MC.Sound.MCSoundManager.LoadBank();
-            var amb = MCSoundManager.Instance.objectSound.ambient;
-            MCSoundManager.ChangeAMB(amb.tutoAmbient);
+            var sound = MCSoundManager.Instance.objectSound;
+            StartCoroutine(MCSoundManager.AmbFadeIn(0.7f));
+            StartCoroutine(MCSoundManager.BGMFadeIn(0.7f));
+            MCSoundManager.ChangeBGM(sound.bgm.tutoBGM);
+            MCSoundManager.ChangeAMB(sound.ambient.tutoAmbient);
             //amb.PlayAmbient(MCSoundManager.Instance.gameObject, amb.tutoAmbient);
         }
 

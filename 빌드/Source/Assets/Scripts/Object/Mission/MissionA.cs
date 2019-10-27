@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using MC.Sound;
 
 namespace MC.Mission
 {
@@ -26,8 +27,16 @@ namespace MC.Mission
 
             if (!isDialogA)
             {
-                
+                // 미션 설명창 등장해야됨
+
             }
+
+            MC.Sound.MCSoundManager.LoadBank();
+            var sound = MCSoundManager.Instance.objectSound;
+            StartCoroutine(MCSoundManager.AmbFadeIn(0.7f));
+            StartCoroutine(MCSoundManager.BGMFadeIn(0.7f));
+            MCSoundManager.ChangeBGM(sound.bgm.stageBGM);
+            MCSoundManager.ChangeAMB(sound.ambient.stageAmbient);
         }
 
         protected override void Update()

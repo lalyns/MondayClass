@@ -55,14 +55,6 @@ namespace MC.Sound
             Instance.voice.HandleEvent(Instance.gameObject);
         }
 
-        public static void SetSound()
-        {
-            Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
-                Instance.objectSound.ambient.stageAmbient);
-            Instance.objectSound.bgm.PlayBGM(Instance.gameObject,
-                Instance.objectSound.bgm.stageBGM);
-        }
-
         public static void ChangeBGM(AK.Wwise.Event bgm)
         {
             if(bgm != Instance.preBGM)
@@ -71,8 +63,12 @@ namespace MC.Sound
                 Instance.preBGM = bgm;
                 Instance.curBGM = bgm;
                 Instance.objectSound.bgm.PlayBGM(Instance.gameObject, bgm);
-                BGMFadeIn(2f);
             }
+        }
+
+        public static void StopAMB()
+        {
+            Instance.objectSound.ambient.StopAmbient(Instance.gameObject, Instance.curAMB);
         }
 
         public static void ChangeAMB(AK.Wwise.Event amb)
@@ -81,9 +77,8 @@ namespace MC.Sound
             {
                 Instance.objectSound.ambient.StopAmbient(Instance.gameObject, Instance.preAMB);
                 Instance.preAMB = amb;
-                Instance.preAMB = amb;
-                Instance.objectSound.bgm.PlayBGM(Instance.gameObject, amb);
-                BGMFadeIn(2f);
+                Instance.curAMB = amb;
+                Instance.objectSound.ambient.PlayAmbient(Instance.gameObject, amb);
             }
         }
 
@@ -103,8 +98,6 @@ namespace MC.Sound
 
         public static IEnumerator AmbFadeOut(float duration)
         {
-            Debug.Log("FadeOut AMB");
-
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
 
@@ -144,7 +137,6 @@ namespace MC.Sound
 
         public static IEnumerator BGMFadeOut(float duration)
         {
-            Debug.Log("FadeOut BGM");
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
 

@@ -106,6 +106,8 @@ namespace MC.Sound
 
             public void PlaySound(GameObject go, AK.Wwise.Event bgm)
             {
+                Debug.Log(bgm.Name);
+
                 if (GameManager.Instance.config.soundActive.sfx ||
                     GameManager.Instance.config.soundActive.all)
                     try

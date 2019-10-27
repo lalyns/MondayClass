@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using MC.UI;
 using MC.SceneDirector;
+using MC.Sound;
 
 public class BossDirector : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class BossDirector : MonoBehaviour
     void Start()
     {
     }
+
 
     public void PlayStartCine()
     {
