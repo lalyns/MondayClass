@@ -5097,17 +5097,9 @@
 										</Folder>
 										<Folder Name="Dash Attack" ID="{B9CDEF9F-DD1E-437A-9DE6-A2019979B63F}" ShortID="730247391">
 											<ChildrenList>
-												<RandomSequenceContainer Name="Cast Voice" ID="{A8952529-E151-4B06-9F5A-1FEBD3CCF0C3}" ShortID="68277388">
-													<ReferenceList>
-														<Reference Name="Conversion">
-															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
-														</Reference>
-														<Reference Name="OutputBus">
-															<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
-														</Reference>
-													</ReferenceList>
+												<Folder Name="Sound" ID="{DCE2522A-02E1-4205-89F1-5EC62C926B73}" ShortID="179210130">
 													<ChildrenList>
-														<Sound Name="Liris_Skill_Dash Attack_Cast_Voice_01" ID="{3D5B0B4F-2F85-4090-AF1B-FCA18B02066C}" ShortID="608709895">
+														<RandomSequenceContainer Name="Loop Sound" ID="{A15CF666-9279-4D5B-A4EE-B048675BE79E}" ShortID="752206492">
 															<ReferenceList>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -5117,16 +5109,28 @@
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="Liris_Skill_Dash Attack_Cast_Voice_01" ID="{8DC65A14-4801-49B3-BF3C-54C0AD46A272}" ShortID="891788778">
-																	<Language>SFX</Language>
-																	<AudioFile>Liris_Skill_Dash Attack_Cast_Voice_01.wav</AudioFile>
-																</AudioFileSource>
+																<Sound Name="Liris_Skill_Dash Attack_Loop_Sound_01" ID="{A91DCF9E-77C2-4DB8-917C-54BDB0C6A0CD}" ShortID="499810935">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Dash Attack_Loop_Sound_01" ID="{778CB039-B32D-4EA5-A8AD-B01E5EBA4900}" ShortID="627936801">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Dash Attack_Loop_Sound_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Dash Attack_Loop_Sound_01" ID="{778CB039-B32D-4EA5-A8AD-B01E5EBA4900}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
 															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="Liris_Skill_Dash Attack_Cast_Voice_01" ID="{8DC65A14-4801-49B3-BF3C-54C0AD46A272}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
-														<Sound Name="Liris_Skill_Dash Attack_Cast_Voice_02" ID="{B2BFA0C1-3378-4E4E-A4F9-DCBBF04B3992}" ShortID="896378213">
+														</RandomSequenceContainer>
+														<RandomSequenceContainer Name="Cast Sound" ID="{FBB8D3C3-7433-40CE-A793-A777CFE5FFC5}" ShortID="311870454">
 															<ReferenceList>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -5136,36 +5140,102 @@
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="Liris_Skill_Dash Attack_Cast_Voice_02" ID="{5867E375-C998-4DFF-8528-54C792419734}" ShortID="991545727">
-																	<Language>SFX</Language>
-																	<AudioFile>Liris_Skill_Dash Attack_Cast_Voice_02.wav</AudioFile>
-																</AudioFileSource>
+																<Sound Name="Liris_Skill_Dash Attack_Cast_Sound_01" ID="{7A0F32E8-183E-4308-8183-ED6D36FAD51A}" ShortID="852327989">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Dash Attack_Cast_Sound_01" ID="{8F40D69E-BD60-4DE0-89F0-E531AD262E5C}" ShortID="896284872">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Dash Attack_Cast_Sound_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Dash Attack_Cast_Sound_01" ID="{8F40D69E-BD60-4DE0-89F0-E531AD262E5C}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
 															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="Liris_Skill_Dash Attack_Cast_Voice_02" ID="{5867E375-C998-4DFF-8528-54C792419734}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
-														<Sound Name="Liris_Skill_Dash Attack_Cast_Voice_03" ID="{6246E562-ED40-4AE9-80E5-E48611460A60}" ShortID="269543021">
-															<ReferenceList>
-																<Reference Name="Conversion">
-																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
-																</Reference>
-																<Reference Name="OutputBus">
-																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
-																</Reference>
-															</ReferenceList>
-															<ChildrenList>
-																<AudioFileSource Name="Liris_Skill_Dash Attack_Cast_Voice_03" ID="{2E7A9F0E-41EB-4EE3-BF43-171244B3EF98}" ShortID="97666775">
-																	<Language>SFX</Language>
-																	<AudioFile>Liris_Skill_Dash Attack_Cast_Voice_03.wav</AudioFile>
-																</AudioFileSource>
-															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="Liris_Skill_Dash Attack_Cast_Voice_03" ID="{2E7A9F0E-41EB-4EE3-BF43-171244B3EF98}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
+														</RandomSequenceContainer>
 													</ChildrenList>
-												</RandomSequenceContainer>
+												</Folder>
+												<Folder Name="Voice" ID="{9236421F-CE56-441B-BFD3-2B45B342B9EA}" ShortID="598970805">
+													<ChildrenList>
+														<RandomSequenceContainer Name="Cast Voice" ID="{A8952529-E151-4B06-9F5A-1FEBD3CCF0C3}" ShortID="68277388">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Voice" ID="{7CB92D85-B6A7-45F9-998A-B450FCCFDAA5}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Liris_Skill_Dash Attack_Cast_Voice_01" ID="{3D5B0B4F-2F85-4090-AF1B-FCA18B02066C}" ShortID="608709895">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Dash Attack_Cast_Voice_01" ID="{8DC65A14-4801-49B3-BF3C-54C0AD46A272}" ShortID="891788778">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Dash Attack_Cast_Voice_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Dash Attack_Cast_Voice_01" ID="{8DC65A14-4801-49B3-BF3C-54C0AD46A272}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Liris_Skill_Dash Attack_Cast_Voice_02" ID="{B2BFA0C1-3378-4E4E-A4F9-DCBBF04B3992}" ShortID="896378213">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Dash Attack_Cast_Voice_02" ID="{5867E375-C998-4DFF-8528-54C792419734}" ShortID="991545727">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Dash Attack_Cast_Voice_02.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Dash Attack_Cast_Voice_02" ID="{5867E375-C998-4DFF-8528-54C792419734}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Liris_Skill_Dash Attack_Cast_Voice_03" ID="{6246E562-ED40-4AE9-80E5-E48611460A60}" ShortID="269543021">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Dash Attack_Cast_Voice_03" ID="{2E7A9F0E-41EB-4EE3-BF43-171244B3EF98}" ShortID="97666775">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Dash Attack_Cast_Voice_03.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Dash Attack_Cast_Voice_03" ID="{2E7A9F0E-41EB-4EE3-BF43-171244B3EF98}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
+													</ChildrenList>
+												</Folder>
 											</ChildrenList>
 										</Folder>
 										<Folder Name="Crash" ID="{58FA9589-75ED-48AF-B669-012CDBD97869}" ShortID="838275860">
