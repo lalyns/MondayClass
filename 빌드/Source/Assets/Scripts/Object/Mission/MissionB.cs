@@ -41,6 +41,7 @@ namespace MC.Mission
         {
             totalWave = waves.Length;
 
+            UserInterface.SetPointerMode(false);
 
             MC.Sound.MCSoundManager.LoadBank();
             var sound = MCSoundManager.Instance.objectSound;

@@ -50,6 +50,10 @@ namespace MC.UI
                 StartCoroutine(MCSoundManager.BGMFadeOut(1f));
                 StartCoroutine(MCSoundManager.AmbFadeOut(1f));
 
+                title.start.interactable = false;
+                title.developer.interactable = false;
+                title.exit.interactable = false;
+
                 cutScene.CineStart();
                 GameStatus.SetCurrentGameState(CurrentGameState.Product);
                 nextScene = false;
