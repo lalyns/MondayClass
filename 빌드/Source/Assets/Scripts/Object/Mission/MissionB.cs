@@ -41,6 +41,13 @@ namespace MC.Mission
         {
             totalWave = waves.Length;
 
+            if (!isDialogB)
+            {
+                // 미션 설명창 등장해야됨
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                GameManager.Instance.IsPuase = true;
+                manual.gameObject.SetActive(true);
+            }
 
             MC.Sound.MCSoundManager.LoadBank();
             var sound = MCSoundManager.Instance.objectSound;
