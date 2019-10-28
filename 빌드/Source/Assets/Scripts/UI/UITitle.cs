@@ -42,6 +42,11 @@ namespace MC.UI
         {
             //cutScene.SetActive(true);
 
+            title.start.interactable = false;
+            title.setting.interactable = false;
+            title.developer.interactable = false;
+            title.exit.interactable = false;
+
             if (nextScene)
             {
                 var ui = MCSoundManager.Instance.objectSound.ui;
@@ -50,9 +55,6 @@ namespace MC.UI
                 StartCoroutine(MCSoundManager.BGMFadeOut(1f));
                 StartCoroutine(MCSoundManager.AmbFadeOut(1f));
 
-                title.start.interactable = false;
-                title.developer.interactable = false;
-                title.exit.interactable = false;
 
                 cutScene.CineStart();
                 GameStatus.SetCurrentGameState(CurrentGameState.Product);

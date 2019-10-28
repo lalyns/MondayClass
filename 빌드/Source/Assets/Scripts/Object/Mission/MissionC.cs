@@ -34,6 +34,14 @@ namespace MC.Mission
         {
             base.Start();
 
+            if (!isDialogC)
+            {
+                // 미션 설명창 등장해야됨
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                GameManager.Instance.IsPuase = true;
+                manual.gameObject.SetActive(true);
+            }
+
             MC.Sound.MCSoundManager.LoadBank();
             var sound = MCSoundManager.Instance.objectSound;
             StartCoroutine(MCSoundManager.AmbFadeIn(1f));
