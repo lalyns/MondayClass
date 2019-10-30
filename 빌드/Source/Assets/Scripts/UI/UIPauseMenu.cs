@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MC.UI;
+using MC.Sound;
 
 public class UIPauseMenu : MonoBehaviour
 {
@@ -70,11 +71,17 @@ public class UIPauseMenu : MonoBehaviour
     public void PauseSetting()
     {
         setting.SetActive(true);
+
+        var sound = MCSoundManager.Instance.objectSound.ui;
+        sound.PlaySound(MCSoundManager.Instance.gameObject, sound.nextPage);
     }
 
     public void PauseSettingExit()
     {
         setting.SetActive(false);
+
+        var sound = MCSoundManager.Instance.objectSound.ui;
+        sound.PlaySound(MCSoundManager.Instance.gameObject, sound.nextPage);
     }
 
     public void PauseExit()
@@ -82,6 +89,9 @@ public class UIPauseMenu : MonoBehaviour
         CanvasInfo.PauseMenuActive(false);
         GameManager.Instance.IsPuase = false;
         UserInterface.BlurSet(false, 10f);
+
+        var sound = MCSoundManager.Instance.objectSound.ui;
+        sound.PlaySound(MCSoundManager.Instance.gameObject, sound.nextPage);
 
         gameObject.SetActive(false);
     }

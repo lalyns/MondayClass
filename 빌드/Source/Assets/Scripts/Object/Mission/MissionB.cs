@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using MC.Sound;
+using MC.UI;
 
 namespace MC.Mission
 {
@@ -8,6 +11,7 @@ namespace MC.Mission
     public class MissionB : MissionBase
     {
         public static bool isDialogB = false;
+        public Button manual;
 
         public int goalScore = 5;
         public int currentScore = 0;
@@ -36,14 +40,38 @@ namespace MC.Mission
         protected override void Start()
         {
             totalWave = waves.Length;
+
+            if (!isDialogB)
+            {
+                // 미션 설명창 등장해야됨
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                GameManager.Instance.IsPuase = true;
+                manual.gameObject.SetActive(true);
+            }
+
+            MC.Sound.MCSoundManager.LoadBank();
+            var sound = MCSoundManager.Instance.objectSound;
+            StartCoroutine(MCSoundManager.AmbFadeIn(1f));
+            StartCoroutine(MCSoundManager.BGMFadeIn(1f));
+            MCSoundManager.ChangeBGM(sound.bgm.stageBGM);
+            MCSoundManager.ChangeAMB(sound.ambient.tutoAmbient);
         }
 
-        // Update is called once per frame
+        float _manualTime = 0;
         protected override void Update()
         {
             base.Update();
 
+            _manualTime += Time.realtimeSinceStartup;
+            if (_manualTime > 10.0f && !isDialogB)
+            {
+                UserInterface.SetPointerMode(true);
+                manual.interactable = true;
+            }
             if (missionEnd) return;
+
+            if (GameStatus.currentGameState == CurrentGameState.Dead ||
+                GameStatus.currentGameState == CurrentGameState.Product) return;
 
             if (GameStatus.Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
 
@@ -120,8 +148,18 @@ namespace MC.Mission
                 MapGrid.mapPositions[randPos] + Vector3.up * starHeight);
 
             star.GetComponent<DropStar>().stop = false;
+            star.GetComponent<DropStar>().PlaySound();
 
             activeStar.Add(star);
+        }
+
+        public void ManualSupport()
+        {
+            isDialogB = true;
+            GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+            GameManager.Instance.IsPuase = false;
+            UserInterface.SetPointerMode(false);
+            manual.gameObject.SetActive(false);
         }
     }
 }

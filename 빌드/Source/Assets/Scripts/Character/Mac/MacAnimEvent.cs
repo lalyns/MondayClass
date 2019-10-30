@@ -41,9 +41,8 @@ public class MacAnimEvent : MonoBehaviour
 
     public void CastingAttack()
     {
-        //MacATTACK attack = _Manager.CurrentStateComponent as MacATTACK;
-
-        //attack.isLookAt = false;
+        MacATTACK attack = GetComponentInParent<MacATTACK>();
+        attack.isLookAt = false;
 
         MonsterEffects.Instance.macBulletPool.ItemSetActive(
             bulletLuancher, 
@@ -60,9 +59,9 @@ public class MacAnimEvent : MonoBehaviour
 
     public void CastingSkill()
     {
-        MacSKILL skill = _Manager.CurrentStateComponent as MacSKILL;
+        MacSKILL skill = GetComponentInParent<MacSKILL>();
+        skill.isLookAt = false;
 
-        //skill.isLookAt = false;
         var sound = FSMManager._Sound.monsterSFX;
         sound.PlayMonsterSFX(this.gameObject, sound.macBigBall);
 

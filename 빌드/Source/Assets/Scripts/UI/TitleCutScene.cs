@@ -23,7 +23,7 @@ namespace MC.UI
             {
                 playableDirector.gameObject.SetActive(true);
                 Invoke("PlayDirector", 2f);
-            }, "Bgm_Start_Fade_In", 1f, false);
+            },  1f, false);
         }
 
         public void PlayDirector()
@@ -49,6 +49,13 @@ namespace MC.UI
         {
             var sound = MCSoundManager.Instance.objectSound.cinema;
             sound.PlaySound(this.gameObject, sound.storyCrowd);
+        }
+
+        public void PlaySigh()
+        {
+            var sound = MCSoundManager.Instance.objectSound.cinema;
+            sound.PlaySound(this.gameObject, sound.storySigh);
+
         }
 
         public void PlayDive()

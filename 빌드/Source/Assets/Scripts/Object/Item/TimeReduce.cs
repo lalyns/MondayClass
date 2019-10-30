@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Sound;
 
 public class TimeReduce : MonoBehaviour
 {
@@ -54,6 +55,9 @@ public class TimeReduce : MonoBehaviour
                 player.SkillCoolReset();
             else
                 player.SkillCoolHalfReset();
+
+            var sound = MCSoundManager.Instance.objectSound.objectSFX;
+            sound.PlaySound(this.gameObject, sound.itemGet);
 
             sphere.enabled = false;
             box.gameObject.SetActive(false);

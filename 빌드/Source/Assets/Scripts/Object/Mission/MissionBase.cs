@@ -132,6 +132,28 @@ namespace MC.Mission
             Exit.Colliders.enabled = false;
         }
 
+        bool isPlayPortal = false;
+        public void PortalPlay()
+        {
+            if (!isPlayPortal)
+            {
+                if (GameStatus.Instance.StageLevel < 3)
+                {
+                    MissionManager.Instance.CurrentMission.Exit._PortalEffect.SetActive(true);
+                }
+                else
+                {
+                    MissionManager.Instance.CurrentMission.Exit._BossPortalEffect.SetActive(true);
+                }
+                MissionManager.Instance.CurrentMission.Exit.Colliders.enabled = true;
+
+                var sound = MCSoundManager.Instance.objectSound.objectSFX;
+                sound.PlaySound(MissionManager.Instance.CurrentMission.Exit.gameObject, sound.portalActive);
+                sound.PlaySound(MissionManager.Instance.CurrentMission.Exit.gameObject, sound.portalLoop);
+                isPlayPortal = true;
+            }
+        }
+
         public virtual void FailMission()
         {
             GameStatus.SetCurrentGameState(CurrentGameState.Dead);
@@ -160,56 +182,15 @@ namespace MC.Mission
                 FenceEffect.OpenFence();
 
             }
-            catch 
+            catch
             {
             }
 
-            //if (MCSceneManager.currentScene == MCSceneManager.ANNIHILATION ||
-            //    MCSceneManager.currentScene == MCSceneManager.DEFENCE ||
-            //    MCSceneManager.currentScene == MCSceneManager.SURVIVAL)
-            //{
-            //    if (GameStatus.Instance.StageLevel == 3)
-            //    {
-            //        GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            Invoke("Reward", 1f);
+        }
 
-            //        var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-            //        UserInterface.DialogSetActive(true);
-
-            //        UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[5], () =>
-            //        {
-            //            GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
-            //            GameManager.Instance.CharacterControl = true;
-            //        });
-            //    }
-
-            //    if (GameStatus.Instance.StageLevel == 8)
-            //    {
-            //        GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-
-            //        var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
-            //        UserInterface.DialogSetActive(true);
-            //        UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[6], () =>
-            //        {
-            //            GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
-            //            GameManager.Instance.CharacterControl = true;
-            //        });
-            //    }
-            //}
-
-            if (GameStatus.Instance.StageLevel < 3)
-            {
-                Exit._PortalEffect.SetActive(true);
-            }
-            else
-            {
-                Exit._BossPortalEffect.SetActive(true);
-            }
-            Exit.Colliders.enabled = true;
-
-            var sound = MCSoundManager.Instance.objectSound.objectSFX;
-            sound.PlaySound(Exit.gameObject, sound.portalActive);
-            sound.PlaySound(Exit.gameObject, sound.portalLoop);
-
+        void Reward()
+        {
             MissionManager.RewardMission();
         }
 

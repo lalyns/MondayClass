@@ -36,7 +36,10 @@ public class MacATTACK : MacFSMState
     {
         base.Update();
 
-        if(isLookAt) transform.LookAt(_manager._PriorityTarget.transform);
+        if (isLookAt)
+        {
+            transform.LookAt(_manager._PriorityTarget.transform);
+        }
 
         if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) > _manager.Stat.statData._AttackRange)
         {

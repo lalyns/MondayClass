@@ -12,6 +12,7 @@ public class PlayerCLEAR : FSMState
     public override void BeginState()
     {
         base.BeginState();
+        GameStatus.Instance.canInput = false;
         if(_manager.CurrentClear == 0)
         {
             _manager.ClearTimeLine.SetActive(true);
@@ -41,7 +42,6 @@ public class PlayerCLEAR : FSMState
         _manager.ClearTimeLine2.SetActive(false);
 
         UserInterface.SetPlayerUserInterface(true);
-        UserInterface.SetMissionProgressUserInterface(true);
         _manager.enemyHPBar.gameObject.SetActive(true);
     }
 
@@ -58,6 +58,11 @@ public class PlayerCLEAR : FSMState
                 isOne = true;
             }
         }      
+
+        if(_time >= 5f)
+        {
+            GameStatus.Instance.canInput = true;
+        }
 
         if (GameStatus.currentGameState == CurrentGameState.Wait)
         {

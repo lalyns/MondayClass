@@ -64,7 +64,7 @@ MonoBehaviour:
     all: 1
     player: 0
     monster: 0
-    system: 0
+    system: 1
     progress: 0
     selector: 0
   config:
@@ -72,8 +72,8 @@ MonoBehaviour:
       all: 1
       sfx: 1
       voice: 1
-      bgm: 0
-      ambient: 0
+      bgm: 1
+      ambient: 1
   WidthRatio: 0
   HeightRatio: 0
   OnInspectating: 0
@@ -92,6 +92,7 @@ MonoBehaviour:
   _LimitTime: 180
   _MissionStatus: 0
   usingKeward: 0
+  canInput: 1
   _DummyLocationEffect: {fileID: 6901017427520798597}
   _PlayerInstance: {fileID: 0}
 --- !u!114 &1756816077
@@ -181,11 +182,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 1457197fbc638ce4e82d67ce8a626f50, type: 3}
     - {fileID: 21300000, guid: d6d23c2dbbfe5e248a6837ec1e705bf8, type: 3}
     - {fileID: 21300000, guid: 07f4d1944dd20c9439e468578cf9fb64, type: 3}
-  _Missions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   currentMission: {fileID: 0}
+  currentMissionRewards: 
   isChange: 0
   MissionSelector: {fileID: 0}
   Choices:
@@ -294,8 +292,7 @@ MonoBehaviour:
     lobbyAmbient:
       idInternal: 0
       valueGuidInternal: 
-      WwiseObjectReference: {fileID: 11400000, guid: 3a3a2b9186cc96a45bf8518fc0d2e6f1,
-        type: 2}
+      WwiseObjectReference: {fileID: 0}
     tutoAmbient:
       idInternal: 0
       valueGuidInternal: 
@@ -358,6 +355,36 @@ MonoBehaviour:
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 11400000, guid: c7749bbca0f6eea47a13cf6db1573660,
         type: 2}
+    startCreate:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: 0b0ad21eafe1b6e478ec359c18078a21,
+        type: 2}
+    starDrop:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: 8422f53e83d9ca34ab0a5eeadf0aa970,
+        type: 2}
+    starGet:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: d44838132dce78849a2106512b2d5725,
+        type: 2}
+    itemGet:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: 3bbfda48d19c2724fbaa1824954e05ab,
+        type: 2}
+    pillarActive:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: 60307844b01f62c43bb50a2ec98eb3a7,
+        type: 2}
+    pillarDestroy:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: 3ecca7fc31295ec4187afd06e35cbe14,
+        type: 2}
   ui:
     uiStart:
       idInternal: 0
@@ -368,6 +395,11 @@ MonoBehaviour:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 11400000, guid: 53ea22b9df8888145a2c1987f5be6f5a,
+        type: 2}
+    dead:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: 12e6d4050238829458af250c1c78dba0,
         type: 2}
   dialogVoice:
     voice:
@@ -418,11 +450,32 @@ MonoBehaviour:
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 11400000, guid: 0dd9ac3cc31b33f4d81b737e3733fe55,
         type: 2}
+    - idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: bc6d469a259efd14c970a4c748153077,
+        type: 2}
+    - idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: c2b12a1ab1e183141a51fe10da62cda8,
+        type: 2}
+    - idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: dec70e8f240e8e44cb65f4fb1645b16f,
+        type: 2}
+    - idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: 846a5e6baebc05747bc718e310048701,
+        type: 2}
   cinema:
     storyCrowd:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 11400000, guid: 00bea3052c4c0b143a9ce4a945d85673,
+        type: 2}
+    storySigh:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: eff40aec56e55f44ba3c605a8c3b4e11,
         type: 2}
     storyDive:
       idInternal: 0
@@ -438,6 +491,11 @@ MonoBehaviour:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 11400000, guid: d39fc86a671144749a2d3b6725cdf81a,
+        type: 2}
+    bossEnterLast:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: 3456eaae1681a8f4bbe409d53f0c6c1e,
         type: 2}
 --- !u!114 &795881696063601727
 MonoBehaviour:
@@ -456,6 +514,22 @@ MonoBehaviour:
   bgm: {fileID: 806827995}
   ambient: {fileID: 806827996}
   voice: {fileID: 6689161813165725479}
+  preBGM:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  curBGM:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  preAMB:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  curAMB:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!114 &1873516466553228360
 MonoBehaviour:
   m_ObjectHideFlags: 0

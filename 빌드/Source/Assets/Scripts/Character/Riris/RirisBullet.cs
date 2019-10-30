@@ -8,7 +8,7 @@ public class RirisBullet : MonoBehaviour
     RirisFSMManager RirisFSMManager;
     ObjectPool bulletPool;
 
-    Collider collider;
+    Collider collider => GetComponent<Collider>();
 
     public GameObject model;
     public GameObject effect1;
@@ -37,7 +37,6 @@ public class RirisBullet : MonoBehaviour
     {
         RirisFSMManager = GameObject.FindGameObjectWithTag("Boss").GetComponentInParent<RirisFSMManager>();
         bulletPool = BossEffects.Instance.bullet;
-        collider = GetComponent<Collider>();
 
     }
 
@@ -80,13 +79,11 @@ public class RirisBullet : MonoBehaviour
         {
             direction = (this.transform.position - position).normalized;
             transform.LookAt(transform.position + direction);
-            damageType = 8f;
+            damageType = 4f;
         }
         else
         {
-            Debug.Log(collider.name);
-            Debug.Log(RirisFSMManager.PlayerCapsule.name);
-            direction = GameLib.DirectionToCharacter(collider, RirisFSMManager.PlayerCapsule);
+            direction = GameLib.DirectionToCharacter(collider, PlayerFSMManager.Instance.Anim.GetComponent<CapsuleCollider>());
             transform.LookAt(transform.position + direction);
             damageType = 1f;
         }
