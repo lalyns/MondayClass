@@ -394,7 +394,7 @@ public class PlayerFSMManager : FSMManager
     float footPeriod = 0.0f;
     private void Update()
     {
-        if (GameStatus.currentGameState == CurrentGameState.Dialog) return;
+        if (GameStatus.currentGameState == CurrentGameState.Dialog || !GameStatus.Instance.canInput) return;
 
         SetInvincibility(GameStatus.currentGameState == CurrentGameState.Product);
 
@@ -532,8 +532,8 @@ public class PlayerFSMManager : FSMManager
 
         
 
-        _anim.SetFloat("CurrentIdle", (int)CurrentIdle);
-        _anim.SetFloat("CurrentClear", (int)CurrentClear);
+        //_anim.SetFloat("CurrentIdle", (int)CurrentIdle);
+        //_anim.SetFloat("CurrentClear", (int)CurrentClear);
 
         if (isNormal)
         {
@@ -704,7 +704,7 @@ public class PlayerFSMManager : FSMManager
                 isSpecial = true;
                 SetInvincibility(true);
                 TimeLine.SetActive(true);
-
+                
                 SetState(PlayerState.TRANS);
                 //SetState(PlayerState.IDLE);
 
@@ -712,7 +712,8 @@ public class PlayerFSMManager : FSMManager
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
-
+                if (!Normal.activeSelf)
+                    Normal.SetActive(true);
                 // 스킬2번 바닥 사라지게하기.
                 if ((isNormal && Skill2_Test.activeSelf) || (!isNormal && Skill2_Test2.activeSelf))
                 {
