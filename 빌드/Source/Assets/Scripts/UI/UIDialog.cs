@@ -62,6 +62,9 @@ namespace MC.UI
             if(currentTurn < dialogLength)
             {
                 SetDialog(currentTurn);
+                var sound = MC.Sound.MCSoundManager.Instance.objectSound.ui;
+                sound.PlaySound(this.gameObject, sound.nextPage);
+
                 currentTurn++;
             }
             else
@@ -97,7 +100,16 @@ namespace MC.UI
             UserInterface.BlurSet(false);
             GameManager.Instance.AfterDialog();
             GameManager.Instance.CharacterControl = true;
-            NextAction();
+
+            try
+            {
+                NextAction();
+            }
+            catch
+            {
+
+            }
+
             NextAction = null;
         }
     }

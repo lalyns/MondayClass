@@ -9,6 +9,7 @@ public class MacSKILL : MacFSMState
     public override void BeginState()
     {
         base.BeginState();
+
         isLookAt = true;
     }
 
@@ -19,10 +20,14 @@ public class MacSKILL : MacFSMState
         GetComponent<MacATTACK>()._AttackTimes = 0;
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if(isLookAt)
+        base.Update();
+
+        if (isLookAt)
+        {
             transform.LookAt(_manager._PriorityTarget.transform);
+        }
 
         if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) > _manager.Stat.statData._AttackRange)
         {

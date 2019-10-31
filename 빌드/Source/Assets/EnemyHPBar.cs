@@ -13,7 +13,8 @@ namespace MC.UI
 
         public void HpBarView()
         {
-            if (PlayerFSMManager.Instance.LastHit() == null || GameStatus.currentGameState == CurrentGameState.MissionClear)
+            if (PlayerFSMManager.Instance.LastHit() == null ||
+                GameStatus.currentGameState == CurrentGameState.MissionClear)
             {
                 hpBar.gameObject.SetActive(false);
                 name.gameObject.SetActive(false);

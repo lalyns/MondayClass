@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
 using MC.Mission;
+using MC.Sound;
 
 public class RirisDEAD : RirisFSMState
 {
@@ -10,6 +11,10 @@ public class RirisDEAD : RirisFSMState
     {
         base.BeginState();
 
+        UserInterface.SetPlayerUserInterface(false);
+
+        StartCoroutine(MCSoundManager.BGMFadeOut(1f));
+        MCSoundManager.StopBGM();
         BossDirector.Instance.PlayDeadCine();
     }
 

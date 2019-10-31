@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MacATTACK : MacFSMState
 {
-    public int _AttackTimes = 0;
 
+    public int _AttackTimes = 0;
     public bool isLookAt = true;
 
     public override void BeginState()
@@ -21,7 +21,6 @@ public class MacATTACK : MacFSMState
             _manager.SetState(MacState.SKILL);
         }
         
-        _AttackTimes++;
         isLookAt = true;
         //Debug.Log(string.Format("공격횟수 : {0}", _AttackTimes));
     }
@@ -30,13 +29,17 @@ public class MacATTACK : MacFSMState
     {
         base.EndState();
         _manager.agent.acceleration = 0.5f;
+        _AttackTimes++;
     }
 
     protected override void Update()
     {
         base.Update();
 
-        if(isLookAt) transform.LookAt(_manager._PriorityTarget.transform);
+        if (isLookAt)
+        {
+            transform.LookAt(_manager._PriorityTarget.transform);
+        }
 
         if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) > _manager.Stat.statData._AttackRange)
         {

@@ -14,6 +14,7 @@ public enum RirisState
     ULTIMATE,
     DEAD,
     HIT,
+    PHASE,
 }
 
 
@@ -23,6 +24,8 @@ public class RirisFSMManager : FSMManager
     private bool _isInit = false;
     public RirisState startState = RirisState.POPUP;
     private Dictionary<RirisState, RirisFSMState> _States = new Dictionary<RirisState, RirisFSMState>();
+
+    public static RirisFSMManager Instance;
 
     private RirisState _CurrentState;
     public RirisState CurrentState {
@@ -41,13 +44,7 @@ public class RirisFSMManager : FSMManager
     public CharacterController CC { get { return _CC; } }
 
     private CapsuleCollider _PlayerCapsule;
-    public CapsuleCollider PlayerCapsule {
-        get {
-            if(_PlayerCapsule == null)
-                _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
-            return _PlayerCapsule;
-        }
-    }
+    public CapsuleCollider PlayerCapsule => PlayerFSMManager.Instance.Anim.GetComponent<CapsuleCollider>();
 
     private RirisStat _Stat;
     public RirisStat Stat { get { return _Stat; } }
@@ -83,6 +80,7 @@ public class RirisFSMManager : FSMManager
     public GameObject missingEndEffect;
 
     public RirisSound sound;
+    public MonsterSound sound2;
 
     public bool isDead = false;
 
@@ -90,10 +88,13 @@ public class RirisFSMManager : FSMManager
     {
         base.Awake();
 
+        Instance = GetComponent<RirisFSMManager>();
+
         _CC = GetComponent<CharacterController>();
         _Stat = GetComponent<RirisStat>();
         _Anim = GetComponentInChildren<Animator>();
         sound = GetComponent<RirisSound>();
+        sound2 = GetComponent<MonsterSound>();
 
         for (int i=0; i<MR.Length; i++)
         {
@@ -122,17 +123,14 @@ public class RirisFSMManager : FSMManager
         _isInit = true;
     }
     public bool isChange, isUlt;
+
     private void Update()
     {
-        if (PlayerFSMManager.Instance.isSpecial && !isChange)
+        if(GameStatus.currentGameState == CurrentGameState.Product)
         {
             SetState(RirisState.HIT);
-            isChange = true;
-        }
-        if (PlayerFSMManager.Instance.isSkill4 && !isUlt)
-        {
-            isUlt = true;
-            SetState(RirisState.HIT);
+            if (PlayerFSMManager.Instance.isSpecial && !isChange) isChange = true;
+            if (PlayerFSMManager.Instance.isSkill4 && !isUlt) isUlt = true;
         }
 
         if(Input.GetKey(KeyCode.LeftAlt))
@@ -154,8 +152,6 @@ public class RirisFSMManager : FSMManager
 
     public void SetState(RirisState newState)
     {
-        //Debug.Log("New State : " + newState.ToString());
-
         if (_isInit)
         {
             _States[_CurrentState].enabled = false;

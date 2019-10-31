@@ -33,6 +33,7 @@ public class BossUltEffect : MonoBehaviour
         public void PlayEffects()
         {
             gameObject.SetActive(true);
+            gameObject.GetComponent<Collider>().enabled = true;
             for (int i = 0; i < particles.Length; i++)
             {
                 particles[i].Play();
@@ -44,4 +45,30 @@ public class BossUltEffect : MonoBehaviour
     public SetEffect setEffect;
     public ImpactEffect impactEffect;
 
+    public float time = 0;
+    bool isPlay = false;
+
+    public void OnEnable()
+    {
+        time = 0;
+        isPlay = false;
+    }
+
+    public void Update()
+    {
+        if (impactEffect.gameObject.activeSelf) 
+        {
+            if (!isPlay)
+            {
+                time += Time.deltaTime;
+            }
+
+            if (time >= 0.3f)
+            {
+                isPlay = true;
+                time = 0;
+                impactEffect.gameObject.GetComponent<Collider>().enabled = false;
+            }
+        }
+    }
 }

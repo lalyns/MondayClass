@@ -79,6 +79,13 @@ namespace MC.UI
         {
             var value = Mathf.Clamp01(Mathf.Lerp(changeBar.currentValue,
                 (PlayerFSMManager.Instance.SpecialGauge) / 100.0f, Time.deltaTime * 5f));
+
+            
+            special.value.text = (PlayerFSMManager.Instance.SpecialGauge > 100 ? 100 : PlayerFSMManager.Instance.SpecialGauge)  + "%";
+            special.inActive.fillAmount = value;
+            
+            special.effects[0].gameObject.SetActive(value >= 1);
+
             changeBar.currentValue = value;
         }
 
@@ -171,6 +178,7 @@ namespace MC.UI
     [System.Serializable]
     public class PlayerSpecialUI
     {
+        public Text value;
         public Image active;
         public Image inActive;
         public ParticleSystem[] effects;

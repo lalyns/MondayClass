@@ -45,7 +45,6 @@ public class RirisPATTERNEND : RirisFSMState
         if (isPhase3Init)
         {
             isPhase3Init = false;
-            BossDirector.Instance.PlayPhaseChangeCine();
         }
 
         base.EndState();
@@ -92,7 +91,7 @@ public class RirisPATTERNEND : RirisFSMState
         {
             if (isPhase3Init)
             {
-                SetNextState(next);
+                SetNextState(RirisState.PHASE);
                 NextState();
             }
             else

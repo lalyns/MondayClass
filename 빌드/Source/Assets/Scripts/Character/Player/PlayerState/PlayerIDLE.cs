@@ -10,7 +10,6 @@ public class PlayerIDLE : FSMState
         base.BeginState();
         _manager.isIDLE = true;
         _manager.isCantMove = false;
-
         _manager.CurrentIdle = Random.Range((int)1, (int)4);
     }
 
@@ -35,6 +34,7 @@ public class PlayerIDLE : FSMState
         if(_time >= 3f)
         {
             _manager.SetState(PlayerState.IDLE2);
+            _manager.Anim.SetFloat("CurrentIdle", (int)_manager.CurrentIdle);
             _manager.isSpecialIDLE = true;
             return;
         }

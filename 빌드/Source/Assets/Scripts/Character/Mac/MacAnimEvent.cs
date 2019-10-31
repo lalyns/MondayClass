@@ -32,12 +32,18 @@ public class MacAnimEvent : MonoBehaviour
         FSMManager.SetState(MacState.RUNAWAY);
     }
 
+
+    public void CastAttack()
+    {
+        var sound = FSMManager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(this.gameObject, sound.macSmallBall);
+    }
+
     public void CastingAttack()
     {
-        //MacATTACK attack = _Manager.CurrentStateComponent as MacATTACK;
-        
-        //attack.isLookAt = false;
-        
+        MacATTACK attack = GetComponentInParent<MacATTACK>();
+        attack.isLookAt = false;
+
         MonsterEffects.Instance.macBulletPool.ItemSetActive(
             bulletLuancher, 
             FSMManager.CC,
@@ -45,12 +51,21 @@ public class MacAnimEvent : MonoBehaviour
 
     }
 
+    public void CastSkillInit()
+    {
+        var voice = FSMManager._Sound.monsterVoice;
+        voice.PlayMonsterVoice(this.gameObject, voice.macBigBallVoice);
+    }
+
     public void CastingSkill()
     {
-        MacSKILL skill = _Manager.CurrentStateComponent as MacSKILL;
-        
-        //skill.isLookAt = false;
-        
+        MacSKILL skill = GetComponentInParent<MacSKILL>();
+        skill.isLookAt = false;
+
+        var sound = FSMManager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(this.gameObject, sound.macBigBall);
+
+
         MonsterEffects.Instance.macSkillPool.ItemSetActive(skillLuancher,
             FSMManager.CC,
             FSMManager._PriorityTarget);

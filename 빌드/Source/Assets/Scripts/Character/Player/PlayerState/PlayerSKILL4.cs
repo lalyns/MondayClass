@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
+using MC.Sound;
 
 public class PlayerSKILL4 : FSMState
 {
@@ -13,6 +14,15 @@ public class PlayerSKILL4 : FSMState
 
         _manager.attackType = AttackType.SKILL4;
 
+        // 시작해볼까?
+        var voice = _manager._Sound.voice;
+        voice.PlayPlayerVoice(_manager.gameObject, voice.skill4CastVoice);
+
+        GameStatus.SetCurrentGameState(CurrentGameState.Product);
+
+        StartCoroutine(MCSoundManager.BGMFadeOut(1f));
+        StartCoroutine(MCSoundManager.AmbFadeOut(1f));
+
         UserInterface.SetAllUserInterface(false);
         _manager.isCanUltimate = false;
     }
@@ -21,6 +31,10 @@ public class PlayerSKILL4 : FSMState
     {
         base.EndState();
         _time = 0;
+
+        StartCoroutine(MCSoundManager.BGMFadeIn(1f));
+        StartCoroutine(MCSoundManager.AmbFadeIn(1f));
+        GameStatus.SetCurrentGameState(CurrentGameState.Start);
 
         UserInterface.SetAllUserInterface(true);
         _manager.TimeLine2.SetActive(false);

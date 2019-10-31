@@ -29,6 +29,9 @@ public class TiberDEAD : TiberFSMState
         _manager.CC.detectCollisions = false;
         _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
+        var voice = _manager._Sound.monsterVoice;
+        voice.PlayMonsterVoice(gameObject, voice.tiberDieVoice);
+
         _manager.agent.speed = 0;
         _manager.agent.angularSpeed = 0;
     }
@@ -41,8 +44,6 @@ public class TiberDEAD : TiberFSMState
         base.EndState();
 
         //GameLib.DissoveActive(_manager.materialList, false);
-        useGravity = true;
-        _manager.CC.detectCollisions = true;
 
         if (MissionManager.Instance.CurrentMissionType == MissionType.Annihilation)
         {

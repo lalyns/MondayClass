@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using MC.Mission;
+using MC.Sound;
 
 namespace MC.UI {
 
@@ -71,10 +72,20 @@ namespace MC.UI {
         public void SetMissionOnClick()
         {
             if (!isPush) {
-                MissionManager.SelectMission(missionType);
+
+                var sound = MCSoundManager.Instance.objectSound.objectSFX;
+                sound.StopSound(MissionManager.Instance.CurrentMission.Exit.gameObject, sound.portalLoop);
+                sound.PlaySound(this.gameObject, sound.portalExit);
+
+                Invoke("SetInvoke", 0.56f);
                 isPush = true;
             }
 
+        }
+
+        public void SetInvoke()
+        {
+            MissionManager.SelectMission(missionType);
         }
     }
 }

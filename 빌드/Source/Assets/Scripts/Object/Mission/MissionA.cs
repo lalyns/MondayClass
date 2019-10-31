@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using MC.Sound;
+using MC.UI;
 
 namespace MC.Mission
 {
@@ -9,6 +11,7 @@ namespace MC.Mission
     public class MissionA : MissionBase
     {
         public static bool isDialogA = false;
+        public Button manual;
 
         public bool spawning = false;
 
@@ -26,12 +29,30 @@ namespace MC.Mission
 
             if (!isDialogA)
             {
-                
+                // 미션 설명창 등장해야됨
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                GameManager.Instance.IsPuase = true;
+                manual.gameObject.SetActive(true);
             }
+
+            MC.Sound.MCSoundManager.LoadBank();
+            var sound = MCSoundManager.Instance.objectSound;
+            StartCoroutine(MCSoundManager.AmbFadeIn(1f));
+            StartCoroutine(MCSoundManager.BGMFadeIn(1f));
+            MCSoundManager.ChangeBGM(sound.bgm.stageBGM);
+            MCSoundManager.ChangeAMB(sound.ambient.stageAmbient);
         }
 
+        float _manualTime = 0;
         protected override void Update()
         {
+            _manualTime += Time.realtimeSinceStartup;
+            if (_manualTime > 10.0f && !isDialogA)
+            {
+                UserInterface.SetPointerMode(true);
+                manual.interactable = true;
+            }
+
             base.Update();
 
             if (GameStatus.currentGameState == CurrentGameState.Dead ||
@@ -102,7 +123,7 @@ namespace MC.Mission
 
         void Spawn()
         {
-            text.gameObject.SetActive(true);
+            text.gameObject.SetActive(GameStatus.currentGameState != CurrentGameState.Product);
             StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
             currentWave++;
             //Debug.Log(currentWave);
@@ -112,6 +133,15 @@ namespace MC.Mission
         void CanvasOff()
         {
             text.gameObject.SetActive(false);
+        }
+
+        public void ManualSupport()
+        {
+            isDialogA = true;
+            GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+            GameManager.Instance.IsPuase = false;
+            UserInterface.SetPointerMode(false);
+            manual.gameObject.SetActive(false);
         }
     }
 }

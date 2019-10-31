@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
+using MC.Sound;
 
 public class PlayerDEAD : FSMState
 {
@@ -21,11 +22,20 @@ public class PlayerDEAD : FSMState
         _manager.Skill2_Test.SetActive(false);
         _manager.Skill2_Test2.SetActive(false);
         _manager.isSkill2End = false;
+        _manager.Stat.lastHitBy = null;
         isEnd = false;
         UserInterface.SetPlayerUserInterface(false);
+        UserInterface.SetMissionProgressUserInterface(false);
+
         _manager.Skill1Return(_manager.Skill1_Effects, _manager.Skill1_Special_Effects, _manager.isNormal);
         _manager.Skill1Return(_manager.Skill1_Shoots, _manager.Skill1_Special_Shoots, _manager.isNormal);
         _manager.Skill1PositionSet(_manager.Skill1_Effects, _manager.Skill1_Shoots, _manager.Skill1_Special_Shoots, _manager.isNormal);
+
+        StartCoroutine(MCSoundManager.AmbFadeOut(0.4f));
+        StartCoroutine(MCSoundManager.BGMFadeOut(0.4f));
+
+        var sound = MCSoundManager.Instance.objectSound.ui;
+        sound.PlaySound(_manager.gameObject, sound.dead);
     }
 
     public override void EndState()

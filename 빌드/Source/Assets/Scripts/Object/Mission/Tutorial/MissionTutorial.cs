@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
+using MC.Sound;
 
 namespace MC.Mission
 {
@@ -48,12 +49,21 @@ namespace MC.Mission
             //base.Awake();
 
             currentTutorial = TutorialEvent.Start;
+
+            MC.Sound.MCSoundManager.LoadBank();
+            var sound = MCSoundManager.Instance.objectSound;
+            StartCoroutine(MCSoundManager.AmbFadeIn(1f));
+            StartCoroutine(MCSoundManager.BGMFadeIn(1f));
+            MCSoundManager.ChangeBGM(sound.bgm.tutoBGM);
+            MCSoundManager.ChangeAMB(sound.ambient.tutoAmbient);
         }
 
         // Update is called once per frame
 
         protected override void Update()
         {
+            tutorialUI.gameObject.SetActive(GameStatus.currentGameState == CurrentGameState.Tutorial);
+
             // base.Update();
             if (currentTutorial == TutorialEvent.Start && !tutorial && tutostart)
             {

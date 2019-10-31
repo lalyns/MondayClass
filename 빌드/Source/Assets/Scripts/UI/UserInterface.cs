@@ -222,12 +222,11 @@ namespace MC.UI
 
         public float FadeInOutSpeed = 10.0f;
 
-        public static IEnumerator FadeIn(System.Action callback, string soundRTPC, float duration = 3.0f, float speed = 10.0f)
+        public static IEnumerator FadeIn(System.Action callback, float duration = 3.0f, float speed = 10.0f)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
 
-            Instance.StartCoroutine(MCSoundManager.SoundFadeIn(soundRTPC, duration));
             var alpha = Instance.ScreenEffect.fading.image.color;
 
             while (realTime <= startTime + duration)
@@ -245,12 +244,11 @@ namespace MC.UI
             yield return Instance.StartCoroutine(Instance.FadeInOutReturnValue(callback));
         }
 
-        public static IEnumerator FadeOut(System.Action callback, string soundRTPC, float duration = 3.0f, float speed = 10.0f)
+        public static IEnumerator FadeOut(System.Action callback, float duration = 3.0f, float speed = 10.0f)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
 
-            Instance.StartCoroutine(MCSoundManager.SoundFadeOut(soundRTPC, duration));
             var alpha = Instance.ScreenEffect.fading.image.color;
 
             while (realTime <= startTime + duration)
@@ -407,8 +405,9 @@ namespace MC.UI
                 case MissionType.Annihilation:
                     var missionA = missionMgr.CurrentMission as MissionA;
                     goalValue = Mathf.Clamp01((float)GameStatus.Instance.ActivedMonsterList.Count /
-                        (float)missionA.waves[missionA.currentWave].monsterTypes.Length);
-                    text = gameStatus.ActivedMonsterList.Count + " / " + missionA.waves[missionA.currentWave].monsterTypes.Length;
+                        (float)missionA.waves[missionA.currentWave - 1].monsterTypes.Length);
+                    text = gameStatus.ActivedMonsterList.Count + " / "
+                        + missionA.waves[missionA.currentWave - 1].monsterTypes.Length;
                     break;
                 case MissionType.Survival:
                     MissionB missionB = MissionManager.Instance.CurrentMission as MissionB;

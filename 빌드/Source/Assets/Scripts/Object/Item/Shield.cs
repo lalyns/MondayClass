@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Sound;
 
 public class Shield : MonoBehaviour
 {
@@ -56,6 +57,8 @@ public class Shield : MonoBehaviour
             sphere.enabled = false;
             box.gameObject.SetActive(false);
             particle.gameObject.SetActive(true);
+            var sound = MCSoundManager.Instance.objectSound.objectSFX;
+            sound.PlaySound(this.gameObject, sound.itemGet);
         }
 
     }

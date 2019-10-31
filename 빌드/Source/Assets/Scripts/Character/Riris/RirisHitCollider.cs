@@ -50,12 +50,21 @@ public class RirisHitCollider : MonoBehaviour
         int value = GameLib.TransformTypeToInt(attackType);
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
-        float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f) - riris.Stat.Defense;
+        float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f);
+        if(damage <= 10.0f)
+        {
+            damage = 10.0f;
+        }
+        //riris.Stat.TakeDamage(playerStat, damage);
         CharacterStat.ProcessDamage(playerStat, riris.Stat, damage);
 
+        if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)
+        {
+            var sound = GetComponentInParent<MonsterSound>().monsterSFX;
+            sound.PlayMonsterSFX(this.gameObject, sound.attackSFX[value]);
 
-        var sound = GetComponentInParent<MonsterSound>().monsterSFX;
-        sound.PlayMonsterSFX(this.gameObject, sound.attackSFX[value]);
+            if (attackType == AttackType.SKILL3) MCSoundManager.SoundCall = 0;
+        }
 
         //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
@@ -101,10 +110,7 @@ public class RirisHitCollider : MonoBehaviour
             if (riris.Stat.Hp > 0)
                 OnHitForBoss(PlayerFSMManager.Instance.attackType);
         }
-        if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
-        {
-            StartCoroutine("Skill3Timer");
-        }
+
 
         if (other.transform.tag == "Ball")
         {
@@ -125,8 +131,11 @@ public class RirisHitCollider : MonoBehaviour
         if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
         {
             StartCoroutine("Skill2Timer");
+        }
 
-            //riris.SetState(TiberState.HIT);
+        if (other.transform.tag == "Weapon" && PlayerFSMManager.Instance.isSkill3)
+        {
+            StartCoroutine("Skill3Timer");
         }
     }
 

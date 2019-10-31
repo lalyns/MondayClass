@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using MC.UI;
 using MC.SceneDirector;
+using MC.Sound;
 
 public class BossDirector : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class BossDirector : MonoBehaviour
     void Start()
     {
     }
+
 
     public void PlayStartCine()
     {
@@ -75,6 +77,16 @@ public class BossDirector : MonoBehaviour
         GameManager.Instance.CharacterControl = true;
         UserInterface.SetPlayerUserInterface(true);
         UserInterface.SetPointerMode(false);
+
+        CamLayerReset();
+    }
+
+    public void CamLayerReset()
+    {
+        CanvasInfo.Instance.SetRenderCam();
+        CanvasInfo.Instance.Layers[1].planeDistance = 10f;
+        GameManager.SetFadeInOut(
+            () => { }, 1f, true);
     }
 
     public void DeadEnd()

@@ -60,10 +60,49 @@ public class RirisAnimEvent : MonoBehaviour
 
     }
 
-    public void PatterBSound()
+    public void DashSound()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.dashLoopSFX);
+        sound.PlayRirisSFX(_manager.gameObject, sound.dashSFX);
+    }
+
+    public void DashVoice()
     {
         var voice = _manager.sound.ririsVoice;
         voice.PlayRirisVoice(_manager.gameObject, voice.dash);
+    }
+
+    public void JumpVoice()
+    {
+        var voice = _manager.sound.ririsVoice;
+        voice.PlayRirisVoice(_manager.gameObject, voice.jump);
+    }
+
+    public void PatternAJumpSound()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.jumpSFX);
+    }
+
+    public void DropSound()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.dropSFX);
+
+    }
+
+    public void StompSound()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.stompSFX);
+
+    }
+
+    public void DropVoice()
+    {
+        var voice = _manager.sound.ririsVoice;
+        voice.PlayRirisVoice(_manager.gameObject, voice.stomp);
     }
 
     public void AddBulletPattern()
@@ -108,12 +147,47 @@ public class RirisAnimEvent : MonoBehaviour
         _manager.transform.position = pos;
         _manager.GetComponent<RirisPATTERNEND>().NextState();
         Instantiate(_manager.missingEndEffect, _manager.Pevis.position, Quaternion.identity);
+
+        var sfx = _manager.sound.ririsSFX;
+        var voice = _manager.sound.ririsVoice;
+        sfx.PlayRirisSFX(gameObject, sfx.teleportSFX);
+        voice.PlayRirisVoice(gameObject, voice.smile);
     }
 
     public void UltimateEnd()
     {
         _manager.GetComponent<RirisULTIMATE>().PatternEnd();
     }
+
+    public void BatSwarmVoice()
+    {
+        var voice = _manager.sound.ririsVoice;
+        voice.PlayRirisVoice(_manager.gameObject, voice.batswarm);
+    }
+
+
+    public void BatSwarmFirstCast()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.batSwarmFirstSFX);
+    }
+
+    public void BatSwarmCast()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.batSwarmLoopSFX);
+    }
+
+    public void BoxTriggerOn()
+    {
+        GetComponentInParent<Collider>().enabled = true;
+    }
+
+    public void BoxTriggerOff()
+    {
+        GetComponentInParent<Collider>().enabled = false;
+    }
+
 
     public void SetOff()
     {

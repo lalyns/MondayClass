@@ -4,6 +4,7 @@ using UnityEngine;
 using MC.UI;
 using MC.SceneDirector;
 using MC.Mission;
+using MC.Sound;
 
 /// <summary>
 /// 미션의 종류
@@ -53,19 +54,6 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private MissionBase[] _Missions;
-    public MissionBase[] Missions
-    {
-        get
-        {
-            return _Missions;
-        }
-        set
-        {
-            _Missions = value;
-        }
-    }
-
     [SerializeField] private MissionBase currentMission;
     public MissionBase CurrentMission
     {
@@ -82,7 +70,7 @@ public class MissionManager : MonoBehaviour
 
 
     public MissionType CurrentMissionType => CurrentMission.Data.MissionType;
-    private MissionRewardType[] currentMissionRewards;
+    [SerializeField] private MissionRewardType[] currentMissionRewards;
 
     //public MissionRewardType CurrentMissionRewardType => //Currentmi
     private bool isFirst = true;
@@ -141,7 +129,7 @@ public class MissionManager : MonoBehaviour
             UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
         }
 
-        if (GameStatus.Instance.StageLevel >= 3)
+        if (GameStatus.Instance.StageLevel >= 8)
         {
             UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
             UserInterface.Instance.SelectorUI.buttons[1].ChangeMission((int)MissionType.Boss);
@@ -173,22 +161,15 @@ public class MissionManager : MonoBehaviour
                 var type = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
                 var type2 = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
 
+                while (type == type2)
+                {
+                    type2 = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
+                }
+
                 currentMissionRewards[0] = choice.ChangeReward(0, (MissionRewardType)type);
                 currentMissionRewards[1] = choice.ChangeReward(1, (MissionRewardType)type2);
             }
         }
-
-        //foreach (MissionButton choice in UserInterface.Instance.SelectorUI.buttons)
-        //{
-        //    var type = UnityEngine.Random.Range(0, 999) % ((int)(MissionType.Last) - 1);
-        //    choice.ChangeMission(type);
-        //}
-
-        //if (GameStatus.Instance.StageLevel >= 3)
-        //{
-        //    UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
-        //}
-
     }
 
     public static void SelectMission(MissionType type)
@@ -203,38 +184,24 @@ public class MissionManager : MonoBehaviour
 
         if (type == MissionType.Boss)
         {
-            MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+            MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, 1f, true);
         }
         else
         {
             switch (type)
             {
                 case MissionType.Annihilation:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, 1f, true);
                     break;
                 case MissionType.Defence:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, 1f, true);
                     break;
                 case MissionType.Survival:
-                    MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, "Bgm_SceneSwitch_Fade_Out", 1f, true);
+                    MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, 1f, true);
                     break;
             }
 
             EnterMission();
-
-            //UserInterface.SetPointerMode(false);
-            //GameManager.Instance.IsPuase = false;
-            //UserInterface.FullModeSetMP();
-
-            //// 페이드 Out
-            //GameManager.SetFadeInOut(() =>
-            //{
-
-            //    //MissionManager.EnterMission();
-            //    UserInterface.BlurSet(false);
-            //    // RigidBody Gravity => false
-            //    PlayerFSMManager.Instance.rigid.useGravity = false;
-            //}, false);
         }
 
     }
@@ -320,7 +287,7 @@ public class MissionManager : MonoBehaviour
         if (Instance.currentMissionRewards[0] == Instance.currentMissionRewards[1])
         {
             Instance.currentMissionRewards[0] = MissionRewardType.Defense;
-            Instance.currentMissionRewards[1] = MissionRewardType.Str;
+            Instance.currentMissionRewards[1] = MissionRewardType.Hp;
         }
 
         Instance.GetReward(Instance.currentMissionRewards[0]);
@@ -353,8 +320,8 @@ public class MissionManager : MonoBehaviour
         MissionSelector = UserInterface.Instance.MissionSelectionUICanvas;
         MissionProgressUI = UserInterface.Instance.MissionProgressUICanvas;
 
-        var Maps = GameObject.FindObjectsOfType<MissionBase>();
-        Missions = Maps;
+        //var Maps = GameObject.FindObjectsOfType<MissionBase>();
+        //Missions = Maps;
         Choices = UserInterface.Instance.SelectorUI.buttons;
     }
 

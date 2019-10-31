@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using MC.Sound;
+using MC.UI;
 
 namespace MC.Mission
 {
@@ -8,6 +11,7 @@ namespace MC.Mission
     public class MissionC : MissionBase
     {
         public static bool isDialogC = false;
+        public Button manual;
 
         public ProtectedTarget protectedTarget;
         public int _ProtectedTargetHP;
@@ -25,6 +29,26 @@ namespace MC.Mission
         public List<Transform> oldSpawnList = new List<Transform>();
 
         bool isClear = false;
+        
+        protected override void Start()
+        {
+            base.Start();
+
+            if (!isDialogC)
+            {
+                // 미션 설명창 등장해야됨
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+                GameManager.Instance.IsPuase = true;
+                manual.gameObject.SetActive(true);
+            }
+
+            MC.Sound.MCSoundManager.LoadBank();
+            var sound = MCSoundManager.Instance.objectSound;
+            StartCoroutine(MCSoundManager.AmbFadeIn(1f));
+            StartCoroutine(MCSoundManager.BGMFadeIn(1f));
+            MCSoundManager.ChangeBGM(sound.bgm.stageBGM);
+            MCSoundManager.ChangeAMB(sound.ambient.tutoAmbient);
+        }
 
         public override void OperateMission()
         {
@@ -34,12 +58,21 @@ namespace MC.Mission
             MissionOperate = true;
         }
 
-        // Update is called once per frame
+        float _manualTime = 0;
         protected override void Update()
         {
             base.Update();
 
+            _manualTime += Time.realtimeSinceStartup;
+            if (_manualTime > 10.0f && !isDialogC)
+            {
+                UserInterface.SetPointerMode(true);
+                manual.interactable = true;
+            }
             if (missionEnd) return;
+
+            if (GameStatus.currentGameState == CurrentGameState.Dead ||
+                GameStatus.currentGameState == CurrentGameState.Product) return;
 
             if (GameStatus.Instance.ActivedMonsterList.Count >= NumberOfMaxMonster) return;
 
@@ -83,12 +116,18 @@ namespace MC.Mission
         public override void ClearMission() {
             base.ClearMission();
 
+
+            var sound = MCSoundManager.Instance.objectSound.objectSFX;
+            sound.StopSound(protectedTarget.gameObject, sound.pillarActive);
+
             StopAllCoroutines();
         }
 
         public override void FailMission()
         {
             base.FailMission();
+
+            protectedTarget.DestroyPillar();
         }
 
         void Spawn()
@@ -99,5 +138,13 @@ namespace MC.Mission
             currentWave++;
         }
 
+        public void ManualSupport()
+        {
+            isDialogC = true;
+            GameStatus.SetCurrentGameState(CurrentGameState.Wait);
+            GameManager.Instance.IsPuase = false;
+            UserInterface.SetPointerMode(false);
+            manual.gameObject.SetActive(false);
+        }
     }
 }

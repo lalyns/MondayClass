@@ -13,6 +13,14 @@ namespace MC.Sound
             public AK.Wwise.Event footstepSFX = new AK.Wwise.Event();
             public AK.Wwise.Event attackSFX = new AK.Wwise.Event();
             public AK.Wwise.Event hitSFX = new AK.Wwise.Event();
+
+            public AK.Wwise.Event specialWinkSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event specialFireSFX = new AK.Wwise.Event();
+
+            public AK.Wwise.Event skill4BGMSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event skill4LightOnSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event skill4Skill4RoarSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event skill4FireWord = new AK.Wwise.Event();
             #endregion
 
             #region SkillList
@@ -68,6 +76,9 @@ namespace MC.Sound
             public AK.Wwise.Event emoteSmileVoice = new AK.Wwise.Event();
             public AK.Wwise.Event emoteSurprisedVoice = new AK.Wwise.Event();
 
+            public AK.Wwise.Event sigh = new AK.Wwise.Event();
+            public AK.Wwise.Event humming = new AK.Wwise.Event();
+            public AK.Wwise.Event singing = new AK.Wwise.Event();
             public AK.Wwise.Event victory = new AK.Wwise.Event();
 
             public AK.Wwise.Event skill1Voice = new AK.Wwise.Event();

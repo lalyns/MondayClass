@@ -14,21 +14,24 @@ public class MacDEAD : MacFSMState
         StartCoroutine(GameLib.Dissolving(_manager.materialList));
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));
 
-
+        if (!PlayerFSMManager.Instance.isSkill4)
+        {
+            var voice = _manager._Sound.monsterVoice;
+            voice.PlayMonsterVoice(this.gameObject, voice.macDieVoice);
+        }
 
         useGravity = false;
         _manager.CC.detectCollisions = false;
         _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
+
     private void Start()
     {
     }
+
     public override void EndState()
     {
         base.EndState();
-
-        useGravity = true;
-        _manager.CC.detectCollisions = true;
 
         GameStatus.Instance.RemoveActivedMonsterList(gameObject);
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.Mission;
+using MC.Sound;
 
 public class MacPOPUP : MacFSMState
 {
@@ -11,6 +12,7 @@ public class MacPOPUP : MacFSMState
 
         _manager.Anim.Play("PopUp");
         _manager.Stat.SetHp(_manager.Stat.MaxHp);
+
 
         EffectPlay();
         TargetPrioritySet();
@@ -26,6 +28,14 @@ public class MacPOPUP : MacFSMState
         GameLib.DissoveActive(_manager.materialList, false);
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));
         GetComponentInChildren<MacHitCollider>().capsule.enabled = true;
+
+        if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)
+        {
+            var sound = _manager._Sound.monsterSFX;
+            sound.PlayMonsterSFX(_manager.gameObject, sound.monsterAppear);
+            MCSoundManager.SoundCall = 0f;
+        }
+
     }
 
     private void Start()

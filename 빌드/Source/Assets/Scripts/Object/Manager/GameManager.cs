@@ -78,14 +78,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(MCSceneManager.currentScene);
-
         if(MCSceneManager.currentScene == MCSceneManager.TITLE)
         {
             UserInterface.SetPointerMode(true);
-
-            MCSoundManager.Instance.objectSound.ambient.PlayAmbient(this.gameObject,
-                MCSoundManager.Instance.objectSound.ambient.lobbyAmbient);
         }
 
         if (MCSceneManager.currentScene == MCSceneManager.ANNIHILATION ||
@@ -180,12 +175,12 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public static void SetFadeInOut(System.Action callback, string soundType, float duration, bool value)
+    public static void SetFadeInOut(System.Action callback, float duration, bool value)
     {
         if (value)
-            Instance.StartCoroutine(UserInterface.FadeIn(callback, soundType, duration));
+            Instance.StartCoroutine(UserInterface.FadeIn(callback, duration));
         else
-            Instance.StartCoroutine(UserInterface.FadeOut(callback, soundType, duration));
+            Instance.StartCoroutine(UserInterface.FadeOut(callback, duration));
     }
 
     public static void SetSceneSetting()
@@ -287,7 +282,6 @@ public class GameManager : MonoBehaviour
     public void StageSet()
     {
         GameStatus.SetCurrentGameState(CurrentGameState.Wait);
-        CanvasInfo.Instance.PlayStartAnim();
 
         UserInterface.SetPointerMode(false);
 
@@ -295,11 +289,6 @@ public class GameManager : MonoBehaviour
         UserInterface.SetPlayerUserInterface(true);
 
         CharacterControl = true;
-    }
-
-    public void SetBank()
-    {
-        MCSoundManager.SetSound();
     }
 
     public void BossSet()

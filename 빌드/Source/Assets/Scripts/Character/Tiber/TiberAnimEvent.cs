@@ -9,6 +9,8 @@ public class TiberAnimEvent : MonoBehaviour
     public TiberHIT _hitCp;
     public TiberDEAD _deadCp;
 
+    public TiberFSMManager _manager => GetComponentInParent<TiberFSMManager>();
+
     private void Awake()
     {
         _attackCp1 = GetComponentInParent<TiberATTACK1>();
@@ -41,6 +43,53 @@ public class TiberAnimEvent : MonoBehaviour
     void Attack2End()
     {
         _attackCp2.isEnd = true;
+    }
+
+    void SpinStart()
+    {
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(gameObject, sound.tiberSpinInit);
+
+    }
+
+    void SpinSound()
+    {
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(gameObject, sound.tiberSpin);
+    }
+
+    void SpinVoice()
+    {
+        var voice = _manager._Sound.monsterVoice;
+        voice.PlayMonsterVoice(gameObject, voice.tiberSpinVoice);
+
+    }
+
+    void JumpSound()
+    {
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(gameObject, sound.tiberStamp);
+
+    }
+
+    void JumpVoice()
+    {
+        var voice = _manager._Sound.monsterVoice;
+        voice.PlayMonsterVoice(gameObject, voice.tiberStompVoice);
+    }
+
+    void DropSound()
+    {
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(gameObject, sound.tiberStampDrop);
+
+    }
+
+    void BoomSound()
+    {
+
+        var sound = _manager._Sound.monsterSFX;
+        sound.PlayMonsterSFX(gameObject, sound.tiberStampBoom);
     }
 
     void HitCheck1()
