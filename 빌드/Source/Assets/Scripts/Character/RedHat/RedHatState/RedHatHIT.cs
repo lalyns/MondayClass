@@ -51,15 +51,17 @@ public class RedHatHIT : RedHatFSMState
 
         if (hitEnd && !PlayerFSMManager.Instance.isSpecial && !PlayerFSMManager.Instance.isSkill4)
             _manager.SetState(RedHatState.CHASE);
-        if (PlayerFSMManager.Instance.isSkill4)
-        {
-            PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
-            if (!PlayerFSMManager.Instance.isCantMove && !isHit)
-            {
-                _manager.Stat.TakeDamage(playerStat, playerStat.dmgCoefficient[6]);
-                isHit = true;
-            }
-        }
+
+        //if (PlayerFSMManager.Instance.isSkill4)
+        //{
+        //    PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
+        //    if (!PlayerFSMManager.Instance.isCantMove && !isHit)
+        //    {
+        //        _manager.Stat.TakeDamage(playerStat, playerStat.dmgCoefficient[6]);
+        //        isHit = true;
+        //    }
+        //}
+
         if (_manager.Stat.Hp <= 0)
             _manager.SetDeadState();
     }

@@ -11,8 +11,6 @@ public class RirisHIT : RirisFSMState
     {
         base.BeginState();
 
-
-
     }
     public override void EndState()
     {
@@ -26,18 +24,22 @@ public class RirisHIT : RirisFSMState
     {
         base.Update();
         if (!PlayerFSMManager.Instance.isSpecial && !PlayerFSMManager.Instance.isSkill4)
-            _manager.SetState(RirisState.PATTERNEND);
-
-        if (PlayerFSMManager.Instance.isSkill4)
         {
-            PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
-            if (!PlayerFSMManager.Instance.isCantMove && !isHit)
-            {
-                CharacterStat.ProcessDamage(playerStat, _manager.Stat, playerStat.dmgCoefficient[6]);
-                isHit = true;
-                _manager.isUlt = false;
-            }
+            _manager.SetState(RirisState.PATTERNEND);
         }
+
+        //if (PlayerFSMManager.Instance.isSkill4)
+        //{
+        //    PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
+        //    if (!PlayerFSMManager.Instance.isCantMove && !isHit)
+        //    {
+        //        Debug.Log("Damage!");
+        //        CharacterStat.ProcessDamage(playerStat, _manager.Stat, playerStat.dmgCoefficient[6]);
+        //        isHit = true;
+        //        _manager.isUlt = false;
+        //    }
+        //}
+
         if (!PlayerFSMManager.Instance.isSpecial)
         {
             _manager.isChange = false; 

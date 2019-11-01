@@ -30,7 +30,6 @@ namespace MC.Mission
 
         private void Update()
         {
-            Debug.Log("RTPC Size : " + MCSoundManager.GetRTPCParam("Bgm_SceneSwitch_Fade_Out"));
 
         }
     }

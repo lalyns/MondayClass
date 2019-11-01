@@ -40,7 +40,7 @@ public class RirisAnimEvent : MonoBehaviour
 
     public void PatternAJumpEnd()
     {
-        RirisPATTERNA pattern = riris.CurrentStateComponent as RirisPATTERNA;
+        RirisPATTERNA pattern = riris.GetComponent<RirisPATTERNA>();
 
         pattern.SetJumpState = true;
 
@@ -54,7 +54,7 @@ public class RirisAnimEvent : MonoBehaviour
     {
         //Debug.Log("End Call");
 
-        RirisPATTERNA pattern = riris.CurrentStateComponent as RirisPATTERNA;
+        RirisPATTERNA pattern = riris.GetComponent<RirisPATTERNA>();
 
         pattern.PatternEnd = true;
 

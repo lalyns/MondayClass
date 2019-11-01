@@ -32,6 +32,18 @@ namespace MC.UI
             }
         }
 
+        public void SetFalse()
+        {
+            if (PlayerFSMManager.Instance != null)
+            {
+                PlayerFSMManager.Instance.Stat.lastHitBy = null;
+            }
+            hpBar.gameObject.SetActive(false);
+            name.gameObject.SetActive(false);
+            wings[0].gameObject.SetActive(false);
+            wings[1].gameObject.SetActive(false);
+        }
+
         string SetName(CharacterStat stat)
         {
             switch (stat.monsterType)

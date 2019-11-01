@@ -164,6 +164,13 @@ namespace MC.UI {
 
             UserInterface.SetPointerMode(true);
 
+            if(PlayerFSMManager.Instance != null)
+            {
+                Debug.Log("체력바 삭제");
+                PlayerFSMManager.Instance.Stat.lastHitBy = null;
+                Instance.enemyHP.SetFalse();
+            }
+
             UserInterface.Instance.SetValue();
             UserInterface.SetPlayerUserInterface(false);
             UserInterface.SetMissionProgressUserInterface(false);
