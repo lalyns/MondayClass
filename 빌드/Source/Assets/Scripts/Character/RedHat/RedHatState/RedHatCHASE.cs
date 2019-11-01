@@ -36,7 +36,7 @@ public class RedHatCHASE : RedHatFSMState
             Quaternion.LookRotation(PlayerFSMManager.GetLookTargetPos(transform) - transform.position,
             Vector3.up), 2f * Time.deltaTime);
 
-        if (GameLib.DistanceToCharacter(_manager.CC,_manager._PriorityTarget) < _manager.Stat.AttackRange)
+        if (GameLib.DistanceToCharacter(_manager.CC,_manager.priorityTarget) < _manager.Stat.AttackRange)
         {
             _manager.SetState(RedHatState.ATTACK);
         }
@@ -52,27 +52,6 @@ public class RedHatCHASE : RedHatFSMState
             } else {
                 _manager.agent.isStopped = true;
             }
-
-            //_manager.CC.transform.LookAt(_manager._PriorityTarget.transform);
-
-            //Vector3 moveDir = (_manager._PriorityTarget.transform.position
-            //    - _manager.CC.transform.position).normalized;
-
-            //moveDir.y = 0;
-
-            //if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
-            //{
-            //    Vector3 correctDir = Vector3.zero;
-            //    if (!_IsSpread)
-            //    {
-            //        correctDir = DecideSpreadDirection();
-            //        _IsSpread = true;
-            //    }
-
-            //    moveDir += correctDir;
-            //}
-
-            //_manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * Time.deltaTime);
         }
 
         

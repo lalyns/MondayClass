@@ -7,10 +7,8 @@ using MC.Sound;
 public class RirisHitCollider : MonoBehaviour
 {
     RirisFSMManager riris;
-
-    //public Collider collider => GetComponent<Collider>();
-
     public CapsuleCollider capsule;
+
     private void Awake()
     {
         capsule = GetComponent<CapsuleCollider>();

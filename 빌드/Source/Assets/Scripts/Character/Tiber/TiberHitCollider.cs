@@ -10,8 +10,6 @@ public class TiberHitCollider : MonoBehaviour
 {
     TiberFSMManager tiber;
 
-    //public Collider collider => GetComponent<Collider>();
-
     public CapsuleCollider capsule;
     private void Awake()
     {

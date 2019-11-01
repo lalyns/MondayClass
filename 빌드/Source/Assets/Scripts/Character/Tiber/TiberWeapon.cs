@@ -49,7 +49,7 @@ public class TiberWeapon : MonoBehaviour
                 var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", Tiber.Stat, 30);
                 Invoke("AttackSupport", 0.5f);
 
-                var sound = Tiber._Sound.monsterSFX;
+                var sound = Tiber.sound.monsterSFX;
                 sound.PlayMonsterSFX(PlayerFSMManager.Instance.gameObject, sound.tiberSpinHit);
 
                 _Dameged = true;

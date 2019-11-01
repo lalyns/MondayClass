@@ -42,9 +42,6 @@ public class MacFSMState : MonoBehaviour
     {
         if (sub) return;
 
-        if (GameManager.Instance.uIActive.monster)
-            HPUI();
-
         if(useGravity)
             Gravity();
 
@@ -72,18 +69,5 @@ public class MacFSMState : MonoBehaviour
 
         _manager.CC.Move(gravity);
     }
-
-    public void HPUI()
-    {
-        try
-        {
-            UserInterface.Instance.HPChangeEffect(_manager.Stat, _manager._HPBar);
-        }
-        catch
-        {
-
-        }
-
-    }
-
+    
 }

@@ -143,16 +143,6 @@ public class RirisPATTERNA : RirisFSMState
         _manager._WeaponAnimator.SetBool("Stomp", true);
     }
 
-    public void AttackCheck()
-    {
-
-        float damage = _manager.Stat.damageCoefiiecient[0] * 0.01f *
-            (_manager.Stat.Str + _manager.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
-            - PlayerFSMManager.Instance.Stat.Defense;
-
-        var hitTarget = GameLib.SimpleDamageProcess(transform, _manager.Stat.AttackRange, "Player", _manager.Stat, damage);
-    }
-
     protected override void FixedUpdate()
     {
         base.FixedUpdate();

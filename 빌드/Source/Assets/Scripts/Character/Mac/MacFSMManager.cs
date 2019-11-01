@@ -21,86 +21,67 @@ public enum MacState
 [RequireComponent(typeof(MacStat))]
 public class MacFSMManager : FSMManager
 {
-    private bool _isInit = false;
+    private bool isInit = false;
     public MacState startState = MacState.POPUP;
-    private Dictionary<MacState, MacFSMState> _States = new Dictionary<MacState, MacFSMState>();
+    private Dictionary<MacState, MacFSMState> states = new Dictionary<MacState, MacFSMState>();
 
-    private MacState _CurrentState;
+    private MacState currentState;
     public MacState CurrentState {
         get {
-            return _CurrentState;
+            return currentState;
         }
     }
 
     public MacFSMState CurrentStateComponent {
         get {
-            return _States[_CurrentState];
+            return states[currentState];
         }
     }
 
-    private CharacterController _CC;
-    public CharacterController CC { get { return _CC; } }
+    private CharacterController cc;
+    public CharacterController CC { get { return cc; } }
 
     private CapsuleCollider _PlayerCapsule;
     public CapsuleCollider PlayerCapsule { get { return _PlayerCapsule; } }
 
-    private MacStat _Stat;
-    public MacStat Stat { get { return _Stat; } }
+    private MacStat stat;
+    public MacStat Stat { get { return stat; } }
 
-    private Animator _Anim;
-    public Animator Anim { get { return _Anim; } }
+    private Animator anim;
+    public Animator Anim { get { return anim; } }
 
-    private Rigidbody _RigidBody;
-    public Rigidbody RigidBody { get { return _RigidBody; } }
-
-    public Transform _AttackTransform;
+    public Transform attackTransform;
 
     // Renderers
-    public SkinnedMeshRenderer _MR;
+    public SkinnedMeshRenderer mr;
     public List<Material> materialList = new List<Material>();
 
-    public Slider _HPSilder;
-    public HPBar _HPBar;
-    public GameObject hitEffect;
-    public GameObject hitEffect_Special;
-    public GameObject hitEffect_Skill1;
-    public GameObject hitEffect_Skill1_Special;
     public Transform hitLocation;
 
-    public GameObject _PopupEffect;
+    public GameObject popupEffect;
 
-    public MonsterSound _Sound;
+    public MonsterSound sound;
 
-    public Collider _PriorityTarget;
-    public float _DetectingRange;
+    public Collider priorityTarget;
+    public float detectingRange;
 
     public bool isDead = false;
 
-    public bool KnockBackFlag;
-    public float KnockBackDuration;
-    public float KnockBackPower;
-    public float KnockBackDelay;
-
-    public AttackType CurrentAttackType = AttackType.NONE;
-
+    public AttackType currentAttackType = AttackType.NONE;
     public NavMeshAgent agent;
     
     protected override void Awake()
     {
         base.Awake();
 
-        _CC = GetComponent<CharacterController>();
-        _Stat = GetComponent<MacStat>();
-        _Anim = GetComponentInChildren<Animator>();
-        _Sound = GetComponent<MonsterSound>();
-        _RigidBody = GetComponent<Rigidbody>();
+        cc = GetComponent<CharacterController>();
+        stat = GetComponent<MacStat>();
+        anim = GetComponentInChildren<Animator>();
+        sound = GetComponent<MonsterSound>();
 
         CC.detectCollisions = true;
 
-        if (!GameManager.Instance.uIActive.monster)
-            _HPBar.gameObject.SetActive(false);
-
-        materialList.AddRange(_MR.materials);
+        materialList.AddRange(mr.materials);
 
         _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
@@ -115,7 +96,7 @@ public class MacFSMManager : FSMManager
                 state = (MacFSMState)gameObject.AddComponent(FSMType);
             }
 
-            _States.Add(s, state);
+            states.Add(s, state);
             state.enabled = false;
         }
 
@@ -128,21 +109,22 @@ public class MacFSMManager : FSMManager
     private void Start()
     {
         SetState(startState);
-        _isInit = true;
+        isInit = true;
     }
 
     public void SetState(MacState newState)
     {
-        if (_isInit)
+        if (isInit)
         {
-            _States[_CurrentState].EndState();
-            _States[_CurrentState].enabled = false;
+            states[currentState].EndState();
+            states[currentState].enabled = false;
         }
-        _CurrentState = newState;
-        _States[_CurrentState].BeginState();
-        _States[_CurrentState].enabled = true;
-        _Anim.SetInteger("CurrentState", (int)_CurrentState);
+        currentState = newState;
+        states[currentState].BeginState();
+        states[currentState].enabled = true;
+        anim.SetInteger("CurrentState", (int)currentState);
     }
+
     [HideInInspector]
     public bool isChange;
     private void Update()
@@ -157,14 +139,6 @@ public class MacFSMManager : FSMManager
         if (Stat.Hp <= 0 || PlayerFSMManager.Instance.isDead)
         {
             SetDeadState();
-        }
-
-        if (RigidBody.velocity.sqrMagnitude > 0) {
-            RigidBody.velocity = Vector3.Lerp(RigidBody.velocity, Vector3.zero, 0.15f);
-
-            if (RigidBody.velocity.sqrMagnitude <= 0.1f) {
-                RigidBody.velocity = Vector3.zero;
-            }
         }
     }
 

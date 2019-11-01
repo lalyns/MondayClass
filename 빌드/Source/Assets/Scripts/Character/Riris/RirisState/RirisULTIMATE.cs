@@ -31,7 +31,7 @@ public class RirisULTIMATE : RirisFSMState
 
     public UltiPattern[] ultiPatterns = new UltiPattern[5];
 
-    Vector3 bossUltPos = new Vector3(-20.0f, 0.12f, -20.5f);
+    Vector3 bossInitPos = new Vector3(-20.0f, 0.12f, -20.5f);
 
     int currentList = 0;
     List<GameObject>[] flowerLists = new List<GameObject>[5];
@@ -44,7 +44,7 @@ public class RirisULTIMATE : RirisFSMState
         base.BeginState();
 
         useGravity = false;
-        this.transform.position = bossUltPos;
+        this.transform.position = bossInitPos;
         _manager.Anim.transform.LookAt
             (PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         BigCircleCast();

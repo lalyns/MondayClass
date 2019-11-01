@@ -7,7 +7,6 @@ using MC.UI;
 public class RirisFSMState : MonoBehaviour
 {
     protected RirisFSMManager _manager;
-    protected float _Skill1Time;
 
     protected bool useGravity = true;
 

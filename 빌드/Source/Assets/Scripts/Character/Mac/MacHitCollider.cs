@@ -19,18 +19,12 @@ public class MacHitCollider : MonoBehaviour
         mac = GetComponentInParent<MacFSMManager>();
     }
 
-
-    private void FixedUpdate()
-    {
-       // this.transform.position = mac.transform.position;
-    }
-
     public void OnHitForMonster(AttackType attackType)
     {
         if ((attackType == AttackType.ATTACK1
             || attackType == AttackType.ATTACK2
             || attackType == AttackType.ATTACK3)
-            && ((int)mac.CurrentAttackType & (int)attackType) != 0)
+            && ((int)mac.currentAttackType & (int)attackType) != 0)
         {
             return;
         }
@@ -43,7 +37,7 @@ public class MacHitCollider : MonoBehaviour
         if (!PlayerFSMManager.Instance.isNormal)
             PlayerEffects.Instance.basicSpecial.ItemSetActive(mac.hitLocation, "Effect");
 
-        mac.CurrentAttackType = attackType;
+        mac.currentAttackType = attackType;
         int value = GameLib.TransformTypeToInt(attackType);
 
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
@@ -59,12 +53,8 @@ public class MacHitCollider : MonoBehaviour
             if (attackType == AttackType.SKILL3) MCSoundManager.SoundCall = 0;
         }
 
-        //SetKnockBack(playerStat, value);
         Invoke("AttackSupport", 0.5f);
 
-        mac.RigidBody.velocity = Vector3.zero;
-        mac.RigidBody.velocity = -PlayerFSMManager.Instance.Anim.transform.forward
-            * PlayerFSMManager.Instance.Stat.KnockBackPower;
 
         if (attackType == AttackType.ATTACK1)
             StartCoroutine(Shake.instance.ShakeCamera(0.03f, 0.04f, 0.1f));
@@ -76,21 +66,12 @@ public class MacHitCollider : MonoBehaviour
             StartCoroutine(Shake.instance.ShakeCamera(0.2f, 0.1f, 0.1f));
         if (attackType == AttackType.SKILL2)
             StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
-        //if (attackType == AttackType.SKILL3)
-        //StartCoroutine(Shake.instance.ShakeCamera(0.1f, 0.08f, 0.01f));
 
         if (mac.Stat.Hp > 0)
         {
             if (mac.CurrentState == MacState.HIT) return;
 
             mac.SetState(MacState.HIT);
-            //플레이어 쳐다본 후
-            //transform.localEulerAngles = Vector3.zero;
-            //transform.LookAt(PlayerFSMManager.Instance.Anim.transform);
-            // 뒤로 밀림
-            //transform.Translate(Vector3.back * 20f * Time.smoothDeltaTime, Space.Self);
-            //플레이어피버게이지증가?
-            //PlayerFSMManager.instance.FeverGauge++;
         }
         else
         {
@@ -105,14 +86,6 @@ public class MacHitCollider : MonoBehaviour
     {
         CanvasInfo.Instance.enemyHP.hpBar.HitBackFun();
     }
-
-    //public void SetKnockBack(PlayerStat stat,int attackType)
-    //{
-    //    KnockBackFlag = stat.KnockBackFlag[attackType];
-    //    KnockBackDuration = stat.KnockBackDuration[attackType];
-    //    KnockBackPower = stat.KnockBackPower[attackType];
-    //    KnockBackDelay = stat.KnockBackDelay[attackType];
-    //}
 
     public void OnTriggerEnter(Collider other)
     {

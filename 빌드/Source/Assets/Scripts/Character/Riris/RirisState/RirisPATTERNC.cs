@@ -5,8 +5,6 @@ using UnityEngine;
 // 불릿패턴
 public class RirisPATTERNC : RirisFSMState
 {
-    bool type = false;
-
     public ObjectPool bulletPool;
 
     public Transform bulletPos;

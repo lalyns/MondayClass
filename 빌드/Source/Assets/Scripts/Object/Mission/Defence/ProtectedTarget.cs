@@ -40,10 +40,8 @@ public class ProtectedTarget : MonoBehaviour
 
         public void OnTriggerEnter(Collider other)
         {
-            Debug.Log("HP 감소!");
             if (other.transform.tag == "MonsterWeapon")
             {
-                Debug.Log("HP 감소!");
                 hp -= damage;
             }
         }
