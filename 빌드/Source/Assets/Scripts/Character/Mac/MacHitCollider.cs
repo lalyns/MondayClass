@@ -8,6 +8,7 @@ using MC.Sound;
 public class MacHitCollider : MonoBehaviour
 {
     MacFSMManager mac;
+    public DamageDisplay display;
 
     public CapsuleCollider capsule;
     private void Awake()
@@ -43,6 +44,7 @@ public class MacHitCollider : MonoBehaviour
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
         float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f);
+        StartCoroutine(display.DamageDisplaying(damage));
         CharacterStat.ProcessDamage(playerStat, mac.Stat, damage);
 
         if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)

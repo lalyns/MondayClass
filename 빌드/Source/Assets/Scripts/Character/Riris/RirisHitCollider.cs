@@ -8,6 +8,7 @@ public class RirisHitCollider : MonoBehaviour
 {
     RirisFSMManager riris;
     public CapsuleCollider capsule;
+    public DamageDisplay display;
 
     private void Awake()
     {
@@ -53,6 +54,8 @@ public class RirisHitCollider : MonoBehaviour
         {
             damage = 10.0f;
         }
+        StartCoroutine(display.DamageDisplaying(damage));
+
         //riris.Stat.TakeDamage(playerStat, damage);
         CharacterStat.ProcessDamage(playerStat, riris.Stat, damage);
 
