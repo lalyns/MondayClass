@@ -225,7 +225,7 @@ public static class GameLib
             }
 
             blink = !blink;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSeconds(timer);
         }
 
         for (int j = 0; j < mats.Count; j++)
