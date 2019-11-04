@@ -21,6 +21,9 @@ namespace MC.Mission
         public MonsterWave[] waves;
         public Text text;
 
+        public string waiting;
+        public string appearing;
+
         protected override void Start()
         {
             base.Start();
@@ -76,6 +79,12 @@ namespace MC.Mission
                     missionEnd = true;
                 }
 
+                if(currentWave != totalWave && GameStatus.Instance.ActivedMonsterList.Count == 0)
+                {
+                    text.gameObject.SetActive(true);
+                    text.text = waiting;
+                }
+
                 if (GameStatus.Instance._LimitTime <= 0)
                 {
                     FailMission();
@@ -93,7 +102,6 @@ namespace MC.Mission
 
         public void MonsterCheck()
         {
-            //Debug.Log("Check Call");
             if (spawning)
             {
                 bool monsterCheck = GameStatus.Instance.ActivedMonsterList.Count == 0;
@@ -123,7 +131,9 @@ namespace MC.Mission
 
         void Spawn()
         {
-            text.gameObject.SetActive(GameStatus.currentGameState != CurrentGameState.Product);
+            text.gameObject.SetActive(true);
+            text.text = appearing;
+
             StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
             currentWave++;
             //Debug.Log(currentWave);
