@@ -4,10 +4,6 @@ using UnityEngine;
 using MC.UI;
 public class TiberATTACK1 : TiberFSMState
 {
-    public float _time;
-    [Header("바로 찍길 원한다면 이걸 클릭하시오")]
-    public bool isDongMin;
-
     [HideInInspector]
     public bool isEnd;
     public override void BeginState()
@@ -32,41 +28,25 @@ public class TiberATTACK1 : TiberFSMState
         base.EndState();
         _manager.Attack1Effect.SetActive(false);        
         
-        _time = 0;
         isEnd = false;
     }
+
     protected override void Update()
     {
         base.Update();
-
-//        _time += Time.deltaTime;
 
         if (isEnd)
         {
             _manager.SetState(TiberState.ATTACK2);
             return;
         }
-        //if (_time >= 1f && isDongMin)
-        //{
-        //    _manager.SetState(TiberState.ATTACK2);
-        //    return;
-        //}
-        //if (_time >= 1.3f && !isDongMin)
-        //{
-        //    _manager.SetState(TiberState.ATTACK2);
-        //    return;
-        //}
-        //if (GameLib.DistanceToCharacter(_manager.CC, _manager.PlayerCapsule) > _manager.Stat._AttackRange)
-        //{
-        //    _manager.SetState(TiberState.CHASE);
-        //}
+       
     }
+
     public void AttackSupport()
     {
         UserInterface.Instance.UIPlayer.hpBar.HitBackFun();
     }
-
-
 
     protected override void FixedUpdate()
     {

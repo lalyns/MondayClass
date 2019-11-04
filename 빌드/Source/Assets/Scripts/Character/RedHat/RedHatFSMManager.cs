@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-using UnityEngine;
-using UnityEngine.UI;
+﻿using MC.Sound;
 using MC.UI;
-using MC.Sound;
-using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public enum RedHatState
 {
@@ -22,69 +20,57 @@ public enum RedHatState
 [RequireComponent(typeof(RedHatStat))]
 public class RedHatFSMManager : FSMManager
 {
-    private bool _isInit = false;
+    private bool isInit = false;
     public RedHatState startState = RedHatState.POPUP;
-    private Dictionary<RedHatState, RedHatFSMState> _States = new Dictionary<RedHatState, RedHatFSMState>();
+    private Dictionary<RedHatState, RedHatFSMState> states = new Dictionary<RedHatState, RedHatFSMState>();
 
-    private RedHatState _CurrentState;
+    private RedHatState currentState;
     public RedHatState CurrentState {
         get {
-            return _CurrentState;
+            return currentState;
         }
     }
 
     public RedHatFSMState CurrentStateComponent {
         get {
-            return _States[_CurrentState];
+            return states[currentState];
         }
     }
 
-    private CharacterController _CC;
-    public CharacterController CC { get { return _CC; } }
+    private CharacterController cc;
+    public CharacterController CC { get { return cc; } }
 
-    private CapsuleCollider _PlayerCapsule;
-    public CapsuleCollider PlayerCapsule { get { return _PlayerCapsule; } }
+    private CapsuleCollider playerCapsule;
+    public CapsuleCollider PlayerCapsule { get { return playerCapsule; } }
 
-    private RedHatStat _Stat;
-    public RedHatStat Stat { get { return _Stat; } }
+    private RedHatStat stat;
+    public RedHatStat Stat { get { return stat; } }
 
-    private Animator _Anim;
-    public Animator Anim { get { return _Anim; } }
+    private Animator anim;
+    public Animator Anim { get { return anim; } }
 
-    private Rigidbody _RigidBody;
-    public Rigidbody RigidBody { get { return _RigidBody; } }
+    private Rigidbody rigidBody;
+    public Rigidbody RigidBody { get { return rigidBody; } }
 
     public Transform _AttackTransform;
 
     // Renderers
-    public SkinnedMeshRenderer _MR;
-    public SkinnedMeshRenderer _WPMR;
+    public SkinnedMeshRenderer mr;
+    public SkinnedMeshRenderer wpmr;
     public List<Material> materialList = new List<Material>();
 
     //public CharacterStat _lastAttack;
 
-    public HPBar _HPBar;
-    public Slider _HPSilder;
-    public GameObject hitEffect;
-    public GameObject hitEffect_Special;
-    public GameObject hitEffect_Skill1;
-    public GameObject hitEffect_Skill1_Special;
     public Transform hitLocation;
 
-    public MonsterSound _Sound;
+    public MonsterSound sound;
 
     public GameObject dashEffect;
     public GameObject dashEffect1;
     public GameObject dashEffect2;
 
-    public float _DetectingRange;
-
-    public Collider _PriorityTarget;
-
-    public bool KnockBackFlag;
-    public int KnockBackDuration;
-    public float KnockBackPower;
-    public float KnockBackDelay;
+    public float detectingRange;
+    public Collider priorityTarget;
 
     //public CapsuleCollider Weapon_Collider;
     public bool isDead = false;
@@ -94,28 +80,23 @@ public class RedHatFSMManager : FSMManager
     public AttackType CurrentAttackType = AttackType.NONE;
 
     public NavMeshAgent agent;
-    public MonsterSound sound;
 
     protected override void Awake()
     {
         base.Awake();
 
-        _CC = GetComponent<CharacterController>();
-        _Stat = GetComponent<RedHatStat>();
-        _Anim = GetComponentInChildren<Animator>();
-        _Sound = GetComponent<MonsterSound>();
-        _RigidBody = GetComponent<Rigidbody>();
+        cc = GetComponent<CharacterController>();
+        stat = GetComponent<RedHatStat>();
+        anim = GetComponentInChildren<Animator>();
+        sound = GetComponent<MonsterSound>();
+        rigidBody = GetComponent<Rigidbody>();
         sound = GetComponent<MonsterSound>();
 
         CC.detectCollisions = true;
 
-        if (!GameManager.Instance.uIActive.monster)
-            _HPBar.gameObject.SetActive(false);
-
-        materialList.AddRange(_MR.materials);
-        materialList.AddRange(_WPMR.materials);
-       // Weapon_Collider = gameObject.GetComponentInChildren<CapsuleCollider>();
-        _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
+        materialList.AddRange(mr.materials);
+        materialList.AddRange(wpmr.materials);
+        playerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
         RedHatState[] stateValues = (RedHatState[])System.Enum.GetValues(typeof(RedHatState));
         foreach (RedHatState s in stateValues)
@@ -128,7 +109,7 @@ public class RedHatFSMManager : FSMManager
                 state = (RedHatFSMState)gameObject.AddComponent(FSMType);
             }
 
-            _States.Add(s, state);
+            states.Add(s, state);
             state.enabled = false;
         }
 
@@ -141,21 +122,21 @@ public class RedHatFSMManager : FSMManager
     private void Start()
     {
         SetState(startState);
-        _isInit = true;
+        isInit = true;
     }
 
     public void SetState(RedHatState newState)
     {
 
-        if (_isInit)
+        if (isInit)
         {
-            _States[_CurrentState].enabled = false;
-            _States[_CurrentState].EndState();
+            states[currentState].enabled = false;
+            states[currentState].EndState();
         }
-        _CurrentState = newState;
-        _States[_CurrentState].BeginState();
-        _States[_CurrentState].enabled = true;
-        _Anim.SetInteger("CurrentState", (int)_CurrentState);
+        currentState = newState;
+        states[currentState].BeginState();
+        states[currentState].enabled = true;
+        anim.SetInteger("CurrentState", (int)currentState);
     }
 
     public bool isChange;

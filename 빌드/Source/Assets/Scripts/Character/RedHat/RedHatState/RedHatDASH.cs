@@ -9,15 +9,12 @@ public class RedHatDASH : RedHatFSMState
     float _DashAfterDelay = 1.1f;
     float _Time = 0.0f;
 
-    bool _IsDrawDashRoute = false;
-
-    bool _IsDash = false;
-    Vector3 _TargetPos = Vector3.zero;
+    Vector3 targetPos = Vector3.zero;
     Vector3 dashEndPos = Vector3.zero;
 
     public override void BeginState()
     {
-        _TargetPos = _manager._PriorityTarget.transform.position;
+        targetPos = _manager.priorityTarget.transform.position;
 
         var voice = _manager.sound.monsterVoice;
         voice.PlayMonsterVoice(this.gameObject, voice.redhatDashVoice);
@@ -29,26 +26,20 @@ public class RedHatDASH : RedHatFSMState
         _manager.CC.detectCollisions = false;
         try
         {
-            transform.LookAt(_manager._PriorityTarget.transform);
+            transform.LookAt(_manager.priorityTarget.transform);
 
             dashEndPos = this.transform.position;
             dashEndPos += transform.forward * _manager.Stat.statData._DashRange;
             dashEndPos.y = this.transform.position.y;
 
-            //_manager.dashEffect.SetActive(true);
-            //_manager.dashEffect.GetComponent<UIAttackRange>().SetTarget(_manager._PriorityTarget);
-
             _manager.dashEffect1.SetActive(true);
             ParticleSystem effect1 = _manager.dashEffect1.GetComponentInChildren<ParticleSystem>();
             effect1.Play();
-
-
         }
         catch
         {
             Debug.Log("대쉬 이펙트 버그");
         }
-        // 대쉬 시간 조정
 
         base.BeginState();
     }
@@ -57,9 +48,6 @@ public class RedHatDASH : RedHatFSMState
     {
         _Time = 0.0f;
         Vector3 _TargetPos = Vector3.zero;
-
-        //_manager.dashEffect = null;
-        //_manager.dashEffect.GetComponent<UIAttackRange>().EffectEnd();
 
         _manager.CC.detectCollisions = true; 
         _manager.isNotChangeState = false;
@@ -80,10 +68,6 @@ public class RedHatDASH : RedHatFSMState
 
         if (_Time < _DashReadyTime)
         {
-            //if (!_IsDrawDashRoute)
-            {
-
-            }
         }
 
         else if(_Time < _DashReadyTime + _DashTime)
@@ -101,7 +85,7 @@ public class RedHatDASH : RedHatFSMState
 
         else if(_Time > _DashReadyTime + _DashTime + _DashAfterDelay)
         {
-            if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) <= _manager.Stat.AttackRange)
+            if (GameLib.DistanceToCharacter(_manager.CC, _manager.priorityTarget) <= _manager.Stat.AttackRange)
             {
                 _manager.SetState(RedHatState.ATTACK);
             }

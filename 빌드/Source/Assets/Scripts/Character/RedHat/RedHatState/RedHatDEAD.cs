@@ -25,7 +25,7 @@ public class RedHatDEAD : RedHatFSMState
 
         useGravity = false;
         _manager.CC.detectCollisions = false;
-        _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        _manager.mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         _manager.agent.speed = 0;
         _manager.agent.angularSpeed = 0;
     }
@@ -62,7 +62,5 @@ public class RedHatDEAD : RedHatFSMState
     public void DeadHelper()
     {
         _manager.SetState(RedHatState.DISSOLVE);
-        Debug.Log("Dead Call");
-
     }
 }

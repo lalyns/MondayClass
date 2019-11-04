@@ -16,13 +16,13 @@ public class MacDEAD : MacFSMState
 
         if (!PlayerFSMManager.Instance.isSkill4)
         {
-            var voice = _manager._Sound.monsterVoice;
+            var voice = _manager.sound.monsterVoice;
             voice.PlayMonsterVoice(this.gameObject, voice.macDieVoice);
         }
 
         useGravity = false;
         _manager.CC.detectCollisions = false;
-        _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        _manager.mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
 
     private void Start()

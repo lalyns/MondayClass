@@ -14,6 +14,10 @@ public class ProtectedTarget : MonoBehaviour
         public GameObject activeEffect;
         public GameObject destroyEffect;
 
+        public SkinnedMeshRenderer smr;
+        public MeshRenderer[] mr;
+        List<Material> materials = new List<Material>();
+
         [System.NonSerialized] public int hp;
         public int damage;
 
@@ -22,6 +26,10 @@ public class ProtectedTarget : MonoBehaviour
         {
             var sound = MCSoundManager.Instance.objectSound.objectSFX;
             sound.PlaySound(this.gameObject, sound.pillarActive);
+
+            materials.AddRange(smr.materials);
+            for (int i = 0; i < mr.Length; i++)
+                materials.AddRange(mr[i].materials);
         }
 
         public void DestroyPillar()
@@ -40,11 +48,10 @@ public class ProtectedTarget : MonoBehaviour
 
         public void OnTriggerEnter(Collider other)
         {
-            Debug.Log("HP 감소!");
             if (other.transform.tag == "MonsterWeapon")
             {
-                Debug.Log("HP 감소!");
                 hp -= damage;
+                StartCoroutine(GameLib.Blinking(materials, Color.red));
             }
         }
     }

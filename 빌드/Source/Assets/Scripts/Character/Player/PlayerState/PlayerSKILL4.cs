@@ -25,6 +25,8 @@ public class PlayerSKILL4 : FSMState
 
         UserInterface.SetAllUserInterface(false);
         _manager.isCanUltimate = false;
+        _manager.isSkill4 = true;
+
     }
 
     public override void EndState()
@@ -43,14 +45,22 @@ public class PlayerSKILL4 : FSMState
         _manager.isAttackTwo = false;
         _manager.isAttackThree = false;
         _manager.isSkill4CTime = true;
-        _manager.isSkill4 = false;        
+        _manager.isSkill4 = false;
+
+        foreach (GameObject mob in GameStatus.Instance.ActivedMonsterList)
+        {
+            var stat = mob.GetComponent<CharacterStat>();
+            CharacterStat.ProcessDamage(_manager.Stat, stat, _manager.Stat.dmgCoefficient[6]);
+            CanvasInfo.Instance.enemyHP.hpBar.HitBackFun();
+
+        }
     }
 
 
     private void Update()
     {
         _manager.isCantMove = _time <= 17.1f ? true : false;
-
+        Debug.Log(" 스킬 4 여부 " + _manager.isSkill4);
         _time += Time.deltaTime;
        
         if (_time >= 17.2f)

@@ -4,34 +4,19 @@ using UnityEngine;
 
 public class MacHIT : MacFSMState
 {
-    bool knockBack = true;
-    float knockBackDuration = 1.5f;
-    float knockBackPower = 3.0f;
-    float knockBackDelay = 0.3f;
-
-    float _Count = 0;
-    
     bool hitEnd = false;
-
-    Vector3 knockBackTargetPos = Vector3.zero;
 
     public override void BeginState()
     {
         base.BeginState();
 
-        knockBack = _manager.KnockBackFlag;
-        knockBackDuration = _manager.KnockBackDuration;
-        knockBackPower = _manager.KnockBackPower;
-        knockBackDelay = _manager.KnockBackDelay;
-
         Vector3 direction = (_manager.PlayerCapsule.transform.forward).normalized;
         direction.y = 0;
 
-        knockBackTargetPos = direction + this.transform.position;
 
         StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
 
-        var voice = _manager._Sound.monsterVoice;
+        var voice = _manager.sound.monsterVoice;
         voice.PlayMonsterVoice(this.gameObject, voice.macDamageVoice);
 
         _manager.agent.acceleration = 0;
@@ -43,10 +28,9 @@ public class MacHIT : MacFSMState
     {
         base.EndState();
 
-        _Count = 0;
         hitEnd = false;
 
-        _manager.CurrentAttackType = AttackType.NONE;
+        _manager.currentAttackType = AttackType.NONE;
         _manager.isChange = false;
 
         StopAllCoroutines();
@@ -58,15 +42,17 @@ public class MacHIT : MacFSMState
 
         if (hitEnd && !PlayerFSMManager.Instance.isSpecial && !PlayerFSMManager.Instance.isSkill4)
             _manager.SetState(MacState.CHASE);
-        if (PlayerFSMManager.Instance.isSkill4)
-        {
-            PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
-            if (!PlayerFSMManager.Instance.isCantMove && !isHit)
-            {
-                _manager.Stat.TakeDamage(playerStat, playerStat.dmgCoefficient[6]);
-                isHit = true;
-            }
-        }
+
+        //if (PlayerFSMManager.Instance.isSkill4)
+        //{
+        //    PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
+        //    if (!PlayerFSMManager.Instance.isCantMove && !isHit)
+        //    {
+        //        _manager.Stat.TakeDamage(playerStat, playerStat.dmgCoefficient[6]);
+        //        isHit = true;
+        //    }
+        //}
+
         if (_manager.Stat.Hp <= 0)
             _manager.SetDeadState();
     }

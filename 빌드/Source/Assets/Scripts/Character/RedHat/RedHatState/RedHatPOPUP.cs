@@ -23,7 +23,7 @@ public class RedHatPOPUP : RedHatFSMState
         TargetPrioritySet();
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
 
-        _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        _manager.mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
 
         _manager.agent.speed = 4;
         _manager.agent.angularSpeed = 120;
@@ -38,7 +38,7 @@ public class RedHatPOPUP : RedHatFSMState
 
         if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)
         {
-            var sound = _manager._Sound.monsterSFX;
+            var sound = _manager.sound.monsterSFX;
             sound.PlayMonsterSFX(_manager.gameObject, sound.monsterAppear);
             MCSoundManager.SoundCall = 0f;
         }
@@ -64,42 +64,18 @@ public class RedHatPOPUP : RedHatFSMState
     {
         if (GameStatus.currentGameState == CurrentGameState.EDITOR)
         {
-            _manager._PriorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
+            _manager.priorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
             return;
         }
 
         if (GameStatus.currentGameState == CurrentGameState.Tutorial)
         {
-            _manager._PriorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
+            _manager.priorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
             return;
         }
 
-        //if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
-        //{
-
-        //    Collider[] allTarget = Physics.OverlapSphere(this.transform.position, _manager._DetectingRange);
-
-        //    foreach (Collider target in allTarget)
-        //    {
-        //        if (target.tag == "Player")
-        //        {
-        //            _manager._PriorityTarget = PlayerFSMManager.
-        //                Instance.GetComponentInChildren<Animator>()
-        //                .GetComponent<Collider>();
-        //            break;
-        //        }
-        //        else
-        //        {
-        //            MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
-        //            _manager._PriorityTarget = mission.protectedTarget.Collider;
-        //        }
-        //    }
-        //}
-        //else
-        {
-            _manager._PriorityTarget = PlayerFSMManager.
-                Instance.GetComponentInChildren<Animator>()
-                .GetComponent<Collider>();
-        }
+        _manager.priorityTarget = PlayerFSMManager.
+            Instance.GetComponentInChildren<Animator>()
+            .GetComponent<Collider>();
     }
 }

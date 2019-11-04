@@ -11,7 +11,7 @@ public class RedHatDISSOLVE : RedHatFSMState
     {
         base.BeginState();
 
-        var sound = _manager._Sound.monsterSFX;
+        var sound = _manager.sound.monsterSFX;
         sound.PlayMonsterSFX(_manager.gameObject, sound.monsterDisAppear);
     }
 

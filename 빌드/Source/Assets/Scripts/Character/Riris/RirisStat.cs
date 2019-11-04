@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class RirisStat : CharacterStat
 {
-    public MonsterData monsterData;
-
-    public float _AttackRange = 2f;
-
-    public float _BulletDamage;
     public float _BulletSpeed = 10f;
     public float _BulletLifeTime;
 
