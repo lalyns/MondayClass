@@ -155,9 +155,7 @@
 
 			//float Shadow = step(0.1, 0.9, ndotL);
 			float Shadow = step(0.5, ndotL);
-			float3 H = normalize(lightDir + viewDir);
-			float spec = saturate(dot(s.Normal, H));
-			spec = pow(spec, 200);
+		
 					
 			//Shadow = Shadow * atten;
 			ndotL = ndotL * atten ;
@@ -171,7 +169,7 @@
 
 
 			float4 final;
-			final.rgb = s.Albedo * _LightColor0.rgb * (atten * 2);
+			final.rgb = s.Albedo * _LightColor0.rgb * (atten * 1);
 			final.a = s.Alpha ;
 
 
