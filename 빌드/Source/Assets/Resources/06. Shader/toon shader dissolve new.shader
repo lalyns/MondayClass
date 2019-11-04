@@ -107,7 +107,7 @@
 			//2nd pass
 
 			CGPROGRAM
-			#pragma surface surf toon addshadow
+			#pragma surface surf toon addshadow 
 			#pragma target 3.0
 
 
@@ -153,11 +153,14 @@
 			float4 Lightingtoon(SurfaceOutput s, float3 lightDir, float3 viewDir, float atten) {
 				
 			
-			float ndotL = saturate(dot(s.Normal, lightDir) * _ShadowWidth + _AmbientWidth) * atten;
+			float ndotL = saturate(dot(s.Normal, lightDir) * _ShadowWidth + _AmbientWidth);
 
-			float Shadow = step(0.5, ndotL);
+			//float Shadow = step(0.5, ndotL);
 			
-			ndotL = ndotL * atten ;
+			//atten *= atten;
+			//ndotL = 1 + clamp(floor(ndotL), 0, 1);
+			//ndotL = ndotL * clamp(atten, 0, 1);
+			
 
 			float3 Color = _ShadowColor ;
 			float4 SColor = _SpecCol;
@@ -172,6 +175,7 @@
 				s.Albedo += SColor;
 			}
 
+			//ndotL = 1 + clamp(floor(ndotL), 0, 0.5);
 			//atten *= atten;
 			float4 final;
 			
