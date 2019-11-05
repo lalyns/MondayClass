@@ -29,7 +29,11 @@ public class RedHatWeapon : MonoBehaviour
                 (redHat.Stat.Str + redHat.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
                 - PlayerFSMManager.Instance.Stat.Defense;
 
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 1f, "Player", redHat.Stat, MonsterType.RedHat, damage);
+                Debug.Log(damage);
+
+                var hitTarget = GameLib.SimpleDamageProcess(
+                    this.transform, 1f, "Player", redHat.Stat, MonsterType.RedHat,
+                    damage);
 
                 Transform effectTransform =
                     MonsterEffects.Instance.redHatAttackEffect.
