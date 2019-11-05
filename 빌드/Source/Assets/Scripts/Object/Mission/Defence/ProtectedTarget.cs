@@ -21,6 +21,9 @@ public class ProtectedTarget : MonoBehaviour
         [System.NonSerialized] public int hp;
         public int damage;
 
+        public int hitTimes = 6;
+        public float hitDuration = 0.15f;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -51,7 +54,7 @@ public class ProtectedTarget : MonoBehaviour
             if (other.transform.tag == "MonsterWeapon")
             {
                 hp -= damage;
-                StartCoroutine(GameLib.Blinking(materials, Color.red));
+                StartCoroutine(GameLib.Blinking(materials, Color.white, hitTimes, hitDuration));
             }
         }
     }
