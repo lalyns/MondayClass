@@ -220,7 +220,8 @@ public class PlayerAnimEvent : MonoBehaviour
 
     void Skill2End()
     {
-        skill2.isEnd = true;
+        player.isSkill2Dash = false;
+        //skill2.isEnd = true;
     }
 
     void Hit2End()

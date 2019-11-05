@@ -398,10 +398,10 @@ public class PlayerFSMManager : FSMManager
 
         SetInvincibility(GameStatus.currentGameState == CurrentGameState.Product);
 
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
-        }
+        //if (Input.GetKeyDown(KeyCode.U))
+        //{
+        //    StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
+        //}
 
         if (isInputLock || isDead)
             return;
@@ -409,11 +409,6 @@ public class PlayerFSMManager : FSMManager
         if(Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.D))
         {
             SetDeadState();
-        }
-        if (Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.Alpha0))
-        {
-            //CurrentClear = Random.Range((int)0, (int)2);
-            SetState(PlayerState.CLEAR);
         }
         //if (GameSetting.rewardAbillity.feverGauge)
         //{
@@ -474,8 +469,8 @@ public class PlayerFSMManager : FSMManager
             return;
         if (remainingDash > 0 && !isSkill3Dash && !isSkill2Dash)            
             Dash();
-
-        GetInput();
+        if(!isSkill2Dash)
+            GetInput();
         //if (isSpecialIDLE)
         //    return;
         if (CurrentState == PlayerState.IDLE2 || CurrentState == PlayerState.CLEAR || CurrentState == PlayerState.DEAD)
@@ -484,7 +479,7 @@ public class PlayerFSMManager : FSMManager
         
         AttackDirection();
 
-        if (!isSkill2End && !isSkill3)
+        if (!isSkill2End && !isSkill3 && !isSkill2Dash)
             Attack();
 
         // if 튜토리얼 스킬 1번 사용해야 할 때라면
