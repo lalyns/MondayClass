@@ -60,7 +60,7 @@ public class PlayerSKILL4 : FSMState
     private void Update()
     {
         _manager.isCantMove = _time <= 17.1f ? true : false;
-        Debug.Log(" 스킬 4 여부 " + _manager.isSkill4);
+
         _time += Time.deltaTime;
        
         if (_time >= 17.2f)

@@ -12,14 +12,12 @@ public class DamageDisplay : MonoBehaviour
     public Vector3 direction;
 
     int currentCount = 0;
-    public float speed = 2f;
+    float speed = 0.3f;
 
-    [Range(0,2)] public float slope = 1.1f;
+    [Range(0,2)] float slope = 2f;
 
     public IEnumerator DamageDisplaying(float damage)
     {
-        Debug.Log("Start!");
-
         currentCount++;
         if(currentCount >= texts.Length)
         {
@@ -38,7 +36,7 @@ public class DamageDisplay : MonoBehaviour
         {
             time += 0.05f;
             texts[count].rectTransform.localPosition =
-                new Vector3(startPos.x + time, -slope * (startPos.x + time) * (startPos.x + time) + startPos.y, 0);
+                new Vector3(startPos.x, slope * (startPos.x + time * speed) * (startPos.x + time * speed) + startPos.y, 0);
             
             yield return new WaitForSeconds(0.05f);
         }

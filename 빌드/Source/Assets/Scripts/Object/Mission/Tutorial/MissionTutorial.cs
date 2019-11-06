@@ -286,6 +286,8 @@ namespace MC.Mission
 
                     tutorialUI.attack.special.gameObject.SetActive(false);
                     tutorialUI.attack.Attack.gameObject.SetActive(false);
+
+                    Invoke("SetTutoEnd", 0.5f);
                     currentTutorial = TutorialEvent.End;
                 }
             }
@@ -393,12 +395,12 @@ namespace MC.Mission
                 });
         }
 
-        void SetDialogItem()
+        void SetTutoEnd()
         {
             GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
             var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
             PlayerFSMManager.Instance.isAttackOne = false;
-            fences[2].OpenFence();
+            fences[1].OpenFence();
             UserInterface.DialogSetActive(true);
             tutorialUI.moveDash.gameObject.SetActive(false);
             UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
@@ -417,7 +419,7 @@ namespace MC.Mission
             var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
             UserInterface.DialogSetActive(true);
-            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
+            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[3],
                 () => {
                     GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
                     currentTutorial = TutorialEvent.Attack;

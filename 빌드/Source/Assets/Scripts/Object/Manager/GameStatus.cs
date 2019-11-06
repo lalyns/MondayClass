@@ -370,7 +370,7 @@ public class GameStatus : MonoBehaviour
     void GameStatusCheck()
     {
 
-        //Debug.Log(GameStatus.currentGameState.ToString());
+        Debug.Log(GameStatus.currentGameState.ToString());
     }
 
     public static void SetCurrentGameState(CurrentGameState state)

@@ -23,6 +23,9 @@ public class RirisWeapon : MonoBehaviour
         if (_Dameged)
             return;
 
+        if (GameStatus.currentGameState == CurrentGameState.Product ||
+            GameStatus.currentGameState == CurrentGameState.Dead) return;
+
         if (riris.CurrentState == RirisState.PATTERNA)
         {
             if (other.transform.tag == "Player")

@@ -178,8 +178,15 @@ public class RirisULTIMATE : RirisFSMState
 
         for(int i=0; i<beam.Count; i++)
         {
-            BossEffects.Instance.beam.ItemReturnPool(beam[i]);
-            BossEffects.Instance.flower.ItemReturnPool(flower[i]);
+            try
+            {
+                BossEffects.Instance.beam.ItemReturnPool(beam[i]);
+                BossEffects.Instance.flower.ItemReturnPool(flower[i]);
+            }
+            catch
+            {
+
+            }
         }
     }
 

@@ -12,6 +12,7 @@ namespace MC.Mission
     {
         public static bool isDialogC = false;
         public Button manual;
+        public float manualTimer = 5f;
 
         public ProtectedTarget protectedTarget;
         public int _ProtectedTargetHP;
@@ -37,9 +38,7 @@ namespace MC.Mission
             if (!isDialogC)
             {
                 // 미션 설명창 등장해야됨
-                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-                GameManager.Instance.IsPuase = true;
-                manual.gameObject.SetActive(true);
+                Invoke("ManualPopup", manualTimer);
             }
 
             MC.Sound.MCSoundManager.LoadBank();
@@ -138,12 +137,21 @@ namespace MC.Mission
             currentWave++;
         }
 
+        public void ManualPopup()
+        {
+            UserInterface.BlurSet(true, 8);
+            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            GameManager.Instance.IsPuase = true;
+            manual.gameObject.SetActive(true);
+        }
+
         public void ManualSupport()
         {
             isDialogC = true;
             GameStatus.SetCurrentGameState(CurrentGameState.Wait);
             GameManager.Instance.IsPuase = false;
             UserInterface.SetPointerMode(false);
+            UserInterface.BlurSet(false);
             manual.gameObject.SetActive(false);
         }
     }
