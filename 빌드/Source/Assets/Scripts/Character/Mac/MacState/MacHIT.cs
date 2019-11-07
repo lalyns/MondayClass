@@ -13,8 +13,14 @@ public class MacHIT : MacFSMState
         Vector3 direction = (_manager.PlayerCapsule.transform.forward).normalized;
         direction.y = 0;
 
+        try
+        {
+            StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
+        }
+        catch
+        {
 
-        StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
+        }
 
         var voice = _manager.sound.monsterVoice;
         voice.PlayMonsterVoice(this.gameObject, voice.macDamageVoice);
