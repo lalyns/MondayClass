@@ -57,7 +57,7 @@ public class BossDirector : MonoBehaviour
 
     public void PlayDeadCine()
     {
-        GameStatus.SetCurrentGameState(CurrentGameState.Product);
+        GameStatus.SetCurrentGameState(CurrentGameState.End);
         cam.SetActive(true);
         deadCine.SetActive(true);
         PlaySet.SetActive(false);

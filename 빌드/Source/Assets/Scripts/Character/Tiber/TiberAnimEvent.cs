@@ -8,6 +8,7 @@ public class TiberAnimEvent : MonoBehaviour
     public TiberATTACK2 _attackCp2;
     public TiberHIT _hitCp;
     public TiberDEAD _deadCp;
+    public TiberWeapon tiberWeapon;
 
     public TiberFSMManager _manager => GetComponentInParent<TiberFSMManager>();
 
@@ -26,6 +27,7 @@ public class TiberAnimEvent : MonoBehaviour
     void OnWeaponTrigger()
     {
         _WeaponCapsule.gameObject.SetActive(true);
+        tiberWeapon._Dameged = false;
     }
 
     void DisableWeaponTrigger()
