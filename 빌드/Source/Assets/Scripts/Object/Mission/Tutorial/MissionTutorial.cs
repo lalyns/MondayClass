@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
 using MC.Sound;
+using UnityEngine.Playables;
 
 namespace MC.Mission
 {
@@ -45,6 +46,12 @@ namespace MC.Mission
         public MonsterWave[] tutoWave;
         public FenceEffect[] fences;
         bool isSkill1Set = false;
+
+        float timer = 0;
+        float timePlay = 3;
+        public GameObject timelines;
+        public PlayableDirector playableDirector;
+
         // Start is called before the first frame update
         protected override void Awake()
         {
@@ -306,8 +313,14 @@ namespace MC.Mission
                 currentTutorial = TutorialEvent.End;
             }
 
-            if(currentTutorial == TutorialEvent.End)
-            {
+            if(currentTutorial == TutorialEvent.End) {
+
+                timer += Time.deltaTime;
+
+                if (timer < timePlay) timelines.SetActive(true);
+                else timelines.SetActive(false);
+
+
                 if (!GetComponentInChildren<MissionExit>()._PortalEffect.activeSelf)
                 {
                     GetComponentInChildren<MissionExit>()._PortalEffect.SetActive(true);
@@ -320,6 +333,7 @@ namespace MC.Mission
             //    attack1 = true;
             //    currentTutorial = TutorialEvent.End;
             //}
+
         }
 
         void ReturnSpace()
@@ -404,6 +418,7 @@ namespace MC.Mission
                 });
         }
 
+        public GameObject timelinecam;
         void SetTutoEnd()
         {
             GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
@@ -412,6 +427,7 @@ namespace MC.Mission
             fences[1].OpenFence();
             UserInterface.DialogSetActive(true);
             tutorialUI.moveDash.gameObject.SetActive(false);
+            timelinecam.transform.position = Camera.main.transform.position;
             UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
                 (() => {
                     GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
