@@ -53,7 +53,11 @@ public class ProtectedTarget : MonoBehaviour
         {
             if (other.transform.tag == "MonsterWeapon")
             {
-                hp -= damage;
+                if (GameStatus.currentGameState != CurrentGameState.Product)
+                {
+                    hp -= damage;
+                }
+
                 if (hp > 0)
                 {
                     StartCoroutine(GameLib.Blinking(materials, Color.white, hitTimes, hitDuration));
