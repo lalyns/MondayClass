@@ -26,6 +26,8 @@ namespace MC.Mission
         public TutorialEvent currentTutorial = TutorialEvent.Start;
         public UITutorial tutorialUI;
 
+        public string[] tutoText;
+
         public bool tutostart = false;
         bool tutorial = false;
         [SerializeField]int count = 0;
@@ -248,6 +250,8 @@ namespace MC.Mission
 
             if (currentTutorial == TutorialEvent.Transform)
             {
+                if(!PlayerFSMManager.Instance.isNormal) tutorialUI.attack.special.text = tutoText[5];
+
                 if (Input.GetKeyDown(KeyCode.Mouse0) && !transChange)
                 {
                     if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -430,6 +434,7 @@ namespace MC.Mission
                     currentTutorial = TutorialEvent.Attack;
                     tutorialUI.attack.gameObject.SetActive(true);
                     tutorialUI.attack.attack.gameObject.SetActive(true);
+                    tutorialUI.attack.attack.text = tutoText[0];
                     //tutorialUI.move.gameObject.SetActive(true);
                     StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
                     GameManager.Instance.CharacterControl = true;
@@ -456,6 +461,7 @@ namespace MC.Mission
             StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
             tutorialUI.attack.attack.gameObject.SetActive(false);
             tutorialUI.attack.skill1.gameObject.SetActive(true);
+            tutorialUI.attack.skill1.text = tutoText[1];
 
 
         }
@@ -481,6 +487,7 @@ namespace MC.Mission
             StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
             tutorialUI.attack.skill1.gameObject.SetActive(false);
             tutorialUI.attack.skill2.gameObject.SetActive(true);
+            tutorialUI.attack.skill2.text = tutoText[2];
         }
 
         public void SetSkill3Event()
@@ -504,6 +511,7 @@ namespace MC.Mission
             StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
             tutorialUI.attack.skill2.gameObject.SetActive(false);
             tutorialUI.attack.skill3.gameObject.SetActive(true);
+            tutorialUI.attack.skill3.text = tutoText[3];
         }
 
         public void SetTransformEvent()
@@ -526,6 +534,7 @@ namespace MC.Mission
             StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
             tutorialUI.attack.skill3.gameObject.SetActive(false);
             tutorialUI.attack.special.gameObject.SetActive(true);
+            tutorialUI.attack.special.text = tutoText[4];
         }
 
         void NextTutorial(TutorialEvent state)
