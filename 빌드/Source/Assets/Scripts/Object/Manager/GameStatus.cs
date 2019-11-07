@@ -19,6 +19,7 @@ public enum CurrentGameState
     Tutorial,
     Product,
     EDITOR,
+    End,
 }
 
 public class GameStatus : MonoBehaviour
