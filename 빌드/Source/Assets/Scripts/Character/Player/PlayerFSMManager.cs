@@ -1281,8 +1281,15 @@ public class PlayerFSMManager : FSMManager
             {
                 if (isTiber == true && i == 6 || i == count) continue;
 
-                _monster[i].transform.position = Seats[i].transform.position;
-                _monster[i].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
+                try
+                {
+                    _monster[i].transform.position = Seats[i].transform.position;
+                    _monster[i].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
+                }
+                catch
+                {
+
+                }
             }
             return;
         }

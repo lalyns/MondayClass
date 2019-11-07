@@ -10,6 +10,8 @@ public class MacDEAD : MacFSMState
     {
         base.BeginState();
 
+        GetComponent<MacHIT>().StopAllCoroutines();
+
         GameLib.DissoveActive(_manager.materialList, true);
         StartCoroutine(GameLib.Dissolving(_manager.materialList));
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));
