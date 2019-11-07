@@ -212,7 +212,8 @@ public class PlayerFSMManager : FSMManager
     float gaugePerSecond;
 
     public int ShieldCount;
-    [HideInInspector] public bool isSpecialIDLE;
+    [HideInInspector] public bool isSpecialIDLE = false;
+    [HideInInspector] public bool isHit2 = false;
     public int CurrentIdle;
     public int CurrentClear;
 
@@ -460,6 +461,11 @@ public class PlayerFSMManager : FSMManager
             if (mission.currentTutorial == TutorialEvent.Transform)
             {
                 ChangeModel();
+                Skill1();
+                Skill2();
+                Skill3();
+                Skill3MouseLock();
+                Skill3Reset();
             }
         }
         if (mission == null)
@@ -473,13 +479,13 @@ public class PlayerFSMManager : FSMManager
             GetInput();
         //if (isSpecialIDLE)
         //    return;
-        if (CurrentState == PlayerState.IDLE2 || CurrentState == PlayerState.CLEAR || CurrentState == PlayerState.DEAD)
+        if (CurrentState == PlayerState.CLEAR || CurrentState == PlayerState.DEAD)
             return;
 
         
         AttackDirection();
 
-        if (!isSkill2End && !isSkill3 && !isSkill2Dash)
+        if (!isSkill2End && !isSkill3 && !isSkill2Dash && !isHit2)
             Attack();
 
         // if 튜토리얼 스킬 1번 사용해야 할 때라면

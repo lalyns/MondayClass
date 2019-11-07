@@ -14,6 +14,7 @@ public class PlayerTRANS : FSMState
         _manager.Skill2_Test.SetActive(false);
         _manager.Skill2_Test2.SetActive(false);
         _manager.isSkill2End = false;
+        _manager.Stat.SetHp(_manager.Stat.MaxHp);
     }
 
     public override void EndState()
