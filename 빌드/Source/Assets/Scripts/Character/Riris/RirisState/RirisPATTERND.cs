@@ -6,7 +6,6 @@ public class RirisPATTERND : RirisFSMState
 {
     public Transform[] TornadoLoc1;
     public Transform[] TornadoLoc2;
-    public Transform[] TornadoLoc3;
 
     public float time = 0;
     public float duration = 3.3f;
@@ -33,7 +32,6 @@ public class RirisPATTERND : RirisFSMState
         time = 0;
         set1Play = false;
         set2Play = false;
-        set3Play = false;
     }
 
     protected override void FixedUpdate()
@@ -53,14 +51,14 @@ public class RirisPATTERND : RirisFSMState
 
             if (!set1Play)
             {
-                sound.PlayRirisSFX(this.gameObject, sound.tornaedoCastSFX);
-                sound.PlayRirisSFX(_manager.gameObject, sound.tornaedoFirstSFX);
-                foreach(Transform a in TornadoLoc1)
+                //sound.PlayRirisSFX(this.gameObject, sound.tornaedoCastSFX);
+                //sound.PlayRirisSFX(_manager.gameObject, sound.tornaedoFirstSFX);
+                for(int i=0; i<TornadoLoc1.Length; i++)
                 {
                     // 대충 이펙트를 꺼내는 행위
-                    var ob = BossEffects.Instance.tornaedo.ItemSetActive(a);
+                    var ob = BossEffects.Instance.tornaedo.ItemSetActive(TornadoLoc1[i].position);
                     // 대충 꺼낸 이펙트 애니메이션을 실행하는 행위
-                    ob.GetComponentInChildren<Animator>().Play("Toenaedo");
+                    ob.GetComponentInChildren<Animator>().Play("Play");
                 }
                 set1Play = true;
             }
@@ -69,13 +67,13 @@ public class RirisPATTERND : RirisFSMState
             {
                 if (!set2Play)
                 {
-                    sound.PlayRirisSFX(_manager.gameObject, sound.tornaedoLastSFX);
-                    foreach (Transform a in TornadoLoc2)
+                    //sound.PlayRirisSFX(_manager.gameObject, sound.tornaedoLastSFX);
+                    for (int i=0; i<TornadoLoc2.Length; i++)
                     {
                         // 대충 이펙트를 꺼내는 행위
-                        var ob = BossEffects.Instance.tornaedo.ItemSetActive(a);
+                        var ob = BossEffects.Instance.tornaedo.ItemSetActive(TornadoLoc2[i].position);
                         // 대충 꺼낸 이펙트 애니메이션을 실행하는 행위
-                        ob.GetComponentInChildren<Animator>().Play("Toenaedo");
+                        ob.GetComponentInChildren<Animator>().Play("Play");
                     }
                     set2Play = true;
                 }

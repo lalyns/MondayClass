@@ -22,7 +22,8 @@ public class PCCamCollider : MonoBehaviour
     {
         if (other.transform.tag == "Wall")
         {
-            cam.isWallState = true;
+            if(!player.isSkill3)
+                cam.isWallState = true;
         }
     }
     private void OnTriggerExit(Collider other)

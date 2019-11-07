@@ -24,13 +24,27 @@ public class PCBall : MonoBehaviour
     {
         if((BounceCount % 2) == 0)
         {
-            if (!_monster[RandomShoot].activeSelf)
+            try
+            {
+                if (!_monster[RandomShoot].activeSelf)
+                    this.gameObject.SetActive(false);
+            }
+            catch
+            {
                 this.gameObject.SetActive(false);
+            }
         }
         if ((BounceCount % 2) == 1)
         {
-            if (!_monster[RandomShoot2].activeSelf)
+            try
+            {
+                if (!_monster[RandomShoot2].activeSelf)
+                    this.gameObject.SetActive(false);
+            }
+            catch
+            {
                 this.gameObject.SetActive(false);
+            }
         }
         if (!isOne && BounceCount == 0)
         {

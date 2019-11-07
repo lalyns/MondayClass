@@ -9,7 +9,9 @@ public class TiberDEAD : TiberFSMState
     public override void BeginState()
     {
         base.BeginState();
-       
+
+        GetComponent<TiberHIT>().StopAllCoroutines();
+
         GameLib.DissoveActive(_manager.materialList, true);
 
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));

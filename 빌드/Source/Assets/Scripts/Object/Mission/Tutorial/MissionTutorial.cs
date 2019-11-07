@@ -42,7 +42,7 @@ namespace MC.Mission
 
         public MonsterWave[] tutoWave;
         public FenceEffect[] fences;
-
+        bool isSkill1Set = false;
         // Start is called before the first frame update
         protected override void Awake()
         {
@@ -158,6 +158,11 @@ namespace MC.Mission
             {
                 if (!skill1Change)
                 {
+                    if (!isSkill1Set)
+                    {
+                        PlayerFSMManager.Instance.Skill1_Amount = 4;
+                        isSkill1Set = true;
+                    }
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];

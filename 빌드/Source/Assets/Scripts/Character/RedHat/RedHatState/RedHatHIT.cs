@@ -14,8 +14,17 @@ public class RedHatHIT : RedHatFSMState
         Vector3 direction = (_manager.PlayerCapsule.transform.forward).normalized;
         direction.y = 0;
 
-        if(_manager.CurrentAttackType != AttackType.SKILL2)
-            StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
+        if (_manager.CurrentAttackType != AttackType.SKILL2)
+        {
+            try
+            {
+                StartCoroutine(GameLib.Blinking(_manager.materialList, Color.white));
+            }
+            catch
+            {
+
+            }
+        }
 
         if (!PlayerFSMManager.Instance.isSkill4)
         {
