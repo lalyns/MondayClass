@@ -187,6 +187,11 @@ namespace MC.UI {
             GameStatus.SetCurrentGameState(CurrentGameState.Loading);
             MCSceneManager.Instance.NextScene(MCSceneManager.currentScene, 1f, true);
             GameStatus.Instance.StageLevel--;
+
+            if(GameStatus.Instance.ActivedMonsterList.Count != 0)
+            {
+                GameStatus.Instance.ActivedMonsterList.Clear();
+            }
         }
 
         public void ExitGame()

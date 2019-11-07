@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MC.UI;
 using MC.Sound;
+using UnityEngine.Playables;
 
 namespace MC.Mission
 {
@@ -26,6 +27,8 @@ namespace MC.Mission
         public TutorialEvent currentTutorial = TutorialEvent.Start;
         public UITutorial tutorialUI;
 
+        public string[] tutoText;
+
         public bool tutostart = false;
         bool tutorial = false;
         [SerializeField]int count = 0;
@@ -42,6 +45,12 @@ namespace MC.Mission
 
         public MonsterWave[] tutoWave;
         public FenceEffect[] fences;
+        bool isSkill1Set = false;
+
+        float timer = 0;
+        float timePlay = 3;
+        public GameObject timelines;
+        public PlayableDirector playableDirector;
 
         // Start is called before the first frame update
         protected override void Awake()
@@ -158,6 +167,11 @@ namespace MC.Mission
             {
                 if (!skill1Change)
                 {
+                    if (!isSkill1Set)
+                    {
+                        PlayerFSMManager.Instance.Skill1_Amount = 4;
+                        isSkill1Set = true;
+                    }
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         tutorialUI.attack.Attack.sprite = tutorialUI.attack.AttackSprites[1];
@@ -243,6 +257,8 @@ namespace MC.Mission
 
             if (currentTutorial == TutorialEvent.Transform)
             {
+                if(!PlayerFSMManager.Instance.isNormal) tutorialUI.attack.special.text = tutoText[5];
+
                 if (Input.GetKeyDown(KeyCode.Mouse0) && !transChange)
                 {
                     if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -297,8 +313,14 @@ namespace MC.Mission
                 currentTutorial = TutorialEvent.End;
             }
 
-            if(currentTutorial == TutorialEvent.End)
-            {
+            if(currentTutorial == TutorialEvent.End) {
+
+                timer += Time.deltaTime;
+
+                if (timer < timePlay) timelines.SetActive(true);
+                else timelines.SetActive(false);
+
+
                 if (!GetComponentInChildren<MissionExit>()._PortalEffect.activeSelf)
                 {
                     GetComponentInChildren<MissionExit>()._PortalEffect.SetActive(true);
@@ -311,6 +333,7 @@ namespace MC.Mission
             //    attack1 = true;
             //    currentTutorial = TutorialEvent.End;
             //}
+
         }
 
         void ReturnSpace()
@@ -395,6 +418,7 @@ namespace MC.Mission
                 });
         }
 
+        public GameObject timelinecam;
         void SetTutoEnd()
         {
             GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
@@ -403,6 +427,7 @@ namespace MC.Mission
             fences[1].OpenFence();
             UserInterface.DialogSetActive(true);
             tutorialUI.moveDash.gameObject.SetActive(false);
+            timelinecam.transform.position = Camera.main.transform.position;
             UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4],
                 (() => {
                     GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
@@ -425,6 +450,7 @@ namespace MC.Mission
                     currentTutorial = TutorialEvent.Attack;
                     tutorialUI.attack.gameObject.SetActive(true);
                     tutorialUI.attack.attack.gameObject.SetActive(true);
+                    tutorialUI.attack.attack.text = tutoText[0];
                     //tutorialUI.move.gameObject.SetActive(true);
                     StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
                     GameManager.Instance.CharacterControl = true;
@@ -451,6 +477,7 @@ namespace MC.Mission
             StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
             tutorialUI.attack.attack.gameObject.SetActive(false);
             tutorialUI.attack.skill1.gameObject.SetActive(true);
+            tutorialUI.attack.skill1.text = tutoText[1];
 
 
         }
@@ -476,6 +503,7 @@ namespace MC.Mission
             StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
             tutorialUI.attack.skill1.gameObject.SetActive(false);
             tutorialUI.attack.skill2.gameObject.SetActive(true);
+            tutorialUI.attack.skill2.text = tutoText[2];
         }
 
         public void SetSkill3Event()
@@ -499,6 +527,7 @@ namespace MC.Mission
             StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
             tutorialUI.attack.skill2.gameObject.SetActive(false);
             tutorialUI.attack.skill3.gameObject.SetActive(true);
+            tutorialUI.attack.skill3.text = tutoText[3];
         }
 
         public void SetTransformEvent()
@@ -521,6 +550,7 @@ namespace MC.Mission
             StartCoroutine(SetSommonLocation(tutoWave[0].monsterTypes));
             tutorialUI.attack.skill3.gameObject.SetActive(false);
             tutorialUI.attack.special.gameObject.SetActive(true);
+            tutorialUI.attack.special.text = tutoText[4];
         }
 
         void NextTutorial(TutorialEvent state)

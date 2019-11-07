@@ -184,6 +184,7 @@ public class RirisAnimEvent : MonoBehaviour
 
     public void SetOff()
     {
-        BossEffects.Instance.tornaedo.ItemReturnPool(this.gameObject);
+        GetComponent<Animator>().Play("Idle");
+        BossEffects.Instance.tornaedo.ItemReturnPool(GetComponentInParent<RirisWeapon>().gameObject);
     }
 }
