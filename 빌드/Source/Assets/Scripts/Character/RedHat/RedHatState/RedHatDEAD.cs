@@ -11,6 +11,8 @@ public class RedHatDEAD : RedHatFSMState
     {
         base.BeginState();
 
+        GetComponent<RedHatHIT>().StopAllCoroutines();
+
         if (_manager.dashEffect != null)
         {
             _manager.dashEffect.SetActive(false);
