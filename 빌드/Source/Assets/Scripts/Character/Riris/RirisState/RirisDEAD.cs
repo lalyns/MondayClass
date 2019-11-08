@@ -18,6 +18,7 @@ public class RirisDEAD : RirisFSMState
         StartCoroutine(MCSoundManager.BGMFadeOut(1f));
         MCSoundManager.StopBGM();
         BossDirector.Instance.PlayDeadCine();
+        GameStatus.GameClear = true;
     }
 
     public override void EndState()

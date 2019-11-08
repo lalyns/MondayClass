@@ -54,8 +54,15 @@ namespace MC.UI
                 CanvasInfo.Instance.player.resource.profiles[1];
         }
 
+        public void SkillLock(int i)
+        {
+            skill[i].inActive.fillAmount = 1;
+            skill[i].lockSkill.gameObject.SetActive(true);
+        }
+
         public void SkillSetActive(int i, float value, bool isCool)
         {
+            skill[i].lockSkill.gameObject.SetActive(false);
             if (isCool)
             {
                 var gaugeValue = Mathf.Clamp01(value / playerFSM.Stat.skillCTime[i]);
@@ -81,7 +88,7 @@ namespace MC.UI
                 (PlayerFSMManager.Instance.SpecialGauge) / 100.0f, Time.deltaTime * 5f));
 
             
-            special.value.text = (PlayerFSMManager.Instance.SpecialGauge > 100 ? 100 : PlayerFSMManager.Instance.SpecialGauge)  + "%";
+            special.value.text = (PlayerFSMManager.Instance.SpecialGauge > 100 ? 100 : (int)PlayerFSMManager.Instance.SpecialGauge)  + "%";
             special.inActive.fillAmount = value;
             
             special.effects[0].gameObject.SetActive(value >= 1);
@@ -173,6 +180,7 @@ namespace MC.UI
         public Image inActive;
         public ParticleSystem[] effects;
         public Text cooltime;
+        public Image lockSkill;
     }
 
     [System.Serializable]
