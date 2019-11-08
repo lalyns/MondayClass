@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Mission;
 
 public class RirisULTIMATE : RirisFSMState
 {
@@ -38,6 +39,7 @@ public class RirisULTIMATE : RirisFSMState
     List<GameObject>[] beamLists = new List<GameObject>[5];
 
     public UltiPattern currentPattern;
+    public Animator ultFence;
 
     public override void BeginState()
     {
@@ -48,6 +50,9 @@ public class RirisULTIMATE : RirisFSMState
         _manager.Anim.transform.LookAt
             (PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         BigCircleCast();
+
+        PlayerFSMManager.Instance.Anim.transform.position = MissionBoss._Instance.MapGrid.center.position;
+        ultFence.Play("UP");
     }
 
     public override void EndState()
@@ -60,6 +65,8 @@ public class RirisULTIMATE : RirisFSMState
         {
             flowerLists[i].Clear();
         }
+
+        ultFence.Play("DOWN");
     }
 
     protected override void Awake()

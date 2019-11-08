@@ -51,6 +51,7 @@ public class RirisPATTERNB : RirisFSMState
 
         PatternBReadyEffect.SetActive(true);
         PatternBReadyEffect.transform.LookAt(PlayerFSMManager.GetLookTargetPos(PatternBReadyEffect.transform));
+        PatternBReadyEffect.GetComponentInChildren<Animator>().Play("Play");
 
         useGravity = false;
 

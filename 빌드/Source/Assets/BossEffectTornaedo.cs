@@ -17,18 +17,23 @@ public class BossEffectTornaedo : MonoBehaviour
         circle.SetActive(true);
         tornaedo.SetActive(false);
         isPlay = false;
+        time = 0;
     }
 
     private void Update()
     {
         time += Time.deltaTime;
-        if (time > tornaedoCount)
+        if (time > tornaedoCount - 0.2f)
         {
-            circle.SetActive(false);
-            tornaedo.SetActive(true);
+            if (time > tornaedoCount)
+            {
+                circle.SetActive(false);
+            }
 
             if (!isPlay)
             {
+
+                tornaedo.SetActive(true);
                 tornaedo.GetComponentInChildren<Animator>().Play("Play");
                 isPlay = true;
             }
