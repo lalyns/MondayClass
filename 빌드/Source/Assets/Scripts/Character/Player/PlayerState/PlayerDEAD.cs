@@ -27,12 +27,14 @@ public class PlayerDEAD : FSMState
         UserInterface.SetPlayerUserInterface(false);
         UserInterface.SetMissionProgressUserInterface(false);
 
+        CanvasInfo.Instance.enemyHP.SetFalse();
+
         _manager.Skill1Return(_manager.Skill1_Effects, _manager.Skill1_Special_Effects, _manager.isNormal);
         _manager.Skill1Return(_manager.Skill1_Shoots, _manager.Skill1_Special_Shoots, _manager.isNormal);
         _manager.Skill1PositionSet(_manager.Skill1_Effects, _manager.Skill1_Shoots, _manager.Skill1_Special_Shoots, _manager.isNormal);
 
-        StartCoroutine(MCSoundManager.AmbFadeOut(0.2f));
-        StartCoroutine(MCSoundManager.BGMFadeOut(0.2f));
+        StartCoroutine(MCSoundManager.AmbFadeOut(0.4f));
+        StartCoroutine(MCSoundManager.BGMFadeOut(0.4f));
 
         var sound = MCSoundManager.Instance.objectSound.ui;
         sound.PlaySound(_manager.gameObject, sound.dead);

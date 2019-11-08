@@ -37,9 +37,6 @@ public class RirisPATTERNA : RirisFSMState
         PatternEnd = false;
         useGravity = false;
 
-        var sound = _manager.sound.ririsVoice;
-        sound.PlayRirisVoice(this.gameObject, sound.stomp);
-
         _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         _manager._Weapon.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager._Weapon.transform));
 
@@ -114,8 +111,6 @@ public class RirisPATTERNA : RirisFSMState
 
     public IEnumerator AddBullet()
     {
-        var sound = _manager.sound.ririsVoice;
-        sound.PlayRirisVoice(this.gameObject, sound.batswarm1);
         bulletPos.position = _manager.Pevis.transform.position;
 
         for (int i = 0; i < 4; i++)
@@ -146,16 +141,6 @@ public class RirisPATTERNA : RirisFSMState
 
         _manager.Anim.SetBool("Stomp", true);
         _manager._WeaponAnimator.SetBool("Stomp", true);
-    }
-
-    public void AttackCheck()
-    {
-
-        float damage = _manager.Stat.damageCoefiiecient[0] * 0.01f *
-            (_manager.Stat.Str + _manager.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
-            - PlayerFSMManager.Instance.Stat.Defense;
-
-        var hitTarget = GameLib.SimpleDamageProcess(transform, _manager.Stat.AttackRange, "Player", _manager.Stat, damage);
     }
 
     protected override void FixedUpdate()

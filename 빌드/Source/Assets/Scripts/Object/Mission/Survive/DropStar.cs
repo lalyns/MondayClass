@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using MC.Sound;
+
 namespace MC.Mission
 {
 
@@ -15,6 +17,13 @@ namespace MC.Mission
         public GameObject _StarMesh;
         public GameObject _FloorEffect;
         public GameObject _GetEffect;
+
+        public void PlaySound()
+        {
+            var sound = MCSoundManager.Instance.objectSound.objectSFX;
+            sound.PlaySound(this.gameObject, sound.startCreate);
+            sound.PlaySound(this.gameObject, sound.starDrop);
+        }
 
         private void Update()
         {
@@ -43,6 +52,10 @@ namespace MC.Mission
             {
                 stop = true;
 
+                var sound = MCSoundManager.Instance.objectSound.objectSFX;
+                sound.StopSound(this.gameObject, sound.starDrop);
+                sound.PlaySound(this.gameObject, sound.starGet);
+
                 _StarMesh.SetActive(false);
                 _FloorEffect.SetActive(false);
                 _GetEffect.transform.position = other.transform.position + Vector3.up;
@@ -59,6 +72,9 @@ namespace MC.Mission
             else if (other.transform.tag == "Stage")
             {
                 _StarMesh.SetActive(false);
+
+                var sound = MCSoundManager.Instance.objectSound.objectSFX;
+                sound.StopSound(this.gameObject, sound.starDrop);
 
                 MissionB mission = MissionManager.Instance.CurrentMission as MissionB;
 

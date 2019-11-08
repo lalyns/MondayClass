@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class MacRUNAWAY : MacFSMState
 {
-    public bool _SetTarget = false;
-    public Transform[] Targets;
-    Vector3 TargetPos;
+    public bool setTarget = false;
+    public Transform[] targets;
+    Vector3 targetPos;
 
     public override void BeginState()
     {
         base.BeginState();
-        TargetPos = Vector3.zero;
+        targetPos = Vector3.zero;
         _manager.agent.acceleration = 0.5f;
         SetTarget();
     }
@@ -19,7 +19,7 @@ public class MacRUNAWAY : MacFSMState
     public override void EndState()
     {
         base.EndState();
-        _SetTarget = false;
+        setTarget = false;
         _manager.agent.velocity = Vector3.zero;
         _manager.agent.destination = this.transform.position;
         _manager.agent.isStopped = true;
@@ -30,12 +30,12 @@ public class MacRUNAWAY : MacFSMState
     {
         base.Update();
 
-        if (!_SetTarget) return;
+        if (!setTarget) return;
 
         if (_manager.agent.remainingDistance > 0.5f)
         {
             //transform.position = Vector3.Lerp(this.transform.position, TargetPos, 0.5f * Time.deltaTime);
-            _manager.agent.destination = TargetPos;
+            _manager.agent.destination = targetPos;
             _manager.agent.isStopped = false;
         }
 
@@ -52,46 +52,33 @@ public class MacRUNAWAY : MacFSMState
 
     public void SetTarget()
     {
-        //bool set = false;
+        //List<Vector3> lists = FindObjectOfType<MapGrid>().mapPositions;
+        //var rand = UnityEngine.Random.Range(0, lists.Count);
+        //targetPos = lists[rand];
 
-        //int loopEscape = 0;
+        while (!SettingRunAway())
+        {
 
-        //while (!set)
-        //{
-        //    set = Setting();
-        //    loopEscape++;
+        }
 
-        //    if (loopEscape >= 100)
-        //    {
-        //        _manager.SetState(MacState.ATTACK);
-        //        return;
-        //    }
-        //}
-
-        //_SetTarget = true;
-
-        List<Vector3> lists = FindObjectOfType<MapGrid>().mapPositions;
-        var rand = UnityEngine.Random.Range(0, lists.Count);
-        TargetPos = lists[rand];
-
-        _manager.agent.destination = TargetPos;
-        _SetTarget = true;
+        _manager.agent.destination = targetPos;
+        setTarget = true;
     }
 
-    public bool Setting()
+    public bool SettingRunAway()
     {
-        int random = UnityEngine.Random.Range(0, Targets.Length - 1);
+        int random = UnityEngine.Random.Range(0, targets.Length - 1);
 
         Ray ray = new Ray();
-        ray.origin = Targets[random].position;
+        ray.origin = targets[random].position;
         ray.direction = Vector3.down;
 
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, 0.5f, 1 << 17))
         {
-            transform.LookAt(Targets[random]);
-            TargetPos = hit.point;
+            transform.LookAt(targets[random]);
+            targetPos = hit.point;
             return true;
         }
 

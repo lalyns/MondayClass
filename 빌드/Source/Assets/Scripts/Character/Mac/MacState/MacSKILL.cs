@@ -17,18 +17,19 @@ public class MacSKILL : MacFSMState
     {
         base.EndState();
 
-        GetComponent<MacATTACK>()._AttackTimes = 0;
-        Debug.Log(GetComponent<MacATTACK>()._AttackTimes);
+        GetComponent<MacATTACK>().attackTimes = 0;
     }
 
     protected override void Update()
     {
         base.Update();
 
-        if(isLookAt)
-            transform.LookAt(_manager._PriorityTarget.transform);
+        if (isLookAt)
+        {
+            transform.LookAt(_manager.priorityTarget.transform);
+        }
 
-        if (GameLib.DistanceToCharacter(_manager.CC, _manager._PriorityTarget) > _manager.Stat.statData._AttackRange)
+        if (GameLib.DistanceToCharacter(_manager.CC, _manager.priorityTarget) > _manager.Stat.statData._AttackRange)
         {
             _manager.SetState(MacState.CHASE);
         }

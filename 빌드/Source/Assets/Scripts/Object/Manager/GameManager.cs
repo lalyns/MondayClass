@@ -78,14 +78,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(MCSceneManager.currentScene);
-
         if(MCSceneManager.currentScene == MCSceneManager.TITLE)
         {
             UserInterface.SetPointerMode(true);
-
-            MCSoundManager.Instance.objectSound.ambient.PlayAmbient(MCSoundManager.Instance.gameObject,
-                MCSoundManager.Instance.objectSound.ambient.lobbyAmbient);
         }
 
         if (MCSceneManager.currentScene == MCSceneManager.ANNIHILATION ||
@@ -294,11 +289,6 @@ public class GameManager : MonoBehaviour
         UserInterface.SetPlayerUserInterface(true);
 
         CharacterControl = true;
-    }
-
-    public void SetBank()
-    {
-        MCSoundManager.SetSound();
     }
 
     public void BossSet()

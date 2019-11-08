@@ -7,10 +7,9 @@ using MC.Sound;
 public class RirisHitCollider : MonoBehaviour
 {
     RirisFSMManager riris;
-
-    //public Collider collider => GetComponent<Collider>();
-
     public CapsuleCollider capsule;
+    public DamageDisplay display;
+
     private void Awake()
     {
         capsule = GetComponent<CapsuleCollider>();
@@ -53,11 +52,12 @@ public class RirisHitCollider : MonoBehaviour
         float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f);
         if(damage <= 10.0f)
         {
-            damage = 100.0f;
+            damage = 10.0f;
         }
-        Debug.Log(damage);
-        riris.Stat.TakeDamage(playerStat, damage);
-        //CharacterStat.ProcessDamage(playerStat, riris.Stat, damage);
+        StartCoroutine(display.DamageDisplaying(damage));
+
+        //riris.Stat.TakeDamage(playerStat, damage);
+        CharacterStat.ProcessDamage(playerStat, riris.Stat, damage);
 
         if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)
         {

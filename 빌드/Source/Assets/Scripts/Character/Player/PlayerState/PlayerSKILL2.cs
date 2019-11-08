@@ -16,6 +16,7 @@ public class PlayerSKILL2 : FSMState
     public override void BeginState()
     {
         base.BeginState();
+        _time = 0;
         isBox = false;
         isStartDamage = false;
         _manager.attackType = AttackType.SKILL2;
@@ -62,12 +63,15 @@ public class PlayerSKILL2 : FSMState
             else
             {
                 _manager.Skill2_Special.SetActive(true);
-            }
-            _manager.isSkill2Dash = false;
+            }            
             isBox = true;
         }
-     
-        if (isEnd && !isStartDamage)
+        //if(_time >= 0.66f)
+        //{
+        //    _manager.isSkill2Dash = false;
+        //}
+
+        if (!_manager.isSkill2Dash && !isStartDamage)
         {
             isStartDamage = true;
             if (_manager.OnMove())

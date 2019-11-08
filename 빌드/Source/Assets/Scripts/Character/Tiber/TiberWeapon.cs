@@ -27,13 +27,14 @@ public class TiberWeapon : MonoBehaviour
         {
             if (other.transform.tag == "Player")
             {
-                //float damage = Tiber.Stat.damageCoefiiecient[0] * 0.01f *
-                //(Tiber.Stat.Str + Tiber.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
-                //- PlayerFSMManager.Instance.Stat.Defense;
-
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", Tiber.Stat, 30);
+                float damage = Tiber.Stat.damageCoefiiecient[0] * 0.01f *
+                (Tiber.Stat.Str + Tiber.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
+                - PlayerFSMManager.Instance.Stat.Defense;
+                
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", Tiber.Stat, MonsterType.Tiber, damage);
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
+
                 if (!PlayerFSMManager.Instance.isDead)
                     PlayerFSMManager.Instance.SetState(PlayerState.HIT2);
             }
@@ -42,14 +43,14 @@ public class TiberWeapon : MonoBehaviour
         {
             if (other.transform.tag == "Player")
             {
-                //float damage = Tiber.Stat.damageCoefiiecient[1] * 0.01f *
-                //(Tiber.Stat.Str + Tiber.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
-                //- PlayerFSMManager.Instance.Stat.Defense;
+                float damage = Tiber.Stat.damageCoefiiecient[1] * 0.01f *
+                (Tiber.Stat.Str + Tiber.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
+                - PlayerFSMManager.Instance.Stat.Defense;
 
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", Tiber.Stat, 30);
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", Tiber.Stat, damage);
                 Invoke("AttackSupport", 0.5f);
 
-                var sound = Tiber._Sound.monsterSFX;
+                var sound = Tiber.sound.monsterSFX;
                 sound.PlayMonsterSFX(PlayerFSMManager.Instance.gameObject, sound.tiberSpinHit);
 
                 _Dameged = true;

@@ -12,6 +12,13 @@ public class PlayerCLEAR : FSMState
     public override void BeginState()
     {
         base.BeginState();
+        _manager.Anim.SetFloat("CurrentClear", (int)_manager.CurrentClear);
+
+        if (_manager.isNormal)
+            _manager.Normal.SetActive(true);
+        if (!_manager.isNormal)
+            _manager.Special.SetActive(true);
+
         GameStatus.Instance.canInput = false;
         if(_manager.CurrentClear == 0)
         {

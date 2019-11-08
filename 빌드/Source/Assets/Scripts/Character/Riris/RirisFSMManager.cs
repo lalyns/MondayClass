@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.Sound;
+using MC.UI;
 
 public enum RirisState
 {
@@ -13,57 +14,49 @@ public enum RirisState
     PATTERNEND,
     ULTIMATE,
     DEAD,
-    PHASE,
     HIT,
+    PHASE,
 }
 
 
 [RequireComponent(typeof(RirisStat))]
 public class RirisFSMManager : FSMManager
 {
-    private bool _isInit = false;
+    private bool isInit = false;
     public RirisState startState = RirisState.POPUP;
-    private Dictionary<RirisState, RirisFSMState> _States = new Dictionary<RirisState, RirisFSMState>();
+    private Dictionary<RirisState, RirisFSMState> states = new Dictionary<RirisState, RirisFSMState>();
 
     public static RirisFSMManager Instance;
 
-    private RirisState _CurrentState;
+    private RirisState currentState;
     public RirisState CurrentState {
         get {
-            return _CurrentState;
+            return currentState;
         }
     }
 
     public RirisFSMState CurrentStateComponent {
         get {
-            return _States[_CurrentState];
+            return states[currentState];
         }
     }
 
-    private CharacterController _CC;
-    public CharacterController CC { get { return _CC; } }
+    private CharacterController cc;
+    public CharacterController CC { get { return cc; } }
 
     private CapsuleCollider _PlayerCapsule;
-    public CapsuleCollider PlayerCapsule {
-        get {
-            if(_PlayerCapsule == null)
-                _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
-            return _PlayerCapsule;
-        }
-    }
+    public CapsuleCollider PlayerCapsule => PlayerFSMManager.Instance.Anim.GetComponent<CapsuleCollider>();
 
-    private RirisStat _Stat;
-    public RirisStat Stat { get { return _Stat; } }
+    private RirisStat stat;
+    public RirisStat Stat { get { return stat; } }
 
-    private Animator _Anim;
+    private Animator anim;
     public Animator Anim {
         get {
-            if(_Anim == null) { _Anim = GetComponentInChildren<Animator>(); }
-            return _Anim;
+            if(anim == null) { anim = GetComponentInChildren<Animator>(); }
+            return anim;
         }
     }
-    public static float RirithPatternALength;
-    public static float WeaponPatternALength;
 
     public Transform BulletCenter;
     public Transform Pevis;
@@ -86,6 +79,7 @@ public class RirisFSMManager : FSMManager
     public GameObject missingEndEffect;
 
     public RirisSound sound;
+    public MonsterSound sound2;
 
     public bool isDead = false;
 
@@ -95,10 +89,11 @@ public class RirisFSMManager : FSMManager
 
         Instance = GetComponent<RirisFSMManager>();
 
-        _CC = GetComponent<CharacterController>();
-        _Stat = GetComponent<RirisStat>();
-        _Anim = GetComponentInChildren<Animator>();
+        cc = GetComponent<CharacterController>();
+        stat = GetComponent<RirisStat>();
+        anim = GetComponentInChildren<Animator>();
         sound = GetComponent<RirisSound>();
+        sound2 = GetComponent<MonsterSound>();
 
         for (int i=0; i<MR.Length; i++)
         {
@@ -116,7 +111,7 @@ public class RirisFSMManager : FSMManager
                 state = (RirisFSMState)gameObject.AddComponent(FSMType);
             }
 
-            _States.Add(s, state);
+            states.Add(s, state);
             state.enabled = false;
         }
     }
@@ -124,20 +119,17 @@ public class RirisFSMManager : FSMManager
     private void Start()
     {
         SetState(startState);
-        _isInit = true;
+        isInit = true;
     }
     public bool isChange, isUlt;
+
     private void Update()
     {
-        if (PlayerFSMManager.Instance.isSpecial && !isChange)
+        if(GameStatus.currentGameState == CurrentGameState.Product)
         {
             SetState(RirisState.HIT);
-            isChange = true;
-        }
-        if (PlayerFSMManager.Instance.isSkill4 && !isUlt)
-        {
-            isUlt = true;
-            SetState(RirisState.HIT);
+            if (PlayerFSMManager.Instance.isSpecial && !isChange) isChange = true;
+            if (PlayerFSMManager.Instance.isSkill4 && !isUlt) isUlt = true;
         }
 
         if(Input.GetKey(KeyCode.LeftAlt))
@@ -157,27 +149,30 @@ public class RirisFSMManager : FSMManager
         }
     }
 
+    public void AttackSupport()
+    {
+        CanvasInfo.Instance.enemyHP.hpBar.HitBackFun();
+    }
+
     public void SetState(RirisState newState)
     {
-        //Debug.Log("New State : " + newState.ToString());
-
-        if (_isInit)
+        if (isInit)
         {
-            _States[_CurrentState].enabled = false;
-            _States[_CurrentState].EndState();
+            states[currentState].enabled = false;
+            states[currentState].EndState();
         }
-        _CurrentState = newState;
-        _States[_CurrentState].BeginState();
-        _States[_CurrentState].enabled = true;
+        currentState = newState;
+        states[currentState].BeginState();
+        states[currentState].enabled = true;
 
-        _Anim.SetInteger("CurrentState", (int)_CurrentState);
-        _WeaponAnimator.SetInteger("CurrentState", (int)_CurrentState);
+        anim.SetInteger("CurrentState", (int)currentState);
+        _WeaponAnimator.SetInteger("CurrentState", (int)currentState);
         
     }
 
     public void TelePortToPos(Vector3 pos)
     {
-        _Anim.Play("Warp");
+        anim.Play("Warp");
         Instantiate(missingEffect, this.Pevis.transform.position, Quaternion.identity);
     }
 

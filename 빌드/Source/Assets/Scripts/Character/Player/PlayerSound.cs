@@ -15,6 +15,12 @@ namespace MC.Sound
             public AK.Wwise.Event hitSFX = new AK.Wwise.Event();
 
             public AK.Wwise.Event specialWinkSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event specialFireSFX = new AK.Wwise.Event();
+
+            public AK.Wwise.Event skill4BGMSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event skill4LightOnSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event skill4Skill4RoarSFX = new AK.Wwise.Event();
+            public AK.Wwise.Event skill4FireWord = new AK.Wwise.Event();
             #endregion
 
             #region SkillList

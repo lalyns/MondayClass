@@ -5,8 +5,6 @@ using UnityEngine;
 // 불릿패턴
 public class RirisPATTERNC : RirisFSMState
 {
-    bool type = false;
-
     public ObjectPool bulletPool;
 
     public Transform bulletPos;
@@ -57,15 +55,8 @@ public class RirisPATTERNC : RirisFSMState
         useGravity = true;
     }
 
-    protected override void Update()
-    {
-
-    }
-
     public IEnumerator FireBullet()
     {
-        var sound = _manager.sound.ririsVoice;
-        sound.PlayRirisVoice(this.gameObject, sound.batswarm2);
         for (int i = 0; i < 4; i++)
         {
             BulletPatternB();
@@ -73,7 +64,7 @@ public class RirisPATTERNC : RirisFSMState
             var random = Random.Range(0, 999) % 2 == 0 ? -1f : 1f;
             bulletPos.Rotate(0, random * 25f, 0);
 
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(0.6f);
         }
 
         yield return new WaitForSeconds(1f);

@@ -18,7 +18,6 @@ public class PlayerAnimEvent : MonoBehaviour
     public FollowCam cam;
     private void Start()
     {
-        //input = InputHandler.instance;
         player = PlayerFSMManager.Instance;
         skill2 = player.GetComponent<PlayerSKILL2>();
         hit2 = player.GetComponent<PlayerHIT2>();
@@ -29,9 +28,8 @@ public class PlayerAnimEvent : MonoBehaviour
     {
         if (null != player)
         {
-            //input.AttackCheck();
             player.AttackCheck();
-            
+
             if (isNormal)
                 Normal_trail.gameObject.SetActive(true);
             if (!isNormal)
@@ -44,7 +42,7 @@ public class PlayerAnimEvent : MonoBehaviour
         if (null != player)
         {
             player.AttackCancel();
-            
+
             if (isNormal)
                 Normal_trail.gameObject.SetActive(false);
             if (!isNormal)
@@ -65,7 +63,7 @@ public class PlayerAnimEvent : MonoBehaviour
     public void PlayParticle()
     {
         var main = particle.main;
-        
+
         main.startLifetime = 1;
         particle.Play();
     }
@@ -107,6 +105,13 @@ public class PlayerAnimEvent : MonoBehaviour
     {
         var sound = player._Sound.sfx;
         sound.PlayPlayerSFX(this.gameObject, sound.specialWinkSFX);
+    }
+
+    void SpecialFireWork()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.specialFireSFX);
+
     }
 
     void SpecialEnd()
@@ -176,6 +181,37 @@ public class PlayerAnimEvent : MonoBehaviour
         sound.PlayPlayerSFX(this.gameObject, sound.specialVioletBeamSFX);
     }
 
+    void SKill4BGM()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.skill4BGMSFX);
+
+    }
+
+    void SKill4LightOn()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.skill4LightOnSFX);
+    }
+
+    void Skill4Roar()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.skill4Skill4RoarSFX);
+    }
+
+    void SKill4FireWork()
+    {
+        var sound = player._Sound.sfx;
+        sound.PlayPlayerSFX(this.gameObject, sound.skill4FireWord);
+    }
+
+    void Skill4EndVoice()
+    {
+        var voice = player._Sound.voice;
+        voice.PlayPlayerVoice(this.gameObject, voice.skill4FinishVoice);
+    }
+
     public void StopParticle()
     {
         //particle.Stop();
@@ -184,7 +220,8 @@ public class PlayerAnimEvent : MonoBehaviour
 
     void Skill2End()
     {
-        skill2.isEnd = true;
+        player.isSkill2Dash = false;
+        //skill2.isEnd = true;
     }
 
     void Hit2End()

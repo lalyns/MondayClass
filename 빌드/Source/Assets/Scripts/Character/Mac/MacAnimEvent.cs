@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class MacAnimEvent : MonoBehaviour
 {
-    MacFSMManager _Manager;
-    MacFSMManager FSMManager {
+    MacFSMManager mac;
+    MacFSMManager Mac {
         get {
-            if(_Manager == null)
+            if(mac == null)
             {
-                _Manager = this.GetComponentInParent<MacFSMManager>();
+                mac = this.GetComponentInParent<MacFSMManager>();
             }
 
-            return _Manager;
+            return mac;
         }
     }
 
@@ -24,52 +24,51 @@ public class MacAnimEvent : MonoBehaviour
 
     public void PopupOver()
     {
-        FSMManager.SetState(MacState.CHASE);
+        Mac.SetState(MacState.CHASE);
     }
 
     public void AttackOver()
     {
-        FSMManager.SetState(MacState.RUNAWAY);
+        Mac.SetState(MacState.RUNAWAY);
     }
 
 
     public void CastAttack()
     {
-        var sound = FSMManager._Sound.monsterSFX;
+        var sound = Mac.sound.monsterSFX;
         sound.PlayMonsterSFX(this.gameObject, sound.macSmallBall);
     }
 
     public void CastingAttack()
     {
-        //MacATTACK attack = _Manager.CurrentStateComponent as MacATTACK;
-
-        //attack.isLookAt = false;
+        MacATTACK attack = GetComponentInParent<MacATTACK>();
+        attack.isLookAt = false;
 
         MonsterEffects.Instance.macBulletPool.ItemSetActive(
             bulletLuancher, 
-            FSMManager.CC,
-            FSMManager._PriorityTarget);
+            Mac.CC,
+            Mac.priorityTarget);
 
     }
 
     public void CastSkillInit()
     {
-        var voice = FSMManager._Sound.monsterVoice;
+        var voice = Mac.sound.monsterVoice;
         voice.PlayMonsterVoice(this.gameObject, voice.macBigBallVoice);
     }
 
     public void CastingSkill()
     {
-        MacSKILL skill = _Manager.CurrentStateComponent as MacSKILL;
+        MacSKILL skill = GetComponentInParent<MacSKILL>();
+        skill.isLookAt = false;
 
-        //skill.isLookAt = false;
-        var sound = FSMManager._Sound.monsterSFX;
+        var sound = Mac.sound.monsterSFX;
         sound.PlayMonsterSFX(this.gameObject, sound.macBigBall);
 
 
         MonsterEffects.Instance.macSkillPool.ItemSetActive(skillLuancher,
-            FSMManager.CC,
-            FSMManager._PriorityTarget);
+            Mac.CC,
+            Mac.priorityTarget);
     }
 
     public void HitEnd()

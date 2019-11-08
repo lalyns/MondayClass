@@ -4,10 +4,10 @@ using UnityEngine;
 using MC.UI;
 public class TiberATTACK3 : TiberFSMState
 {
-    public float _time;
-    bool _IsSpread = false;
-
+    public float time;
+    bool isSpread = false;
     Vector3 playerTrans;
+
     public override void BeginState()
     {
         base.BeginState();
@@ -30,22 +30,23 @@ public class TiberATTACK3 : TiberFSMState
         _manager.agent.isStopped = true;
 
         _manager.Attack3Effect.SetActive(false);
-        _time = 0;
+        time = 0;
     }
+
     protected override void Update()
     {
         base.Update();
         playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
 
-        _time += Time.deltaTime;
+        time += Time.deltaTime;
 
-        if (_time >= 7.1f)
+        if (time >= 7.1f)
         {
             _manager.SetState(TiberState.CHASE);
-            _time = 0;
+            time = 0;
             return;
         }
-        if( _time < 6 && _time >= 1)
+        if( time < 6 && time >= 1)
         {
             _manager.agent.destination = playerTrans;
 
@@ -54,32 +55,9 @@ public class TiberATTACK3 : TiberFSMState
             } else {
                 _manager.agent.isStopped = true;
             }
-
-            //Vector3 playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
-
-            //_manager.CC.transform.LookAt(playerTrans);
-
-
-            //Vector3 moveDir = (playerTrans
-            //    - _manager.CC.transform.position).normalized;
-
-            //moveDir.y = 0;
-
-            //if ((_manager.CC.collisionFlags & CollisionFlags.Sides) != 0)
-            //{
-            //    Vector3 correctDir = Vector3.zero;
-            //    if (!_IsSpread)
-            //    {
-            //        correctDir = DecideSpreadDirection();
-            //        _IsSpread = true;
-            //    }
-
-            //    moveDir += correctDir;
-            //}
-
-            //_manager.CC.Move(moveDir * _manager.Stat.statData._MoveSpeed * 1.3f * Time.deltaTime);
         }
     }
+
     public void AttackSupport()
     {
         UserInterface.Instance.UIPlayer.hpBar.HitBackFun();

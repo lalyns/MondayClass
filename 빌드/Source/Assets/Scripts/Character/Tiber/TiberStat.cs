@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class TiberStat : CharacterStat
 {
-    public MonsterData monsterData;
-
     public float[] damageCoefiiecient;
 
     public float addStrPerRound;

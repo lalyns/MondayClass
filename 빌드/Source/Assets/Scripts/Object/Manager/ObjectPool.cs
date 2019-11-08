@@ -12,8 +12,8 @@ public class ObjectPool : MonoBehaviour
     [Tooltip("오브젝트 풀링을 할 대상 게임 오브젝트")]
     public GameObject _PoolingItem;
 
-    public LinkedList<GameObject> _InActiveItemPool = new LinkedList<GameObject>();
-    public LinkedList<GameObject> _ActiveItem = new LinkedList<GameObject>();
+    public LinkedList<GameObject> InActiveItem = new LinkedList<GameObject>();
+    public LinkedList<GameObject> ActiveItem = new LinkedList<GameObject>();
 
     private void Start()
     {
@@ -29,7 +29,7 @@ public class ObjectPool : MonoBehaviour
         {
             var item = Instantiate(_PoolingItem, this.transform);
             item.SetActive(false);
-            _InActiveItemPool.AddLast(item);
+            InActiveItem.AddLast(item);
         }
 
     }
@@ -40,18 +40,18 @@ public class ObjectPool : MonoBehaviour
     /// <param name="respawnTrans"> 오브젝트 스폰 위치 </param>
     public GameObject ItemSetActive(Transform respawnTrans)
     {
-        if(_InActiveItemPool.Count == 0)
+        if(InActiveItem.Count == 0)
         {
             CreateItem();
         }
 
-        var item = _InActiveItemPool.First.Value;
-        _InActiveItemPool.RemoveFirst();
+        var item = InActiveItem.First.Value;
+        InActiveItem.RemoveFirst();
 
         item.transform.position = respawnTrans.position;
         item.SetActive(true);
 
-        _ActiveItem.AddLast(item);
+        ActiveItem.AddLast(item);
 
         return item;
     }
@@ -59,18 +59,18 @@ public class ObjectPool : MonoBehaviour
 
     public Transform ItemSetActive(Transform respawnTrans, string type)
     {
-        if (_InActiveItemPool.Count == 0)
+        if (InActiveItem.Count == 0)
         {
             CreateItem();
         }
 
-        var item = _InActiveItemPool.First.Value;
-        _InActiveItemPool.RemoveFirst();
+        var item = InActiveItem.First.Value;
+        InActiveItem.RemoveFirst();
 
         item.transform.position = respawnTrans.position;
         item.SetActive(true);
 
-        _ActiveItem.AddLast(item);
+        ActiveItem.AddLast(item);
 
         if(type == "monster")
         {
@@ -96,18 +96,18 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject ItemSetActive(Vector3 spawnPos, MonsterType type)
     {
-        if (_InActiveItemPool.Count == 0)
+        if (InActiveItem.Count == 0)
         {
             CreateItem();
         }
 
-        var item = _InActiveItemPool.First.Value;
-        _InActiveItemPool.RemoveFirst();
+        var item = InActiveItem.First.Value;
+        InActiveItem.RemoveFirst();
 
         item.transform.position = spawnPos;
         item.SetActive(true);
 
-        _ActiveItem.AddLast(item);
+        ActiveItem.AddLast(item);
 
         GameStatus.Instance.AddActivedMonsterList(item);
 
@@ -134,18 +134,18 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject ItemSetActive(Vector3 spawnPos, string type)
     {
-        if (_InActiveItemPool.Count == 0)
+        if (InActiveItem.Count == 0)
         {
             CreateItem();
         }
 
-        var item = _InActiveItemPool.First.Value;
-        _InActiveItemPool.RemoveFirst();
+        var item = InActiveItem.First.Value;
+        InActiveItem.RemoveFirst();
 
         item.transform.position = spawnPos;
         item.SetActive(true);
 
-        _ActiveItem.AddLast(item);
+        ActiveItem.AddLast(item);
 
         if (type == "monster")
         {
@@ -171,38 +171,37 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject ItemSetActive(Vector3 respawnPos)
     {
-        if (_InActiveItemPool.Count == 0)
+        if (InActiveItem.Count == 0)
         {
             CreateItem();
         }
 
-        var item = _InActiveItemPool.First.Value;
-        _InActiveItemPool.RemoveFirst();
+        var item = InActiveItem.First.Value;
+        InActiveItem.RemoveFirst();
 
         item.transform.position = respawnPos;
         item.SetActive(true);
 
-        _ActiveItem.AddLast(item);
+        ActiveItem.AddLast(item);
 
         return item;
     }
 
     public void ItemSetActive(Transform respawnTrans, CharacterController start, Collider target)
     {
-        if (_InActiveItemPool.Count == 0)
+        if (InActiveItem.Count == 0)
         {
             CreateItem();
         }
 
-        var item = _InActiveItemPool.First.Value;
-        _InActiveItemPool.RemoveFirst();
+        var item = InActiveItem.First.Value;
+        InActiveItem.RemoveFirst();
 
         item.transform.position = respawnTrans.position;
 
         try
         {
-            item.GetComponent<MacBullet>().LookAtTarget(
-                PlayerFSMManager.GetLookTargetPos(item.transform));
+            item.GetComponent<MacBullet>().LookAtTarget();
 
             item.GetComponent<MacBullet>().dir =
                 GameLib.DirectionToCharacter(start, target);
@@ -217,7 +216,7 @@ public class ObjectPool : MonoBehaviour
 
         item.SetActive(true);
 
-        _ActiveItem.AddLast(item);
+        ActiveItem.AddLast(item);
     }
 
     /// <summary>
@@ -227,33 +226,33 @@ public class ObjectPool : MonoBehaviour
     /// <param name="go"> 풀에 반환할 오브젝트 </param>
     public void ItemReturnPool(GameObject go)
     {
-        if(_ActiveItem.Count == 0)
+        if(ActiveItem.Count == 0)
         {
             return;
         }
 
-        _ActiveItem.Remove(go);
+        ActiveItem.Remove(go);
 
         go.transform.localPosition = this.transform.position;
         go.SetActive(false);
 
-        _InActiveItemPool.AddLast(go);
+        InActiveItem.AddLast(go);
 
     }
 
     public void ItemReturnPool(GameObject go, MonsterType type)
     {
-        if (_ActiveItem.Count == 0)
+        if (ActiveItem.Count == 0)
         {
             return;
         }
 
-        _ActiveItem.Remove(go);
+        ActiveItem.Remove(go);
 
 
         go.transform.localPosition = this.transform.position;
         go.SetActive(false);
 
-        _InActiveItemPool.AddLast(go);
+        InActiveItem.AddLast(go);
     }
 }

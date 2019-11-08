@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class MacCHASE : MacFSMState
 {
-    bool _IsSpread = false;
-    Vector3 playerTrans;
+    bool isSpread = false;
+    Vector3 playerPos;
+
     public override void BeginState()
     {
 
@@ -17,7 +18,7 @@ public class MacCHASE : MacFSMState
     {
         _manager.agent.isStopped = true;
 
-        _IsSpread = false;
+        isSpread = false;
 
         base.EndState();
     }
@@ -30,7 +31,7 @@ public class MacCHASE : MacFSMState
             Quaternion.LookRotation(PlayerFSMManager.GetLookTargetPos(transform) - transform.position,
             Vector3.up), 2f * Time.deltaTime);
 
-        playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
+        playerPos = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
 
         if (_manager.agent.remainingDistance < _manager.Stat.AttackRange)
         {
@@ -39,7 +40,7 @@ public class MacCHASE : MacFSMState
         }        
         else
         {
-            _manager.agent.destination = playerTrans;
+            _manager.agent.destination = playerPos;
             _manager.agent.isStopped = false;
             _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
         }

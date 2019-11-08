@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using MC.SceneDirector;
 using MC.Sound;
 
@@ -25,18 +26,35 @@ namespace MC.UI
         public Title title;
 
         public TitleCutScene cutScene;
-        public GameObject setting => CanvasInfo.Instance.setting;
+        public GameObject Setting => CanvasInfo.Instance.setting;
 
         bool nextScene = true;
+
+        public void OnEnable()
+        {
+            MCSoundManager.LoadBank();
+            var sound = MCSoundManager.Instance.objectSound;
+            MCSoundManager.ChangeBGM(sound.bgm.lobbyBGM);
+            MCSoundManager.ChangeAMB(sound.ambient.lobbyAmbient);
+        }
 
         public void StartButton()
         {
             //cutScene.SetActive(true);
 
+            title.start.interactable = false;
+            title.setting.interactable = false;
+            title.developer.interactable = false;
+            title.exit.interactable = false;
+
             if (nextScene)
             {
                 var ui = MCSoundManager.Instance.objectSound.ui;
                 ui.PlaySound(this.gameObject, ui.uiStart);
+
+                StartCoroutine(MCSoundManager.BGMFadeOut(1f));
+                StartCoroutine(MCSoundManager.AmbFadeOut(1f));
+
 
                 cutScene.CineStart();
                 GameStatus.SetCurrentGameState(CurrentGameState.Product);
@@ -56,15 +74,22 @@ namespace MC.UI
 
         public void SettingButton()
         {
-            setting.SetActive(true);
+            Setting.SetActive(true);
             title.start.interactable = false;
             title.developer.interactable = false;
             title.exit.interactable = false;
+
+            var sound = MCSoundManager.Instance.objectSound.ui;
+            sound.PlaySound(MCSoundManager.Instance.gameObject, sound.nextPage);
         }
 
         public void Developer()
         {
             Debug.Log("개발자 : ??");
+
+            MCSoundManager.StopAMB();
+            MCSoundManager.StopBGM();
+            SceneManager.LoadScene(MCSceneManager.CREDIT);
         }
 
         public void ExitButton()

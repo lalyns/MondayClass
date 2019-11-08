@@ -55,12 +55,36 @@ namespace MC.Sound
             Instance.voice.HandleEvent(Instance.gameObject);
         }
 
-        public static void SetSound()
+        public static void ChangeBGM(AK.Wwise.Event bgm)
         {
-            Instance.objectSound.ambient.PlayAmbient(Instance.gameObject,
-                Instance.objectSound.ambient.stageAmbient);
-            Instance.objectSound.bgm.PlayBGM(Instance.gameObject,
-                Instance.objectSound.bgm.stageBGM);
+            if(bgm != Instance.preBGM)
+            {
+                Instance.objectSound.bgm.StopBGM(Instance.gameObject, Instance.preBGM);
+                Instance.preBGM = bgm;
+                Instance.curBGM = bgm;
+                Instance.objectSound.bgm.PlayBGM(Instance.gameObject, bgm);
+            }
+        }
+
+        public static void StopAMB()
+        {
+            Instance.objectSound.ambient.StopAmbient(Instance.gameObject, Instance.curAMB);
+        }
+
+        public static void ChangeAMB(AK.Wwise.Event amb)
+        {
+            if (amb != Instance.preAMB)
+            {
+                Instance.objectSound.ambient.StopAmbient(Instance.gameObject, Instance.preAMB);
+                Instance.preAMB = amb;
+                Instance.curAMB = amb;
+                Instance.objectSound.ambient.PlayAmbient(Instance.gameObject, amb);
+            }
+        }
+
+        public static void StopBGM()
+        {
+            Instance.objectSound.bgm.StopBGM(Instance.gameObject, Instance.curBGM);
         }
 
         public static void SetRTPCParam(string type, float value)
@@ -77,7 +101,7 @@ namespace MC.Sound
             return value;
         }
 
-        public static IEnumerator AmbFadeOut(float duration)
+        public static IEnumerator AmbFadeOut(float duration, float target = 0)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
@@ -95,10 +119,11 @@ namespace MC.Sound
                 yield return new WaitForSeconds(0.1f);
             }
 
+            SetRTPCParam("Ambient_Volume", 0);
             yield return null;
         }
 
-        public static IEnumerator AmbFadeIn(float duration)
+        public static IEnumerator AmbFadeIn(float duration, float start = 0)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
@@ -113,10 +138,11 @@ namespace MC.Sound
                 yield return new WaitForSeconds(0.1f);
             }
 
+            SetRTPCParam("Ambient_Volume", 100);
             yield return null;
         }
 
-        public static IEnumerator BGMFadeOut(float duration)
+        public static IEnumerator BGMFadeOut(float duration, float target = 0)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
@@ -126,18 +152,20 @@ namespace MC.Sound
                 realTime = Time.realtimeSinceStartup;
 
                 var value = Mathf.Clamp01(1 - (realTime - startTime) / duration) * 100;
-                value = value > GetRTPCParam("Bgm_Start_Fade_In") ?
-                    GetRTPCParam("Bgm_Start_Fade_In") : value;
+                value = value > GetRTPCParam("Bgm_SceneSwitch_Fade_Out") ?
+                    GetRTPCParam("Bgm_SceneSwitch_Fade_Out") : value;
 
-                SetRTPCParam("Bgm_Start_Fade_In", value);
+                SetRTPCParam("Bgm_SceneSwitch_Fade_Out", value);
 
                 yield return new WaitForSeconds(0.1f);
             }
 
+            SetRTPCParam("Bgm_SceneSwitch_Fade_Out", 0);
+
             yield return null;
         }
 
-        public static IEnumerator BGMFadeIn(float duration)
+        public static IEnumerator BGMFadeIn(float duration, float start = 0)
         {
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
@@ -146,12 +174,13 @@ namespace MC.Sound
             {
                 realTime = Time.realtimeSinceStartup;
 
-                var value = Mathf.Clamp01((realTime - startTime) / duration) * 100;
-                SetRTPCParam("Bgm_Start_Fade_In", value);
+                var value =Mathf.Clamp01((realTime - startTime) / duration) * 100;
+                SetRTPCParam("Bgm_SceneSwitch_Fade_Out", value);
 
                 yield return new WaitForSeconds(0.1f);
             }
 
+            SetRTPCParam("Bgm_SceneSwitch_Fade_Out", 100f);
             yield return null;
         }
     }

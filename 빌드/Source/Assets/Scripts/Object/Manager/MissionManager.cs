@@ -4,6 +4,7 @@ using UnityEngine;
 using MC.UI;
 using MC.SceneDirector;
 using MC.Mission;
+using MC.Sound;
 
 /// <summary>
 /// 미션의 종류
@@ -160,22 +161,15 @@ public class MissionManager : MonoBehaviour
                 var type = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
                 var type2 = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
 
+                while (type == type2)
+                {
+                    type2 = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
+                }
+
                 currentMissionRewards[0] = choice.ChangeReward(0, (MissionRewardType)type);
                 currentMissionRewards[1] = choice.ChangeReward(1, (MissionRewardType)type2);
             }
         }
-
-        //foreach (MissionButton choice in UserInterface.Instance.SelectorUI.buttons)
-        //{
-        //    var type = UnityEngine.Random.Range(0, 999) % ((int)(MissionType.Last) - 1);
-        //    choice.ChangeMission(type);
-        //}
-
-        //if (GameStatus.Instance.StageLevel >= 3)
-        //{
-        //    UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
-        //}
-
     }
 
     public static void SelectMission(MissionType type)
@@ -206,22 +200,6 @@ public class MissionManager : MonoBehaviour
                     MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, 1f, true);
                     break;
             }
-
-            EnterMission();
-
-            //UserInterface.SetPointerMode(false);
-            //GameManager.Instance.IsPuase = false;
-            //UserInterface.FullModeSetMP();
-
-            //// 페이드 Out
-            //GameManager.SetFadeInOut(() =>
-            //{
-
-            //    //MissionManager.EnterMission();
-            //    UserInterface.BlurSet(false);
-            //    // RigidBody Gravity => false
-            //    PlayerFSMManager.Instance.rigid.useGravity = false;
-            //}, false);
         }
 
     }
@@ -270,21 +248,6 @@ public class MissionManager : MonoBehaviour
                 GameSetting.rewardAbillity.skill1BounceLevel++;
                 break;
         }
-
-    }
-
-    public static void EnterMission()
-    {
-        // 캐릭터 위치변경
-        //Instance.CurrentMission.gameObject.SetActive(true);
-
-        //PlayerFSMManager.Instance.Anim.
-        //    transform.position =
-        //    Instance.CurrentMission.Enter.transform.position;
-
-        //PlayerFSMManager.Instance.Anim.
-        //    transform.LookAt(Instance.CurrentMission.Exit.transform);
-
 
     }
 
@@ -345,159 +308,4 @@ public class MissionManager : MonoBehaviour
         Choices = UserInterface.Instance.SelectorUI.buttons;
     }
 
-
-    #region 폐기
-    //private void Awake()
-    //{
-    //    //if (_Instance == null)
-    //    //{
-    //    //    _Instance = GetComponent<MissionManager>();
-
-    //    //    if (GameManager._Instance._IsDummyScene)
-    //    //        return;
-
-    //    //    _Choices = new MissionButton[3];
-    //    //    _Instance._Choices[0] = _Instance._UIMission.transform.GetChild(1).GetComponent<MissionButton>();
-    //    //    _Instance._Choices[1] = _Instance._UIMission.transform.GetChild(2).GetComponent<MissionButton>();
-    //    //    _Instance._Choices[2] = _Instance._UIMission.transform.GetChild(3).GetComponent<MissionButton>();
-
-    //    //}
-    //    //else
-    //    //{
-    //    //    Destroy(gameObject);
-    //    //}
-    //}
-
-    /// <summary>
-    /// 미션 정보창을 화면에 표시하는 매소드
-    /// </summary>
-    //public static void PopUpMissionMenu()
-    //{
-    //    //Debug.Log("미션의 정보창을 화면에 표기합니다.");
-    //    _Instance._UIMission.SetActive(true);
-    //    _Instance.ChangeMissionMenu();
-    //    GameManager.CursorMode(true);
-    //    GameManager._Instance._CharacterControl = false;
-
-    //    Time.timeScale = 0.0f;
-    //}
-
-    ///// <summary>
-    ///// 미션 정보창을 화면에서 지워주는 매소드
-    ///// </summary>
-    //public static void DisappearMissionMenu()
-    //{
-    //    //Debug.Log("미션의 정보창을 화면에서 지웁니다.");
-    //    _Instance._UIMission.SetActive(false);
-    //    GameManager.CursorMode(false);
-    //    GameManager._Instance._CharacterControl = true;
-    //    GameManager.isPopUp = false;
-    //    Time.timeScale = 1.0f;
-    //}
-
-    ///// <summary>
-    ///// 미션 정보창의 정보창 내용을 변경하는 매소드
-    ///// </summary>
-    //public void ChangeMissionMenu()
-    //{
-    //    //Debug.Log("미션 선택창의 정보를 변경합니다.");
-
-    //    for (int i = 0; i < _Choices.Length; i++)
-    //    {
-    //        MissionType newMission = SelectMission();
-    //        _Choices[i]._MissionType = newMission;
-    //        _Choices[i].ChangeMission(_MissionDatas[0], newMission);
-    //        _Choices[i].ChangeReward(_RewardDatas[SetReward()]);
-    //    }
-    //}
-
-    ///// <summary>
-    ///// 버튼 클릭시 미션의 내용을 설정하는 매소드
-    ///// </summary>
-    ///// <param name="choiceNum"> 버튼의 숫자 </param>
-    //public static void SetMissionOnClick(int choiceNum)
-    //{
-    //    //_Instance._CurrentMission = _Instance._Choices[choiceNum]._MissionType;
-    //    Dungeon dungeon = DungeonManager.CreateDungeon(MissionType.Annihilation);
-    //    //MissionData missionData = GetMissionData(_Instance._CurrentMission);
-
-    //    /// <summary>
-    //    /// 플레이어의 위치변경 매소드 필요
-    //    /// </summary>
-    //    GameObject.FindGameObjectWithTag("Player").transform.position
-    //        = dungeon._EnterPosition.position;
-    //    MissionManager.DisappearMissionMenu();
-
-    //    /// <summary>
-    //    /// 게임 로딩
-    //    /// </summary>
-
-    //    DungeonManager.SetCurrentDungeon(dungeon);
-    //    DungeonManager.GetCurrentDungeon()._Mission.MissionInitialize();
-    //    ObjectManager.SetSpawnPosition(dungeon._RespawnPositions);
-    //    dungeon._ExitPosition.gameObject.SetActive(false);
-    //}
-
-    ///// <summary>
-    ///// 미션의 종류를 랜덤으로 설정하는 매소드
-    ///// </summary>
-    ///// <returns> 미션의 종류 </returns>
-    //public MissionType SelectMission()
-    //{
-    //    var temp = UnityEngine.Random.Range(0, 999999) % (int)MissionType.Last;
-    //    MissionType mission = (MissionType)temp;
-
-    //    return mission;
-    //}
-
-    //public void StartMission()
-    //{
-    //    Debug.Log("미션 시작");
-    //    DungeonManager.GetCurrentDungeon()._Mission.MissionStart();
-    //    ObjectManager._Instance.CallSpawn();
-    //}
-
-    ///// <summary>
-    ///// 보상의 종류를 설정하는 매소드
-    ///// </summary>
-    ///// <returns> 보상의 종류 </returns>
-    //public int SetReward()
-    //{
-    //    var temp = UnityEngine.Random.Range(0, 999999) % _RewardDatas.Length;
-    //    return temp;
-    //}
-
-    ///// <summary>
-    ///// 미션을 확정합니다
-    ///// </summary>
-    ///// <param name="dungeonType"> 결정된 미션 </param>
-    //public static MissionData GetMissionData(MissionType dungeonType)
-    //{
-    //    MissionData missionData;
-    //    missionData = _Instance._MissionDatas[0];
-
-    //    return missionData;
-    //}
-
-    ///// <summary>
-    ///// 미션 종료를 알려주는 메소드. 여기서 연출을 처리
-    ///// </summary>
-    //public static void MissionClear()
-    //{
-    //    //Debug.Log("미션 종료");
-
-    //    DungeonManager.GetCurrentDungeon()._Trigger.isStart = false;
-    //    try
-    //    {
-    //        DungeonManager.GetCurrentDungeon()._Mission.MissionEnd();
-    //    }
-    //    catch
-    //    {
-
-    //    }
-
-    //    MissionManager.PopUpMissionMenu();
-
-    //}
-    #endregion
 }

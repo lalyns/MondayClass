@@ -247,7 +247,6 @@ public class FollowCam : MonoBehaviour
     {
         if (other.transform.tag == "Wall")
         {
-            Debug.Log("벽에닿은상태");
         }
     }
 }

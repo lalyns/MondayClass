@@ -227,10 +227,6 @@ namespace MC.UI
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
 
-            Instance.StartCoroutine(MCSoundManager.BGMFadeIn(duration));
-            Instance.StartCoroutine(MCSoundManager.AmbFadeIn(duration));
-
-
             var alpha = Instance.ScreenEffect.fading.image.color;
 
             while (realTime <= startTime + duration)
@@ -253,8 +249,6 @@ namespace MC.UI
             float startTime = Time.realtimeSinceStartup;
             float realTime = startTime;
 
-            Instance.StartCoroutine(MCSoundManager.BGMFadeOut(duration));
-            Instance.StartCoroutine(MCSoundManager.AmbFadeOut(duration));
             var alpha = Instance.ScreenEffect.fading.image.color;
 
             while (realTime <= startTime + duration)

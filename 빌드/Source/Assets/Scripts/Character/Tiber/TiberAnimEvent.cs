@@ -8,6 +8,7 @@ public class TiberAnimEvent : MonoBehaviour
     public TiberATTACK2 _attackCp2;
     public TiberHIT _hitCp;
     public TiberDEAD _deadCp;
+    public TiberWeapon tiberWeapon;
 
     public TiberFSMManager _manager => GetComponentInParent<TiberFSMManager>();
 
@@ -18,21 +19,15 @@ public class TiberAnimEvent : MonoBehaviour
     }
 
     public SphereCollider _WeaponCapsule;
-    // Start is called before the first frame update
     void Start()
     {
         _WeaponCapsule.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void OnWeaponTrigger()
     {
         _WeaponCapsule.gameObject.SetActive(true);
+        tiberWeapon._Dameged = false;
     }
 
     void DisableWeaponTrigger()
@@ -47,40 +42,40 @@ public class TiberAnimEvent : MonoBehaviour
 
     void SpinStart()
     {
-        var sound = _manager._Sound.monsterSFX;
+        var sound = _manager.sound.monsterSFX;
         sound.PlayMonsterSFX(gameObject, sound.tiberSpinInit);
 
     }
 
     void SpinSound()
     {
-        var sound = _manager._Sound.monsterSFX;
+        var sound = _manager.sound.monsterSFX;
         sound.PlayMonsterSFX(gameObject, sound.tiberSpin);
     }
 
     void SpinVoice()
     {
-        var voice = _manager._Sound.monsterVoice;
+        var voice = _manager.sound.monsterVoice;
         voice.PlayMonsterVoice(gameObject, voice.tiberSpinVoice);
 
     }
 
     void JumpSound()
     {
-        var sound = _manager._Sound.monsterSFX;
+        var sound = _manager.sound.monsterSFX;
         sound.PlayMonsterSFX(gameObject, sound.tiberStamp);
 
     }
 
     void JumpVoice()
     {
-        var voice = _manager._Sound.monsterVoice;
+        var voice = _manager.sound.monsterVoice;
         voice.PlayMonsterVoice(gameObject, voice.tiberStompVoice);
     }
 
     void DropSound()
     {
-        var sound = _manager._Sound.monsterSFX;
+        var sound = _manager.sound.monsterSFX;
         sound.PlayMonsterSFX(gameObject, sound.tiberStampDrop);
 
     }
@@ -88,7 +83,7 @@ public class TiberAnimEvent : MonoBehaviour
     void BoomSound()
     {
 
-        var sound = _manager._Sound.monsterSFX;
+        var sound = _manager.sound.monsterSFX;
         sound.PlayMonsterSFX(gameObject, sound.tiberStampBoom);
     }
 

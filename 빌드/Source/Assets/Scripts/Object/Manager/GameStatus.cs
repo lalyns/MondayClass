@@ -19,6 +19,7 @@ public enum CurrentGameState
     Tutorial,
     Product,
     EDITOR,
+    End,
 }
 
 public class GameStatus : MonoBehaviour
@@ -286,6 +287,7 @@ public class GameStatus : MonoBehaviour
                     FindObjectOfType<TitleCutScene>().CineEnd();
                 }
             }
+
         }
 
 
@@ -304,6 +306,8 @@ public class GameStatus : MonoBehaviour
                 PlayerFSMManager.Instance.mainCamera.gameObject.SetActive(true);
 
                 Invoke("DialogCheck", 0.5f);
+
+                MissionManager.Instance.CurrentMission.PortalPlay();
 
             }
         }

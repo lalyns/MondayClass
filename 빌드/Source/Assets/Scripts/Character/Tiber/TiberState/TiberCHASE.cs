@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class TiberCHASE : TiberFSMState
 {
-    bool _IsSpread = false;
-
-    float _time;
+    bool isSpread = false;
+    float time;
     Vector3 playerTrans;
 
     public override void BeginState()
@@ -27,8 +26,8 @@ public class TiberCHASE : TiberFSMState
     {
         _manager.agent.isStopped = true;
 
-        _IsSpread = false;
-        _time = 0;
+        isSpread = false;
+        time = 0;
         base.EndState();
     }
 
@@ -38,8 +37,8 @@ public class TiberCHASE : TiberFSMState
 
         playerTrans = new Vector3(_manager.PlayerCapsule.transform.position.x, transform.position.y, _manager.PlayerCapsule.transform.position.z);
         transform.LookAt(playerTrans);
-        _time += Time.deltaTime;
-        if (_time >= 2f)
+        time += Time.deltaTime;
+        if (time >= 2f)
         {
             if (!_manager.isAttack1)
             {

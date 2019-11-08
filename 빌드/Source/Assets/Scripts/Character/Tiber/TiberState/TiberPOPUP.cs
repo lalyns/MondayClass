@@ -24,7 +24,7 @@ public class TiberPOPUP : TiberFSMState
 
         TargetPrioritySet();
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
-        _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        _manager.mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
         _manager.agent.speed = 4f;
         _manager.agent.angularSpeed = 360;
     }
@@ -48,7 +48,7 @@ public class TiberPOPUP : TiberFSMState
 
         if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)
         {
-            var sound = _manager._Sound.monsterSFX;
+            var sound = _manager.sound.monsterSFX;
             sound.PlayMonsterSFX(_manager.gameObject, sound.monsterAppear);
             MCSoundManager.SoundCall = 0f;
         }
@@ -78,13 +78,13 @@ public class TiberPOPUP : TiberFSMState
         if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
         {
 
-            Collider[] allTarget = Physics.OverlapSphere(this.transform.position, _manager._DetectingRange);
+            Collider[] allTarget = Physics.OverlapSphere(this.transform.position, _manager.detectingRange);
 
             foreach (Collider target in allTarget)
             {
                 if (target.tag == "Player")
                 {
-                    _manager._PriorityTarget = PlayerFSMManager.
+                    _manager.priorityTarget = PlayerFSMManager.
                         Instance.GetComponentInChildren<Animator>()
                         .GetComponent<Collider>();
                     break;
@@ -92,13 +92,13 @@ public class TiberPOPUP : TiberFSMState
                 else
                 {
                     MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
-                    _manager._PriorityTarget = mission.protectedTarget.Collider;
+                    _manager.priorityTarget = mission.protectedTarget.Collider;
                 }
             }
         }
         else
         {
-            _manager._PriorityTarget = PlayerFSMManager.
+            _manager.priorityTarget = PlayerFSMManager.
                 Instance.GetComponentInChildren<Animator>()
                 .GetComponent<Collider>();
         }

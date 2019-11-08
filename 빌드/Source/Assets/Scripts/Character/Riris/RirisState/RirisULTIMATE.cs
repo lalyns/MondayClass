@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Mission;
 
 public class RirisULTIMATE : RirisFSMState
 {
@@ -31,22 +32,27 @@ public class RirisULTIMATE : RirisFSMState
 
     public UltiPattern[] ultiPatterns = new UltiPattern[5];
 
-    Vector3 bossUltPos = new Vector3(-20.0f, 0.12f, -20.5f);
+    Vector3 bossInitPos = new Vector3(-20.0f, 0.12f, -20.5f);
 
     int currentList = 0;
     List<GameObject>[] flowerLists = new List<GameObject>[5];
     List<GameObject>[] beamLists = new List<GameObject>[5];
 
     public UltiPattern currentPattern;
+    public Animator ultFence;
 
     public override void BeginState()
     {
         base.BeginState();
 
         useGravity = false;
-        this.transform.position = bossUltPos;
-        _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
+        this.transform.position = bossInitPos;
+        _manager.Anim.transform.LookAt
+            (PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         BigCircleCast();
+
+        PlayerFSMManager.Instance.Anim.transform.position = MissionBoss._Instance.MapGrid.center.position;
+        ultFence.Play("UP");
     }
 
     public override void EndState()
@@ -59,6 +65,8 @@ public class RirisULTIMATE : RirisFSMState
         {
             flowerLists[i].Clear();
         }
+
+        ultFence.Play("DOWN");
     }
 
     protected override void Awake()
@@ -79,17 +87,31 @@ public class RirisULTIMATE : RirisFSMState
 
     public void BigCircleCast()
     {
+        var voice = _manager.sound.ririsVoice;
+        voice.PlayRirisVoice(_manager.gameObject, voice.special);
+
         bigCircle.gameObject.SetActive(true);
         bigCircle.particle[0].Play();
         bigCircle.particle[1].Play();
         bigCircle.anim.Play("play");
 
+        Invoke("SoundCast", 1.5f);
+
         Invoke("SmallCircleCast", 2.8f);
+    }
+
+    void SoundCast()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.ultGate);
     }
 
     public void SmallCircleCast()
     {
-        foreach(SmallCircle small in smallCircle)
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.ultSmallGate);
+
+        foreach (SmallCircle small in smallCircle)
         {
             small.gameObject.SetActive(true);
             for(int i =0; i<small.particle.Length; i++)
@@ -111,7 +133,6 @@ public class RirisULTIMATE : RirisFSMState
         {
             yield return new WaitForSeconds(delay);
 
-
             GameObject flower = BossEffects.Instance.flower.ItemSetActive(pattern.targetTrans[i].position);
             flower.GetComponent<BossUltEffect>().setEffect.PlayEffects();
 
@@ -131,6 +152,8 @@ public class RirisULTIMATE : RirisFSMState
 
     public IEnumerator SetBeam(UltiPattern pattern)
     {
+        var sound = _manager.sound.ririsSFX;
+
         int value = currentList;
         for (int i = 0; i < pattern.startTrans.Length; i++)
         {
@@ -141,10 +164,19 @@ public class RirisULTIMATE : RirisFSMState
             beam.transform.LookAt(pattern.targetTrans[i].position);
             StartCoroutine(Shake.instance.ShakeCamera(0.15f, 0.1f, 0.1f));
 
+            sound.PlayRirisSFX(_manager.gameObject, sound.ultBeam);
+            Invoke("BlastSound", 0.8f);
+
             flowerLists[value][i].GetComponent<BossUltEffect>().impactEffect.PlayEffects();
         }
 
         yield return StartCoroutine(SetFalse(beamLists[value], flowerLists[value]));
+    }
+
+    void BlastSound()
+    {
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(_manager.gameObject, sound.ultBlast);
     }
 
     public IEnumerator SetFalse(List<GameObject> beam, List<GameObject> flower)
@@ -153,8 +185,15 @@ public class RirisULTIMATE : RirisFSMState
 
         for(int i=0; i<beam.Count; i++)
         {
-            BossEffects.Instance.beam.ItemReturnPool(beam[i]);
-            BossEffects.Instance.flower.ItemReturnPool(flower[i]);
+            try
+            {
+                BossEffects.Instance.beam.ItemReturnPool(beam[i]);
+                BossEffects.Instance.flower.ItemReturnPool(flower[i]);
+            }
+            catch
+            {
+
+            }
         }
     }
 

@@ -13,7 +13,8 @@ namespace MC.UI
 
         public void HpBarView()
         {
-            if (PlayerFSMManager.Instance.LastHit() == null || GameStatus.currentGameState == CurrentGameState.MissionClear)
+            if (PlayerFSMManager.Instance.LastHit() == null ||
+                GameStatus.currentGameState == CurrentGameState.MissionClear)
             {
                 hpBar.gameObject.SetActive(false);
                 name.gameObject.SetActive(false);
@@ -29,6 +30,18 @@ namespace MC.UI
                 UserInterface.Instance.HPChangeEffect(PlayerFSMManager.Instance.LastHit(), hpBar);
                 name.text = SetName(PlayerFSMManager.Instance.LastHit());
             }
+        }
+
+        public void SetFalse()
+        {
+            if (PlayerFSMManager.Instance != null)
+            {
+                PlayerFSMManager.Instance.Stat.lastHitBy = null;
+            }
+            hpBar.gameObject.SetActive(false);
+            name.gameObject.SetActive(false);
+            wings[0].gameObject.SetActive(false);
+            wings[1].gameObject.SetActive(false);
         }
 
         string SetName(CharacterStat stat)

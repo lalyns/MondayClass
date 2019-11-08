@@ -28,8 +28,6 @@ public class RedHatFSMState : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(GameManager.Instance.uIActive.monster)
-            HPUI();
     }
 
     protected void DahsCheck()
@@ -44,19 +42,6 @@ public class RedHatFSMState : MonoBehaviour
             _Skill1Time = 0;
             _manager.SetState(RedHatState.DASH);
         }
-    }
-
-    public void HPUI()
-    {
-        try
-        {
-            UserInterface.Instance.HPChangeEffect(_manager.Stat, _manager._HPBar);
-        }
-        catch
-        {
-
-        }
-
     }
 
     protected virtual void FixedUpdate()

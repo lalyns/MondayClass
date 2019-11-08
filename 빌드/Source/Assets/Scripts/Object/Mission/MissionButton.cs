@@ -55,10 +55,6 @@ namespace MC.UI {
 
         public MissionRewardType ChangeReward(int num, MissionRewardType type)
         {
-            //var rewardSprite = rewardData.RewardIcon;
-            //var rewardText = rewardData.RewardText;
-            //var rewardText2 = rewardData.RewardText2;
-
             if(num == 0)
             {
                 this.rewardIcon.sprite = MissionManager.Instance.rewardData.RewardIcon[(int)type];
@@ -72,14 +68,20 @@ namespace MC.UI {
         public void SetMissionOnClick()
         {
             if (!isPush) {
-                MissionManager.SelectMission(missionType);
 
                 var sound = MCSoundManager.Instance.objectSound.objectSFX;
+                sound.StopSound(MissionManager.Instance.CurrentMission.Exit.gameObject, sound.portalLoop);
                 sound.PlaySound(this.gameObject, sound.portalExit);
 
+                Invoke("SetInvoke", 0.56f);
                 isPush = true;
             }
 
+        }
+
+        public void SetInvoke()
+        {
+            MissionManager.SelectMission(missionType);
         }
     }
 }

@@ -29,7 +29,11 @@ public class RedHatWeapon : MonoBehaviour
                 (redHat.Stat.Str + redHat.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
                 - PlayerFSMManager.Instance.Stat.Defense;
 
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 1f, "Player", redHat.Stat, MonsterType.RedHat, damage);
+                Debug.Log(damage);
+
+                var hitTarget = GameLib.SimpleDamageProcess(
+                    this.transform, 1f, "Player", redHat.Stat, MonsterType.RedHat,
+                    damage);
 
                 Transform effectTransform =
                     MonsterEffects.Instance.redHatAttackEffect.
@@ -48,8 +52,6 @@ public class RedHatWeapon : MonoBehaviour
         {
             if (other.transform.tag == "Player")
             {
-                Debug.Log("Dash HIT");
-
                 float damage = redHat.Stat.damageCoefiiecient[1] * 0.01f *
                 (redHat.Stat.Str + redHat.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
                 - PlayerFSMManager.Instance.Stat.Defense;
@@ -71,7 +73,6 @@ public class RedHatWeapon : MonoBehaviour
 
     public void AttackSupport()
     {
-        Debug.Log("attackCall");
         UserInterface.Instance.UIPlayer.hpBar.HitBackFun();
         _Dameged = false;
     }

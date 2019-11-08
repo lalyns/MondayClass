@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RirisAnimEvent : MonoBehaviour
 {
-    public RirisFSMManager _manager;
+    public RirisFSMManager riris;
 
     public bool isWeapon;
 
@@ -14,7 +14,7 @@ public class RirisAnimEvent : MonoBehaviour
     public void Start()
     {
         if(!isWeapon)
-            _manager = GetComponentInParent<RirisFSMManager>();
+            riris = GetComponentInParent<RirisFSMManager>();
 
     }
 
@@ -40,7 +40,7 @@ public class RirisAnimEvent : MonoBehaviour
 
     public void PatternAJumpEnd()
     {
-        RirisPATTERNA pattern = _manager.CurrentStateComponent as RirisPATTERNA;
+        RirisPATTERNA pattern = riris.GetComponent<RirisPATTERNA>();
 
         pattern.SetJumpState = true;
 
@@ -54,49 +54,88 @@ public class RirisAnimEvent : MonoBehaviour
     {
         //Debug.Log("End Call");
 
-        RirisPATTERNA pattern = _manager.CurrentStateComponent as RirisPATTERNA;
+        RirisPATTERNA pattern = riris.GetComponent<RirisPATTERNA>();
 
         pattern.PatternEnd = true;
 
     }
 
-    public void PatterBSound()
+    public void DashSound()
     {
-        var voice = _manager.sound.ririsVoice;
-        voice.PlayRirisVoice(_manager.gameObject, voice.dash);
+        var sound = riris.sound.ririsSFX;
+        sound.PlayRirisSFX(riris.gameObject, sound.dashLoopSFX);
+        sound.PlayRirisSFX(riris.gameObject, sound.dashSFX);
+    }
+
+    public void DashVoice()
+    {
+        var voice = riris.sound.ririsVoice;
+        voice.PlayRirisVoice(riris.gameObject, voice.dash);
+    }
+
+    public void JumpVoice()
+    {
+        var voice = riris.sound.ririsVoice;
+        voice.PlayRirisVoice(riris.gameObject, voice.jump);
+    }
+
+    public void PatternAJumpSound()
+    {
+        var sound = riris.sound.ririsSFX;
+        sound.PlayRirisSFX(riris.gameObject, sound.jumpSFX);
+    }
+
+    public void DropSound()
+    {
+        var sound = riris.sound.ririsSFX;
+        sound.PlayRirisSFX(riris.gameObject, sound.dropSFX);
+
+    }
+
+    public void StompSound()
+    {
+        var sound = riris.sound.ririsSFX;
+        sound.PlayRirisSFX(riris.gameObject, sound.stompSFX);
+
+    }
+
+    public void DropVoice()
+    {
+        var voice = riris.sound.ririsVoice;
+        voice.PlayRirisVoice(riris.gameObject, voice.stomp);
     }
 
     public void AddBulletPattern()
     {
-        if(_manager.CurrentState == RirisState.PATTERNA)
+        if(riris.CurrentState == RirisState.PATTERNA)
         {
-            RirisPATTERNA pattern = _manager.CurrentStateComponent as RirisPATTERNA;
+            RirisPATTERNA pattern = riris.CurrentStateComponent as RirisPATTERNA;
             pattern.StartCoroutine(pattern.AddBullet()); 
         }
-        else if (_manager.CurrentState == RirisState.PATTERNB)
+        else if (riris.CurrentState == RirisState.PATTERNB)
         {
-            RirisPATTERNB pattern = _manager.CurrentStateComponent as RirisPATTERNB;
+            RirisPATTERNB pattern = riris.CurrentStateComponent as RirisPATTERNB;
             pattern.StartCoroutine(pattern.AddBullet());
         }
-        else if (_manager.CurrentState == RirisState.PATTERNC)
+        else if (riris.CurrentState == RirisState.PATTERNC)
         {
-            RirisPATTERNC pattern = _manager.CurrentStateComponent as RirisPATTERNC;
+            RirisPATTERNC pattern = riris.CurrentStateComponent as RirisPATTERNC;
 
-            pattern.bulletPos.position = _manager.Pevis.transform.position;
+            pattern.bulletPos.position = riris.Pevis.transform.position;
             pattern.StartCoroutine(pattern.FireBullet());
         }
     }
 
     public void PatterBDashEffectUp()
     {
-        RirisPATTERNB pattern = _manager.CurrentStateComponent as RirisPATTERNB;
+        RirisPATTERNB pattern = riris.CurrentStateComponent as RirisPATTERNB;
 
         pattern.AttackReadyEnd();
     }
 
     public void PatterBEnd()
     {
-        RirisPATTERNB pattern = _manager.CurrentStateComponent as RirisPATTERNB;
+        RirisPATTERNB pattern = riris.CurrentStateComponent as RirisPATTERNB;
 
         pattern.isEnd = true;
     }
@@ -105,18 +144,47 @@ public class RirisAnimEvent : MonoBehaviour
     {
         var randPos = UnityEngine.Random.Range(0, MissionManager.Instance.CurrentMission.MapGrid.mapPositions.Count);
         var pos = MissionManager.Instance.CurrentMission.MapGrid.mapPositions[randPos];
-        _manager.transform.position = pos;
-        _manager.GetComponent<RirisPATTERNEND>().NextState();
-        Instantiate(_manager.missingEndEffect, _manager.Pevis.position, Quaternion.identity);
+        riris.transform.position = pos;
+        riris.GetComponent<RirisPATTERNEND>().NextState();
+        Instantiate(riris.missingEndEffect, riris.Pevis.position, Quaternion.identity);
+
+        var sfx = riris.sound.ririsSFX;
+        var voice = riris.sound.ririsVoice;
+        sfx.PlayRirisSFX(gameObject, sfx.teleportSFX);
+        voice.PlayRirisVoice(gameObject, voice.smile);
     }
 
     public void UltimateEnd()
     {
-        _manager.GetComponent<RirisULTIMATE>().PatternEnd();
+        riris.GetComponent<RirisULTIMATE>().PatternEnd();
     }
+
+    public void BatSwarmVoice()
+    {
+        var voice = riris.sound.ririsVoice;
+        voice.PlayRirisVoice(riris.gameObject, voice.batswarm);
+    }
+
+    public void BatSwarmCast()
+    {
+        var sound = riris.sound.ririsSFX;
+        sound.PlayRirisSFX(riris.gameObject, sound.batSwarmLoopSFX);
+    }
+
+    public void BoxTriggerOn()
+    {
+        GetComponentInParent<Collider>().enabled = true;
+    }
+
+    public void BoxTriggerOff()
+    {
+        GetComponentInParent<Collider>().enabled = false;
+    }
+
 
     public void SetOff()
     {
-        BossEffects.Instance.tornaedo.ItemReturnPool(this.gameObject);
+        GetComponent<Animator>().Play("Idle");
+        BossEffects.Instance.tornaedo.ItemReturnPool(GetComponentInParent<BossEffectTornaedo>().gameObject);
     }
 }

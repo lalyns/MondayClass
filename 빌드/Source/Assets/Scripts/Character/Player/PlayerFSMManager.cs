@@ -212,7 +212,8 @@ public class PlayerFSMManager : FSMManager
     float gaugePerSecond;
 
     public int ShieldCount;
-    [HideInInspector] public bool isSpecialIDLE;
+    [HideInInspector] public bool isSpecialIDLE = false;
+    [HideInInspector] public bool isHit2 = false;
     public int CurrentIdle;
     public int CurrentClear;
 
@@ -394,12 +395,14 @@ public class PlayerFSMManager : FSMManager
     float footPeriod = 0.0f;
     private void Update()
     {
-        if (GameStatus.currentGameState == CurrentGameState.Dialog) return;
+        if (GameStatus.currentGameState == CurrentGameState.Dialog || !GameStatus.Instance.canInput) return;
 
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
-        }
+        SetInvincibility(GameStatus.currentGameState == CurrentGameState.Product);
+
+        //if (Input.GetKeyDown(KeyCode.U))
+        //{
+        //    StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
+        //}
 
         if (isInputLock || isDead)
             return;
@@ -407,11 +410,6 @@ public class PlayerFSMManager : FSMManager
         if(Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.D))
         {
             SetDeadState();
-        }
-        if (Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.Alpha0))
-        {
-            //CurrentClear = Random.Range((int)0, (int)2);
-            SetState(PlayerState.CLEAR);
         }
         //if (GameSetting.rewardAbillity.feverGauge)
         //{
@@ -463,6 +461,11 @@ public class PlayerFSMManager : FSMManager
             if (mission.currentTutorial == TutorialEvent.Transform)
             {
                 ChangeModel();
+                Skill1();
+                Skill2();
+                Skill3();
+                Skill3MouseLock();
+                Skill3Reset();
             }
         }
         if (mission == null)
@@ -472,17 +475,17 @@ public class PlayerFSMManager : FSMManager
             return;
         if (remainingDash > 0 && !isSkill3Dash && !isSkill2Dash)            
             Dash();
-
-        GetInput();
+        if(!isSkill2Dash)
+            GetInput();
         //if (isSpecialIDLE)
         //    return;
-        if (CurrentState == PlayerState.IDLE2 || CurrentState == PlayerState.CLEAR || CurrentState == PlayerState.DEAD)
+        if (CurrentState == PlayerState.CLEAR || CurrentState == PlayerState.DEAD)
             return;
 
         
         AttackDirection();
 
-        if (!isSkill2End && !isSkill3)
+        if (!isSkill2End && !isSkill3 && !isSkill2Dash && !isHit2)
             Attack();
 
         // if 튜토리얼 스킬 1번 사용해야 할 때라면
@@ -530,8 +533,8 @@ public class PlayerFSMManager : FSMManager
 
         
 
-        _anim.SetFloat("CurrentIdle", (int)CurrentIdle);
-        _anim.SetFloat("CurrentClear", (int)CurrentClear);
+        //_anim.SetFloat("CurrentIdle", (int)CurrentIdle);
+        //_anim.SetFloat("CurrentClear", (int)CurrentClear);
 
         if (isNormal)
         {
@@ -702,7 +705,7 @@ public class PlayerFSMManager : FSMManager
                 isSpecial = true;
                 SetInvincibility(true);
                 TimeLine.SetActive(true);
-
+                
                 SetState(PlayerState.TRANS);
                 //SetState(PlayerState.IDLE);
 
@@ -710,7 +713,8 @@ public class PlayerFSMManager : FSMManager
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
-
+                if (!Normal.activeSelf)
+                    Normal.SetActive(true);
                 // 스킬2번 바닥 사라지게하기.
                 if ((isNormal && Skill2_Test.activeSelf) || (!isNormal && Skill2_Test2.activeSelf))
                 {
@@ -1277,8 +1281,15 @@ public class PlayerFSMManager : FSMManager
             {
                 if (isTiber == true && i == 6 || i == count) continue;
 
-                _monster[i].transform.position = Seats[i].transform.position;
-                _monster[i].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
+                try
+                {
+                    _monster[i].transform.position = Seats[i].transform.position;
+                    _monster[i].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
+                }
+                catch
+                {
+
+                }
             }
             return;
         }
