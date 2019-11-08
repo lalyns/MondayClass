@@ -531,12 +531,8 @@ public class PlayerFSMManager : FSMManager
 
 
 
-
-
         //_anim.SetFloat("CurrentIdle", (int)CurrentIdle);
         //_anim.SetFloat("CurrentClear", (int)CurrentClear);
-        Debug.Log(Stat.skillCTime[0] + "," + Stat.skillCTime[1] + ", " + Stat.skillCTime[2] + "스킬쿨타임들");
-        Debug.Log(Skill1CTime +","+ Skill2CTime + ","+ Skill3CTime + "스킬쿨타임skill1ctime");
         if (isNormal)
         {
             if (isSkillTimeSet)
@@ -551,7 +547,7 @@ public class PlayerFSMManager : FSMManager
             Stat.skillCTime[0] = 5f;
             Stat.skillCTime[1] = 10f;
             Stat.skillCTime[2] = 15f;
-            Stat.StrSet(30);
+            Stat.StrSet((int)Stat.Str);
         }
         else if (!isNormal)
         {
