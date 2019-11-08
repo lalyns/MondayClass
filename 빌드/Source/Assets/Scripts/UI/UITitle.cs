@@ -76,8 +76,11 @@ namespace MC.UI
         {
             Setting.SetActive(true);
             title.start.interactable = false;
+            title.setting.interactable = false;
             title.developer.interactable = false;
             title.exit.interactable = false;
+
+            UserInterface.BlurSet(true, 8f);
 
             var sound = MCSoundManager.Instance.objectSound.ui;
             sound.PlaySound(MCSoundManager.Instance.gameObject, sound.nextPage);
@@ -85,8 +88,6 @@ namespace MC.UI
 
         public void Developer()
         {
-            Debug.Log("개발자 : ??");
-
             MCSoundManager.StopAMB();
             MCSoundManager.StopBGM();
             SceneManager.LoadScene(MCSceneManager.CREDIT);
