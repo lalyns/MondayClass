@@ -16,6 +16,7 @@ public enum RirisState
     DEAD,
     HIT,
     PHASE,
+    DIALOG
 }
 
 
