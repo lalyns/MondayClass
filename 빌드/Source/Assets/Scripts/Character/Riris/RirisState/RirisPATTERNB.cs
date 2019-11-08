@@ -49,6 +49,9 @@ public class RirisPATTERNB : RirisFSMState
         _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         _manager._Weapon.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager._Weapon.transform));
 
+        PatternBReadyEffect.SetActive(true);
+        PatternBReadyEffect.transform.LookAt(PlayerFSMManager.GetLookTargetPos(PatternBReadyEffect.transform));
+
         useGravity = false;
 
         if (_manager._Phase >= 1)
