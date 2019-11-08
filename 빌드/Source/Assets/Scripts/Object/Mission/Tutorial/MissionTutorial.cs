@@ -340,9 +340,10 @@ namespace MC.Mission
                 if (timer < timePlay) timelines.SetActive(true);
                 else timelines.SetActive(false);
 
-
+                
                 if (!GetComponentInChildren<MissionExit>()._PortalEffect.activeSelf)
                 {
+                    PlayerFSMManager.Instance.isMouseYLock = false;
                     GetComponentInChildren<MissionExit>()._PortalEffect.SetActive(true);
                     GetComponentInChildren<MissionExit>().Colliders.enabled = true;
                 }
