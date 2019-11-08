@@ -202,7 +202,7 @@ namespace MC.Mission
 
             if (currentTutorial == TutorialEvent.Skill2)
             {
-                skill1 = false;
+                skill1 = true;
                 skill2 = true;
                 skill3 = false;
 
@@ -235,8 +235,8 @@ namespace MC.Mission
 
             if (currentTutorial == TutorialEvent.Skill3)
             {
-                skill1 = false;
-                skill2 = false;
+                skill1 = true;
+                skill2 = true;
                 skill3 = true;
 
                 if (Input.GetKeyDown(KeyCode.Mouse0) && !skill3Change)

@@ -15,10 +15,11 @@ public class RirisDEAD : RirisFSMState
         phaseEffect.SetActive(false);
         UserInterface.SetPlayerUserInterface(false);
 
+        GameStatus.GameClear = true;
+
         StartCoroutine(MCSoundManager.BGMFadeOut(1f));
         MCSoundManager.StopBGM();
         BossDirector.Instance.PlayDeadCine();
-        GameStatus.GameClear = true;
     }
 
     public override void EndState()

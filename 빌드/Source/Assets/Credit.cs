@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 
 using MC.UI;
 
@@ -12,12 +13,29 @@ public class Credit : MonoBehaviour
     public AK.Wwise.Event bgm;
     public AK.Wwise.Event pangyi;
 
+    public PlayableDirector pd;
+
+    public GameObject clear;
+    public GameObject notClear;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        GameStatus.SetCurrentGameState(CurrentGameState.End);
+        CanvasInfo.Instance.enemyHP.SetFalse();
         bgmBank.HandleEvent(gameObject);
         sfxBank.HandleEvent(gameObject);
         bgm.Post(gameObject);
+
+        if (GameStatus.GameClear) {
+            clear.SetActive(true);
+            pd.Play();
+        }
+        else
+        {
+            notClear.SetActive(true);
+        }
 
         GameManager.SetFadeInOut(() => { }, 1f, true);
     }
@@ -28,15 +46,4 @@ public class Credit : MonoBehaviour
         
     }
 
-    public void PangYi()
-    {
-        pangyi.Post(gameObject);
-    }
-
-    public void EndCredit()
-    {
-        bgm.Stop(gameObject);
-        UserInterface.BlurSet(false);
-        SceneManager.LoadScene(MC.SceneDirector.MCSceneManager.TITLE);
-    }
 }
