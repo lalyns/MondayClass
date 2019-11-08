@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MC.Sound;
+using MC.UI;
 
 public enum RirisState
 {
@@ -146,6 +147,11 @@ public class RirisFSMManager : FSMManager
             SetDeadState();
             isDead = true;
         }
+    }
+
+    public void AttackSupport()
+    {
+        CanvasInfo.Instance.enemyHP.hpBar.HitBackFun();
     }
 
     public void SetState(RirisState newState)

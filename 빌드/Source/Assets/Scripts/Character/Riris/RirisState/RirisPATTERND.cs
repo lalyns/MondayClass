@@ -8,7 +8,7 @@ public class RirisPATTERND : RirisFSMState
     public Transform[] TornadoLoc2;
 
     public float time = 0;
-    public float duration = 3.3f;
+    public float duration = 2.1f;
 
     public bool set1Play = false;
     public bool set2Play = false;
@@ -55,10 +55,7 @@ public class RirisPATTERND : RirisFSMState
                 //sound.PlayRirisSFX(_manager.gameObject, sound.tornaedoFirstSFX);
                 for(int i=0; i<TornadoLoc1.Length; i++)
                 {
-                    // 대충 이펙트를 꺼내는 행위
                     var ob = BossEffects.Instance.tornaedo.ItemSetActive(TornadoLoc1[i].position);
-                    // 대충 꺼낸 이펙트 애니메이션을 실행하는 행위
-                    ob.GetComponentInChildren<Animator>().Play("Play");
                 }
                 set1Play = true;
             }
@@ -70,10 +67,7 @@ public class RirisPATTERND : RirisFSMState
                     //sound.PlayRirisSFX(_manager.gameObject, sound.tornaedoLastSFX);
                     for (int i=0; i<TornadoLoc2.Length; i++)
                     {
-                        // 대충 이펙트를 꺼내는 행위
                         var ob = BossEffects.Instance.tornaedo.ItemSetActive(TornadoLoc2[i].position);
-                        // 대충 꺼낸 이펙트 애니메이션을 실행하는 행위
-                        ob.GetComponentInChildren<Animator>().Play("Play");
                     }
                     set2Play = true;
                 }
