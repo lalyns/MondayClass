@@ -21,6 +21,7 @@ public class UITutorial : MonoBehaviour
 
         public Image space;
         public Sprite[] spaceSprites;
+        public Image[] remain;
     }
 
     [System.Serializable]

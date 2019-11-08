@@ -32,11 +32,11 @@ namespace MC.Mission
         public bool tutostart = false;
         bool tutorial = false;
         [SerializeField]int count = 0;
-        int dashCount = 0;
+        int dashCount = 3;
 
         bool wChange, sChange, aChange, dChange = false;
         bool spaceChange = false;
-        bool attack1, skill1, skill2, skill3, skill4, trans = false;
+        public bool skill1, skill2, skill3 = false;
         bool attackChange = false;
         [HideInInspector] public bool skill1Change = false;
         [HideInInspector] public bool skill2Change = false;
@@ -126,14 +126,18 @@ namespace MC.Mission
                 if (Input.GetKeyDown(KeyCode.Space) && !spaceChange)
                 {
                     tutorialUI.moveDash.space.sprite = tutorialUI.moveDash.spaceSprites[1];
-                    if (GameStatus.currentGameState != CurrentGameState.Dialog && dashCount < 3)
+                    if (GameStatus.currentGameState != CurrentGameState.Dialog && dashCount > 0)
                     {
-                        dashCount++;
+                        dashCount--;
+                        for(int i = dashCount; i<3; i++)
+                        {
+                            tutorialUI.moveDash.remain[i].gameObject.SetActive(false);
+                        }
                         Invoke("ReturnSpace", 0.5f);
                     }
                 }
 
-                if (count == 4 && dashCount == 3)
+                if (count == 4 && dashCount == 0)
                 {
                     spaceChange = true;
                     currentTutorial = TutorialEvent.Start;
@@ -165,6 +169,10 @@ namespace MC.Mission
 
             if(currentTutorial == TutorialEvent.Skill1)
             {
+                skill1 = true;
+                skill2 = false;
+                skill3 = false;
+
                 if (!skill1Change)
                 {
                     if (!isSkill1Set)
@@ -194,6 +202,10 @@ namespace MC.Mission
 
             if (currentTutorial == TutorialEvent.Skill2)
             {
+                skill1 = false;
+                skill2 = true;
+                skill3 = false;
+
                 if (!skill2Change)
                 {
                     if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -223,6 +235,10 @@ namespace MC.Mission
 
             if (currentTutorial == TutorialEvent.Skill3)
             {
+                skill1 = false;
+                skill2 = false;
+                skill3 = true;
+
                 if (Input.GetKeyDown(KeyCode.Mouse0) && !skill3Change)
                 {
                     if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -257,7 +273,11 @@ namespace MC.Mission
 
             if (currentTutorial == TutorialEvent.Transform)
             {
-                if(!PlayerFSMManager.Instance.isNormal) tutorialUI.attack.special.text = tutoText[5];
+                skill1 = true;
+                skill2 = true;
+                skill3 = true;
+
+                if (!PlayerFSMManager.Instance.isNormal) tutorialUI.attack.special.text = tutoText[5];
 
                 if (Input.GetKeyDown(KeyCode.Mouse0) && !transChange)
                 {
@@ -326,6 +346,11 @@ namespace MC.Mission
                     GetComponentInChildren<MissionExit>()._PortalEffect.SetActive(true);
                     GetComponentInChildren<MissionExit>().Colliders.enabled = true;
                 }
+            }
+
+            if(currentTutorial != TutorialEvent.End)
+            {
+                timelines.SetActive(false);
             }
 
             //if(!attack1 && GameStatus.Instance.ActivedMonsterList.Count == 0 && currentTutorial == TutorialEvent.Attack)
