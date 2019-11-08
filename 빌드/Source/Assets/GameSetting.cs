@@ -125,7 +125,7 @@ public class GameSetting : MonoBehaviour
         MC.Sound.MCSoundManager.SetRTPCParam("Ambient_Volume", voiceSoundValue);
         MC.Sound.MCSoundManager.SetRTPCParam("Voice_Volume", sfxSoundValue);
 
-        MC.UI.UserInterface.BlurSet(true, 10f);
+        //MC.UI.UserInterface.BlurSet(true, 10f);
     }
 
     public void Update()
@@ -146,7 +146,7 @@ public class GameSetting : MonoBehaviour
     public void SettingExit()
     {
         setting.SetActive(false);
-        MC.UI.UserInterface.BlurSet(false, 10f);
+        MC.UI.UserInterface.BlurSet(false);
 
         var sound = MCSoundManager.Instance.objectSound.ui;
         sound.PlaySound(MCSoundManager.Instance.gameObject, sound.nextPage);
@@ -157,6 +157,7 @@ public class GameSetting : MonoBehaviour
             titleUI.title.start.interactable = true;
             titleUI.title.developer.interactable = true;
             titleUI.title.exit.interactable = true;
+            titleUI.title.setting.interactable = true;
 
         }
     }

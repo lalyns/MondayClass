@@ -49,20 +49,24 @@ public class PlayerSKILL4 : FSMState
 
         foreach (GameObject mob in GameStatus.Instance.ActivedMonsterList)
         {
+            Debug.Log(mob.name);
             var stat = mob.GetComponent<CharacterStat>();
             if (stat.monsterType == MonsterType.Length)
             {
-                if(stat.Hp < _manager.Stat.dmgCoefficient[6])
-                {
+                float damage = _manager.Stat.dmgCoefficient[6];
 
+                if (stat.Hp < _manager.Stat.dmgCoefficient[6])
+                {
+                    damage = stat.Hp - 1;
                 }
 
-                CharacterStat.ProcessDamage(_manager.Stat, stat, _manager.Stat.dmgCoefficient[6]);
+                CharacterStat.ProcessDamage(_manager.Stat, stat, damage);
 
             }
             else
             {
-
+                float damage = _manager.Stat.dmgCoefficient[6];
+                CharacterStat.ProcessDamage(_manager.Stat, stat, damage);
             }
             CanvasInfo.Instance.enemyHP.hpBar.HitBackFun();
 

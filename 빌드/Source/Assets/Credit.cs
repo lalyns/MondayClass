@@ -36,6 +36,7 @@ public class Credit : MonoBehaviour
     public void EndCredit()
     {
         bgm.Stop(gameObject);
+        UserInterface.BlurSet(false);
         SceneManager.LoadScene(MC.SceneDirector.MCSceneManager.TITLE);
     }
 }
