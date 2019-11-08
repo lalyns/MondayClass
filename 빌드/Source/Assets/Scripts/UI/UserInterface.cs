@@ -162,9 +162,41 @@ namespace MC.UI
                 UIPlayer.Skill4SetActive(!playerFSMMgr.isNormal && playerFSMMgr.isCanUltimate);
                 CanvasInfo.Instance.enemyHP.HpBarView();
 
-                UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime, playerFSMMgr.isSkill1CTime);
-                UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime, playerFSMMgr.isSkill2CTime);
-                UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime, playerFSMMgr.isSkill3CTime);
+                if (MissionManager.Instance.CurrentMissionType == MissionType.Tutorial)
+                {
+                    MissionTutorial tuto = MissionManager.Instance.CurrentMission as MissionTutorial;
+                    
+                    if (tuto.skill1)
+                    {
+                        UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime, playerFSMMgr.isSkill1CTime);
+                        uiPlayer.SkillLock(1);
+                        uiPlayer.SkillLock(2);
+                    }
+                    else if (tuto.skill2)
+                    {
+                        UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime, playerFSMMgr.isSkill2CTime);
+                        uiPlayer.SkillLock(0);
+                        uiPlayer.SkillLock(2);
+                    }
+                    else if (tuto.skill3)
+                    {
+                        UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime, playerFSMMgr.isSkill3CTime);
+                        uiPlayer.SkillLock(1);
+                        uiPlayer.SkillLock(0);
+                    }
+                    else
+                    {
+                        uiPlayer.SkillLock(1);
+                        uiPlayer.SkillLock(0);
+                        uiPlayer.SkillLock(2);
+                    }
+                }
+                else
+                {
+                    UIPlayer.SkillSetActive(0, playerFSMMgr.Skill1CTime, playerFSMMgr.isSkill1CTime);
+                    UIPlayer.SkillSetActive(1, playerFSMMgr.Skill2CTime, playerFSMMgr.isSkill2CTime);
+                    UIPlayer.SkillSetActive(2, playerFSMMgr.Skill3CTime, playerFSMMgr.isSkill3CTime);
+                }
                 //if (playerFSMMgr.isSkill4CTime) UIPlayer.SkillSetActive(3, playerFSMMgr.Skill4CTime);
             }
             catch
