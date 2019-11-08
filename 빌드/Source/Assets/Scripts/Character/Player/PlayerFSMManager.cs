@@ -526,31 +526,39 @@ public class PlayerFSMManager : FSMManager
             Skill3MouseLock();
             Skill3Reset();
         }
-        // if 궁극기 사용
         Skill4();
-        
-
-
-        
-
-        //_anim.SetFloat("CurrentIdle", (int)CurrentIdle);
-        //_anim.SetFloat("CurrentClear", (int)CurrentClear);
 
         if (isNormal)
         {
+            if (isSkillTimeSet)
+            {
+                Skill1CTime = 5;
+                Skill2CTime = 10;
+                Skill3CTime = 15;
+                isSkillTimeSet = false;
+            }
+            Stat.StrSet((int)Stat.Str);
             _anim.SetFloat("Normal", 0);
             Stat.skillCTime[0] = 5f;
             Stat.skillCTime[1] = 10f;
             Stat.skillCTime[2] = 15f;
-            Stat.StrSet(30);
+            
         }
         else if (!isNormal)
         {
+            if (!isSkillTimeSet)
+            {
+                Skill1CTime = 2;
+                Skill2CTime = 5;
+                Skill3CTime = 7;
+                isSkillTimeSet = true;
+            }
             _anim.SetFloat("Normal", 1f);
             Stat.skillCTime[0] = 2f;
             Stat.skillCTime[1] = 5f;
             Stat.skillCTime[2] = 7f;
             Stat.StrSet(40);
+
         }
         if (!isNormal && !isSkill4)
         {
@@ -692,6 +700,8 @@ public class PlayerFSMManager : FSMManager
         }
     }
     bool isTrans1;
+
+    bool isSkillTimeSet = false;
     public void ChangeModel()
     {
         if (isNormal && SpecialGauge >= 100)
@@ -704,8 +714,8 @@ public class PlayerFSMManager : FSMManager
                 isNormal = false;
                 isSpecial = true;
                 SetInvincibility(true);
-                TimeLine.SetActive(true);
-                
+                TimeLine.SetActive(true);                            
+
                 SetState(PlayerState.TRANS);
                 //SetState(PlayerState.IDLE);
 
@@ -754,7 +764,7 @@ public class PlayerFSMManager : FSMManager
                 TimeLine.SetActive(false);
                 isSpecial = false;
                 isAttackOne = false;
-                //isTrans1 = false;
+
                 StartCoroutine(SetOff());
                 return;
             }
