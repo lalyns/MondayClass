@@ -18,6 +18,9 @@ namespace AK
         static const AkUniqueID BGM_TITLE_01 = 2511535208U;
         static const AkUniqueID BGM_TUTORIAL_03 = 1633288558U;
         static const AkUniqueID BOSSROOM = 3329270527U;
+        static const AkUniqueID BUDLEBUDLE_01 = 748537501U;
+        static const AkUniqueID BUDLEBUDLE_02 = 748537502U;
+        static const AkUniqueID BUDLEBUDLE_03 = 748537503U;
         static const AkUniqueID CINEMATIC_SOUND_CHOICE = 3941706286U;
         static const AkUniqueID CINEMATIC_SOUND_CROWD = 460128710U;
         static const AkUniqueID CINEMATIC_SOUND_DIVE = 1418554577U;
