@@ -12,6 +12,7 @@ namespace MC.Mission
     {
         public static bool isDialogA = false;
         public Button manual;
+        public float manualTimer = 5f;
 
         public bool spawning = false;
 
@@ -20,6 +21,9 @@ namespace MC.Mission
 
         public MonsterWave[] waves;
         public Text text;
+
+        public string waiting;
+        public string appearing;
 
         protected override void Start()
         {
@@ -30,9 +34,7 @@ namespace MC.Mission
             if (!isDialogA)
             {
                 // 미션 설명창 등장해야됨
-                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-                GameManager.Instance.IsPuase = true;
-                manual.gameObject.SetActive(true);
+                Invoke("ManualPopup", manualTimer);
             }
 
             MC.Sound.MCSoundManager.LoadBank();
@@ -76,6 +78,12 @@ namespace MC.Mission
                     missionEnd = true;
                 }
 
+                if(currentWave != totalWave && GameStatus.Instance.ActivedMonsterList.Count == 0)
+                {
+                    text.gameObject.SetActive(true);
+                    text.text = waiting;
+                }
+
                 if (GameStatus.Instance._LimitTime <= 0)
                 {
                     FailMission();
@@ -93,7 +101,6 @@ namespace MC.Mission
 
         public void MonsterCheck()
         {
-            //Debug.Log("Check Call");
             if (spawning)
             {
                 bool monsterCheck = GameStatus.Instance.ActivedMonsterList.Count == 0;
@@ -123,7 +130,9 @@ namespace MC.Mission
 
         void Spawn()
         {
-            text.gameObject.SetActive(GameStatus.currentGameState != CurrentGameState.Product);
+            text.gameObject.SetActive(true);
+            text.text = appearing;
+
             StartCoroutine(SetSommonLocation(waves[currentWave].monsterTypes));
             currentWave++;
             //Debug.Log(currentWave);
@@ -135,9 +144,18 @@ namespace MC.Mission
             text.gameObject.SetActive(false);
         }
 
+        public void ManualPopup()
+        {
+            UserInterface.BlurSet(true, 8);
+            GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            GameManager.Instance.IsPuase = true;
+            manual.gameObject.SetActive(true);
+        }
+
         public void ManualSupport()
         {
             isDialogA = true;
+            UserInterface.BlurSet(false);
             GameStatus.SetCurrentGameState(CurrentGameState.Wait);
             GameManager.Instance.IsPuase = false;
             UserInterface.SetPointerMode(false);

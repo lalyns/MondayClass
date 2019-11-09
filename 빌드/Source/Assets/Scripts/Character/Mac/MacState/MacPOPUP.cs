@@ -15,9 +15,9 @@ public class MacPOPUP : MacFSMState
 
 
         EffectPlay();
-        TargetPrioritySet();
+        SetTargetPriority();
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
-        _manager._MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        _manager.mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
         _manager.agent.speed = 3.5f;
         _manager.agent.angularSpeed = 60;
     }
@@ -31,7 +31,7 @@ public class MacPOPUP : MacFSMState
 
         if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)
         {
-            var sound = _manager._Sound.monsterSFX;
+            var sound = _manager.sound.monsterSFX;
             sound.PlayMonsterSFX(_manager.gameObject, sound.monsterAppear);
             MCSoundManager.SoundCall = 0f;
         }
@@ -50,9 +50,9 @@ public class MacPOPUP : MacFSMState
 
     private void EffectPlay()
     {
-        _manager._PopupEffect.SetActive(true);
-        _manager._PopupEffect.GetComponentInChildren<ParticleSystem>().Play();
-        _manager._PopupEffect.GetComponentInChildren<Animator>().Play("PopUpEffect");
+        _manager.popupEffect.SetActive(true);
+        _manager.popupEffect.GetComponentInChildren<ParticleSystem>().Play();
+        _manager.popupEffect.GetComponentInChildren<Animator>().Play("PopUpEffect");
     }
 
     protected override void FixedUpdate()
@@ -62,28 +62,28 @@ public class MacPOPUP : MacFSMState
 
 
 
-    private void TargetPrioritySet()
+    private void SetTargetPriority()
     {
         if(GameStatus.currentGameState == CurrentGameState.EDITOR)
         {
-            _manager._PriorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
+            _manager.priorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
             return;
         }
 
         if (GameStatus.currentGameState == CurrentGameState.Tutorial)
         {
-            _manager._PriorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
+            _manager.priorityTarget = PlayerFSMManager.Instance.Anim.GetComponent<Collider>();
             return;
         }
 
         if (MissionManager.Instance.CurrentMissionType == MissionType.Defence)
         {
             MissionC mission = MissionManager.Instance.CurrentMission as MissionC;
-            _manager._PriorityTarget = mission.protectedTarget.Collider;
+            _manager.priorityTarget = mission.protectedTarget.Collider;
         }
         else
         {
-            _manager._PriorityTarget = PlayerFSMManager.
+            _manager.priorityTarget = PlayerFSMManager.
                 Instance.GetComponentInChildren<Animator>()
                 .GetComponent<Collider>();
         }

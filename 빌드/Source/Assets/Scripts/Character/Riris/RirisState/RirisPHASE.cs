@@ -7,6 +7,8 @@ using MC.Sound;
 
 public class RirisPHASE : RirisFSMState
 {
+    public GameObject phaseEffect;
+
     public override void BeginState()
     {
         base.BeginState();
@@ -14,6 +16,7 @@ public class RirisPHASE : RirisFSMState
         //StartCoroutine(MCSoundManager.AmbFadeOut(1f, 30f));
         //StartCoroutine(MCSoundManager.BGMFadeOut(1f, 30f));
         BossDirector.Instance.PlayPhaseChangeCine();
+        phaseEffect.SetActive(true);
     }
 
     public override void EndState()
@@ -30,7 +33,7 @@ public class RirisPHASE : RirisFSMState
         base.Update();
 
         _time += Time.deltaTime;
-        if(_time >= 5f)
+        if (_time >= 5f)
         {
             _time = 0;
             _manager.SetState(RirisState.PATTERNEND);
@@ -40,9 +43,5 @@ public class RirisPHASE : RirisFSMState
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-    }
-
-    public void DeadHelper()
-    {
     }
 }

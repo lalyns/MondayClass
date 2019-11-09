@@ -38,15 +38,7 @@ public class MacBullet : MonoBehaviour
 
     public void OnEnable()
     {
-        transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
-
-        foreach (ParticleSystem ps in _MoveEffect.GetComponentsInChildren<ParticleSystem>())
-        {
-            var main = ps.main;
-            main.startRotationX = transform.localEulerAngles.x;
-            main.startRotationY = transform.localEulerAngles.y;
-            main.startRotationZ = transform.localEulerAngles.z;
-        }
+        LookAtTarget();
     }
 
     private void Start()
@@ -113,7 +105,7 @@ public class MacBullet : MonoBehaviour
             if (!_SoundPlay)
             {
                 _SoundPlay = true;
-                var sound = mac._Sound.monsterSFX;
+                var sound = mac.sound.monsterSFX;
                 if (_Type == MacBulletType.Skill)
                 {
                     sound.StopMonsterSFX(this.gameObject, sound.macBigBallMove);
@@ -176,9 +168,17 @@ public class MacBullet : MonoBehaviour
         _Dameged = false;
     }
 
-    public void LookAtTarget(Vector3 target)
+    public void LookAtTarget()
     {
-        this.transform.LookAt(target);
+        transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
+
+        foreach (ParticleSystem ps in _MoveEffect.GetComponentsInChildren<ParticleSystem>())
+        {
+            var main = ps.main;
+            main.startRotationX = transform.localEulerAngles.x;
+            main.startRotationY = transform.localEulerAngles.y;
+            main.startRotationZ = transform.localEulerAngles.z;
+        }
     }
 
 
@@ -198,7 +198,7 @@ public class MacBullet : MonoBehaviour
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
 
-                var sound = mac._Sound.monsterSFX;
+                var sound = mac.sound.monsterSFX;
                 sound.PlayMonsterSFX(this.gameObject, sound.macSmallBallHit);
 
                 if (!_Destroy)
@@ -241,7 +241,6 @@ public class MacBullet : MonoBehaviour
     }
     public void AttackSupport()
     {
-        Debug.Log("attackCall");
         UserInterface.Instance.UIPlayer.hpBar.HitBackFun();
     }
 }

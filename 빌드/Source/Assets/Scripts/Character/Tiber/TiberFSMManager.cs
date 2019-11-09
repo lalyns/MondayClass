@@ -1,10 +1,9 @@
-﻿using System.Collections;
+﻿using MC.Sound;
+using MC.UI;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using MC.UI;
-using MC.Sound;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public enum TiberState
 {
@@ -21,64 +20,50 @@ public enum TiberState
 [RequireComponent(typeof(TiberStat))]
 public class TiberFSMManager : FSMManager
 {
-    private bool _isInit = false;
+    private bool isInit = false;
     public TiberState startState = TiberState.POPUP;
-    private Dictionary<TiberState, TiberFSMState> _States = new Dictionary<TiberState, TiberFSMState>();
+    private Dictionary<TiberState, TiberFSMState> states = new Dictionary<TiberState, TiberFSMState>();
 
-    private TiberState _CurrentState;
+    private TiberState currentState;
     public TiberState CurrentState {
         get {
-            return _CurrentState;
+            return currentState;
         }
     }
 
     public TiberFSMState CurrentStateComponent {
         get {
-            return _States[_CurrentState];
+            return states[currentState];
         }
     }
 
-    private CharacterController _CC;
-    public CharacterController CC { get { return _CC; } }
+    private CharacterController cc;
+    public CharacterController CC { get { return cc; } }
 
-    private CapsuleCollider _PlayerCapsule;
-    public CapsuleCollider PlayerCapsule { get { return _PlayerCapsule; } }
+    private CapsuleCollider playerCapsule;
+    public CapsuleCollider PlayerCapsule { get { return playerCapsule; } }
 
-    private TiberStat _Stat;
-    public TiberStat Stat { get { return _Stat; } }
+    private TiberStat stat;
+    public TiberStat Stat { get { return stat; } }
 
-    private Animator _Anim;
-    public Animator Anim { get { return _Anim; } }
+    private Animator anim;
+    public Animator Anim { get { return anim; } }
 
-    private Rigidbody _RigidBody;
-    public Rigidbody RigidBody { get { return _RigidBody; } }
+    private Rigidbody rigidBody;
+    public Rigidbody RigidBody { get { return rigidBody; } }
 
-    public Transform _AttackTransform;
+    public Transform attackTransform;
 
     //렌더
-    public SkinnedMeshRenderer _MR;
+    public SkinnedMeshRenderer mr;
     public List<Material> materialList = new List<Material>();
 
-
-    public HPBar _HPBar;
-    public Slider _HPSilder;
-    public GameObject hitEffect;
-    public GameObject hitEffect_Special;
-    public GameObject hitEffect_Skill1;
-    public GameObject hitEffect_Skill1_Special;
     public Transform hitLocation;
 
-    public MonsterSound _Sound;
+    public MonsterSound sound;
 
-    public float _DetectingRange;
-
-    public Collider _PriorityTarget;
-
-    public bool KnockBackFlag;
-    public int KnockBackDuration;
-    public float KnockBackPower;
-    public float KnockBackDelay;
-
+    public float detectingRange;
+    public Collider priorityTarget;
 
     public bool isDead = false;
 
@@ -88,25 +73,20 @@ public class TiberFSMManager : FSMManager
     public bool isAttack1, isAttack2;
 
     public NavMeshAgent agent;
-
     public CapsuleCollider capsule;
-    //[HideInInspector]
-    //public CapsuleCollider capsule;
+
     protected override void Awake()
     {
         base.Awake();
-        _CC = GetComponent<CharacterController>();
-        _Stat = GetComponent<TiberStat>();
-        _Anim = GetComponentInChildren<Animator>();
-        _Sound = GetComponent<MonsterSound>();
-        _RigidBody = GetComponent<Rigidbody>();
+        cc = GetComponent<CharacterController>();
+        stat = GetComponent<TiberStat>();
+        anim = GetComponentInChildren<Animator>();
+        sound = GetComponent<MonsterSound>();
+        rigidBody = GetComponent<Rigidbody>();
 
-        if (!GameManager.Instance.uIActive.monster)
-            _HPBar.gameObject.SetActive(false);
+        materialList.AddRange(mr.materials);
 
-        materialList.AddRange(_MR.materials);
-
-        _PlayerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
+        playerCapsule = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
 
         TiberState[] stateValues = (TiberState[])System.Enum.GetValues(typeof(TiberState));
         foreach (TiberState s in stateValues)
@@ -119,7 +99,7 @@ public class TiberFSMManager : FSMManager
                 state = (TiberFSMState)gameObject.AddComponent(FSMType);
             }
 
-            _States.Add(s, state);
+            states.Add(s, state);
             state.enabled = false;
         }
 
@@ -138,20 +118,20 @@ public class TiberFSMManager : FSMManager
     private void Start()
     {
         SetState(startState);
-        _isInit = true;
+        isInit = true;
     }
 
     public void SetState(TiberState newState)
     {
-        if (_isInit)
+        if (isInit)
         {
-            _States[_CurrentState].enabled = false;
-            _States[_CurrentState].EndState();
+            states[currentState].enabled = false;
+            states[currentState].EndState();
         }
-        _CurrentState = newState;
-        _States[_CurrentState].BeginState();
-        _States[_CurrentState].enabled = true;
-        _Anim.SetInteger("CurrentState", (int)_CurrentState);
+        currentState = newState;
+        states[currentState].BeginState();
+        states[currentState].enabled = true;
+        anim.SetInteger("CurrentState", (int)currentState);
     }
     //[HideInInspector]
     public bool isChange;

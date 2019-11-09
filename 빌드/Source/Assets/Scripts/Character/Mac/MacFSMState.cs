@@ -33,17 +33,14 @@ public class MacFSMState : MonoBehaviour
 
     protected virtual void Update()
     {
-        Debug.DrawLine(_manager.agent.destination, new Vector3(_manager.agent.destination.x, 
-            _manager.agent.destination.y + 1f, _manager.agent.destination.z), Color.red);
+        //Debug.DrawLine(_manager.agent.destination, new Vector3(_manager.agent.destination.x, 
+        //    _manager.agent.destination.y + 1f, _manager.agent.destination.z), Color.red);
 
     }
 
     protected virtual void FixedUpdate()
     {
         if (sub) return;
-
-        if (GameManager.Instance.uIActive.monster)
-            HPUI();
 
         if(useGravity)
             Gravity();
@@ -72,18 +69,5 @@ public class MacFSMState : MonoBehaviour
 
         _manager.CC.Move(gravity);
     }
-
-    public void HPUI()
-    {
-        try
-        {
-            UserInterface.Instance.HPChangeEffect(_manager.Stat, _manager._HPBar);
-        }
-        catch
-        {
-
-        }
-
-    }
-
+    
 }

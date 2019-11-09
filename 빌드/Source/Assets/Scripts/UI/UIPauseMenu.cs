@@ -72,6 +72,8 @@ public class UIPauseMenu : MonoBehaviour
     {
         setting.SetActive(true);
 
+        UserInterface.BlurSet(true, 8f);
+
         var sound = MCSoundManager.Instance.objectSound.ui;
         sound.PlaySound(MCSoundManager.Instance.gameObject, sound.nextPage);
     }

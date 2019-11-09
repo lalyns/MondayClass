@@ -212,7 +212,8 @@ public class PlayerFSMManager : FSMManager
     float gaugePerSecond;
 
     public int ShieldCount;
-    [HideInInspector] public bool isSpecialIDLE;
+    [HideInInspector] public bool isSpecialIDLE = false;
+    [HideInInspector] public bool isHit2 = false;
     public int CurrentIdle;
     public int CurrentClear;
 
@@ -394,14 +395,14 @@ public class PlayerFSMManager : FSMManager
     float footPeriod = 0.0f;
     private void Update()
     {
-        if (GameStatus.currentGameState == CurrentGameState.Dialog) return;
+        if (GameStatus.currentGameState == CurrentGameState.Dialog || !GameStatus.Instance.canInput) return;
 
         SetInvincibility(GameStatus.currentGameState == CurrentGameState.Product);
 
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
-        }
+        //if (Input.GetKeyDown(KeyCode.U))
+        //{
+        //    StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
+        //}
 
         if (isInputLock || isDead)
             return;
@@ -409,11 +410,6 @@ public class PlayerFSMManager : FSMManager
         if(Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.D))
         {
             SetDeadState();
-        }
-        if (Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.Alpha0))
-        {
-            //CurrentClear = Random.Range((int)0, (int)2);
-            SetState(PlayerState.CLEAR);
         }
         //if (GameSetting.rewardAbillity.feverGauge)
         //{
@@ -465,6 +461,11 @@ public class PlayerFSMManager : FSMManager
             if (mission.currentTutorial == TutorialEvent.Transform)
             {
                 ChangeModel();
+                Skill1();
+                Skill2();
+                Skill3();
+                Skill3MouseLock();
+                Skill3Reset();
             }
         }
         if (mission == null)
@@ -474,17 +475,17 @@ public class PlayerFSMManager : FSMManager
             return;
         if (remainingDash > 0 && !isSkill3Dash && !isSkill2Dash)            
             Dash();
-
-        GetInput();
+        if(!isSkill2Dash)
+            GetInput();
         //if (isSpecialIDLE)
         //    return;
-        if (CurrentState == PlayerState.IDLE2 || CurrentState == PlayerState.CLEAR || CurrentState == PlayerState.DEAD)
+        if (CurrentState == PlayerState.CLEAR || CurrentState == PlayerState.DEAD)
             return;
 
         
         AttackDirection();
 
-        if (!isSkill2End && !isSkill3)
+        if (!isSkill2End && !isSkill3 && !isSkill2Dash && !isHit2)
             Attack();
 
         // if 튜토리얼 스킬 1번 사용해야 할 때라면
@@ -525,31 +526,39 @@ public class PlayerFSMManager : FSMManager
             Skill3MouseLock();
             Skill3Reset();
         }
-        // if 궁극기 사용
         Skill4();
-        
-
-
-        
-
-        _anim.SetFloat("CurrentIdle", (int)CurrentIdle);
-        _anim.SetFloat("CurrentClear", (int)CurrentClear);
 
         if (isNormal)
         {
+            if (isSkillTimeSet)
+            {
+                Skill1CTime = 5;
+                Skill2CTime = 10;
+                Skill3CTime = 15;
+                isSkillTimeSet = false;
+            }
+            Stat.StrSet((int)Stat.Str);
             _anim.SetFloat("Normal", 0);
             Stat.skillCTime[0] = 5f;
             Stat.skillCTime[1] = 10f;
             Stat.skillCTime[2] = 15f;
-            Stat.StrSet(30);
+            
         }
         else if (!isNormal)
         {
+            if (!isSkillTimeSet)
+            {
+                Skill1CTime = 2;
+                Skill2CTime = 5;
+                Skill3CTime = 7;
+                isSkillTimeSet = true;
+            }
             _anim.SetFloat("Normal", 1f);
             Stat.skillCTime[0] = 2f;
             Stat.skillCTime[1] = 5f;
             Stat.skillCTime[2] = 7f;
             Stat.StrSet(40);
+
         }
         if (!isNormal && !isSkill4)
         {
@@ -691,6 +700,8 @@ public class PlayerFSMManager : FSMManager
         }
     }
     bool isTrans1;
+
+    bool isSkillTimeSet = false;
     public void ChangeModel()
     {
         if (isNormal && SpecialGauge >= 100)
@@ -703,7 +714,7 @@ public class PlayerFSMManager : FSMManager
                 isNormal = false;
                 isSpecial = true;
                 SetInvincibility(true);
-                TimeLine.SetActive(true);
+                TimeLine.SetActive(true);                            
 
                 SetState(PlayerState.TRANS);
                 //SetState(PlayerState.IDLE);
@@ -712,7 +723,8 @@ public class PlayerFSMManager : FSMManager
                 Skill1Return(Skill1_Effects, Skill1_Special_Effects, isNormal);
                 Skill1Return(Skill1_Shoots, Skill1_Special_Shoots, isNormal);
                 Skill1PositionSet(Skill1_Effects, Skill1_Shoots, Skill1_Special_Shoots, isNormal);
-
+                if (!Normal.activeSelf)
+                    Normal.SetActive(true);
                 // 스킬2번 바닥 사라지게하기.
                 if ((isNormal && Skill2_Test.activeSelf) || (!isNormal && Skill2_Test2.activeSelf))
                 {
@@ -752,7 +764,7 @@ public class PlayerFSMManager : FSMManager
                 TimeLine.SetActive(false);
                 isSpecial = false;
                 isAttackOne = false;
-                //isTrans1 = false;
+
                 StartCoroutine(SetOff());
                 return;
             }
@@ -1279,8 +1291,15 @@ public class PlayerFSMManager : FSMManager
             {
                 if (isTiber == true && i == 6 || i == count) continue;
 
-                _monster[i].transform.position = Seats[i].transform.position;
-                _monster[i].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
+                try
+                {
+                    _monster[i].transform.position = Seats[i].transform.position;
+                    _monster[i].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
+                }
+                catch
+                {
+
+                }
             }
             return;
         }

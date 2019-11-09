@@ -8,6 +8,7 @@ using MC.Sound;
 public class RedHatHitCollider : MonoBehaviour
 {
     RedHatFSMManager redhat;
+    public DamageDisplay display;
 
     public CapsuleCollider capsule;
     private void Awake()
@@ -48,6 +49,7 @@ public class RedHatHitCollider : MonoBehaviour
         PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
 
         float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f);
+        StartCoroutine(display.DamageDisplaying(damage));
         CharacterStat.ProcessDamage(playerStat, redhat.Stat, damage);
 
         if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)

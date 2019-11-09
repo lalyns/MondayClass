@@ -25,6 +25,8 @@ public class BossDirector : MonoBehaviour
     public PlayableDirector phaseChangeDIrector;
     public PlayableDirector deadDirector;
 
+    bool startPlay = false;
+
     private void Awake()
     {
         Instance = GetComponent<BossDirector>();
@@ -37,12 +39,15 @@ public class BossDirector : MonoBehaviour
 
     public void PlayStartCine()
     {
+        if (startPlay) return;
+
         GameStatus.SetCurrentGameState(CurrentGameState.Product);
         cam.SetActive(true);
         startCine.SetActive(true);
         PlaySet.SetActive(false);
 
         startDirector.Play();
+        startPlay = true;
     }
 
     public void PlayPhaseChangeCine()
@@ -57,7 +62,7 @@ public class BossDirector : MonoBehaviour
 
     public void PlayDeadCine()
     {
-        GameStatus.SetCurrentGameState(CurrentGameState.Product);
+        GameStatus.SetCurrentGameState(CurrentGameState.End);
         cam.SetActive(true);
         deadCine.SetActive(true);
         PlaySet.SetActive(false);

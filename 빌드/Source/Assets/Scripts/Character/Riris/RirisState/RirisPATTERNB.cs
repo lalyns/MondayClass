@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class RirisPATTERNB : RirisFSMState
 {
-    bool _IsTele = false;
-
     public GameObject PatternBReadyEffect;
     public GameObject PatternBAttackEffect;
-    bool _IsAttackReady = false;
+    bool isAttackReady = false;
     public bool isEnd = false;
 
     public ObjectPool bulletPool;
@@ -51,6 +49,10 @@ public class RirisPATTERNB : RirisFSMState
         _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         _manager._Weapon.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager._Weapon.transform));
 
+        PatternBReadyEffect.SetActive(true);
+        PatternBReadyEffect.transform.LookAt(PlayerFSMManager.GetLookTargetPos(PatternBReadyEffect.transform));
+        PatternBReadyEffect.GetComponentInChildren<Animator>().Play("Play");
+
         useGravity = false;
 
         if (_manager._Phase >= 1)
@@ -71,8 +73,7 @@ public class RirisPATTERNB : RirisFSMState
     {
         base.EndState();
 
-        _IsAttackReady = false;
-        _IsTele = false;
+        isAttackReady = false;
         isEnd = false;
         PatternBReadyEffect.SetActive(false);
         PatternBAttackEffect.SetActive(false);
@@ -85,7 +86,7 @@ public class RirisPATTERNB : RirisFSMState
     {
         base.Update();
 
-        if (_IsAttackReady)
+        if (isAttackReady)
              PatternBAttackEffect.transform.position = _manager._WeaponCenter.transform.position;
 
         if (isEnd)
@@ -93,15 +94,6 @@ public class RirisPATTERNB : RirisFSMState
             _manager.SetState(RirisState.PATTERNEND);
             isEnd = false;
         }
-    }
-
-    public void AttackCheck()
-    {
-        float damage = _manager.Stat.damageCoefiiecient[0] * 0.01f *
-               (_manager.Stat.Str + _manager.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
-               - PlayerFSMManager.Instance.Stat.Defense;
-
-        var hitTarget = GameLib.SimpleDamageProcess(transform, _manager.Stat.AttackRange, "Player", _manager.Stat, damage);
     }
 
     public override void Start()
@@ -116,7 +108,7 @@ public class RirisPATTERNB : RirisFSMState
 
     public void AttackReadyEnd()
     {
-        _IsAttackReady = true;
+        isAttackReady = true;
         PatternBAttackEffect.SetActive(true);
     }
 }

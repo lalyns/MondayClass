@@ -100,7 +100,16 @@ namespace MC.UI
             UserInterface.BlurSet(false);
             GameManager.Instance.AfterDialog();
             GameManager.Instance.CharacterControl = true;
-            NextAction();
+
+            try
+            {
+                NextAction();
+            }
+            catch
+            {
+
+            }
+
             NextAction = null;
         }
     }

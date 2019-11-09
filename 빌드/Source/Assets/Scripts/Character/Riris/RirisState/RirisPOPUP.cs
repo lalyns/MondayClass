@@ -6,8 +6,8 @@ using MC.Mission;
 
 public class RirisPOPUP : RirisFSMState
 {
-    float _PopUpTime = 2.0f;
-    float _curTime = 0.0f;
+    float popUpTime = 2.0f;
+    float curTime = 0.0f;
 
     public override void BeginState()
     {
@@ -17,7 +17,7 @@ public class RirisPOPUP : RirisFSMState
 
     public override void EndState()
     {
-        _curTime = 0.0f;
+        curTime = 0.0f;
         GameStatus.Instance.ActivedMonsterList.Add(this.gameObject);
         base.EndState();
     }
@@ -28,11 +28,11 @@ public class RirisPOPUP : RirisFSMState
 
         if (!MissionBoss._Instance.MissionOperate) return;
 
-        _curTime += Time.deltaTime;
+        curTime += Time.deltaTime;
 
-        if (_curTime > _PopUpTime)
+        if (curTime > popUpTime)
         {
-            _manager.SetState(RirisState.PATTERNEND);
+            _manager.SetState(RirisState.DIALOG);
         }
     }
 

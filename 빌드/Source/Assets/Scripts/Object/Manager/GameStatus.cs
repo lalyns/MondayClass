@@ -19,6 +19,7 @@ public enum CurrentGameState
     Tutorial,
     Product,
     EDITOR,
+    End,
 }
 
 public class GameStatus : MonoBehaviour
@@ -52,6 +53,8 @@ public class GameStatus : MonoBehaviour
     bool dummySet = false;
 
     bool isPause = false;
+
+    public static bool GameClear = false;
 
     public static CurrentGameState currentGameState = CurrentGameState.Start;
     public static CurrentGameState prevState = CurrentGameState.Start;
@@ -153,8 +156,8 @@ public class GameStatus : MonoBehaviour
 
             if(missionA.currentWave < missionA.totalWave)
                 missionA.Invoke("MonsterCheck", 5f);
-            else if(missionA.currentWave == missionA.totalWave)
-                missionA.ClearMission();
+            //else if(missionA.currentWave == missionA.totalWave)
+            //    missionA.ClearMission();
         }
             
 

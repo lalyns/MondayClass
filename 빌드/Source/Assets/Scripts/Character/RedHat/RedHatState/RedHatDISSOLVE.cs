@@ -7,12 +7,17 @@ using MC.Mission;
 public class RedHatDISSOLVE : RedHatFSMState
 {
     float _time = 0;
+    public DamageDisplay display;
+
     public override void BeginState()
     {
         base.BeginState();
 
-        var sound = _manager._Sound.monsterSFX;
+        var sound = _manager.sound.monsterSFX;
         sound.PlayMonsterSFX(_manager.gameObject, sound.monsterDisAppear);
+
+        for (int i = 0; i < display.texts.Length; i++)
+            display.texts[i].gameObject.SetActive(false);
     }
 
     public override void EndState()

@@ -13,8 +13,17 @@ namespace MC.UI
 
         public void HpBarView()
         {
-            if (PlayerFSMManager.Instance.LastHit() == null ||
-                GameStatus.currentGameState == CurrentGameState.MissionClear)
+            if(GameStatus.currentGameState == CurrentGameState.MissionClear ||
+                GameStatus.currentGameState == CurrentGameState.End)
+            {
+                hpBar.gameObject.SetActive(false);
+                name.gameObject.SetActive(false);
+                wings[0].gameObject.SetActive(false);
+                wings[1].gameObject.SetActive(false);
+                return;
+            }
+
+            if (PlayerFSMManager.Instance.LastHit() == null)
             {
                 hpBar.gameObject.SetActive(false);
                 name.gameObject.SetActive(false);
@@ -29,6 +38,31 @@ namespace MC.UI
                 wings[1].gameObject.SetActive(true);
                 UserInterface.Instance.HPChangeEffect(PlayerFSMManager.Instance.LastHit(), hpBar);
                 name.text = SetName(PlayerFSMManager.Instance.LastHit());
+            }
+        }
+
+        public void SetFalse()
+        {
+            if (GameStatus.currentGameState == CurrentGameState.MissionClear ||
+                   GameStatus.currentGameState == CurrentGameState.End)
+            {
+                hpBar.gameObject.SetActive(false);
+                name.gameObject.SetActive(false);
+                wings[0].gameObject.SetActive(false);
+                wings[1].gameObject.SetActive(false);
+                return;
+            }
+
+            if (!GameStatus.GameClear)
+            {
+                if (PlayerFSMManager.Instance != null)
+                {
+                    PlayerFSMManager.Instance.Stat.lastHitBy = null;
+                }
+                hpBar.gameObject.SetActive(false);
+                name.gameObject.SetActive(false);
+                wings[0].gameObject.SetActive(false);
+                wings[1].gameObject.SetActive(false);
             }
         }
 

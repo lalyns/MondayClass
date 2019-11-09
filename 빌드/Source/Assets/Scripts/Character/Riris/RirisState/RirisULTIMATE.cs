@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Mission;
 
 public class RirisULTIMATE : RirisFSMState
 {
@@ -31,23 +32,27 @@ public class RirisULTIMATE : RirisFSMState
 
     public UltiPattern[] ultiPatterns = new UltiPattern[5];
 
-    Vector3 bossUltPos = new Vector3(-20.0f, 0.12f, -20.5f);
+    Vector3 bossInitPos = new Vector3(-20.0f, 0.12f, -20.5f);
 
     int currentList = 0;
     List<GameObject>[] flowerLists = new List<GameObject>[5];
     List<GameObject>[] beamLists = new List<GameObject>[5];
 
     public UltiPattern currentPattern;
+    public Animator ultFence;
 
     public override void BeginState()
     {
         base.BeginState();
 
         useGravity = false;
-        this.transform.position = bossUltPos;
+        this.transform.position = bossInitPos;
         _manager.Anim.transform.LookAt
             (PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
         BigCircleCast();
+
+        PlayerFSMManager.Instance.Anim.transform.position = MissionBoss._Instance.MapGrid.center.position;
+        ultFence.Play("UP");
     }
 
     public override void EndState()
@@ -60,6 +65,8 @@ public class RirisULTIMATE : RirisFSMState
         {
             flowerLists[i].Clear();
         }
+
+        ultFence.Play("DOWN");
     }
 
     protected override void Awake()
@@ -178,8 +185,15 @@ public class RirisULTIMATE : RirisFSMState
 
         for(int i=0; i<beam.Count; i++)
         {
-            BossEffects.Instance.beam.ItemReturnPool(beam[i]);
-            BossEffects.Instance.flower.ItemReturnPool(flower[i]);
+            try
+            {
+                BossEffects.Instance.beam.ItemReturnPool(beam[i]);
+                BossEffects.Instance.flower.ItemReturnPool(flower[i]);
+            }
+            catch
+            {
+
+            }
         }
     }
 

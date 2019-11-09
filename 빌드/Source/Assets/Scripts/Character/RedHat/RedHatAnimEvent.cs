@@ -8,15 +8,15 @@ public class RedHatAnimEvent : MonoBehaviour
     public RedHatHIT _hitCp;
     public RedHatDEAD _deadCp;
 
-    RedHatFSMManager _Manager;
-    RedHatFSMManager FSMManager {
+    RedHatFSMManager redhat;
+    RedHatFSMManager RedHat {
         get {
-            if (_Manager == null)
+            if (redhat == null)
             {
-                _Manager = this.GetComponentInParent<RedHatFSMManager>();
+                redhat = this.GetComponentInParent<RedHatFSMManager>();
             }
 
-            return _Manager;
+            return redhat;
         }
     }
 
@@ -26,17 +26,6 @@ public class RedHatAnimEvent : MonoBehaviour
     }
 
     public CapsuleCollider _WeaponCapsule;
-    // Start is called before the first frame update
-    void Start()
-    {
-        //_WeaponCapsule.enabled = true;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     void OnWeaponTrigger()
     {
@@ -50,34 +39,32 @@ public class RedHatAnimEvent : MonoBehaviour
 
     void AttackReadySFX()
     {
-        var sound = FSMManager.sound.monsterSFX;
+        var sound = RedHat.sound.monsterSFX;
         sound.PlayMonsterSFX(this.gameObject, sound.redhatAttackReady);
     }
 
     void AttackSFX()
     {
-        var sound = FSMManager.sound.monsterSFX;
+        var sound = RedHat.sound.monsterSFX;
         sound.PlayMonsterSFX(this.gameObject, sound.redhatAttack);
 
-        var voice = FSMManager.sound.monsterVoice;
+        var voice = RedHat.sound.monsterVoice;
         voice.PlayMonsterVoice(this.gameObject, voice.redhatAttackVoice);
     }
 
     void DashSFX()
     {
-        var sound = FSMManager.sound.monsterSFX;
+        var sound = RedHat.sound.monsterSFX;
         sound.PlayMonsterSFX(this.gameObject, sound.redhatDash);
     }
 
     public void PopupOver()
     {
-        FSMManager.SetState(RedHatState.CHASE);
+        RedHat.SetState(RedHatState.CHASE);
     }
 
     void HitCheck()
     {
-        //if (null != _attackCp)
-            //_attackCp.AttackCheck();
     }
 
     public void HitEnd()

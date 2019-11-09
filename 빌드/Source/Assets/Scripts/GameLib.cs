@@ -217,17 +217,18 @@ public static class GameLib
 
         while (i++ < duration)
         {
-            float value = blink ? 0.0f : 1.0f;
 
+            float value = blink ? 0.0f : 1.0f;
             for (int j = 0; j < mats.Count; j++)
             {
                 mats[j].SetFloat("_Hittrigger", value);
             }
 
             blink = !blink;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSeconds(timer);
+         
         }
-
+        
         for (int j = 0; j < mats.Count; j++)
         {
             mats[j].SetFloat("_Hittrigger", 0);
