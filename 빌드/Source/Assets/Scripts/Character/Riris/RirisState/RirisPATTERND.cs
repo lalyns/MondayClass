@@ -51,9 +51,9 @@ public class RirisPATTERND : RirisFSMState
 
             if (!set1Play)
             {
-                //sound.PlayRirisSFX(this.gameObject, sound.tornaedoCastSFX);
-                //sound.PlayRirisSFX(_manager.gameObject, sound.tornaedoFirstSFX);
-                for(int i=0; i<TornadoLoc1.Length; i++)
+                sound.PlayRirisSFX(this.gameObject, sound.tornaedoCastSFX);
+                sound.PlayRirisSFX(_manager.gameObject, sound.tornaedoFirstSFX);
+                for (int i=0; i<TornadoLoc1.Length; i++)
                 {
                     var ob = BossEffects.Instance.tornaedo.ItemSetActive(TornadoLoc1[i].position);
                 }
@@ -64,7 +64,7 @@ public class RirisPATTERND : RirisFSMState
             {
                 if (!set2Play)
                 {
-                    //sound.PlayRirisSFX(_manager.gameObject, sound.tornaedoLastSFX);
+                    sound.PlayRirisSFX(_manager.gameObject, sound.tornaedoLastSFX);
                     for (int i=0; i<TornadoLoc2.Length; i++)
                     {
                         var ob = BossEffects.Instance.tornaedo.ItemSetActive(TornadoLoc2[i].position);
