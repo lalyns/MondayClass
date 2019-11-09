@@ -146,6 +146,19 @@ namespace MC.SceneDirector
             sound.PlayRirisSFX(RirisFSMManager.Instance.gameObject, sound.falldownSFX);
         }
 
+        public void RirisPowerUp()
+        {
+            var sound = RirisFSMManager.Instance.sound.ririsSFX;
+            sound.PlayRirisSFX(RirisFSMManager.Instance.gameObject, sound.ririsPowerUp);
+        }
+
+        public void RirisPowerUpEnd()
+        {
+            var sound = RirisFSMManager.Instance.sound.ririsSFX;
+            sound.PlayRirisSFX(RirisFSMManager.Instance.gameObject, sound.ririsPowerUpEnd);
+        }
+
+
         public void RirisDeadVoice()
         {
             var sound = RirisFSMManager.Instance.sound.ririsVoice;

@@ -14,17 +14,17 @@ namespace MC.UI {
         public int choiceNum;
 
         // 변경하면 안되는 정보들
-        [HideInInspector] public Button button;
+        /*[HideInInspector]*/ public Button button;
 
         // 외부에서 변경되어야하는 정보들
-        [HideInInspector] public Image missioType;
+        /*[HideInInspector]*/ public Image missioType;
 
-        [HideInInspector] public MissionBase mission;
-        [HideInInspector] public MissionType missionType;
+        /*[HideInInspector]*/ public MissionBase mission;
+        /*[HideInInspector]*/ public MissionType missionType;
 
-        [HideInInspector] public Image rewardIcon;
-        [HideInInspector] public Text[] rewardText;
-        [HideInInspector] public MissionRewardType[] rewardType;
+        /*[HideInInspector]*/ public Image rewardIcon;
+        /*[HideInInspector]*/ public Text[] rewardText;
+        /*[HideInInspector]*/ public MissionRewardType[] rewardType;
 
         public static bool isPush = false;
 
@@ -81,7 +81,7 @@ namespace MC.UI {
 
         public void SetInvoke()
         {
-            MissionManager.SelectMission(missionType);
+            MissionManager.SelectMission(missionType, rewardType);
         }
     }
 }
