@@ -41,8 +41,8 @@ public class RedHatHIT : RedHatFSMState
         base.EndState();
 
         hitEnd = false;
-
-        StopAllCoroutines();
+        StartCoroutine(GameLib.BlinkOff(_manager.materialList));
+        StopAllCoroutines();        
 
         _manager.CurrentAttackType = AttackType.NONE;
         _manager.isChange = false;

@@ -12,8 +12,13 @@ public class RirisDEAD : RirisFSMState
     {
         base.BeginState();
 
+        var sound = _manager.sound.ririsSFX;
+        sound.StopRirisSFX(this.gameObject, sound.ririsPowerUpLoop);
+
         phaseEffect.SetActive(false);
         UserInterface.SetPlayerUserInterface(false);
+
+        GameStatus.GameClear = true;
 
         StartCoroutine(MCSoundManager.BGMFadeOut(1f));
         MCSoundManager.StopBGM();

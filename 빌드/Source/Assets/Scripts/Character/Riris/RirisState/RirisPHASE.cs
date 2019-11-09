@@ -25,6 +25,8 @@ public class RirisPHASE : RirisFSMState
 
         //StartCoroutine(MCSoundManager.AmbFadeIn(1f, 30f));
         //StartCoroutine(MCSoundManager.BGMFadeIn(1f, 30f));
+        var sound = _manager.sound.ririsSFX;
+        sound.PlayRirisSFX(this.gameObject, sound.ririsPowerUpLoop);
     }
 
     float _time = 0;

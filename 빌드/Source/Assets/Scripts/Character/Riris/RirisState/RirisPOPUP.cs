@@ -32,7 +32,7 @@ public class RirisPOPUP : RirisFSMState
 
         if (curTime > popUpTime)
         {
-            _manager.SetState(RirisState.PATTERNEND);
+            _manager.SetState(RirisState.DIALOG);
         }
     }
 

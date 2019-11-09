@@ -86,7 +86,7 @@ namespace MC.Mission
                     spawnTime = 0;
                 }
 
-                if (!isClear && GameStatus.Instance._LimitTime <= 0 && protectedTarget.hp > 0)
+                if (!isClear && GameStatus.Instance._LimitTime <= 0 && protectedTarget.hp > 0 && !missionEnd)
                 {
                     ClearMission();
                     PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);

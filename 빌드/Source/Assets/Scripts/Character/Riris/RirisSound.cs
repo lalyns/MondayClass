@@ -34,6 +34,11 @@ namespace MC.Sound
             public AK.Wwise.Event ultSmallGate = new AK.Wwise.Event();
             public AK.Wwise.Event ultBeam = new AK.Wwise.Event();
             public AK.Wwise.Event ultBlast = new AK.Wwise.Event();
+
+            public AK.Wwise.Event ririsPowerUp = new AK.Wwise.Event();
+            public AK.Wwise.Event ririsPowerUpEnd = new AK.Wwise.Event();
+            public AK.Wwise.Event ririsPowerUpLoop = new AK.Wwise.Event();
+
             #endregion
 
             #region SkillList
@@ -45,6 +50,13 @@ namespace MC.Sound
                 if (GameManager.Instance.config.soundActive.sfx ||
                     GameManager.Instance.config.soundActive.all)
                     sfx.Post(go);
+            }
+
+            public void StopRirisSFX(GameObject go, AK.Wwise.Event sfx)
+            {
+                if (GameManager.Instance.config.soundActive.sfx ||
+                    GameManager.Instance.config.soundActive.all)
+                    sfx.Stop(go);
             }
         }
 

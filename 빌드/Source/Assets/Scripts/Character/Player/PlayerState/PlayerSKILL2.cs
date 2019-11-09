@@ -31,7 +31,10 @@ public class PlayerSKILL2 : FSMState
         else
             sfx.PlayPlayerSFX(_manager.Skill2_Test2, sfx.skill2SFX);
     }
-
+    public void Skill2Set()
+    {
+        _manager.isSkill2AttackTime = false;
+    }
     public override void EndState()
     {
         base.EndState();
@@ -39,11 +42,12 @@ public class PlayerSKILL2 : FSMState
         _manager.isAttackOne = false;
         _manager.isAttackTwo = false;
         _manager.isAttackThree = false;
-
         _manager.isSkill2CTime = true;
         _manager.isSkill2End = false;
         isEnd = false;
         _time = 0;
+
+        Invoke("Skill2Set", 1f);
     }
 
     void Update()

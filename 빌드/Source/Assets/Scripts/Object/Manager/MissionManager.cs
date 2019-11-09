@@ -90,6 +90,8 @@ public class MissionManager : MonoBehaviour
         }
 
         currentMissionRewards = new MissionRewardType[2];
+        currentMissionRewards[0] = MissionRewardType.Last;
+        currentMissionRewards[1] = MissionRewardType.Last;
     }
 
 
@@ -158,21 +160,21 @@ public class MissionManager : MonoBehaviour
                 choice.rewardIcon.gameObject.SetActive(true);
                 choice.rewardText[0].gameObject.SetActive(true);
                 choice.rewardText[1].gameObject.SetActive(true);
-                var type = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
-                var type2 = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
+                var type = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last) % 9;
+                var type2 = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last) % 9;
 
                 while (type == type2)
                 {
                     type2 = UnityEngine.Random.Range((int)MissionRewardType.SpecialGauge, (int)MissionRewardType.Last);
                 }
 
-                currentMissionRewards[0] = choice.ChangeReward(0, (MissionRewardType)type);
-                currentMissionRewards[1] = choice.ChangeReward(1, (MissionRewardType)type2);
+               choice.ChangeReward(0, (MissionRewardType)type);
+               choice.ChangeReward(1, (MissionRewardType)type2);
             }
         }
     }
 
-    public static void SelectMission(MissionType type)
+    public static void SelectMission(MissionType type, MissionRewardType[] rewards)
     {
 
         UserInterface.BlurSet(false);
@@ -200,6 +202,8 @@ public class MissionManager : MonoBehaviour
                     MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, 1f, true);
                     break;
             }
+
+            Instance.currentMissionRewards = rewards;
         }
 
     }
@@ -267,7 +271,8 @@ public class MissionManager : MonoBehaviour
         // 여기서 보상에 관한 것을 처리함.
         if (GameStatus.currentGameState == CurrentGameState.Tutorial) return;
 
-        if (Instance.currentMissionRewards[0] == Instance.currentMissionRewards[1])
+        if (Instance.currentMissionRewards[0] == MissionRewardType.Last &&
+            Instance.currentMissionRewards[1] == MissionRewardType.Last)
         {
             Instance.currentMissionRewards[0] = MissionRewardType.Defense;
             Instance.currentMissionRewards[1] = MissionRewardType.Hp;

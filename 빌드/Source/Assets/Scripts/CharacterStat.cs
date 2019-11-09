@@ -9,7 +9,7 @@ public class CharacterStat : MonoBehaviour
 
     [SerializeField] protected float _str = 10.0f;
     public float Str { get { return _str; } }
-
+    public float SpecialStr { get { return _str + 10; } }
     //[SerializeField] protected bool[] _KnockBackFlag = new bool[7];
     //public bool[] KnockBackFlag => _KnockBackFlag;
 

@@ -54,6 +54,8 @@ public class GameStatus : MonoBehaviour
 
     bool isPause = false;
 
+    public static bool GameClear = false;
+
     public static CurrentGameState currentGameState = CurrentGameState.Start;
     public static CurrentGameState prevState = CurrentGameState.Start;
 
@@ -154,8 +156,8 @@ public class GameStatus : MonoBehaviour
 
             if(missionA.currentWave < missionA.totalWave)
                 missionA.Invoke("MonsterCheck", 5f);
-            else if(missionA.currentWave == missionA.totalWave)
-                missionA.ClearMission();
+            //else if(missionA.currentWave == missionA.totalWave)
+            //    missionA.ClearMission();
         }
             
 
