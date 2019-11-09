@@ -31,7 +31,7 @@ public class TiberWeapon : MonoBehaviour
                 (Tiber.Stat.Str + Tiber.Stat.addStrPerRound * GameStatus.Instance.StageLevel)
                 - PlayerFSMManager.Instance.Stat.Defense;
                 
-                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", Tiber.Stat, MonsterType.Tiber, damage);
+                var hitTarget = GameLib.SimpleDamageProcess(this.transform, 0.01f, "Player", Tiber.Stat, damage);
                 Invoke("AttackSupport", 0.5f);
                 _Dameged = true;
 

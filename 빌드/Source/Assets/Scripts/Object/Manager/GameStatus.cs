@@ -156,8 +156,8 @@ public class GameStatus : MonoBehaviour
 
             if(missionA.currentWave < missionA.totalWave)
                 missionA.Invoke("MonsterCheck", 5f);
-            else if(missionA.currentWave == missionA.totalWave)
-                missionA.ClearMission();
+            //else if(missionA.currentWave == missionA.totalWave)
+            //    missionA.ClearMission();
         }
             
 
