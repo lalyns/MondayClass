@@ -18,6 +18,9 @@ namespace AK
         static const AkUniqueID BGM_TITLE_01 = 2511535208U;
         static const AkUniqueID BGM_TUTORIAL_03 = 1633288558U;
         static const AkUniqueID BOSSROOM = 3329270527U;
+        static const AkUniqueID BUDLEBUDLE_01 = 748537501U;
+        static const AkUniqueID BUDLEBUDLE_02 = 748537502U;
+        static const AkUniqueID BUDLEBUDLE_03 = 748537503U;
         static const AkUniqueID CINEMATIC_SOUND_CHOICE = 3941706286U;
         static const AkUniqueID CINEMATIC_SOUND_CROWD = 460128710U;
         static const AkUniqueID CINEMATIC_SOUND_DIVE = 1418554577U;
@@ -41,6 +44,7 @@ namespace AK
         static const AkUniqueID LIRIS_SKILL_DARK_BLAST_BOOM_SOUND = 2525953450U;
         static const AkUniqueID LIRIS_SKILL_DARK_BLAST_CAST_SOUND = 3887902942U;
         static const AkUniqueID LIRIS_SKILL_DARK_BLAST_FIRST_BOOM_SOUND = 3440489323U;
+        static const AkUniqueID LIRIS_SKILL_DARK_BLAST_REAL_CAST_SOUND = 1552281663U;
         static const AkUniqueID LIRIS_SKILL_DARKBLAST_CAST_VOICE = 3115282304U;
         static const AkUniqueID LIRIS_SKILL_DASH_ATTACK_CAST_SOUND = 3282084768U;
         static const AkUniqueID LIRIS_SKILL_DASH_ATTACK_CAST_VOICE = 2231595791U;

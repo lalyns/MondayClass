@@ -25,7 +25,7 @@
 														</Property>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
-																<Value>-1</Value>
+																<Value>-2</Value>
 															</ValueList>
 														</Property>
 													</PropertyList>
@@ -3654,6 +3654,45 @@
 						<Folder Name="Talk" ID="{55783DA1-AAD1-4291-B67A-C070F41380BE}" ShortID="388862148">
 							<ChildrenList>
 								<RandomSequenceContainer Name="Talk" ID="{6B7C4338-0DDA-40A5-9524-B4F210CAD739}" ShortID="200963734">
+									<PropertyList>
+										<Property Name="Highpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{030E2361-98D6-4141-891D-15025245428B}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="20"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Lowpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{5711EC60-39AB-43CD-B9C4-3FD0D44461C8}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="10"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{8F2BE500-A9AF-45E8-A39D-6DE5BCB4D42A}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="200"/>
+															<Property Name="Min" Type="Real64" Value="-200"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
@@ -5693,6 +5732,37 @@
 																</Sound>
 															</ChildrenList>
 														</RandomSequenceContainer>
+														<RandomSequenceContainer Name="Real Cast Sound" ID="{EF982319-6E8C-4514-8A2D-A00DC2361268}" ShortID="701984210">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Liris_Skill_Dark Blast_Real_Cast_Sound_01" ID="{CC8CDC58-AA40-47AA-8B16-7FEECFF50A3C}" ShortID="836917306">
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Liris_Skill_Dark Blast_Real_Cast_Sound_01" ID="{3F7FF0EC-D88C-4E18-B2BC-09647556801E}" ShortID="562580349">
+																			<Language>SFX</Language>
+																			<AudioFile>Liris_Skill_Dark Blast_Real_Cast_Sound_01.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Liris_Skill_Dark Blast_Real_Cast_Sound_01" ID="{3F7FF0EC-D88C-4E18-B2BC-09647556801E}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+														</RandomSequenceContainer>
 													</ChildrenList>
 												</Folder>
 												<Folder Name="Voice" ID="{26A3AA3D-6389-44D1-BD77-8D46C069F2E3}" ShortID="973273136">
@@ -5936,6 +6006,113 @@
 															</ChildrenList>
 															<ActiveSourceList>
 																<ActiveSource Name="Liris_Emote_Surprised_Voice_02" ID="{6D958772-1393-453C-A1DD-27D18B343FDE}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="BudleBudle" ID="{0EF9E3E0-FE7C-469E-9C85-0F901D7716E8}" ShortID="831256616">
+											<ChildrenList>
+												<RandomSequenceContainer Name="BudleBudle_01" ID="{2D7FE781-2E22-4553-A61C-7479058B2676}" ShortID="85684871">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="BudleBudle_01" ID="{9907BBC8-8815-49AC-94D9-A6C6A587EDED}" ShortID="1018449719">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="BudleBudle_01" ID="{AE8D9ABB-B23C-4FF5-99E7-558ECA0962FE}" ShortID="602967277">
+																	<Language>SFX</Language>
+																	<AudioFile>BudleBudle_01.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="BudleBudle_01" ID="{AE8D9ABB-B23C-4FF5-99E7-558ECA0962FE}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+												<RandomSequenceContainer Name="BudleBudle_02" ID="{E073EBD8-7456-4D90-B9BA-54D6798DFB2A}" ShortID="157319307">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="BudleBudle_02" ID="{2D188B60-071B-4CD5-A619-2027F515224D}" ShortID="786957645">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="BudleBudle_02" ID="{272C350A-C03E-439D-9675-AE5AE5637A44}" ShortID="320783420">
+																	<Language>SFX</Language>
+																	<AudioFile>BudleBudle_02.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="BudleBudle_02" ID="{272C350A-C03E-439D-9675-AE5AE5637A44}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+												<RandomSequenceContainer Name="BudleBudle_03" ID="{5D6080B7-F365-4E48-9360-3CE15EA7ADBB}" ShortID="339965291">
+													<PropertyList>
+														<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
+														<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
+														<Property Name="PlayMechanismSpecialTransitionsType" Type="int16" Value="2"/>
+														<Property Name="PlayMechanismSpecialTransitionsValue" Type="Real64" Value="1.88"/>
+														<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Riris" ID="{522519DB-600F-4A5A-A76B-81DA049D126E}" WorkUnitID="{18ED737E-A7D2-444E-BFC8-F6D6B326C70C}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="BudleBudle_03_Loop" ID="{6A629D91-3DC5-459E-8657-62DF8D7332A0}" ShortID="425456442">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54623EDF-CA35-47D1-AC3E-B96E43C51021}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Sound" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CC1542E9-25CC-4E51-B9E6-3428931F7CCE}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="BudleBudle_03_Loop" ID="{F7CF82F4-BDFE-446D-BE17-2684F952B2AE}" ShortID="814033549">
+																	<Language>SFX</Language>
+																	<AudioFile>BudleBudle_03_Loop.wav</AudioFile>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="BudleBudle_03_Loop" ID="{F7CF82F4-BDFE-446D-BE17-2684F952B2AE}" Platform="Linked"/>
 															</ActiveSourceList>
 														</Sound>
 													</ChildrenList>
