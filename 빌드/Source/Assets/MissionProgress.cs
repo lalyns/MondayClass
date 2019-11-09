@@ -17,6 +17,6 @@ public class MissionProgress : MonoBehaviour
     public void Update()
     {
         slider.value = GameStatus.Instance.StageLevel;
-        text.text = GameStatus.Instance.StageLevel + "";
+        text.text = GameStatus.Instance.StageLevel + "/8";
     }
 }
