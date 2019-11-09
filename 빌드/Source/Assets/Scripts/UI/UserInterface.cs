@@ -541,6 +541,7 @@ namespace MC.UI
             gameStatus = GameStatus.Instance;
             gameMgr = GameManager.Instance;
 
+            _ScreenEffect = CanvasInfo.Instance.screenEffect;
 
             SetMPMode(MPSimpleMode);
         }

@@ -526,17 +526,8 @@ public class PlayerFSMManager : FSMManager
             Skill3MouseLock();
             Skill3Reset();
         }
-        // if 궁극기 사용
         Skill4();
 
-
-
-
-
-        //_anim.SetFloat("CurrentIdle", (int)CurrentIdle);
-        //_anim.SetFloat("CurrentClear", (int)CurrentClear);
-        Debug.Log(Stat.skillCTime[0] + "," + Stat.skillCTime[1] + ", " + Stat.skillCTime[2] + "스킬쿨타임들");
-        Debug.Log(Skill1CTime +","+ Skill2CTime + ","+ Skill3CTime + "스킬쿨타임skill1ctime");
         if (isNormal)
         {
             if (isSkillTimeSet)
@@ -546,12 +537,12 @@ public class PlayerFSMManager : FSMManager
                 Skill3CTime = 15;
                 isSkillTimeSet = false;
             }
-
+            Stat.StrSet((int)Stat.Str);
             _anim.SetFloat("Normal", 0);
             Stat.skillCTime[0] = 5f;
             Stat.skillCTime[1] = 10f;
             Stat.skillCTime[2] = 15f;
-            Stat.StrSet(30);
+            
         }
         else if (!isNormal)
         {
@@ -567,6 +558,7 @@ public class PlayerFSMManager : FSMManager
             Stat.skillCTime[1] = 5f;
             Stat.skillCTime[2] = 7f;
             Stat.StrSet(40);
+
         }
         if (!isNormal && !isSkill4)
         {

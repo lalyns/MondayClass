@@ -13,8 +13,17 @@ namespace MC.UI
 
         public void HpBarView()
         {
-            if (PlayerFSMManager.Instance.LastHit() == null ||
-                GameStatus.currentGameState == CurrentGameState.MissionClear)
+            if(GameStatus.currentGameState == CurrentGameState.MissionClear ||
+                GameStatus.currentGameState == CurrentGameState.End)
+            {
+                hpBar.gameObject.SetActive(false);
+                name.gameObject.SetActive(false);
+                wings[0].gameObject.SetActive(false);
+                wings[1].gameObject.SetActive(false);
+                return;
+            }
+
+            if (PlayerFSMManager.Instance.LastHit() == null)
             {
                 hpBar.gameObject.SetActive(false);
                 name.gameObject.SetActive(false);
@@ -34,14 +43,27 @@ namespace MC.UI
 
         public void SetFalse()
         {
-            if (PlayerFSMManager.Instance != null)
+            if (GameStatus.currentGameState == CurrentGameState.MissionClear ||
+                   GameStatus.currentGameState == CurrentGameState.End)
             {
-                PlayerFSMManager.Instance.Stat.lastHitBy = null;
+                hpBar.gameObject.SetActive(false);
+                name.gameObject.SetActive(false);
+                wings[0].gameObject.SetActive(false);
+                wings[1].gameObject.SetActive(false);
+                return;
             }
-            hpBar.gameObject.SetActive(false);
-            name.gameObject.SetActive(false);
-            wings[0].gameObject.SetActive(false);
-            wings[1].gameObject.SetActive(false);
+
+            if (!GameStatus.GameClear)
+            {
+                if (PlayerFSMManager.Instance != null)
+                {
+                    PlayerFSMManager.Instance.Stat.lastHitBy = null;
+                }
+                hpBar.gameObject.SetActive(false);
+                name.gameObject.SetActive(false);
+                wings[0].gameObject.SetActive(false);
+                wings[1].gameObject.SetActive(false);
+            }
         }
 
         string SetName(CharacterStat stat)
