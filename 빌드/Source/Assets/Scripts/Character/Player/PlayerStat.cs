@@ -9,6 +9,9 @@ public class PlayerStat : CharacterStat
     public float[] dmgCoefficient = new float[7];
 
     public float feverGaugeGetValue;
+    public float skill2GaugeGetValue;
+    public float skill3GaugeGetValue;
+
     public float transDuration;
 
     public int perStr = 5;

@@ -172,13 +172,13 @@ public class MacBullet : MonoBehaviour
     {
         transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
 
-        foreach (ParticleSystem ps in _MoveEffect.GetComponentsInChildren<ParticleSystem>())
-        {
-            var main = ps.main;
-            main.startRotationX = transform.localEulerAngles.x;
-            main.startRotationY = transform.localEulerAngles.y;
-            main.startRotationZ = transform.localEulerAngles.z;
-        }
+        //foreach (ParticleSystem ps in _MoveEffect.GetComponentsInChildren<ParticleSystem>())
+        //{
+        //    var main = ps.main;
+        //    main.startRotationX = transform.localEulerAngles.x;
+        //    main.startRotationY = transform.localEulerAngles.y;
+        //    main.startRotationZ = transform.localEulerAngles.z;
+        //}
     }
 
 

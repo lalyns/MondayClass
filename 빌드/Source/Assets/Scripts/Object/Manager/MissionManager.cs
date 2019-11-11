@@ -298,9 +298,13 @@ public class MissionManager : MonoBehaviour
     {
         Input.ResetInputAxes();
 
-        PlayerFSMManager.Instance._v = 0; //SetState(PlayerState.IDLE);
-        PlayerFSMManager.Instance._h = 0;
-        PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
+        var player = PlayerFSMManager.Instance;
+        if (player != null)
+        {
+            player._v = 0; //SetState(PlayerState.IDLE);
+            player._h = 0;
+            player.SetState(PlayerState.IDLE);
+        }
 
         if (Instance.isFirst) { Instance.isFirst = false; return; }
         Instance.CurrentMission.RestMission();

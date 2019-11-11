@@ -47,6 +47,16 @@ namespace MC.UI
             title.developer.interactable = false;
             title.exit.interactable = false;
 
+            GameSetting.rewardAbillity.strLevel = 0;
+            GameSetting.rewardAbillity.defLevel = 0;
+            GameSetting.rewardAbillity.hpLevel = 0;
+            GameSetting.rewardAbillity.skill1DMGLevel = 0;
+            GameSetting.rewardAbillity.skill1BounceLevel = 0;
+            GameSetting.rewardAbillity.skill2DMGLevel = 0;
+            GameSetting.rewardAbillity.skill3DMGLevel = 0;
+            GameSetting.rewardAbillity.skill3TurnLevel = 0;
+            GameStatus.Instance.StageLevel = 0;
+
             if (nextScene)
             {
                 var ui = MCSoundManager.Instance.objectSound.ui;
