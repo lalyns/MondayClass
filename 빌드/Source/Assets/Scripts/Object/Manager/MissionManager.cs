@@ -101,6 +101,9 @@ public class MissionManager : MonoBehaviour
 
     public GameObject MissionProgressUI;
 
+    public int minimumLevel = 4;
+    public int maximumLevel = 8;
+
     public static void PopUpMission()
     {
         if (Instance.isChange) return;
@@ -126,12 +129,12 @@ public class MissionManager : MonoBehaviour
             choice.ChangeMission(type);
         }
 
-        if (GameStatus.Instance.StageLevel >= 3)
+        if (GameStatus.Instance.StageLevel >= Instance.maximumLevel)
         {
             UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
         }
 
-        if (GameStatus.Instance.StageLevel >= 8)
+        if (GameStatus.Instance.StageLevel >= Instance.maximumLevel)
         {
             UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
             UserInterface.Instance.SelectorUI.buttons[1].ChangeMission((int)MissionType.Boss);
@@ -295,9 +298,13 @@ public class MissionManager : MonoBehaviour
     {
         Input.ResetInputAxes();
 
-        PlayerFSMManager.Instance._v = 0; //SetState(PlayerState.IDLE);
-        PlayerFSMManager.Instance._h = 0;
-        PlayerFSMManager.Instance.SetState(PlayerState.IDLE);
+        var player = PlayerFSMManager.Instance;
+        if (player != null)
+        {
+            player._v = 0; //SetState(PlayerState.IDLE);
+            player._h = 0;
+            player.SetState(PlayerState.IDLE);
+        }
 
         if (Instance.isFirst) { Instance.isFirst = false; return; }
         Instance.CurrentMission.RestMission();

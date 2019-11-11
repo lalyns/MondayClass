@@ -110,8 +110,8 @@ namespace MC.Mission
                     spawning = false;
                 }
 
-                if (GameStatus.Instance.usingKeward)
-                    GameStatus.Instance.usingKeward = false;
+                if (DeveloperEditor.Instance.usingKeward)
+                    DeveloperEditor.Instance.usingKeward = false;
             }
         }
 

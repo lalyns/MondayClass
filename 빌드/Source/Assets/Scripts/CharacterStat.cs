@@ -69,9 +69,17 @@ public class CharacterStat : MonoBehaviour
         {
             var playerStat = from as PlayerStat;
 
-            if (PlayerFSMManager.Instance.isNormal)
+            if (PlayerFSMManager.Instance.isNormal && !PlayerFSMManager.Instance.isSkill3 && !PlayerFSMManager.Instance.isSkill2AttackTime)
             {
                 PlayerFSMManager.Instance.SpecialGauge += playerStat.feverGaugeGetValue;
+            }
+            if (PlayerFSMManager.Instance.isNormal && PlayerFSMManager.Instance.isSkill2AttackTime && !PlayerFSMManager.Instance.isSkill3)
+            {
+                PlayerFSMManager.Instance.SpecialGauge += playerStat.skill2GaugeGetValue;
+            }
+            if (PlayerFSMManager.Instance.isNormal && PlayerFSMManager.Instance.isSkill3)
+            {
+                PlayerFSMManager.Instance.SpecialGauge += playerStat.skill3GaugeGetValue;
             }
         }
 

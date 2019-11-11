@@ -67,57 +67,22 @@ public class GameSetting : MonoBehaviour
         }
     }
 
-    public static float allSoundValue;
-    public static float bgmSoundValue;
-    public static float ambSoundValue;
-    public static float voiceSoundValue;
-    public static float sfxSoundValue;
+    public static float allSoundValue = 100f;
+    public static float bgmSoundValue = 100f;
+    public static float ambSoundValue = 100f;
+    public static float voiceSoundValue = 100f;
+    public static float sfxSoundValue = 100f;
 
     public static RewardAbillity rewardAbillity = new RewardAbillity();
-    // finalStr = (BaseSTR + perStr * strLevel)
 
-    // 게임오버되거나 씬이 로드될때 능력치 계산
-
-    public void Awake()
-    {
-        allSoundValue = all.value;
-        bgmSoundValue = bgm.value;
-        ambSoundValue = amb.value;
-        voiceSoundValue = sfx.value;
-        sfxSoundValue = voice.value;
-
-        MC.Sound.MCSoundManager.SetRTPCParam("All_Volume", allSoundValue);
-        MC.Sound.MCSoundManager.SetRTPCParam("Bgm_Volume", bgmSoundValue);
-        MC.Sound.MCSoundManager.SetRTPCParam("Sound_Volume", ambSoundValue);
-        MC.Sound.MCSoundManager.SetRTPCParam("Ambient_Volume", voiceSoundValue);
-        MC.Sound.MCSoundManager.SetRTPCParam("Voice_Volume", sfxSoundValue);
-    }
-
-    public void Start()
-    {
-        allSoundValue = all.value;
-        bgmSoundValue = bgm.value;
-        ambSoundValue = amb.value;
-        voiceSoundValue = sfx.value;
-        sfxSoundValue = voice.value;
-
-        MC.Sound.MCSoundManager.SetRTPCParam("All_Volume", allSoundValue);
-        MC.Sound.MCSoundManager.SetRTPCParam("Bgm_Volume", bgmSoundValue);
-        MC.Sound.MCSoundManager.SetRTPCParam("Sound_Volume", ambSoundValue);
-        MC.Sound.MCSoundManager.SetRTPCParam("Ambient_Volume", voiceSoundValue);
-        MC.Sound.MCSoundManager.SetRTPCParam("Voice_Volume", sfxSoundValue);
-        gameObject.SetActive(false);
-
-
-    }
 
     public void OnEnable()
     {
-        allSoundValue = all.value;
-        bgmSoundValue = bgm.value;
-        ambSoundValue = amb.value;
-        voiceSoundValue = sfx.value;
-        sfxSoundValue = voice.value;
+        all.value = allSoundValue;
+        bgm.value = bgmSoundValue;
+        amb.value = ambSoundValue;
+        sfx.value = voiceSoundValue;
+        voice.value = sfxSoundValue;
 
         MC.Sound.MCSoundManager.SetRTPCParam("All_Volume", allSoundValue);
         MC.Sound.MCSoundManager.SetRTPCParam("Bgm_Volume", bgmSoundValue);
@@ -128,18 +93,33 @@ public class GameSetting : MonoBehaviour
         //MC.UI.UserInterface.BlurSet(true, 10f);
     }
 
-    public void Update()
+    public void SetAllValue()
     {
         allSoundValue = all.value;
-        bgmSoundValue = bgm.value;
-        ambSoundValue = amb.value;
-        voiceSoundValue = sfx.value;
-        sfxSoundValue = voice.value;
-
         MC.Sound.MCSoundManager.SetRTPCParam("All_Volume", allSoundValue);
+    }
+
+    public void SetBGMValue()
+    {
+        bgmSoundValue = bgm.value;
         MC.Sound.MCSoundManager.SetRTPCParam("Bgm_Volume", bgmSoundValue);
-        MC.Sound.MCSoundManager.SetRTPCParam("Sound_Volume", ambSoundValue);
+    }
+
+    public void SetAMBValue()
+    {
+        ambSoundValue = amb.value;
         MC.Sound.MCSoundManager.SetRTPCParam("Ambient_Volume", voiceSoundValue);
+    }
+
+    public void SetSFXValue()
+    {
+        voiceSoundValue = sfx.value;
+        MC.Sound.MCSoundManager.SetRTPCParam("Sound_Volume", ambSoundValue);
+    }
+
+    public void SetVoiceValue()
+    {
+        sfxSoundValue = voice.value;
         MC.Sound.MCSoundManager.SetRTPCParam("Voice_Volume", sfxSoundValue);
     }
 

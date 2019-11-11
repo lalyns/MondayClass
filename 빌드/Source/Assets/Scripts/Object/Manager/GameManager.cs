@@ -197,22 +197,7 @@ public class GameManager : MonoBehaviour
         if (MCSceneManager.currentScene != MCSceneManager.TITLE || 
             MCSceneManager.currentScene != MCSceneManager.TUTORIAL)
         {
-            if (GameStatus.Instance.StageLevel == 0)
-            {
-                //var dialogEvent = Instance.GetComponent<DialogEvent>();
-                //UserInterface.DialogSetActive(true);
-                //UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[4], () => { });
-                //GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            }
-
-            //if (MCSceneManager.currentScene == MCSceneManager.BOSS)
-            //{
-            //    var dialogEvent = GetComponent<DialogEvent>();
-            //    UserInterface.DialogSetActive(true);
-            //    UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[7]);
-            //    GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
-            //    return;
-            //}
+            
         }
 
         Instance.AfterDialog();
