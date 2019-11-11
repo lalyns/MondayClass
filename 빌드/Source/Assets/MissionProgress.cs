@@ -11,11 +11,16 @@ public class MissionProgress : MonoBehaviour
 
     private void Awake()
     {
-        slider = GetComponent<Slider>();
+        slider = GetComponentInChildren<Slider>();
     }
 
     public void Update()
     {
+        this.slider.gameObject.SetActive(GameStatus.currentGameState != CurrentGameState.Dialog &&
+            GameStatus.currentGameState != CurrentGameState.Product &&
+            GameStatus.currentGameState != CurrentGameState.Dead &&
+            GameStatus.currentGameState != CurrentGameState.MissionClear);
+
         slider.value = GameStatus.Instance.StageLevel;
         text.text = GameStatus.Instance.StageLevel + "/8";
     }

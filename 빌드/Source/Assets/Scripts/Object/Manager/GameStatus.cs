@@ -341,7 +341,7 @@ public class GameStatus : MonoBehaviour
             MCSceneManager.currentScene == MCSceneManager.DEFENCE ||
             MCSceneManager.currentScene == MCSceneManager.SURVIVAL)
         {
-            if (GameStatus.Instance.StageLevel == 3)
+            if (GameStatus.Instance.StageLevel == MissionManager.Instance.minimumLevel)
             {
                 GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
 
@@ -355,7 +355,7 @@ public class GameStatus : MonoBehaviour
                 });
             }
 
-            if (GameStatus.Instance.StageLevel == 8)
+            if (GameStatus.Instance.StageLevel == MissionManager.Instance.maximumLevel)
             {
                 GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
 
