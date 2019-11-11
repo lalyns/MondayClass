@@ -764,7 +764,7 @@ public class PlayerFSMManager : FSMManager
                 TimeLine.SetActive(false);
                 isSpecial = false;
                 isAttackOne = false;
-
+                SpecialGauge = 100;
                 StartCoroutine(SetOff());
                 return;
             }

@@ -21,6 +21,7 @@ public class PlayerHIT2 : FSMState
         _manager.isAttackOne = false;
         _manager.isAttackTwo = false;
         _manager.isAttackThree = false;
+
         _manager.isHit2 = true;
     }
 
@@ -29,6 +30,8 @@ public class PlayerHIT2 : FSMState
         base.EndState();
         isEnd = false;
         _manager.isHit2 = false;
+        _manager.isCantMove = false;
+        _manager.isSkill2Dash = false;
     }
 
     // Update is called once per frame
