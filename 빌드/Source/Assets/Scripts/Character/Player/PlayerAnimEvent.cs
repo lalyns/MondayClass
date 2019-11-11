@@ -30,10 +30,21 @@ public class PlayerAnimEvent : MonoBehaviour
         {
             player.AttackCheck();
 
-            if (isNormal)
+            //if (isNormal)
+            //    Normal_trail.gameObject.SetActive(true);
+            //if (!isNormal)
+            //    Special_trail.gameObject.SetActive(true);
+
+            if ((isNormal && !Normal_trail.gameObject.activeSelf) || (isNormal && Special_trail.gameObject.activeSelf))
+            {
                 Normal_trail.gameObject.SetActive(true);
-            if (!isNormal)
+                Special_trail.gameObject.SetActive(false);
+            }
+            if ((!isNormal && Normal_trail.gameObject.activeSelf) || (!isNormal && !Special_trail.gameObject.activeSelf))
+            {
+                Normal_trail.gameObject.SetActive(false);
                 Special_trail.gameObject.SetActive(true);
+            }
         }
     }
 

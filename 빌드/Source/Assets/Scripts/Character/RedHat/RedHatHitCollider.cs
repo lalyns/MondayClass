@@ -50,6 +50,7 @@ public class RedHatHitCollider : MonoBehaviour
 
         float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[value] * 0.01f);
         StartCoroutine(display.DamageDisplaying(damage));
+
         CharacterStat.ProcessDamage(playerStat, redhat.Stat, damage);
 
         if (MCSoundManager.SoundCall >= MCSoundManager.SoundSkill3Break)
@@ -120,7 +121,7 @@ public class RedHatHitCollider : MonoBehaviour
                 OnHitForMonster(AttackType.SKILL1);
             }
         }
-        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
+        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2AttackTime)
         {
             StartCoroutine("Skill2Timer");
 
@@ -135,13 +136,13 @@ public class RedHatHitCollider : MonoBehaviour
     public IEnumerator Skill2Timer()
     {
         PlayerStat stat = PlayerFSMManager.Instance.Stat;
-        float attackTime = 0.0f;
-        while (attackTime < 0.3f)
+        while (PlayerFSMManager.Instance.isSkill2AttackTime)
         {
 
-            //stats.TakeDamage(PlayerFSMManager.Instance.stats, 30);
-            CharacterStat.ProcessDamage(stat, redhat.Stat, 15);
-            attackTime += Time.deltaTime;
+            PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
+            float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[4] * 0.002f);
+            StartCoroutine(display.DamageDisplaying(damage));
+            CharacterStat.ProcessDamage(playerStat, redhat.Stat, damage);
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -154,15 +155,24 @@ public class RedHatHitCollider : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
     }
-    
+    public bool isOne = false;
+    void isOneSet()
+    {
+        isOne = false;
+    }
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.tag == "Skill2")
+        if (other.transform.tag == "Skill2" && !isOne)
         {
             if (redhat.Stat.Hp > 0)
             {
-                OnHitForMonster(AttackType.SKILL2);
+                PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
+                float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[4] * 0.01f);
+                StartCoroutine(display.DamageDisplaying(damage));
+                CharacterStat.ProcessDamage(playerStat, redhat.Stat, damage);
             }
+            isOne = true;
+            Invoke("isOneSet", 1f);
         }
     }
 

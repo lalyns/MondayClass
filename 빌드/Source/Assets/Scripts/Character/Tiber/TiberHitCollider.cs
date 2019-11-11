@@ -134,7 +134,7 @@ public class TiberHitCollider : MonoBehaviour
                 OnHitForMonster(AttackType.SKILL1);
             }
         }
-        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2)
+        if (other.transform.tag == "Skill2" && PlayerFSMManager.Instance.isSkill2AttackTime)
         {
             StartCoroutine("Skill2Timer");
 
@@ -149,14 +149,14 @@ public class TiberHitCollider : MonoBehaviour
 
     public IEnumerator Skill2Timer()
     {
-        
+
         PlayerStat stat = PlayerFSMManager.Instance.Stat;
-        float attackTime = 0.0f;
-        while (attackTime < 0.3f)
-        {            
-            //stats.TakeDamage(PlayerFSMManager.Instance.stats, 30);
-            CharacterStat.ProcessDamage(stat, tiber.Stat, 20);
-            attackTime += Time.deltaTime;
+        while (PlayerFSMManager.Instance.isSkill2AttackTime)
+        {
+            PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
+            float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[4] * 0.002f);
+            StartCoroutine(display.DamageDisplaying(damage));
+            CharacterStat.ProcessDamage(playerStat, tiber.Stat, damage);
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -170,14 +170,24 @@ public class TiberHitCollider : MonoBehaviour
         }
     }
 
+    public bool isOne = false;
+    void isOneSet()
+    {
+        isOne = false;
+    }
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.tag == "Skill2")
+        if (other.transform.tag == "Skill2" && !isOne)
         {
             if (tiber.Stat.Hp > 0)
             {
-                OnHitForMonster(AttackType.SKILL2);
+                PlayerStat playerStat = PlayerFSMManager.Instance.Stat;
+                float damage = (playerStat.GetStr() * playerStat.dmgCoefficient[4] * 0.01f);
+                StartCoroutine(display.DamageDisplaying(damage));
+                CharacterStat.ProcessDamage(playerStat, tiber.Stat, damage);
             }
+            isOne = true;
+            Invoke("isOneSet", 1f);
         }
     }
 

@@ -15,7 +15,11 @@ public class Skill2Effect : MonoBehaviour
     {
         Sphere = GetComponent<SphereCollider>();
         player = PlayerFSMManager.Instance;
-
+        Sphere.enabled = false;
+    }
+    private void OnEnable()
+    {
+        Sphere.enabled = false;
     }
     private void OnDisable()
     {
@@ -31,20 +35,23 @@ public class Skill2Effect : MonoBehaviour
 
         if (_time <= 0.1f)
         {
-            transform.position = player.Skill2_Parent.position;
+            transform.position = player.Skill2_Parent.position;            
+        }
+        if(_time>= 0.3f && _time <= 3f)
+        {
+            Sphere.enabled = true;
         }
 
 
-
-        if (_time >= 3f)
+        if (_time >= 2f)
         {
             _triggerTime = 0;
             Sphere.enabled = false;
             // gameObject.SetActive(false);
             //player.isSkill2CTime = true;
+            //player.isSkill2 = false;
 
 
-        
         }
         //if (_time >= 10f)
         //{
@@ -63,7 +70,7 @@ public class Skill2Effect : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         
-        if (other.transform.tag == "Monster")
+        if (other.transform.tag == "Monster" || other.transform.tag == "Boss")
         {
             _triggerTime += Time.deltaTime;
 

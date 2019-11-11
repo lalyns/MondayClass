@@ -1186,6 +1186,7 @@ public class PlayerFSMManager : FSMManager
 
     public GameObject Skill2_Test, Skill2_Test2;
     public bool isSkill2End;
+    public bool isSkill2AttackTime =false;
     public void Skill2()
     {
         if (isSkill2) return;
@@ -1215,6 +1216,7 @@ public class PlayerFSMManager : FSMManager
             {
                 SetState(PlayerState.SKILL2);
                 isSkill2 = true;
+                isSkill2AttackTime = true;
                 isSkill2Dash = true;
                 return;
             }
