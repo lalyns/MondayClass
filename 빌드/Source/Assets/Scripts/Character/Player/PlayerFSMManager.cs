@@ -477,8 +477,7 @@ public class PlayerFSMManager : FSMManager
             Dash();
         if(!isSkill2Dash)
             GetInput();
-        //if (isSpecialIDLE)
-        //    return;
+        
         if (CurrentState == PlayerState.CLEAR || CurrentState == PlayerState.DEAD)
             return;
 
@@ -520,7 +519,9 @@ public class PlayerFSMManager : FSMManager
         }
         if (mission == null)
         {
-            Skill1();
+            if(!isSpecialIDLE && !isSkill4)
+                Skill1();
+
             Skill2();
             Skill3();
             Skill3MouseLock();

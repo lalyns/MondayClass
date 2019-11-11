@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using MC.Sound;
+
 
 public class CreditAnimEvent : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class CreditAnimEvent : MonoBehaviour
 
     public void EndCredit()
     {
-        credit.bgm.Stop(gameObject);
+        MCSoundManager.StopBGM();
         SceneManager.LoadScene(MC.SceneDirector.MCSceneManager.TITLE);
         GameStatus.GameClear = false;
     }

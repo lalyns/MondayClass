@@ -29,7 +29,7 @@ public class DamageDisplay : MonoBehaviour
 
         float time = 0;
         texts[count].gameObject.SetActive(true);
-        texts[count].text = damage - GetComponentInParent<CharacterStat>().Defense + "!";
+        texts[count].text = damage - GetComponentInParent<CharacterStat>().Defense + "";
         texts[count].rectTransform.localPosition = startPos;
 
         while(time < 1f)
@@ -43,5 +43,15 @@ public class DamageDisplay : MonoBehaviour
         texts[count].gameObject.SetActive(false);
     }
 
-    
+    private void Update()
+    {
+        for(int i=0; i<texts.Length; i++)
+        {
+            if (texts[i].gameObject.activeSelf)
+                texts[i].gameObject.SetActive(
+                    GameStatus.currentGameState != CurrentGameState.Product ||
+                    GameStatus.currentGameState != CurrentGameState.Dead);
+        }
+    }
+
 }

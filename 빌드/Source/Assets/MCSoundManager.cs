@@ -90,6 +90,7 @@ namespace MC.Sound
         public static void StopBGM()
         {
             Instance.objectSound.bgm.StopBGM(Instance.gameObject, Instance.curBGM);
+            Instance.curBGM = null;
         }
 
         public static void SetRTPCParam(string type, float value)
