@@ -44,7 +44,12 @@ namespace MC.Sound
 
         private void Update()
         {
-            SoundCall += Time.deltaTime;
+
+            MC.Sound.MCSoundManager.SetRTPCParam("All_Volume", GameSetting.allSoundValue);
+            MC.Sound.MCSoundManager.SetRTPCParam("Bgm_Volume", GameSetting.bgmSoundValue);
+            MC.Sound.MCSoundManager.SetRTPCParam("Sound_Volume", GameSetting.ambSoundValue);
+            MC.Sound.MCSoundManager.SetRTPCParam("Ambient_Volume", GameSetting.voiceSoundValue);
+            MC.Sound.MCSoundManager.SetRTPCParam("Voice_Volume", GameSetting.sfxSoundValue);
         }
 
         public static void LoadBank()
@@ -85,6 +90,7 @@ namespace MC.Sound
         public static void StopBGM()
         {
             Instance.objectSound.bgm.StopBGM(Instance.gameObject, Instance.curBGM);
+            Instance.curBGM = null;
         }
 
         public static void SetRTPCParam(string type, float value)
@@ -133,12 +139,16 @@ namespace MC.Sound
                 realTime = Time.realtimeSinceStartup;
 
                 var value = Mathf.Clamp01((realTime - startTime) / duration) * 100;
+                value = Mathf.Clamp(value, 0, GameSetting.allSoundValue > GameSetting.ambSoundValue ?
+                    GameSetting.ambSoundValue : GameSetting.allSoundValue);
+
                 SetRTPCParam("Ambient_Volume", value);
 
                 yield return new WaitForSeconds(0.1f);
             }
 
-            SetRTPCParam("Ambient_Volume", 100);
+            SetRTPCParam("Ambient_Volume", GameSetting.allSoundValue > GameSetting.ambSoundValue ?
+                    GameSetting.ambSoundValue : GameSetting.allSoundValue);
             yield return null;
         }
 
@@ -175,12 +185,16 @@ namespace MC.Sound
                 realTime = Time.realtimeSinceStartup;
 
                 var value =Mathf.Clamp01((realTime - startTime) / duration) * 100;
+                value = Mathf.Clamp(value, 0, GameSetting.allSoundValue > GameSetting.bgmSoundValue ?
+                    GameSetting.ambSoundValue : GameSetting.bgmSoundValue);
+
                 SetRTPCParam("Bgm_SceneSwitch_Fade_Out", value);
 
                 yield return new WaitForSeconds(0.1f);
             }
 
-            SetRTPCParam("Bgm_SceneSwitch_Fade_Out", 100f);
+            SetRTPCParam("Bgm_SceneSwitch_Fade_Out", GameSetting.allSoundValue > GameSetting.bgmSoundValue ?
+                GameSetting.ambSoundValue : GameSetting.bgmSoundValue);
             yield return null;
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
 
+using MC.Sound;
 using MC.UI;
 
 public class Credit : MonoBehaviour
@@ -26,7 +27,9 @@ public class Credit : MonoBehaviour
         CanvasInfo.Instance.enemyHP.SetFalse();
         bgmBank.HandleEvent(gameObject);
         sfxBank.HandleEvent(gameObject);
-        bgm.Post(gameObject);
+
+        var sound = MCSoundManager.Instance.objectSound;
+        MCSoundManager.ChangeBGM(sound.bgm.tutoBGM);
 
         if (GameStatus.GameClear) {
             clear.SetActive(true);

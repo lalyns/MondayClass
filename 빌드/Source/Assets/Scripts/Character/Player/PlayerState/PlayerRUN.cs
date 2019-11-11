@@ -7,7 +7,8 @@ public class PlayerRUN : FSMState {
     public override void BeginState()
     {
         base.BeginState();
-       // AudioManager.playLoopSound(_manager._runSound, _manager.musicPlayer);
+        // AudioManager.playLoopSound(_manager._runSound, _manager.musicPlayer);
+        _manager.isCantMove = false;
     }
 
     public override void EndState()
