@@ -53,6 +53,14 @@ namespace MC.UI
             SetNextAction(action);
             SetDialog(0);
 
+            var player = PlayerFSMManager.Instance;
+            if(player != null)
+            {
+                player.isAttackOne = false;
+                player.isAttackTwo = false;
+                player.isAttackThree = false;
+            }
+
             var voice = MC.Sound.MCSoundManager.Instance.objectSound.dialogVoice;
             voice.PlaySound(MC.Sound.MCSoundManager.Instance.gameObject, voice.voice[currentDialog.voice[0]]);
         }
