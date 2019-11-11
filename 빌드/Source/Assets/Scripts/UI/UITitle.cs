@@ -32,6 +32,8 @@ namespace MC.UI
 
         public void OnEnable()
         {
+            UserInterface.SetPointerMode(true);
+
             MCSoundManager.LoadBank();
             var sound = MCSoundManager.Instance.objectSound;
             MCSoundManager.ChangeBGM(sound.bgm.lobbyBGM);

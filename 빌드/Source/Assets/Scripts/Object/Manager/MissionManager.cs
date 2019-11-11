@@ -129,7 +129,7 @@ public class MissionManager : MonoBehaviour
             choice.ChangeMission(type);
         }
 
-        if (GameStatus.Instance.StageLevel >= Instance.maximumLevel)
+        if (GameStatus.Instance.StageLevel >= Instance.minimumLevel)
         {
             UserInterface.Instance.SelectorUI.buttons[0].ChangeMission((int)MissionType.Boss);
         }

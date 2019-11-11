@@ -470,7 +470,7 @@ namespace MC.Mission
             var dialogEvent = GameManager.Instance.GetComponent<DialogEvent>();
 
             UserInterface.DialogSetActive(true);
-            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[3],
+            UserInterface.Instance.Dialog.SetDialog(dialogEvent.dialogs[8],
                 () => {
                     GameStatus.SetCurrentGameState(CurrentGameState.Tutorial);
                     currentTutorial = TutorialEvent.Attack;
