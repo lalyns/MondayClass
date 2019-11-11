@@ -63,7 +63,8 @@ public class CharacterStat : MonoBehaviour
 
     public void TakeDamage(CharacterStat from, float damage)
     {
-        _hp = Mathf.Clamp(_hp - (damage - this.Defense), 0, _maxHp);
+        if(damage >= Defense)
+            _hp = Mathf.Clamp(_hp - (damage - this.Defense), 0, _maxHp);
 
         if (from.isPlayer)
         {
