@@ -168,14 +168,8 @@ namespace MC.Mission
             GameStatus.Instance._MissionStatus = false;
             GameStatus.SetCurrentGameState(CurrentGameState.MissionClear);
 
-            if (MissionManager.Instance.CurrentMissionType == MissionType.Annihilation)
-            {
-            }
-            else
-            {
-                GameStatus.Instance.RemoveAllActiveMonster();
-                PlayerFSMManager.Instance.Stat.lastHitBy = null;
-            }
+            GameStatus.Instance.RemoveAllActiveMonster();
+            PlayerFSMManager.Instance.Stat.lastHitBy = null;
 
             try
             {

@@ -69,9 +69,14 @@ namespace MC.UI {
         {
             if (!isPush) {
 
-                var sound = MCSoundManager.Instance.objectSound.objectSFX;
-                sound.StopSound(MissionManager.Instance.CurrentMission.Exit.gameObject, sound.portalLoop);
-                sound.PlaySound(this.gameObject, sound.portalExit);
+                var mission = MissionManager.Instance.CurrentMission;
+
+                if (mission != null)
+                {
+                    var sound = MCSoundManager.Instance.objectSound.objectSFX;
+                    sound.StopSound(mission.Exit.gameObject, sound.portalLoop);
+                    sound.PlaySound(this.gameObject, sound.portalExit);
+                }
 
                 Invoke("SetInvoke", 0.56f);
                 isPush = true;

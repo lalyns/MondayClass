@@ -89,7 +89,8 @@ namespace MC.SceneDirector
             MCSoundManager.ChangeBGM(sound.bgm.bossBGM);
             //StartCoroutine(MCSoundManager.BGMFadeIn(1f));
 
-            MCSoundManager.SetRTPCParam("Bgm_SceneSwitch_Fade_Out", 100f);
+            MCSoundManager.SetRTPCParam("Bgm_SceneSwitch_Fade_Out", GameSetting.allSoundValue > GameSetting.ambSoundValue ?
+                    GameSetting.ambSoundValue : GameSetting.allSoundValue);
         }
 
         public void PortalOpenPlay()

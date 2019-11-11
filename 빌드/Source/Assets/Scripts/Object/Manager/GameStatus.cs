@@ -38,19 +38,14 @@ public class GameStatus : MonoBehaviour
         }
     }
 
-    public static bool _EditorMode = false;
 
     public float _LimitTime = 180;
     public bool _MissionStatus = false;
 
-    public bool usingKeward = false;
     public bool canInput = true;
-
-    public GameObject _DummyLocationEffect;
 
     public PlayerFSMManager _PlayerInstance;
 
-    bool dummySet = false;
 
     bool isPause = false;
 
@@ -127,6 +122,8 @@ public class GameStatus : MonoBehaviour
     /// </summary>
     public void RemoveAllActiveMonster()
     {
+        if (ActivedMonsterList.Count == 0) return;
+
         // 몬스터 타입에따라서
         // 풀로 반환한다.
         List<GameObject> active = ActivedMonsterList;
@@ -164,87 +161,12 @@ public class GameStatus : MonoBehaviour
         ActivedMonsterList.Clear();
     }
 
-    MonsterType summonType;
     public void Update()
     {
         if (!canInput) return;
         //if (Time.timeScale == 0 && Input.anyKey) return;
         
-        // 유니티 에디터에서 작동하는 에디터 기능
-        if (Input.GetKey(KeyCode.LeftAlt) /*&& currentGameState == CurrentGameState.Start*/)
-        {
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                SummonReady(MonsterType.RedHat);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Y))
-            {
-                SummonReady(MonsterType.Mac);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha6))
-            {
-                SummonReady(MonsterType.Tiber);
-            }
-
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                usingKeward = true;
-                RemoveAllActiveMonster();
-            }
-
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                PlayerFSMManager.Instance.CurrentClear = Random.Range((int)0, (int)2);
-                PlayerFSMManager.Instance.SetState(PlayerState.CLEAR);
-                MissionManager.Instance.CurrentMission.ClearMission();
-                MissionManager.Instance.CurrentMission.missionEnd = true;
-            }
-
-            if(Input.GetKeyDown(KeyCode.U))
-            {
-                MCSceneManager.Instance.NextScene(MCSceneManager.ANNIHILATION, 1f, true);
-            }
-
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                MCSceneManager.Instance.NextScene(MCSceneManager.SURVIVAL, 1f, true);
-            }
-
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                MCSceneManager.Instance.NextScene(MCSceneManager.DEFENCE, 1f, true);
-            }
-
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                MCSceneManager.Instance.NextScene(MCSceneManager.BOSS, 1f, true);
-            }
-
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                GameManager.Instance.OnInspectating = !GameManager.Instance.OnInspectating;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                PlayerFSMManager.Instance.SpecialGauge = 100.0f;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha0))
-            {
-                MissionManager.ExitMission();
-                MissionManager.PopUpMission();
-            }
-
-            //if (Input.GetKeyDown(KeyCode.P))
-            //{
-            //    MCSoundManager.SetSound();
-            //}
-
-        }
-
+       
         timer += Time.deltaTime;
         if(timer >= 3f)
         {
@@ -314,16 +236,6 @@ public class GameStatus : MonoBehaviour
             }
         }
 
-        if (dummySet)
-        {
-            SummonEffect();
-
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                SummonMonster(summonType);
-            }
-        }
-
 #if UNITY_STANDALONE
 
 #endif
@@ -380,57 +292,6 @@ public class GameStatus : MonoBehaviour
     {
         prevState = currentGameState;
         currentGameState = state;
-    }
-
-    public void SummonReady(MonsterType type)
-    {
-        //Debug.Log("지정소환준비");
-        summonType = type;
-        dummySet = true;
-        _EditorMode = true;
-        _DummyLocationEffect.SetActive(true);
-        UserInterface.SetPointerMode(true);
-    }
-
-    public void SummonEffect()
-    {
-        Vector3 mousePoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Input.mousePosition.z);
-        Vector3 cameraForward = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2));
-
-        Ray ray = Camera.main.ScreenPointToRay(mousePoint);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, 100f, 1 << 17))
-        {
-            _DummyLocationEffect.transform.position = hit.point;
-            _DummyLocationEffect.transform.position += new Vector3(0, 0.1f, 0);
-        }
-    }
-
-    // 몬스터 지정소환
-    public void SummonMonster(MonsterType type)
-    {
-        switch(type)
-        {
-            case MonsterType.RedHat:
-                MonsterPoolManager._Instance._RedHat.ItemSetActive(
-                    _DummyLocationEffect.transform.position,
-                    MonsterType.RedHat);
-                break;
-            case MonsterType.Mac:
-                MonsterPoolManager._Instance._Mac.ItemSetActive(
-                    _DummyLocationEffect.transform.position,
-                    MonsterType.Mac);
-                break;
-            case MonsterType.Tiber:
-                MonsterPoolManager._Instance._Tiber.ItemSetActive(
-                    _DummyLocationEffect.transform.position,
-                    MonsterType.Tiber);
-                break;
-        }
-        dummySet = false;
-        _DummyLocationEffect.SetActive(false);
-        UserInterface.SetPointerMode(false);
     }
 
     public void SetValue()
