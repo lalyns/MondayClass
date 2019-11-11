@@ -50,6 +50,9 @@ public class PlayerCLEAR : FSMState
 
         UserInterface.SetPlayerUserInterface(true);
         _manager.enemyHPBar.gameObject.SetActive(true);
+
+        _manager.isCantMove = false;
+        _manager.isSkill2Dash = false;
     }
 
     private void Update()
