@@ -22,6 +22,8 @@ public class RirisPATTERND : RirisFSMState
 
         _manager.Anim.Play("PatternD");
 
+        _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
+
         var voice = _manager.sound.ririsVoice;
         voice.PlayRirisVoice(this.gameObject, voice.darkblast);
     }
@@ -85,7 +87,6 @@ public class RirisPATTERND : RirisFSMState
     {
         var sound = _manager.sound.ririsSFX;
         sound.PlayRirisSFX(this.gameObject, sound.tornaedoCastSFX);
-
     }
 
 
