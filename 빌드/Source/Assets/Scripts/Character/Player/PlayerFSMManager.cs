@@ -403,14 +403,30 @@ public class PlayerFSMManager : FSMManager
         //{
         //    StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
         //}
+        if (Stat.Hp <= 0)
+        {
+            _h = 0;
+            _v = 0;
+            SetDeadState();
+            isInputLock = true;
+        }
+        if (!isActive)
+        {
+            if (isNormal)
+            {
+                Normal.SetActive(true);
+                Special.SetActive(false);
+            }
+            if(!isNormal)
+            {
+                Normal.SetActive(false);
+                Special.SetActive(true);
+            }
 
+        }
         if (isInputLock || isDead)
             return;
 
-        if(Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.D))
-        {
-            SetDeadState();
-        }
         //if (GameSetting.rewardAbillity.feverGauge)
         //{
         //    SpecialGauge = 100;
@@ -440,13 +456,7 @@ public class PlayerFSMManager : FSMManager
 
         if (CurrentState == PlayerState.IDLE) footPeriod = 0.0f;
 
-        if (Stat.Hp <= 0)
-        {
-            _h = 0;
-            _v = 0;
-            SetDeadState();
-            isInputLock = true;
-        }
+     
 
 
         // Fade In Out 시 적용됨.
@@ -455,19 +465,7 @@ public class PlayerFSMManager : FSMManager
             SetState(PlayerState.IDLE);
             return;
         }
-        if (!isActive)
-        {
-            if (isNormal) {
-                Normal.SetActive(true);
-                Special.SetActive(false);
-            }
-            else
-            {
-                Normal.SetActive(false);
-                Special.SetActive(true);
-            }
-                
-        }
+       
         if (mission != null)
         {
             if (mission.currentTutorial == TutorialEvent.Transform)
@@ -728,7 +726,7 @@ public class PlayerFSMManager : FSMManager
             if (Input.GetKeyDown(KeyCode.R))
             {
                 GameStatus. SetCurrentGameState(CurrentGameState.Product);
-                isNormal = false;
+                
                 isSpecial = true;
                 SetInvincibility(true);
                 TimeLine.SetActive(true);                            
@@ -763,6 +761,7 @@ public class PlayerFSMManager : FSMManager
             //}
             if (specialTimer >= 1.5f)
             {
+                isNormal = false;
                 WeaponTransformEffect.SetActive(false);
                 Special.SetActive(true);
             }

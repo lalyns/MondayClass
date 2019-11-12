@@ -276,6 +276,7 @@ namespace MC.Mission
                 skill1 = true;
                 skill2 = true;
                 skill3 = true;
+                PlayerFSMManager.Instance.SpecialGauge = 100;
 
                 if (!PlayerFSMManager.Instance.isNormal) tutorialUI.attack.special.text = tutoText[5];
 
@@ -312,7 +313,7 @@ namespace MC.Mission
                         tutorialUI.attack.Special.sprite = tutorialUI.attack.specialSprites[1];
                     }
 
-                    PlayerFSMManager.Instance.SpecialGauge = 100;
+                    
 
                 }
 

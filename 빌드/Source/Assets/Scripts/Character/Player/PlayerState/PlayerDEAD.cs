@@ -44,6 +44,7 @@ public class PlayerDEAD : FSMState
     {
         base.EndState();
         UserInterface.SetPlayerUserInterface(true);
+        time = 0;
     }
 
     bool isEnd = false;
@@ -56,7 +57,6 @@ public class PlayerDEAD : FSMState
         {
             _manager.colorGrading.saturation.value -= 2f;
         }
-
         if (time >= 1f && !isEnd)
         {
             UserInterface.FailMissionSetActive(true);
@@ -65,7 +65,7 @@ public class PlayerDEAD : FSMState
 
         if (_manager.colorGrading.saturation.value <= -85f)
         {
-            _manager.colorGrading.saturation.value = -85f;            
+            _manager.colorGrading.saturation.value = -85f;
         }
 
     }
