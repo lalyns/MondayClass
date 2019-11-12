@@ -25,11 +25,14 @@ public class RedHatDISSOLVE : RedHatFSMState
         base.EndState();
 
         _time = 0;
+
+        GetComponent<RedHatDEAD>().StopAllCoroutines();
         GameLib.DissoveActive(_manager.materialList, false);
 
         useGravity = true;
         _manager.CC.detectCollisions = true;
 
+        
         MonsterPoolManager._Instance._RedHat.ItemReturnPool(gameObject, MonsterType.RedHat);
     }
 

@@ -27,7 +27,8 @@ public class TiberDISSOLVE : TiberFSMState
         useGravity = true;
         _manager.CC.detectCollisions = true;
         _time = 0;
-        
+
+        GetComponent<TiberDEAD>().StopAllCoroutines();
         GameLib.DissoveActive(_manager.materialList, false);
         MonsterPoolManager._Instance._Tiber.ItemReturnPool(gameObject, MonsterType.Tiber);
     }

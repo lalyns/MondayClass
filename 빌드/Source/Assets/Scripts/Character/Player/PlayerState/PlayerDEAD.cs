@@ -57,11 +57,15 @@ public class PlayerDEAD : FSMState
             _manager.colorGrading.saturation.value -= 2f;
         }
 
-        if (_manager.colorGrading.saturation.value <= -85f && !isEnd)
+        if (time >= 1f && !isEnd)
         {
-            _manager.colorGrading.saturation.value = -85f;
             UserInterface.FailMissionSetActive(true);
             isEnd = true;
+        }
+
+        if (_manager.colorGrading.saturation.value <= -85f)
+        {
+            _manager.colorGrading.saturation.value = -85f;            
         }
 
     }

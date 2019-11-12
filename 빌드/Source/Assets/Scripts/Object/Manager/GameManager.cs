@@ -251,7 +251,7 @@ public class GameManager : MonoBehaviour
         UserInterface.SetMissionSelectionUI(false);
         UserInterface.SetMissionProgressUserInterface(false);
 
-        UserInterface.SetPointerMode(false);
+        UserInterface.SetPointerMode(true);
 
         MCSoundManager.Instance.objectSound.bgm.StopBGM(gameObject,
             MCSoundManager.Instance.objectSound.bgm.stageBGM);

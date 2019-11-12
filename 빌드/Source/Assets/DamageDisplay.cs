@@ -29,7 +29,7 @@ public class DamageDisplay : MonoBehaviour
 
         float time = 0;
         texts[count].gameObject.SetActive(true);
-        texts[count].text = damage - GetComponentInParent<CharacterStat>().Defense + "";
+        texts[count].text = (int)(damage - GetComponentInParent<CharacterStat>().Defense) + "";
         texts[count].rectTransform.localPosition = startPos;
 
         while(time < 1f)

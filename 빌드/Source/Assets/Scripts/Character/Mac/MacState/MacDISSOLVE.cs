@@ -26,6 +26,10 @@ public class MacDISSOLVE : MacFSMState
         useGravity = true;
         _manager.CC.detectCollisions = true;
 
+
+        GetComponent<MacDEAD>().StopAllCoroutines();
+        GameLib.DissoveActive(_manager.materialList, false);
+
         MonsterPoolManager._Instance._Mac.ItemReturnPool(gameObject, MonsterType.Mac);
 
 

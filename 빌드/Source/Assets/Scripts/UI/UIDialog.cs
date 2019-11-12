@@ -44,6 +44,17 @@ namespace MC.UI
             NextAction = action;
         }
 
+        float time = 0;
+        public void Update()
+        {
+            time += Time.deltaTime;
+            if(time > 3f)
+            {
+                time = 0;
+                GameStatus.SetCurrentGameState(CurrentGameState.Dialog);
+            }
+        }
+
         public void SetDialog(Dialog dialog, System.Action action)
         {
             CharacterStop();
