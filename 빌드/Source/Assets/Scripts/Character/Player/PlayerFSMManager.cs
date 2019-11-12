@@ -1298,6 +1298,9 @@ public class PlayerFSMManager : FSMManager
                 {
                     _monster[i].transform.position = Seats[i].transform.position;
                     _monster[i].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
+
+                    _monster[i+7].transform.position = Seats[i].transform.position;
+                    _monster[i+7].transform.LookAt(new Vector3(Anim.transform.position.x, _monster[i].transform.position.y, Anim.transform.position.z));
                 }
                 catch
                 {
