@@ -78,7 +78,8 @@ public class Skill2Effect : MonoBehaviour
             {
                 other.GetComponentInParent<FSMManager>().transform.position
                     = Vector3.MoveTowards(other.transform.position, transform.position, 2f * Time.deltaTime);
-                other.GetComponentInParent<FSMManager>().transform.LookAt(transform.position);
+                Vector3 currentVector3 = new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z);
+                other.GetComponentInParent<FSMManager>().transform.LookAt(currentVector3);
             }
             
         }

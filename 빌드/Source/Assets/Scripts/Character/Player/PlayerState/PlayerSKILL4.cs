@@ -48,7 +48,8 @@ public class PlayerSKILL4 : FSMState
         _manager.isAttackThree = false;
         _manager.isSkill4CTime = true;
         _manager.isSkill4 = false;
-
+        _manager.isCantMove = false;
+        _manager.isSkill2Dash = false;
         foreach (GameObject mob in GameStatus.Instance.ActivedMonsterList)
         {
             Debug.Log(mob.name);
