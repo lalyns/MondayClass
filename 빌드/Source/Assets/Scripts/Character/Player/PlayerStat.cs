@@ -25,63 +25,73 @@ public class PlayerStat : CharacterStat
 
     public float GetStr()
     {
-        return _str + (perStr * GameSetting.rewardAbillity.strLevel);
+        return _str;
     }
     public void SetStr()
     {
-        _str = GetStr();
+        _str = _str + (perStr * GameSetting.rewardAbillity.strLevel);
     }
 
     public float GetDfs()
     {
-        return defense + (perDef * GameSetting.rewardAbillity.defLevel);
+        return defense;
     }
     public void SetDfs()
     {
-        defense = GetDfs();
+        defense = defense + (perDef * GameSetting.rewardAbillity.defLevel);
+    }
+
+    public override void SetHp(float hp)
+    {
+        base.SetHp(hp);
+    }
+
+    public override void SetMaxHP(float maxhp)
+    {
+        _maxHp += (perHP * GameSetting.rewardAbillity.hpLevel);
     }
 
     public float GetHP()
     {
-        return _maxHp + (perHP * GameSetting.rewardAbillity.hpLevel);
+        return _maxHp;//
     }
 
 
     public float GetSkill1Damage()
     {
-        return dmgCoefficient[3] + (perSkill1 * GameSetting.rewardAbillity.skill1DMGLevel);
+        return dmgCoefficient[3];
     }
     public void SetSkill1Damage()
     {
-        dmgCoefficient[3] = GetSkill1Damage();
+        dmgCoefficient[3] = dmgCoefficient[3] + (perSkill1 * GameSetting.rewardAbillity.skill1DMGLevel);
     }
 
     public float GetSkill2Damage()
     {
-        return dmgCoefficient[4] + (perSkill2 * GameSetting.rewardAbillity.skill2DMGLevel);
+        return dmgCoefficient[4];
     }
     public void SetSkil2Damage()
     {
-        dmgCoefficient[4] = GetSkill2Damage();
+        dmgCoefficient[4] = dmgCoefficient[4] + (perSkill2 * GameSetting.rewardAbillity.skill2DMGLevel);
     }
 
 
     public float GetSkill3Damage()
     {
-        return dmgCoefficient[5] + (perSkill3 * GameSetting.rewardAbillity.skill3DMGLevel);
+        return dmgCoefficient[5];
     }
     public void SetSkill3Damage()
     {
-        dmgCoefficient[5] = GetSkill3Damage();
+        dmgCoefficient[5] = dmgCoefficient[5] + (perSkill3 * GameSetting.rewardAbillity.skill3DMGLevel);
     }
 
     public float GetSkill3Speed()
     {
-        return PlayerFSMManager.Instance.Skill3MouseSpeed + (perSkill3Speed * GameSetting.rewardAbillity.skill3TurnLevel);
+        return PlayerFSMManager.Instance.Skill3MouseSpeed;
     }
     public void SetSkill3Speed()
     {
-        PlayerFSMManager.Instance.Skill3MouseSpeed = GetSkill3Speed();
+        PlayerFSMManager.Instance.Skill3MouseSpeed = PlayerFSMManager.Instance.Skill3MouseSpeed + (perSkill3Speed * GameSetting.rewardAbillity.skill3TurnLevel);
     }
 
     public int GetSkill1Bounce()
@@ -101,8 +111,6 @@ public class PlayerStat : CharacterStat
     protected override void Awake()
     {
         base.Awake();
-        
-        SetStatValue();
     }
 
     public void SetStatValue()

@@ -30,11 +30,11 @@ public class CharacterStat : MonoBehaviour
 
     public float _hp = 1000.0f;
     public float Hp { get { return _hp; } }
-    public void SetHp(float hp)
+    public virtual void SetHp(float hp)
     {
         _hp = hp;
     }
-    public void SetMaxHP(float maxhp)
+    public virtual void SetMaxHP(float maxhp)
     {
         _maxHp = maxhp;
     }
