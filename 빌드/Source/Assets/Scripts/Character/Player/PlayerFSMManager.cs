@@ -417,7 +417,7 @@ public class PlayerFSMManager : FSMManager
                 Normal.SetActive(true);
                 Special.SetActive(false);
             }
-            else
+            if(!isNormal)
             {
                 Normal.SetActive(false);
                 Special.SetActive(true);
@@ -726,7 +726,7 @@ public class PlayerFSMManager : FSMManager
             if (Input.GetKeyDown(KeyCode.R))
             {
                 GameStatus. SetCurrentGameState(CurrentGameState.Product);
-                isNormal = false;
+                
                 isSpecial = true;
                 SetInvincibility(true);
                 TimeLine.SetActive(true);                            
@@ -761,6 +761,7 @@ public class PlayerFSMManager : FSMManager
             //}
             if (specialTimer >= 1.5f)
             {
+                isNormal = false;
                 WeaponTransformEffect.SetActive(false);
                 Special.SetActive(true);
             }
