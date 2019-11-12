@@ -13,19 +13,19 @@ namespace MC.UI
     public class UserInterface : MonoBehaviour
     {
         private static UserInterface instance;
-        public static UserInterface Instance => instance;
+        public static UserInterface Instance {
+            get {
+                if(instance == null)
+                {
+                    instance = FindObjectOfType<UserInterface>().GetComponent<UserInterface>();
+                }
+                return instance;
+            }
+}
 
         private void Awake()
         {
-            if (instance == null)
-            {
-                instance = GetComponent<UserInterface>();
-                SetValue();
-            }
-            else
-            {
-                return;
-            }
+            SetValue();
         }
 
         #region Instance Caching
