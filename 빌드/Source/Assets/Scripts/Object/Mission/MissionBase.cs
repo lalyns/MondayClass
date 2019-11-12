@@ -137,7 +137,7 @@ namespace MC.Mission
         {
             if (!isPlayPortal)
             {
-                if (GameStatus.Instance.StageLevel < 3)
+                if (GameStatus.Instance.StageLevel < MissionManager.Instance.minimumLevel)
                 {
                     MissionManager.Instance.CurrentMission.Exit._PortalEffect.SetActive(true);
                 }
