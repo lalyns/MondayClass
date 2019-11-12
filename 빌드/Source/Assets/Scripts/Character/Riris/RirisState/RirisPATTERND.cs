@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MC.Mission;
 
 public class RirisPATTERND : RirisFSMState
 {
@@ -22,6 +23,7 @@ public class RirisPATTERND : RirisFSMState
 
         _manager.Anim.Play("PatternD");
 
+        //_manager.transform.position = MissionBoss._Instance.MapGrid.center.position;
         _manager.Anim.transform.LookAt(PlayerFSMManager.GetLookTargetPos(_manager.Anim.transform));
 
         var voice = _manager.sound.ririsVoice;
