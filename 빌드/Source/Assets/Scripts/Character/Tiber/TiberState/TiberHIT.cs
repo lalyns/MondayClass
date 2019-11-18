@@ -37,8 +37,8 @@ public class TiberHIT : TiberFSMState
         _manager.CurrentAttackType = AttackType.NONE;
         _manager.isChange = false;
         _manager.transform.LookAt(PlayerFSMManager.GetLookTargetPos(this.transform));
-        Invoke("StopCoroutinesSet", 1f);
-        //StopAllCoroutines();        
+        //Invoke("StopCoroutinesSet", 1f);
+        StopAllCoroutines();        
 
     }
     void StopCoroutinesSet()
