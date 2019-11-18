@@ -16,8 +16,16 @@ public class RirisHIT : RirisFSMState
     {
         base.EndState();
 
-        StopAllCoroutines();
+        Invoke("StopCoroutinesSet", 1f);
+
+        //StopAllCoroutines();        
+
         _manager.CurrentAttackType = AttackType.NONE;
+        _manager.isChange = false;
+    }
+    void StopCoroutinesSet()
+    {
+        StopAllCoroutines();
     }
 
     protected override void Update()

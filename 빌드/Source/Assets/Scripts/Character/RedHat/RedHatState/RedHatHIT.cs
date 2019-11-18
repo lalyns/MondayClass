@@ -35,19 +35,24 @@ public class RedHatHIT : RedHatFSMState
         _manager.agent.acceleration = 0;
         _manager.agent.velocity = Vector3.zero;
     }
-
+    
     public override void EndState()
     {
         base.EndState();
 
         hitEnd = false;
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));
-        StopAllCoroutines();        
+
+        Invoke("StopCoroutinesSet", 1f);
+
+        //StopAllCoroutines();        
 
         _manager.CurrentAttackType = AttackType.NONE;
-        _manager.isChange = false;
-
-        
+        _manager.isChange = false;                
+    }
+    void StopCoroutinesSet()
+    {
+        StopAllCoroutines();
     }
 
     protected override void Update()
