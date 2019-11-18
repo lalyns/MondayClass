@@ -239,7 +239,14 @@ namespace MC.UI
         {
             var screenPoint = Input.mousePosition;
             screenPoint.z = 8.0f;
-            MousePointer.transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
+            try
+            {
+                MousePointer.transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
+            }
+            catch
+            {
+
+            }
             //Debug.Log(string.Format("Screen : {0}, Pointer : {1}", screenPoint, MousePointer.transform.position));
         }
 

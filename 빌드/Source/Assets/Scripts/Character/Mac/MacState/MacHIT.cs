@@ -38,10 +38,17 @@ public class MacHIT : MacFSMState
 
         _manager.currentAttackType = AttackType.NONE;
         _manager.isChange = false;
+
         StartCoroutine(GameLib.BlinkOff(_manager.materialList));
+        Invoke("StopCoroutinesSet", 1f);
+
+        //StopAllCoroutines();        
+    }
+    void StopCoroutinesSet()
+    {
         StopAllCoroutines();
     }
-    
+
     protected override void Update()
     {
         base.Update();

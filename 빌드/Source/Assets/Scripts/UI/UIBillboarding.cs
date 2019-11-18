@@ -14,7 +14,14 @@ public class UIBillboarding : MonoBehaviour
                 }
                 else
                 {
-                    cam = Camera.main.transform;
+                    try
+                    {
+                        cam = Camera.main.transform;
+                    }
+                    catch
+                    {
+
+                    }
                 }
             return cam;
         }

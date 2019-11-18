@@ -403,14 +403,30 @@ public class PlayerFSMManager : FSMManager
         //{
         //    StartCoroutine(shake.ShakeUI(0.2f, 4f, 3f));
         //}
+        if (Stat.Hp <= 0)
+        {
+            _h = 0;
+            _v = 0;
+            SetDeadState();
+            isInputLock = true;
+        }
+        if (!isActive)
+        {
+            if (isNormal)
+            {
+                Normal.SetActive(true);
+                Special.SetActive(false);
+            }
+            if(!isNormal)
+            {
+                Normal.SetActive(false);
+                Special.SetActive(true);
+            }
 
+        }
         if (isInputLock || isDead)
             return;
 
-        if(Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKey(KeyCode.D))
-        {
-            SetDeadState();
-        }
         //if (GameSetting.rewardAbillity.feverGauge)
         //{
         //    SpecialGauge = 100;
@@ -440,13 +456,7 @@ public class PlayerFSMManager : FSMManager
 
         if (CurrentState == PlayerState.IDLE) footPeriod = 0.0f;
 
-        if (Stat.Hp <= 0)
-        {
-            _h = 0;
-            _v = 0;
-            SetDeadState();
-            isInputLock = true;
-        }
+     
 
 
         // Fade In Out 시 적용됨.
@@ -455,13 +465,14 @@ public class PlayerFSMManager : FSMManager
             SetState(PlayerState.IDLE);
             return;
         }
-
+       
         if (mission != null)
         {
             if (mission.currentTutorial == TutorialEvent.Transform)
             {
                 ChangeModel();
-                Skill1();
+                if (!isSpecialIDLE && !isSkill4)
+                    Skill1();
                 Skill2();
                 Skill3();
                 Skill3MouseLock();
@@ -493,13 +504,15 @@ public class PlayerFSMManager : FSMManager
 
             if (mission.currentTutorial == TutorialEvent.Skill1)
             {
-                Skill1();
+                if (!isSpecialIDLE && !isSkill4)
+                    Skill1();
                 return;
             }
 
             if (mission.currentTutorial == TutorialEvent.Skill2)
             {
-                Skill1();
+                if (!isSpecialIDLE && !isSkill4)
+                    Skill1();
                 Skill2();
                 return;
             }
@@ -507,7 +520,8 @@ public class PlayerFSMManager : FSMManager
             // if 스킬3번 사용
             if (mission.currentTutorial == TutorialEvent.Skill3)
             {
-                Skill1();
+                if (!isSpecialIDLE && !isSkill4)
+                    Skill1();
                 Skill2();
                 Skill3();
                 Skill3MouseLock();
@@ -712,7 +726,7 @@ public class PlayerFSMManager : FSMManager
             if (Input.GetKeyDown(KeyCode.R))
             {
                 GameStatus. SetCurrentGameState(CurrentGameState.Product);
-                isNormal = false;
+                
                 isSpecial = true;
                 SetInvincibility(true);
                 TimeLine.SetActive(true);                            
@@ -747,6 +761,7 @@ public class PlayerFSMManager : FSMManager
             //}
             if (specialTimer >= 1.5f)
             {
+                isNormal = false;
                 WeaponTransformEffect.SetActive(false);
                 Special.SetActive(true);
             }
@@ -810,7 +825,7 @@ public class PlayerFSMManager : FSMManager
 
     }
     bool isDashSound;
-
+    bool isActive;
     public void Dash()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -820,7 +835,7 @@ public class PlayerFSMManager : FSMManager
             isAttackThree = false;
 
             isFlash = true;
-
+            isActive = true;
             FlashPosition = new Vector3(_anim.transform.position.x, _anim.transform.position.y + 0.83f, _anim.transform.position.z);
             FlashEffect2.SetActive(false);
             SetState(PlayerState.RUN);
@@ -903,6 +918,7 @@ public class PlayerFSMManager : FSMManager
 
                 isFlash = false;
                 isDashSound = false;
+                isActive = false;
                 UserInterface.Instance.UIPlayer.DashStart();
 
 

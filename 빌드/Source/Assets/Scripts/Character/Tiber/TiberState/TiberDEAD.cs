@@ -42,6 +42,7 @@ public class TiberDEAD : TiberFSMState
             a.Invoke("MonsterCheck", 5f);
         }
         GameStatus.Instance.RemoveActivedMonsterList(gameObject);
+        
     }
 
     protected override void Update()

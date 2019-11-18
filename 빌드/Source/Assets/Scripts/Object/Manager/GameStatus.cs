@@ -131,19 +131,26 @@ public class GameStatus : MonoBehaviour
 
         foreach(GameObject mob in active)
         {
-            MonsterType type = mob.GetComponent<FSMManager>().monsterType;
-
-            switch (type)
+            try
             {
-                case MonsterType.RedHat:
-                    MonsterPoolManager._Instance._RedHat.ItemReturnPool(mob);
-                    break;
-                case MonsterType.Mac:
-                    MonsterPoolManager._Instance._Mac.ItemReturnPool(mob);
-                    break;
-                case MonsterType.Tiber:
-                    MonsterPoolManager._Instance._Tiber.ItemReturnPool(mob);
-                    break;
+                MonsterType type = mob.GetComponent<FSMManager>().monsterType;
+                
+                switch (type)
+                {
+                    case MonsterType.RedHat:
+                        MonsterPoolManager._Instance._RedHat.ItemReturnPool(mob);
+                        break;
+                    case MonsterType.Mac:
+                        MonsterPoolManager._Instance._Mac.ItemReturnPool(mob);
+                        break;
+                    case MonsterType.Tiber:
+                        MonsterPoolManager._Instance._Tiber.ItemReturnPool(mob);
+                        break;
+                }
+            }
+            catch
+            {
+
             }
         }
 
@@ -184,7 +191,11 @@ public class GameStatus : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("Press");
+            if (currentGameState == CurrentGameState.Dialog ||
+                currentGameState == CurrentGameState.Loading ||
+                currentGameState == CurrentGameState.MissionClear ||
+                UserInterface.Instance.MissionSelectionUICanvas.activeSelf) return;
+
             if (
             MCSceneManager.currentScene != MCSceneManager.TITLE &&
             currentGameState != CurrentGameState.Loading &&

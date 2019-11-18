@@ -204,10 +204,9 @@ public static class GameLib
         for (int j = 0; j < mats.Count; j++)
         {
             mats[j].SetFloat("_Hittrigger", 0);
-
         }
 
-        yield return new WaitForSeconds(Time.deltaTime);
+        yield return null;
     }
 
     public static IEnumerator Blinking(List<Material> mats, Color color, int duration = 6, float timer = 0.15f)
